@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -24,12 +24,12 @@ $show.= qq~<card  title="$boardname">~;
 $lid = $query -> param('lid');
 $inforum        = $query -> param('f');
 $intopic        = $query -> param('t');   
-$show.= qq~<p><b>»Ø¸´ÄÚÈÝ£º</b><br/><input type="text" name="inpost" value=""/><br/>»»ÐÐ±êÇ©£º[br]</p><p><anchor>»Ø¸´<go href="wap_reply.cgi" method="post">
+$show.= qq~<p><b>å›žå¤å†…å®¹ï¼š</b><br/><input type="text" name="inpost" value=""/><br/>æ¢è¡Œæ ‡ç­¾ï¼š[br]</p><p><anchor>å›žå¤<go href="wap_reply.cgi" method="post">
 <postfield name="inpost" value="\$(inpost)"/>
 <postfield name="lid" value="$lid"/>
 <postfield name="f" value="$inforum"/>
 <postfield name="t" value="$intopic"/>
 </go>
 </anchor></p>~;
-$show.= qq~<p><br/><br/><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">·µ»ØÁÐ±í</a></p><p><a href="wap_topic.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">·µ»ØÌû×Ó</a></p>~;
+$show.= qq~<p><br/><br/><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">è¿”å›žåˆ—è¡¨</a></p><p><a href="wap_topic.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">è¿”å›žå¸–å­</a></p>~;
 &wapfoot;

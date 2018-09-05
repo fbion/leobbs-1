@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $docache = "yes";
@@ -17,7 +17,7 @@ if (open(FILE, "${lbdir}data/allforums.cgi")) {
     close(FILE);
     $forums =~ s/\r//isg;
 }
-else { unlink("${lbdir}cache/forumcache-$skin.pl.lock"); &error("ÂÛÌ³»¹Ã»½¨Á¢&ÇëÏÈÔÚ¹ÜÀíÇø½¨Á¢·ÖÂÛÌ³£¡»òÕß·ÖÀàĞÅÏ¢ÍêÈ«¶ªÊ§£¬ÇëÌ³Ö÷µ½¹ÜÀíÇøÖØ½¨ÂÛÌ³Ö÷½çÃæ£¡"); }
+else { unlink("${lbdir}cache/forumcache-$skin.pl.lock"); &error("è®ºå›è¿˜æ²¡å»ºç«‹&è¯·å…ˆåœ¨ç®¡ç†åŒºå»ºç«‹åˆ†è®ºå›ï¼æˆ–è€…åˆ†ç±»ä¿¡æ¯å®Œå…¨ä¸¢å¤±ï¼Œè¯·å›ä¸»åˆ°ç®¡ç†åŒºé‡å»ºè®ºå›ä¸»ç•Œé¢ï¼"); }
 @forums=split(/\n/,$forums);
 
 my $a = 0;
@@ -39,28 +39,28 @@ foreach $forum (@forums) {
 
     ($lastposttime,$threadnumber,$topictitle)=split(/\%\%\%/,$lastposttime);
     if ($topictitle) {
-	$topictitle =~ s/^£ª£££¡£¦£ª//;
+	$topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	my $topictitletemp = $topictitle;
 	$topictitletemp =~ s/\&lt;/</g;
 	$topictitletemp =~ s/\&gt;/>/g;
 	$topictitletemp =~ s/\&amp;/\&/g;
 	$topictitletemp =~ s/\&nbsp;/ /g;
-	$topictitletemp =~ s/  /¡¡/g;
+	$topictitletemp =~ s/  /ã€€/g;
 	$topictitletemp =~ s/\&quot;/\\\"/g;
 	$topictitletemp = &lbhz($topictitle,18);
 #	$topictitletemp =~ s/\&/\&amp;/g;
 	$topictitletemp =~ s/</\&lt;/g;
 	$topictitletemp =~ s/>/\&gt;/g;
-	$topictitle = qq~&nbsp;Ö÷Ìâ£º <a href=topic.cgi?forum=$forumid&topic=$threadnumber&replynum=last TITLE="$topictitle">$topictitletemp</a><BR>~;
+	$topictitle = qq~&nbsp;ä¸»é¢˜ï¼š <a href=topic.cgi?forum=$forumid&topic=$threadnumber&replynum=last TITLE="$topictitle">$topictitletemp</a><BR>~;
 	$lastposttime  = $lastposttime + $timeadd;
 	$lastposterfilename = $lastposter;
 	$lastposterfilename =~ y/ /_/;
 	$lastposterfilename =~ tr/A-Z/a-z/;
-	if ($lastposter=~/\(¿Í\)/) {
-	    $lastposter=~s/\(¿Í\)//isg;
-	    $lastposter  = qq~<font title="´ËÎªÎ´×¢²áÓÃ»§">&nbsp;×îºó·¢±í£º $lastposter</font>¡¡<img src="$imagesurl/images/lastpost.gif" width=11>~;
+	if ($lastposter=~/\(å®¢\)/) {
+	    $lastposter=~s/\(å®¢\)//isg;
+	    $lastposter  = qq~<font title="æ­¤ä¸ºæœªæ³¨å†Œç”¨æˆ·">&nbsp;æœ€åå‘è¡¨ï¼š $lastposter</font>ã€€<img src="$imagesurl/images/lastpost.gif" width=11>~;
 	}
-	else { $lastposter  = qq~&nbsp;×îºó·¢±í£º <span style="cursor:hand" onClick="javascript:O9('~ . uri_escape($lastposterfilename) . qq~')">$lastposter</span>¡¡<img src="$imagesurl/images/lastpost.gif" width=11>~; }
+	else { $lastposter  = qq~&nbsp;æœ€åå‘è¡¨ï¼š <span style="cursor:hand" onClick="javascript:O9('~ . uri_escape($lastposterfilename) . qq~')">$lastposter</span>ã€€<img src="$imagesurl/images/lastpost.gif" width=11>~; }
     }
     $lastposttime="$lastposttime%%%$threadnumber%%%$topictitle";
 
@@ -113,22 +113,22 @@ foreach $forum (@forums) {
 	    if (($adminstyle eq 1)||($modnumber <= 3 && $adminstyle eq 3)) {
   	        last if ($modprintnum > 3 );
                 if ($modprintnum != $modnumber) {
-                    if(($_ =~m/¹ÜÀíÔ±/isg)||($_ =~m/³ÏÆ¸ÖĞ/isg)||($_ =~m/ÔİÊ±¿ÕÈ±/isg)||($_ =~m/°æÖ÷/isg)||($_ =~m/°ßÖñ/isg)||($_ =~m/Ì³Ö÷/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font><BR>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span><BR>~; }
+                    if(($_ =~m/ç®¡ç†å‘˜/isg)||($_ =~m/è¯šè˜ä¸­/isg)||($_ =~m/æš‚æ—¶ç©ºç¼º/isg)||($_ =~m/ç‰ˆä¸»/isg)||($_ =~m/æ–‘ç«¹/isg)||($_ =~m/å›ä¸»/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font><BR>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span><BR>~; }
                 } else {
-		    if(($_ =~m/¹ÜÀíÔ±/isg)||($_ =~m/³ÏÆ¸ÖĞ/isg)||($_ =~m/ÔİÊ±¿ÕÈ±/isg)||($_ =~m/°æÖ÷/isg)||($_ =~m/°ßÖñ/isg)||($_ =~m/Ì³Ö÷/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span>~; }
+		    if(($_ =~m/ç®¡ç†å‘˜/isg)||($_ =~m/è¯šè˜ä¸­/isg)||($_ =~m/æš‚æ—¶ç©ºç¼º/isg)||($_ =~m/ç‰ˆä¸»/isg)||($_ =~m/æ–‘ç«¹/isg)||($_ =~m/å›ä¸»/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span>~; }
 	        }
 	        $modprintnum++;
 	    } else {
-	        if(($_ =~m/¹ÜÀíÔ±/isg)||($_ =~m/³ÏÆ¸ÖĞ/isg)||($_ =~m/ÔİÊ±¿ÕÈ±/isg)||($_ =~m/°æÖ÷/isg)||($_ =~m/°ßÖñ/isg)||($_ =~m/Ì³Ö÷/isg)){ $modout .= qq~<option>~ . &lbhz($_, 10) . qq~</option>~; } else { $modout .= qq~<option value="~ . &uri_escape($_) . qq~">~ . &lbhz($_, 10) . "</option>"; }
+	        if(($_ =~m/ç®¡ç†å‘˜/isg)||($_ =~m/è¯šè˜ä¸­/isg)||($_ =~m/æš‚æ—¶ç©ºç¼º/isg)||($_ =~m/ç‰ˆä¸»/isg)||($_ =~m/æ–‘ç«¹/isg)||($_ =~m/å›ä¸»/isg)){ $modout .= qq~<option>~ . &lbhz($_, 10) . qq~</option>~; } else { $modout .= qq~<option value="~ . &uri_escape($_) . qq~">~ . &lbhz($_, 10) . "</option>"; }
 	    }
 	}
     }
     if (($adminstyle eq 1)||($modnumber <= 3 && $adminstyle eq 3)) {
     	$modout .= qq~<font color=$fontcolormisc2>More...~ if ($modnumber > 3 );
-        $modout  = "<font color=$fontcolormisc>ÔİÊ±¿ÕÈ±<BR>³ÏÆ¸ÖĞ" if ($modout eq "");
+        $modout  = "<font color=$fontcolormisc>æš‚æ—¶ç©ºç¼º<BR>è¯šè˜ä¸­" if ($modout eq "");
     } else {
-    	$modout  = "<option>ÔİÊ±¿ÕÈ±</option><option>³ÏÆ¸ÖĞ</option>" if ($modout eq "");
-        $modout = qq~<select onChange="surfto(this)"><option style="background-color: $forumcolorone">°æÖ÷ÁĞ±í</option><option>----------</option>$modout</select>~;
+    	$modout  = "<option>æš‚æ—¶ç©ºç¼º</option><option>è¯šè˜ä¸­</option>" if ($modout eq "");
+        $modout = qq~<select onChange="surfto(this)"><option style="background-color: $forumcolorone">ç‰ˆä¸»åˆ—è¡¨</option><option>----------</option>$modout</select>~;
     }
     $modout[$forumid] = $modout;
 }
@@ -152,7 +152,7 @@ if (-e "$lbdir/data/todaypost.cgi") {
     $maxdaypost  = 0;
 }
 $yestdaypost = 0 if ($yestdaypost eq "");
-$todaypostlist = qq~<font color=\$titlecolor>¡¡¡ö </font><font color=\$postfontcolortwo>×ò/½ñÈÕĞÂÌû: $yestdaypost/<font color=\$fonthighlight><b>$todaypostno</b></font> Æª</font><BR><font color=\$titlecolor>¡¡¡ö </font><font color=\$postfontcolorone title="·¢ÉúÈÕÆÚ: $maxday">ÀúÊ·×î¸ßÒ»Ìì·¢ÌûÁ¿: <b>$maxdaypost</b> Æª</font><BR>~;
+$todaypostlist = qq~<font color=\$titlecolor>ã€€â–  </font><font color=\$postfontcolortwo>æ˜¨/ä»Šæ—¥æ–°å¸–: $yestdaypost/<font color=\$fonthighlight><b>$todaypostno</b></font> ç¯‡</font><BR><font color=\$titlecolor>ã€€â–  </font><font color=\$postfontcolorone title="å‘ç”Ÿæ—¥æœŸ: $maxday">å†å²æœ€é«˜ä¸€å¤©å‘å¸–é‡: <b>$maxdaypost</b> ç¯‡</font><BR>~;
 
 eval { require "data/boardstats.cgi"; };
 if ($@) { require "repireboardinfo.pl"; require "data/boardstats.cgi"; }
@@ -161,13 +161,13 @@ $cleanlastregistered = $lastregisteredmember;
 $cleanlastregistered =~ y/ /_/;
 $cleanlastregistered =~ tr/A-Z/a-z/;
 $cleanlastregistered = qq~<span style="cursor:hand" onClick="javascript:O9('~ . uri_escape($cleanlastregistered) . qq~')">$lastregisteredmember</span>~;
-$todaypostlist = qq~<td bgcolor=$forumcolortwo width=210><font color=$titlecolor>¡¡¡ö </font><font color=$postfontcolorone>×îºó×¢²á»áÔ±: $cleanlastregistered</font><BR><font color=$titlecolor>¡¡¡ö </font><font color=$postfontcolortwo>×¢²á»áÔ±×ÜÊı:  <a href="memberlist.cgi?a=5" target=_blank><b><font color=#990000>$totalmembers</font></b></a> ÈË<br></font><font color=$titlecolor>¡¡¡ö </font><font color=$postfontcolorone>ÂÛÌ³Ö÷Ìâ×ÜÊı: <b>$totalthreads</b> Æª</font><br><font color=$titlecolor>¡¡¡ö </font><font color=$postfontcolortwo>ÂÛÌ³»Ø¸´×ÜÊı: <b>$totalposts</b> Æª</font><br><font color=$titlecolor>¡¡¡ö </font><font color=$postfontcolorone>µ±Ç°ÔÚÏß×ÜÊı: <a href=whosonline.cgi><B>totleonlineall</B></a> ÈË</font><br>$todaypostlist~;
+$todaypostlist = qq~<td bgcolor=$forumcolortwo width=210><font color=$titlecolor>ã€€â–  </font><font color=$postfontcolorone>æœ€åæ³¨å†Œä¼šå‘˜: $cleanlastregistered</font><BR><font color=$titlecolor>ã€€â–  </font><font color=$postfontcolortwo>æ³¨å†Œä¼šå‘˜æ€»æ•°:  <a href="memberlist.cgi?a=5" target=_blank><b><font color=#990000>$totalmembers</font></b></a> äºº<br></font><font color=$titlecolor>ã€€â–  </font><font color=$postfontcolorone>è®ºå›ä¸»é¢˜æ€»æ•°: <b>$totalthreads</b> ç¯‡</font><br><font color=$titlecolor>ã€€â–  </font><font color=$postfontcolortwo>è®ºå›å›å¤æ€»æ•°: <b>$totalposts</b> ç¯‡</font><br><font color=$titlecolor>ã€€â–  </font><font color=$postfontcolorone>å½“å‰åœ¨çº¿æ€»æ•°: <a href=whosonline.cgi><B>totleonlineall</B></a> äºº</font><br>$todaypostlist~;
 
 if ($dispborn ne "no") {
     &birthday;
     unless (($dispborn eq "auto")&&($birthdayuser eq "")) {
-        $birthdayuser = "½ñÌìÃ»ÓĞÈË¹ıÉúÈÕ" if ($birthdayuser eq "");
-        $birthdayoutput = qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=\$tablewidth bgcolor=\$tablebordercolor align=center><tr><td><table cellpadding=6 cellspacing=1 width=100%><tr><td bgcolor=\$titlecolor colspan=7 \$catbackpic><font color=\$titlefontcolor><B>-=> ½ñÌì¹ıÉúÈÕµÄ×¢²áÓÃ»§ £¨¹² $borncount ÈË£©</b>     [<a href="calendar.cgi" target=_blank>ÂÛÌ³ÈÕÀú</a>]</td></tr><tr><td bgcolor=\$forumcolorone align=center width=26><img src=$imagesurl/images/\$skin/born.gif alt="½ñÌì¹ıÉúÈÕÈËÔ±Ãûµ¥" width=16></td><td bgcolor=\$forumcolortwo colspan=6 width=*><img src=$imagesurl/images/none.gif width=400 height=0><br>¡¡<font color=\$forumfontcolor>$birthdayuser</td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><img src=$imagesurl/images/none.gif height=5><br>~;
+        $birthdayuser = "ä»Šå¤©æ²¡æœ‰äººè¿‡ç”Ÿæ—¥" if ($birthdayuser eq "");
+        $birthdayoutput = qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=\$tablewidth bgcolor=\$tablebordercolor align=center><tr><td><table cellpadding=6 cellspacing=1 width=100%><tr><td bgcolor=\$titlecolor colspan=7 \$catbackpic><font color=\$titlefontcolor><B>-=> ä»Šå¤©è¿‡ç”Ÿæ—¥çš„æ³¨å†Œç”¨æˆ· ï¼ˆå…± $borncount äººï¼‰</b>     [<a href="calendar.cgi" target=_blank>è®ºå›æ—¥å†</a>]</td></tr><tr><td bgcolor=\$forumcolorone align=center width=26><img src=$imagesurl/images/\$skin/born.gif alt="ä»Šå¤©è¿‡ç”Ÿæ—¥äººå‘˜åå•" width=16></td><td bgcolor=\$forumcolortwo colspan=6 width=*><img src=$imagesurl/images/none.gif width=400 height=0><br>ã€€<font color=\$forumfontcolor>$birthdayuser</td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><img src=$imagesurl/images/none.gif height=5><br>~;
     }
 }
 

@@ -14,22 +14,22 @@ require "data/boardinfo.cgi";
 require "bbs.lib.pl"; 
 require "wap.pl"; 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-print "<title>Éú³ÉÐÒÔËID</title>";
+print "<title>ç”Ÿæˆå¹¸è¿ID</title>";
 $inmembername   = $query->cookie("amembernamecookie");
 $inpassword     = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) { &error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜ½øÐÐ²Ù×÷");}
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) { &error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½è¿›è¡Œæ“ä½œ");}
 else {
     &getmember("$inmembername","no");
      if ($inpassword ne $password) {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØÐÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸Žç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-    &error("ÆÕÍ¨´íÎó&ÓÃ»§Ã»ÓÐµÇÂ¼»ò×¢²á£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&ç”¨æˆ·æ²¡æœ‰ç™»å½•æˆ–æ³¨å†Œï¼") if ($userregistered eq "no");
 }
 
 $ip = $query->param('ip');
@@ -56,8 +56,8 @@ if($ip ne ''){
     }
     print file "$inmembername,$x\n";
     close(file);
-    print qq~<p>ÄúµÄÐÒÔËIDÎª£º$x,ÄúµÄIPÎª£º$xh2£¬Çë²»ÒªÐ¹Â©ÄúµÄÐÒÔËID¸øÈÎºÎÈË£¡Çë°ÑÏÂÃæ½øÈëµÄÊ×Ò³µØÖ·¼ÓÈëÊÖ»úÊéÇ©(ÊéÇ©µØÖ·£º$boardurl/wap.cgi?lid=$x £¬¼ÓÈëÖ®ºó¿ÉÃâµÇÂ½) ¡£·ñÔòÇë²»Òª¼ÓÈëÊéÇ©£¡</p><p>×¢Òâ£º±¾ÐÒÔËIDÈ«ÎªÊý×Ö¡£</p>~;
+    print qq~<p>æ‚¨çš„å¹¸è¿IDä¸ºï¼š$x,æ‚¨çš„IPä¸ºï¼š$xh2ï¼Œè¯·ä¸è¦æ³„æ¼æ‚¨çš„å¹¸è¿IDç»™ä»»ä½•äººï¼è¯·æŠŠä¸‹é¢è¿›å…¥çš„é¦–é¡µåœ°å€åŠ å…¥æ‰‹æœºä¹¦ç­¾(ä¹¦ç­¾åœ°å€ï¼š$boardurl/wap.cgi?lid=$x ï¼ŒåŠ å…¥ä¹‹åŽå¯å…ç™»é™†) ã€‚å¦åˆ™è¯·ä¸è¦åŠ å…¥ä¹¦ç­¾ï¼</p><p>æ³¨æ„ï¼šæœ¬å¹¸è¿IDå…¨ä¸ºæ•°å­—ã€‚</p>~;
 }else{
-print "<form name=post method=post action=loginwap.cgi>ÇëÊäÈëÄúµÄÊÖ»úIP£º<br><br>½øÈëÊÖ»úWAP£º$boardurl/wap.cgi£¬µã»÷¡°µÇÂ½¡±£¬»ñÈ¡ÊÖ»úIP<br><input name=ip value='' type=text><input type=submit value=Éú³ÉUrl></form>";
+print "<form name=post method=post action=loginwap.cgi>è¯·è¾“å…¥æ‚¨çš„æ‰‹æœºIPï¼š<br><br>è¿›å…¥æ‰‹æœºWAPï¼š$boardurl/wap.cgiï¼Œç‚¹å‡»â€œç™»é™†â€ï¼ŒèŽ·å–æ‰‹æœºIP<br><input name=ip value='' type=text><input type=submit value=ç”ŸæˆUrl></form>";
 }
 exit;

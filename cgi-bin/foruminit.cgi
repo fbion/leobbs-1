@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -65,7 +65,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
             
             print qq~
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³³õÊ¼»¯</b>
+            <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›åˆå§‹åŒ–</b>
             </td></tr>
             ~;
             
@@ -114,7 +114,7 @@ closedir (DIR);
 my @skinselectdata = grep(/\.(cgi)$/i,@dirdata);
 map(s/\.cgi$//is, @skinselectdata);
     $skincount = @skinselectdata;
-    my $userskin = qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin="><font color=#000000>Ä¬ÈÏ·ç¸ñ</font></a>&nbsp;</div>~;
+    my $userskin = qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin="><font color=#000000>é»˜è®¤é£Žæ ¼</font></a>&nbsp;</div>~;
     for (my $i=0;$i<$skincount;$i++){
     	eval{ require "${lbdir}data/skin/$skinselectdata[$i].cgi"; };
     	next if ($@);
@@ -134,7 +134,7 @@ url = url.replace (/\\\\?/g, "%3F");
 url = url.replace (/=/g, "%3D");
 linkset[3]='$userskin'</script>~;
 
-$skinselect = qq~<img src=\$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[3])" onMouseout="delayhidemenu()">ÂÛÌ³·ç¸ñ&nbsp;</span>~;
+$skinselect = qq~<img src=\$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[3])" onMouseout="delayhidemenu()">è®ºå›é£Žæ ¼&nbsp;</span>~;
 			open(FILE, ">${lbdir}data/skinselect.pl");
     print FILE qq(\$userskins = qq~$userskins~;\n);
     print FILE qq(\$skinselect = qq~$skinselect~;\n);
@@ -146,9 +146,9 @@ $skinselect = qq~<img src=\$imagesurl/images/fg.gif width=1> <span style=cursor:
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>³õÊ¼»¯ÂÛÌ³·ç¸ñÑ¡ÔñÁÐ±í</b><p>
+        <b>åˆå§‹åŒ–è®ºå›é£Žæ ¼é€‰æ‹©åˆ—è¡¨</b><p>
                     
-        <font color=#333333>ËùÓÐÂÛÌ³·ç¸ñÑ¡ÔñÁÐ±íÒÑ¾­¸üÐÂ£¡</font>
+        <font color=#333333>æ‰€æœ‰è®ºå›é£Žæ ¼é€‰æ‹©åˆ—è¡¨å·²ç»æ›´æ–°ï¼</font>
                     
         </td></tr>
          ~;
@@ -195,8 +195,8 @@ sub doupload {
     require "autochangeusrdir.pl";
     print qq~<tr>
 <td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>ÎÄ¼þÉÏ´«Ä¿Â¼ÊôÐÔ³õÊ¼»¯Íê³É£¡</b><p>
-<font color=#333333>ÇëÁ¢¼´²âÊÔÉÏ´«¹¦ÄÜÊÇ·ñÒÑ¾­Õý³££¬Èç¹û»¹²»Õý³££¬Çë²ÎÕÕÂÛÌ³µÄÊôÐÔËµÃ÷ÎÄµµÓÃ FTP Èí¼þ×ÔÐÐÉèÖÃ£¡£¡</font>
+<font color=#990000><b>æ–‡ä»¶ä¸Šä¼ ç›®å½•å±žæ€§åˆå§‹åŒ–å®Œæˆï¼</b><p>
+<font color=#333333>è¯·ç«‹å³æµ‹è¯•ä¸Šä¼ åŠŸèƒ½æ˜¯å¦å·²ç»æ­£å¸¸ï¼Œå¦‚æžœè¿˜ä¸æ­£å¸¸ï¼Œè¯·å‚ç…§è®ºå›çš„å±žæ€§è¯´æ˜Žæ–‡æ¡£ç”¨ FTP è½¯ä»¶è‡ªè¡Œè®¾ç½®ï¼ï¼</font>
 </td></tr>
 ~;
 }
@@ -247,7 +247,7 @@ sub dodelcache {
     }
    print qq~<tr> 
 <td bgcolor=#FFFFFF align=center colspan=2> 
-<font color=#990000><b>ÂÛÌ³»º´æÒÑ¾­È«²¿Çå¿Õ£¡</b><p> 
+<font color=#990000><b>è®ºå›ç¼“å­˜å·²ç»å…¨éƒ¨æ¸…ç©ºï¼</b><p> 
 </td></tr> 
 ~; 
 }
@@ -289,8 +289,8 @@ sub dodalmessage {
     }
    print qq~<tr> 
 <td bgcolor=#FFFFFF align=center colspan=2> 
-<font color=#990000><b>¶ÌÏûÏ¢ÎÄ¼þÇå¿ÕÍê³É£¡</b><p> 
-<font color=#333333>ÊÕ¼þÏä¹²É¾³ý $inboxcount ¸ö,·¢¼þÏä¹²É¾³ý $outboxcount ¸ö</font> 
+<font color=#990000><b>çŸ­æ¶ˆæ¯æ–‡ä»¶æ¸…ç©ºå®Œæˆï¼</b><p> 
+<font color=#333333>æ”¶ä»¶ç®±å…±åˆ é™¤ $inboxcount ä¸ª,å‘ä»¶ç®±å…±åˆ é™¤ $outboxcount ä¸ª</font> 
 </td></tr> 
 ~; 
 }
@@ -339,8 +339,8 @@ sub domessage {
 
     print qq~<tr>
 <td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>¶ÌÏûÏ¢Ä¿Â¼ºÍÎÄ¼þÊôÐÔ³õÊ¼»¯Íê³É£¡</b><p>
-<font color=#333333>ÇëÁ¢¼´²âÊÔ¶ÌÏûÏ¢¹¦ÄÜÊÇ·ñÒÑ¾­Õý³££¬Èç¹û»¹²»Õý³££¬Çë²ÎÕÕÂÛÌ³µÄÊôÐÔËµÃ÷ÎÄµµÓÃ FTP Èí¼þ×ÔÐÐÉèÖÃ£¡£¡</font>
+<font color=#990000><b>çŸ­æ¶ˆæ¯ç›®å½•å’Œæ–‡ä»¶å±žæ€§åˆå§‹åŒ–å®Œæˆï¼</b><p>
+<font color=#333333>è¯·ç«‹å³æµ‹è¯•çŸ­æ¶ˆæ¯åŠŸèƒ½æ˜¯å¦å·²ç»æ­£å¸¸ï¼Œå¦‚æžœè¿˜ä¸æ­£å¸¸ï¼Œè¯·å‚ç…§è®ºå›çš„å±žæ€§è¯´æ˜Žæ–‡æ¡£ç”¨ FTP è½¯ä»¶è‡ªè¡Œè®¾ç½®ï¼ï¼</font>
 </td></tr>
 ~;
 }
@@ -402,8 +402,8 @@ sub dopost {
     }
     print qq~<tr>
 <td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>ÂÛÌ³Ìû×ÓÄ¿Â¼ºÍÊý¾ÝÎÄ¼þÊôÐÔ³õÊ¼»¯Íê³É£¡</b><p>
-<font color=#333333>ÇëÁ¢¼´²âÊÔÂÛÌ³Êý¾ÝÊÇ·ñÒÑ¾­Õý³££¬Èç¹û»¹²»Õý³££¬Çë²ÎÕÕÂÛÌ³µÄÊôÐÔËµÃ÷ÎÄµµÓÃ FTP Èí¼þ×ÔÐÐÉèÖÃ£¡£¡</font>
+<font color=#990000><b>è®ºå›å¸–å­ç›®å½•å’Œæ•°æ®æ–‡ä»¶å±žæ€§åˆå§‹åŒ–å®Œæˆï¼</b><p>
+<font color=#333333>è¯·ç«‹å³æµ‹è¯•è®ºå›æ•°æ®æ˜¯å¦å·²ç»æ­£å¸¸ï¼Œå¦‚æžœè¿˜ä¸æ­£å¸¸ï¼Œè¯·å‚ç…§è®ºå›çš„å±žæ€§è¯´æ˜Žæ–‡æ¡£ç”¨ FTP è½¯ä»¶è‡ªè¡Œè®¾ç½®ï¼ï¼</font>
 </td></tr>
 ~;
 }
@@ -449,9 +449,9 @@ sub docount {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>¼ÆËãÓÃ»§×ÜÊý</b><p>
+        <b>è®¡ç®—ç”¨æˆ·æ€»æ•°</b><p>
                     
-        <font color=#333333>µ±Ç°¹²ÓÐ $newtotalmembers ¸ö×¢²áÓÃ»§£¬Êý¾ÝÒÑ¾­¸üÐÂ£¡</font>
+        <font color=#333333>å½“å‰å…±æœ‰ $newtotalmembers ä¸ªæ³¨å†Œç”¨æˆ·ï¼Œæ•°æ®å·²ç»æ›´æ–°ï¼</font>
                     
         </td></tr>
          ~;
@@ -480,16 +480,16 @@ sub dogetold {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>×¢²áÓÃ»§ÕûÀí</b><br>
+        <b>æ³¨å†Œç”¨æˆ·æ•´ç†</b><br>
                     
-        <font color=#333333><B>µ±Ç°¹²ÓÐ $totaluserdata ¸ö×¢²áÓÃ»§ÐèÒªÕûÀí£¬×¼±¸¹¤×÷ÒÑ¾­Íê³É¡£</b><BR><BR><BR>
+        <font color=#333333><B>å½“å‰å…±æœ‰ $totaluserdata ä¸ªæ³¨å†Œç”¨æˆ·éœ€è¦æ•´ç†ï¼Œå‡†å¤‡å·¥ä½œå·²ç»å®Œæˆã€‚</b><BR><BR><BR>
 	<form action="foruminit.cgi" method=get>
-        <input type=hidden name="action" value="dogetoldnext">ÊäÈëÃ¿´Î½øÐÐÕûÀíµÄÓÃ»§Êý 
+        <input type=hidden name="action" value="dogetoldnext">è¾“å…¥æ¯æ¬¡è¿›è¡Œæ•´ç†çš„ç”¨æˆ·æ•° 
         <input type=hidden name="beginone" value=0>
         <input type=text name="noofone" size=3 maxlength=3 value=300>
-        <input type=submit value="¿ªÊ¼ÕûÀí">
+        <input type=submit value="å¼€å§‹æ•´ç†">
         </form>
-	ÎªÁË¼õÉÙ×ÊÔ´Õ¼ÓÃ£¬ÇëÊäÈëÃ¿´Î½øÐÐÅÅÃûµÄÓÃ»§Êý£¬Ä¬ÈÏ 300£¬<BR>Ò»°ã²»Òª³¬¹ý 600£¬Èç¹û·¢ÏÖ½øÐÐÅÅÃûÎÞ·¨Õý³£Íê³É£¬Çë¾¡Á¿¼õÉÙÕâ¸öÊýÄ¿£¬ÑÓ³¤ÅÅÃûÊ±¼ä¡£
+	ä¸ºäº†å‡å°‘èµ„æºå ç”¨ï¼Œè¯·è¾“å…¥æ¯æ¬¡è¿›è¡ŒæŽ’åçš„ç”¨æˆ·æ•°ï¼Œé»˜è®¤ 300ï¼Œ<BR>ä¸€èˆ¬ä¸è¦è¶…è¿‡ 600ï¼Œå¦‚æžœå‘çŽ°è¿›è¡ŒæŽ’åæ— æ³•æ­£å¸¸å®Œæˆï¼Œè¯·å°½é‡å‡å°‘è¿™ä¸ªæ•°ç›®ï¼Œå»¶é•¿æŽ’åæ—¶é—´ã€‚
 	<BR><BR>
 
         </td></tr>
@@ -531,10 +531,10 @@ sub dogetoldnext {
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
-        <b>ÓÃ»§ÕûÀí</b><p>
-        <font color=#333333><B>µ±Ç°¹²ÓÐ $allnamenum ¸ö×¢²áÓÃ»§ÐèÒªÕûÀí£¬ÒÑ¾­½øÐÐÕûÀíÁË $lastone ¸öÓÃ»§¡£¡£¡£</b><BR><BR><BR>
-        <font color=#333333>Èç¹ûÎÞ·¨×Ô¶¯¿ªÊ¼ÏÂ $noofone ¸öÓÃ»§µÄÕûÀí£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó¼ÌÐø<p>
-        >> <a href="$thisprog?action=dogetoldnext&beginone=$lastone&noofone=$noofone">¼ÌÐø½øÐÐÓÃ»§ÕûÀí</a> <<
+        <b>ç”¨æˆ·æ•´ç†</b><p>
+        <font color=#333333><B>å½“å‰å…±æœ‰ $allnamenum ä¸ªæ³¨å†Œç”¨æˆ·éœ€è¦æ•´ç†ï¼Œå·²ç»è¿›è¡Œæ•´ç†äº† $lastone ä¸ªç”¨æˆ·ã€‚ã€‚ã€‚</b><BR><BR><BR>
+        <font color=#333333>å¦‚æžœæ— æ³•è‡ªåŠ¨å¼€å§‹ä¸‹ $noofone ä¸ªç”¨æˆ·çš„æ•´ç†ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æŽ¥ç»§ç»­<p>
+        >> <a href="$thisprog?action=dogetoldnext&beginone=$lastone&noofone=$noofone">ç»§ç»­è¿›è¡Œç”¨æˆ·æ•´ç†</a> <<
 	<meta http-equiv="refresh" content="2; url=$thisprog?action=dogetoldnext&beginone=$lastone&noofone=$noofone">
 	<BR><BR>
 
@@ -556,9 +556,9 @@ sub dogetoldnext {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>ÓÃ»§ÕûÀí</b><p>
+        <b>ç”¨æˆ·æ•´ç†</b><p>
                     
-        <font color=#333333>ÓÃ»§ÕûÀíÒÑ¾­½áÊø£¡<BR><BR>
+        <font color=#333333>ç”¨æˆ·æ•´ç†å·²ç»ç»“æŸï¼<BR><BR>
         </td></tr>
          ~;
      }
@@ -584,16 +584,16 @@ sub dotop {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>ÓÃ»§ÅÅÃû³õÊ¼»¯</b><br>
+        <b>ç”¨æˆ·æŽ’ååˆå§‹åŒ–</b><br>
                     
-        <font color=#333333><B>µ±Ç°¹²ÓÐ $totaluserdata ¸ö×¢²áÓÃ»§£¬×¼±¸¹¤×÷ÒÑ¾­Íê³É¡£</b><BR><BR><BR>
+        <font color=#333333><B>å½“å‰å…±æœ‰ $totaluserdata ä¸ªæ³¨å†Œç”¨æˆ·ï¼Œå‡†å¤‡å·¥ä½œå·²ç»å®Œæˆã€‚</b><BR><BR><BR>
 	<form action="foruminit.cgi" method=get>
-        <input type=hidden name="action" value="uptopnext">ÊäÈëÃ¿´Î½øÐÐÅÅÃûµÄÓÃ»§Êý 
+        <input type=hidden name="action" value="uptopnext">è¾“å…¥æ¯æ¬¡è¿›è¡ŒæŽ’åçš„ç”¨æˆ·æ•° 
         <input type=hidden name="beginone" value=0>
         <input type=text name="noofone" size=4 maxlength=4 value=2000>
-        <input type=submit value="¿ªÊ¼ÅÅÃû">
+        <input type=submit value="å¼€å§‹æŽ’å">
         </form>
-	ÎªÁË¼õÉÙ×ÊÔ´Õ¼ÓÃ£¬ÇëÊäÈëÃ¿´Î½øÐÐÅÅÃûµÄÓÃ»§Êý£¬Ä¬ÈÏ 2000£¬<BR>Ò»°ã²»Òª³¬¹ý 3000£¬Èç¹û·¢ÏÖ½øÐÐÅÅÃûÎÞ·¨Õý³£Íê³É£¬Çë¾¡Á¿¼õÉÙÕâ¸öÊýÄ¿£¬ÑÓ³¤ÅÅÃûÊ±¼ä¡£
+	ä¸ºäº†å‡å°‘èµ„æºå ç”¨ï¼Œè¯·è¾“å…¥æ¯æ¬¡è¿›è¡ŒæŽ’åçš„ç”¨æˆ·æ•°ï¼Œé»˜è®¤ 2000ï¼Œ<BR>ä¸€èˆ¬ä¸è¦è¶…è¿‡ 3000ï¼Œå¦‚æžœå‘çŽ°è¿›è¡ŒæŽ’åæ— æ³•æ­£å¸¸å®Œæˆï¼Œè¯·å°½é‡å‡å°‘è¿™ä¸ªæ•°ç›®ï¼Œå»¶é•¿æŽ’åæ—¶é—´ã€‚
 	<BR><BR>
 
         </td></tr>
@@ -688,10 +688,10 @@ sub dotopnext {
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
-        <b>¼ÆËãÓÃ»§ÅÅÃû</b><p>
-        <font color=#333333><B>µ±Ç°¹²ÓÐ $allnamenum ¸ö×¢²áÓÃ»§£¬ÒÑ¾­½øÐÐÅÅÃûÁË $lastone ¸öÓÃ»§¡£¡£¡£</b><BR><BR><BR>
-        <font color=#333333>Èç¹ûÎÞ·¨×Ô¶¯¿ªÊ¼ÏÂ $noofone ¸öÓÃ»§µÄÅÅÃû£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó¼ÌÐø<p>
-        >> <a href="$thisprog?action=uptopnext&beginone=$lastone&noofone=$noofone">¼ÌÐø½øÐÐÅÅÃûÓÃ»§</a> <<
+        <b>è®¡ç®—ç”¨æˆ·æŽ’å</b><p>
+        <font color=#333333><B>å½“å‰å…±æœ‰ $allnamenum ä¸ªæ³¨å†Œç”¨æˆ·ï¼Œå·²ç»è¿›è¡ŒæŽ’åäº† $lastone ä¸ªç”¨æˆ·ã€‚ã€‚ã€‚</b><BR><BR><BR>
+        <font color=#333333>å¦‚æžœæ— æ³•è‡ªåŠ¨å¼€å§‹ä¸‹ $noofone ä¸ªç”¨æˆ·çš„æŽ’åï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æŽ¥ç»§ç»­<p>
+        >> <a href="$thisprog?action=uptopnext&beginone=$lastone&noofone=$noofone">ç»§ç»­è¿›è¡ŒæŽ’åç”¨æˆ·</a> <<
 	<meta http-equiv="refresh" content="2; url=$thisprog?action=uptopnext&beginone=$lastone&noofone=$noofone">
 	<BR><BR>
 
@@ -760,9 +760,9 @@ for (0..255)
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>¼ÆËãÓÃ»§ÅÅÃû</b><p>
+        <b>è®¡ç®—ç”¨æˆ·æŽ’å</b><p>
                     
-        <font color=#333333>µ±Ç°¹²ÓÐ $allnamenum ¸ö×¢²áÓÃ»§£¬¼ÆËãÓÃ»§ÅÅÃûÒÑ¾­½áÊø£¡<BR><BR>
+        <font color=#333333>å½“å‰å…±æœ‰ $allnamenum ä¸ªæ³¨å†Œç”¨æˆ·ï¼Œè®¡ç®—ç”¨æˆ·æŽ’åå·²ç»ç»“æŸï¼<BR><BR>
         </td></tr>
          ~;
      }
@@ -811,9 +811,9 @@ close(EMFILE);
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>³õÊ¼»¯EMOTºÍPOSTÍ¼Æ¬</b><p>
+        <b>åˆå§‹åŒ–EMOTå’ŒPOSTå›¾ç‰‡</b><p>
                     
-        <font color=#333333>ËùÓÐEMOTºÍ±íÇéÍ¼Æ¬ÒÑ¾­¸üÐÂ£¡</font>
+        <font color=#333333>æ‰€æœ‰EMOTå’Œè¡¨æƒ…å›¾ç‰‡å·²ç»æ›´æ–°ï¼</font>
                     
         </td></tr>
          ~;
@@ -837,9 +837,9 @@ close(EMFILE);
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>³õÊ¼»¯ÓÃ»§Í·ÏñÍ¼Æ¬</b><p>
+        <b>åˆå§‹åŒ–ç”¨æˆ·å¤´åƒå›¾ç‰‡</b><p>
                     
-        <font color=#333333>ËùÓÐÓÃ»§Í·ÏñÍ¼Æ¬ÒÑ¾­¸üÐÂ£¡</font>
+        <font color=#333333>æ‰€æœ‰ç”¨æˆ·å¤´åƒå›¾ç‰‡å·²ç»æ›´æ–°ï¼</font>
                     
         </td></tr>
          ~;
@@ -858,9 +858,9 @@ sub doupconter {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>³õÊ¼»¯ÔÚÏßÍ³¼Æ¼°·ÃÎÊ´ÎÊý</b><p>
+        <b>åˆå§‹åŒ–åœ¨çº¿ç»Ÿè®¡åŠè®¿é—®æ¬¡æ•°</b><p>
                     
-        <font color=#333333>·ÃÎÊ´ÎÊýÊý¾ÝÒÑ¾­³õÊ¼»¯£¡</font>
+        <font color=#333333>è®¿é—®æ¬¡æ•°æ•°æ®å·²ç»åˆå§‹åŒ–ï¼</font>
                     
         </td></tr>
          ~;
@@ -870,15 +870,15 @@ sub doupconter {
 sub douponlineuser {
 	$currenttime = time;
         open(FILES,">${lbdir}data/onlinedata.cgi");
-	print FILES "$inmembername\t$currenttime\t$currenttime\t¹ÜÀíÇø\t±£ÃÜ\t±£ÃÜ\t±£ÃÜ\t¹ÜÀíÇø\t±£ÃÜ\t$membercode\t" ;
+	print FILES "$inmembername\t$currenttime\t$currenttime\tç®¡ç†åŒº\tä¿å¯†\tä¿å¯†\tä¿å¯†\tç®¡ç†åŒº\tä¿å¯†\t$membercode\t" ;
 	close (FILES);
         open(FILES,">${lbdir}data/onlinedata.cgi.cgi");
-	print FILES "$inmembername\t$currenttime\t$currenttime\t¹ÜÀíÇø\t±£ÃÜ\t±£ÃÜ\t±£ÃÜ\t¹ÜÀíÇø\t±£ÃÜ\t$membercode\t" ;
+	print FILES "$inmembername\t$currenttime\t$currenttime\tç®¡ç†åŒº\tä¿å¯†\tä¿å¯†\tä¿å¯†\tç®¡ç†åŒº\tä¿å¯†\t$membercode\t" ;
 	close (FILES);
 
         print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>³õÊ¼»¯ÔÚÏßÍ³¼Æ¼°·ÃÎÊ´ÎÊý</b><p>
-<font color=#333333>ÔÚÏßÈËÊýÍ³¼ÆÊý¾ÝÒÑ¾­³õÊ¼»¯£¡</font></td></tr>
+<font color=#990000><b>åˆå§‹åŒ–åœ¨çº¿ç»Ÿè®¡åŠè®¿é—®æ¬¡æ•°</b><p>
+<font color=#333333>åœ¨çº¿äººæ•°ç»Ÿè®¡æ•°æ®å·²ç»åˆå§‹åŒ–ï¼</font></td></tr>
 ~;
 }
 
@@ -892,8 +892,8 @@ sub dodelallxzb {
 	unlink ("${lbdir}boarddata/$_");
     }
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>³õÊ¼»¯ËùÓÐÂÛÌ³µÄÐ¡×Ö±¨</b><p>
-<font color=#333333>ËùÓÐÂÛÌ³µÄÐ¡×Ö±¨ÒÑ¾­³õÊ¼»¯£¡</font>
+<font color=#990000><b>åˆå§‹åŒ–æ‰€æœ‰è®ºå›çš„å°å­—æŠ¥</b><p>
+<font color=#333333>æ‰€æœ‰è®ºå›çš„å°å­—æŠ¥å·²ç»åˆå§‹åŒ–ï¼</font>
 </td></tr>
 ~;
 }
@@ -908,8 +908,8 @@ sub dodelans {
 	unlink ("${lbdir}data/$_");
     }
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>³õÊ¼»¯ËùÓÐÂÛÌ³µÄ¹«¸æ</b><p>
-<font color=#333333>ËùÓÐÂÛÌ³µÄ¹«¸æÒÑ¾­³õÊ¼»¯£¡</font>
+<font color=#990000><b>åˆå§‹åŒ–æ‰€æœ‰è®ºå›çš„å…¬å‘Š</b><p>
+<font color=#333333>æ‰€æœ‰è®ºå›çš„å…¬å‘Šå·²ç»åˆå§‹åŒ–ï¼</font>
 </td></tr>
 ~;
 
@@ -923,12 +923,12 @@ foreach (@dirdata) { unlink ("${lbdir}cache/$_"); }
 sub doshareforums {
 	my $filetoopen = "$lbdir" . "data/shareforums.cgi";
 	open(FILE, ">$filetoopen");
-	print FILE "À×°Á¿Æ¼¼\thttp:\/\/www.leoBBS.com\/\tLeoBBS ×îÐÂ°æ±¾½éÉÜ£¬×îÐÂ°æ±¾Ãâ·ÑÏÂÔØ£¬ÂÛÌ³¼¼ÊõÖ§³Ö£¬ÐéÄâÖ÷»úÒÔ¼°ÓòÃûÉêÇëµÈ¡£¡£\t1\t$imagesurl\/images\/leotech8831.gif\t\n";
-	print FILE "¼«¿á³¬¼¶ÂÛÌ³\thttp:\/\/bbs.leobbs.com\/\t×îÐÂÈí¼þ¡¢Ó°ÊÓ¡¢ÒôÀÖ¡¢ÍøÂç°²È«¡¢Í¼ÐÎÒÕÊõ¡¢ÓÎÏ·¡¢CGI ÖªÊ¶µÈ×ÛºÏÂÛÌ³£¬»¹¿ÉÒÔÁÄÌì¡£¡£¡£\t2\t$imagesurl\/images\/leobbs8831.gif\t\n";
+	print FILE "é›·å‚²ç§‘æŠ€\thttp:\/\/www.leoBBS.com\/\tLeoBBS æœ€æ–°ç‰ˆæœ¬ä»‹ç»ï¼Œæœ€æ–°ç‰ˆæœ¬å…è´¹ä¸‹è½½ï¼Œè®ºå›æŠ€æœ¯æ”¯æŒï¼Œè™šæ‹Ÿä¸»æœºä»¥åŠåŸŸåç”³è¯·ç­‰ã€‚ã€‚\t1\t$imagesurl\/images\/leotech8831.gif\t\n";
+	print FILE "æžé…·è¶…çº§è®ºå›\thttp:\/\/bbs.leobbs.com\/\tæœ€æ–°è½¯ä»¶ã€å½±è§†ã€éŸ³ä¹ã€ç½‘ç»œå®‰å…¨ã€å›¾å½¢è‰ºæœ¯ã€æ¸¸æˆã€CGI çŸ¥è¯†ç­‰ç»¼åˆè®ºå›ï¼Œè¿˜å¯ä»¥èŠå¤©ã€‚ã€‚ã€‚\t2\t$imagesurl\/images\/leobbs8831.gif\t\n";
 	close(FILE);
         print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>³õÊ¼»¯ÂÛÌ³ÁªÃËÊý¾ÝÎª¿Õ</b><p>
-<font color=#333333>ÔÚÏßÁªÃËÊý¾ÝÒÑ¾­³õÊ¼»¯£¡</font>
+<font color=#990000><b>åˆå§‹åŒ–è®ºå›è”ç›Ÿæ•°æ®ä¸ºç©º</b><p>
+<font color=#333333>åœ¨çº¿è”ç›Ÿæ•°æ®å·²ç»åˆå§‹åŒ–ï¼</font>
 </td></tr>
 ~;
 
@@ -938,12 +938,12 @@ if (open(SFFILE,"${lbdir}data/shareforums.cgi")) {
     close(SFFILE);
     $lmforums = @lmforums;
 }
-$uniontitle="<font color=$fontcolormisc>£¨¹²ÓÐ $lmforums ¸öÁªÃËÂÛÌ³£©</font>";
+$uniontitle="<font color=$fontcolormisc>ï¼ˆå…±æœ‰ $lmforums ä¸ªè”ç›Ÿè®ºå›ï¼‰</font>";
 $unionoutput = "";
   if (($lmforums ne "")&&($lmforums > 0)) {
     $unionoutput .= qq~
 <tr><td bgcolor=\$titlecolor colspan=2  \$catbackpic>
-<font color=\$titlefontcolor><b>-=> ÁªÃËÂÛÌ³ $uniontitle</b>¡¡ [<a href=leobbs.cgi?action=union><font color=$fontcolormisc>\$unionview</font></a>]¡¡ [<span style="cursor:hand" onClick="javascript:openScript('lmcode.cgi',480,240)">ÂÛÌ³ÁªÃË´úÂë</span>]
+<font color=\$titlefontcolor><b>-=> è”ç›Ÿè®ºå› $uniontitle</b>ã€€ [<a href=leobbs.cgi?action=union><font color=$fontcolormisc>\$unionview</font></a>]ã€€ [<span style="cursor:hand" onClick="javascript:openScript('lmcode.cgi',480,240)">è®ºå›è”ç›Ÿä»£ç </span>]
 </td></tr>~;
 
 $unionoutput1 = "";
@@ -952,11 +952,7 @@ $unionoutput1 = "";
 	foreach $lmforum (@lmforums) {
 	    chomp $lmforum;
             next if ($lmforum eq "");
-            ($lmforumname,$lmforumurl,$lmforuminfo,$lmforumorder,$lmweblogo) = split(/\t/,$lmforum);
-            if (($lmweblogo ne "")&&($lmweblogo ne "http:\/\/")) { $lmlogos .= qq~<a href=$lmforumurl target=_blank onmouseover="document.all.lmforum.stop();" onmouseout="document.all.lmforum.start();"><img src=$lmweblogo width=88 height=31 border=0 title="$lmforumname\n$lmforuminfo"></a> ~; }
-            else { $lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>¡¡~; }
-	}
-	$unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum" id="lmforum"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmlogos</marquee></td><td width=100 align=right><a href=http://bbs.leobbs.com/ target=_blank><img src=$imagesurl/images/leobbs8831.gif width=88 height=31 border=0 title="¼«¿á³¬¼¶ÂÛÌ³×îÐÂÈí¼þ¡¢Ó°ÊÓ¡¢ÒôÀÖ¡¢ÍøÂç°²È«¡¢Í¼ÐÎÒÕÊõ¡¢ÓÎÏ·¡¢CGI ÖªÊ¶µÈ×ÛºÏÂÛÌ³£¬»¹¿ÉÒÔÁÄÌì¡£¡£¡£"></a></td></tr></table></td></tr>~ if ($lmlogos ne "");
+            ($lmforumname,$lmforumurl,$lmforuminfo,$lmfogn=right><a href=http://bbs.leobbs.com/ target=_blank><img src=$imagesurl/images/leobbs8831.gif width=88 height=31 border=0 title="¼«¿á³¬¼¶ÂÛÌ³×îÐÂÈí¼þ¡¢Ó°ÊÓ¡¢ÒôÀÖ¡¢ÍøÂç°²È«¡¢Í¼ÐÎÒÕÊõ¡¢ÓÎÏ·¡¢CGI ÖªÊ¶µÈ×ÛºÏÂÛÌ³£¬»¹¿ÉÒÔÁÄÌì¡£¡£¡£"></a></td></tr></table></td></tr>~ if ($lmlogos ne "");
 	$unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum1" id="lmforum1"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmtexts</marquee></td></tr></table></td></tr>~ if ($lmtexts ne "");
 
   }

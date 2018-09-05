@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -33,7 +33,7 @@ $thisprog = "setad.cgi";
 
 $query = new LBCGI;
 
-#&ipbanned; #·âÉ±Ò»Ð© ip
+#&ipbanned; #å°æ€ä¸€äº› ip
 
 $inmembername = $query->cookie("adminname");
 $inpassword   = $query->cookie("adminpass");
@@ -95,20 +95,20 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
         
 sub adslist {
     print qq~
-    <tr><td bgcolor=#2159C9 colspan=3><font face=ËÎÌå color=#FFFFFF>
-    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ã¸æ¹ÜÀí</b>
+    <tr><td bgcolor=#2159C9 colspan=3><font face=å®‹ä½“ color=#FFFFFF>
+    <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›å¹¿å‘Šç®¡ç†</b>
     </td></tr>
-    <tr><td bgcolor=#FFFFFF colspan=3><font face=ËÎÌå color=#333333>
-    <b>×¢ÒâÊÂÏî£º</b><br><br>
-    ÔÚÏÂÃæ£¬Äú½«¿´µ½Ä¿Ç°ËùÓÐµÄÂÛÌ³¹ã¸æ(ÒÔÊµ¼ÊÐ§¹ûÏÔÊ¾)¡£<BR>
-    Äú¿ÉÒÔ±à¼­ÂÛÌ³¹ã¸æÃû»òÊÇÔö¼ÓÒ»¸öÐÂµÄÂÛÌ³¹ã¸æ¡£ Ò²¿ÉÒÔ±à¼­»òÉ¾³ýÄ¿Ç°´æÔÚµÄÂÛÌ³¹ã¸æ¡£<br>
+    <tr><td bgcolor=#FFFFFF colspan=3><font face=å®‹ä½“ color=#333333>
+    <b>æ³¨æ„äº‹é¡¹ï¼š</b><br><br>
+    åœ¨ä¸‹é¢ï¼Œæ‚¨å°†çœ‹åˆ°ç›®å‰æ‰€æœ‰çš„è®ºå›å¹¿å‘Š(ä»¥å®žé™…æ•ˆæžœæ˜¾ç¤º)ã€‚<BR>
+    æ‚¨å¯ä»¥ç¼–è¾‘è®ºå›å¹¿å‘Šåæˆ–æ˜¯å¢žåŠ ä¸€ä¸ªæ–°çš„è®ºå›å¹¿å‘Šã€‚ ä¹Ÿå¯ä»¥ç¼–è¾‘æˆ–åˆ é™¤ç›®å‰å­˜åœ¨çš„è®ºå›å¹¿å‘Šã€‚<br>
     </td></tr>
             <tr>
-            <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+            <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
             </td></tr>
             <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
-       <a href="$thisprog?action=addads">Ôö¼ÓÐÂµÄÂÛÌ³¹ã¸æ</a></font></td>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
+       <a href="$thisprog?action=addads">å¢žåŠ æ–°çš„è®ºå›å¹¿å‘Š</a></font></td>
             </td></tr>
        
        ~;
@@ -136,9 +136,9 @@ sub adslist {
 
                print qq~
                 <tr>
-                <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=ËÎÌå color=#333333>
-                <b>ÂÛÌ³¹ã¸æÄÚÈÝ</b>£º $adtype<a href=$adsurl title="$adsmessage">$adstyle1<font color=$adscolor>$adsinfo</font>$adstyle2</a><BR><b>ÂÛÌ³¹ã¸æ URL</b>£º $adsurl<br>
-                <br><a href="$thisprog?action=edit&forum=$adsnum">±à¼­´ËÂÛÌ³¹ã¸æ</a> | <font face=ËÎÌå color=#333333><a href="$thisprog?action=delete&forum=$adsnum">É¾³ý´ËÂÛÌ³¹ã¸æ</a> </font></td>
+                <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=å®‹ä½“ color=#333333>
+                <b>è®ºå›å¹¿å‘Šå†…å®¹</b>ï¼š $adtype<a href=$adsurl title="$adsmessage">$adstyle1<font color=$adscolor>$adsinfo</font>$adstyle2</a><BR><b>è®ºå›å¹¿å‘Š URL</b>ï¼š $adsurl<br>
+                <br><a href="$thisprog?action=edit&forum=$adsnum">ç¼–è¾‘æ­¤è®ºå›å¹¿å‘Š</a> | <font face=å®‹ä½“ color=#333333><a href="$thisprog?action=delete&forum=$adsnum">åˆ é™¤æ­¤è®ºå›å¹¿å‘Š</a> </font></td>
                 </font></td></tr>
                 ~;
        
@@ -146,11 +146,11 @@ sub adslist {
     
                
         print qq~
-        <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+        <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
         </td></tr>
              <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
-       <a href="$thisprog?action=addads">Ôö¼ÓÐÂµÄÂÛÌ³¹ã¸æ</a></font></td>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
+       <a href="$thisprog?action=addads">å¢žåŠ æ–°çš„è®ºå›å¹¿å‘Š</a></font></td>
             </td></tr>
         </tr></table></td></tr></table>~;
     
@@ -159,8 +159,8 @@ sub adslist {
 sub addads {
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / Ôö¼ÓÂÛÌ³¹ã¸æ</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢žåŠ è®ºå›å¹¿å‘Š</b>
         </td></tr>
         ~;
 
@@ -177,62 +177,62 @@ obj2.style.backgroundColor=arr;
         <input type=hidden name="action" value="processnew">       
 	<tr>
 	<td bgcolor=#FFFFFF valign=middle align=left width=40%>
-	<font color=#333333><b>¹ã¸æÀàÐÍ</b><br>ÇëÊäÈë¹ã¸æÀàÐÍ£¬Ò»°ã2-4¸ö×Ö£¬¿ÉÁô¿Õ<BR></font></td>
+	<font color=#333333><b>å¹¿å‘Šç±»åž‹</b><br>è¯·è¾“å…¥å¹¿å‘Šç±»åž‹ï¼Œä¸€èˆ¬2-4ä¸ªå­—ï¼Œå¯ç•™ç©º<BR></font></td>
 	<td bgcolor=#FFFFFF valign=middle align=left>
-	<input type=text size=8 maxlength=8 name="adtype" value="¹ã¸æ"></td>
+	<input type=text size=8 maxlength=8 name="adtype" value="å¹¿å‘Š"></td>
 	</tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adstypecolor>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æÀàÐÍµÄÑÕÉ«</b><br></font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šç±»åž‹çš„é¢œè‰²</b><br></font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text name="adstypecolor" value="$adstypecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,adstypecolor)" style="cursor:hand; background-color:$adstypecolor"></td>
         </tr>
 	<tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adscolor>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æÀàÐÍÑùÊ½</b><br>½«×÷Îª¹ã¸æÀàÐÍÏÔÊ¾µÄÑùÊ½</font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šç±»åž‹æ ·å¼</b><br>å°†ä½œä¸ºå¹¿å‘Šç±»åž‹æ˜¾ç¤ºçš„æ ·å¼</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
-	<input type=radio name="adtypestyle" value="" checked>Õý³£ 
-	<input type=radio name="adtypestyle" value="b"><b>´ÖÌå</b> 
-	<input type=radio name="adtypestyle" value="u"><u>ÏÂ»¬Ïß</u> 
-	<input type=radio name="adtypestyle" value="i"><i>Ð±Ìå</i></td>
+	<input type=radio name="adtypestyle" value="" checked>æ­£å¸¸ 
+	<input type=radio name="adtypestyle" value="b"><b>ç²—ä½“</b> 
+	<input type=radio name="adtypestyle" value="u"><u>ä¸‹æ»‘çº¿</u> 
+	<input type=radio name="adtypestyle" value="i"><i>æ–œä½“</i></td>
 	</tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æµÄ¼ò½é</b><br>×¢Òâ£ºÖ§³Ö HTML ¸ñÊ½ÊéÐ´</font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šçš„ç®€ä»‹</b><br>æ³¨æ„ï¼šæ”¯æŒ HTML æ ¼å¼ä¹¦å†™</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="adsinfo" value=""></td>
         </tr>       
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adscolor>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æ¼ò½éµÄÑÕÉ«</b><br></font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šç®€ä»‹çš„é¢œè‰²</b><br></font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text name="adscolor" value="$adscolor" size=7 maxlength=7 onclick="javascript:selcolor(this,adscolor)" style="cursor:hand; background-color:$adscolor"></td>
         </tr>
 	<tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adscolor>
-        <font face=ËÎÌå color=#333333><b>¼ò½éÑùÊ½</b><br>½«×÷Îª¹ã¸æ¼ò½éÏÔÊ¾µÄÑùÊ½</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç®€ä»‹æ ·å¼</b><br>å°†ä½œä¸ºå¹¿å‘Šç®€ä»‹æ˜¾ç¤ºçš„æ ·å¼</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
-	<input type=radio name="adstyle" value="" checked>Õý³£ 
-	<input type=radio name="adstyle" value="b"><b>´ÖÌå</b> 
-	<input type=radio name="adstyle" value="u"><u>ÏÂ»¬Ïß</u> 
-	<input type=radio name="adstyle" value="i"><i>Ð±Ìå</i></td>
+	<input type=radio name="adstyle" value="" checked>æ­£å¸¸ 
+	<input type=radio name="adstyle" value="b"><b>ç²—ä½“</b> 
+	<input type=radio name="adstyle" value="u"><u>ä¸‹æ»‘çº¿</u> 
+	<input type=radio name="adstyle" value="i"><i>æ–œä½“</i></td>
 	</tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æÁ¬½ÓµÄ URL</b></font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šè¿žæŽ¥çš„ URL</b></font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="adsurl" value="http://"></td>
         </tr>   
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æËµÃ÷</b></font><BR>Èç¹ûÎª¿Õ£¬ÔòµÈÓÚ¹ã¸æµÄ¼ò½é</td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šè¯´æ˜Ž</b></font><BR>å¦‚æžœä¸ºç©ºï¼Œåˆ™ç­‰äºŽå¹¿å‘Šçš„ç®€ä»‹</td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <textarea cols="40" rows="4" name="adsmessage">$adsmessage</textarea></td>
         </tr>   
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 } # end route   
@@ -243,10 +243,10 @@ obj2.style.backgroundColor=arr;
 
 
 sub createads {   
-		&errorout("¹ã¸æµÄÄÚÈÝ²»ÄÜÎª¿Õ£¡£¡") if ($new_adsinfo eq "");
+		&errorout("å¹¿å‘Šçš„å†…å®¹ä¸èƒ½ä¸ºç©ºï¼ï¼") if ($new_adsinfo eq "");
                 $new_adsurl=~s !http://!!ig;
                 $new_adsurl=~s ! !!ig;
-		&errorout("¹ã¸æµØÖ·²»ÄÜ¿Õ£¡£¡") if ($new_adsurl eq "");
+		&errorout("å¹¿å‘Šåœ°å€ä¸èƒ½ç©ºï¼ï¼") if ($new_adsurl eq "");
                 $new_adsurl="http://".$new_adsurl;
                 $filetoopen = "$lbdir" . "data/ads.cgi";
                 open(FILE, "$filetoopen");
@@ -264,18 +264,18 @@ sub createads {
                 close(FILE);
                 &createadsjs;
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / Ôö¼ÓÂÛÌ³¹ã¸æ½á¹û</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢žåŠ è®ºå›å¹¿å‘Šç»“æžœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                <font face=ËÎÌå color=#333333>
+                <font face=å®‹ä½“ color=#333333>
                 ~;
 
-                print "<b>ÏêÏ¸×ÊÁÏ</b><p>\n";
+                print "<b>è¯¦ç»†èµ„æ–™</b><p>\n";
                 print "<ul>\n";
                
-                print "ÐÂÂÛÌ³¹ã¸æÒÑ¾­½¨Á¢£¡";
+                print "æ–°è®ºå›å¹¿å‘Šå·²ç»å»ºç«‹ï¼";
                                
                 print "</ul></td></tr></table></td></tr></table>\n";
 
@@ -287,18 +287,18 @@ sub createads {
 sub warning { #start
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÂÛÌ³¹ã¸æ</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤è®ºå›å¹¿å‘Š</b>
         </td></tr>
         <tr>
         <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-        <font face=ËÎÌå color=#990000><b>¾¯¸æ£¡£¡</b>
+        <font face=å®‹ä½“ color=#990000><b>è­¦å‘Šï¼ï¼</b>
         </td></tr>
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <font face=ËÎÌå color=#333333>Èç¹ûÄúÈ·¶¨ÒªÉ¾³ýÕâ¸öÂÛÌ³¹ã¸æ£¬ÄÇÃ´Çëµã»÷ÏÂÃæÁ´½Ó<p>
-        >> <a href="$thisprog?action=delete&checkaction=yes&forum=$adsid">É¾³ýÂÛÌ³¹ã¸æ</a> <<
+        <font face=å®‹ä½“ color=#333333>å¦‚æžœæ‚¨ç¡®å®šè¦åˆ é™¤è¿™ä¸ªè®ºå›å¹¿å‘Šï¼Œé‚£ä¹ˆè¯·ç‚¹å‡»ä¸‹é¢é“¾æŽ¥<p>
+        >> <a href="$thisprog?action=delete&checkaction=yes&forum=$adsid">åˆ é™¤è®ºå›å¹¿å‘Š</a> <<
         </td></tr>
         </table></td></tr></table>
         
@@ -331,14 +331,14 @@ sub deleteads { #start
          &createadsjs;
 
                     print qq~
-                    <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ý¹ã¸æ½á¹û</b>
+                    <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                    <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤å¹¿å‘Šç»“æžœ</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                    <font face=ËÎÌå color=#990000>
+                    <font face=å®‹ä½“ color=#990000>
                     
-                    <center><b>´ËÂÛÌ³¹ã¸æÒÑ±»É¾³ý</b>£¬ÇëË¢ÐÂÂÛÌ³¹ã¸æ¹ÜÀíÒ³ºóÔÙ¼ÌÐø²Ù×÷£¡</center><p>
+                    <center><b>æ­¤è®ºå›å¹¿å‘Šå·²è¢«åˆ é™¤</b>ï¼Œè¯·åˆ·æ–°è®ºå›å¹¿å‘Šç®¡ç†é¡µåŽå†ç»§ç»­æ“ä½œï¼</center><p>
                     
                   
                                     
@@ -370,8 +370,8 @@ obj.value=arr;
 obj2.style.backgroundColor=arr;
 }
 </script>
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ±à¼­ÂÛÌ³¹ã¸æ</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘è®ºå›å¹¿å‘Š</b>
         </td></tr>
        
                 
@@ -380,61 +380,61 @@ obj2.style.backgroundColor=arr;
         <input type=hidden name="forum" value="$adsid">
 	<tr>
 	<td bgcolor=#FFFFFF valign=middle align=left width=40%>
-	<font color=#333333><b>¹ã¸æÀàÐÍ</b><br>ÇëÊäÈë¹ã¸æÀàÐÍ£¬Ò»°ã2-4¸ö×Ö£¬¿ÉÁô¿Õ<BR></font></td>
+	<font color=#333333><b>å¹¿å‘Šç±»åž‹</b><br>è¯·è¾“å…¥å¹¿å‘Šç±»åž‹ï¼Œä¸€èˆ¬2-4ä¸ªå­—ï¼Œå¯ç•™ç©º<BR></font></td>
 	<td bgcolor=#FFFFFF valign=middle align=left>
 	<input type=text size=8 maxlength=8 name="adtype" value="$adtype"></td>
 	</tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adstypecolor>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æÀàÐÍµÄÑÕÉ«</b><br></font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šç±»åž‹çš„é¢œè‰²</b><br></font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text name="adstypecolor" value="$adstypecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,adstypecolor)" style="cursor:hand; background-color:$adstypecolor"></td>
         </tr>
 	<tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adscolor>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æÀàÐÍÑùÊ½</b><br>½«×÷Îª¹ã¸æÀàÐÍÏÔÊ¾µÄÑùÊ½</font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šç±»åž‹æ ·å¼</b><br>å°†ä½œä¸ºå¹¿å‘Šç±»åž‹æ˜¾ç¤ºçš„æ ·å¼</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
-	<input type=radio name="adtypestyle" value="" checked>Õý³£ 
-	<input type=radio name="adtypestyle" value="b"$adtypestyle{b}><b>´ÖÌå</b> 
-	<input type=radio name="adtypestyle" value="u"$adtypestyle{u}><u>ÏÂ»¬Ïß</u> 
-	<input type=radio name="adtypestyle" value="i"$adtypestyle{i}><i>Ð±Ìå</i></td>
+	<input type=radio name="adtypestyle" value="" checked>æ­£å¸¸ 
+	<input type=radio name="adtypestyle" value="b"$adtypestyle{b}><b>ç²—ä½“</b> 
+	<input type=radio name="adtypestyle" value="u"$adtypestyle{u}><u>ä¸‹æ»‘çº¿</u> 
+	<input type=radio name="adtypestyle" value="i"$adtypestyle{i}><i>æ–œä½“</i></td>
 	</tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æµÄ¼ò½é</b><br>×¢Òâ£ºÖ§³Ö HTML ¸ñÊ½ÊéÐ´</font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šçš„ç®€ä»‹</b><br>æ³¨æ„ï¼šæ”¯æŒ HTML æ ¼å¼ä¹¦å†™</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 maxlength=50 name="adsinfo" value="$adsinfo"></td>
         </tr>       
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adscolor>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æ¼ò½éµÄÑÕÉ«</b><br></font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šç®€ä»‹çš„é¢œè‰²</b><br></font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text name="adscolor" value="$adscolor" size=7 maxlength=7 onclick="javascript:selcolor(this,adscolor)" style="cursor:hand; background-color:$adscolor"></td>
         </tr>
 	<tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40% id=adscolor>
-        <font face=ËÎÌå color=#333333><b>¼ò½éÑùÊ½</b><br>½«×÷Îª¹ã¸æ¼ò½éÏÔÊ¾µÄÑùÊ½</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç®€ä»‹æ ·å¼</b><br>å°†ä½œä¸ºå¹¿å‘Šç®€ä»‹æ˜¾ç¤ºçš„æ ·å¼</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
-	<input type=radio name="adstyle" value="" checked>Õý³£ 
-	<input type=radio name="adstyle" value="b"$adstyle{b}><b>´ÖÌå</b> 
-	<input type=radio name="adstyle" value="u"$adstyle{u}><u>ÏÂ»¬Ïß</u> 
-	<input type=radio name="adstyle" value="i"$adstyle{i}><i>Ð±Ìå</i></td>
+	<input type=radio name="adstyle" value="" checked>æ­£å¸¸ 
+	<input type=radio name="adstyle" value="b"$adstyle{b}><b>ç²—ä½“</b> 
+	<input type=radio name="adstyle" value="u"$adstyle{u}><u>ä¸‹æ»‘çº¿</u> 
+	<input type=radio name="adstyle" value="i"$adstyle{i}><i>æ–œä½“</i></td>
 	</tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æÁ¬½ÓµÄ URL</b></font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šè¿žæŽ¥çš„ URL</b></font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="adsurl" value="$adsurl"></td>
         </tr>   
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>¹ã¸æËµÃ÷</b></font><BR>Èç¹ûÎª¿Õ£¬ÔòµÈÓÚ¹ã¸æµÄ¼ò½é</td>
+        <font face=å®‹ä½“ color=#333333><b>å¹¿å‘Šè¯´æ˜Ž</b></font><BR>å¦‚æžœä¸ºç©ºï¼Œåˆ™ç­‰äºŽå¹¿å‘Šçš„ç®€ä»‹</td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <textarea cols="40" rows="4" name="adsmessage">$adsmessage</textarea></td>
         </tr>   
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 } # end route   
@@ -444,10 +444,10 @@ obj2.style.backgroundColor=arr;
 
 
 sub doedit {
-	&errorout("¹ã¸æµÄÄÚÈÝ²»ÄÜÎª¿Õ£¡£¡") if ($new_adsinfo eq "");
+	&errorout("å¹¿å‘Šçš„å†…å®¹ä¸èƒ½ä¸ºç©ºï¼ï¼") if ($new_adsinfo eq "");
         $new_adsurl=~s !http://!!ig;
         $new_adsurl=~s ! !!ig;
-	&errorout("¹ã¸æµØÖ·²»ÄÜ¿Õ£¡£¡") if ($new_adsurl eq "");
+	&errorout("å¹¿å‘Šåœ°å€ä¸èƒ½ç©ºï¼ï¼") if ($new_adsurl eq "");
         $new_adsurl="http://".$new_adsurl;
 	$new_adsmessage = $new_adsinfo if ($new_adsmessage eq "");
 
@@ -476,12 +476,12 @@ sub doedit {
                 &createadsjs;
 
                  print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ±à¼­ÂÛÌ³¹ã¸æ½á¹û</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘è®ºå›å¹¿å‘Šç»“æžœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ËùÓÐÐÅÏ¢ÒÑ¾­±£´æ</b><p>
+                <font face=å®‹ä½“ color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><p>
                 
                 </td></tr></table></td></tr></table>
                 ~;
@@ -495,12 +495,12 @@ exit;
 
 sub errorout {
     print qq~
-<tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ·¢Éú´íÎó</b>
+<tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å‘ç”Ÿé”™è¯¯</b>
 </td></tr><tr>
 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-<font face=ËÎÌå color=#333333>
-<font face=ËÎÌå color=#333333><b>$_[0]</b>
+<font face=å®‹ä½“ color=#333333>
+<font face=å®‹ä½“ color=#333333><b>$_[0]</b>
 </td></tr></table></td></tr></table>
 ~;
     exit;	

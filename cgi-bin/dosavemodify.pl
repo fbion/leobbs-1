@@ -1,21 +1,21 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-    if ("$userregistered" eq "no") {&error("ĞŞ¸Ä×ÊÁÏ&Ã»ÓĞ´ËÓÃ»§Ãû£¡"); }
-    if ("$oldpassword" eq "") {&error("ĞŞ¸Ä×ÊÁÏ&±ØĞëÊäÈëÔ­À´µÄÂÛÌ³ÃÜÂë£¡"); }
+    if ("$userregistered" eq "no") {&error("ä¿®æ”¹èµ„æ–™&æ²¡æœ‰æ­¤ç”¨æˆ·åï¼"); }
+    if ("$oldpassword" eq "") {&error("ä¿®æ”¹èµ„æ–™&å¿…é¡»è¾“å…¥åŸæ¥çš„è®ºå›å¯†ç ï¼"); }
     if ($oldpassword ne "") {
         eval {$oldpassword = md5_hex($oldpassword);};
         if ($@) {eval('use Digest::MD5 qw(md5_hex);$oldpassword = md5_hex($oldpassword);');}
         unless ($@) {$oldpassword = "lEO$oldpassword";}
     }
-    if ("$oldpassword" ne "$password") {&error("ĞŞ¸Ä×ÊÁÏ&ÂÛÌ³ÃÜÂë´íÎó£¡"); }
+    if ("$oldpassword" ne "$password") {&error("ä¿®æ”¹èµ„æ–™&è®ºå›å¯†ç é”™è¯¯ï¼"); }
 
     $nowpassword            = $query -> param('nowpassword');
     $newpassword1           = $query -> param('newpassword1');
@@ -81,7 +81,7 @@
 
     if ($userface ne '') {
         if (($newoldsex ne "no")&&($newsex ne $newoldsex)) {
-	    &error("´íÎó&ÓÉÓÚÄãÒÑ¾­Ê¹ÓÃÁËĞéÄâĞÎÏó£¬ËùÒÔ£¬ÄãµÄĞÔ±ğÄ¿Ç°²»ÄÜ¸ü¸Ä£¡<BR>Èç¹ûÊµÔÚĞèÒª¸ü¸ÄĞÔ±ğ£¬ÄÇÃ´ÇëÏÈÈ¥ĞéÄâĞÎÏóµÄ¸öÈËÉèÖÃÖĞ£¬Çå¿ÕÄúµÄ×ÊÁÏ£¬È»ºóÖØÊÔ£¡");
+	    &error("é”™è¯¯&ç”±äºä½ å·²ç»ä½¿ç”¨äº†è™šæ‹Ÿå½¢è±¡ï¼Œæ‰€ä»¥ï¼Œä½ çš„æ€§åˆ«ç›®å‰ä¸èƒ½æ›´æ”¹ï¼<BR>å¦‚æœå®åœ¨éœ€è¦æ›´æ”¹æ€§åˆ«ï¼Œé‚£ä¹ˆè¯·å…ˆå»è™šæ‹Ÿå½¢è±¡çš„ä¸ªäººè®¾ç½®ä¸­ï¼Œæ¸…ç©ºæ‚¨çš„èµ„æ–™ï¼Œç„¶åé‡è¯•ï¼");
         }
     }
 
@@ -102,23 +102,23 @@
 
     @testsig = split(/\[br\]/,$newsignature);
     $siglines = @testsig;
-    &error("ÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ğ°¸&ÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ğ°¸ÖĞ£¬²»ÔÊĞíÓĞ·Ç·¨×Ö·û£¬Çë¸ü»»ÌáÎÊºÍ´ğ°¸£¡") if ($query -> param('getpassq') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/ || $query -> param('getpassa') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/);
-    if(length($newlocation)>16) { &error("ĞŞ¸Ä×ÊÁÏ&À´×ÔµØÇø¹ı³¤£¬Çë²»Òª³¬¹ı16¸ö×Ö·û£¨8¸öºº×Ö£©£¡"); }
-    if ($siglines > $maxsignline) { &error("ĞŞ¸Ä×ÊÁÏ&¶Ô²»Æğ£¬ÔÚÄúµÄÇ©ÃûÖĞÖ»ÔÊĞíÓĞ $maxsignline ĞĞ£¡"); }
-    if (length($newsignature) > $maxsignlegth) { &error("ĞŞ¸Ä×ÊÁÏ&¶Ô²»Æğ£¬Ç©Ãû²»ÄÜ³¬¹ı $maxsignlegth ×Ö·û£¡"); }
-    if($newpassword1 =~ /[^a-zA-Z0-9]/)     { &error("ĞŞ¸Ä×ÊÁÏ&ÂÛÌ³ÃÜÂëÖ»ÔÊĞí´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ£¡£¡"); }
-    if($newpassword1 =~ /^lEO/)     { &error("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂë²»ÔÊĞíÊÇ lEO ¿ªÍ·£¬Çë¸ü»»£¡£¡"); }
+    &error("è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆ&è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆä¸­ï¼Œä¸å…è®¸æœ‰éæ³•å­—ç¬¦ï¼Œè¯·æ›´æ¢æé—®å’Œç­”æ¡ˆï¼") if ($query -> param('getpassq') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/ || $query -> param('getpassa') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/);
+    if(length($newlocation)>16) { &error("ä¿®æ”¹èµ„æ–™&æ¥è‡ªåœ°åŒºè¿‡é•¿ï¼Œè¯·ä¸è¦è¶…è¿‡16ä¸ªå­—ç¬¦ï¼ˆ8ä¸ªæ±‰å­—ï¼‰ï¼"); }
+    if ($siglines > $maxsignline) { &error("ä¿®æ”¹èµ„æ–™&å¯¹ä¸èµ·ï¼Œåœ¨æ‚¨çš„ç­¾åä¸­åªå…è®¸æœ‰ $maxsignline è¡Œï¼"); }
+    if (length($newsignature) > $maxsignlegth) { &error("ä¿®æ”¹èµ„æ–™&å¯¹ä¸èµ·ï¼Œç­¾åä¸èƒ½è¶…è¿‡ $maxsignlegth å­—ç¬¦ï¼"); }
+    if($newpassword1 =~ /[^a-zA-Z0-9]/)     { &error("ä¿®æ”¹èµ„æ–™&è®ºå›å¯†ç åªå…è®¸å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆï¼ï¼"); }
+    if($newpassword1 =~ /^lEO/)     { &error("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç ä¸å…è®¸æ˜¯ lEO å¼€å¤´ï¼Œè¯·æ›´æ¢ï¼ï¼"); }
 
-    if(length($newmembertitle)>21) { &error("ĞŞ¸Ä×ÊÁÏ&¸öÈËÍ·ÏÎ¹ı³¤£¬Çë²»Òª³¬¹ı20¸ö×Ö·û£¨10¸öºº×Ö£©£¡"); }
+    if(length($newmembertitle)>21) { &error("ä¿®æ”¹èµ„æ–™&ä¸ªäººå¤´è¡”è¿‡é•¿ï¼Œè¯·ä¸è¦è¶…è¿‡20ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰ï¼"); }
     $newmembertitle =~ s/\t//isg;
-    if(length($newjhmp)>21) { &error("ĞŞ¸Ä×ÊÁÏ&½­ºşÃÅÅÉ¹ı³¤£¬Çë²»Òª³¬¹ı20¸ö×Ö·û£¨10¸öºº×Ö£©£¡"); }
+    if(length($newjhmp)>21) { &error("ä¿®æ”¹èµ„æ–™&æ±Ÿæ¹–é—¨æ´¾è¿‡é•¿ï¼Œè¯·ä¸è¦è¶…è¿‡20ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰ï¼"); }
     $newjhmp =~ s/\t//isg;
 
     @testins = split(/\<br\>/,$newinterests);
     $inslines = @testins;
-    if ($inslines > $maxinsline) { &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬¸öÈË¼ò½éÖ»ÔÊĞíÓĞ $maxinsline ĞĞ£¡"); }
+    if ($inslines > $maxinsline) { &error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œä¸ªäººç®€ä»‹åªå…è®¸æœ‰ $maxinsline è¡Œï¼"); }
 
-    if (length($newinterests) > $maxinslegth) {&error("ĞŞ¸Ä×ÊÁÏ&¶Ô²»Æğ£¬¸öÈË¼ò½é²»ÄÜ³¬¹ı $maxinslegth ×Ö·û£¡"); }
+    if (length($newinterests) > $maxinslegth) {&error("ä¿®æ”¹èµ„æ–™&å¯¹ä¸èµ·ï¼Œä¸ªäººç®€ä»‹ä¸èƒ½è¶…è¿‡ $maxinslegth å­—ç¬¦ï¼"); }
 
     $newyear =~ s/\D//g;
 
@@ -127,7 +127,7 @@
     $yeartemp = 1900 + $yeartemp if ($yeartemp < 1900);
 
     if ($newyear ne "") {
-        &error("ÓÃ»§×¢²á&ÇëÕıÈ·ÊäÈëÄãµÄ³öÉúÄê·İ£¡") if ($newyear <= 1900 || $newyear >= $yeartemp - 3);
+        &error("ç”¨æˆ·æ³¨å†Œ&è¯·æ­£ç¡®è¾“å…¥ä½ çš„å‡ºç”Ÿå¹´ä»½ï¼") if ($newyear <= 1900 || $newyear >= $yeartemp - 3);
     }
 
     if (($newyear eq "")||($newmonth eq "")||($newday eq "")) {
@@ -137,7 +137,7 @@
     }
     $newborn = "$newyear/$newmonth/$newday";
 
-    if ($newborn ne "//") { #¿ªÊ¼×Ô¶¯ÅĞ¶ÏĞÇ×ù
+    if ($newborn ne "//") { #å¼€å§‹è‡ªåŠ¨åˆ¤æ–­æ˜Ÿåº§
     	if ($newmonth eq "01") {
     	    if (($newday >= 1)&&($newday <=19)) {
     	        $inuserxz = "z10";
@@ -240,16 +240,16 @@
 
     if (($newpersonalavatar)&&($newpersonalwidth)&&($newpersonalheight)) {
         if ($newpersonalavatar !~ /^http:\/\/[\w\W]+\.[\w\W]+$/) {
-            &error("ÓÃ»§×¢²á&×Ô¶¨ÒåÍ·ÏñµÄ URL µØÖ·ÓĞÎÊÌâ£¡");
+            &error("ç”¨æˆ·æ³¨å†Œ&è‡ªå®šä¹‰å¤´åƒçš„ URL åœ°å€æœ‰é—®é¢˜ï¼");
         }
         if (($newpersonalavatar !~ /\.gif$/i)&&($newpersonalavatar !~ /\.jpg$/isg)&&($newpersonalavatar !~ /\.png$/isg)&&($newpersonalavatar !~ /\.bmp$/isg)&&($newpersonalavatar !~ /\.swf$/isg)) {
-            &error("ÓÃ»§×¢²á&×Ô¶¨ÒåÍ·Ïñ±ØĞëÎª PNG¡¢GIF¡¢JPG¡¢BMP¡¢SWF ¸ñÊ½") ;
+            &error("ç”¨æˆ·æ³¨å†Œ&è‡ªå®šä¹‰å¤´åƒå¿…é¡»ä¸º PNGã€GIFã€JPGã€BMPã€SWF æ ¼å¼") ;
         }
         if (($newpersonalwidth < 20)||($newpersonalwidth > $maxposticonwidth)) {
-           &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÌîĞ´µÄ×Ô¶¨ÒåÍ¼Ïñ¿í¶È±ØĞëÔÚ 20 -- $maxposticonwidth ÏñËØÖ®¼ä£¡");
+           &error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨å¡«å†™çš„è‡ªå®šä¹‰å›¾åƒå®½åº¦å¿…é¡»åœ¨ 20 -- $maxposticonwidth åƒç´ ä¹‹é—´ï¼");
         }
         if (($newpersonalheight < 20)||($newpersonalheight > $maxposticonheight)) {
-           &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÌîĞ´µÄ×Ô¶¨ÒåÍ¼Ïñ¸ß¶È±ØĞëÔÚ 20 -- $maxposticonheight ÏñËØÖ®¼ä£¡");
+           &error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨å¡«å†™çš„è‡ªå®šä¹‰å›¾åƒé«˜åº¦å¿…é¡»åœ¨ 20 -- $maxposticonheight åƒç´ ä¹‹é—´ï¼");
         }
         $inuseravatar = "noavatar";
         $newpersonalavatar =~ s/${imagesurl}/\$imagesurl/o;
@@ -285,21 +285,21 @@
 	    }
 	    if ($allowtype eq "allow") {
 		if($check_result == 0) {
-		    &error("ĞŞ¸Ä×ÊÁÏ&±ØĞèÊ¹ÓÃÖ¸¶¨µÄÓÊÏä£¡<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[ÁĞ±í]</a>");
+		    &error("ä¿®æ”¹èµ„æ–™&å¿…éœ€ä½¿ç”¨æŒ‡å®šçš„é‚®ç®±ï¼<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[åˆ—è¡¨]</a>");
 		}
 	    } else {
 		if($check_result == 1){
-		    &error("ĞŞ¸Ä×ÊÁÏ&ÄúÌá¹©µÄÓÊÏä±»½ûÖ¹Ê¹ÓÃ£¡<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[ÁĞ±í]</a>");
+		    &error("ä¿®æ”¹èµ„æ–™&æ‚¨æä¾›çš„é‚®ç®±è¢«ç¦æ­¢ä½¿ç”¨ï¼<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[åˆ—è¡¨]</a>");
 		}
 	    }
 	}
     }
     if ($newemailaddress eq "") { $blankfields = "yes"; }
-    if ($newpassword1 ne $newpassword2)  {&error("ĞŞ¸Ä×ÊÁÏ&ÄãÊäÈëµÄÁ½´ÎÂÛÌ³ÃÜÂë²»ÏàÍ¬£¬Èç¹ûÄã²»ÏëĞŞ¸ÄÂÛÌ³ÃÜÂë£¬Çë±£³ÖÕâÁ½ÏîÎª¿Õ£¡"); }
+    if ($newpassword1 ne $newpassword2)  {&error("ä¿®æ”¹èµ„æ–™&ä½ è¾“å…¥çš„ä¸¤æ¬¡è®ºå›å¯†ç ä¸ç›¸åŒï¼Œå¦‚æœä½ ä¸æƒ³ä¿®æ”¹è®ºå›å¯†ç ï¼Œè¯·ä¿æŒè¿™ä¸¤é¡¹ä¸ºç©ºï¼"); }
 
     if (($newpassword1 ne "")&&($newpassword2 ne "")) {
-        if(length($newpassword1)<8) { &error("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂëÌ«¶ÌÁË£¬Çë¸ü»»£¡ÂÛÌ³ÃÜÂë±ØĞë 8 Î»ÒÔÉÏ£¡"); }
-#       if ($newpassword1 =~ /^[0-9]+$/) { &error("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂëÇë²»ÒªÈ«²¿ÎªÊı×Ö£¬Çë¸ü»»£¡"); }
+        if(length($newpassword1)<8) { &error("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç å¤ªçŸ­äº†ï¼Œè¯·æ›´æ¢ï¼è®ºå›å¯†ç å¿…é¡» 8 ä½ä»¥ä¸Šï¼"); }
+#       if ($newpassword1 =~ /^[0-9]+$/) { &error("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç è¯·ä¸è¦å…¨éƒ¨ä¸ºæ•°å­—ï¼Œè¯·æ›´æ¢ï¼"); }
         $newpassword = $newpassword1;
 	if ($newpassword ne "") {
 	    eval {$newpassword = md5_hex($newpassword);};
@@ -310,7 +310,7 @@
     else { $newpassword = $oldpassword; }
 
     if ($blankfields) {
-       &error("ĞŞ¸Ä×ÊÁÏ&ÇëÊäÈëÓÃ»§Ãû¡¢ÓÊ¼şµØÖ·£¬ÕâĞ©ÊÇ±ØĞèµÄ£¡");
+       &error("ä¿®æ”¹èµ„æ–™&è¯·è¾“å…¥ç”¨æˆ·åã€é‚®ä»¶åœ°å€ï¼Œè¿™äº›æ˜¯å¿…éœ€çš„ï¼");
     }
 
     $memberfiletitle = $inmembername;
@@ -337,9 +337,9 @@
             unlink ("${imagesdir}usravatars/$memberfiletitletemp.bmp");
 
 
-          my ($filename) = $addme =~ m|([^/:\\]+)$|; #×¢Òâ,»ñÈ¡ÎÄ¼şÃû×ÖµÄĞÎÊ½±ä»¯
+          my ($filename) = $addme =~ m|([^/:\\]+)$|; #æ³¨æ„,è·å–æ–‡ä»¶åå­—çš„å½¢å¼å˜åŒ–
 
-          my @filename = split(/\./,$filename); #×¢Òâ
+          my @filename = split(/\./,$filename); #æ³¨æ„
           my $up_name = $filename[0];
           $fileexp = $filename[-1];
           $fileexp = lc($fileexp);
@@ -353,11 +353,11 @@
                   :undef;
         $maxuploadava = 200 if (($maxuploadava eq "")||($maxuploadava < 1));
         if (($fileexp eq "swf")&&($flashavatar ne "yes")) {
-            &error("²»Ö§³ÖÄãËùÉÏ´«µÄÍ¼Æ¬£¬ÇëÖØĞÂÑ¡Ôñ£¡&½öÖ§³Ö GIF£¬JPG£¬PNG£¬BMP ÀàĞÍ!");
+            &error("ä¸æ”¯æŒä½ æ‰€ä¸Šä¼ çš„å›¾ç‰‡ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼&ä»…æ”¯æŒ GIFï¼ŒJPGï¼ŒPNGï¼ŒBMP ç±»å‹!");
         }
 
         if (!defined $fileexp) {
-            &error("²»Ö§³ÖÄãËùÉÏ´«µÄÍ¼Æ¬£¬ÇëÖØĞÂÑ¡Ôñ£¡&½öÖ§³Ö GIF£¬JPG£¬PNG£¬BMP£¬SWF ÀàĞÍ!");
+            &error("ä¸æ”¯æŒä½ æ‰€ä¸Šä¼ çš„å›¾ç‰‡ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼&ä»…æ”¯æŒ GIFï¼ŒJPGï¼ŒPNGï¼ŒBMPï¼ŒSWF ç±»å‹!");
         }
 
         my $filesize=0;
@@ -369,7 +369,7 @@
                $filesize=$filesize+4;
          }
         close (FILE);
-        close ($addme); #×¢Òâ
+        close ($addme); #æ³¨æ„
 
         if ($fileexp eq "gif"||$fileexp eq "jpg"||$fileexp eq "bmp"||$fileexp eq "jpeg"||$fileexp eq "png") {
 	  eval("use Image::Info qw(image_info);"); 
@@ -377,7 +377,7 @@
     	    my $info = image_info("${imagesdir}usravatars/$memberfiletitletemp.$fileexp");
 	    if ($info->{error} eq "Unrecognized file format"){
                 unlink ("${imagesdir}usravatars/$memberfiletitletemp.$fileexp");
-                &error("ÉÏ´«³ö´í&ÉÏ´«ÎÄ¼ş²»ÊÇÍ¼Æ¬ÎÄ¼ş£¬ÇëÉÏ´«±ê×¼µÄÍ¼Æ¬ÎÄ¼ş£¡");
+                &error("ä¸Šä¼ å‡ºé”™&ä¸Šä¼ æ–‡ä»¶ä¸æ˜¯å›¾ç‰‡æ–‡ä»¶ï¼Œè¯·ä¸Šä¼ æ ‡å‡†çš„å›¾ç‰‡æ–‡ä»¶ï¼");
             }
             if ($newpersonalwidth eq "" || $newpersonalwidth eq 0) {
             	if ($info->{width} ne "") { $newpersonalwidth = $info->{width}; }
@@ -392,16 +392,16 @@
 	}
 	if ($filesize>$maxuploadava) {
             unlink ("${imagesdir}usravatars/$memberfiletitletemp.$fileexp");
-	    &error("ÉÏ´«³ö´í&ÉÏ´«ÎÄ¼ş´óĞ¡³¬¹ı$maxuploadava£¬ÇëÖØĞÂÑ¡Ôñ£¡");
+	    &error("ä¸Šä¼ å‡ºé”™&ä¸Šä¼ æ–‡ä»¶å¤§å°è¶…è¿‡$maxuploadavaï¼Œè¯·é‡æ–°é€‰æ‹©ï¼");
 	}
-	if (($newpersonalwidth < 20)||($newpersonalwidth > $maxposticonwidth)) { &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÌîĞ´µÄ×Ô¶¨ÒåÍ¼Ïñ¿í¶È($newpersonalwidth)±ØĞëÔÚ 20 -- $maxposticonwidth ÏñËØÖ®¼ä£¡"); }
-        if (($newpersonalheight < 20)||($newpersonalheight > $maxposticonheight)) { &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÌîĞ´µÄ×Ô¶¨ÒåÍ¼Ïñ¸ß¶È($newpersonalheight)±ØĞëÔÚ 20 -- $maxposticonheight ÏñËØÖ®¼ä£¡"); }
+	if (($newpersonalwidth < 20)||($newpersonalwidth > $maxposticonwidth)) { &error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨å¡«å†™çš„è‡ªå®šä¹‰å›¾åƒå®½åº¦($newpersonalwidth)å¿…é¡»åœ¨ 20 -- $maxposticonwidth åƒç´ ä¹‹é—´ï¼"); }
+        if (($newpersonalheight < 20)||($newpersonalheight > $maxposticonheight)) { &error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨å¡«å†™çš„è‡ªå®šä¹‰å›¾åƒé«˜åº¦($newpersonalheight)å¿…é¡»åœ¨ 20 -- $maxposticonheight åƒç´ ä¹‹é—´ï¼"); }
 
 	$inuseravatar="noavatar";
 	$newpersonalavatar="\$imagesurl/usravatars/$memberfiletitletemp.$fileexp";
     }
 
-    if($newemailaddress !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("×¢²á&Email µØÖ··Ç·¨$newemailaddress£¡"); }
+    if($newemailaddress !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("æ³¨å†Œ&Email åœ°å€éæ³•$newemailaddressï¼"); }
     $newemailaddress =~ s/[\ \a\f\n\e\0\r\t\`\~\!\#\$\%\^\&\*\(\)\=\+\\\[\]\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
 
    &getmember("$inmembername");
@@ -429,7 +429,7 @@
 	$allmemberemails = "\t$allmemberemails";
 
 	if (($allmemberemails =~ /\n$newemailaddress\t(.+?)\n/i)&&($oneaccountperemail eq "yes")) {
-	   &error("×ÊÁÏĞŞ¸Ä&¶Ô²»Æğ£¬ÕâÊäÈëµÄ Email ÒÑ¾­±»×¢²áÓÃ»§£º<u>$1</u> Ê¹ÓÃÁË");
+	   &error("èµ„æ–™ä¿®æ”¹&å¯¹ä¸èµ·ï¼Œè¿™è¾“å…¥çš„ Email å·²ç»è¢«æ³¨å†Œç”¨æˆ·ï¼š<u>$1</u> ä½¿ç”¨äº†");
 	}
 	$allmemberemails1 =~ s/$emailaddress\t$inmembername\n//isg;
 	open(MEMFILE1, ">${lbdir}data/lbemail/$charone1.cgi");
@@ -502,16 +502,16 @@
 
 	$to = $newemailaddress;
 	$from = $adminemail_out;
-	$subject = "Äú¸Ä±äÁËÔÚ $boardname ÖĞ×¢²áµÄÓÊ¼şµØÖ·";
+	$subject = "æ‚¨æ”¹å˜äº†åœ¨ $boardname ä¸­æ³¨å†Œçš„é‚®ä»¶åœ°å€";
 
 	$message .= "\n";
 	$message .= "$homename <br>\n";
 	$message .= "$boardurl/leobbs.cgi\n <br><br>\n <br>\n";
 	$message .= "------------------------------------<br>\n";
-	$message .= "ÄúµÄÓÃ»§Ãû¡¢ĞÂÂÛÌ³ÃÜÂëÈçÏÂ£º\n <br><br>\n";
-	$message .= "ÓÃ»§Ãû£º $inmembername <br>\n";
-	$message .= "ĞÂÂÛÌ³ÃÜÂë£º $newpassword\n <br><br>\n <br>\n";
-	$message .= "Çë×¢Òâ£ºÓÃ»§ÃûºÍÂÛÌ³ÃÜÂëÇø·Ö´óĞ¡Ğ´£¡\n <br>\n";
+	$message .= "æ‚¨çš„ç”¨æˆ·åã€æ–°è®ºå›å¯†ç å¦‚ä¸‹ï¼š\n <br><br>\n";
+	$message .= "ç”¨æˆ·åï¼š $inmembername <br>\n";
+	$message .= "æ–°è®ºå›å¯†ç ï¼š $newpassword\n <br><br>\n <br>\n";
+	$message .= "è¯·æ³¨æ„ï¼šç”¨æˆ·åå’Œè®ºå›å¯†ç åŒºåˆ†å¤§å°å†™ï¼\n <br>\n";
 	$message .= "------------------------------------<br>\n";
 
 	&sendmail($from, $adminemail_in, $to, $subject, $message);
@@ -551,7 +551,7 @@
 	$newjhmp = 1000 unless(@JUMP && -e $jumpfile);
 	$newjhmp = (defined $JUMP[$newjhmp])?$newjhmp:1000;
 	($JUMP[$newjhmp],my $no) = split(/\t/,$JUMP[$newjhmp]);
-	$jhmp = ($newjhmp < 1000)?$JUMP[$newjhmp]:'ÎŞÃÅÎŞÅÉ';
+	$jhmp = ($newjhmp < 1000)?$JUMP[$newjhmp]:'æ— é—¨æ— æ´¾';
     }
 
     if(($userquestion eq "|")||($userquestion eq "")){ 
@@ -584,20 +584,20 @@
     $previewsig = $signature1;
 
     if ($newpassword1 ne "") {
-	$info = qq~<ul><li><a href="loginout.cgi"><font color=$fonthighlight>ÒòÎªÄãĞŞ¸ÄÁËÂÛÌ³ÃÜÂë£¬ËùÒÔÇëÖØĞÂµÇÂ¼Ò»´Î£¡</font></a></ul>~;
-    } else { $info = qq~<ul><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul>~; }
+	$info = qq~<ul><li><a href="loginout.cgi"><font color=$fonthighlight>å› ä¸ºä½ ä¿®æ”¹äº†è®ºå›å¯†ç ï¼Œæ‰€ä»¥è¯·é‡æ–°ç™»å½•ä¸€æ¬¡ï¼</font></a></ul>~;
+    } else { $info = qq~<ul><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul>~; }
 	$output .= qq~
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>¸öÈËĞÅÏ¢ÒÑ¾­±£´æ</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>ä¸ªäººä¿¡æ¯å·²ç»ä¿å­˜</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º$info</td></tr>
+å…·ä½“æƒ…å†µï¼š$info</td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font color=$postfontcolor>
-ÄãµÄĞÂÇ©ÃûÔ¤ÀÀ£º<br><hr><br>
+ä½ çš„æ–°ç­¾åé¢„è§ˆï¼š<br><hr><br>
 $previewsig
 <br><hr></font>
 </td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
 	if (($passwordverification eq "yes") && ($emailfunctions ne "off") && ($newemailaddress ne $emailaddress)) {
-	    $output =~ s/¾ßÌåÇé¿ö£º/<B>ÓÉÓÚÄãĞŞ¸ÄÁË Email£¬ËùÒÔÄãÖ±½ÓĞŞ¸ÄµÄÂÛÌ³ÃÜÂëÊÇÎŞĞ§µÄ£¬¶øÄãµÄĞÂÂÛÌ³ÃÜÂëÒÑ¾­Í¨¹ı Email ·¢ËÍ¸øÄãÁË£¡<\/B>/g;
+	    $output =~ s/å…·ä½“æƒ…å†µï¼š/<B>ç”±äºä½ ä¿®æ”¹äº† Emailï¼Œæ‰€ä»¥ä½ ç›´æ¥ä¿®æ”¹çš„è®ºå›å¯†ç æ˜¯æ— æ•ˆçš„ï¼Œè€Œä½ çš„æ–°è®ºå›å¯†ç å·²ç»é€šè¿‡ Email å‘é€ç»™ä½ äº†ï¼<\/B>/g;
 	}
 1;

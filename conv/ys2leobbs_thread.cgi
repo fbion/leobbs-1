@@ -1,24 +1,24 @@
 #! /usr/bin/perl
 
 #
-# ³ÌĞò±àÖÆ£ºÇåÁ¹
-# ÕâÊÇÒ»¸öµ¥¶ÀµÄ×ª»»³ÌĞò£¬½áºÏÎÒÒÔÇ°·¢±íµÄÒ»É½ÂÛÌ³ÓÃ»§Êı¾İµ½LeoBBS×ª»»³ÌĞò£¬¿ÉÒÔ°ÑÔ­Ò»É½ÂÛÌ³
-# ±È½ÏÍêÕûµØÒÆÖ²µ½LeoBBS¡£
+# ç¨‹åºç¼–åˆ¶ï¼šæ¸…å‡‰
+# è¿™æ˜¯ä¸€ä¸ªå•ç‹¬çš„è½¬æ¢ç¨‹åºï¼Œç»“åˆæˆ‘ä»¥å‰å‘è¡¨çš„ä¸€å±±è®ºå›ç”¨æˆ·æ•°æ®åˆ°LeoBBSè½¬æ¢ç¨‹åºï¼Œå¯ä»¥æŠŠåŸä¸€å±±è®ºå›
+# æ¯”è¾ƒå®Œæ•´åœ°ç§»æ¤åˆ°LeoBBSã€‚
 #
-# ¾ßÌå×ö·¨£º 
-#   °Ñ¸Ã³ÌĞòÉÏ´«µ½ÂÛÌ³µÄÖ÷Ä¿Â¼£¬ÉèÖÃÈ¨ÏŞÎª755£¬È»ºóĞŞ¸ÄÆäÖĞµÄ$key_input="5";£¬°ÑÆäÖĞµÄ¡°5¡±
-#   ¸ÄÎªÄãÒª×ª»»µÄÂÛÌ³µÄ¾ßÌåÄÄ¸öÀ¸Ä¿¶ÔÓ¦µÄÊı×Ö£¬È»ºóÖ´ĞĞ¼´¿É¡£³ÌĞò»á×Ô¶¯ÔÚ¸ÃÄ¿Â¼ÏÂ´´½¨trans×Ó
-#   Ä¿Â¼£¬Èç¹û×ª»»µÄÀ¸Ä¿Êı×ÖÊÇ5£¬»¹»á×Ô¶¯ÔÚtransÄ¿Â¼ÏÂ´´½¨5×ÓÄ¿Â¼¡£×ª»»ºóµÄÊı¾İ¾Í·ÅÔÚÀïÃæ¡£
-#   ×ª»»½áÊøºó»áÌáÊ¾Ó¦¸Ã×ª»»¶àÉÙ£¬Êµ¼Ê×ª»»¶àÉÙ£¬Èç¹ûÁ½Êı×Ö±£³ÖÒ»ÖÂ£¬»ù±¾¾Í×ª»»³É¹¦ÁË¡£ 
-#   È»ºóÔÚ LeoBBS ÀïÍ¨¹ı¹ÜÀíÖĞĞÄ´´½¨Ò»¸öÂÛÌ³£¬Æ©Èç´´½¨Ò»¸öÂÛÌ³£¬Ãû³ÆÎª¡°²¨¶¯ĞÄÏÒ¡±£¬¶ÔÓ¦µÄ
-#   Ä¿Â¼Îªforum21¡£°Ñ×ª»»ºóµÄÊı¾İÉè·¨¿½±´µ½forum21Ä¿Â¼Àï£¬ÉèÖÃ¸ÃÄ¿Â¼ÀïËùÓĞÎÄ¼şÈ¨ÏŞÎª666¡£ 
-#   ½øÈë¹ÜÀíÖĞĞÄ£¬ÖØĞÂÕûÀí¸ÃÂÛÌ³¼´¿É¡£×îºóÖØĞÂÍ³¼ÆÒ»ÏÂÕû¸öÂÛÌ³µÄÎÄÕÂÊı£¬¾Í¿ÉÒÔÓÃÁË¡£ 
-#   ÔÚ³ÌĞòÀïÓĞÒ»¸öº¯Êı¿ÉÄÜ¶Ô´ó¼ÒÓĞÓÃ£¬¾ÍÊÇt2t¡£Èç¹û´ó¼ÒÊ¹ÓÃÁËlocaltimeº¯Êı£¬¶ÔÊ±¼ä½øĞĞ¹ı·Ö½â¡£
-#   ÔÙÏëÒª°Ñ·Ö½â¹ıºóµÄÊ±¼ä»¹Ô­³Étimeº¯ÊıÉú³ÉµÄÊ±¼ä´®£¬¿ÉÒÔ²ÎÕÕÀïÃæµÄt2tº¯Êı¡£Ö±½Ó°ÑÁ½¸öÏà¹Ø
-#   ×Óº¯Êı¿½±´µ½ÄãµÄ³ÌĞòÀï£¬È»ºóÔÚ³ÌĞò¿ªÊ¼µÄµØ·½¼ÓÈëuse Time::Local; ¾ÍĞĞÁË¡£ 
+# å…·ä½“åšæ³•ï¼š 
+#   æŠŠè¯¥ç¨‹åºä¸Šä¼ åˆ°è®ºå›çš„ä¸»ç›®å½•ï¼Œè®¾ç½®æƒé™ä¸º755ï¼Œç„¶åä¿®æ”¹å…¶ä¸­çš„$key_input="5";ï¼ŒæŠŠå…¶ä¸­çš„â€œ5â€
+#   æ”¹ä¸ºä½ è¦è½¬æ¢çš„è®ºå›çš„å…·ä½“å“ªä¸ªæ ç›®å¯¹åº”çš„æ•°å­—ï¼Œç„¶åæ‰§è¡Œå³å¯ã€‚ç¨‹åºä¼šè‡ªåŠ¨åœ¨è¯¥ç›®å½•ä¸‹åˆ›å»ºtranså­
+#   ç›®å½•ï¼Œå¦‚æœè½¬æ¢çš„æ ç›®æ•°å­—æ˜¯5ï¼Œè¿˜ä¼šè‡ªåŠ¨åœ¨transç›®å½•ä¸‹åˆ›å»º5å­ç›®å½•ã€‚è½¬æ¢åçš„æ•°æ®å°±æ”¾åœ¨é‡Œé¢ã€‚
+#   è½¬æ¢ç»“æŸåä¼šæç¤ºåº”è¯¥è½¬æ¢å¤šå°‘ï¼Œå®é™…è½¬æ¢å¤šå°‘ï¼Œå¦‚æœä¸¤æ•°å­—ä¿æŒä¸€è‡´ï¼ŒåŸºæœ¬å°±è½¬æ¢æˆåŠŸäº†ã€‚ 
+#   ç„¶ååœ¨ LeoBBS é‡Œé€šè¿‡ç®¡ç†ä¸­å¿ƒåˆ›å»ºä¸€ä¸ªè®ºå›ï¼Œè­¬å¦‚åˆ›å»ºä¸€ä¸ªè®ºå›ï¼Œåç§°ä¸ºâ€œæ³¢åŠ¨å¿ƒå¼¦â€ï¼Œå¯¹åº”çš„
+#   ç›®å½•ä¸ºforum21ã€‚æŠŠè½¬æ¢åçš„æ•°æ®è®¾æ³•æ‹·è´åˆ°forum21ç›®å½•é‡Œï¼Œè®¾ç½®è¯¥ç›®å½•é‡Œæ‰€æœ‰æ–‡ä»¶æƒé™ä¸º666ã€‚ 
+#   è¿›å…¥ç®¡ç†ä¸­å¿ƒï¼Œé‡æ–°æ•´ç†è¯¥è®ºå›å³å¯ã€‚æœ€åé‡æ–°ç»Ÿè®¡ä¸€ä¸‹æ•´ä¸ªè®ºå›çš„æ–‡ç« æ•°ï¼Œå°±å¯ä»¥ç”¨äº†ã€‚ 
+#   åœ¨ç¨‹åºé‡Œæœ‰ä¸€ä¸ªå‡½æ•°å¯èƒ½å¯¹å¤§å®¶æœ‰ç”¨ï¼Œå°±æ˜¯t2tã€‚å¦‚æœå¤§å®¶ä½¿ç”¨äº†localtimeå‡½æ•°ï¼Œå¯¹æ—¶é—´è¿›è¡Œè¿‡åˆ†è§£ã€‚
+#   å†æƒ³è¦æŠŠåˆ†è§£è¿‡åçš„æ—¶é—´è¿˜åŸæˆtimeå‡½æ•°ç”Ÿæˆçš„æ—¶é—´ä¸²ï¼Œå¯ä»¥å‚ç…§é‡Œé¢çš„t2tå‡½æ•°ã€‚ç›´æ¥æŠŠä¸¤ä¸ªç›¸å…³
+#   å­å‡½æ•°æ‹·è´åˆ°ä½ çš„ç¨‹åºé‡Œï¼Œç„¶ååœ¨ç¨‹åºå¼€å§‹çš„åœ°æ–¹åŠ å…¥use Time::Local; å°±è¡Œäº†ã€‚ 
 #
-#   ×îºó£¬Òª×¢ÒâµÄÊÇ£º¸Ã³ÌĞòÊÇÔÚÃüÁîĞĞ·½Ê½ÏÂÖ´ĞĞµÄ£¬¼´£ºperl ys2leobbs_thread.cgi
-#   Èç¹ûÂÛÌ³Êı¾İÁ¿´ó¿ÉÄÜÊ±¼ä»á³¤Ò»µã£¬²»¹ı×ª»»¹ı³ÌÖĞÓĞÌáÊ¾×ª»»¶àÉÙµÄ¡£
+#   æœ€åï¼Œè¦æ³¨æ„çš„æ˜¯ï¼šè¯¥ç¨‹åºæ˜¯åœ¨å‘½ä»¤è¡Œæ–¹å¼ä¸‹æ‰§è¡Œçš„ï¼Œå³ï¼šperl ys2leobbs_thread.cgi
+#   å¦‚æœè®ºå›æ•°æ®é‡å¤§å¯èƒ½æ—¶é—´ä¼šé•¿ä¸€ç‚¹ï¼Œä¸è¿‡è½¬æ¢è¿‡ç¨‹ä¸­æœ‰æç¤ºè½¬æ¢å¤šå°‘çš„ã€‚
 #
 
 use Time::Local;
@@ -40,7 +40,7 @@ require "config.pl";
 	$wennototal=$#wennototal+1;
 
 	foreach $usernotemp(@wennototal){
-		($marktemp,$usernametemp,$useremailtemp,$userurltemp,$usertitletemp,$emailtruetemp,$userpasstemp,$userclicktemp,$usernumberstemp,$userhometemp,$vtemp,$datentimentemp,$markendtemp,$lasttemp)=split(/¡¬/,$TEMP{$usernotemp});
+		($marktemp,$usernametemp,$useremailtemp,$userurltemp,$usertitletemp,$emailtruetemp,$userpasstemp,$userclicktemp,$usernumberstemp,$userhometemp,$vtemp,$datentimentemp,$markendtemp,$lasttemp)=split(/â€–/,$TEMP{$usernotemp});
 #		print "-$marktemp-$usernametemp--$usertitletemp-$markendtemp-\n";
 		if (($marktemp eq "start") && ($markendtemp eq "end")) {
 			if ($userhometemp==0){
@@ -57,7 +57,7 @@ require "config.pl";
 		$wennowno +=1;
 		$theplfile=""; $thecgifile="";
    		if ($TEMP{$userno}) {
-   	   		($mark,$username,$useremail,$userurl,$usertitle,$emailtrue,$userpass,$userclick,$usernumbers,$userhome,$v,$datentimen,$markend,$last)=split(/¡¬/,$TEMP{$userno});
+   	   		($mark,$username,$useremail,$userurl,$usertitle,$emailtrue,$userpass,$userclick,$usernumbers,$userhome,$v,$datentimen,$markend,$last)=split(/â€–/,$TEMP{$userno});
       			if (($mark eq "start") && ($markend eq "end")) {
        			} 
    		}
@@ -73,7 +73,7 @@ require "config.pl";
 		@usernototal=sort @usernototal;
 		$usernototal=$#usernototal+1;
 		foreach $userno1(@usernototal){
-			($mark,$username1,$useremail1,$userurl1,$usertitle1,$emailtrue1,$userpass1,$userclick1,$usernumbers1,$userhome1,$vv,$datentimen1,$markend,$last)=split(/¡¬/,$TEMP{$userno1});
+			($mark,$username1,$useremail1,$userurl1,$usertitle1,$emailtrue1,$userpass1,$userclick1,$usernumbers1,$userhome1,$vv,$datentimen1,$markend,$last)=split(/â€–/,$TEMP{$userno1});
 			if (($mark eq "start") && ($markend eq "end")) {
 				if (($usernumbers1 == $usernumbers)&&($userhome1 !=0 )){
 					push(@list5,$userno1);
@@ -85,7 +85,7 @@ require "config.pl";
 	######################################################################
 		foreach $userno2(@list5){
 			if ($TEMP{$userno2}) {
-                		($mark,$username2,$useremail2,$userurl2,$usertitle2,$emailtrue2,$userpass2,$userclick2,$usernumbers2,$userhome2,$vvv,$datentimen2,$markend,$last)=split(/¡¬/,$TEMP{$userno2});
+                		($mark,$username2,$useremail2,$userurl2,$usertitle2,$emailtrue2,$userpass2,$userclick2,$usernumbers2,$userhome2,$vvv,$datentimen2,$markend,$last)=split(/â€–/,$TEMP{$userno2});
                 		open (FILE, "${filedata}${userno2}");
 				my $userinfo2=<FILE>;
 				close (FILE);
@@ -107,15 +107,15 @@ require "config.pl";
 		print FILE $thecgifile;
 		close FILE;
 		
-		print "ÒÑ×ª»» $wennowno ¸öÖ÷Ìâ\n";
+		print "å·²è½¬æ¢ $wennowno ä¸ªä¸»é¢˜\n";
 	}
-	print "×ª»»×¨À¸ $key_input ½áÊø.\n";
-	print "Ó¦×ª»» $wennowno ¸öÖ÷Ìâ£¬Êµ¼Ê×ª»» $usertotalall ¸öÖ÷Ìâ.\n";
-	print "Ó¦×ª»» $wennototal ÆªÎÄÕÂ£¬Êµ¼Ê×ª»» $wentotal ÆªÎÄÕÂ.\n";
-	print "Çëµ½ $transdir/$key_input Ä¿Â¼Àï²é¿´×ª»»ÊÇ·ñÕıÈ·¡£\n";
+	print "è½¬æ¢ä¸“æ  $key_input ç»“æŸ.\n";
+	print "åº”è½¬æ¢ $wennowno ä¸ªä¸»é¢˜ï¼Œå®é™…è½¬æ¢ $usertotalall ä¸ªä¸»é¢˜.\n";
+	print "åº”è½¬æ¢ $wennototal ç¯‡æ–‡ç« ï¼Œå®é™…è½¬æ¢ $wentotal ç¯‡æ–‡ç« .\n";
+	print "è¯·åˆ° $transdir/$key_input ç›®å½•é‡ŒæŸ¥çœ‹è½¬æ¢æ˜¯å¦æ­£ç¡®ã€‚\n";
 sub t2t{
-#×ª»»Ö®Ç°µÄÈÕÆÚ¸ñÊ½Îª2001/04/28(13:04:04)£¬
-#ÆäËûµÄÈÕÆÚÈç¹û¾ß±¸Õâ¼¸ÏîÄÚÈİ,°´ÕÕ¸ñÊ½¶ÔÏÂÃæÊ±¼äµÄ¶¨Î»×öÒ»Ğ©ĞŞ¸Ä£¬¾Í¿ÉÒÔÓÃÕâ¸öº¯Êı
+#è½¬æ¢ä¹‹å‰çš„æ—¥æœŸæ ¼å¼ä¸º2001/04/28(13:04:04)ï¼Œ
+#å…¶ä»–çš„æ—¥æœŸå¦‚æœå…·å¤‡è¿™å‡ é¡¹å†…å®¹,æŒ‰ç…§æ ¼å¼å¯¹ä¸‹é¢æ—¶é—´çš„å®šä½åšä¸€äº›ä¿®æ”¹ï¼Œå°±å¯ä»¥ç”¨è¿™ä¸ªå‡½æ•°
 	my $ntime=shift;
 	my($secn,$minn,$hourn,$dayn,$monn,$yearn);
 	$yearn=substr($ntime,0,4); $monn=substr($ntime,5,2); $dayn=substr($ntime,8,2);

@@ -1,21 +1,21 @@
 #!/usr/bin/perl
 #############################################################
-#  ¹¦ÄÜ: 1.¶Ô¿ÍÈËÏÔÊ¾µÇÂ¼¿ò, 2.¶ÔÒÔµÇÂ¼ÕßÏÔÊ¾»¶Ó­ĞÅÏ¢,
+#  åŠŸèƒ½: 1.å¯¹å®¢äººæ˜¾ç¤ºç™»å½•æ¡†, 2.å¯¹ä»¥ç™»å½•è€…æ˜¾ç¤ºæ¬¢è¿ä¿¡æ¯,
 #
-#  ËµÃ÷: ½«±¾ÎÄ¼ş¸´ÖÆµ½ leobbs.cgi Í¬Ä¿Â¼ÏÂ,
-#        ÔÚÖ÷Ò³¼ÓÉÏ´úÂë:
-#        <SCRIPT type="text/javascript" language="javascript" src="ÂÛÌ³urlµØÖ·/mainlogin.cgi"></SCRIPT>
+#  è¯´æ˜: å°†æœ¬æ–‡ä»¶å¤åˆ¶åˆ° leobbs.cgi åŒç›®å½•ä¸‹,
+#        åœ¨ä¸»é¡µåŠ ä¸Šä»£ç :
+#        <SCRIPT type="text/javascript" language="javascript" src="è®ºå›urlåœ°å€/mainlogin.cgi"></SCRIPT>
 #
 #############################################################
 
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-#  »ùÓÚÉ½Ó¥ºı¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ   #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+#  åŸºäºå±±é¹°ç³Šã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ   #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBoard.com/          #
-#      ÂÛÌ³µØÖ·£º http://www.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBoard.com/          #
+#      è®ºå›åœ°å€ï¼š http://www.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -46,19 +46,19 @@ if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie");   }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 }
 else {
     &getmember("$inmembername");
-    $inmembername = "¿ÍÈË" if ($userregistered eq "no");
+    $inmembername = "å®¢äºº" if ($userregistered eq "no");
 }
 
-if ($inmembername eq "¿ÍÈË") {
-    $str = qq~<FORM name=login action="$boardurl/loginout.cgi" method=post><INPUT type=hidden value=login name=action><INPUT type=hidden name=forum><BR>ÓÃ»§£º<INPUT size=10 name=inmembername><BR>ÃÜÂë£º<INPUT type=password size=10 name=inpassword><BR>Cookie <SELECT name=CookieDate><OPTION value="0" selected>²»±£´æ</OPTION><OPTION value=+1d>±£´æÒ»Ìì</OPTION><OPTION value=+30d>±£´æÒ»ÔÂ</OPTION><OPTION value=+20y>ÓÀ¾Ã±£´æ</OPTION></SELECT><BR><INPUT type=submit value=½øÈë name=Submit><INPUT type=reset value=È¡Ïû name=Submit></FORM><A target=_blank href="$boardurl/leobbs.cgi">²Î¹Û</A> <A target=_blank href="$boardurl/register.cgi">×¢²á</A> <A target=_blank href="$boardurl/profile.cgi?action=lostpassword">Íü¼ÇÃÜÂë</A><BR>~;
+if ($inmembername eq "å®¢äºº") {
+    $str = qq~<FORM name=login action="$boardurl/loginout.cgi" method=post><INPUT type=hidden value=login name=action><INPUT type=hidden name=forum><BR>ç”¨æˆ·ï¼š<INPUT size=10 name=inmembername><BR>å¯†ç ï¼š<INPUT type=password size=10 name=inpassword><BR>Cookie <SELECT name=CookieDate><OPTION value="0" selected>ä¸ä¿å­˜</OPTION><OPTION value=+1d>ä¿å­˜ä¸€å¤©</OPTION><OPTION value=+30d>ä¿å­˜ä¸€æœˆ</OPTION><OPTION value=+20y>æ°¸ä¹…ä¿å­˜</OPTION></SELECT><BR><INPUT type=submit value=è¿›å…¥ name=Submit><INPUT type=reset value=å–æ¶ˆ name=Submit></FORM><A target=_blank href="$boardurl/leobbs.cgi">å‚è§‚</A> <A target=_blank href="$boardurl/register.cgi">æ³¨å†Œ</A> <A target=_blank href="$boardurl/profile.cgi?action=lostpassword">å¿˜è®°å¯†ç </A><BR>~;
 }
 else {
-    $str = qq~<BR>»¶Ó­Äú<BR>$inmembername<BR><BR><A target=_blank href="$boardurl/leobbs.cgi">½øÈë</A> <A target=_blank href="$boardurl/loginout.cgi">ÖØµÇÂ¼</A> <A href="$boardurl/loginout.cgi?action=logout">ÍË³ö</A><BR>~;
+    $str = qq~<BR>æ¬¢è¿æ‚¨<BR>$inmembername<BR><BR><A target=_blank href="$boardurl/leobbs.cgi">è¿›å…¥</A> <A target=_blank href="$boardurl/loginout.cgi">é‡ç™»å½•</A> <A href="$boardurl/loginout.cgi?action=logout">é€€å‡º</A><BR>~;
 }
 
 print header(-charset=>gb2312);

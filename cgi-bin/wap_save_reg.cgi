@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -34,7 +34,7 @@ $password2     = $query -> param('p1');
 $emailaddress     = $query -> param('email');
 $emailaddress  = lc($emailaddress);
 if (($inmembername eq "")||($emailaddress eq "")) {
-        &errorout("ÓÃ»§×¢²á&ÇëÊäÈëÓÃ»§ÃûºÍÓÊ¼şµØÖ·£¬ÕâĞ©ÊÇ±ØĞèµÄ£¡");
+        &errorout("ç”¨æˆ·æ³¨å†Œ&è¯·è¾“å…¥ç”¨æˆ·åå’Œé‚®ä»¶åœ°å€ï¼Œè¿™äº›æ˜¯å¿…éœ€çš„ï¼");
     }
 $ipaddress     = $ENV{'REMOTE_ADDR'};
     my $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
@@ -58,17 +58,14 @@ my $charone = substr($emailaddress, 0, 1);
 	    $allmemberemails = "\t$allmemberemails";
 
 	    if ($allmemberemails =~ /\n$emailaddress\t(.+?)\n/i) {
-		&errorout("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÕâÊäÈëµÄ Email ÒÑ¾­±»×¢²áÓÃ»§£º<u>$1</u> Ê¹ÓÃÁË");
+		&errorout("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œè¿™è¾“å…¥çš„ Email å·²ç»è¢«æ³¨å†Œç”¨æˆ·ï¼š<u>$1</u> ä½¿ç”¨äº†");
 	    }
 	}
-	 &errorout("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÊäÈëµÄÓÃ»§Ãû£¨$inmembername£©ÓĞÎÊÌâ£¬Çë²»ÒªÔÚÓÃ»§ÃûÖĞ°üº¬\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]ÕâÀà×Ö·û£¡") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
-    if($inmembername =~ /_/)  { &errorout("ÓÃ»§×¢²á&Çë²»ÒªÔÚÓÃ»§ÃûÖĞÊ¹ÓÃÏÂ»®Ïß£¡"); }
+	 &errorout("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨è¾“å…¥çš„ç”¨æˆ·åï¼ˆ$inmembernameï¼‰æœ‰é—®é¢˜ï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­åŒ…å«\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]è¿™ç±»å­—ç¬¦ï¼") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
+    if($inmembername =~ /_/)  { &errorout("ç”¨æˆ·æ³¨å†Œ&è¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­ä½¿ç”¨ä¸‹åˆ’çº¿ï¼"); }
     $inmembername =~ s/\&nbsp\;//ig;
-    $inmembername =~ s/¡¡/ /g;
-    $inmembername =~ s/©¡/ /g;
-    $inmembername =~ s/[ ]+/ /g;
-    $inmembername =~ s/[ ]+/_/;
-    $inmembername =~ s/[_]+/_/;
+    $inmembername =~ s/ã€€/ /g;
+    $inmembername =~ s/;
     $inmembername =~ s/ÿ//isg;
     $inmembername =~ s///isg;
     $inmembername =~ s/¡¡//isg;

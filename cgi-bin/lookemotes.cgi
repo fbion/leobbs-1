@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -45,7 +45,7 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $action      =  $PARAM{'action'};
 $inforum     =  $PARAM{'forum'};
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 
 $inmember            = $query -> param('member');
 $inmembername        = $query -> param("membername");
@@ -67,18 +67,18 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) { $inmembername = "¿ÍÈË"; }
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) { $inmembername = "å®¢äºº"; }
     else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
         }   
 
-&mischeader("ÂÛÌ³EMOTEÁĞ±í");
+&mischeader("è®ºå›EMOTEåˆ—è¡¨");
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     
@@ -97,7 +97,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 ##################################################################################
 sub styleform {
-&mischeader("²é¿´ÂÛÌ³ EMOTE ÁĞ±í");
+&mischeader("æŸ¥çœ‹è®ºå› EMOTE åˆ—è¡¨");
 $filetoopen = "$lbdir" . "data/emote.cgi";
 open (FILE, "$filetoopen");
 flock (FILE, 1) if ($OS_USED eq "Unix");
@@ -107,7 +107,7 @@ close (FILE);
 $output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table width=$tablewidth border=1 bordercolor=$tablebordercolor align=center cellpadding=5 cellspacing=0 style="border-collapse: collapse">
-        <tr><td bgcolor=$forumcolorone $catbackpic colspan=2 align=center>×¢Òâ:ÏÂÁĞËùÓĞµÄ"¶ÔÏó"½«±»Ìæ»»³É·¢ÌùÈËµÄÓÃ»§Ãû.</td>
+        <tr><td bgcolor=$forumcolorone $catbackpic colspan=2 align=center>æ³¨æ„:ä¸‹åˆ—æ‰€æœ‰çš„"å¯¹è±¡"å°†è¢«æ›¿æ¢æˆå‘è´´äººçš„ç”¨æˆ·å.</td>
        ~;  
        @pairs1 = split(/\&/,$emote);
 	    foreach (@pairs1) {
@@ -120,6 +120,6 @@ $output .= qq~
 }
 
 $output .= qq~</tr></table><SCRIPT>valignend()</SCRIPT><br><br></body></html>~;
-&output("$boardname - ²é¿´ÂÛÌ³ EMOTE ÁĞ±í",\$output);
+&output("$boardname - æŸ¥çœ‹è®ºå› EMOTE åˆ—è¡¨",\$output);
 exit;
 

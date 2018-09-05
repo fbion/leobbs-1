@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 require "rebuildlist.pl";
@@ -25,7 +25,7 @@ if (-e $filetoopen) {
     $topics =~ s/\r//isg;
     @topics=split(/\n/,$topics);
 }
-else { &error("´ò¿ªÂÛÌ³&¶Ô²»Æğ£¬Õâ¸öÂÛÌ³²»´æÔÚ£¡Èç¹ûÈ·¶¨·ÖÂÛÌ³ºÅÂëÃ»´í£¬ÄÇÃ´Çë½øÈë¹ÜÀíÇøĞŞ¸´ÂÛÌ³Ò»´Î£¡"); }
+else { &error("æ‰“å¼€è®ºå›&å¯¹ä¸èµ·ï¼Œè¿™ä¸ªè®ºå›ä¸å­˜åœ¨ï¼å¦‚æœç¡®å®šåˆ†è®ºå›å·ç æ²¡é”™ï¼Œé‚£ä¹ˆè¯·è¿›å…¥ç®¡ç†åŒºä¿®å¤è®ºå›ä¸€æ¬¡ï¼"); }
 
 $numberofitems = @topics;
 
@@ -71,15 +71,15 @@ if ($numberofpages > 1) {
 
     my $currentpage = int($inshow / $maxthreads) + 1;
     my $endstart = ($numberofpages - 1) * $maxthreads;
-    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$inforum&show=0$threadagesstart title="Ê× Ò³" ><font face=webdings>9</font></a>~;
-    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$inforum&show=$endstart$threadagesstart title="Î² Ò³" ><font face=webdings>:</font></a>~;
+    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$inforum&show=0$threadagesstart title="é¦– é¡µ" ><font face=webdings>9</font></a>~;
+    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$inforum&show=$endstart$threadagesstart title="å°¾ é¡µ" ><font face=webdings>:</font></a>~;
 
     my $uppage = $currentpage - 1;
     my $nextpage = $currentpage + 1;
     my $upstart = $inshow - $maxthreads;
     my $nextstart = $inshow + $maxthreads;
-    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$inforum&show=$upstart$threadagesstart title="µÚ $uppage Ò³"><font face=webdings>7</font></a>~;
-    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$inforum&show=$nextstart$threadagesstart title="µÚ $nextpage Ò³"><font face=webdings>8</font></a>~;
+    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$inforum&show=$upstart$threadagesstart title="ç¬¬ $uppage é¡µ"><font face=webdings>7</font></a>~;
+    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$inforum&show=$nextstart$threadagesstart title="ç¬¬ $nextpage é¡µ"><font face=webdings>8</font></a>~;
 
     my $tempstep = $currentpage / 7;
     my $currentstep = int($tempstep);
@@ -88,8 +88,8 @@ if ($numberofpages > 1) {
     my $nextsteppage = $currentstep * 7 + 1;
     my $upstepstart = ($upsteppage - 1) * $maxthreads;
     my $nextstepstart = ($nextsteppage - 1) * $maxthreads;
-    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$inforum&show=$upstepstart$threadagesstart class=hb title="µÚ $upsteppage Ò³">¡û</a> ~;
-    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$inforum&show=$nextstepstart$threadagesstart class=hb title="µÚ $nextsteppage Ò³">¡ú</a> ~;
+    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$inforum&show=$upstepstart$threadagesstart class=hb title="ç¬¬ $upsteppage é¡µ">â†</a> ~;
+    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$inforum&show=$nextstepstart$threadagesstart class=hb title="ç¬¬ $nextsteppage é¡µ">â†’</a> ~;
 
     $topicpages = "";
     my $currentstart = $upstepstart + $maxthreads;
@@ -99,11 +99,11 @@ if ($numberofpages > 1) {
 	$topicpages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=forums.cgi?forum=$inforum&show=$currentstart$threadagesstart class=hb>$i</a> ~;
 	$currentstart += $maxthreads;
     }
-    $topicpages = "<font color=$menufontcolor>$beginpage $showup \[ $showupstep$topicpages$shownextstep\] $shownext $endpage¡¡ <b>¹²<font color=$fonthighlight>$numberofpages</font>Ò³</b></font>";
+    $topicpages = "<font color=$menufontcolor>$beginpage $showup \[ $showupstep$topicpages$shownextstep\] $shownext $endpageã€€ <b>å…±<font color=$fonthighlight>$numberofpages</font>é¡µ</b></font>";
 } else {
     $startarray = 0;
     $endarray = $numberofitems - 1;
-    $topicpages = "<font color=$menufontcolor>±¾ÂÛÌ³Ö»ÓĞÒ»Ò³</font>";
+    $topicpages = "<font color=$menufontcolor>æœ¬è®ºå›åªæœ‰ä¸€é¡µ</font>";
 }
 
   foreach $topicid (@topics[$startarray ... $endarray]) {

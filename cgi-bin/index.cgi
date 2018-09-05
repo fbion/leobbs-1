@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -46,11 +46,11 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $action = $query -> param('action');
 
 if ($action eq "change_skin") {
-    if ($inmembername eq "") { $inmembername = "����"; }
+    if ($inmembername eq "") { $inmembername = "客人"; }
     else {
     &getmember("$inmembername","no");
-    &error("��ͨ����&�ϴ�͵�û�����͵������ʲô���أ�") if ($inpassword ne $password);
-    &error("��ͨ����&�û�û�е�¼��ע�ᣡ") if ($userregistered eq "no");  
+    &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
+    &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");  
     }
    $refrashurl = $query -> param('thisprog');
    $refrashurl = "leobbs.cgi" if($refrashurl eq "");
@@ -58,14 +58,14 @@ if ($action eq "change_skin") {
 #   unlink ("${lbdir}cache/myinfo/$inmembername.pl");
    $inselectstyle   = $query->param("skin");
 #   $inselectstyle = "" if (lc($inselectstyle) eq "leobbs");
-   &error("��ͨ����&�ϴ󣬱��Һ��ҵĳ���ѽ��") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+   &error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
    my $selectstylecookie= cookie(-name => "selectstyle" , -value => $inselectstyle, -path => "$cookiepath/");
    print header(-cookie  =>[$selectstylecookie], -charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
    print qq ~<script>location.href="$refrashurl";</script>~;
-   print qq~ҳ���Ѿ����£������Զ�ˢ�£����û���Զ�ˢ�£����ֹ�ˢ��һ�Σ���<BR><BR><meta http-equiv="refresh" content="3; url=$refrashurl">~;
+   print qq~页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv="refresh" content="3; url=$refrashurl">~;
    exit;
 }
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "<script language='javascript'>document.location = 'leobbs.cgi'</script>";
-print qq~ҳ���Ѿ����£������Զ�ˢ�£����û���Զ�ˢ�£����ֹ�ˢ��һ�Σ���<BR><BR><meta http-equiv="refresh" content="3; url=leobbs.cgi">~;
+print qq~页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv="refresh" content="3; url=leobbs.cgi">~;
 exit;

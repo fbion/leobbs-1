@@ -1,18 +1,18 @@
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
 #########################
-$plug="By Maiweb V060803"; #Çë²»ÒªÈ¥³ı!!!
-##############»ù±¾ÉèÖÃ##########################
-# ÓÉÓÚÊÖ»úÆÁÄ»µÄ´óĞ¡ÌØÊâĞÔ£¬Çë¾¡Á¿±£³ÖÄ¬ÈÏÉèÖÃ
-$pre = 10 ; # °æ¿éÁĞ±íÊıÁ¿
-$topicpre=3;# Ìû×ÓÏÔÊ¾Ã¿¿¨Æ¬ÏÔÊ¾µÄ»Ø¸´ÊıÁ¿
-$pre_index=16;#Ê×Ò³ÂÛÌ³ÁĞ±íÃ¿Ò³ÏÔÊ¾µÄĞĞÊı
-$mastnum =125;#Ìû×ÓÏÔÊ¾´¦£¬Ã¿¸öÖ÷Ìâ»òÕß»Ø¸´ÏÔÊ¾µÄ³¤¶È
-$mastnum2=340;#µ¥¶ÀÖ÷ÌâÃ¿Ò³ÏÖÊµµÄ³¤¶È
-#############Íê±Ï#################################
+$plug="By Maiweb V060803"; #è¯·ä¸è¦å»é™¤!!!
+##############åŸºæœ¬è®¾ç½®##########################
+# ç”±äºæ‰‹æœºå±å¹•çš„å¤§å°ç‰¹æ®Šæ€§ï¼Œè¯·å°½é‡ä¿æŒé»˜è®¤è®¾ç½®
+$pre = 10 ; # ç‰ˆå—åˆ—è¡¨æ•°é‡
+$topicpre=3;# å¸–å­æ˜¾ç¤ºæ¯å¡ç‰‡æ˜¾ç¤ºçš„å›å¤æ•°é‡
+$pre_index=16;#é¦–é¡µè®ºå›åˆ—è¡¨æ¯é¡µæ˜¾ç¤ºçš„è¡Œæ•°
+$mastnum =125;#å¸–å­æ˜¾ç¤ºå¤„ï¼Œæ¯ä¸ªä¸»é¢˜æˆ–è€…å›å¤æ˜¾ç¤ºçš„é•¿åº¦
+$mastnum2=340;#å•ç‹¬ä¸»é¢˜æ¯é¡µç°å®çš„é•¿åº¦
+#############å®Œæ¯•#################################
 use UTF8simple;
 $uref = new UTF8simple;
 $maiweb_sl = "off";
@@ -27,7 +27,7 @@ sub wapfoot{
 my ($no,$min,$hour)= localtime(time+(3600*$time_hour));
 if($hour<10){$hour="0".$hour;}
 if($min<10){$min="0".$min;}
-$show.= "<p><br/>±¨Ê±:$hour:$min</p></card></wml>\n";
+$show.= "<p><br/>æŠ¥æ—¶:$hour:$min</p></card></wml>\n";
 $u=$uref->toUTF8("gb2312",$show);
 print $u;
 exit;
@@ -35,13 +35,13 @@ exit;
 sub errorout{
 my $a=shift();
 my($a,$b)=split(/\&/,$a);
-$show.= qq~<p>$a<br/><br/>$b<br/><a href="wap_login.cgi">¡¸µÇÂ¼¡¹</a>  <a href="wap_reg.cgi">¡¸×¢²á¡¹</a></p></card></wml>~;
+$show.= qq~<p>$a<br/><br/>$b<br/><a href="wap_login.cgi">ã€Œç™»å½•ã€</a>  <a href="wap_reg.cgi">ã€Œæ³¨å†Œã€</a></p></card></wml>~;
 $u=$uref->toUTF8("gb2312",$show);
 print $u ;exit;
 }
 sub msg{
 	my ($memberfilename,$p) = @_;
-	return if($inmembername eq '¿ÍÈË'||$inmembername eq '');
+	return if($inmembername eq 'å®¢äºº'||$inmembername eq '');
 	open (MSGIN, "${lbdir}$msgdir/in/${memberfilename}_msg.cgi");
 	sysread(MSGIN, $totalmessages,(stat(MSGIN))[7]);
 	close (MSGIN);
@@ -51,7 +51,7 @@ sub msg{
 	my @newmessages=grep(/^(.+)\tno\t/,@allmessages);
 	my $unread = @newmessages;
 	$memberfilename=uri_escape($memberfilename);
-	my $r= ($unread >0)?"<a href=\"wap_sms.cgi?lid=$lid\">ÄúÓĞ$unreadÌõĞÂµÄ¶ÌÏûÏ¢</a><br/>":"";
+	my $r= ($unread >0)?"<a href=\"wap_sms.cgi?lid=$lid\">æ‚¨æœ‰$unreadæ¡æ–°çš„çŸ­æ¶ˆæ¯</a><br/>":"";
 	return $r;
 }
 sub check{
@@ -63,9 +63,9 @@ $lid =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]
 		close(file);
 		($inmembername,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2,$city1,$where)=split(/\,/,$bf);
 		if($xh2 ne $ENV{'REMOTE_ADDR'}){
-		$inmembername = '¿ÍÈË';unlink "${lbdir}wap/$lid";$lid='a';
+		$inmembername = 'å®¢äºº';unlink "${lbdir}wap/$lid";$lid='a';
 		}
 	}else{
-		$inmembername = '¿ÍÈË';$lid='a';
+		$inmembername = 'å®¢äºº';$lid='a';
 	}
 }

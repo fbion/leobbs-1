@@ -1,13 +1,13 @@
 #!/usr/bin/perl 
 
 #########################################
-# Ò»É½²İÌÃÂÛÌ³ÓÃ»§×ÊÁÏ --> LeoBBS ×ª»»Æ÷#
+# ä¸€å±±è‰å ‚è®ºå›ç”¨æˆ·èµ„æ–™ --> LeoBBS è½¬æ¢å™¨#
 #########################################
 
-$userhead= "/home/httpd/cgi-bin/qlbbs/members/";       	#Ò»É½²İÌÃÂÛÌ³ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© /
-$leobbsmember = "/home/httpd/cgi-bin/leobbs/members/";  #LeoBBS  ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© / £¬×¢ÒâÉèÖÃ 777 ÊôĞÔ
+$userhead= "/home/httpd/cgi-bin/qlbbs/members/";       	#ä¸€å±±è‰å ‚è®ºå›ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ /
+$leobbsmember = "/home/httpd/cgi-bin/leobbs/members/";  #LeoBBS  ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ / ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§
 
-###############ÒÔÏÂ²»±ØĞŞ¸Ä################# 
+###############ä»¥ä¸‹ä¸å¿…ä¿®æ”¹################# 
 
 $ending = ".cgi";
 print ("Content-type: text/html\n\n");
@@ -37,9 +37,9 @@ for ($i=0;$i<$totaluserdata;$i++) {
     $name =~ tr/A-Z/a-z/;
     $name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\=\+\\\[\]\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
     open(IBMEMBER,">$leobbsmember$name$ending");
-    print IBMEMBER "$UserName\t$Password\tMember\tme\t$TotalPosts\t$Email\tyes\t±£ÃÜ\t$URL\t$OICQnumber\t$ICQnumber\t$Location\t\t$DateRegistered\tÃ»ÓĞ·¢±í¹ı\t$Signature\t0\t\t$AvatarWording\t\t\t\t\t\t\t\n";
+    print IBMEMBER "$UserName\t$Password\tMember\tme\t$TotalPosts\t$Email\tyes\tä¿å¯†\t$URL\t$OICQnumber\t$ICQnumber\t$Location\t\t$DateRegistered\tæ²¡æœ‰å‘è¡¨è¿‡\t$Signature\t0\t\t$AvatarWording\t\t\t\t\t\t\t\n";
     close(IBMEMBER);
-    print "ÓÃ»§ $UserName ÒÑ¾­³É¹¦×ª»»³É LeoBBS ÓÃ»§ÁË£¡<BR><BR>";
+    print "ç”¨æˆ· $UserName å·²ç»æˆåŠŸè½¬æ¢æˆ LeoBBS ç”¨æˆ·äº†ï¼<BR><BR>";
 }
-print "×Ü¹²×ª»»ÁË $totaluserdata ¸öÓÃ»§£¡<BR><BR>\n";
+print "æ€»å…±è½¬æ¢äº† $totaluserdata ä¸ªç”¨æˆ·ï¼<BR><BR>\n";
 exit;

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -36,13 +36,13 @@ if ($inpassword ne "") {
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername","no");
-    &errorout("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &errorout("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
     if ($inpassword ne $password) {
-    &errorout("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");}
+    &errorout("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");}
 }
 	FILE:my $x = &myrand(1000000000);
     $x = crypt($x, aun);
@@ -69,7 +69,7 @@ if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
     }
     print file "$inmembername,$x\n";
     close(file);
-    $show.= qq~<p>ÄúµÄĞÒÔËIDÎª£º$x,ÄúµÄIPÎª£º$xh2£¬Çë²»ÒªĞ¹Â©ÄúµÄĞÒÔËID¸øÈÎºÎÈË£¡Èç¹ûÄúÊÇÓÃÊÖ»ú·ÃÎÊÇÒÊÖ»úÎªË½ÓĞ£¬Çë°ÑÏÂÃæ½øÈëµÄÊ×Ò³µØÖ·¼ÓÈëÊéÇ©(ÊéÇ©µØÖ·£º$boardurl/wap.cgi?lid=$x £¬¼ÓÈëÖ®ºó¿ÉÃâµÇÂ½) ¡£·ñÔòÇë²»Òª¼ÓÈëÊéÇ©£¡</p><p><a href="wap.cgi?lid=$x">µã»÷´Ë´¦½øÈëÊ×Ò³</a></p>~;
+    $show.= qq~<p>æ‚¨çš„å¹¸è¿IDä¸ºï¼š$x,æ‚¨çš„IPä¸ºï¼š$xh2ï¼Œè¯·ä¸è¦æ³„æ¼æ‚¨çš„å¹¸è¿IDç»™ä»»ä½•äººï¼å¦‚æœæ‚¨æ˜¯ç”¨æ‰‹æœºè®¿é—®ä¸”æ‰‹æœºä¸ºç§æœ‰ï¼Œè¯·æŠŠä¸‹é¢è¿›å…¥çš„é¦–é¡µåœ°å€åŠ å…¥ä¹¦ç­¾(ä¹¦ç­¾åœ°å€ï¼š$boardurl/wap.cgi?lid=$x ï¼ŒåŠ å…¥ä¹‹åå¯å…ç™»é™†) ã€‚å¦åˆ™è¯·ä¸è¦åŠ å…¥ä¹¦ç­¾ï¼</p><p><a href="wap.cgi?lid=$x">ç‚¹å‡»æ­¤å¤„è¿›å…¥é¦–é¡µ</a></p>~;
     &wapfoot;
 }
 
@@ -132,7 +132,7 @@ $lid = 'a' if ($lid eq "");
 	}
 
  	my $r = &msg($inmembername);	
-$show.= qq~<p>$inmembername,$boardname»¶Ó­Äú£¡<br/><a href="wap_new.cgi?lid=$lid">×îĞÂÌû×Ó</a><br/><a href="wap_sms.cgi?lid=$lid">¶ÌÏûÏ¢</a><br/>$r\n~;
+$show.= qq~<p>$inmembername,$boardnameæ¬¢è¿æ‚¨ï¼<br/><a href="wap_new.cgi?lid=$lid">æœ€æ–°å¸–å­</a><br/><a href="wap_sms.cgi?lid=$lid">çŸ­æ¶ˆæ¯</a><br/>$r\n~;
 my @a=split(/\<br>/,$r1);
     my $allfile=@a;
     my $yema = $allfile/$pre_index;
@@ -153,5 +153,5 @@ my @a=split(/\<br>/,$r1);
     	$_=~s/sidFid/$lid/g;
     	$show.= $_.'<br/>';
     }
-    $show.= '<br/>['.$paGe.'/'.$yema.'Ò³]<br/>'.$newpage.'</p>';
+    $show.= '<br/>['.$paGe.'/'.$yema.'é¡µ]<br/>'.$newpage.'</p>';
 &wapfoot;

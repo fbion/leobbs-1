@@ -1,18 +1,18 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 sub sendtoposter {
     my ($senduser,$sendto, $moveto,$action,$forum,$topic,$topictitle,$sendly) = @_;
-    $sendly = "<BR>ÀíÓÉ£º<font color=red>$sendly</font><BR>" if ($sendly ne "" && $sendly ne " ");
-    $topictitle=~s/£ª£££¡£¦£ª//;
-    $topictitle = "°´´Ë²é¿´" if ($topictitle eq "");
+    $sendly = "<BR>ç†ç”±ï¼š<font color=red>$sendly</font><BR>" if ($sendly ne "" && $sendly ne " ");
+    $topictitle=~s/ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+    $topictitle = "æŒ‰æ­¤æŸ¥çœ‹" if ($topictitle eq "");
     my $memberfilename = $sendto;
     $memberfilename =~ s/ /\_/g;
     $memberfilename =~ tr/A-Z/a-z/;
@@ -30,25 +30,25 @@ sub sendtoposter {
     open (FILE, ">$filetoopen");
     flock (FILE, 2) if ($OS_USED eq "Unix");
     if ($action eq "move") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãµÄÌû×Ó¡¸$topictitle¡¹ÒÑ±»¹ÜÀíÔ± $senduser ÒÆÖÁ $moveto <br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ çš„å¸–å­ã€Œ$topictitleã€å·²è¢«ç®¡ç†å‘˜ $senduser ç§»è‡³ $moveto <br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     elsif ($action eq "jinghua") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãµÄÌû×Ó¡¸$topictitle¡¹ÒÑ±»¹ÜÀíÔ± $senduser ÌôÑ¡Îª¾«»ªÎÄÕÂ!!¸ĞĞ»ÄúÎª±¾ÂÛÌ³´øÀ´µÄºÃÌù×Ó£¬Ğ»Ğ»¡£<br><br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ çš„å¸–å­ã€Œ$topictitleã€å·²è¢«ç®¡ç†å‘˜ $senduser æŒ‘é€‰ä¸ºç²¾åæ–‡ç« !!æ„Ÿè°¢æ‚¨ä¸ºæœ¬è®ºå›å¸¦æ¥çš„å¥½è´´å­ï¼Œè°¢è°¢ã€‚<br><br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     elsif ($action eq "deletethread") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãµÄÌû×Ó¡¸$topictitle¡¹ÒÑ±»¹ÜÀíÔ± $senduser É¾³ı¡£<br>$sendly<br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ çš„å¸–å­ã€Œ$topictitleã€å·²è¢«ç®¡ç†å‘˜ $senduser åˆ é™¤ã€‚<br>$sendly<br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     elsif ($action eq "deletepost") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãÔÚÌû×Ó¡¸$topictitle¡¹ÖĞµÄ»Ø¸´ÒÑ±»¹ÜÀíÔ± $senduser É¾³ı¡£<br>$sendly<br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ åœ¨å¸–å­ã€Œ$topictitleã€ä¸­çš„å›å¤å·²è¢«ç®¡ç†å‘˜ $senduser åˆ é™¤ã€‚<br>$sendly<br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     elsif ($action eq "lock") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãµÄÌû×Ó¡¸$topictitle¡¹ÒÑ±»¹ÜÀíÔ± $senduser Ëø¶¨¡£<br>$sendly<br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ çš„å¸–å­ã€Œ$topictitleã€å·²è¢«ç®¡ç†å‘˜ $senduser é”å®šã€‚<br>$sendly<br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     elsif ($action eq "postdeleteonce") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãµÄÌû×Ó¡¸$topictitle¡¹ÒÑ±»¹ÜÀíÔ± $senduser ÆÁ±Î¡£<br>$sendly<br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ çš„å¸–å­ã€Œ$topictitleã€å·²è¢«ç®¡ç†å‘˜ $senduser å±è”½ã€‚<br>$sendly<br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     elsif ($action eq "unpostdeleteonce") {
-        print FILE "£ª£££¡£¦£ª$senduser\tno\t$currenttime\t¹ÜÀíÏµÍ³Ñ¶Ï¢\tÄãµÄÌû×Ó¡¸$topictitle¡¹ÒÑ±»¹ÜÀíÔ± $senduser ÆÁ±Î¡£<br>$sendly<br>ÈôÓĞÈÎºÎÎÊÌâ¿ÉÒÔ·¢¶ÌÑ¶¸ø¹ÜÀíÔ± $senduser ²éÑ¯<br><br>---------------------------------------<br>À×°Á¼«¿á³¬¼¶ÂÛÌ³ http://bbs.LeoBBS.com\n";
+        print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$senduser\tno\t$currenttime\tç®¡ç†ç³»ç»Ÿè®¯æ¯\tä½ çš„å¸–å­ã€Œ$topictitleã€å·²è¢«ç®¡ç†å‘˜ $senduser å±è”½ã€‚<br>$sendly<br>è‹¥æœ‰ä»»ä½•é—®é¢˜å¯ä»¥å‘çŸ­è®¯ç»™ç®¡ç†å‘˜ $senduser æŸ¥è¯¢<br><br>---------------------------------------<br>é›·å‚²æé…·è¶…çº§è®ºå› http://bbs.LeoBBS.com\n";
     }
     print FILE "$inboxmessages\n";
     close (FILE);

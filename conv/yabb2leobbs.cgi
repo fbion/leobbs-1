@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 
 ##########################################
-# YaBB ÓÃ»§×ÊÁÏ --> LeoBBS ÓÃ»§×ÊÁÏ×ª»»Æ÷#
+# YaBB ç”¨æˆ·èµ„æ–™ --> LeoBBS ç”¨æˆ·èµ„æ–™è½¬æ¢å™¨#
 ##########################################
 
-$yabbdir   = "/path/to/YaBB members dir/";	#YaBB ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© / 
-$leobbsdir = "/path/to/LeoBBS members dir/"; 	#LeoBBS ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© / £¬×¢ÒâÉèÖÃ 777 ÊôĞÔ
+$yabbdir   = "/path/to/YaBB members dir/";	#YaBB ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ / 
+$leobbsdir = "/path/to/LeoBBS members dir/"; 	#LeoBBS ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ / ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§
 
 print "Content-type: text/html\n\n";
-print "YaBB --> LeoBBS ÓÃ»§Êı¾İ×ª»»Æ÷<BR><BR>\n";
+print "YaBB --> LeoBBS ç”¨æˆ·æ•°æ®è½¬æ¢å™¨<BR><BR>\n";
 
 opendir (DIR, "$yabbdir");
 @dirdata = readdir(DIR);
@@ -51,11 +51,11 @@ foreach (@yabbers) {
     close (IKON);
     $membercount ++;
     $lastmember = "$username";
-    print "ÓÃ»§ $username ÒÑ¾­³É¹¦×ª»»³É LeoBBS ÓÃ»§ÁË£¡<BR><BR>";
+    print "ç”¨æˆ· $username å·²ç»æˆåŠŸè½¬æ¢æˆ LeoBBS ç”¨æˆ·äº†ï¼<BR><BR>";
     $www = ""; $sig = ""; $icq = "";
     }
     
-    print "×Ü¹²×ª»»ÁË $newtotal ¸öÓÃ»§£¡<BR><BR>\n";
+    print "æ€»å…±è½¬æ¢äº† $newtotal ä¸ªç”¨æˆ·ï¼<BR><BR>\n";
     exit;
 
 

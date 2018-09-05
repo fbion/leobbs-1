@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $mansex = "0-0-0-0-0-0-0-init-init-init-0-init-0-init-init-0-0-0-init-0-0-0-0-0-0-0";
@@ -24,10 +24,10 @@ sub readface {
     }
     else
     {
-	@FaceInfo = split(/\|/,$userface);	# ĞéÄâĞÎÏóÊı¾İ
-	$currequip = @FaceInfo[0];	# µ±Ç°×°±¸
-	$allequip = @FaceInfo[1];	# ËùÓĞ×°±¸Çé¿ö
-	$loadface  = @FaceInfo[2];	# ÊÇ·ñÊ¹ÓÃĞéÄâĞÎÏó
+	@FaceInfo = split(/\|/,$userface);	# è™šæ‹Ÿå½¢è±¡æ•°æ®
+	$currequip = @FaceInfo[0];	# å½“å‰è£…å¤‡
+	$allequip = @FaceInfo[1];	# æ‰€æœ‰è£…å¤‡æƒ…å†µ
+	$loadface  = @FaceInfo[2];	# æ˜¯å¦ä½¿ç”¨è™šæ‹Ÿå½¢è±¡
 
 	@currequip = split(/\-/,$currequip);
 	@buy_sp = split(/\-/,$allequip);
@@ -35,9 +35,9 @@ sub readface {
     }
 }
 
-sub upplugdata	# ¸üĞÂÖ¸¶¨×Ö¶ÎÄÚÈİ
+sub upplugdata	# æ›´æ–°æŒ‡å®šå­—æ®µå†…å®¹
 {
-    my ($nametocheck,$facedata,$moneydata) = @_;    # ÓÃ»§Ãû¡¢ĞéÄâĞÎÏóÊı¾İ¡¢ÏÖ½ğ
+    my ($nametocheck,$facedata,$moneydata) = @_;    # ç”¨æˆ·åã€è™šæ‹Ÿå½¢è±¡æ•°æ®ã€ç°é‡‘
 
     $nametocheck =~ s/ /\_/g;
     $nametocheck =~ tr/A-Z/a-z/;
@@ -56,12 +56,12 @@ sub upplugdata	# ¸üĞÂÖ¸¶¨×Ö¶ÎÄÚÈİ
 
 	if (($membername ne "")&&($password ne ""))
 	{
-		if ($facedata ne '')		# $facedata = clear : É¾³ıÔ­Êı¾İ ¿Õ:±£ÁôÔ­Êı¾İ ÆäËü£º±£´æĞÂÊı¾İ
+		if ($facedata ne '')		# $facedata = clear : åˆ é™¤åŸæ•°æ® ç©º:ä¿ç•™åŸæ•°æ® å…¶å®ƒï¼šä¿å­˜æ–°æ•°æ®
 		{
 		    $userface = ($facedata ne 'clear') ? $facedata : "";
 		}
 
-		$mymoney += $moneydata if($moneydata ne '');	# Èç¹û²»Îª¿Õ£¬ÔòÏÖ½ğ¼ÓÉÏĞÂÊı¾İ
+		$mymoney += $moneydata if($moneydata ne '');	# å¦‚æœä¸ä¸ºç©ºï¼Œåˆ™ç°é‡‘åŠ ä¸Šæ–°æ•°æ®
 
 		seek(FILE,0,0);
 		print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
@@ -82,21 +82,21 @@ sub upplugdata	# ¸üĞÂÖ¸¶¨×Ö¶ÎÄÚÈİ
 sub errorout
 {
     my $errormsg = shift;
-    ($errortitle,$errorcon,$errortype) = split(/\&/, $errormsg);	# ³ö´í±êÌâ¡¢³ö´íÌáÊ¾¡¢ÏÔÊ¾ÀàĞÍ
+    ($errortitle,$errorcon,$errortype) = split(/\&/, $errormsg);	# å‡ºé”™æ ‡é¢˜ã€å‡ºé”™æç¤ºã€æ˜¾ç¤ºç±»å‹
     if($errortype eq 1)
     {
-	print qq~<title>$errortitle</title><script>alert("³ö´í£º$errortitle\\n\\nÔ­Òò£º$errorcon");self.close();</script>~;
+	print qq~<title>$errortitle</title><script>alert("å‡ºé”™ï¼š$errortitle\\n\\nåŸå› ï¼š$errorcon");self.close();</script>~;
     }
     else
     {
-	print qq~<title>$errortitle</title><script>alert("³ö´í£º$errortitle\\n\\nÔ­Òò£º$errorcon");history.back();</script>~;
+	print qq~<title>$errortitle</title><script>alert("å‡ºé”™ï¼š$errortitle\\n\\nåŸå› ï¼š$errorcon");history.back();</script>~;
     }
     exit;
 }
 
 sub write_messages
 {
-    my ($sendcorp,$rename, $temptopic, $tempcontent) = @_;	# ·¢ËÍÕßÃû³Æ¡¢½ÓÊÕÕßÃû³Æ¡¢±êÌâ¡¢ÄÚÈİ
+    my ($sendcorp,$rename, $temptopic, $tempcontent) = @_;	# å‘é€è€…åç§°ã€æ¥æ”¶è€…åç§°ã€æ ‡é¢˜ã€å†…å®¹
     my $filetoopen = "$lbdir". "$msgdir/in/$rename" . "_msg.cgi";
     $filetoopen = &stripMETA($filetoopen);
     open (FILE, "$filetoopen");
@@ -105,7 +105,7 @@ sub write_messages
     $messanges =~ s/\r//isg;
 
     open (FILE, ">$filetoopen");
-    print FILE "£ª£££¡£¦£ª$sendcorp\tno\t$currenttime\t$temptopic\t$tempcontent\n$messanges";
+    print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$sendcorp\tno\t$currenttime\t$temptopic\t$tempcontent\n$messanges";
     close (FILE);
     return;
 }

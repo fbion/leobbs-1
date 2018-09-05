@@ -1,10 +1,10 @@
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-        &error("·¢Ìû&ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $postminjf µÄ²ÅÄÜ·¢ÑÔ£¡") if ($postminjf > 0 && $jifen < $postminjf);
+        &error("å‘å¸–&ä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $postminjf çš„æ‰èƒ½å‘è¨€ï¼") if ($postminjf > 0 && $jifen < $postminjf);
     }
 
-    if ($payopen eq "no") { &error("·¢±í½»Ò×Ìû&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞí·¢±í½»Ò×Ìû£¡"); }
+    if ($payopen eq "no") { &error("å‘è¡¨äº¤æ˜“å¸–&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸å‘è¡¨äº¤æ˜“å¸–ï¼"); }
 
-    &error("³ö´í&Çë²»ÒªÓÃÍâ²¿Á¬½Ó±¾³ÌĞò£¡") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
+    &error("å‡ºé”™&è¯·ä¸è¦ç”¨å¤–éƒ¨è¿æ¥æœ¬ç¨‹åºï¼") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
     for ('alipayid','warename','wareurl','wareprice','transport','postage_mail','postage_express','postage_ems') {
     next unless defined $_;
     $tp = $query->param($_);
@@ -12,12 +12,12 @@
     ${$_} = $tp;
 }
 if(length($inpost)>400){
-&error("´íÎó&ÉÌÆ·ÃèÊö²»ÄÜ³¬³ö400¸ö×Ö·û");
+&error("é”™è¯¯&å•†å“æè¿°ä¸èƒ½è¶…å‡º400ä¸ªå­—ç¬¦");
 }
-&error("´íÎó&Ã÷ÏÔ²»·ûºÏ¹æ¶¨µÄ¼Û¸ñ")if($wareprice!~/^[0-9\.]+$/i);
-&error("´íÎó&Ã÷ÏÔ²»·ûºÏ¹æ¶¨µÄ¼Û¸ñ")if($postage_mail!~/^[0-9\.]+$/i && $postage_mail ne '');
-&error("´íÎó&Ã÷ÏÔ²»·ûºÏ¹æ¶¨µÄ¼Û¸ñ")if($postage_express!~/^[0-9\.]+$/i && $postage_express ne '');
-&error("´íÎó&Ã÷ÏÔ²»·ûºÏ¹æ¶¨µÄ¼Û¸ñ")if($postage_ems!~/^[0-9\.]+$/i && $postage_ems ne '');
+&error("é”™è¯¯&æ˜æ˜¾ä¸ç¬¦åˆè§„å®šçš„ä»·æ ¼")if($wareprice!~/^[0-9\.]+$/i);
+&error("é”™è¯¯&æ˜æ˜¾ä¸ç¬¦åˆè§„å®šçš„ä»·æ ¼")if($postage_mail!~/^[0-9\.]+$/i && $postage_mail ne '');
+&error("é”™è¯¯&æ˜æ˜¾ä¸ç¬¦åˆè§„å®šçš„ä»·æ ¼")if($postage_express!~/^[0-9\.]+$/i && $postage_express ne '');
+&error("é”™è¯¯&æ˜æ˜¾ä¸ç¬¦åˆè§„å®šçš„ä»·æ ¼")if($postage_ems!~/^[0-9\.]+$/i && $postage_ems ne '');
 
 $transport = 's' if ($postage_mail eq "" && $postage_express eq "" && $postage_ems eq "");
 
@@ -29,7 +29,7 @@ if ($transport eq 's') {
 
     $alipayid  = lc($alipayid);
     $alipayid =~ s/[\ \a\f\n\e\0\r\t\`\~\!\$\%\^\&\*\(\)\=\+\\\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
-    if($alipayid !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/) { &error("´íÎó&Ö§¸¶±¦ÕËºÅ´íÎó£¡"); }
+    if($alipayid !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/) { &error("é”™è¯¯&æ”¯ä»˜å®è´¦å·é”™è¯¯ï¼"); }
 
     $wareurl =~ s/[\a\f\n\e\0\r\t]//isg;
     $wareurl =~ s/^http:\/\///isg;

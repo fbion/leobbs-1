@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -51,7 +51,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 		print qq~
 		<tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÏÞÖÆ(ÔÊÐí)¿É×¢²áÓÊÏä</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é™åˆ¶(å…è®¸)å¯æ³¨å†Œé‚®ç®±</b>
 		</td></tr>~;
 		if($Mode{$action}) { 
 			$Mode{$action}->();
@@ -81,18 +81,18 @@ sub toppage{
 	<form action="$thisprog" method="post">
 	<tr>
 	<td bgcolor="#EEEEEE" align="center" colspan="2">
-	<font color="#333333"><b>ÏÞÖÆ¿É×¢²áÓÊÏä</b>
+	<font color="#333333"><b>é™åˆ¶å¯æ³¨å†Œé‚®ç®±</b>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor="#FFFFFF" align="center" colspan="2">
 	<table width=80% align=center>
 	<tr><td><ol type="1">
-	<li>´Ë¹¦ÄÜ¿ÉÏÞÖÆ±ØÐèÒÔÄ³Ð©ÓÊÏä×¢²á¡£
-	<li>Ò²¿ÉÏÞÖÆÄ³¼¸¸öÓÊÏä²»ÄÜ×¢²á£¬·ÀÖ¹ÓÃÃâ·ÑÓÊÏä´óÁ¿×¢²á¡£
-	<li>ÊäÈëµÄÊ±ºò£¬Ã¿ÐÐÊäÈëÒ»¸öÓÊÏäÓòÃû¼´¿É¡£<B><U>²»ÓÃ¼ÓÉÏÕÊºÅÃû³ÆºÍ \@ ºÅ</U></B>¡£
-	<li>ÊäÈëµÄÓÊÏäÓòÃû²»Çø·Ö´óÐ¡Ð´¡£
-	<LI>±ÈÈç£¬ÊäÈë hotmail.com£¬ÏÞÖÆ·½Ê½Îª¡°ÒÔÉÏµÄÓÊÏä²»ÔÊÐí×¢²á¡±£¬<BR>ÕâÑù¾Í¾Ü¾øÁËËùÓÐÊ¹ÓÃ hotmail.com ÐÅÏäµÄÈËÇ°À´×¢²á¡£
+	<li>æ­¤åŠŸèƒ½å¯é™åˆ¶å¿…éœ€ä»¥æŸäº›é‚®ç®±æ³¨å†Œã€‚
+	<li>ä¹Ÿå¯é™åˆ¶æŸå‡ ä¸ªé‚®ç®±ä¸èƒ½æ³¨å†Œï¼Œé˜²æ­¢ç”¨å…è´¹é‚®ç®±å¤§é‡æ³¨å†Œã€‚
+	<li>è¾“å…¥çš„æ—¶å€™ï¼Œæ¯è¡Œè¾“å…¥ä¸€ä¸ªé‚®ç®±åŸŸåå³å¯ã€‚<B><U>ä¸ç”¨åŠ ä¸Šå¸å·åç§°å’Œ \@ å·</U></B>ã€‚
+	<li>è¾“å…¥çš„é‚®ç®±åŸŸåä¸åŒºåˆ†å¤§å°å†™ã€‚
+	<LI>æ¯”å¦‚ï¼Œè¾“å…¥ hotmail.comï¼Œé™åˆ¶æ–¹å¼ä¸ºâ€œä»¥ä¸Šçš„é‚®ç®±ä¸å…è®¸æ³¨å†Œâ€ï¼Œ<BR>è¿™æ ·å°±æ‹’ç»äº†æ‰€æœ‰ä½¿ç”¨ hotmail.com ä¿¡ç®±çš„äººå‰æ¥æ³¨å†Œã€‚
 	</ol></td></tr>
 	</table>
 	</td>
@@ -106,21 +106,21 @@ sub toppage{
 	</td>
 	</tr>
 	<tr>
-	<td bgcolor="#FFFFFF" width="30%" align="right">ÏÞÖÆ·½Ê½£º
+	<td bgcolor="#FFFFFF" width="30%" align="right">é™åˆ¶æ–¹å¼ï¼š
 	</td>
-	<td bgcolor="#FFFFFF"><input type="radio" name="select_type" value="allow"$select_type{'allow'}>±ØÐèÎªÒÔÉÏÓÊÏä²ÅÄÜ×¢²á <input type="radio" name="select_type" value="ban"$select_type{'ban'}>ÒÔÉÏµÄÓÊÏä²»ÔÊÐí×¢²á</td>
+	<td bgcolor="#FFFFFF"><input type="radio" name="select_type" value="allow"$select_type{'allow'}>å¿…éœ€ä¸ºä»¥ä¸Šé‚®ç®±æ‰èƒ½æ³¨å†Œ <input type="radio" name="select_type" value="ban"$select_type{'ban'}>ä»¥ä¸Šçš„é‚®ç®±ä¸å…è®¸æ³¨å†Œ</td>
 	</tr>
 	
 	<tr>
 	<td bgcolor="#FFFFFF" align="center" colspan="2">
-	<input type=submit name=submit value="Ìá ½»">
+	<input type=submit name=submit value="æ äº¤">
 	</td>
 	</tr>
 	</form>
 	~;
 }
 sub process{
-	$output_text = ($select_type eq "allow")?'Ö»ÄÜÊ¹ÓÃÕâÐ©ÓÊÏä×¢²á':'Ê¹ÓÃÕâÐ©ÓÊÏä×¢²á²»ÄÜ×¢²á';
+	$output_text = ($select_type eq "allow")?'åªèƒ½ä½¿ç”¨è¿™äº›é‚®ç®±æ³¨å†Œ':'ä½¿ç”¨è¿™äº›é‚®ç®±æ³¨å†Œä¸èƒ½æ³¨å†Œ';
 	$select_type .= "\n";
 	$wordarray .= "\n";
 	$wordarray =~ s/[\a\f\e\0\r\t ]//isg;
@@ -136,12 +136,12 @@ sub process{
 	print qq~
 	<tr>
 	<td bgcolor="#EEEEEE" align="center" colspan="2">
-	<font color="#333333"><b>ÓÊÏäÏÞÖÆÒÑ¾­±£´æ</b>
+	<font color="#333333"><b>é‚®ç®±é™åˆ¶å·²ç»ä¿å­˜</b>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor="#FFFFFF" align="center" colspan="2">
-	<font color="#333333"><b>ÏÂÁÐÏÞÖÆÓÊÏä±»±£´æ£¬$output_text¡£</b>
+	<font color="#333333"><b>ä¸‹åˆ—é™åˆ¶é‚®ç®±è¢«ä¿å­˜ï¼Œ$output_textã€‚</b>
 	</td>
 	</tr>
 	<tr>
@@ -162,7 +162,7 @@ sub process{
 	</tr>
 	<tr>
 	<td bgcolor="#FFFFFF" align="center" colspan="2">
-	<a href="$thisprog?"><font color="#333333">¼ÌÐøÔö¼ÓÒªÏÞÖÆµÄÓÊÏä</font></a>
+	<a href="$thisprog?"><font color="#333333">ç»§ç»­å¢žåŠ è¦é™åˆ¶çš„é‚®ç®±</font></a>
 	</td>
 	</tr>
 	~;

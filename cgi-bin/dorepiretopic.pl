@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $threadposts = @threads; $threadposts --;
@@ -15,9 +15,9 @@ my $postlast = $threads[-1];
 $postlast =~ s/[\a\f\n\e\0\r]//isg;
 ($startedby, $topictitle, my $postipaddress1, my $showemoticons1, my $showsignature1, $startedpostdate, my $post1, $posticon) = split(/\t/,$postfirst);
 ($lastposter, my $topictitle2, my $postipaddress2, my $showemoticons2, my $showsignature2, $lastpostdate, $inposttemp, my $posticon2) = split(/\t/,$postlast);
-$topictitle =~ s/^£ª£££¡£¦£ª//;
-if ($topictitle eq "") { $topictitle = $topictitle2; $topictitle =~ s/^£ª£££¡£¦£ª//; }
-$topictitle = "£ª£££¡£¦£ª$topictitle";
+$topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+if ($topictitle eq "") { $topictitle = $topictitle2; $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//; }
+$topictitle = "ï¼Šï¼ƒï¼ï¼†ï¼Š$topictitle";
 $topicid = $intopic;
 
 if ($post1 =~ /.*?\[UploadFile.{0,6}=(.+?)\].*?/i) {
@@ -28,8 +28,8 @@ if ($post1 =~ /.*?\[UploadFile.{0,6}=(.+?)\].*?/i) {
 
 $threadviews = ($threadposts+1) * 8 if ($threadviews eq "");
 $lastposter  = "" if ($threadposts eq 0);
-$inposttemp  = "(±£ÃÜ)" if ($inposttemp=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
-$inposttemp  = "(±£ÃÜ)" if ($inposttemp=~/LBSALE\[(.*?)\]LBSALE/sg);
+$inposttemp  = "(ä¿å¯†)" if ($inposttemp=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
+$inposttemp  = "(ä¿å¯†)" if ($inposttemp=~/LBSALE\[(.*?)\]LBSALE/sg);
 $inposttemp  = &temppost($inposttemp);
 $inposttemp  = &lbhz($inposttemp, 50);
 

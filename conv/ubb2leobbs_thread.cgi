@@ -1,21 +1,21 @@
 #!/usr/bin/perl
 ###############################################
-#  Ubb X.XX => LeoBBS Ìù×Ó×ª»¯
+#  Ubb X.XX => LeoBBS è´´å­è½¬åŒ–
 ###############################################
-#Ê¹ÓÃ°ïÖú£º
+#ä½¿ç”¨å¸®åŠ©ï¼š
 #
-#ÉèÖÃ$ubbnoncgiÄ¿Â¼ÎªubbµÄnoncgiÄ¿Â¼
+#è®¾ç½®$ubbnoncgiç›®å½•ä¸ºubbçš„noncgiç›®å½•
 #
-#ÉèÖÃ$leobbspathÄ¿Â¼ÎªLeoBBSµÄcgi-binÄ¿Â¼
+#è®¾ç½®$leobbspathç›®å½•ä¸ºLeoBBSçš„cgi-binç›®å½•
 #
-#ÉèÖÃ["$ubbnoncgi/Forum4","4"],ĞŞ¸ÄÇ°ÃæµÄForum4
-#ÖĞµÄ4ÊÇÄãÒª×ª»¯µÄubbÂÛÌ³Ä¿Â¼id,ºóÃæµÄ4ÊÇLeoBBS
-#µÄÂÛÌ³id£¬Òª×ª»¯¶à¸öÂÛÌ³£¬ÇëÓÃ¶àĞĞ£¬±ğÍü¼Çºó
-#ÃæµÄ¶ººÅ
+#è®¾ç½®["$ubbnoncgi/Forum4","4"],ä¿®æ”¹å‰é¢çš„Forum4
+#ä¸­çš„4æ˜¯ä½ è¦è½¬åŒ–çš„ubbè®ºå›ç›®å½•id,åé¢çš„4æ˜¯LeoBBS
+#çš„è®ºå›idï¼Œè¦è½¬åŒ–å¤šä¸ªè®ºå›ï¼Œè¯·ç”¨å¤šè¡Œï¼Œåˆ«å¿˜è®°å
+#é¢çš„é€—å·
 #
-#ÉèÖÃ$truetimeÊÇ·ñ²ÉÓÃtimeÄ£¿é£¬ÓĞĞ©»úÆ÷²»Ö§³Ö£¬
-#Èç¹û²»Ö§³ÖÑ¡0, µ«ÊÇËùÓĞ·¢ÌùºÍ»Ø¸´Ê±¼äÎªµ±Ç°Ê±¼ä£¬
-#Ö§³ÖÑ¡1£¬¿ÉÒÔ×Ô¼º²âÊÔ
+#è®¾ç½®$truetimeæ˜¯å¦é‡‡ç”¨timeæ¨¡å—ï¼Œæœ‰äº›æœºå™¨ä¸æ”¯æŒï¼Œ
+#å¦‚æœä¸æ”¯æŒé€‰0, ä½†æ˜¯æ‰€æœ‰å‘è´´å’Œå›å¤æ—¶é—´ä¸ºå½“å‰æ—¶é—´ï¼Œ
+#æ”¯æŒé€‰1ï¼Œå¯ä»¥è‡ªå·±æµ‹è¯•
 #
 ###############################################
 use CGI qw(:standard);
@@ -24,8 +24,8 @@ $CGI::DISABLE_UPLOADS = 1;
 $CGI::HEADERS_ONCE = 1;
 use Time::Local;
 
-$ubbnoncgi ='/home/public_html/non'; #UBB Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© / 
-$leobbspath='/home/cgi-bin/leobbs';  #LeoBBS Ö÷Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© / £¬×¢ÒâÉèÖÃ 777 ÊôĞÔ
+$ubbnoncgi ='/home/public_html/non'; #UBB ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ / 
+$leobbspath='/home/cgi-bin/leobbs';  #LeoBBS ä¸»ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ / ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§
 
 $convertdata=
 [
@@ -46,13 +46,13 @@ $convertdata=
 ];
  
 
-###Ã¿100¸ö´òÓ¡Ò»¸öĞÅÏ¢
+###æ¯100ä¸ªæ‰“å°ä¸€ä¸ªä¿¡æ¯
 $hz=100;
-$truetime=1;#ÉèÖÃÊÇ·ñ²ÉÓÃtimeÄ£¿é£¬ÎÒ·¢ÏÖÓĞĞ©»úÆ÷²»Ö§³Ö£¬Èç¹û²»Ö§³ÖÑ¡0, µ«ÊÇËùÓĞ·¢ÌùºÍ»Ø¸´Ê±¼äÎªµ±Ç°Ê±¼ä
+$truetime=1;#è®¾ç½®æ˜¯å¦é‡‡ç”¨timeæ¨¡å—ï¼Œæˆ‘å‘ç°æœ‰äº›æœºå™¨ä¸æ”¯æŒï¼Œå¦‚æœä¸æ”¯æŒé€‰0, ä½†æ˜¯æ‰€æœ‰å‘è´´å’Œå›å¤æ—¶é—´ä¸ºå½“å‰æ—¶é—´
 
 print "Content-type: text/html\n\n";
 
-print "×ª»¯¿ªÊ¼ ",time(),"<br><br><hr>\n\n";
+print "è½¬åŒ–å¼€å§‹ ",time(),"<br><br><hr>\n\n";
 
 
 foreach $tempturn (@$convertdata)
@@ -69,7 +69,7 @@ foreach $tempturn (@$convertdata)
 	
 	$i=0;
 	
-	print "×ª»¯ $oldforumpost µ½ $newboardid ¿ªÊ¼ " ,time()," <br><br>","\n";
+	print "è½¬åŒ– $oldforumpost åˆ° $newboardid å¼€å§‹ " ,time()," <br><br>","\n";
 	$count=0;
 	foreach $temp(@postfiles)
 	{
@@ -92,8 +92,8 @@ foreach $tempturn (@$convertdata)
 				### id  subject boardId top locked lockMoveTitle lockMoveText 
 				### PostNum lastPostTime lastPostName lastPostId
 				
-				###µÚÒ»ĞĞ:A||Ìû×Ó×´Ì¬||»Ø¸´×ÜÊı||ÓÃ»§Ãû||Ö÷Ìâ||¹éµµµÄĞÅÏ¢||±íÇéÍ¼||×¢ÊÍ(ÀıÈç±»×ªÒÆ)
-				###ÏÂÃæ:  Z||»Ø¸´±àºÅ||»Ø¸´ÓÃ»§Ãû||»Ø¸´ÈÕÆÚ||»Ø¸´Ê±¼ä||ÓÊ¼ş||»Ø¸´ĞÅÏ¢||IPµØÖ·||ÊÇ·ñ×¢²á||±íÇéÍ¼±ê
+				###ç¬¬ä¸€è¡Œ:A||å¸–å­çŠ¶æ€||å›å¤æ€»æ•°||ç”¨æˆ·å||ä¸»é¢˜||å½’æ¡£çš„ä¿¡æ¯||è¡¨æƒ…å›¾||æ³¨é‡Š(ä¾‹å¦‚è¢«è½¬ç§»)
+				###ä¸‹é¢:  Z||å›å¤ç¼–å·||å›å¤ç”¨æˆ·å||å›å¤æ—¥æœŸ||å›å¤æ—¶é—´||é‚®ä»¶||å›å¤ä¿¡æ¯||IPåœ°å€||æ˜¯å¦æ³¨å†Œ||è¡¨æƒ…å›¾æ ‡
 				($subject,$locked)=('','open');
 				
 					
@@ -126,7 +126,7 @@ foreach $tempturn (@$convertdata)
 				### table ut_posts
 				###id userId userNameBak postSubject boardid topicId parentId 
 				###ip postTime &&body&& 
-				###ÏÂÃæ:  Z||»Ø¸´±àºÅ||»Ø¸´ÓÃ»§Ãû||»Ø¸´ÈÕÆÚ||»Ø¸´Ê±¼ä||ÓÊ¼ş||»Ø¸´ĞÅÏ¢||IPµØÖ·||ÊÇ·ñ×¢²á||±íÇéÍ¼±ê
+				###ä¸‹é¢:  Z||å›å¤ç¼–å·||å›å¤ç”¨æˆ·å||å›å¤æ—¥æœŸ||å›å¤æ—¶é—´||é‚®ä»¶||å›å¤ä¿¡æ¯||IPåœ°å€||æ˜¯å¦æ³¨å†Œ||è¡¨æƒ…å›¾æ ‡
 				#               1           2         3        4        5        6       7        8         9
 				open(TEMPT,">$leobbspath/forum$newboardid/$count.thd.cgi");
 				foreach $eachline (@filelines)
@@ -151,18 +151,18 @@ foreach $tempturn (@$convertdata)
 				
 			}
 			$i++;
-			if(($i/$hz)==0)	{print "ÏÖÔÚ×ª»¯ $i ½áÊø,¿ªÊ¼ĞÂµÄ×ª»¯ ...\n<br>";}
+			if(($i/$hz)==0)	{print "ç°åœ¨è½¬åŒ– $i ç»“æŸ,å¼€å§‹æ–°çš„è½¬åŒ– ...\n<br>";}
 		}
 	}
 	
 	
-	print "×Ü¹² $i ¸öÌù×Ó,×ª»¯Íê³É ",time(),"<br><hr>\n\n";
+	print "æ€»å…± $i ä¸ªè´´å­,è½¬åŒ–å®Œæˆ ",time(),"<br><hr>\n\n";
 
 }
 
 
 
-print "×ª»¯È«²¿Íê³É ",time(),"\n<br>";
+print "è½¬åŒ–å…¨éƒ¨å®Œæˆ ",time(),"\n<br>";
 
 
 exit;

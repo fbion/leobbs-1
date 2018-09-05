@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -50,7 +50,7 @@ $allowmail =~s/\t$//;
 $allowmail =~s/\t/<br>/g;
 
 $lbbody = 'topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0"';
-$allowtype_d = ($allowtype eq "allow")?'±ØĞèÊ¹ÓÃÏÂÁĞÓÊÏä²ÅÄÜ×¢²á':'²»ÔÊĞíÊ¹ÓÃÏÂÁĞÓÊÏä×¢²á';
+$allowtype_d = ($allowtype eq "allow")?'å¿…éœ€ä½¿ç”¨ä¸‹åˆ—é‚®ç®±æ‰èƒ½æ³¨å†Œ':'ä¸å…è®¸ä½¿ç”¨ä¸‹åˆ—é‚®ç®±æ³¨å†Œ';
 
 $output = <<"HTML";
 <table cellpadding=0 cellspacing=0 width=100% height="90%" bgcolor=$tablebordercolor align=center>
@@ -64,5 +64,5 @@ $output = <<"HTML";
 HTML
 
 print header( -charset => gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - ÓÊÏäÏŞÖÆ",\$output,'msg');
+&output("$boardname - é‚®ç®±é™åˆ¶",\$output,'msg');
 exit;

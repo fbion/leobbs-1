@@ -1,33 +1,33 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-if (($arrawpostreal eq "on")||($membercode eq 'mo' ||$membercode eq 'amo'|| $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo'))  { $realimg =qq(<img onclick=real() src=$imagesurl/btg/rm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="²åÈë Real Òô/ÊÓÆµ" width=23 height=22> )}
-    else  {$realimg=qq(¡¡¡¡)};
-if (($arrawpostmedia eq "on")||($membercode eq 'mo'||$membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) { $wmimg =qq(<img onclick=wm() src=$imagesurl/btg/wm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="²åÈë WM ÀàÒô/ÊÓÆµ" width=23 height=22> )}
-    else {$wmimg=qq(¡¡¡¡)};
+if (($arrawpostreal eq "on")||($membercode eq 'mo' ||$membercode eq 'amo'|| $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo'))  { $realimg =qq(<img onclick=real() src=$imagesurl/btg/rm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="æ’å…¥ Real éŸ³/è§†é¢‘" width=23 height=22> )}
+    else  {$realimg=qq(ã€€ã€€)};
+if (($arrawpostmedia eq "on")||($membercode eq 'mo'||$membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) { $wmimg =qq(<img onclick=wm() src=$imagesurl/btg/wm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="æ’å…¥ WM ç±»éŸ³/è§†é¢‘" width=23 height=22> )}
+    else {$wmimg=qq(ã€€ã€€)};
 $insidejs = qq~
 <script>
 function replac(){
-if ((helpstat)||(basic)) {alert("Ìæ»»¹Ø¼ü×Ö");}
-else {txt2=prompt("ÇëÊäÈëËÑÑ°Ä¿±ê¹Ø¼ü×Ö","");
+if ((helpstat)||(basic)) {alert("æ›¿æ¢å…³é”®å­—");}
+else {txt2=prompt("è¯·è¾“å…¥æœå¯»ç›®æ ‡å…³é”®å­—","");
 if (txt2 != null) {
-if (txt2 != "") {txt=prompt("¹Ø¼ü×ÖÌæ»»Îª£º",txt2)}else {replac()}
+if (txt2 != "") {txt=prompt("å…³é”®å­—æ›¿æ¢ä¸ºï¼š",txt2)}else {replac()}
 var Otext = txt2; var Itext = txt; document.FORM.inpost.value = eval('FORM.inpost.value.replace(/'+Otext+'/'+'g'+',"'+Itext+'")')}}}
 function openeditor(){
 if (navigator.appName!="Microsoft Internet Explorer")
-   alert("´Ë¹¦ÄÜ Netscape ÓÃ»§²»ÄÜÊ¹ÓÃ£¡")
+   alert("æ­¤åŠŸèƒ½ Netscape ç”¨æˆ·ä¸èƒ½ä½¿ç”¨ï¼")
 else {newwin=window.open('$imagesurl/editor/editor.html','','width=544,height=294');  newwin.focus(); }
 }
 function openascii(){
 if (navigator.appName!="Microsoft Internet Explorer")
-   alert("´Ë¹¦ÄÜ Netscape ÓÃ»§²»ÄÜÊ¹ÓÃ£¡")
+   alert("æ­¤åŠŸèƒ½ Netscape ç”¨æˆ·ä¸èƒ½ä½¿ç”¨ï¼")
 else {newwin=window.open('$imagesurl/images/ascii.htm','','width=544,height=294');  newwin.focus(); }
 }
 function smilieopen() {javascript:openScript('misc.cgi?action=showsmilies',300,350);}
@@ -39,123 +39,123 @@ if (swtch == 1){ basic = false; stprompt = false; helpstat = true;} else if (swt
 }
 function AddText(NewCode) {document.FORM.inpost.value+=NewCode}
 function real() {
-if (helpstat){alert("ÔÚÏß RealPlayer Á÷Ê½Òô/ÊÓÆµ²¥·Å\\n²¥·Å URL µØÖ·\\nÓÃ·¨£º [rm]http:\/\/www.LeoBBS.com\/demo.rm[/rm]");} else if (basic) {AddTxt="[rm][/rm]";AddText(AddTxt);} else { txt=prompt("ÔÚÏß RealPlayer Á÷Ê½Òô/ÊÓÆµ²¥·Å (rtsp¼°http¾ù¿É)","rtsp://");
+if (helpstat){alert("åœ¨çº¿ RealPlayer æµå¼éŸ³/è§†é¢‘æ’­æ”¾\\næ’­æ”¾ URL åœ°å€\\nç”¨æ³•ï¼š [rm]http:\/\/www.LeoBBS.com\/demo.rm[/rm]");} else if (basic) {AddTxt="[rm][/rm]";AddText(AddTxt);} else { txt=prompt("åœ¨çº¿ RealPlayer æµå¼éŸ³/è§†é¢‘æ’­æ”¾ (rtspåŠhttpå‡å¯)","rtsp://");
 if(txt!=null) { AddTxt="\\r[rm]"+txt;AddText(AddTxt);AddTxt="[/rm]";AddText(AddTxt);}}
 }
 function wm() {
-if (helpstat){alert("ÔÚÏß Windows Media Player Òô/ÊÓÆµ²¥·Å\\n²¥·Å URL µØÖ·\\nÓÃ·¨£º [wmv]http:\/\/www.LeoBBS.com\/demo.wmv[/wmv]");} else if (basic) {AddTxt="[wmv][/wmv]";AddText(AddTxt);} else { txt=prompt("ÔÚÏß Windows Media Player Òô/ÊÓÆµ²¥·Å (mms¼°http¾ù¿É)","mms://");
+if (helpstat){alert("åœ¨çº¿ Windows Media Player éŸ³/è§†é¢‘æ’­æ”¾\\næ’­æ”¾ URL åœ°å€\\nç”¨æ³•ï¼š [wmv]http:\/\/www.LeoBBS.com\/demo.wmv[/wmv]");} else if (basic) {AddTxt="[wmv][/wmv]";AddText(AddTxt);} else { txt=prompt("åœ¨çº¿ Windows Media Player éŸ³/è§†é¢‘æ’­æ”¾ (mmsåŠhttpå‡å¯)","mms://");
 if(txt!=null) { AddTxt="\\r[wmv]"+txt;AddText(AddTxt);AddTxt="[/wmv]";AddText(AddTxt);}}
 }
 function email() {
-if (helpstat) { alert("Email ±ê¼Ç\\n²åÈë Email ³¬¼¶Á´½Ó\\nÓÃ·¨1: [email]webmaster\@LeoBBS.com[/email]\\nÓÃ·¨2: [email=webmaster\@LeoBBS.com]À×°Á[/email]");
+if (helpstat) { alert("Email æ ‡è®°\\næ’å…¥ Email è¶…çº§é“¾æ¥\\nç”¨æ³•1: [email]webmaster\@LeoBBS.com[/email]\\nç”¨æ³•2: [email=webmaster\@LeoBBS.com]é›·å‚²[/email]");
 } else if (basic) { AddTxt="[email][/email]";AddText(AddTxt);
-} else { txt2=prompt("Á´½ÓÏÔÊ¾µÄÎÄ×Ö.\\nÈç¹ûÎª¿Õ£¬ÄÇÃ´½«Ö»ÏÔÊ¾ÄãµÄ Email µØÖ·",""); 
-if (txt2!=null) {txt=prompt("Email µØÖ·.","name\@domain.com");      
+} else { txt2=prompt("é“¾æ¥æ˜¾ç¤ºçš„æ–‡å­—.\\nå¦‚æœä¸ºç©ºï¼Œé‚£ä¹ˆå°†åªæ˜¾ç¤ºä½ çš„ Email åœ°å€",""); 
+if (txt2!=null) {txt=prompt("Email åœ°å€.","name\@domain.com");      
 if (txt!=null) {
 if (txt2=="") {AddTxt="[email]"+txt+"[/email]";} else {AddTxt="[email="+txt+"]"+txt2;AddText(AddTxt);AddTxt="[/email]";} 
 AddText(AddTxt);
 }}}}
 function showsize(size) {
-if (helpstat) {alert("ÎÄ×Ö´óĞ¡±ê¼Ç\\nÉèÖÃÎÄ×Ö´óĞ¡.\\n¿É±ä·¶Î§ 1 - 6.\\n 1 Îª×îĞ¡ 6 Îª×î´ó.\\nÓÃ·¨: [size="+size+"]ÕâÊÇ "+size+" ÎÄ×Ö[/size]");
+if (helpstat) {alert("æ–‡å­—å¤§å°æ ‡è®°\\nè®¾ç½®æ–‡å­—å¤§å°.\\nå¯å˜èŒƒå›´ 1 - 6.\\n 1 ä¸ºæœ€å° 6 ä¸ºæœ€å¤§.\\nç”¨æ³•: [size="+size+"]è¿™æ˜¯ "+size+" æ–‡å­—[/size]");
 } else if (basic) {AddTxt="[size="+size+"][/size]";AddText(AddTxt);
-} else {txt=prompt("´óĞ¡ "+size,"ÎÄ×Ö");
+} else {txt=prompt("å¤§å° "+size,"æ–‡å­—");
 if (txt!=null) {AddTxt="[size="+size+"]"+txt;AddText(AddTxt);AddTxt="[/size]";AddText(AddTxt);}}
 }
 function bold() {
-if (helpstat) {alert("¼Ó´Ö±ê¼Ç\\nÊ¹ÎÄ±¾¼Ó´Ö.\\nÓÃ·¨: [b]ÕâÊÇ¼Ó´ÖµÄÎÄ×Ö[/b]");
-} else if (basic) {AddTxt="[b][/b]";AddText(AddTxt);} else {txt=prompt("ÎÄ×Ö½«±»±ä´Ö.","ÎÄ×Ö");
+if (helpstat) {alert("åŠ ç²—æ ‡è®°\\nä½¿æ–‡æœ¬åŠ ç²—.\\nç”¨æ³•: [b]è¿™æ˜¯åŠ ç²—çš„æ–‡å­—[/b]");
+} else if (basic) {AddTxt="[b][/b]";AddText(AddTxt);} else {txt=prompt("æ–‡å­—å°†è¢«å˜ç²—.","æ–‡å­—");
 if (txt!=null) {AddTxt="[b]"+txt;AddText(AddTxt);AddTxt="[/b]";AddText(AddTxt);}}
 }
 function italicize() {
-if (helpstat) {alert("Ğ±Ìå±ê¼Ç\\nÊ¹ÎÄ±¾×ÖÌå±äÎªĞ±Ìå.\\nÓÃ·¨: [i]ÕâÊÇĞ±Ìå×Ö[/i]");} else if (basic) {
-AddTxt="[i][/i]";AddText(AddTxt);} else { txt=prompt("ÎÄ×Ö½«±äĞ±Ìå","ÎÄ×Ö");
+if (helpstat) {alert("æ–œä½“æ ‡è®°\\nä½¿æ–‡æœ¬å­—ä½“å˜ä¸ºæ–œä½“.\\nç”¨æ³•: [i]è¿™æ˜¯æ–œä½“å­—[/i]");} else if (basic) {
+AddTxt="[i][/i]";AddText(AddTxt);} else { txt=prompt("æ–‡å­—å°†å˜æ–œä½“","æ–‡å­—");
 if (txt!=null) {AddTxt="[i]"+txt;AddText(AddTxt);AddTxt="[/i]";AddText(AddTxt);}}
 }
 function quoteme() {
-if (helpstat){alert("ÒıÓÃ±ê¼Ç\\nÒıÓÃÒ»Ğ©ÎÄ×Ö.\\nÓÃ·¨: [quote]ÒıÓÃÄÚÈİ[/quote]");
-} else if (basic) {AddTxt="[quote][/quote]";AddText(AddTxt);} else {txt=prompt("±»ÒıÓÃµÄÎÄ×Ö","ÎÄ×Ö");
+if (helpstat){alert("å¼•ç”¨æ ‡è®°\\nå¼•ç”¨ä¸€äº›æ–‡å­—.\\nç”¨æ³•: [quote]å¼•ç”¨å†…å®¹[/quote]");
+} else if (basic) {AddTxt="[quote][/quote]";AddText(AddTxt);} else {txt=prompt("è¢«å¼•ç”¨çš„æ–‡å­—","æ–‡å­—");
 if(txt!=null) {AddTxt="[quote]"+txt;AddText(AddTxt);AddTxt="[/quote]";AddText(AddTxt);}}
 }
 function setsound() {
-if (helpstat) {alert("ÉùÒô±ê¼Ç\\n²úÉú±³¾°ÒôÀÖ.\\nÓÃ·¨: [sound]ÒôÀÖÎÄ¼şµÄµØÖ·[/sound]");} else if (basic) {
-AddTxt="[sound][/sound]";AddText(AddTxt);} else { txt=prompt("²úÉú±³¾°ÒôÀÖ.","http://");
+if (helpstat) {alert("å£°éŸ³æ ‡è®°\\näº§ç”ŸèƒŒæ™¯éŸ³ä¹.\\nç”¨æ³•: [sound]éŸ³ä¹æ–‡ä»¶çš„åœ°å€[/sound]");} else if (basic) {
+AddTxt="[sound][/sound]";AddText(AddTxt);} else { txt=prompt("äº§ç”ŸèƒŒæ™¯éŸ³ä¹.","http://");
 if (txt!=null) { AddTxt="[sound]"+txt;AddText(AddTxt);AddTxt="[/sound]";AddText(AddTxt);}}
 }
 function showcolor(color) {
-if (helpstat) {alert("ÑÕÉ«±ê¼Ç\\nÉèÖÃÎÄ±¾ÑÕÉ«.  ÈÎºÎÑÕÉ«Ãû¶¼¿ÉÒÔ±»Ê¹ÓÃ.\\nÓÃ·¨: [color="+color+"]ÑÕÉ«Òª¸Ä±äÎª"+color+"µÄÎÄ×Ö[/color]");
-} else if (basic) {AddTxt="[color="+color+"][/color]";AddText(AddTxt);} else {  txt=prompt("Ñ¡ÔñµÄÑÕÉ«ÊÇ: "+color,"ÎÄ×Ö");
+if (helpstat) {alert("é¢œè‰²æ ‡è®°\\nè®¾ç½®æ–‡æœ¬é¢œè‰².  ä»»ä½•é¢œè‰²åéƒ½å¯ä»¥è¢«ä½¿ç”¨.\\nç”¨æ³•: [color="+color+"]é¢œè‰²è¦æ”¹å˜ä¸º"+color+"çš„æ–‡å­—[/color]");
+} else if (basic) {AddTxt="[color="+color+"][/color]";AddText(AddTxt);} else {  txt=prompt("é€‰æ‹©çš„é¢œè‰²æ˜¯: "+color,"æ–‡å­—");
 if(txt!=null) {AddTxt="[color="+color+"]"+txt;AddText(AddTxt);AddTxt="[/color]";AddText(AddTxt);}}
 }
 function setfly() {
-if (helpstat){alert("·ÉÏè±ê¼Ç\\nÊ¹ÎÄ×Ö·ÉĞĞ.\\nÓÃ·¨: [fly]ÎÄ×ÖÎªÕâÑùÎÄ×Ö[/fly]");} else if (basic) {
-AddTxt="[fly][/fly]";AddText(AddTxt);} else { txt=prompt("·ÉÏèÎÄ×Ö","ÎÄ×Ö");
+if (helpstat){alert("é£ç¿”æ ‡è®°\\nä½¿æ–‡å­—é£è¡Œ.\\nç”¨æ³•: [fly]æ–‡å­—ä¸ºè¿™æ ·æ–‡å­—[/fly]");} else if (basic) {
+AddTxt="[fly][/fly]";AddText(AddTxt);} else { txt=prompt("é£ç¿”æ–‡å­—","æ–‡å­—");
 if (txt!=null) { AddTxt="[fly]"+txt;AddText(AddTxt);AddTxt="[/fly]";AddText(AddTxt);}}  
 }
 function move() {
-if (helpstat) {alert("ÒÆ¶¯±ê¼Ç\\nÊ¹ÎÄ×Ö²úÉúÒÆ¶¯Ğ§¹û.\\nÓÃ·¨: [move]Òª²úÉúÒÆ¶¯Ğ§¹ûµÄÎÄ×Ö[/move]");} else if (basic) {
-AddTxt="[move][/move]";AddText(AddTxt);} else { txt=prompt("Òª²úÉúÒÆ¶¯Ğ§¹ûµÄÎÄ×Ö","ÎÄ×Ö");
+if (helpstat) {alert("ç§»åŠ¨æ ‡è®°\\nä½¿æ–‡å­—äº§ç”Ÿç§»åŠ¨æ•ˆæœ.\\nç”¨æ³•: [move]è¦äº§ç”Ÿç§»åŠ¨æ•ˆæœçš„æ–‡å­—[/move]");} else if (basic) {
+AddTxt="[move][/move]";AddText(AddTxt);} else { txt=prompt("è¦äº§ç”Ÿç§»åŠ¨æ•ˆæœçš„æ–‡å­—","æ–‡å­—");
 if (txt!=null) { AddTxt="[move]"+txt;AddText(AddTxt);AddTxt="[/move]";AddText(AddTxt);}}
 }
 function shadow() {
-if (helpstat) {alert("ÒõÓ°±ê¼Ç\\nÊ¹ÎÄ×Ö²úÉúÒõÓ°Ğ§¹û.\\nÓÃ·¨: [SHADOW=¿í¶È, ÑÕÉ«, ±ß½ç]Òª²úÉúÒõÓ°Ğ§¹ûµÄÎÄ×Ö[/SHADOW]");} else if (basic) {
-AddTxt="[SHADOW=255,blue,1][/SHADOW]";AddText(AddTxt);} else { txt2=prompt("ÎÄ×ÖµÄ³¤¶È¡¢ÑÕÉ«ºÍ±ß½ç´óĞ¡","255,blue,1"); 
-if (txt2!=null) {txt=prompt("Òª²úÉúÒõÓ°Ğ§¹ûµÄÎÄ×Ö","ÎÄ×Ö");if (txt!=null) {if (txt2=="") {
+if (helpstat) {alert("é˜´å½±æ ‡è®°\\nä½¿æ–‡å­—äº§ç”Ÿé˜´å½±æ•ˆæœ.\\nç”¨æ³•: [SHADOW=å®½åº¦, é¢œè‰², è¾¹ç•Œ]è¦äº§ç”Ÿé˜´å½±æ•ˆæœçš„æ–‡å­—[/SHADOW]");} else if (basic) {
+AddTxt="[SHADOW=255,blue,1][/SHADOW]";AddText(AddTxt);} else { txt2=prompt("æ–‡å­—çš„é•¿åº¦ã€é¢œè‰²å’Œè¾¹ç•Œå¤§å°","255,blue,1"); 
+if (txt2!=null) {txt=prompt("è¦äº§ç”Ÿé˜´å½±æ•ˆæœçš„æ–‡å­—","æ–‡å­—");if (txt!=null) {if (txt2=="") {
 AddTxt="[SHADOW=255, blue, 1]"+txt;AddText(AddTxt);AddTxt="[/SHADOW]";AddText(AddTxt);} else {
 AddTxt="[SHADOW="+txt2+"]"+txt;AddText(AddTxt);AddTxt="[/SHADOW]";AddText(AddTxt);}}}}
 }
 function glow() {
-if (helpstat) {alert("¹âÔÎ±ê¼Ç\\nÊ¹ÎÄ×Ö²úÉú¹âÔÎĞ§¹û.\\nÓÃ·¨: [GLOW=¿í¶È, ÑÕÉ«, ±ß½ç]Òª²úÉú¹âÔÎĞ§¹ûµÄÎÄ×Ö[/GLOW]");} else if (basic) {
-AddTxt="[glow=255,red,2][/glow]";AddText(AddTxt);} else { txt2=prompt("ÎÄ×ÖµÄ³¤¶È¡¢ÑÕÉ«ºÍ±ß½ç´óĞ¡","255,red,2"); if (txt2!=null) {
-txt=prompt("Òª²úÉú¹âÔÎĞ§¹ûµÄÎÄ×Ö.","ÎÄ×Ö"); if (txt!=null) {if (txt2=="") {AddTxt="[glow=255,red,2]"+txt;AddText(AddTxt);AddTxt="[/glow]";AddText(AddTxt);
+if (helpstat) {alert("å…‰æ™•æ ‡è®°\\nä½¿æ–‡å­—äº§ç”Ÿå…‰æ™•æ•ˆæœ.\\nç”¨æ³•: [GLOW=å®½åº¦, é¢œè‰², è¾¹ç•Œ]è¦äº§ç”Ÿå…‰æ™•æ•ˆæœçš„æ–‡å­—[/GLOW]");} else if (basic) {
+AddTxt="[glow=255,red,2][/glow]";AddText(AddTxt);} else { txt2=prompt("æ–‡å­—çš„é•¿åº¦ã€é¢œè‰²å’Œè¾¹ç•Œå¤§å°","255,red,2"); if (txt2!=null) {
+txt=prompt("è¦äº§ç”Ÿå…‰æ™•æ•ˆæœçš„æ–‡å­—.","æ–‡å­—"); if (txt!=null) {if (txt2=="") {AddTxt="[glow=255,red,2]"+txt;AddText(AddTxt);AddTxt="[/glow]";AddText(AddTxt);
 } else {AddTxt="[glow="+txt2+"]"+txt;AddText(AddTxt);AddTxt="[/glow]";AddText(AddTxt);}}}}
 }
 function center() {
-if (helpstat) {alert("¶ÔÆë±ê¼Ç\\nÊ¹ÓÃÕâ¸ö±ê¼Ç, ¿ÉÒÔÊ¹ÎÄ±¾×ó¶ÔÆë¡¢¾ÓÖĞ¡¢ÓÒ¶ÔÆë.\\nÓÃ·¨: [align=center|left|right]Òª¶ÔÆëµÄÎÄ±¾[/align]");} else if (basic) {
-AddTxt="[align=center|left|right][/align]";AddText(AddTxt);} else {txt2=prompt("¶ÔÆëÑùÊ½\\nÊäÈë 'center' ±íÊ¾¾ÓÖĞ, 'left' ±íÊ¾×ó¶ÔÆë, 'right' ±íÊ¾ÓÒ¶ÔÆë.","center");
-while ((txt2!="") && (txt2!="center") && (txt2!="left") && (txt2!="right") && (txt2!=null)) {txt2=prompt("´íÎó!\\nÀàĞÍÖ»ÄÜÊäÈë 'center' ¡¢ 'left' »òÕß 'right'.","");}
-txt=prompt("Òª¶ÔÆëµÄÎÄ±¾","ÎÄ±¾");if (txt!=null) {AddTxt="\\r[align="+txt2+"]"+txt;AddText(AddTxt);AddTxt="[/align]";AddText(AddTxt);}}
+if (helpstat) {alert("å¯¹é½æ ‡è®°\\nä½¿ç”¨è¿™ä¸ªæ ‡è®°, å¯ä»¥ä½¿æ–‡æœ¬å·¦å¯¹é½ã€å±…ä¸­ã€å³å¯¹é½.\\nç”¨æ³•: [align=center|left|right]è¦å¯¹é½çš„æ–‡æœ¬[/align]");} else if (basic) {
+AddTxt="[align=center|left|right][/align]";AddText(AddTxt);} else {txt2=prompt("å¯¹é½æ ·å¼\\nè¾“å…¥ 'center' è¡¨ç¤ºå±…ä¸­, 'left' è¡¨ç¤ºå·¦å¯¹é½, 'right' è¡¨ç¤ºå³å¯¹é½.","center");
+while ((txt2!="") && (txt2!="center") && (txt2!="left") && (txt2!="right") && (txt2!=null)) {txt2=prompt("é”™è¯¯!\\nç±»å‹åªèƒ½è¾“å…¥ 'center' ã€ 'left' æˆ–è€… 'right'.","");}
+txt=prompt("è¦å¯¹é½çš„æ–‡æœ¬","æ–‡æœ¬");if (txt!=null) {AddTxt="\\r[align="+txt2+"]"+txt;AddText(AddTxt);AddTxt="[/align]";AddText(AddTxt);}}
 }
 function hyperlink() {
-if (helpstat) {alert("³¬¼¶Á´½Ó±ê¼Ç\\n²åÈëÒ»¸ö³¬¼¶Á´½Ó±ê¼Ç\\nÊ¹ÓÃ·½·¨: [url]http://www.LeoBBS.com[/url]\\nUSE: [url=http://www.LeoBBS.com]Á´½ÓÎÄ×Ö[/url]");
-} else if (basic) {AddTxt="[url][/url]";AddText(AddTxt);} else { txt2=prompt("Á´½ÓÎÄ±¾ÏÔÊ¾.\\nÈç¹û²»ÏëÊ¹ÓÃ, ¿ÉÒÔÎª¿Õ, ½«Ö»ÏÔÊ¾³¬¼¶Á´½ÓµØÖ·. ",""); 
-if (txt2!=null) {txt=prompt("³¬¼¶Á´½Ó.","http://");if (txt!=null) {
+if (helpstat) {alert("è¶…çº§é“¾æ¥æ ‡è®°\\næ’å…¥ä¸€ä¸ªè¶…çº§é“¾æ¥æ ‡è®°\\nä½¿ç”¨æ–¹æ³•: [url]http://www.LeoBBS.com[/url]\\nUSE: [url=http://www.LeoBBS.com]é“¾æ¥æ–‡å­—[/url]");
+} else if (basic) {AddTxt="[url][/url]";AddText(AddTxt);} else { txt2=prompt("é“¾æ¥æ–‡æœ¬æ˜¾ç¤º.\\nå¦‚æœä¸æƒ³ä½¿ç”¨, å¯ä»¥ä¸ºç©º, å°†åªæ˜¾ç¤ºè¶…çº§é“¾æ¥åœ°å€. ",""); 
+if (txt2!=null) {txt=prompt("è¶…çº§é“¾æ¥.","http://");if (txt!=null) {
 if (txt2=="") {AddTxt="[url]"+txt;AddText(AddTxt);AddTxt="[/url]";AddText(AddTxt);} else {AddTxt="[url="+txt+"]"+txt2;AddText(AddTxt);AddTxt="[/url]";AddText(AddTxt);}}}}
 }
 function image() {
-if (helpstat){alert("Í¼Æ¬±ê¼Ç\\n²åÈëÍ¼Æ¬\\nÓÃ·¨£º [img]http:\/\/www.LeoBBS.com\/cgi.gif[/img]");} else if (basic) {AddTxt="[img][/img]";AddText(AddTxt);} else { txt=prompt("Í¼Æ¬µÄ URL","http://");
+if (helpstat){alert("å›¾ç‰‡æ ‡è®°\\næ’å…¥å›¾ç‰‡\\nç”¨æ³•ï¼š [img]http:\/\/www.LeoBBS.com\/cgi.gif[/img]");} else if (basic) {AddTxt="[img][/img]";AddText(AddTxt);} else { txt=prompt("å›¾ç‰‡çš„ URL","http://");
 if(txt!=null) { AddTxt="\\r[img]"+txt;AddText(AddTxt);AddTxt="[/img]";AddText(AddTxt);}}
 }
 function showcode() {
-if (helpstat) {alert("´úÂë±ê¼Ç\\nÊ¹ÓÃ´úÂë±ê¼Ç£¬¿ÉÒÔÊ¹ÄãµÄ³ÌĞò´úÂëÀïÃæµÄ html µÈ±êÖ¾²»»á±»ÆÆ»µ.\\nÊ¹ÓÃ·½·¨:\\n [code]ÕâÀïÊÇ´úÂëÎÄ×Ö[/code]");} else if (basic) {
-AddTxt="\\r[code]\\r[/code]";AddText(AddTxt);} else { txt=prompt("ÊäÈë´úÂë","");
+if (helpstat) {alert("ä»£ç æ ‡è®°\\nä½¿ç”¨ä»£ç æ ‡è®°ï¼Œå¯ä»¥ä½¿ä½ çš„ç¨‹åºä»£ç é‡Œé¢çš„ html ç­‰æ ‡å¿—ä¸ä¼šè¢«ç ´å.\\nä½¿ç”¨æ–¹æ³•:\\n [code]è¿™é‡Œæ˜¯ä»£ç æ–‡å­—[/code]");} else if (basic) {
+AddTxt="\\r[code]\\r[/code]";AddText(AddTxt);} else { txt=prompt("è¾“å…¥ä»£ç ","");
 if (txt!=null) {AddTxt="\\r[code]"+txt;AddText(AddTxt);AddTxt="[/code]";AddText(AddTxt);}}
 }
 function list() {
-if (helpstat) {alert("ÁĞ±í±ê¼Ç\\n½¨ÔìÒ»¸öÎÄ×Ö»òÔòÊı×ÖÁĞ±í.\\nUSE: [list]\\n[*]item1\\n[*]item2\\n[*]item3\\n[/list]");} else if (basic) {
-AddTxt="\\r[list]\\r[*]\\r[*]\\r[*]\\r[/list]";AddText(AddTxt);} else { txt=prompt("ÁĞ±íÀàĞÍ\\nÊäÈë 'A' ±íÊ¾ÓĞĞòÁĞ±í, '1' ±íÊ¾ÎŞĞòÁĞ±í, Áô¿Õ±íÊ¾ÎŞĞòÁĞ±í.","");               
-while ((txt!="") && (txt!="A") && (txt!="a") && (txt!="1") && (txt!=null)) {txt=prompt("´íÎó!\\nÀàĞÍÖ»ÄÜÊäÈë 'A' ¡¢ '1' »òÕßÁô¿Õ.",""); }
+if (helpstat) {alert("åˆ—è¡¨æ ‡è®°\\nå»ºé€ ä¸€ä¸ªæ–‡å­—æˆ–åˆ™æ•°å­—åˆ—è¡¨.\\nUSE: [list]\\n[*]item1\\n[*]item2\\n[*]item3\\n[/list]");} else if (basic) {
+AddTxt="\\r[list]\\r[*]\\r[*]\\r[*]\\r[/list]";AddText(AddTxt);} else { txt=prompt("åˆ—è¡¨ç±»å‹\\nè¾“å…¥ 'A' è¡¨ç¤ºæœ‰åºåˆ—è¡¨, '1' è¡¨ç¤ºæ— åºåˆ—è¡¨, ç•™ç©ºè¡¨ç¤ºæ— åºåˆ—è¡¨.","");               
+while ((txt!="") && (txt!="A") && (txt!="a") && (txt!="1") && (txt!=null)) {txt=prompt("é”™è¯¯!\\nç±»å‹åªèƒ½è¾“å…¥ 'A' ã€ '1' æˆ–è€…ç•™ç©º.",""); }
 if (txt!=null) {if (txt=="") {AddTxt="\\r[list]\\r\\n";} else {AddTxt="\\r[list="+txt+"]\\r";} txt="1";
-while ((txt!="") && (txt!=null)) {txt=prompt("ÁĞ±íÏî\\n¿Õ°×±íÊ¾½áÊøÁĞ±í",""); 
+while ((txt!="") && (txt!=null)) {txt=prompt("åˆ—è¡¨é¡¹\\nç©ºç™½è¡¨ç¤ºç»“æŸåˆ—è¡¨",""); 
 if (txt!="") {AddTxt+="[*]"+txt+"\\r"; }} AddTxt+="[/list]\\r\\n";AddText(AddTxt); }}
 }
 function showfont(font) {
-if (helpstat){alert("×ÖÌå±ê¼Ç\\n¸øÎÄ×ÖÉèÖÃ×ÖÌå.\\nÓÃ·¨: [font="+font+"]¸Ä±äÎÄ×Ö×ÖÌåÎª"+font+"[/font]");} else if (basic) {
-AddTxt="[font="+font+"][/font]";AddText(AddTxt);} else {txt=prompt("ÒªÉèÖÃ×ÖÌåµÄÎÄ×Ö"+font,"ÎÄ×Ö");
+if (helpstat){alert("å­—ä½“æ ‡è®°\\nç»™æ–‡å­—è®¾ç½®å­—ä½“.\\nç”¨æ³•: [font="+font+"]æ”¹å˜æ–‡å­—å­—ä½“ä¸º"+font+"[/font]");} else if (basic) {
+AddTxt="[font="+font+"][/font]";AddText(AddTxt);} else {txt=prompt("è¦è®¾ç½®å­—ä½“çš„æ–‡å­—"+font,"æ–‡å­—");
 if (txt!=null) {AddTxt="[font="+font+"]"+txt;AddText(AddTxt);AddTxt="[/font]";AddText(AddTxt);}}  
 }
 function underline() {
-if (helpstat) {alert("ÏÂ»®Ïß±ê¼Ç\\n¸øÎÄ×Ö¼ÓÏÂ»®Ïß.\\nÓÃ·¨: [u]Òª¼ÓÏÂ»®ÏßµÄÎÄ×Ö[/u]");} else if (basic) {
-AddTxt="[u][/u]";AddText(AddTxt);} else { txt=prompt("ÏÂ»®ÏßÎÄ×Ö.","ÎÄ×Ö");
+if (helpstat) {alert("ä¸‹åˆ’çº¿æ ‡è®°\\nç»™æ–‡å­—åŠ ä¸‹åˆ’çº¿.\\nç”¨æ³•: [u]è¦åŠ ä¸‹åˆ’çº¿çš„æ–‡å­—[/u]");} else if (basic) {
+AddTxt="[u][/u]";AddText(AddTxt);} else { txt=prompt("ä¸‹åˆ’çº¿æ–‡å­—.","æ–‡å­—");
 if (txt!=null) { AddTxt="[u]"+txt;AddText(AddTxt);AddTxt="[/u]";AddText(AddTxt);}}
 }
 function setswf() {
-if (helpstat){alert("Flash ¶¯»­\\n²åÈë Flash ¶¯»­.\\nÓÃ·¨: [swf]Flash ÎÄ¼şµÄµØÖ·[/swf]");
-} else if (basic) {AddTxt="[swf][/swf]";AddText(AddTxt);} else {txt=prompt("Flash ÎÄ¼şµÄµØÖ·","http://");
+if (helpstat){alert("Flash åŠ¨ç”»\\næ’å…¥ Flash åŠ¨ç”».\\nç”¨æ³•: [swf]Flash æ–‡ä»¶çš„åœ°å€[/swf]");
+} else if (basic) {AddTxt="[swf][/swf]";AddText(AddTxt);} else {txt=prompt("Flash æ–‡ä»¶çš„åœ°å€","http://");
 if (txt!=null) {AddTxt="[swf]"+txt;AddText(AddTxt);AddTxt="[/swf]";AddText(AddTxt);} }  
 }
 function emulelink() {
-if (helpstat){ alert("eMule ed2k ±ê¼Ç\\nÊ¹ÓÃ eMule ±ê¼Ç,¿ÉÒÔÊ¹ÊäÈëµÄ ed2k µØÖ·ÒÔ³¬Á´½ÓµÄĞÎÊ½ÔÚÌû×ÓÖĞÏÔÊ¾.\\nÓÃ·¨: [eMule]ed2kÏÂÔØµØÖ·[/eMule]");
-} else if (basic) {AddTxt="[emule][/emule]";AddText(AddTxt);} else {txt=prompt("eMule ed2k Á´½Ó","ed2k://");
+if (helpstat){ alert("eMule ed2k æ ‡è®°\\nä½¿ç”¨ eMule æ ‡è®°,å¯ä»¥ä½¿è¾“å…¥çš„ ed2k åœ°å€ä»¥è¶…é“¾æ¥çš„å½¢å¼åœ¨å¸–å­ä¸­æ˜¾ç¤º.\\nç”¨æ³•: [eMule]ed2kä¸‹è½½åœ°å€[/eMule]");
+} else if (basic) {AddTxt="[emule][/emule]";AddText(AddTxt);} else {txt=prompt("eMule ed2k é“¾æ¥","ed2k://");
 if (txt!=null) {AddTxt="\\r[emule]"+txt;AddText(AddTxt);AddTxt="[/emule]";AddText(AddTxt);} }
 }
 
@@ -174,13 +174,13 @@ document.cookie = name + "=" + escape (value) + expires;
 }
 function postSave(button) { 
 if(!autoSave){
-if(confirm("ÊÇ·ñ¿ªÆô×Ô¶¯´¢´æ¹¦ÄÜ£¿\\nÄÇ±ã»á¶¨ÆÚ´¢´æÄúµÄÎÄÕÂÄÚÈİ")){
-autoSave=true;button.value="¹Ø±Õ×Ô¶¯";
+if(confirm("æ˜¯å¦å¼€å¯è‡ªåŠ¨å‚¨å­˜åŠŸèƒ½ï¼Ÿ\\né‚£ä¾¿ä¼šå®šæœŸå‚¨å­˜æ‚¨çš„æ–‡ç« å†…å®¹")){
+autoSave=true;button.value="å…³é—­è‡ªåŠ¨";
 }
 savePost();
 }else{
-if(confirm("ÊÇ·ñ¹Ø±Õ×Ô¶¯´¢´æ¹¦ÄÜ£¿")){
-autoSave=false;button.value="´¢´æÄÚÈİ";
+if(confirm("æ˜¯å¦å…³é—­è‡ªåŠ¨å‚¨å­˜åŠŸèƒ½ï¼Ÿ")){
+autoSave=false;button.value="å‚¨å­˜å†…å®¹";
 }}}
 
 function postLoad(){
@@ -200,20 +200,20 @@ i = document.cookie.indexOf(" ",i)+1;
 if (i==0)break;
 }
 if(savePost == null){
-alert("ÄúÄ¿Ç°Ã»ÓĞ´¢´æÈÎºÎÎÄÕÂÄÚÈİ¡£");
+alert("æ‚¨ç›®å‰æ²¡æœ‰å‚¨å­˜ä»»ä½•æ–‡ç« å†…å®¹ã€‚");
 }else{
-if(confirm("È·¶¨°ÑÏÖÔÚµÄÄÚÈİ¸ÄÎª´¢´æµÄÄÚÈİ£¿\\n-------ÏÖ´¢´æµÄÎÄÕÂÄÚÈİ-----------\\n"+savePost))
+if(confirm("ç¡®å®šæŠŠç°åœ¨çš„å†…å®¹æ”¹ä¸ºå‚¨å­˜çš„å†…å®¹ï¼Ÿ\\n-------ç°å‚¨å­˜çš„æ–‡ç« å†…å®¹-----------\\n"+savePost))
 document.FORM.inpost.value=savePost;
 }}
 </SCRIPT>
-¡¡
+ã€€
 <select onChange="if(this.options[this.selectedIndex].value!=''){showfont(this.options[this.selectedIndex].value);this.options[0].selected=true;}else {this.selectedIndex=0;}" name=font>
-<option value=>Ñ¡Ôñ×ÖÌå</option>
-<option value="ËÎÌå">ËÎÌå</option>
-<option value="¿¬Ìå_GB2312">¿¬Ìå</option>
-<option value="ĞÂËÎÌå">ĞÂËÎÌå</option>
-<option value="ºÚÌå">ºÚÌå</option>
-<option value="Á¥Êé">Á¥Êé</option>
+<option value=>é€‰æ‹©å­—ä½“</option>
+<option value="å®‹ä½“">å®‹ä½“</option>
+<option value="æ¥·ä½“_GB2312">æ¥·ä½“</option>
+<option value="æ–°å®‹ä½“">æ–°å®‹ä½“</option>
+<option value="é»‘ä½“">é»‘ä½“</option>
+<option value="éš¶ä¹¦">éš¶ä¹¦</option>
 <OPTION value="Andale Mono">Andale Mono</OPTION> 
 <OPTION value=Arial>Arial</OPTION> 
 <OPTION value="Arial Black">Arial Black</OPTION> 
@@ -232,7 +232,7 @@ document.FORM.inpost.value=savePost;
 <OPTION value="Lucida Console">Lucida Console</OPTION>
 </SELECT>
 <select onChange="if(this.options[this.selectedIndex].value!=''){showsize(this.options[this.selectedIndex].value);this.options[0].selected=true;}else {this.selectedIndex=0;}" name=size>
-<OPTION value=>Ñ¡Ôñ×ÖºÅ</OPTION>
+<OPTION value=>é€‰æ‹©å­—å·</OPTION>
 <OPTION value=1>1</OPTION>
 <OPTION value=2>2</OPTION>
 <OPTION value=3>3</OPTION>
@@ -241,7 +241,7 @@ document.FORM.inpost.value=savePost;
 <OPTION value=6>6</OPTION>
 </SELECT>
 <select onChange="if(this.options[this.selectedIndex].value!=''){showcolor(this.options[this.selectedIndex].value);this.options[0].selected=true;}else {this.selectedIndex=0;}" name=color> 
-<option value=>Ñ¡ÔñÑÕÉ«</option>
+<option value=>é€‰æ‹©é¢œè‰²</option>
 <option style=background-color:#F0F8FF;color:#F0F8FF value=#F0F8FF>#F0F8FF</option>
 <option style=background-color:#FAEBD7;color:#FAEBD7 value=#FAEBD7>#FAEBD7</option>
 <option style=background-color:#00FFFF;color:#00FFFF value=#00FFFF>#00FFFF</option>
@@ -384,31 +384,31 @@ document.FORM.inpost.value=savePost;
 <option style=background-color:#9ACD32;color:#9ACD32 value=#9ACD32>#9ACD32</option>
 </SELECT>
 <select name="tsft" onChange="if(this.options[this.selectedIndex].value!=''){showtsft(this.options[this.selectedIndex].value);this.options[0].selected=true;}else {this.selectedIndex=0;}">
-<option  selected>ÌØÊâ±êÇ©</option>
-<option value=hide>»Ø¸´Ìû×Ó</option>
-<option value=watermark>Ë®Ó¡Ìû×Ó</option>
-<option value=post>ÏŞÖÆÌû×Ó</option>
-<option value=iframe>¿ò¼ÜÍøÒ³</option>
-<option value=sup>ÉÏ±êÎÄ×Ö</option>
-<option value=sub>ÏÂ±êÎÄ×Ö</option>
-<option value=quote>ÒıÓÃ±êÇ©</option>
-<option value=jf>»ı·Ö±êÇ©</option>
-<option value=code>³ÌĞò´úÂë</option>
-<option value=html>HTML´úÂë</option>
-<option value=s>É¾ ³ı Ïß</option>
-<option value=FLIPH>×óÓÒµßµ¹</option>
-<option value=FLIPV>ÉÏÏÂµßµ¹</option>
-<option value=INVERT>µ×Æ¬Ğ§¹û</option>
-<option value=XRAY>ÆØ¹âĞ§¹û</option>
+<option  selected>ç‰¹æ®Šæ ‡ç­¾</option>
+<option value=hide>å›å¤å¸–å­</option>
+<option value=watermark>æ°´å°å¸–å­</option>
+<option value=post>é™åˆ¶å¸–å­</option>
+<option value=iframe>æ¡†æ¶ç½‘é¡µ</option>
+<option value=sup>ä¸Šæ ‡æ–‡å­—</option>
+<option value=sub>ä¸‹æ ‡æ–‡å­—</option>
+<option value=quote>å¼•ç”¨æ ‡ç­¾</option>
+<option value=jf>ç§¯åˆ†æ ‡ç­¾</option>
+<option value=code>ç¨‹åºä»£ç </option>
+<option value=html>HTMLä»£ç </option>
+<option value=s>åˆ  é™¤ çº¿</option>
+<option value=FLIPH>å·¦å³é¢ å€’</option>
+<option value=FLIPV>ä¸Šä¸‹é¢ å€’</option>
+<option value=INVERT>åº•ç‰‡æ•ˆæœ</option>
+<option value=XRAY>æ›å…‰æ•ˆæœ</option>
 </select>
-&nbsp;&nbsp;$realimg $wmimg <IMG onclick=viewibcode() height=22 alt="µãÕâÀï²é¿´ LeoBBS ÂÛÌ³ËùÓĞµÄ×¨ÓÃ±êÇ©" src=$imagesurl/btg/help.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)"> <IMG onclick=emulelink() height=22 alt="·¢²¼ ed2k Á¬½Ó" src=$imagesurl/btg/emule.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<br>¡¡
+&nbsp;&nbsp;$realimg $wmimg <IMG onclick=viewibcode() height=22 alt="ç‚¹è¿™é‡ŒæŸ¥çœ‹ LeoBBS è®ºå›æ‰€æœ‰çš„ä¸“ç”¨æ ‡ç­¾" src=$imagesurl/btg/help.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)"> <IMG onclick=emulelink() height=22 alt="å‘å¸ƒ ed2k è¿æ¥" src=$imagesurl/btg/emule.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<br>ã€€
 <script>
 function checklength(theform){
 var odds=0;
 for(var i=0;i<theform.inpost.value.length;i++){if (theform.inpost.value.charCodeAt(i)>255) odds++;}
 odds=theform.inpost.value.length+odds;
-alert("ÄúµÄÎÄÕÂÄ¿Ç°ÓĞ "+odds+" ×Ö½Ú¡£");
+alert("æ‚¨çš„æ–‡ç« ç›®å‰æœ‰ "+odds+" å­—èŠ‚ã€‚");
 }
 function enable(btn){btn.filters.gray.enabled=0;}
 function disable(btn){btn.filters.gray.enabled=1;}
@@ -446,7 +446,7 @@ rtf.document.body.innerHTML = "";
 rtf.document.execCommand("paste");
 str = rtf.document.body.innerHTML;
 if(str.length == 0) {
-alert("¼ôÇĞ°æ²»´æÔÚ³¬ÎÄ±¾Êı¾İ£¡");
+alert("å‰ªåˆ‡ç‰ˆä¸å­˜åœ¨è¶…æ–‡æœ¬æ•°æ®ï¼");
 return "";
 }
 return html_trans(str);
@@ -455,30 +455,20 @@ function showtsft(tsft){
 AddText("[" + tsft + "] [/" + tsft + "]");
 }
 </script>
-<IMG onclick=bold() height=22 alt=´ÖÌå×Ö src=$imagesurl/btg/bold.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=italicize() height=22 alt=Ğ±Ìå×Ö src=$imagesurl/btg/italicize.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=underline() height=22 alt=ÏÂ»®Ïß src=$imagesurl/btg/underline.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=hyperlink() height=22 alt=²åÈë³¬¼¶Á´½Ó src=$imagesurl/btg/url.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=email() height=22 alt=²åÈëÓÊ¼şµØÖ· src=$imagesurl/btg/email.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=image() height=22 alt=²åÈëÍ¼Æ¬ src=$imagesurl/btg/image.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=setswf() height=22 alt="²åÈë Flash ¶¯»­" src=$imagesurl/btg/swf.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=setsound() height=22 alt=²åÈëÉùÒô src=$imagesurl/btg/sound.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=showcode() height=22 alt=²åÈë´úÂë src=$imagesurl/btg/code.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=quoteme() height=22 alt=²åÈëÒıÓÃ src=$imagesurl/btg/quote.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=list() height=22 alt=²åÈëÁĞ±í src=$imagesurl/btg/list.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=setfly() height=22 alt=·ÉĞĞ×Ö src=$imagesurl/btg/fly.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=move() height=22 alt=ÒÆ¶¯×Ö src=$imagesurl/btg/move.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=glow() height=22 alt=·¢¹â×Ö src=$imagesurl/btg/glow.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=shadow() height=22 alt=ÒõÓ°×Ö src=$imagesurl/btg/shadow.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=smilieopen() height=22 alt=²åÈë±íÇé´úÂë src=$imagesurl/btg/smilie.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-~;
-if ($magicface ne 'off') {
-$insidejs .= qq~
-<IMG onclick=magicfaceopen() height=22 alt=²åÈëÄ§·¨±íÇé src=$imagesurl/btg/magicface.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
-~;
-}
-$insidejs .= qq~
-<IFRAME id=rtf style="WIDTH: 0px; HEIGHT: 0px" marginWidth=0 marginHeight=0 src="about:blank" scrolling=no></IFRAME><LABEL for=x_paste></LABEL>
-<BR>¡¡¡º <span style=cursor:hand onClick=javascript:openeditor()><font color=$fonthighlight>HTML ±à¼­Æ÷</font></span> ¡»¡º <span style=cursor:hand onClick=javascript:openascii()><font color=#990000>ASCII ×ÖĞÎÉú³ÉÆ÷</font></span> ¡»¡º <span style=cursor:hand onClick=javascript:replac()><font color=$fonthighlight>ÎÄ±¾ÄÚÈİÌæ»»</font></span> ¡»<input type="button" class="button" name="lbcode_save" value="´¢´æÄÚÈİ" onClick="postSave(this)"> <input type="button" class="button" name="lbcode_load" value="¶ÁÈ¡ÄÚÈİ" onClick="postLoad()"><br>&nbsp;
+<IMG onclick=bold() height=22 alt=ç²—ä½“å­— src=$imagesurl/btg/bold.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=italicize() height=22 alt=æ–œä½“å­— src=$imagesurl/btg/italicize.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=underline() height=22 alt=ä¸‹åˆ’çº¿ src=$imagesurl/btg/underline.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=hyperlink() height=22 alt=æ’å…¥è¶…çº§é“¾æ¥ src=$imagesurl/btg/url.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=email() height=22 alt=æ’å…¥é‚®ä»¶åœ°å€ src=$imagesurl/btg/email.gif width=23 class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=image() height=22 alt=æ’å…¥å›¾ç‰‡ src=$imagesurl/btg/image.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=setswf() height=22 alt="æ’å…¥ Flash åŠ¨ç”»" src=$imagesurl/btg/swf.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=setsound() height=22 alt=æ’å…¥å£°éŸ³ src=$imagesurl/btg/sound.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=showcode() height=22 alt=æ’å…¥ä»£ç  src=$imagesurl/btg/code.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=quoteme() height=22 alt=æ’å…¥å¼•ç”¨ src=$imagesurl/btg/quote.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=list() height=22 alt=æ’å…¥åˆ—è¡¨ src=$imagesurl/btg/list.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=setfly() height=22 alt=é£è¡Œå­— src=$imagesurl/btg/fly.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=move() height=22 alt=ç§»åŠ¨å­— src=$imagesurl/btg/move.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=glow() he onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=setswf() height=22 alt="input type="button" class="button" name="lbcode_load" value="¶ÁÈ¡ÄÚÈİ" onClick="postLoad()"><br>&nbsp;
 ~;
 1;

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -44,10 +44,10 @@ for ('forum','topic','membername','password','action','inshowsignature','notify'
 
 $inforum       = $forum;
 $intopic       = $topic;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic) && ($intopic !~ /^[0-9 ]+$/));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9 ]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic) && ($intopic !~ /^[0-9 ]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9 ]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
-&error("ÆÕÍ¨´íÎó&ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò£¡") if (($postweiwang > $maxweiwang)&&($inhiddentopic eq "yes"));
+&error("æ™®é€šé”™è¯¯&è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åºï¼") if (($postweiwang > $maxweiwang)&&($inhiddentopic eq "yes"));
 $inmembername  = $membername;
 $inpassword    = $password;
 if ($inpassword ne "") {
@@ -73,7 +73,7 @@ $inpost        .=($inshowchgfont eq "yes")?"[USECHGFONTE]":"" if (($action eq "p
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
@@ -81,17 +81,17 @@ if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 require "postjs.cgi";
@@ -102,17 +102,17 @@ $maxpoststr = 100 if (($maxpoststr < 100)&&($maxpoststr ne ""));
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &moderator("$inforum"); 
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
@@ -125,16 +125,16 @@ else { undef $emote; }
 
 if ($inshowemoticons ne "yes")  { $inshowemoticons eq "no"; }
 if ($innotify ne "yes")         { $innotify eq "no"; }
-if ($arrawpostpic eq "on")      { $postpicstates = "ÔÊĞí";}      else { $postpicstates = "½ûÖ¹";}
-if ($arrawpostfontsize eq "on") { $postfontsizestates = "ÔÊĞí";} else { $postfontsizestates = "½ûÖ¹";}
-if ($arrawpostsound eq "on")    { $postsoundstates = "ÔÊĞí";}    else { $postsoundstates = "½ûÖ¹";}
-if ($postjf eq "yes")    { $postjfstates = "ÔÊĞí";}    else { $postjfstates = "½ûÖ¹";}
-if ($jfmark eq "yes")    { $jfmarkstates = "ÔÊĞí";}    else { $jfmarkstates = "½ûÖ¹";}
-if ($hidejf eq "yes")    { $hidejfstates = "ÔÊĞí";}    else { $hidejfstates = "½ûÖ¹";}
+if ($arrawpostpic eq "on")      { $postpicstates = "å…è®¸";}      else { $postpicstates = "ç¦æ­¢";}
+if ($arrawpostfontsize eq "on") { $postfontsizestates = "å…è®¸";} else { $postfontsizestates = "ç¦æ­¢";}
+if ($arrawpostsound eq "on")    { $postsoundstates = "å…è®¸";}    else { $postsoundstates = "ç¦æ­¢";}
+if ($postjf eq "yes")    { $postjfstates = "å…è®¸";}    else { $postjfstates = "ç¦æ­¢";}
+if ($jfmark eq "yes")    { $jfmarkstates = "å…è®¸";}    else { $jfmarkstates = "ç¦æ­¢";}
+if ($hidejf eq "yes")    { $hidejfstates = "å…è®¸";}    else { $hidejfstates = "ç¦æ­¢";}
 
 if ($action eq "edit") { &editform;}
 elsif ($action eq "processedit" )  { &processedit; }
-else { &error("ÆÕÍ¨´íÎó&ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò"); }
+else { &error("æ™®é€šé”™è¯¯&è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åº"); }
     
 &output($boardname,\$output);
 exit;
@@ -150,14 +150,10 @@ sub editform {
     chomp $threads;
 
     ($postermembername, $topictitle, $postipaddress, $showemoticons, $showsignature ,$postdate, $post, $posticon, $water) = split(/\t/, $threads);
-    $topictitle =~ s/^£ª£££¡£¦£ª//;
-    &error("±à¼­Ìû×Ó&Ã»¸ã´í°É£¬Õâ¸ù±¾²»ÊÇÍ¶Æ±Ìù×Ó°¡£¡") if ($posticon !~ /<BR>/i);
+    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+    &error("ç¼–è¾‘å¸–å­&æ²¡æé”™å§ï¼Œè¿™æ ¹æœ¬ä¸æ˜¯æŠ•ç¥¨è´´å­å•Šï¼") if ($posticon !~ /<BR>/i);
     $inmembmod = "no" if (($membercode eq "amo")&&($allowamoedit ne "yes"));
-    if (($membercode ne "ad")&&($membercode ne "smo")&&($inmembmod ne "yes")&&((lc($inmembername) ne lc($postermembername))||($usereditpost eq "no"))) {&error("±à¼­Í¶Æ±Ìû×Ó&Äú²»ÊÇÔ­×÷Õß¡¢ÂÛÌ³°æÖ÷ÒÔÉÏ¼¶±ğ , »òÕßÃÜÂë´íÕ`£¬»òÕß´ËÇø²»ÔÊĞí±à¼­Ìû×Ó£¡");} 
-    $testentry = $query->cookie("forumsallowed$inforum");
-    if (($allowedentry{$inforum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
-    else { $allowed  = "no"; }
-    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("±à¼­Í¶Æ±&¶Ô²»Æğ£¬Äú²»ÔÊĞíÔÚ´ËÂÛÌ³·¢±í£¡"); }
+    if (($membercode ne "ad")&&($membercode ne "smo")&&($inmembmod ne "yes")&&((lc($inmembername) ne lc($postermembername))||($usereditpost eq "no"))) {&error("ç¼–è¾‘æŠ•ç¥¨å¸–å­&æ‚¨ä¸æ˜¯åŸä½œè€…ã€è®ºå›ç‰ˆä¸»ä»¥ä¸Šçº§åˆ« , æˆ–è€…å¯†ç é”™Æ±&¶Ô²»Æğ£¬Äú²»ÔÊĞíÔÚ´ËÂÛÌ³·¢±í£¡"); }
 
 if ($nowater eq "on") { 
     $gsnum = 0 if ($gsnum<=0);

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -34,7 +34,7 @@ $thisprog = "setawards.cgi";
 
 $query = new LBCGI;
 
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 @params = $query->param;
 	foreach $param(@params) {
@@ -88,13 +88,13 @@ else {&adminlogin;}
 sub awardlist {
     $highest = 0;
     print qq~
-    <tr><td bgcolor=#2159C9 colspan=3><font face=ËÎÌå color=#FFFFFF>
-    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÉçÇøÑ«ÕÂ¹ÜÀí</b>
+    <tr><td bgcolor=#2159C9 colspan=3><font face=å®‹ä½“ color=#FFFFFF>
+    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¤¾åŒºå‹‹ç« ç®¡ç†</b>
     </td></tr>
-    <tr><td bgcolor=#FFFFFF colspan=3><font face=ËÎÌå color=#333333>
-    <b>×¢ÒâÊÂÏî£º</b><br><br>
-    ÔÚÏÂÃæ£¬Äú½«¿´µ½Ä¿Ç°ËùÓĞµÄÉçÇøÑ«ÕÂ¡£Äú¿ÉÒÔ±à¼­ÉçÇøÑ«ÕÂÃû»òÊÇÔö¼ÓÒ»¸öĞÂµÄÉçÇøÑ«ÕÂ¡£ 
-    Ò²¿ÉÒÔ±à¼­»òÉ¾³ıÄ¿Ç°´æÔÚµÄÉçÇøÑ«ÕÂ¡£<br>
+    <tr><td bgcolor=#FFFFFF colspan=3><font face=å®‹ä½“ color=#333333>
+    <b>æ³¨æ„äº‹é¡¹ï¼š</b><br><br>
+    åœ¨ä¸‹é¢ï¼Œæ‚¨å°†çœ‹åˆ°ç›®å‰æ‰€æœ‰çš„ç¤¾åŒºå‹‹ç« ã€‚æ‚¨å¯ä»¥ç¼–è¾‘ç¤¾åŒºå‹‹ç« åæˆ–æ˜¯å¢åŠ ä¸€ä¸ªæ–°çš„ç¤¾åŒºå‹‹ç« ã€‚ 
+    ä¹Ÿå¯ä»¥ç¼–è¾‘æˆ–åˆ é™¤ç›®å‰å­˜åœ¨çš„ç¤¾åŒºå‹‹ç« ã€‚<br>
     </td></tr>
     ~;
 
@@ -117,11 +117,11 @@ sub awardlist {
 
          print qq~
             <tr>
-            <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+            <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
             </td></tr>
             <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
-       <a href="$thisprog?action=addaward">Ôö¼ÓĞÂµÄÉçÇøÑ«ÕÂ</a></font></td>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
+       <a href="$thisprog?action=addaward">å¢åŠ æ–°çš„ç¤¾åŒºå‹‹ç« </a></font></td>
             </td></tr>
        
        ~;
@@ -134,9 +134,9 @@ sub awardlist {
        
                print qq~
                 <tr>
-                <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=ËÎÌå color=#333333>
-                <b>ÉçÇøÑ«ÕÂÃû³Æ</b>£º $awardname<BR><b>ÉçÇøÑ«ÕÂÍ¼Æ¬</b>£º <img src=$imagesurl/awards/$awardpic><br><b>ÉçÇøÑ«ÕÂ¼ò½é</b>£º $awardinfo<br>
-                <br><a href="$thisprog?action=edit&award=$awardnamenum">±à¼­´ËÉçÇøÑ«ÕÂ</a> | <font face=ËÎÌå color=#333333><a href="$thisprog?action=delete&award=$awardnamenum&oawardname=$awardname">É¾³ı´ËÉçÇøÑ«ÕÂ</a> </td>
+                <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=å®‹ä½“ color=#333333>
+                <b>ç¤¾åŒºå‹‹ç« åç§°</b>ï¼š $awardname<BR><b>ç¤¾åŒºå‹‹ç« å›¾ç‰‡</b>ï¼š <img src=$imagesurl/awards/$awardpic><br><b>ç¤¾åŒºå‹‹ç« ç®€ä»‹</b>ï¼š $awardinfo<br>
+                <br><a href="$thisprog?action=edit&award=$awardnamenum">ç¼–è¾‘æ­¤ç¤¾åŒºå‹‹ç« </a> | <font face=å®‹ä½“ color=#333333><a href="$thisprog?action=delete&award=$awardnamenum&oawardname=$awardname">åˆ é™¤æ­¤ç¤¾åŒºå‹‹ç« </a> </td>
                 </font></td></tr>
                 ~;
        
@@ -144,11 +144,11 @@ sub awardlist {
     
                
         print qq~
-        <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+        <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
         </td></tr>
              <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
-       <a href="$thisprog?action=addaward">Ôö¼ÓĞÂµÄÉçÇøÑ«ÕÂ</a></font></td>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
+       <a href="$thisprog?action=addaward">å¢åŠ æ–°çš„ç¤¾åŒºå‹‹ç« </a></font></td>
             </td></tr>
         </tr></table></td></tr></table>~;
     
@@ -157,8 +157,8 @@ sub awardlist {
 sub addaward {
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Ôö¼ÓÉçÇøÑ«ÕÂ</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢åŠ ç¤¾åŒºå‹‹ç« </b>
         </td></tr>
         ~;
 
@@ -170,21 +170,21 @@ sub addaward {
         <input type=hidden name="action" value="processnew">       
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÉçÇøÑ«ÕÂÃû³Æ</b><br>ÇëÊäÈëĞÂÉçÇøÑ«ÕÂµÄÃû³Æ<BR>(Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ)</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç¤¾åŒºå‹‹ç« åç§°</b><br>è¯·è¾“å…¥æ–°ç¤¾åŒºå‹‹ç« çš„åç§°<BR>(è¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…)</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="awardname" maxlength=40></td>
         </tr>
         <input type=hidden size=40 name="awardurl" value="">
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>½±ÀøÍ¼Æ¬Ãû³Æ</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ(·ÅÔÚnon-cgi/images/awardsÄ¿Â¼ÏÂ)</font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¥–åŠ±å›¾ç‰‡åç§°</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°(æ”¾åœ¨non-cgi/images/awardsç›®å½•ä¸‹)</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="weblogo"></td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>½±ÀøÃèÊö</b><br>ÇëÊäÈëĞÂ½±ÀøµÄÃèÊö</font></td>
+        <font face=å®‹ä½“ color=#333333><b>å¥–åŠ±æè¿°</b><br>è¯·è¾“å…¥æ–°å¥–åŠ±çš„æè¿°</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="awardinfo"></td>
         </tr>   
@@ -192,15 +192,15 @@ sub addaward {
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 }
 
 sub createaward {   
 		
-		&errorout("¶Ô²»Æğ£¬ÂÛÌ³Ãû×Ö¹ı³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_awardname) >40);
-		&errorout("½±ÀøÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_awardinfo eq "");
+		&errorout("å¯¹ä¸èµ·ï¼Œè®ºå›åå­—è¿‡é•¿ï¼Œè¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_awardname) >40);
+		&errorout("å¥–åŠ±æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_awardinfo eq "");
                 
                 $filetoopen = "$lbdir" . "data/cityawards.cgi";
 	        &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -223,19 +223,19 @@ sub createaward {
 	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
                 
                 print qq~
-                <tr><td bgcolor=#2159C9" colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Ôö¼ÓÉçÇøÑ«ÕÂ½á¹û</b>
+                <tr><td bgcolor=#2159C9" colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢åŠ ç¤¾åŒºå‹‹ç« ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                <font face=ËÎÌå color=#333333>
+                <font face=å®‹ä½“ color=#333333>
                 ~;
 
-                print "<b>ÏêÏ¸×ÊÁÏ</b><p>\n";
+                print "<b>è¯¦ç»†èµ„æ–™</b><p>\n";
                 print "<ul>\n";
                
-                print "ĞÂÉçÇøÑ«ÕÂ <B>$new_awardname</b> ÒÑ¾­½¨Á¢£¡";
-                print "<a href=\"$thisprog?action=awardlist\">·µ»Ø</a> ";             
+                print "æ–°ç¤¾åŒºå‹‹ç«  <B>$new_awardname</b> å·²ç»å»ºç«‹ï¼";
+                print "<a href=\"$thisprog?action=awardlist\">è¿”å›</a> ";             
                 print "</ul></td></tr></table></td></tr></table>\n";
 
 }
@@ -243,19 +243,19 @@ sub createaward {
 sub warning { #start
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / É¾³ıÉçÇøÑ«ÕÂ</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤ç¤¾åŒºå‹‹ç« </b>
         </td></tr>
         <tr>
         <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-        <font face=ËÎÌå color=#990000><b>¾¯¸æ£¡£¡</b>
+        <font face=å®‹ä½“ color=#990000><b>è­¦å‘Šï¼ï¼</b>
         </td></tr>
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <font face=ËÎÌå color=#333333>Èç¹ûÄúÈ·¶¨ÒªÉ¾³ıÉçÇøÑ«ÕÂ $oawardname£¬ÄÇÃ´Çëµã»÷ÏÂÃæÁ´½Ó<p>
-        >> <a href="$thisprog?action=delete&checkaction=yes&award=$awardid&oawardname=$oawardname">É¾³ıÉçÇøÑ«ÕÂ</a> <<
-        <br><br>>> <a href=\"$thisprog?action=awardlist\">ËãÁË,ÔÙ¿¼ÂÇÒ»ÏÂ</a> <<
+        <font face=å®‹ä½“ color=#333333>å¦‚æœæ‚¨ç¡®å®šè¦åˆ é™¤ç¤¾åŒºå‹‹ç«  $oawardnameï¼Œé‚£ä¹ˆè¯·ç‚¹å‡»ä¸‹é¢é“¾æ¥<p>
+        >> <a href="$thisprog?action=delete&checkaction=yes&award=$awardid&oawardname=$oawardname">åˆ é™¤ç¤¾åŒºå‹‹ç« </a> <<
+        <br><br>>> <a href=\"$thisprog?action=awardlist\">ç®—äº†,å†è€ƒè™‘ä¸€ä¸‹</a> <<
         </td></tr>
         </table></td></tr></table>
         
@@ -287,19 +287,19 @@ sub deleteaward {
 
        
                     print qq~
-                    <tr><td bgcolor=#2159C9" colspan=2><font face=ËÎÌå color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / É¾³ıÉçÇøÑ«ÕÂ½á¹û</b>
+                    <tr><td bgcolor=#2159C9" colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤ç¤¾åŒºå‹‹ç« ç»“æœ</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                    <font face=ËÎÌå color=#990000>
+                    <font face=å®‹ä½“ color=#990000>
                     
-                    <center><b>ÉçÇøÑ«ÕÂ <B>$oawardname</B> ÒÑ±»É¾³ı</b>£¬ÇëË¢ĞÂÉçÇøÑ«ÕÂ¹ÜÀíÒ³ºóÔÙ¼ÌĞø²Ù×÷£¡</center><p>
+                    <center><b>ç¤¾åŒºå‹‹ç«  <B>$oawardname</B> å·²è¢«åˆ é™¤</b>ï¼Œè¯·åˆ·æ–°ç¤¾åŒºå‹‹ç« ç®¡ç†é¡µåå†ç»§ç»­æ“ä½œï¼</center><p>
                     
                   
                                     
                     </td></tr></table>
-                    <center>>> <a href=\"$thisprog?action=awardlist\">´ÓÕâÀï·µ»Ø</a> <<</center></td></tr></table>
+                    <center>>> <a href=\"$thisprog?action=awardlist\">ä»è¿™é‡Œè¿”å›</a> <<</center></td></tr></table>
                     ~;
 
 
@@ -317,8 +317,8 @@ sub editaward {
          ($awardname,$awardurl,$awardinfo,$awardorder,$awardpic) = split(/\t/,$awards[$awardid-1]);   
          
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­ÉçÇøÑ«ÕÂ</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘ç¤¾åŒºå‹‹ç« </b>
         </td></tr>
        
                 
@@ -327,21 +327,21 @@ sub editaward {
         <input type=hidden name="award" value="$awardid">
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÉçÇøÑ«ÕÂÃû³Æ</b><br>ÇëÊäÈëÉçÇøÑ«ÕÂÃû³Æ<BR>(Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ)</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç¤¾åŒºå‹‹ç« åç§°</b><br>è¯·è¾“å…¥ç¤¾åŒºå‹‹ç« åç§°<BR>(è¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…)</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="awardname" value="$awardname"  maxlength=40></td>
         </tr>
         <input type=hidden size=40 name="awardurl" value="">
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÉçÇøÑ«ÕÂÍ¼Æ¬</b><br>ÇëÊäÈëÉçÇøÑ«ÕÂÍ¼Æ¬(·ÅÔÚnon-cgi/images/awardsÄ¿Â¼ÏÂ)</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç¤¾åŒºå‹‹ç« å›¾ç‰‡</b><br>è¯·è¾“å…¥ç¤¾åŒºå‹‹ç« å›¾ç‰‡(æ”¾åœ¨non-cgi/images/awardsç›®å½•ä¸‹)</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="weblogo" value="$awardpic"></td>
         </tr> 
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÉçÇøÑ«ÕÂÃèÊö</b><br>ÇëÊäÈëÉçÇøÑ«ÕÂÃèÊö</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç¤¾åŒºå‹‹ç« æè¿°</b><br>è¯·è¾“å…¥ç¤¾åŒºå‹‹ç« æè¿°</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="awardinfo" value="$awardinfo"></td>
         </tr>   
@@ -349,15 +349,15 @@ sub editaward {
             
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 }
 
 sub doedit {
         
-	&errorout("¶Ô²»Æğ£¬½±ÀøÃû×Ö¹ı³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_awardname) >40);
-	&errorout("½±ÀøÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_awardinfo eq "");
+	&errorout("å¯¹ä¸èµ·ï¼Œå¥–åŠ±åå­—è¿‡é•¿ï¼Œè¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_awardname) >40);
+	&errorout("å¥–åŠ±æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_awardinfo eq "");
        
          $filetoopen = "$lbdir" . "data/cityawards.cgi";
          &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -388,15 +388,15 @@ sub doedit {
 
 
                  print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­ÉçÇøÑ«ÕÂ½á¹û</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘ç¤¾åŒºå‹‹ç« ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­±£´æ</b><p>
+                <font face=å®‹ä½“ color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><p>
                
                 </td></tr></table>
-                <center><a href=\"$thisprog?action=awardlist\">·µ»Ø</a></center> 
+                <center><a href=\"$thisprog?action=awardlist\">è¿”å›</a></center> 
                 </td></tr></table>
                 ~;
                 
@@ -409,13 +409,13 @@ exit;
 
 sub errorout {
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ·¢Éú´íÎó</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å‘ç”Ÿé”™è¯¯</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                <font face=ËÎÌå color=#333333>
-                <font face=ËÎÌå color=#333333><b>$_[0]</b>
+                <font face=å®‹ä½“ color=#333333>
+                <font face=å®‹ä½“ color=#333333><b>$_[0]</b>
                 </td></tr></table></td></tr></table>
                 ~;
 exit;	

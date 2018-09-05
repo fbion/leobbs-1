@@ -1,51 +1,51 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-if ($inmembername ne "¿ÍÈË") {
+if ($inmembername ne "å®¢äºº") {
     if (($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo')&&($membercode ne 'amo')) {
-	$deltopicmore1 = qq~ÂÛÌ³Ñ¡Ïî~;
-	$deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$inforum>ÅúÁ¿¹ÜÀíÎÄÕÂ</a>~;
-	$deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$inforum>ÐÞ¸´Õâ¸öÂÛÌ³</a>~;
+	$deltopicmore1 = qq~è®ºå›é€‰é¡¹~;
+	$deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$inforum>æ‰¹é‡ç®¡ç†æ–‡ç« </a>~;
+	$deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$inforum>ä¿®å¤è¿™ä¸ªè®ºå›</a>~;
     } else { $deltopicmore1=""; $deltopicmore2=""; $deltopicmore3=""; }
 
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellspacing=1 cellpadding=6 width=100%>
-<tr><td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS ÂÛÌ³Í¼Àý</b></font> (<a href=delforumcache.cgi?forum=$inforum title=Èç¹û±¾ÇøÓÐ²¿·ÖÊý¾ÝÖÍºóµÄ»°£¬¿ÉÒÔÓÃ´Ë¹¦ÄÜ>¸üÐÂ¸ÃÇø»º´æ</a>)</td>
-<td noWrap bgcolor=$titlecolor width=20% align=right $catbackpic><font color=$titlefontcolor> ËùÓÐÊ±¼ä¾ùÎª - $basetimes &nbsp;</td></tr><tr><td colspan=3 bgcolor=$forumcolorone>
+<tr><td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS è®ºå›å›¾ä¾‹</b></font> (<a href=delforumcache.cgi?forum=$inforum title=å¦‚æžœæœ¬åŒºæœ‰éƒ¨åˆ†æ•°æ®æ»žåŽçš„è¯ï¼Œå¯ä»¥ç”¨æ­¤åŠŸèƒ½>æ›´æ–°è¯¥åŒºç¼“å­˜</a>)</td>
+<td noWrap bgcolor=$titlecolor width=20% align=right $catbackpic><font color=$titlefontcolor> æ‰€æœ‰æ—¶é—´å‡ä¸º - $basetimes &nbsp;</td></tr><tr><td colspan=3 bgcolor=$forumcolorone>
 <table cellspacing=4 cellpadding=0 width=94% align=center><tr>
-<td width=20%><font color=$fonthighlight>´ò¿ªµÄÖ÷Ìâ</font></td>
-<td width=21%><font color=$fonthighlight>»Ø¸´³¬ $hottopicmark ´ÎµÄÈÈÃÅÌû</font></td>
-<td width=22%><font color=$fonthighlight>Ëø¶¨Ìû×ÓÍ¼±ê</font></td>
-<td width=21%><font color=$fonthighlight>ÌØÊâÌû×ÓÍ¼±ê</font></td>
+<td width=20%><font color=$fonthighlight>æ‰“å¼€çš„ä¸»é¢˜</font></td>
+<td width=21%><font color=$fonthighlight>å›žå¤è¶… $hottopicmark æ¬¡çš„çƒ­é—¨å¸–</font></td>
+<td width=22%><font color=$fonthighlight>é”å®šå¸–å­å›¾æ ‡</font></td>
+<td width=21%><font color=$fonthighlight>ç‰¹æ®Šå¸–å­å›¾æ ‡</font></td>
 <td width=14%><font color=$fonthighlight>$deltopicmore1</font></td></tr><tr>
-<td><img src=$imagesurl/images/$skin/topicnew3.gif> ÉÏ´ÎÀ´Ö®ºó·¢±í</td>
-<td><img src=$imagesurl/images/$skin/topichot3.gif> <img src=$imagesurl/images/$skin/closedbhot.gif> ÉÏ´ÎÀ´Ö®ºó·¢±í</td>
-<td><img src=$imagesurl/images/$skin/topiclocked3.gif> ²»½ÓÊÜ»Ø¸´µÄÖ÷Ìâ</td>
-<td><img src=$imagesurl/images/$skin/abstop.gif> <img src=$imagesurl/images/$skin/lockcattop.gif> <img src=$imagesurl/images/$skin/locktop.gif> ¹Ì¶¥µÄÖ÷Ìâ</td>
+<td><img src=$imagesurl/images/$skin/topicnew3.gif> ä¸Šæ¬¡æ¥ä¹‹åŽå‘è¡¨</td>
+<td><img src=$imagesurl/images/$skin/topichot3.gif> <img src=$imagesurl/images/$skin/closedbhot.gif> ä¸Šæ¬¡æ¥ä¹‹åŽå‘è¡¨</td>
+<td><img src=$imagesurl/images/$skin/topiclocked3.gif> ä¸æŽ¥å—å›žå¤çš„ä¸»é¢˜</td>
+<td><img src=$imagesurl/images/$skin/abstop.gif> <img src=$imagesurl/images/$skin/lockcattop.gif> <img src=$imagesurl/images/$skin/locktop.gif> å›ºé¡¶çš„ä¸»é¢˜</td>
 <td>$deltopicmore2</td></tr><tr>
-<td><img src=$imagesurl/images/$skin/topicnonew.gif> ÉÏ´ÎÀ´Ö®ºóÎÞÐÂ»Ø¸´</td>
-<td><img src=$imagesurl/images/$skin/topichotnonew.gif> ÉÏ´ÎÀ´Ö®ºóÎÞÐÂ»Ø¸´</td>
-<td><img src=$imagesurl/images/$skin/closedb1.gif> ²»½ÓÊÜ»Ø¸´µÄÍ¶Æ±</td>
-<td><img src=$imagesurl/images/$skin/closedb.gif> Í¶Æ±Àà±ðµÄÖ÷Ìâ</td>
+<td><img src=$imagesurl/images/$skin/topicnonew.gif> ä¸Šæ¬¡æ¥ä¹‹åŽæ— æ–°å›žå¤</td>
+<td><img src=$imagesurl/images/$skin/topichotnonew.gif> ä¸Šæ¬¡æ¥ä¹‹åŽæ— æ–°å›žå¤</td>
+<td><img src=$imagesurl/images/$skin/closedb1.gif> ä¸æŽ¥å—å›žå¤çš„æŠ•ç¥¨</td>
+<td><img src=$imagesurl/images/$skin/closedb.gif> æŠ•ç¥¨ç±»åˆ«çš„ä¸»é¢˜</td>
 <td>$deltopicmore3</td></tr></table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR>
 ~;
 } else {
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 width=$tablewidth align=center bgcolor=$tablebordercolor>
 <tr><td><table cellspacing=1 cellpadding=6 width="100%"><tr>
-<td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS ÂÛÌ³Í¼Àý</b></font> (<a href=delforumcache.cgi?forum=$inforum title=Èç¹û±¾ÇøÓÐ²¿·ÖÊý¾ÝÖÍºóµÄ»°£¬¿ÉÒÔÓÃ´Ë¹¦ÄÜ>¸üÐÂ¸ÃÇø»º´æ</a>)</td>
-<td noWrap bgcolor=$titlecolor width=20% align=right $catbackpic><font color=$titlefontcolor>ËùÓÐÊ±¼ä¾ùÎª - $basetimes &nbsp;</td></tr><tr><td colspan=3 bgcolor=$forumcolorone>
+<td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS è®ºå›å›¾ä¾‹</b></font> (<a href=delforumcache.cgi?forum=$inforum title=å¦‚æžœæœ¬åŒºæœ‰éƒ¨åˆ†æ•°æ®æ»žåŽçš„è¯ï¼Œå¯ä»¥ç”¨æ­¤åŠŸèƒ½>æ›´æ–°è¯¥åŒºç¼“å­˜</a>)</td>
+<td noWrap bgcolor=$titlecolor width=20% align=right $catbackpic><font color=$titlefontcolor>æ‰€æœ‰æ—¶é—´å‡ä¸º - $basetimes &nbsp;</td></tr><tr><td colspan=3 bgcolor=$forumcolorone>
 <table cellspacing=4 cellpadding=0 width=92% align=center><tr>
-<td width=21%><img src=$imagesurl/images/$skin/topicnonew.gif> ´ò¿ªÌÖÂÛµÄÖ÷Ìâ</td>
-<td width=21%><img src=$imagesurl/images/$skin/closedb.gif> Í¶Æ±Àà±ðµÄÖ÷Ìâ</td>
-<td width=28%><img src=$imagesurl/images/$skin/topiclocked3.gif> <img src=$imagesurl/images/$skin/closedb1.gif> ¹Ø±ÕÁËµÄÖ÷Ìâ£¬²»½ÓÊÜ»Ø¸´</td>
-<td width=21%><img src=$imagesurl/images/$skin/abstop.gif> <img src=$imagesurl/images/$skin/lockcattop.gif> <img src=$imagesurl/images/$skin/locktop.gif> (×Ü¡¢Çø)¹Ì¶¥µÄÖ÷Ìâ</td>
+<td width=21%><img src=$imagesurl/images/$skin/topicnonew.gif> æ‰“å¼€è®¨è®ºçš„ä¸»é¢˜</td>
+<td width=21%><img src=$imagesurl/images/$skin/closedb.gif> æŠ•ç¥¨ç±»åˆ«çš„ä¸»é¢˜</td>
+<td width=28%><img src=$imagesurl/images/$skin/topiclocked3.gif> <img src=$imagesurl/images/$skin/closedb1.gif> å…³é—­äº†çš„ä¸»é¢˜ï¼Œä¸æŽ¥å—å›žå¤</td>
+<td width=21%><img src=$imagesurl/images/$skin/abstop.gif> <img src=$imagesurl/images/$skin/lockcattop.gif> <img src=$imagesurl/images/$skin/locktop.gif> (æ€»ã€åŒº)å›ºé¡¶çš„ä¸»é¢˜</td>
 </tr></table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR>
 ~;
 }

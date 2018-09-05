@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
         open(FILE, "${lbdir}forum${inforum}/foruminfo.cgi");
@@ -13,7 +13,7 @@
         close(FILE);
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
 
-        #¸¸ÂÛÌ³°ßÖñ¼Ì³Ğ
+        #çˆ¶è®ºå›æ–‘ç«¹ç»§æ‰¿
         if ($category =~ /childforum-[0-9]+/) {
                 my $tempforumno = $category;
                 $tempforumno =~ s/childforum-//;
@@ -24,7 +24,7 @@
                 $forummoderator .= ",$fmod";
         }
 
-        #·ÖÇø°æÖ÷»ñµÃ
+        #åˆ†åŒºç‰ˆä¸»è·å¾—
         if (open(CATEFILE, "${lbdir}boarddata/catemod${categoryplace}.cgi")) {
                 my $catemods = <CATEFILE>;
                 close(CATEFILE);

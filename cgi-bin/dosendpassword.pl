@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     $ingetpassq        = &cleaninput($query -> param("getpassq"));
@@ -22,7 +22,7 @@
     foreach (@files) {unlink ("${lbdir}$msgdir/$_") if ((-M "${lbdir}$msgdir/$_") > 1);}
 
     if (-e "${lbdir}$msgdir/$inmembernamefile.cgi") {
-    	&error("ÃÜÂë»ñµÃÊ§°Ü&Çë²»ÒªÖØ¸´»ñÈ¡ÃÜÂë£¬ÂÛÌ³¹æ¶¨ÓÃ»§Ã¿£±£µ·ÖÖÓ²ÅÄÜÈ¡µÃÃÜÂëÒ»´Î£¡") if((-M "${lbdir}$msgdir/$inmembernamefile.cgi") *86400 < 900);
+    	&error("å¯†ç è·å¾—å¤±è´¥&è¯·ä¸è¦é‡å¤è·å–å¯†ç ï¼Œè®ºå›è§„å®šç”¨æˆ·æ¯ï¼‘ï¼•åˆ†é’Ÿæ‰èƒ½å–å¾—å¯†ç ä¸€æ¬¡ï¼") if((-M "${lbdir}$msgdir/$inmembernamefile.cgi") *86400 < 900);
     }
 
     if ($password ne "") {
@@ -45,7 +45,7 @@
         eval {$password = md5_hex($password);};
         if ($@) {eval('use Digest::MD5 qw(md5_hex);$password = md5_hex($password);');}
     }
-    else { &error("ÃÜÂë»ñµÃÊ§°Ü&ÄãµÄÃÜÂë×ÊÁÏÒÑ¾­¶ªÊ§£¬ÇëÁªÏµ¹ÜÀíÔ±ĞŞ¸´£¡"); }
+    else { &error("å¯†ç è·å¾—å¤±è´¥&ä½ çš„å¯†ç èµ„æ–™å·²ç»ä¸¢å¤±ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ä¿®å¤ï¼"); }
 
     if (($membercode eq "ad")||($membercode eq "smo")) { require "doblocked.pl"; }
     elsif (($ingetpassq ne "")&&($ingetpassa ne "")) {
@@ -53,18 +53,18 @@
 	if(($ingetpassq eq $getpassq)&&($ingetpassa eq $getpassa)&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode ne "cmo")){
 	    $inmembername1 = uri_escape($inmembername);
 	    $output .= qq~ 
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>ÄãºÃ£¬$inmembername</b></font></td></tr> 
-<tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>Ó¦ÄúµÄÒªÇó£¬ÏÖ½«ÄúµÄÂÛÌ³ÃÜÂë»ñÈ¡·½Ê½¸øÄú£¡</td></tr> 
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>ä½ å¥½ï¼Œ$inmembername</b></font></td></tr> 
+<tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>åº”æ‚¨çš„è¦æ±‚ï¼Œç°å°†æ‚¨çš„è®ºå›å¯†ç è·å–æ–¹å¼ç»™æ‚¨ï¼</td></tr> 
 <tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc> 
-ÄúµÄÓÃ»§Ãû³Æ£º$inmembername<br><br><B><a href="$boardurl/getmypass.cgi?username=$inmembername1&password=$password">Çë°´´Ë»ñµÃÄúµÄÂÛÌ³ÃÜÂë</a></B><br><br>
-×¢Òâ£º´ËÁ´½ÓÔÚÒ»ÌìºóÊ§Ğ§£¬Çë¾¡¿ì·ÃÎÊ²¢½øĞĞÃÜÂëĞŞ¸Ä¡£<BR><BR>
+æ‚¨çš„ç”¨æˆ·åç§°ï¼š$inmembername<br><br><B><a href="$boardurl/getmypass.cgi?username=$inmembername1&password=$password">è¯·æŒ‰æ­¤è·å¾—æ‚¨çš„è®ºå›å¯†ç </a></B><br><br>
+æ³¨æ„ï¼šæ­¤é“¾æ¥åœ¨ä¸€å¤©åå¤±æ•ˆï¼Œè¯·å°½å¿«è®¿é—®å¹¶è¿›è¡Œå¯†ç ä¿®æ”¹ã€‚<BR><BR>
 </td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR><BR>
 ~;
 	} else { 
 	    $output .= qq~
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>·Ç³£±§Ç¸£¬$inmembername</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>éå¸¸æŠ±æ­‰ï¼Œ$inmembername</b></font></td></tr>
 <tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>
-ÄãËùÊäÈëµÄÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ğ°¸²»ÕıÈ·£¬»òÊÇÄãÃ»ÓĞÔÚ¸öÈË×ÊÁÏÖĞÌîĞ´£¬ËùÒÔÎŞ·¨È¡»Ø£¡ (×¢£ºÈç¹ûÄãÊÇ°ßÖñ£¬³öÓÚ°²È«¿¼ÂÇ£¬ÇëÓÃÓÊ¼şÈ¡»ØÂÛÌ³ÃÜÂë£¡)
+ä½ æ‰€è¾“å…¥çš„è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆä¸æ­£ç¡®ï¼Œæˆ–æ˜¯ä½ æ²¡æœ‰åœ¨ä¸ªäººèµ„æ–™ä¸­å¡«å†™ï¼Œæ‰€ä»¥æ— æ³•å–å›ï¼ (æ³¨ï¼šå¦‚æœä½ æ˜¯æ–‘ç«¹ï¼Œå‡ºäºå®‰å…¨è€ƒè™‘ï¼Œè¯·ç”¨é‚®ä»¶å–å›è®ºå›å¯†ç ï¼)
 </td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -73,9 +73,9 @@
 	}
 	elsif ($emailfunctions eq "off") {
 	    $output .= qq~
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>·Ç³£±§Ç¸£¬$inmembername</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>éå¸¸æŠ±æ­‰ï¼Œ$inmembername</b></font></td></tr>
 <tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>
-ÓÉÓÚÕâ¸öÂÛÌ³µÄ·¢ËÍÓÊ¼ş¹¦ÄÜÒÑ¾­¹Ø±Õ£¬ÇëÍ¨¹ıÁíÍâµÄÍ¾¾¶À´ÁªÏµÌ³Ö÷¶øÄÃÈ¡ÄúµÄÂÛÌ³ÃÜÂë£¡
+ç”±äºè¿™ä¸ªè®ºå›çš„å‘é€é‚®ä»¶åŠŸèƒ½å·²ç»å…³é—­ï¼Œè¯·é€šè¿‡å¦å¤–çš„é€”å¾„æ¥è”ç³»å›ä¸»è€Œæ‹¿å–æ‚¨çš„è®ºå›å¯†ç ï¼
 </td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -87,24 +87,24 @@
 	    $message .= "$boardname <br>\n";
 	    $message .= "$boardurl/leobbs.cgi \n<br><br>\n";
 	    $message .= "------------------------------------------------<br>\n";
-	    $message .= "Ó¦ÄúµÄÒªÇó£¬ÏÖ½«ÄúµÄÂÛÌ³ÃÜÂë»ñÈ¡·½Ê½¼Ä¸øÄú£¡\n <br><br>\n";
-	    $message .= "ÄúµÄÓÃ»§Ãû£º$inmembername <br>\n";
-	    $message .= "ÄúµÄÂÛÌ³ÃÜÂë°´´Ë»ñµÃ£º $boardurl/getmypass.cgi?username=$inmembername1&password=$password \n <br><br>\n";
-	    $message .= "×¢Òâ£º´ËÁ´½ÓÔÚÒ»ÌìºóÊ§Ğ§£¬Çë¾¡¿ì·ÃÎÊ²¢½øĞĞÃÜÂëĞŞ¸Ä¡£<br><br>\n";
+	    $message .= "åº”æ‚¨çš„è¦æ±‚ï¼Œç°å°†æ‚¨çš„è®ºå›å¯†ç è·å–æ–¹å¼å¯„ç»™æ‚¨ï¼\n <br><br>\n";
+	    $message .= "æ‚¨çš„ç”¨æˆ·åï¼š$inmembername <br>\n";
+	    $message .= "æ‚¨çš„è®ºå›å¯†ç æŒ‰æ­¤è·å¾—ï¼š $boardurl/getmypass.cgi?username=$inmembername1&password=$password \n <br><br>\n";
+	    $message .= "æ³¨æ„ï¼šæ­¤é“¾æ¥åœ¨ä¸€å¤©åå¤±æ•ˆï¼Œè¯·å°½å¿«è®¿é—®å¹¶è¿›è¡Œå¯†ç ä¿®æ”¹ã€‚<br><br>\n";
 	    $message .= "------------------------------------------------<br>\n";
 	    $to = $emailaddress;
 	    $from = $adminemail_out;
-	    $subject = "Íü¼ÇÂÛÌ³ÃÜÂë[$boardname]";
+	    $subject = "å¿˜è®°è®ºå›å¯†ç [$boardname]";
 	    if (&sendmail($from, $from, $to, $subject, $message)) {
-                $output =~ s/ÓÃ»§×ÊÁÏ/ÂÛÌ³ÃÜÂëÒÑ¾­¼Ä³ö/g;
+                $output =~ s/ç”¨æˆ·èµ„æ–™/è®ºå›å¯†ç å·²ç»å¯„å‡º/g;
                 $output .= qq~
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>ÄãºÃ£¬$inmembername</b></font></td></tr>
-<tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>ÄúµÄÂÛÌ³ÃÜÂë»ñÈ¡·½Ê½ÒÑ¾­³É¹¦µÄÍ¨¹ıÖ¸¶¨µÄÓÊ¼şµØÖ··¢ËÍ¸øÄúÁË¡£</td></tr></table></td></tr></table>
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>ä½ å¥½ï¼Œ$inmembername</b></font></td></tr>
+<tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>æ‚¨çš„è®ºå›å¯†ç è·å–æ–¹å¼å·²ç»æˆåŠŸçš„é€šè¿‡æŒ‡å®šçš„é‚®ä»¶åœ°å€å‘é€ç»™æ‚¨äº†ã€‚</td></tr></table></td></tr></table>
 ~;
 	    } else {
-		&error("ÃÜÂëÓÊµİÊ§°Ü&ËÆºõ·şÎñÆ÷·¢ËÍÓÊ¼ş¹ı³ÌÖĞ³öÁËÒ»Ğ©ÎÊÌâ£¬ÇëÉÔºóÖØÊÔ¡£");
+		&error("å¯†ç é‚®é€’å¤±è´¥&ä¼¼ä¹æœåŠ¡å™¨å‘é€é‚®ä»¶è¿‡ç¨‹ä¸­å‡ºäº†ä¸€äº›é—®é¢˜ï¼Œè¯·ç¨åé‡è¯•ã€‚");
 	    }
 	} else {
-	    &error("ÇëÇóÂÛÌ³ÃÜÂë&´íÎó£¬Äú²»ÊÇ×¢²áÓÃ»§£¡");
+	    &error("è¯·æ±‚è®ºå›å¯†ç &é”™è¯¯ï¼Œæ‚¨ä¸æ˜¯æ³¨å†Œç”¨æˆ·ï¼");
 	}
 1;

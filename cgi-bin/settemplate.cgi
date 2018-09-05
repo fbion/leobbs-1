@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -32,7 +32,7 @@ $|++;
 $thisprog = "settemplate.cgi";
 
 $query = new LBCGI;
-#&ipbanned; #��ɱһЩ ip
+#&ipbanned; #封杀一些 ip
 
 $process = $query ->param("process");
 $action  = $query ->param("action");
@@ -54,8 +54,8 @@ if ($process ne "preview template") {
         
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
    print qq(
-   <tr><td bgcolor=#2159C9><font face=���� color=#FFFFFF>
-   <b>��ӭ������̳�������� / �༭��̳ģ��</b>
+   <tr><td bgcolor=#2159C9><font face=宋体 color=#FFFFFF>
+   <b>欢迎来到论坛管理中心 / 编辑论坛模板</b>
    </td></tr>);
 
 unless(defined($process)) {
@@ -69,17 +69,17 @@ unless(defined($process)) {
       close (TEMPLATE);
       }
       else {
-         print qq(<tr><td><font face="����" color="#FF0000">
-                  <b>���ܹ��ҵ�ģ���ļ�</b><br>
-                  ��ȷ���ļ� '$skin.cgi' �� *.cgi ����Ŀ¼�µ� 'data/template' Ŀ¼�У�
+         print qq(<tr><td><font face="宋体" color="#FF0000">
+                  <b>不能够找到模板文件</b><br>
+                  请确定文件 '$skin.cgi' 在 *.cgi 程序目录下的 'data/template' 目录中！
                   </td></tr></table></td></tr></table></body></html>);
          exit;
          } # end is it there
 
    unless (-w $templatefile) {
-         print qq(<tr><td><font face="����" color="#FF0000">
-                  <b>���ܹ�д��ģ���ļ�</b><br><br>
-                  ��ȷ�� 'data/template/$skin.cgi' �ļ����������ó��� 666 ��
+         print qq(<tr><td><font face="宋体" color="#FF0000">
+                  <b>不能够写入模板文件</b><br><br>
+                  请确定 'data/template/$skin.cgi' 文件的属性设置成了 666 ！
                   </td></tr></table></td></tr></table></body></html>);
          exit;
          }
@@ -117,21 +117,21 @@ unless(defined($process)) {
    $user_editable
    </textarea>
    <br><br>
-   <input type="submit" value="ģ��Ԥ��" onclick="preview_template();">
-   <input type="submit" value="����ģ��" onclick="save_changes();">
+   <input type="submit" value="模板预览" onclick="preview_template();">
+   <input type="submit" value="保存模板" onclick="save_changes();">
    </form>
    <br><hr color=#000000>
-   <font face="����" color="#000000">
-   <b>�༭ģ���ļ�����</b><br>
-   ������������༭ģ���ļ������������CSS���벻Ҫ�Ķ�������ʹ�� <a href=setcss.cgi>��̳ CSS ��������</a>��   
+   <font face="宋体" color="#000000">
+   <b>编辑模板文件帮助</b><br>
+   您可以在这里编辑模板文件，如果您不懂CSS，请不要改动，或者使用 <a href=setcss.cgi>论坛 CSS 代码生成</a>。   
    <br>
-   ���� '\$lbboard_main' ��������ʾ��̳���ݣ� ��ͷ��һֱ��ҳ�װ�Ȩ��Ϣ���ӡ�
-   ����԰� '\$lbboard_main' ����һ�������ڣ����벻Ҫ�ı��������֣�
+   单词 '\$lbboard_main' 是用来显示论坛内容， 从头部一直到页底版权信息链接。
+   你可以把 '\$lbboard_main' 放在一个表格内，但请不要改变他的名字！
    <br><br>
-   �������Ԥ����������� 'Ԥ��' ��ť��
+   如果你想预览结果，请点击 '预览' 按钮。
    <br>
-   <b>�뱣֤��û��ɾ�� &lt;/head&gt;,&lt;/body&gt; and &lt;/html&gt; ��ǩ��</b><br>
-    ���û�� &lt;html&gt; ��ǩ����ô���������ͷ���Զ�������
+   <b>请保证您没有删除 &lt;/head&gt;,&lt;/body&gt; and &lt;/html&gt; 标签！</b><br>
+    如果没有 &lt;html&gt; 标签，那么本程序会在头部自动给出。
    </td>
    </tr>
    );
@@ -170,19 +170,19 @@ unless(defined($process)) {
          <table width=$tablewidth border=1 align=center><tr><td>
          $output
          <br><br><br><br><br>
-         <font face="����" color=#000000>
-         <center><h1>LeoBBS ��Ԥ�����</h1>
-         ��ע�����û�û�д��룡<br>
-         Ҫ����ģ�����ã��뷵�ع������ĵ�� '����ģ��'��
+         <font face="宋体" color=#000000>
+         <center><h1>LeoBBS 的预览结果</h1>
+         请注意设置还没有存入！<br>
+         要保存模板设置，请返回管理中心点击 '保存模板'。
          <br><br>
-         �����ϣ���༭��̳�Ŀ��ȣ������������ĵ� "���ṹ" �е� "������ɫ" ģ�飬<BR>
-         �޸� "���б������" ���ɣ���Ҳ���Խ������óɰٷֱ�(���磺90%)��<br>
-         ������ٻص� "�༭��̳ģ��"������Ԥ����</center>
+         如果您希望编辑论坛的宽度，请进入管理中心的 "风格结构" 中的 "表格颜色" 模块，<BR>
+         修改 "所有表格宽度" 即可，你也可以将其设置成百分比(比如：90%)。<br>
+         保存后，再回到 "编辑论坛模板"，重新预览！</center>
          <br><br><br><br><br><br><br>
          <table width=80% align=center cellpadding=3 cellspacing=0>
          <tr><td align=center valign=middle>
-         <font face=���� color=#000000>
-         <a href="http://www.leobbs.com" target=_blank>�װ��Ƽ�</a><br>&copy; 2000 LeoBBS.com
+         <font face=宋体 color=#000000>
+         <a href="http://www.leobbs.com" target=_blank>雷傲科技</a><br>&copy; 2000 LeoBBS.com
          </font></td></tr></table>
          <p></td></tr></table></body></html>);
 
@@ -207,7 +207,7 @@ unless(defined($process)) {
         &winunlock($templatefile) if ($OS_USED eq "Nt");
 
          
-         print "<tr><td><font face=����><b>����ģ����Ϣ�Ѿ�д��</b></font></td></tr>";
+         print "<tr><td><font face=宋体><b>所有模板信息已经写入</b></font></td></tr>";
          }
 
       }

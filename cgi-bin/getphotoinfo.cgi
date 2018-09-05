@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -52,11 +52,11 @@ $inname =~ s/\\//sg;
 $inname = substr($inname,0,32) if (length($inname)>32);
 
 $out = "";
-$out = "�ϴ󣬱��Һ��ҵĳ���ѽ��1"  if ($inreply ne "" && $inname ne "");
-$out = "�ϴ󣬱��Һ��ҵĳ���ѽ��2"  if ($inreply ne "" && $inname ne "");
-$out = "�ϴ󣬱��Һ��ҵĳ���ѽ��3" if ($inreply !~ /^[0-9]+$/ && $inreply ne "");
-$out = "�ϴ󣬱��Һ��ҵĳ���ѽ��4" if (($inforum !~ /^[0-9]+$/)||($intopic !~ /^[0-9]+$/));
-$out = "�ϴ󣬱��Һ��ҵĳ���ѽ����" unless (($intype eq "gif")||($intype eq "jpg")||($intype eq "jpe")||($intype eq "jpeg")||($intype eq "tif")||($intype eq "png")||($intype eq "bmp"));
+$out = "老大，别乱黑我的程序呀！1"  if ($inreply ne "" && $inname ne "");
+$out = "老大，别乱黑我的程序呀！2"  if ($inreply ne "" && $inname ne "");
+$out = "老大，别乱黑我的程序呀！3" if ($inreply !~ /^[0-9]+$/ && $inreply ne "");
+$out = "老大，别乱黑我的程序呀！4" if (($inforum !~ /^[0-9]+$/)||($intopic !~ /^[0-9]+$/));
+$out = "老大，别乱黑我的程序呀！！" unless (($intype eq "gif")||($intype eq "jpg")||($intype eq "jpe")||($intype eq "jpeg")||($intype eq "tif")||($intype eq "png")||($intype eq "bmp"));
 
 if ($out eq "") {
 
@@ -73,64 +73,64 @@ else {
 }
 my $tags = ExifTool::ImageInfo("$img");
 
-$name{"Make"} ="����";
-$name{"Model"} ="�ͺ�";
-$name{"Artist"} ="����";
-$name{"DateTimeOriginal"} ="����ʱ��";
-$name{"CreateDate"} ="����ʱ��";
-$name{"DateTimeDigitized"} ="���ֻ�ʱ��";
-$name{"ModifyDate"} ="�޸�ʱ��";
-$name{"FileSize"} ="�ļ���С";
-$name{"FileSource"} ="�ļ���Դ";
-$name{"Software"} ="����";
-$name{"ExifImageWidth"} ="����ֱ��ʿ�";
-$name{"ExifImageLength"} ="����ֱ��ʸ�";
-$name{"ImageWidth"} ="ͼ�����";
-$name{"ImageHeight"} ="ͼ��߶�";
-$name{"ImageSize"} ="ͼ���С";
-$name{"ExposureTime"} ="�ع�ʱ��";
-$name{"ShutterSpeed"} ="����";
-$name{"ShutterSpeedValue"} ="����ֵ";
-$name{"FNumber"} ="FNumber ��Ȧ";
-$name{"Aperture"} ="Aperture ��Ȧ";
-$name{"ApertureValue"} ="��Ȧֵ";
-$name{"MaxApertureValue"} ="����Ȧֵ";
-$name{"FocalLength"} ="����";
-$name{"FocalLengthIn35mmFormat"} ="35mm ����";
-$name{"FocalLength35efl"} ="35mm ����";
-$name{"DigitalZoomRatio"} ="����佹��";
-$name{"FocusMode"} ="�佹ģʽ";
-$name{"ExposureMode"} ="�ع�ģʽ";
-$name{"ExposureCompensation"} ="�عⲹ��";
-$name{"ExposureIndex"} ="�ع�ָ��";
-$name{"ExposureProgram"} ="�ع����";
-$name{"BrightnessValue"} ="����";
-$name{"ISO"} ="ISO �й��";
-$name{"Sharpness"} ="���";
-$name{"Contrast"} ="�Աȶ�";
-$name{"Saturation"} ="���Ͷ�";
-$name{"LightSource"} ="��Դ";
-$name{"ColorSpace"} ="ɫ϶";
-$name{"Flash"} ="�����";
-$name{"Slowsync"} ="�����ģʽ";
-$name{"WhiteBalance"} ="��ƽ��";
-$name{"MeteringMode"} ="���ģʽ";
-$name{"CustomRendered"} ="�Զ��岹��";
-$name{"ComponentsConfiguration"} ="�ɷֹ���";
-$name{"YCbCrPositioning"} ="ɫ�ඨλ";
-$name{"SceneType"} ="��������";
-$name{"Orientation"} ="����";
-$name{"Compression"} ="ѹ����ʽ";
-$name{"CompressedBitsPerPixel"} ="ѹ����";
-$name{"Quality"} ="ѹ������";
-$name{"XResolution"} ="X ����ֱ���";
-$name{"YResolution"} ="Y ����ֱ���";
-$name{"ResolutionUnit"} ="�ֱ��ʵ�λ";
-$name{"FlashPixVersion"} ="FlashPix �汾";
-$name{"ExifVersion"} ="Exif �汾";
-$name{"Macro"} ="��ָ��";
-$name{"Version"} ="����汾";
-$name{"Comment"} ="���˵��";
+$name{"Make"} ="厂商";
+$name{"Model"} ="型号";
+$name{"Artist"} ="作者";
+$name{"DateTimeOriginal"} ="拍摄时间";
+$name{"CreateDate"} ="建立时间";
+$name{"DateTimeDigitized"} ="数字化时间";
+$name{"ModifyDate"} ="修改时间";
+$name{"FileSize"} ="文件大小";
+$name{"FileSource"} ="文件来源";
+$name{"Software"} ="软件";
+$name{"ExifImageWidth"} ="相机分辨率宽";
+$name{"ExifImageLength"} ="相机分辨率高";
+$name{"ImageWidth"} ="图像宽度";
+$name{"ImageHeight"} ="图像高度";
+$name{"ImageSize"} ="图像大小";
+$name{"ExposureTime"} ="曝光时间";
+$name{"ShutterSpeed"} ="快门";
+$name{"ShutterSpeedValue"} ="快门值";
+$name{"FNumber"} ="FNumber 光圈";
+$name{"Aperture"} ="Aperture 光圈";
+$name{"ApertureValue"} ="光圈值";
+$name{"MaxApertureValue"} ="最大光圈值";
+$name{"FocalLength"} ="焦距";
+$name{"FocalLengthIn35mmFormat"} ="35mm 焦距";
+$name{"FocalLength35efl"} ="35mm 焦距";
+$name{"DigitalZoomRatio"} ="数码变焦率";
+$name{"FocusMode"} ="变焦模式";
+$name{"ExposureMode"} ="曝光模式";
+$name{"ExposureCompensation"} ="曝光补偿";
+$name{"ExposureIndex"} ="曝光指数";
+$name{"ExposureProgram"} ="曝光控制";
+$name{"BrightnessValue"} ="亮度";
+$name{"ISO"} ="ISO 感光度";
+$name{"Sharpness"} ="锐度";
+$name{"Contrast"} ="对比度";
+$name{"Saturation"} ="饱和度";
+$name{"LightSource"} ="光源";
+$name{"ColorSpace"} ="色隙";
+$name{"Flash"} ="闪光灯";
+$name{"Slowsync"} ="闪光灯模式";
+$name{"WhiteBalance"} ="白平衡";
+$name{"MeteringMode"} ="测光模式";
+$name{"CustomRendered"} ="自定义补偿";
+$name{"ComponentsConfiguration"} ="成分构成";
+$name{"YCbCrPositioning"} ="色相定位";
+$name{"SceneType"} ="场景类型";
+$name{"Orientation"} ="方向";
+$name{"Compression"} ="压缩格式";
+$name{"CompressedBitsPerPixel"} ="压缩率";
+$name{"Quality"} ="压缩质量";
+$name{"XResolution"} ="X 方向分辨率";
+$name{"YResolution"} ="Y 方向分辨率";
+$name{"ResolutionUnit"} ="分辨率单位";
+$name{"FlashPixVersion"} ="FlashPix 版本";
+$name{"ExifVersion"} ="Exif 版本";
+$name{"Macro"} ="宏指令";
+$name{"Version"} ="相机版本";
+$name{"Comment"} ="标记说明";
 
 foreach ("Make","Model","Artist","DateTimeOriginal","CreateDate","DateTimeDigitized","ModifyDate","FileSize","FileSource","Software","ExifImageWidth","ExifImageLength","ImageWidth","ImageHeight","ImageSize","ExposureTime","ShutterSpeed","ShutterSpeedValue","FNumber","Aperture","ApertureValue","MaxApertureValue","FocalLength","FocalLengthIn35mmFormat","FocalLength35efl","DigitalZoomRatio","FocusMode","ExposureMode","ExposureCompensation","ExposureIndex","ExposureProgram","BrightnessValue","ISO","Sharpness","Contrast","Saturation","LightSource","ColorSpace","Flash","Slowsync","WhiteBalance","MeteringMode","CustomRendered","ComponentsConfiguration","YCbCrPositioning","SceneType","Orientation","Compression","CompressedBitsPerPixel","Quality","XResolution","YResolution","ResolutionUnit","FlashPixVersion","ExifVersion","Macro","Version","Comment") {
     next if (($tags->{$_} eq "")||(length($tags->{$_}) > 30));
@@ -157,15 +157,15 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print <<"HTML";
 <html>
 <head> 
-<title>ͼƬ��Ϣ</title>
+<title>图片信息</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 </head>
 <body>
 <SCRIPT>
 <!--
-//��ʼ������ֵ
+//初始化内容值
 parent.followTd$dispinfo.innerHTML='$out';
-//�Ѷ�ȡ
+//已读取
 parent.document.images.followImg$dispinfo.loaded='yes';
 -->
 </SCRIPT>

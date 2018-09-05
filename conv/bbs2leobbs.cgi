@@ -1,13 +1,13 @@
 #!/usr/bin/perl 
 
 ####################################
-# BBS3000 --> LeoBBS ÓÃ»§×ÊÁÏ×ª»»Æ÷#
+# BBS3000 --> LeoBBS ç”¨æˆ·èµ„æ–™è½¬æ¢å™¨#
 ####################################
 
-$userhead= "d:/www/";       				     #BBS3000 ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© /
-$leobbsmember = "c:/apache/htdocs/cgi-bin/leobbs/members/";  #LeoBBS  ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© /£¬×¢ÒâÉèÖÃºÃ 777 ÊôĞÔ 
+$userhead= "d:/www/";       				     #BBS3000 ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ /
+$leobbsmember = "c:/apache/htdocs/cgi-bin/leobbs/members/";  #LeoBBS  ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ /ï¼Œæ³¨æ„è®¾ç½®å¥½ 777 å±æ€§ 
 
-###############ÒÔÏÂ²»±ØĞŞ¸Ä################# 
+###############ä»¥ä¸‹ä¸å¿…ä¿®æ”¹################# 
 
 $ending = ".cgi";
 print ("Content-type: text/html\n\n");
@@ -41,9 +41,9 @@ for ($i=0;$i<$totaluserdata;$i++) {
     $name =~ tr/A-Z/a-z/;
     $name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\=\+\\\[\]\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
     open(IBMEMBER,">$leobbsmember$name$ending");
-    print IBMEMBER "$UserName\t$Password\tMember\tme\t$rfy|$rhf\t$Email\tyes\txxx.xxx.xxx.xxx\t$URL\t$OICQnumber\t$ICQnumber\t$Location\t$rdlove\t$DateRegistered\tÃ»ÓĞ·¢±í¹ı\t$Signature\t0\t\t$AvatarWording\t$misc1\t$misc2\t$misc3\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$addjy\t$meili\t$mymoney\t$postdel\t$rdsex\t$education\t$marry\t$rdwork\t$born\t$useradd1\t$useradd2\t$jhmp\t\n";
+    print IBMEMBER "$UserName\t$Password\tMember\tme\t$rfy|$rhf\t$Email\tyes\txxx.xxx.xxx.xxx\t$URL\t$OICQnumber\t$ICQnumber\t$Location\t$rdlove\t$DateRegistered\tæ²¡æœ‰å‘è¡¨è¿‡\t$Signature\t0\t\t$AvatarWording\t$misc1\t$misc2\t$misc3\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$addjy\t$meili\t$mymoney\t$postdel\t$rdsex\t$education\t$marry\t$rdwork\t$born\t$useradd1\t$useradd2\t$jhmp\t\n";
     close(IBMEMBER);
-    print "ÓÃ»§ $UserName ÒÑ¾­³É¹¦×ª»»³É LeoBBS ÓÃ»§ÁË£¡<BR><BR>";
+    print "ç”¨æˆ· $UserName å·²ç»æˆåŠŸè½¬æ¢æˆ LeoBBS ç”¨æˆ·äº†ï¼<BR><BR>";
 }
-print "×Ü¹²×ª»»ÁË $totaluserdata ¸öÓÃ»§£¡<BR><BR>";
+print "æ€»å…±è½¬æ¢äº† $totaluserdata ä¸ªç”¨æˆ·ï¼<BR><BR>";
 exit;

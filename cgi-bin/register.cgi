@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -47,9 +47,9 @@ else {
 $addme=$query->param('addme');
 
 $inforum  = $query -> param('forum');
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 if ($arrowavaupload ne "on") { undef $addme; }
 $inselectstyle   = $query->cookie("selectstyle");
@@ -82,7 +82,7 @@ if ($regonoff == 1) {
     $inpassword   = $query->cookie("apasswordcookie"); 
     $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?]//isg;
     $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-    unless ($inmembername eq "" || $inmembername eq "¿ÍÈË") { &getmember("$inmembername"); &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");	&error("ÆÕÍ¨´íÎó&ÂÛÌ³ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password);  $regonoff = 0 if ($membercode eq "ad"); } 
+    unless ($inmembername eq "" || $inmembername eq "å®¢äºº") { &getmember("$inmembername"); &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");	&error("æ™®é€šé”™è¯¯&è®ºå›å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password);  $regonoff = 0 if ($membercode eq "ad"); } 
 }
 
 for ('inmembername','password','password2','emailaddress','showemail','homepage','oicqnumber','icqnumber','newlocation','recommender',
@@ -96,38 +96,38 @@ for ('inmembername','password','password2','emailaddress','showemail','homepage'
 }
 $recommender =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?]//isg;
 
-&error("ÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ğ°¸&ÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ğ°¸ÖĞ£¬²»ÔÊĞíÓĞ·Ç·¨×Ö·û£¬Çë¸ü»»ÌáÎÊºÍ´ğ°¸£¡") if ($query -> param('getpassq') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/ || $query -> param('getpassa') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/);
+&error("è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆ&è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆä¸­ï¼Œä¸å…è®¸æœ‰éæ³•å­—ç¬¦ï¼Œè¯·æ›´æ¢æé—®å’Œç­”æ¡ˆï¼") if ($query -> param('getpassq') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/ || $query -> param('getpassa') =~ /[\||\a|\f|\n|\e|\0|\r|\t]/);
 $userquestion = $query -> param('getpassq')."|".$query -> param('getpassa'); 
 $userquestion = "" if ($passwordverification eq "yes" && $emailfunctions ne "off");
 
-$helpurl = &helpfiles("ÓÃ»§×¢²á");
+$helpurl = &helpfiles("ç”¨æˆ·æ³¨å†Œ");
 $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
-if ($arrawsignpic eq "on")      { $signpicstates = "ÔÊĞí";     } else { $signpicstates = "½ûÖ¹";     }
-if ($arrawsignflash eq "on")    { $signflashstates = "ÔÊĞí";   } else { $signflashstates = "½ûÖ¹";   }
-if ($arrawsignfontsize eq "on") { $signfontsizestates = "ÔÊĞí";} else { $signfontsizestates = "½ûÖ¹";}
-if ($arrawsignsound eq "on")    { $signsoundstates = "ÔÊĞí";   } else { $signsoundstates = "½ûÖ¹";   }
+if ($arrawsignpic eq "on")      { $signpicstates = "å…è®¸";     } else { $signpicstates = "ç¦æ­¢";     }
+if ($arrawsignflash eq "on")    { $signflashstates = "å…è®¸";   } else { $signflashstates = "ç¦æ­¢";   }
+if ($arrawsignfontsize eq "on") { $signfontsizestates = "å…è®¸";} else { $signfontsizestates = "ç¦æ­¢";}
+if ($arrawsignsound eq "on")    { $signsoundstates = "å…è®¸";   } else { $signsoundstates = "ç¦æ­¢";   }
 
-&mischeader("ÓÃ»§×¢²á");
+&mischeader("ç”¨æˆ·æ³¨å†Œ");
 $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 ~;
 
 if ($regonoff eq 1) {
     if ($regonoffinfo eq "1") {
-        if ($regauto eq "day") { $regauto = "Ã¿Ìì"; } elsif ($regauto eq "week") { $regauto = "Ã¿ÖÜ"; } elsif ($regauto eq "month") { $regauto = "Ã¿ÔÂ"; }
-        $regauto = "£¬¿ª·Å×¢²áÊ±¼ä£º$regauto $regautovalue £¡";
+        if ($regauto eq "day") { $regauto = "æ¯å¤©"; } elsif ($regauto eq "week") { $regauto = "æ¯å‘¨"; } elsif ($regauto eq "month") { $regauto = "æ¯æœˆ"; }
+        $regauto = "ï¼Œå¼€æ”¾æ³¨å†Œæ—¶é—´ï¼š$regauto $regautovalue ï¼";
     }
     else { $regauto = ""; }
 
-    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>¶Ô²»Æğ£¬ÂÛÌ³Ä¿Ç°ÔİÊ±²»ÔÊĞí×¢²áĞÂÓÃ»§$regauto</b>
+    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>å¯¹ä¸èµ·ï¼Œè®ºå›ç›®å‰æš‚æ—¶ä¸å…è®¸æ³¨å†Œæ–°ç”¨æˆ·$regauto</b>
     </td></tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc size=3><BR><BR>~;
     if ($noregwhynot ne "") { $noregwhynot=&HTML($noregwhynot); $noregwhynot =~ s/\n/<BR>/isg;$output.=qq~$noregwhynot~; }
-                       else { $output.=qq~ÓÉÓÚÒ»Ğ©ÌØÊâµÄÔ­Òò£¬±¾ÂÛÌ³ÔİÊ±²»½ÓÊÜÓÃ»§×¢²á£¡~; }
+                       else { $output.=qq~ç”±äºä¸€äº›ç‰¹æ®Šçš„åŸå› ï¼Œæœ¬è®ºå›æš‚æ—¶ä¸æ¥å—ç”¨æˆ·æ³¨å†Œï¼~; }
     $output.=qq~<BR><BR><BR></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 elsif ($action eq "addmember") {
-    &error("³ö´í&Çë²»ÒªÓÃÍâ²¿Á¬½Ó±¾³ÌĞò£¡") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
+    &error("å‡ºé”™&è¯·ä¸è¦ç”¨å¤–éƒ¨è¿æ¥æœ¬ç¨‹åºï¼") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
     $membercode    = "me";
     $membertitle   = "Member";
     $numberofposts = "0|0";
@@ -135,12 +135,12 @@ elsif ($action eq "addmember") {
     $lastgone      = $joineddate;
     $mymoney	   = $joinmoney;
     $jifen	   = $joinjf;
-    $jhmp          = "ÎŞÃÅÎŞÅÉ";
-    $lastpostdate  = "Ã»ÓĞ·¢±í¹ı";
+    $jhmp          = "æ— é—¨æ— æ´¾";
+    $lastpostdate  = "æ²¡æœ‰å‘è¡¨è¿‡";
     $emailaddress  = lc($emailaddress);
     
     if (($inmembername eq "")||($emailaddress eq "")) {
-        &error("ÓÃ»§×¢²á&ÇëÊäÈëÓÃ»§ÃûºÍÓÊ¼şµØÖ·£¬ÕâĞ©ÊÇ±ØĞèµÄ£¡");
+        &error("ç”¨æˆ·æ³¨å†Œ&è¯·è¾“å…¥ç”¨æˆ·åå’Œé‚®ä»¶åœ°å€ï¼Œè¿™äº›æ˜¯å¿…éœ€çš„ï¼");
     }
 
     $ipaddress     = $ENV{'REMOTE_ADDR'};
@@ -154,12 +154,12 @@ elsif ($action eq "addmember") {
     my (undef, undef, undef, undef, undef, $yeartemp, undef, undef) = localtime(time + $timezone * 3600);
     $yeartemp = 1900 + $yeartemp if ($yeartemp < 1900);
     if ($year ne "") {
-        &error("ÓÃ»§×¢²á&ÇëÕıÈ·ÊäÈëÄãµÄ³öÉúÄê·İ£¡") if ($year <= 1900 || $year >= $yeartemp - 3);
+        &error("ç”¨æˆ·æ³¨å†Œ&è¯·æ­£ç¡®è¾“å…¥ä½ çš„å‡ºç”Ÿå¹´ä»½ï¼") if ($year <= 1900 || $year >= $yeartemp - 3);
     }
     if (($year eq "")||($month eq "")||($day eq "")) { $year  = "";$month = "";$day   = "";}
     $born = "$year/$month/$day";
 
-    if ($born ne "//") { #¿ªÊ¼×Ô¶¯ÅĞ¶ÏĞÇ×ù
+    if ($born ne "//") { #å¼€å§‹è‡ªåŠ¨åˆ¤æ–­æ˜Ÿåº§
     	if ($month eq "01") {
     	    if (($day >= 1)&&($day <=19)) { $userxz = "z10"; }
     	    else { $userxz = "z11"; }
@@ -228,11 +228,11 @@ elsif ($action eq "addmember") {
 	    $allmemberemails = "\t$allmemberemails";
 
 	    if ($allmemberemails =~ /\n$emailaddress\t(.+?)\n/i) {
-		&error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÕâÊäÈëµÄ Email ÒÑ¾­±»×¢²áÓÃ»§£º<u>$1</u> Ê¹ÓÃÁË");
+		&error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œè¿™è¾“å…¥çš„ Email å·²ç»è¢«æ³¨å†Œç”¨æˆ·ï¼š<u>$1</u> ä½¿ç”¨äº†");
 	    }
 	}
 
-	#ÓÊ¼şÏŞÖÆ _S
+	#é‚®ä»¶é™åˆ¶ _S
 	my $allow_eamil_file = "$lbdir" . "data/allow_email.cgi";
 	if(-e $allow_eamil_file){
 		open(AEFILE,$allow_eamil_file);
@@ -255,34 +255,23 @@ elsif ($action eq "addmember") {
 			}
 		    if ($allowtype eq "allow") {
 			if($check_result == 0){
-				&error("ÓÃ»§×¢²á&±ØĞèÊ¹ÓÃÖ¸¶¨µÄÓÊÏä²ÅÄÜ×¢²á£¡<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[ÁĞ±í]</a>");
+				&error("ç”¨æˆ·æ³¨å†Œ&å¿…éœ€ä½¿ç”¨æŒ‡å®šçš„é‚®ç®±æ‰èƒ½æ³¨å†Œï¼<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[åˆ—è¡¨]</a>");
 			}
 		    } else {
 			if ($check_result == 1) {
-				&error("ÓÃ»§×¢²á&ÄúÌá¹©µÄÓÊÏä±»½ûÖ¹Ê¹ÓÃ×¢²á£¡<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[ÁĞ±í]</a>");
+				&error("ç”¨æˆ·æ³¨å†Œ&æ‚¨æä¾›çš„é‚®ç®±è¢«ç¦æ­¢ä½¿ç”¨æ³¨å†Œï¼<a href=\"javascript:openScript('dispemail.cgi',200,300);\">[åˆ—è¡¨]</a>");
 			}
 		    }
 		}
 	}
-	#ÓÊ¼şÏŞÖÆ _E
+	#é‚®ä»¶é™åˆ¶ _E
 
-    &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÊäÈëµÄÓÃ»§ÃûÓĞÎÊÌâ£¬Çë²»ÒªÔÚÓÃ»§ÃûÖĞ°üº¬\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]\|ÕâÀà×Ö·û£¡") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\|\;\'\:\"\,\.\/\<\>\?\[\]]/);
-    if($inmembername =~ /_/)  { &error("ÓÃ»§×¢²á&Çë²»ÒªÔÚÓÃ»§ÃûÖĞÊ¹ÓÃÏÂ»®Ïß£¡"); }
+    &error("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨è¾“å…¥çš„ç”¨æˆ·åæœ‰é—®é¢˜ï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­åŒ…å«\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]\|è¿™ç±»å­—ç¬¦ï¼") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\|\;\'\:\"\,\.\/\<\>\?\[\]]/);
+    if($inmembername =~ /_/)  { &error("ç”¨æˆ·æ³¨å†Œ&è¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­ä½¿ç”¨ä¸‹åˆ’çº¿ï¼"); }
 
     $inmembername =~ s/\&nbsp\;//ig;
-    $inmembername =~ s/¡¡/ /g;
-    $inmembername =~ s/©¡/ /g;
-    $inmembername =~ s/[ ]+/ /g;
-    $inmembername =~ s/[ ]+/_/;
-    $inmembername =~ s/[_]+/_/;
-    $inmembername =~ s/ÿ//isg;
-    $inmembername =~ s///isg;
-    $inmembername =~ s/¡¡//isg;
-    $inmembername =~ s/©¡//isg;
-    $inmembername =~ s/()+//isg;
-    $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?\[\]]//isg;
-    $inmembername =~ s/\s*$//g;
-    $inmembername =~ s/^\s*//g;
+    $inmembername =~ s/ã€€/ /g;
+    $inmembername =~ s/inmembername =~ s/^\s*//g;
 
     &error("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÊäÈëµÄÓÃ»§ÃûÓĞÎÊÌâ£¬Çë¸ü»»Ò»¸ö") if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
     

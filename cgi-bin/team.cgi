@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -50,19 +50,19 @@ $inpassword     = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&ipbanned; #·âÉ±Ò»Ð© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 $inpage = $query-> param ("page");
 if ($inpage eq "") { $inpage = 1; }
 $inpassword =~ s/\t//isg;
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ðÂÒºÚÎÒµÄ³ÌÐòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-   $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+   $inmembername = "å®¢äºº";
 }
 else{
 #    &getmember("$inmembername");
@@ -71,26 +71,26 @@ else{
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØÐÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸Žç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 $inmembercode = $membercode;
 if ($infosopen == 2) {
     print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    &error("²é¿´¹ÜÀíÍÅ¶Ó&¿ÍÈËÎÞÈ¨²é¿´¹ÜÀíÍÅ¶Ó£¡") if ($inmembername eq "¿ÍÈË");
-    if ($userregistered eq "no") { &error("²é¿´¹ÜÀíÍÅ¶Ó&Äã»¹Ã»×¢²áÄØ£¡"); }
-    &error("²é¿´¹ÜÀíÍÅ¶Ó&ÂÛÌ³¹ÜÀíÍÅ¶ÓÖ»ÓÐÌ³Ö÷ºÍ°æÖ÷¿ÉÒÔ²é¿´£¡") if (($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo')&&($membercode ne "mo")&&($membercode ne "amo"));
+    &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&å®¢äººæ— æƒæŸ¥çœ‹ç®¡ç†å›¢é˜Ÿï¼") if ($inmembername eq "å®¢äºº");
+    if ($userregistered eq "no") { &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
+    &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&è®ºå›ç®¡ç†å›¢é˜Ÿåªæœ‰å›ä¸»å’Œç‰ˆä¸»å¯ä»¥æŸ¥çœ‹ï¼") if (($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo')&&($membercode ne "mo")&&($membercode ne "amo"));
 }
 elsif ($infosopen == 1) {
     print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    &error("²é¿´¹ÜÀíÍÅ¶Ó&¿ÍÈËÎÞÈ¨²é¿´¹ÜÀíÍÅ¶Ó£¡") if ($inmembername eq "¿ÍÈË");
-    if ($userregistered eq "no") { &error("²é¿´¹ÜÀíÍÅ¶Ó&Äã»¹Ã»×¢²áÄØ£¡"); }
+    &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&å®¢äººæ— æƒæŸ¥çœ‹ç®¡ç†å›¢é˜Ÿï¼") if ($inmembername eq "å®¢äºº");
+    if ($userregistered eq "no") { &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
 }
 elsif ($infosopen == 3) {
    print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-   &error("²é¿´¹ÜÀíÍÅ¶Ó&¿ÍÈËÎÞÈ¨²é¿´¹ÜÀíÍÅ¶Ó£¡") if ($inmembername eq "¿ÍÈË");
-   if ($userregistered eq "no") { &error("²é¿´¹ÜÀíÍÅ¶Ó&Äã»¹Ã»×¢²áÄØ£¡"); }
-   &error("²é¿´¹ÜÀíÍÅ¶Ó&ÂÛÌ³¹ÜÀíÍÅ¶ÓÖ»ÓÐÌ³Ö÷¿ÉÒÔ²é¿´£¡") if ($membercode ne "ad");
+   &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&å®¢äººæ— æƒæŸ¥çœ‹ç®¡ç†å›¢é˜Ÿï¼") if ($inmembername eq "å®¢äºº");
+   if ($userregistered eq "no") { &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
+   &error("æŸ¥çœ‹ç®¡ç†å›¢é˜Ÿ&è®ºå›ç®¡ç†å›¢é˜Ÿåªæœ‰å›ä¸»å¯ä»¥æŸ¥çœ‹ï¼") if ($membercode ne "ad");
 }
 
 $defaultwidth  = "width=$defaultwidth"   if ($defaultwidth ne "" );
@@ -99,7 +99,7 @@ $defaultheight = "height=$defaultheight" if ($defaultheight ne "");
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-&whosonline("$inmembername\t¹ÜÀíÍÅ¶Ó\tboth\t²é¿´¹ÜÀíÈËÔ±Ãûµ¥\t");
+&whosonline("$inmembername\tç®¡ç†å›¢é˜Ÿ\tboth\tæŸ¥çœ‹ç®¡ç†äººå‘˜åå•\t");
 }
 
 open (FILE, "$lbdir/data/lbmember.cgi");
@@ -137,7 +137,7 @@ while ($pagenumbers > $pagedigit) { # start while
         $pagelinks .= qq~[$pagedigit] ~; }
 $page++; } # end while
 if ($totalpages <= 1) {
-    $pagelinks = qq~±¾ÁÐ±íÖ»ÓÐÒ»Ò³~; }
+    $pagelinks = qq~æœ¬åˆ—è¡¨åªæœ‰ä¸€é¡µ~; }
 
 ## calculate the number of the start and final member, those to be displayed on this page 
 $startmember = ($inpage - 1) * $maxshowmembers;
@@ -165,15 +165,7 @@ foreach $teammember (@teamlist[$startmember ... $endmember]) {
          chomp @userdetail;
    #	 $userdetail[0] =~ tr/A-Z/a-z/;
 	next if (($userdetail[3] ne "ad")&&($userdetail[3] ne "smo")&&($userdetail[3] ne "cmo")&&($userdetail[3] ne "mo")&&($userdetail[3] ne "amo"));
-         ## Definiere die Hintergrund- und Textfarbe für die Zeilen
-         if ($lastcolor eq $postcolortwo) {
-             $color = $postcolorone;
-             $fontcolor = $postfontcolorone; }
-         else {
-             $color = $postcolortwo;
-             $fontcolor = $postfontcolortwo; }
-
-         ## Registrierdatum
+         ## Definiere die Hintergrund- und Textfarbe f         ## Registrierdatum
          $userdetail[13] = $userdetail[13] + ($userdetail[16] + $timezone) * 3600;
          if ($userdetail[13]) { $userdetail[13] = &longdate ($userdetail[13]) } else { $userdetail[13] = "Î´Öª"; } 
 

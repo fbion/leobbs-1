@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -52,7 +52,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
             
             print qq~
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÓÃ»§·ÖÀà¹ÜÀí</b>
+            <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·åˆ†ç±»ç®¡ç†</b>
             </td></tr>
             ~;
             
@@ -73,30 +73,30 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
         }
         
 sub searchoptions {
-       my $memteam1 = qq~<option value="rz1">$defrz1(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz1 ne "");
-       my $memteam2 = qq~<option value="rz2">$defrz2(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz2 ne "");
-       my $memteam3 = qq~<option value="rz3">$defrz3(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz3 ne "");
-       my $memteam4 = qq~<option value="rz4">$defrz4(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz4 ne "");
-       my $memteam5 = qq~<option value="rz5">$defrz5(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz5 ne "");
+       my $memteam1 = qq~<option value="rz1">$defrz1(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz1 ne "");
+       my $memteam2 = qq~<option value="rz2">$defrz2(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz2 ne "");
+       my $memteam3 = qq~<option value="rz3">$defrz3(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz3 ne "");
+       my $memteam4 = qq~<option value="rz4">$defrz4(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz4 ne "");
+       my $memteam5 = qq~<option value="rz5">$defrz5(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz5 ne "");
 
     print qq~
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-	ÓÉÓÚ <font color=red>Ò»°ãÓÃ»§</font> ÊıÄ¿½Ï¶à£¬Çëµ½ <a href="setmembers.cgi">ÓÃ»§¹ÜÀí/ÅÅÃû(*)</a> ËÑË÷¡£<br><br>
+	ç”±äº <font color=red>ä¸€èˆ¬ç”¨æˆ·</font> æ•°ç›®è¾ƒå¤šï¼Œè¯·åˆ° <a href="setmembers.cgi">ç”¨æˆ·ç®¡ç†/æ’å(*)</a> æœç´¢ã€‚<br><br>
         <form method=get action="usermanager.cgi">
         <input type=hidden name="action" value="search">
-        <div align=center>ÇëÑ¡ÔñĞèÒª²éÑ¯µÄÓÃ»§ÀàĞÍ
+        <div align=center>è¯·é€‰æ‹©éœ€è¦æŸ¥è¯¢çš„ç”¨æˆ·ç±»å‹
 	<select name="usertype">$memteam1$memteam2$memteam3$memteam4$memteam5
-	<option value="rz">ÈÏÖ¤ÓÃ»§</option>
-	<option value="amo">ÂÛÌ³¸±°æÖ÷</option>
-	<option value="mo">ÂÛÌ³°æÖ÷</option>
-        <option value="cmo">·ÖÀàÇø×Ü°æÖ÷</option>
-        <option value="smo">ÂÛÌ³×Ü°æÖ÷</option>
-	<option value="ad">Ì³Ö÷</option>
-        <option value="banned">½ûÖ¹ÓÃ»§·¢ÑÔ</option>
-        <option value="masked">ÆÁ±Î´ËÓÃ»§Ìû×Ó</option>
+	<option value="rz">è®¤è¯ç”¨æˆ·</option>
+	<option value="amo">è®ºå›å‰¯ç‰ˆä¸»</option>
+	<option value="mo">è®ºå›ç‰ˆä¸»</option>
+        <option value="cmo">åˆ†ç±»åŒºæ€»ç‰ˆä¸»</option>
+        <option value="smo">è®ºå›æ€»ç‰ˆä¸»</option>
+	<option value="ad">å›ä¸»</option>
+        <option value="banned">ç¦æ­¢ç”¨æˆ·å‘è¨€</option>
+        <option value="masked">å±è”½æ­¤ç”¨æˆ·å¸–å­</option>
 	</select> 
-        <p><input type="submit" value='È·¶¨'></p></div></form>
+        <p><input type="submit" value='ç¡®å®š'></p></div></form>
 	</td></tr>
         ~;
         }
@@ -108,9 +108,9 @@ sub searchusers {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>´íÎó£¡</b><p>
+        <b>é”™è¯¯ï¼</b><p>
                     
-        <font color=#333333>ÄãÃ»ÓĞÈ¨ÏŞÊ¹ÓÃÕâ¸ö¹¦ÄÜ£¡</font>
+        <font color=#333333>ä½ æ²¡æœ‰æƒé™ä½¿ç”¨è¿™ä¸ªåŠŸèƒ½ï¼</font>
                     
         </td></tr>
          ~;
@@ -122,9 +122,9 @@ sub searchusers {
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>´íÎó£¡</b><p>
+        <b>é”™è¯¯ï¼</b><p>
                     
-        <font color=#333333>Ã»ÓĞÑ¡ÔñĞèÒªËÑË÷µÄÓÃ»§Àà±ğ</font>
+        <font color=#333333>æ²¡æœ‰é€‰æ‹©éœ€è¦æœç´¢çš„ç”¨æˆ·ç±»åˆ«</font>
                     
         </td></tr>
          ~;
@@ -153,7 +153,7 @@ sub searchusers {
     }
        print qq~
        <br><br>
-       <b>¹²ÕÒµ½ $i Î»ÓÃ»§</b><br>
+       <b>å…±æ‰¾åˆ° $i ä½ç”¨æˆ·</b><br>
        </td></tr>
        ~;
        }

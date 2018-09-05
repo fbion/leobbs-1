@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -32,7 +32,7 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $thisprog = "loginout.cgi";
 $query = new LBCGI;
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
 else {
@@ -44,7 +44,7 @@ else {
 }
 
 $inforum  = $query -> param('forum');
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 for ('inmembername','inpassword','action','CookieDate','onlineview','viewMode','nodispavatar',
@@ -60,7 +60,7 @@ $CookieDate = "+1d" if ($CookieDate eq "");
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
@@ -74,14 +74,14 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË") {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº") {
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
 }
 else {
-    &error("ÓÃ»§µÇÂ½&¶Ô²»Æğ£¬ÄúÊäÈëµÄÓÃ»§ÃûÓĞÎÊÌâ£¬Çë²»ÒªÔÚÓÃ»§ÃûÖĞ°üº¬\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]ÕâÀà×Ö·û£¡") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
+    &error("ç”¨æˆ·ç™»é™†&å¯¹ä¸èµ·ï¼Œæ‚¨è¾“å…¥çš„ç”¨æˆ·åæœ‰é—®é¢˜ï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­åŒ…å«\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]è¿™ç±»å­—ç¬¦ï¼") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
     &getmember("$inmembername","no");
-    &error("ÓÃ»§µÇÂ¼&¶Ô²»Æğ,ÓÃ»§ÃûºÍÃÜÂëÊäÈë´íÎó£¡") if (($inpassword ne $password)&&($action ne "logout"));
+    &error("ç”¨æˆ·ç™»å½•&å¯¹ä¸èµ·,ç”¨æˆ·åå’Œå¯†ç è¾“å…¥é”™è¯¯ï¼") if (($inpassword ne $password)&&($action ne "logout"));
     $inmembername = $membername;
 }
 $memberfilename = $inmembername;
@@ -90,7 +90,7 @@ $memberfilename =~ tr/A-Z/a-z/;
 &getoneforum("$inforum");
 #&moderator("$inforum");
 #&title;
-&mischeader("µÇÂ¼/ÍË³ö");
+&mischeader("ç™»å½•/é€€å‡º");
 
 $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -99,11 +99,11 @@ $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 
 if ($action eq "login") {
     &cleanolddata;
     if (($userregistered ne "no") && ($inpassword eq $password)) {
-	&whosonline("$inmembername\tÂÛÌ³µÇÂ¼\tnone\tµÇÂ¼ÂÛÌ³\t");
+	&whosonline("$inmembername\tè®ºå›ç™»å½•\tnone\tç™»å½•è®ºå›\t");
 	if ($inforum eq "") { $refrashurl = "leobbs.cgi"; } else { $refrashurl = "forums.cgi?forum=$inforum"; }
-	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>¸ĞĞ»ÄãµÇÂ¼ $inmembername</b></font></td></tr>
+	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>æ„Ÿè°¢ä½ ç™»å½• $inmembername</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="$refrashurl">½øÈëÂÛÌ³</a>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="$refrashurl">è¿›å…¥è®ºå›</a>
 <meta http-equiv="refresh" content="3; url=$refrashurl">
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
@@ -128,14 +128,14 @@ if ($action eq "login") {
 
 	print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>µÇÂ¼´íÎó</b></font></td></tr>
-<tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>µÇÂ¼´íÎóµÄ¿ÉÄÜÔ­Òò£º
-<ul><li>ÃÜÂë´íÎó<li>ÓÃ»§Ãû´íÎó<li>Äú²»ÊÇ<a href=register.cgi?forum=$inforum>×¢²á</a>ÓÃ»§</ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
+	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>ç™»å½•é”™è¯¯</b></font></td></tr>
+<tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>ç™»å½•é”™è¯¯çš„å¯èƒ½åŸå› ï¼š
+<ul><li>å¯†ç é”™è¯¯<li>ç”¨æˆ·åé”™è¯¯<li>æ‚¨ä¸æ˜¯<a href=register.cgi?forum=$inforum>æ³¨å†Œ</a>ç”¨æˆ·</ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
 }
 elsif ($action eq "logout") {
    &cleanolddata1;
-   if ($inmembername ne "" && $inmembername ne "¿ÍÈË") {
+   if ($inmembername ne "" && $inmembername ne "å®¢äºº") {
     $filetoopen = "$lbdir" . "data/onlinedata.cgi";
     my $filetoopens = &lockfilename($filetoopen);
     if (!(-e "$filetoopens.lck")) {
@@ -165,9 +165,9 @@ elsif ($action eq "logout") {
     	unlink ("$filetoopens.lck") if ((-M "$filetoopens.lck") *86400 > 30);
     }
    }
-    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>ÄúÏÖÔÚÒÑ¾­ÍË³öÂÛÌ³</b></font></td></tr>
+    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>æ‚¨ç°åœ¨å·²ç»é€€å‡ºè®ºå›</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-¾ßÌåÑ¡Ïî£º<ul><li><a href="leobbs.cgi">·µ»ØÂÛÌ³</a><li><a href=javascript:close();>¹Ø±ÕÄúµÄä¯ÀÀÆ÷</a></ul></tr></td></table></td></tr></table>
+å…·ä½“é€‰é¡¹ï¼š<ul><li><a href="leobbs.cgi">è¿”å›è®ºå›</a><li><a href=javascript:close();>å…³é—­æ‚¨çš„æµè§ˆå™¨</a></ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
 
@@ -210,11 +210,11 @@ else {
 
 
     print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    if ($inmembername ne "¿ÍÈË") {
+    if ($inmembername ne "å®¢äºº") {
       my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
       $filetoopens = &lockfilename($filetoopens);
       if (!(-e "$filetoopens.lck")) {
-	&whosonline("$inmembername\tÂÛÌ³µÇÂ¼\tnone\tµÇÂ¼ÂÛÌ³\t");
+	&whosonline("$inmembername\tè®ºå›ç™»å½•\tnone\tç™»å½•è®ºå›\t");
       }
     }
     opendir (DIR, "${lbdir}data/skin");
@@ -229,16 +229,16 @@ else {
         $myskin.=qq~<option value="$skindata[$i]">[ $skindata[$i] ]</option>~;
     }
     if ($canhidden ne "no") {
-        $userhidden = qq~<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÂÛÌ³ÒşÉí</b><BR>ÇëÑ¡ÔñÄãµÄµÇÂ¼ÏÔÊ¾·½Ê½£¬¿ÉÒÔÊÊµ±±£ÃÜÄãµÄÒşË½¡£</font></td>
+        $userhidden = qq~<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>è®ºå›éšèº«</b><BR>è¯·é€‰æ‹©ä½ çš„ç™»å½•æ˜¾ç¤ºæ–¹å¼ï¼Œå¯ä»¥é€‚å½“ä¿å¯†ä½ çš„éšç§ã€‚</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-                <input type="radio" name="hidden" value="0" checked id=1> <label for=1>Õı³£µÇÂ¼£¬ÏÔÊ¾ÔÚÔÚÏß»áÔ±ÁĞ±íÖĞ</label><br>
-                <input type="radio" name="hidden" value="1" id=2> <label for=2>ÒşÉíµÇÂ¼£¬²»Òª°ÑÎÒÏÔÊ¾ÔÚÔÚÏßÁĞ±íÖĞ</label><br>
+                <input type="radio" name="hidden" value="0" checked id=1> <label for=1>æ­£å¸¸ç™»å½•ï¼Œæ˜¾ç¤ºåœ¨åœ¨çº¿ä¼šå‘˜åˆ—è¡¨ä¸­</label><br>
+                <input type="radio" name="hidden" value="1" id=2> <label for=2>éšèº«ç™»å½•ï¼Œä¸è¦æŠŠæˆ‘æ˜¾ç¤ºåœ¨åœ¨çº¿åˆ—è¡¨ä¸­</label><br>
                 </font>
                 </td></tr>
     ~;
     }
     else { $userhidden = ""; }
-$helpurl = &helpnewfiles("¿ìËÙµÇÂ¼");
+$helpurl = &helpnewfiles("å¿«é€Ÿç™»å½•");
 $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
     $output .= qq~
@@ -247,81 +247,81 @@ $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></spa
     <form action="$thisprog" name="login" method="post" onSubmit="submitonce(this)">
     <input type=hidden name="action" value="login">
     <input type=hidden name="forum" value="$inforum">
-    <font face="$font" color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂëµÇÂ¼</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="inpassword"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
+    <font face="$font" color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç ç™»å½•</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="inpassword"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
     <tr>
-    <td bgcolor=$miscbacktwo colspan=2 valign=middle><font face="$font" color=$fontcolormisc><b>ÂÛÌ³µÇÂ¼Ñ¡Ïî</b></font></td></tr>
+    <td bgcolor=$miscbacktwo colspan=2 valign=middle><font face="$font" color=$fontcolormisc><b>è®ºå›ç™»å½•é€‰é¡¹</b></font></td></tr>
     $userhidden
     <tr>
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>Cookie Ñ¡Ïî</b><BR> ÇëÑ¡ÔñÄãµÄ Cookie ±£´æÊ±¼ä£¬ÏÂ´Î·ÃÎÊ¿ÉÒÔ·½±ãÊäÈë¡£</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>Cookie é€‰é¡¹</b><BR> è¯·é€‰æ‹©ä½ çš„ Cookie ä¿å­˜æ—¶é—´ï¼Œä¸‹æ¬¡è®¿é—®å¯ä»¥æ–¹ä¾¿è¾“å…¥ã€‚</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-                <input type="radio" name="CookieDate" value="0" checked id=3> <label for=3>²»±£´æ£¬¹Ø±Õä¯ÀÀÆ÷¾ÍÊ§Ğ§</label> <font color=$fonthighlight>(ÔÚÍø°ÉµÈ¹«¹²³¡Ëù½¨ÒéÑ¡ÔñÕâ¸ö)</font><br>
-                <input type="radio" name="CookieDate" value="+1d" id=4> <label for=4>±£ ´æ Ò» Ìì</label><br>
-                <input type="radio" name="CookieDate" value="+30d" id=5> <label for=5>±£ ´æ Ò» ÔÂ</label><br>
-                <input type="radio" name="CookieDate" value="+20y" id=6> <label for=6>ÓÀ ¾Ã ±£ ´æ</label> <font color=$fonthighlight>(ÔÚ¼ÒÀï»òÊ¹ÓÃ×Ô¼ºµÄµçÄÔÊ±²Å¿ÉÑ¡ÔñÕâ¸ö)</font><br>
+                <input type="radio" name="CookieDate" value="0" checked id=3> <label for=3>ä¸ä¿å­˜ï¼Œå…³é—­æµè§ˆå™¨å°±å¤±æ•ˆ</label> <font color=$fonthighlight>(åœ¨ç½‘å§ç­‰å…¬å…±åœºæ‰€å»ºè®®é€‰æ‹©è¿™ä¸ª)</font><br>
+                <input type="radio" name="CookieDate" value="+1d" id=4> <label for=4>ä¿ å­˜ ä¸€ å¤©</label><br>
+                <input type="radio" name="CookieDate" value="+30d" id=5> <label for=5>ä¿ å­˜ ä¸€ æœˆ</label><br>
+                <input type="radio" name="CookieDate" value="+20y" id=6> <label for=6>æ°¸ ä¹… ä¿ å­˜</label> <font color=$fonthighlight>(åœ¨å®¶é‡Œæˆ–ä½¿ç”¨è‡ªå·±çš„ç”µè„‘æ—¶æ‰å¯é€‰æ‹©è¿™ä¸ª)</font><br>
                 </font>
                 </td></tr>
 </table></td></tr></table>
 ~; 
 if ($advlogin == 1) { 
 $advloginout = "true"; 
-$advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv() checked><span id="advance">¹Ø±Õ¸ß¼¶µÇÂ¼Ñ¡Ïî</a></span> </td><td width=50%><input type=submit value="µÇ Â¼" name=submit></td>~;} 
+$advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv() checked><span id="advance">å…³é—­é«˜çº§ç™»å½•é€‰é¡¹</a></span> </td><td width=50%><input type=submit value="ç™» å½•" name=submit></td>~;} 
 else { 
 $advloginout = "none"; 
-$advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv()><span id="advance">ÏÔÊ¾¸ß¼¶µÇÂ¼Ñ¡Ïî</a></span> </td><td width=50%><input type=submit value="µÇ Â¼" name=submit></td>~;} 
+$advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv()><span id="advance">æ˜¾ç¤ºé«˜çº§ç™»å½•é€‰é¡¹</a></span> </td><td width=50%><input type=submit value="ç™» å½•" name=submit></td>~;} 
 $output .=qq~ 
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center id=adv style="DISPLAY: $advloginout">
  <tr><td>
     <table cellpadding=4 cellspacing=1 width=100%>
 
 <tr>
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÔÚÏßÁĞ±í</b> ÇëÑ¡ÔñÄãµÄÔÚÏßÃûµ¥ÏÔÊ¾·½Ê½£¬¿ÉÒÔ¼Ó¿ìÂÛÌ³ÏÔÊ¾¡£</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>åœ¨çº¿åˆ—è¡¨</b> è¯·é€‰æ‹©ä½ çš„åœ¨çº¿åå•æ˜¾ç¤ºæ–¹å¼ï¼Œå¯ä»¥åŠ å¿«è®ºå›æ˜¾ç¤ºã€‚</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-                <input type="radio" name="onlineview" value="1" $online id=9> <label for=9>ÏÔÊ¾ÏêÏ¸Ãûµ¥</label><br>
-                <input type="radio" name="onlineview" value="0" $online1 id=10> <label for=10>¹Ø±ÕÏêÏ¸Ãûµ¥</label><br>
+                <input type="radio" name="onlineview" value="1" $online id=9> <label for=9>æ˜¾ç¤ºè¯¦ç»†åå•</label><br>
+                <input type="radio" name="onlineview" value="0" $online1 id=10> <label for=10>å…³é—­è¯¦ç»†åå•</label><br>
                 </font>
                 </td></tr>
       <tr>
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>²é¿´Ìù×Ó</b> ÇëÑ¡ÔñÄãÏ²ºÃµÄ²é¿´Ìù×Ó·½Ê½£¬¿ÉÒÔ·½±ãÔÄ¶Á¡£</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>æŸ¥çœ‹è´´å­</b> è¯·é€‰æ‹©ä½ å–œå¥½çš„æŸ¥çœ‹è´´å­æ–¹å¼ï¼Œå¯ä»¥æ–¹ä¾¿é˜…è¯»ã€‚</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-                <input type="radio" name="viewMode" value="" $checked1 id=11> <label for=11>ÔÚÔ­´°¿ÚÖĞä¯ÀÀ</label><br>
-                <input type="radio" name="viewMode" value="_blank" $checked id=12> <label for=12>ÔÚĞÂ´°¿ÚÖĞä¯ÀÀ</label><br>
+                <input type="radio" name="viewMode" value="" $checked1 id=11> <label for=11>åœ¨åŸçª—å£ä¸­æµè§ˆ</label><br>
+                <input type="radio" name="viewMode" value="_blank" $checked id=12> <label for=12>åœ¨æ–°çª—å£ä¸­æµè§ˆ</label><br>
                 </font>
                 </td></tr>
 
       <tr>
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>²é¿´Ìù×ÓÄÚÈİ</b> ÇëÑ¡Ôñ²é¿´Ìù×ÓÄÚÈİÊ±ºòÊÇ·ñÏÔÊ¾ÓÃ»§Í·Ïñ¡¢Ç©ÃûºÍÌùÍ¼¡£</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>æŸ¥çœ‹è´´å­å†…å®¹</b> è¯·é€‰æ‹©æŸ¥çœ‹è´´å­å†…å®¹æ—¶å€™æ˜¯å¦æ˜¾ç¤ºç”¨æˆ·å¤´åƒã€ç­¾åå’Œè´´å›¾ã€‚</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-                <input type="checkbox" name="nodispavatar" value="yes" $checked2 id=13> <label for=13>²»ÏÔÊ¾ÓÃ»§Í·Ïñ</label><br>
-                <input type="checkbox" name="nodispsign"   value="yes" $checked3 id=14> <label for=14>²»ÏÔÊ¾ÓÃ»§Ç©Ãû</label><br>
-                <input type="checkbox" name="nodispphoto"  value="yes" $checked4 id=15> <label for=15>²»ÏÔÊ¾ÓÃ»§ÌùÍ¼</label><br>
+                <input type="checkbox" name="nodispavatar" value="yes" $checked2 id=13> <label for=13>ä¸æ˜¾ç¤ºç”¨æˆ·å¤´åƒ</label><br>
+                <input type="checkbox" name="nodispsign"   value="yes" $checked3 id=14> <label for=14>ä¸æ˜¾ç¤ºç”¨æˆ·ç­¾å</label><br>
+                <input type="checkbox" name="nodispphoto"  value="yes" $checked4 id=15> <label for=15>ä¸æ˜¾ç¤ºç”¨æˆ·è´´å›¾</label><br>
                 </font>
                 </td></tr>
 		   <tr>
 ~;
 if ($showskin ne "off") {$output.=qq~
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>·ç¸ñÉè¶¨</b> ÇëÑ¡ÔñÄãµÄÂÛÌ³·ç¸ñ¡£</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>é£æ ¼è®¾å®š</b> è¯·é€‰æ‹©ä½ çš„è®ºå›é£æ ¼ã€‚</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
 		  <select name="selectstyle">
-        <option value="">Ä¬ÈÏ·ç¸ñ</option>
+        <option value="">é»˜è®¤é£æ ¼</option>
 	$myskin
         </select>
         </font>
         </td></tr>
 ~;}
 $output.=qq~
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÓĞ¶ÌÏûÏ¢ÊÇ·ñµ¯³ö£¿</b> <BR>£¨Èç¹û¹ÜÀíÔ±ÉèÖÃÁË²»µ¯³öÔò´ËÑ¡ÔñÎŞĞ§£©</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>æœ‰çŸ­æ¶ˆæ¯æ˜¯å¦å¼¹å‡ºï¼Ÿ</b> <BR>ï¼ˆå¦‚æœç®¡ç†å‘˜è®¾ç½®äº†ä¸å¼¹å‡ºåˆ™æ­¤é€‰æ‹©æ— æ•ˆï¼‰</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-                <input type="radio" class=1 name="tanchumsg" value="" $tcchecked id=16> <label for=16>µ¯³ö¶ÌÏûÏ¢´°¿Ú</label><br>
-                <input type="radio" class=1 name="tanchumsg" value="no" $tcchecked1 id=17> <label for=17>²»µ¯³ö¶ÌÏûÏ¢´°¿Ú</label><br>
+                <input type="radio" class=1 name="tanchumsg" value="" $tcchecked id=16> <label for=16>å¼¹å‡ºçŸ­æ¶ˆæ¯çª—å£</label><br>
+                <input type="radio" class=1 name="tanchumsg" value="no" $tcchecked1 id=17> <label for=17>ä¸å¼¹å‡ºçŸ­æ¶ˆæ¯çª—å£</label><br>
                 </font></td></tr>
 
 <tr>
-    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>Ò³Ãæ×Ô¶¯Ë¢ĞÂÊ±¼ä</b> <BR>ÇëÊäÈë·ÖÂÛÌ³Ê×Ò³×Ô¶¯Ë¢ĞÂµÄÊ±¼ä£¨²»ÊäÈëÔò°´ÕÕ·ÖÂÛÌ³µÄÄ¬ÈÏÉèÖÃ½øĞĞË¢ĞÂ»òÕß²»Ë¢ĞÂ£©</font></td>
+    <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>é¡µé¢è‡ªåŠ¨åˆ·æ–°æ—¶é—´</b> <BR>è¯·è¾“å…¥åˆ†è®ºå›é¦–é¡µè‡ªåŠ¨åˆ·æ–°çš„æ—¶é—´ï¼ˆä¸è¾“å…¥åˆ™æŒ‰ç…§åˆ†è®ºå›çš„é»˜è®¤è®¾ç½®è¿›è¡Œåˆ·æ–°æˆ–è€…ä¸åˆ·æ–°ï¼‰</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
-Ã¿¸ô <input type=text name="freshtime" value="$freshtime" maxlength="2" size="2"> ·ÖÖÓ×Ô¶¯Ë¢ĞÂÒ»´Î
+æ¯éš” <input type=text name="freshtime" value="$freshtime" maxlength="2" size="2"> åˆ†é’Ÿè‡ªåŠ¨åˆ·æ–°ä¸€æ¬¡
 
 </tr>
 </table></td></tr>
@@ -330,10 +330,10 @@ $output.=qq~
 function showadv(){
 if (document.login.advshow.checked == true) {
 		adv.style.display = "";
-		advance.innerText="¹Ø±Õ¸ß¼¶µÇÂ¼Ñ¡Ïî"
+		advance.innerText="å…³é—­é«˜çº§ç™»å½•é€‰é¡¹"
 	}else{
 		adv.style.display = "none";
-		advance.innerText="ÏÔÊ¾¸ß¼¶µÇÂ¼Ñ¡Ïî"
+		advance.innerText="æ˜¾ç¤ºé«˜çº§ç™»å½•é€‰é¡¹"
 	}
 }		
 function submitonce(theform){
@@ -355,5 +355,5 @@ $advmode</form></tr></table></td></tr></table><BR><BR>
 $inselectstyle =~ s/\(/\\(/isg;
 $inselectstyle =~ s/\)/\\)/isg;
 $output =~ s/option value=\"$inselectstyle\"/option value=\"$inselectstyle\" selected/;
-&output("$boardname - µÇÂ¼/ÍË³ö",\$output);
+&output("$boardname - ç™»å½•/é€€å‡º",\$output);
 exit;

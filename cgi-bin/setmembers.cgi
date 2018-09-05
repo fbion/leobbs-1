@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -77,7 +77,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	function openScript(url, width, height){var Win = window.open(url,"openScript",'width=' + width + ',height=' + height + ',resizable=1,scrollbars=yes,menubar=yes,status=yes' );}
 	</script>
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§¹ÜÀí</b>
+            <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·ç®¡ç†</b>
             </td></tr>
             ~;
             
@@ -117,7 +117,7 @@ sub deleteavatar {
     $oldmembercode = $membercode;
     &getmember("$inmember");
     if ((($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "mo")||($membercode eq "amo"))&&($oldmembercode eq "smo")) {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>×Ü°ßÖñÎÞÈ¨É¾³ýÌ³Ö÷ºÍ°ßÖñ×ÊÁÏ£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>æ€»æ–‘ç«¹æ— æƒåˆ é™¤å›ä¸»å’Œæ–‘ç«¹èµ„æ–™ï¼</b></td></tr>";
             exit;
     }
     $inmember = $inmember;
@@ -142,7 +142,7 @@ sub deleteavatar {
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#333333><b>ÓÃ»§Í·ÏñÒÑ¾­É¾³ýÁË</b>
+        <font color=#333333><b>ç”¨æˆ·å¤´åƒå·²ç»åˆ é™¤äº†</b>
         </td></tr>
          ~;
 
@@ -197,7 +197,7 @@ foreach(@file){
     print qq~
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#990000><b>ÇëÑ¡ÔñÒ»Ïî</b>
+    <font color=#990000><b>è¯·é€‰æ‹©ä¸€é¡¹</b>
     </td>
     </tr>          
     ~;
@@ -206,83 +206,83 @@ foreach(@file){
 
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><b><a href="foruminit.cgi?action=uptop">¸üÐÂÓÃ»§ÅÅÃû</a></b><br>
-    ÓÃ»§ÅÅÃûÆäÊµ²»»á×Ô¶¯¸üÐÂµÄ£¬³ý·ÇÄãÔÚÕâ¶ù¸üÐÂÒ»ÏÂ¡£<BR><BR>
+    <font color=#333333><b><a href="foruminit.cgi?action=uptop">æ›´æ–°ç”¨æˆ·æŽ’å</a></b><br>
+    ç”¨æˆ·æŽ’åå…¶å®žä¸ä¼šè‡ªåŠ¨æ›´æ–°çš„ï¼Œé™¤éžä½ åœ¨è¿™å„¿æ›´æ–°ä¸€ä¸‹ã€‚<BR><BR>
     </td>
     </tr>
                 
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><b><a href="foruminit.cgi?action=updatecount">ÖØÐÂ¼ÆËãÓÃ»§×ÜÊý</a></b><br>
-    ½«¸üÐÂÊ×Ò³ÏÔÊ¾µÄÓÃ»§Êý£¬ÕâÑù¿ÉÒÔÓÃÀ´»Ö¸´ÕýÈ·×ÜÓÃ»§Êý¡£<BR><BR>
+    <font color=#333333><b><a href="foruminit.cgi?action=updatecount">é‡æ–°è®¡ç®—ç”¨æˆ·æ€»æ•°</a></b><br>
+    å°†æ›´æ–°é¦–é¡µæ˜¾ç¤ºçš„ç”¨æˆ·æ•°ï¼Œè¿™æ ·å¯ä»¥ç”¨æ¥æ¢å¤æ­£ç¡®æ€»ç”¨æˆ·æ•°ã€‚<BR><BR>
     </td>
     </tr>
                 
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><b>É¾³ý·ûºÏÌõ¼þµÄÓÃ»§</b>(Í¬Ê±»á×Ô¶¯¸üÐÂÓÃ»§ÅÅÃû)<BR>
-    Ô¤É¾³ý²¢²»»áÕæÕýÉ¾³ýÓÃ»§£¬Ö»ÊÇ×öÒ»¸öÍ³¼Æ¡£°ßÖñºÍÌ³Ö÷ÊÇ²»ÔÊÐíÔÚÕâÀïÉ¾³ýµÄ¡£<BR>
-    Ô¤É¾³ýºÍÕæÕýÉ¾³ýÆÚ¼ä£¬Èç¹ûÓÃ»§·ÃÎÊÁËÂÛÌ³£¬ÄÇÃ´ÔÚÕæÕýÉ¾³ýµÄÊ±ºò£¬´ËÓÃ»§×ÊÁÏ½«±»±£Áô¡£<BR>
-    ÕæÕýÉ¾³ýºó£¬ÓÃ»§µÄËùÓÐ×ÊÁÏ¶¼»á¶ªÊ§£¬³ý·ÇÄã×ö¹ý±¸·Ý£¬·ñÔòÊÇÎÞ·¨»Ö¸´µÄ¡£
+    <font color=#333333><b>åˆ é™¤ç¬¦åˆæ¡ä»¶çš„ç”¨æˆ·</b>(åŒæ—¶ä¼šè‡ªåŠ¨æ›´æ–°ç”¨æˆ·æŽ’å)<BR>
+    é¢„åˆ é™¤å¹¶ä¸ä¼šçœŸæ­£åˆ é™¤ç”¨æˆ·ï¼Œåªæ˜¯åšä¸€ä¸ªç»Ÿè®¡ã€‚æ–‘ç«¹å’Œå›ä¸»æ˜¯ä¸å…è®¸åœ¨è¿™é‡Œåˆ é™¤çš„ã€‚<BR>
+    é¢„åˆ é™¤å’ŒçœŸæ­£åˆ é™¤æœŸé—´ï¼Œå¦‚æžœç”¨æˆ·è®¿é—®äº†è®ºå›ï¼Œé‚£ä¹ˆåœ¨çœŸæ­£åˆ é™¤çš„æ—¶å€™ï¼Œæ­¤ç”¨æˆ·èµ„æ–™å°†è¢«ä¿ç•™ã€‚<BR>
+    çœŸæ­£åˆ é™¤åŽï¼Œç”¨æˆ·çš„æ‰€æœ‰èµ„æ–™éƒ½ä¼šä¸¢å¤±ï¼Œé™¤éžä½ åšè¿‡å¤‡ä»½ï¼Œå¦åˆ™æ˜¯æ— æ³•æ¢å¤çš„ã€‚
 	<form action="setmembers.cgi" method=POST>
         <input type=hidden name="action" value="delnopost">
         <select name="deltime">
-        <option value="30" >Ò»¸öÔÂÄÚÃ»·ÃÎÊ 
-        <option value="60" >¶þ¸öÔÂÄÚÃ»·ÃÎÊ 
-        <option value="90" >Èý¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="121">ËÄ¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="151">Îå¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="182">Áù¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="212">Æß¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="243">°Ë¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="273">¾Å¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="304">Ê®¸öÔÂÄÚÃ»·ÃÎÊ
-        <option value="365">Ò»ÄêÖ®ÄÚÃ»·ÃÎÊ
-        <option value="730">Á½ÄêÖ®ÄÚÃ»·ÃÎÊ
-        </select> ÇÒ 
+        <option value="30" >ä¸€ä¸ªæœˆå†…æ²¡è®¿é—® 
+        <option value="60" >äºŒä¸ªæœˆå†…æ²¡è®¿é—® 
+        <option value="90" >ä¸‰ä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="121">å››ä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="151">äº”ä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="182">å…­ä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="212">ä¸ƒä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="243">å…«ä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="273">ä¹ä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="304">åä¸ªæœˆå†…æ²¡è®¿é—®
+        <option value="365">ä¸€å¹´ä¹‹å†…æ²¡è®¿é—®
+        <option value="730">ä¸¤å¹´ä¹‹å†…æ²¡è®¿é—®
+        </select> ä¸” 
         <select name="delposts">
-		<option value="9999999999">²»¹Ü·¢Ìù×ÜÊý 
-        <option value="0"   >Ã»ÓÐ·¢¹ýÌù×Ó
-        <option value="10"  >×Ü·¢ÌùÉÙÓÚ 10
-        <option value="50"  >×Ü·¢ÌùÉÙÓÚ 50
-        <option value="100" >×Ü·¢ÌùÉÙÓÚ 100
-        <option value="200" >×Ü·¢ÌùÉÙÓÚ 200
-        <option value="300" >×Ü·¢ÌùÉÙÓÚ 300
-        <option value="500" >×Ü·¢ÌùÉÙÓÚ 500
-        <option value="800" >×Ü·¢ÌùÉÙÓÚ 800
-        <option value="1000">×Ü·¢ÌùÉÙÓÚ 1000
-        </select> ÇÒ 
+		<option value="9999999999">ä¸ç®¡å‘è´´æ€»æ•° 
+        <option value="0"   >æ²¡æœ‰å‘è¿‡è´´å­
+        <option value="10"  >æ€»å‘è´´å°‘äºŽ 10
+        <option value="50"  >æ€»å‘è´´å°‘äºŽ 50
+        <option value="100" >æ€»å‘è´´å°‘äºŽ 100
+        <option value="200" >æ€»å‘è´´å°‘äºŽ 200
+        <option value="300" >æ€»å‘è´´å°‘äºŽ 300
+        <option value="500" >æ€»å‘è´´å°‘äºŽ 500
+        <option value="800" >æ€»å‘è´´å°‘äºŽ 800
+        <option value="1000">æ€»å‘è´´å°‘äºŽ 1000
+        </select> ä¸” 
         <select name="dellast">
-        <option value="no"  >²»¹Ü·ÃÎÊ´ÎÊý
-        <option value="5"   >·ÃÎÊÉÙÓÚ 5 ´Î
-        <option value="10"  >·ÃÎÊÉÙÓÚ 10 ´Î
-        <option value="20"  >·ÃÎÊÉÙÓÚ 20 ´Î
-        <option value="50"  >·ÃÎÊÉÙÓÚ 50 ´Î
-        <option value="80"  >·ÃÎÊÉÙÓÚ 80 ´Î
-        <option value="100" >·ÃÎÊÉÙÓÚ 100 ´Î
-        <option value="200" >·ÃÎÊÉÙÓÚ 200 ´Î
-        <option value="500" >·ÃÎÊÉÙÓÚ 500 ´Î
-        </select> ÇÒ 
+        <option value="no"  >ä¸ç®¡è®¿é—®æ¬¡æ•°
+        <option value="5"   >è®¿é—®å°‘äºŽ 5 æ¬¡
+        <option value="10"  >è®¿é—®å°‘äºŽ 10 æ¬¡
+        <option value="20"  >è®¿é—®å°‘äºŽ 20 æ¬¡
+        <option value="50"  >è®¿é—®å°‘äºŽ 50 æ¬¡
+        <option value="80"  >è®¿é—®å°‘äºŽ 80 æ¬¡
+        <option value="100" >è®¿é—®å°‘äºŽ 100 æ¬¡
+        <option value="200" >è®¿é—®å°‘äºŽ 200 æ¬¡
+        <option value="500" >è®¿é—®å°‘äºŽ 500 æ¬¡
+        </select> ä¸” 
        <select name="delcdrom"> 
-       <option value="30" >Ò»¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="60" >¶þ¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="90" >Èý¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="121">ËÄ¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="151">Îå¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="182">Áù¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="212">Æß¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="243">°Ë¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="273">¾Å¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="304">Ê®¸öÔÂÄÚÃ»·¢ÑÔ 
-       <option value="365">Ò»ÄêÖ®ÄÚÃ»·¢ÑÔ 
-       <option value="730">Á½ÄêÖ®ÄÚÃ»·¢ÑÔ 
-       </select><BR>·ûºÏ·½Ê½ 
+       <option value="30" >ä¸€ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="60" >äºŒä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="90" >ä¸‰ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="121">å››ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="151">äº”ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="182">å…­ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="212">ä¸ƒä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="243">å…«ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="273">ä¹ä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="304">åä¸ªæœˆå†…æ²¡å‘è¨€ 
+       <option value="365">ä¸€å¹´ä¹‹å†…æ²¡å‘è¨€ 
+       <option value="730">ä¸¤å¹´ä¹‹å†…æ²¡å‘è¨€ 
+       </select><BR>ç¬¦åˆæ–¹å¼ 
       <select name="delusetype"> 
-      <option value="And">AND(ËùÓÐ×ÊÁÏ·ûºÏ)
-      <option value="OR">OR(Ä³Ò»×ÊÁÏ·ûºÏ)
-      </select> <BR>ÊäÈëÃ¿´Î½øÐÐ´¦ÀíµÄÓÃ»§Êý <input type=text name="users" size=4 maxlength=4 value=500> Èç¹ûÎÞ·¨Õý³£Íê³É£¬Çë¾¡Á¿¼õÉÙÕâ¸öÊýÄ¿£¬ÑÓ³¤´¦ÀíÊ±¼ä<BR>
+      <option value="And">AND(æ‰€æœ‰èµ„æ–™ç¬¦åˆ)
+      <option value="OR">OR(æŸä¸€èµ„æ–™ç¬¦åˆ)
+      </select> <BR>è¾“å…¥æ¯æ¬¡è¿›è¡Œå¤„ç†çš„ç”¨æˆ·æ•° <input type=text name="users" size=4 maxlength=4 value=500> å¦‚æžœæ— æ³•æ­£å¸¸å®Œæˆï¼Œè¯·å°½é‡å‡å°‘è¿™ä¸ªæ•°ç›®ï¼Œå»¶é•¿å¤„ç†æ—¶é—´<BR>
 
-        <input type=submit value="Ô¤ É¾ ³ý">
+        <input type=submit value="é¢„ åˆ  é™¤">
         </form>
         ~;
 	if (-e "${lbdir}data/delmember.cgi") {
@@ -297,44 +297,18 @@ foreach(@file){
     	    $nowtime = time;
     	    $nowtime = $nowtime - 3*24*3600;
     	    if ($nowtime > $pretime) {
-    	    	$oooput = qq~¾àÀëÉÏ´ÎÔ¤É¾³ýÊ±¼äÒÑ¾­³¬¹ý£³ÌìÁË [<a href=$thisprog?action=delok>È·¶¨É¾³ý</a>]~;
+    	    	$oooput = qq~è·ç¦»ä¸Šæ¬¡é¢„åˆ é™¤æ—¶é—´å·²ç»è¶…è¿‡ï¼“å¤©äº† [<a href=$thisprog?action=delok>ç¡®å®šåˆ é™¤</a>]~;
     	    }
     	    else {
-    	    	$oooput = qq~¾àÀëÉÏ´ÎÔ¤É¾³ýÊ±¼ä»¹Î´µ½£³Ìì [<a href=$thisprog?action=delok>²»¹Ü£¬Ç¿ÖÆÉ¾³ý</a>]~;
+    	    	$oooput = qq~è·ç¦»ä¸Šæ¬¡é¢„åˆ é™¤æ—¶é—´è¿˜æœªåˆ°ï¼“å¤© [<a href=$thisprog?action=delok>ä¸ç®¡ï¼Œå¼ºåˆ¶åˆ é™¤</a>]~;
     	    }
     	    $pretime=&dateformat($pretime);
     	    print qq~
-        	ÉÏ´ÎÔ¤É¾³ýÊ±¼ä£º$pretime (Ô¤É¾³ýÓÃ»§¸öÊý£º $delmembersize ) [<a href=$thisprog?action=canceldel>È¡ÏûÔ¤É¾³ý</a>]<BR>
-        	$oooput [<a href=$thisprog?action=viewdelmembers>²é¿´Ô¤É¾³ý»áÔ±ÁÐ±í</a>]
+        	ä¸Šæ¬¡é¢„åˆ é™¤æ—¶é—´ï¼š$pretime (é¢„åˆ é™¤ç”¨æˆ·ä¸ªæ•°ï¼š $delmembersize ) [<a href=$thisprog?action=canceldel>å–æ¶ˆé¢„åˆ é™¤</a>]<BR>
+        	$oooput [<a href=$thisprog?action=viewdelmembers>æŸ¥çœ‹é¢„åˆ é™¤ä¼šå‘˜åˆ—è¡¨</a>]
     	    ~;
 			} 
-			else { #îA„h³ý•þ†Tžé 0 •r×Ô„ÓÈ¡Ïû 
-			unlink ("${lbdir}data/delmember.cgi"); 
-			print qq~ 
-			Ô¤É¾³ýÎÄ¼þ²»´æÔÚ£¬ÏÖÔÚ¿ÉÒÔ½øÐÐÔ¤É¾³ý¡£ 
-			~; 
-			} 
-
-	}
-	else {
-    	    print qq~
-        	Ô¤É¾³ýÎÄ¼þ²»´æÔÚ£¬ÏÖÔÚ¿ÉÒÔ½øÐÐÔ¤É¾³ý¡£
-    	    ~;
-	}
-    print qq~
-    <BR><BR>
-    </td>
-    </tr>
-    ~;
-  }
-    print qq~
-    <tr>
-    <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><b>²é¿´¡¢±à¼­¡¢É¾³ý¡¢½ûÖ¹ÓÃ»§</b><br>
-    µã»÷ÏÂÃæµÄ×ÖÄ¸Äã¿ÉÒÔ²é¿´µ½ÓÃ»§ÏêÏ¸×ÊÁÏ£¬ ²¢¿É±à¼­¡¢¸Ä±äÓÃ»§µÄÐÅÏ¢¡£<br>
-    ½ûÖ¹ÓÃ»§£ºÖ»Òª¼òµ¥µÄµã»÷¡°±à¼­ÓÃ»§¡±£¬È»ºóÔÚ¡°ÓÃ»§ÊôÐÔ¡±ÖÐÑ¡Ôñ¡°½ûÖ¹ÓÃ»§¡±¾Í¿ÉÒÔ¡£<br>
-    É¾³ýÓÃ»§£ºÖ»ÒªÕÒµ½ÓÃ»§£¬µã»÷É¾³ý¾Í¿ÉÒÔ¡£<br>
-	<form action="setmembers.cgi" method=POST>
+			else { #ethod=POST>
         <input type=hidden name="action" value="edit">
         <input type=text name="member" size=10 maxlength=16>
         <input type=submit value="¿ìËÙ¶¨Î»">

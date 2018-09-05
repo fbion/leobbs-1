@@ -5,7 +5,7 @@ $yemei = qq~
 <img src=$imagesurl/images/czw/toplogo-3.jpg border=0></td>
 <td><img src=$imagesurl/images/czw/topan-1.jpg border=0></td>
 <td><img src=$imagesurl/images/czw/topan-2.jpg border=0></td>
-<td><a href=leoboard.cgi title=ÂÛÌ³Ê×Ò³><img src=$imagesurl/images/czw/topan-3.jpg border=0></a></td>
+<td><a href=leoboard.cgi title=è®ºå›é¦–é¡µ><img src=$imagesurl/images/czw/topan-3.jpg border=0></a></td>
 </td></tr></table>
 
 <table width=$tablewidth border="0" cellspacing="0" cellpadding="0" align="center"><tr><td><img src=$imagesurl/images/czw/toplogo-4.jpg border=0></td></tr></table>
@@ -14,7 +14,7 @@ $yemei = qq~
 <tr><TD width=30% rowSpan=3>$forumgraphicoutput</TD>
 <TD vAlign=bottom align=right>$adscript</TD></TR></TABLE><br>~;
 
-$daohang = qq~<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$titleborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$menubackground $menubackpic><font color=$menufontcolor>>> »¶Ó­Äú£¬$loggedinas </td><td bgcolor=$menubackground align=right $menubackpic>$sann<a href=$homeurl target=_blank><img src=$imagesurl/images/gohome.gif height=16 border=0></a>&nbsp;</td></tr></table></td></tr></table>$newmail~;
+$daohang = qq~<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$titleborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$menubackground $menubackpic><font color=$menufontcolor>>> æ¬¢è¿Žæ‚¨ï¼Œ$loggedinas </td><td bgcolor=$menubackground align=right $menubackpic>$sann<a href=$homeurl target=_blank><img src=$imagesurl/images/gohome.gif height=16 border=0></a>&nbsp;</td></tr></table></td></tr></table>$newmail~;
 
 $firstout = "yemei";
 1;

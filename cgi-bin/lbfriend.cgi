@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -31,7 +31,7 @@ $|++;
 
 $thisprog = "lbfriend.cgi";
 $query = new LBCGI;
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 $inforum         = $query -> param('forum');
 $intopic         = $query -> param('topic');
 $action          = $query -> param('action');
@@ -46,15 +46,15 @@ $inrealname          = &cleaninput($inrealname);
 $insubject           = &cleaninput($insubject);
 $inemailmessage      = &cleaninput($inemailmessage);
 $emailtopictitle     = &cleaninput($emailtopictitle);
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic) && ($intopic !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 $inmembername = $query->cookie("amembernamecookie");
 $inpassword   = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 	    if ($regaccess eq "on" && &checksearchbot) {
 	    	print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	    	print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
@@ -70,14 +70,14 @@ else {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
     }
-if ($emailfunctions ne "on") { &error("·¢ÓÊ¼ş¸øÅóÓÑ&¶Ô²»Æğ£¬ÂÛÌ³¹ÜÀíÔ±Ã»ÓĞ½«ÓÊ¼ş¹¦ÄÜ´ò¿ª£¡"); }
+if ($emailfunctions ne "on") { &error("å‘é‚®ä»¶ç»™æœ‹å‹&å¯¹ä¸èµ·ï¼Œè®ºå›ç®¡ç†å‘˜æ²¡æœ‰å°†é‚®ä»¶åŠŸèƒ½æ‰“å¼€ï¼"); }
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -85,8 +85,8 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &title;
 $output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔÓÃÓÊ¼ş¹¦ÄÜ·¢ËÍ±¾Ò³Ãæ¸øÅóÓÑ</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú ·¢¸öÓÊ¼ş¸øÅóÓÑ<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥ç”¨é‚®ä»¶åŠŸèƒ½å‘é€æœ¬é¡µé¢ç»™æœ‹å‹</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ å‘ä¸ªé‚®ä»¶ç»™æœ‹å‹<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
   <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -96,21 +96,21 @@ $output .= qq~
 ~;
     &getoneforum("$inforum");
     if (($allowedentry{$inforum} eq "yes")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; } else { $allowed = "no"; }
-    if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $membercode !~ /^rz/)||($inmembername eq "¿ÍÈË"))&&($userincert eq "no")) { &error("½øÈëÂÛÌ³&ÄãÒ»°ã»áÔ±²»ÔÊĞí½øÈë´ËÂÛÌ³£¡"); }
+    if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $membercode !~ /^rz/)||($inmembername eq "å®¢äºº"))&&($userincert eq "no")) { &error("è¿›å…¥è®ºå›&ä½ ä¸€èˆ¬ä¼šå‘˜ä¸å…è®¸è¿›å…¥æ­¤è®ºå›ï¼"); }
 
-    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("½øÈëË½ÃÜÂÛÌ³&¶Ô²»Æğ£¬ÄãÎŞÈ¨·ÃÎÊÕâ¸öÂÛÌ³£¡");}
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("è¿›å…¥ç§å¯†è®ºå›&å¯¹ä¸èµ·ï¼Œä½ æ— æƒè®¿é—®è¿™ä¸ªè®ºå›ï¼");}
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
     if ($allowusers ne ''){
-	&error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+	&error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
     }
 
   if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
   }
     
@@ -124,11 +124,11 @@ $output .= qq~
     elsif(!$inemailmessage) { $blankfields = "yes"; }
     
     if ($blankfields) {
-        &error("·¢ÓÊ¼ş¸øÅóÓÑ&ÇëÊäÈëËùÓĞÄÚÈİÈ»ºó·¢ËÍ£¡");
+        &error("å‘é‚®ä»¶ç»™æœ‹å‹&è¯·è¾“å…¥æ‰€æœ‰å†…å®¹ç„¶åå‘é€ï¼");
     }
     
-    if ($infromemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("·¢ÓÊ¼ş¸øÅóÓÑ&´íÎóµÄÓÊ¼şµØÖ·£¡"); }
-    if ($intoemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("·¢ÓÊ¼ş¸øÅóÓÑ&´íÎóµÄÓÊ¼şµØÖ·£¡"); }
+    if ($infromemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("å‘é‚®ä»¶ç»™æœ‹å‹&é”™è¯¯çš„é‚®ä»¶åœ°å€ï¼"); }
+    if ($intoemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("å‘é‚®ä»¶ç»™æœ‹å‹&é”™è¯¯çš„é‚®ä»¶åœ°å€ï¼"); }
 
     my $temp = &dofilter("$insubject\t$inemailmessage\t$emailtopictitle");
     ($insubject,$inemailmessage,$emailtopictitle) = split(/\t/,$temp);
@@ -139,28 +139,28 @@ $output .= qq~
     $message .= "\n";
     $message .= "$boardname <br>\n";
     $message .= "$boardurl/leobbs.cgi <br>\n";
-    $message .= "À´×Ô LeoBBS ÂÛÌ³ÖĞÅóÓÑµÄÏûÏ¢\n";
+    $message .= "æ¥è‡ª LeoBBS è®ºå›ä¸­æœ‹å‹çš„æ¶ˆæ¯\n";
     $message .= "---------------------------------------------------------------------\n<br><br>\n";
-    $message .= "$inrealname ´Ó $homename ·¢ËÍÓÊ¼ş¸øÄú¡£<br>\n";
+    $message .= "$inrealname ä» $homename å‘é€é‚®ä»¶ç»™æ‚¨ã€‚<br>\n";
     $message .= "---------------------------------------------------------------------\n<br><br>\n";
     $message .= "$inemailmessage\n <br><br>\n";
-    $message .= "Ö÷Ìâ£º $emailtopictitle\n <br><br>\n<br>\n";
-    $message .= "ÍøÖ·£º $boardurl/topic.cgi?forum=$inforum&topic=$intopic <br>\n";
+    $message .= "ä¸»é¢˜ï¼š $emailtopictitle\n <br><br>\n<br>\n";
+    $message .= "ç½‘å€ï¼š $boardurl/topic.cgi?forum=$inforum&topic=$intopic <br>\n";
     $message .= "---------------------------------------------------------------------\n<br><br>\n";
-    $message .= "ÌáÊ¾£ºÄúÃ»ÓĞ±ØÒª»Ø¸´Õâ·âÓÊ¼ş£¬ÕâÖ»ÊÇÂÛÌ³µÄÄÚÈİÍ¨Öª¡£\n<br><br>\n";
+    $message .= "æç¤ºï¼šæ‚¨æ²¡æœ‰å¿…è¦å›å¤è¿™å°é‚®ä»¶ï¼Œè¿™åªæ˜¯è®ºå›çš„å†…å®¹é€šçŸ¥ã€‚\n<br><br>\n";
     $message .= "---------------------------------------------------------------------<br>\n";
                 
     &sendmail($from, $from, $to, $subject, $message);
     $output .= qq~
         <tr>
-         <td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>Email ·¢ËÍÍê³É£¡</b></font></td></tr>
+         <td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>Email å‘é€å®Œæˆï¼</b></font></td></tr>
          <tr>
          <td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-         ¾ßÌåÇé¿ö£º£º
+         å…·ä½“æƒ…å†µï¼šï¼š
          <ul>
-         <li><a href="topic.cgi?forum=$inforum&topic=$intopic">·µ»ØÖ÷Ìâ</a>
-         <li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a>
-         <li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+         <li><a href="topic.cgi?forum=$inforum&topic=$intopic">è¿”å›ä¸»é¢˜</a>
+         <li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a>
+         <li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
          </ul>
          </tr>
          </td>
@@ -178,7 +178,7 @@ else {
     ($topicid, $topictitle, $no, $no, $no ,$no, $startedby, $startedpostdate, $no) = split(/\t/,$allthreads);
 
     $topictitle = &cleanarea("$topictitle");
-    $topictitle =~ s/^£ª£££¡£¦£ª//;
+    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	if ($addtopictime eq "yes") {
 	    my $topictime = &dispdate($startedpostdate + ($timedifferencevalue*3600) + ($timezone*3600));
@@ -191,31 +191,31 @@ else {
     <input type=hidden name="forum" value="$inforum">
     <input type=hidden name="topic" value="$intopic">
     <tr>
-    <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font face="$font" color=$fontcolormisc><b>·¢¸öÓÊ¼ş¸øÅóÓÑ</b></font></td></tr>
+    <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font face="$font" color=$fontcolormisc><b>å‘ä¸ªé‚®ä»¶ç»™æœ‹å‹</b></font></td></tr>
     <tr>
     <td bgcolor=$miscbackone valign=middle colspan=2><font face="$font" color=$fontcolormisc>
-    <b>Í¨¹ıÓÊ¼ş·¢ËÍÖ÷Ìâ <a href="topic.cgi?forum=$inforum&topic=$intopic">$topictitle</a> ¸øÄúµÄÅóÓÑ¡£</b>¡¡ÏÂÁĞËùÓĞÏî±ØÌî£¬²¢ÇëÊäÈëÕıÈ·µÄÓÊ¼şµØÖ·£¡<br>Äã¿ÉÒÔÌí¼ÓÒ»Ğ©×Ô¼ºµÄĞÅÏ¢ÔÚÏÂÃæµÄÄÚÈİ¿òÄÚ¡£ÖÁÓÚÕâ¸öÌù×ÓµÄÖ÷ÌâºÍ URL Äã¿ÉÒÔ²»±ØĞ´£¬ÒòÎª±¾³ÌĞò»áÔÚ·¢ËÍµÄ Email ÖĞ×Ô¶¯Ìí¼ÓµÄ£¡
+    <b>é€šè¿‡é‚®ä»¶å‘é€ä¸»é¢˜ <a href="topic.cgi?forum=$inforum&topic=$intopic">$topictitle</a> ç»™æ‚¨çš„æœ‹å‹ã€‚</b>ã€€ä¸‹åˆ—æ‰€æœ‰é¡¹å¿…å¡«ï¼Œå¹¶è¯·è¾“å…¥æ­£ç¡®çš„é‚®ä»¶åœ°å€ï¼<br>ä½ å¯ä»¥æ·»åŠ ä¸€äº›è‡ªå·±çš„ä¿¡æ¯åœ¨ä¸‹é¢çš„å†…å®¹æ¡†å†…ã€‚è‡³äºè¿™ä¸ªè´´å­çš„ä¸»é¢˜å’Œ URL ä½ å¯ä»¥ä¸å¿…å†™ï¼Œå› ä¸ºæœ¬ç¨‹åºä¼šåœ¨å‘é€çš„ Email ä¸­è‡ªåŠ¨æ·»åŠ çš„ï¼
     </td>
     <tr>
-    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>ÄúµÄĞÕÃû£º</b></td>
+    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>æ‚¨çš„å§“åï¼š</b></td>
     <td bgcolor=$miscbackone><input type=text size=40 name="realname"></td>
     </tr><tr>
-    <td bgcolor=$miscbacktwo><font face="$font" color=$fontcolormisc><b>ÄúµÄ Email µØÖ·£º</b></td>
+    <td bgcolor=$miscbacktwo><font face="$font" color=$fontcolormisc><b>æ‚¨çš„ Email åœ°å€ï¼š</b></td>
     <td bgcolor=$miscbacktwo><input type=text size=40 name="fromemail"></td>
     </tr><tr>
-    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>ÄúÅóÓÑµÄÃû×Ö£º</b></td>
+    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>æ‚¨æœ‹å‹çš„åå­—ï¼š</b></td>
     <td bgcolor=$miscbackone><input type=text size=40 name="toname"></td>
     </tr><tr>
-    <td bgcolor=$miscbacktwo><font face="$font" color=$fontcolormisc><b>ÄúÅóÓÑµÄ Email£º</b></td>
+    <td bgcolor=$miscbacktwo><font face="$font" color=$fontcolormisc><b>æ‚¨æœ‹å‹çš„ Emailï¼š</b></td>
     <td bgcolor=$miscbacktwo><input type=text size=40 name="toemail"></td>
     </tr><tr>
-    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>Email ±êÌâ£º</b></td>
+    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>Email æ ‡é¢˜ï¼š</b></td>
     <td bgcolor=$miscbackone><input type=text size=40 name="subject" value="$topictitle"></td>
     </tr><tr>
-    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>ÏûÏ¢ÄÚÈİ£º</b></td>
-    <td bgcolor=$miscbackone><textarea name="emailmessage" cols="55" rows="6">ÎÒÏëÄã¶Ô '$homename' µÄ '$topictitle' Õâ¸öÌù×ÓÄÚÈİ»á¸ĞĞËÈ¤µÄ£¡ÇëÈ¥¿´¿´£¡</textarea></td>
+    <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>æ¶ˆæ¯å†…å®¹ï¼š</b></td>
+    <td bgcolor=$miscbackone><textarea name="emailmessage" cols="55" rows="6">æˆ‘æƒ³ä½ å¯¹ '$homename' çš„ '$topictitle' è¿™ä¸ªè´´å­å†…å®¹ä¼šæ„Ÿå…´è¶£çš„ï¼è¯·å»çœ‹çœ‹ï¼</textarea></td>
     </tr><tr>
-    <td colspan=2 bgcolor=$miscbacktwo align=center><input type=hidden name="emailtopictitle" value="$topictitle"><input type=submit value="·¢ ËÍ" name="Submit"></table></td></form></tr></table>
+    <td colspan=2 bgcolor=$miscbacktwo align=center><input type=hidden name="emailtopictitle" value="$topictitle"><input type=submit value="å‘ é€" name="Submit"></table></td></form></tr></table>
 <SCRIPT>valignend()</SCRIPT>
     ~;
 }

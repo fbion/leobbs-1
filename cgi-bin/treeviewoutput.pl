@@ -1,15 +1,15 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     @treelist=();
-    $pages = qq~<font color=$menufontcolor><b>±¾Ö÷Ìâ¹²ÓĞÒ»Ò³</b>~;
+    $pages = qq~<font color=$menufontcolor><b>æœ¬ä¸»é¢˜å…±æœ‰ä¸€é¡µ</b>~;
 
 if ($tablewidth > 100) {
     if ($tablewidth > 1000) { $topictitlemax = 115; } elsif ($tablewidth > 770) { $topictitlemax = 94; } else { $topictitlemax = 58; }
@@ -17,7 +17,7 @@ if ($tablewidth > 100) {
     if ($screenmode >=10) { $topictitlemax = 115; } elsif ($screenmode >=8) { $topictitlemax = 94; } else { $topictitlemax = 58; }
 }
 
-    $output .= qq~<SCRIPT>valignend()</SCRIPT><p><SCRIPT>valigntop()</SCRIPT><table cellpadding="5" style="border-collapse: collapse" width=$tablewidth cellspacing="0" bordercolor=$tablebordercolor border=1 align=center><tr><td colspan=3 bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><B>&nbsp;* Ê÷ĞÎÄ¿Â¼</B></td></tr>~;
+    $output .= qq~<SCRIPT>valignend()</SCRIPT><p><SCRIPT>valigntop()</SCRIPT><table cellpadding="5" style="border-collapse: collapse" width=$tablewidth cellspacing="0" bordercolor=$tablebordercolor border=1 align=center><tr><td colspan=3 bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><B>&nbsp;* æ ‘å½¢ç›®å½•</B></td></tr>~;
     $i = 0;
     foreach (@threads) {
 
@@ -32,12 +32,12 @@ if ($tablewidth > 100) {
 	    $jfpost=$1;
 	    if (($jfpost <= $jifen)||($mymembercode eq "ad")||($mymembercode eq "smo")||($myinmembmod eq "yes")||(lc($membername) eq lc($inmembername))){ 
 	    } else { 
-	        &error("ÓĞÎÊÌâ&»ı·Ö±ØĞë´ïµ½ $jfpost ²ÅÄÜ²é¿´£¬ÄãÄ¿Ç°µÄ»ı·ÖÊÇ $jifen £¡") if ($noviewjf eq "yes");
+	        &error("æœ‰é—®é¢˜&ç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpost æ‰èƒ½æŸ¥çœ‹ï¼Œä½ ç›®å‰çš„ç§¯åˆ†æ˜¯ $jifen ï¼") if ($noviewjf eq "yes");
    	    }
    	}
     }
 
-	$topictitle =~ s/^£ª£££¡£¦£ª//;
+	$topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	chomp $posticon;
 	$postdate = &shortdate($postdate + $addtimes);
@@ -45,25 +45,25 @@ if ($tablewidth > 100) {
         $post =~ s/\[ADMINOPE=(.+?)\]//isg;
 
 	if ($post =~ /\[POSTISDELETE=(.+?)\]/) {
-	    $post = "´Ë»Ø¸´ÒÑ¾­±»ÆÁ±Î";
+	    $post = "æ­¤å›å¤å·²ç»è¢«å±è”½";
 	}
 
         if (($post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/)||($post =~ /LBSALE\[(.*?)\]LBSALE/)) {
-            $post = "±£ÃÜ";
+            $post = "ä¿å¯†";
         } else {
 	    $post =~ s/\[quote\](.*)\[quote\](.*)\[\/quote](.*)\[\/quote\]//isg;
 	    $post =~ s/\[quote\](.*)\[\/quote\]//isg;
 	    $post =~ s/\[equote\](.*)\[\/equote\]//isg;
 	    $post =~ s/\[fquote\](.*)\[\/fquote\]//isg;
 	    $post =~ s/\[hidepoll\]//isg;
-	    $post =~ s/\[Õâ¸ö(.+?)×îºóÓÉ(.+?)±à¼­\]\n//isg;
+	    $post =~ s/\[è¿™ä¸ª(.+?)æœ€åç”±(.+?)ç¼–è¾‘\]\n//isg;
 	    $post =~ s/\[hide\](.*)\[hide\](.*)\[\/hide](.*)\[\/hide\]//isg; 
 	    $post =~ s/\[hide\](.*)\[\/hide\]//isg; 
 	    $post =~ s/\[post=(.+?)\](.+?)\[\/post\](.*)\[post=(.+?)\](.+?)\[\/post\]//isg; 
 	    $post =~ s/\[post=(.+?)\](.+?)\[\/post\]//isg;
 	    $post =~ s/\[jf=(.+?)\](.+?)\[\/jf\](.*)\[jf=(.+?)\](.+?)\[\/jf\]//isg; 
 	    $post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]//isg;
-	    $post =~ s/\[curl=(http|https|ftp):\/\/(.*?)\]/\[¼ÓÃÜÁ¬½á\]/isg;
+	    $post =~ s/\[curl=(http|https|ftp):\/\/(.*?)\]/\[åŠ å¯†è¿ç»“\]/isg;
 	    $post = &temppost("$post");
 	}
 
@@ -71,25 +71,25 @@ if ($tablewidth > 100) {
             $post=&lbhz($post,$topictitlemax);
 	}
 
-	if ($post eq "") { $post="(ÎŞÄÚÈİ)"; }
+	if ($post eq "") { $post="(æ— å†…å®¹)"; }
 
 	if (($posticon ne "")&&($posticon !~ /\<br\>/i)) { $posticon = qq~<img src=$imagesurl/posticons/$posticon $defaultsmilewidth $defaultsmileheight>~; } else { $posticon = ""; }
 
 	my $memberfilename = $membername;
 	$memberfilename =~ y/ /_/;
 	$memberfilename =~ tr/A-Z/a-z/;
-	if ($membername=~/\(¿Í\)/) {
-	    $membername=~s/\(¿Í\)//isg;
-	    $h4 = qq~<font color=$postfontcolorone title=´ËÎªÎ´×¢²áÓÃ»§>$membername</font>~;
+	if ($membername=~/\(å®¢\)/) {
+	    $membername=~s/\(å®¢\)//isg;
+	    $h4 = qq~<font color=$postfontcolorone title=æ­¤ä¸ºæœªæ³¨å†Œç”¨æˆ·>$membername</font>~;
 	}
 	else {
-	    $h4 = qq~<a href=profile.cgi?action=show&member=~ . uri_escape($memberfilename) . qq~ title=\"²é¿´$membernameµÄ¸öÈË×ÊÁÏ\">$membername</a>~;
+	    $h4 = qq~<a href=profile.cgi?action=show&member=~ . uri_escape($memberfilename) . qq~ title=\"æŸ¥çœ‹$membernameçš„ä¸ªäººèµ„æ–™\">$membername</a>~;
 	}
 	
 	$editpostnumber=$i+1; 
-	$h5="¡¡¡¡"; 
+	$h5="ã€€ã€€"; 
    	$h5 =qq(<input type="checkbox" name="postno$editpostnumber" value="yes">) if(($mymembercode eq "ad")||($mymembercode eq 'smo')||($mymembercode eq 'cmo')||($myinmembmod eq "yes"));
-	if ($i==0) { $h3 = "¡¡Ö÷Ìù£º"; } else { $h3 = "$h5»Ø¸´£º"; } 
+	if ($i==0) { $h3 = "ã€€ä¸»è´´ï¼š"; } else { $h3 = "$h5å›å¤ï¼š"; } 
 
 	if ($treebackcolor ne $postcolorone) { $treebackcolor=$postcolorone; } else { $treebackcolor=$postcolortwo; }
 	if ($i==$replynum) {
@@ -101,7 +101,7 @@ if ($tablewidth > 100) {
 	    $h1="<a href=$thisprog?forum=${inforum}&topic=${intopic}&show=$show&replynum=$i>";
 	    $h2="</a>";
 	}
-	$output .=qq~<tr bgcolor="$treebackcolor"><td><font color=$treefontcolor> $h3 $posticon $h1 $post $h2</td><td width=130> &nbsp ×÷Õß£º$h4</td><td width=70 align=right> $postdate&nbsp;</font></td></tr>~;
+	$output .=qq~<tr bgcolor="$treebackcolor"><td><font color=$treefontcolor> $h3 $posticon $h1 $post $h2</td><td width=130> &nbsp ä½œè€…ï¼š$h4</td><td width=70 align=right> $postdate&nbsp;</font></td></tr>~;
 	$i ++;
     }
     $output .= qq~</table>~;

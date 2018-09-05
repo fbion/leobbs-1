@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -134,11 +134,11 @@ sub reorderformnow {
 
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÁªÃËÂÛÌ³ÅÅĞòÃû³Æ½á¹û</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è”ç›Ÿè®ºå›æ’åºåç§°ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­³É¹¦±£´æ</b>
+                <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»æˆåŠŸä¿å­˜</b>
                 </td></tr></table></td></tr></table>
                 ~;
 &outunion;
@@ -146,24 +146,24 @@ sub reorderformnow {
 
 sub orderform {
     print qq~
-    <tr><td bgcolor=#2159C9 colspan=3><font face=ËÎÌå color=#FFFFFF>
-    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÁªÃËÂÛÌ³¹ÜÀí</b>
+    <tr><td bgcolor=#2159C9 colspan=3><font face=å®‹ä½“ color=#FFFFFF>
+    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è”ç›Ÿè®ºå›ç®¡ç†</b>
     </td></tr>
-    <tr><td bgcolor=#FFFFFF colspan=3><font face=ËÎÌå color=#333333>
-    <b>×¢ÒâÊÂÏî£º</b><br><br>
-    ÔÚ´ËÄú¿ÉÒÔ½«ÁªÃËÂÛÌ³ÖØĞÂÅÅĞò¡£</td></tr>
+    <tr><td bgcolor=#FFFFFF colspan=3><font face=å®‹ä½“ color=#333333>
+    <b>æ³¨æ„äº‹é¡¹ï¼š</b><br><br>
+    åœ¨æ­¤æ‚¨å¯ä»¥å°†è”ç›Ÿè®ºå›é‡æ–°æ’åºã€‚</td></tr>
     ~;
 
          print qq~
             <tr>
-            <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+            <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
             </td></tr>
             <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="reorder">
             <input type=hidden name="oldforum" value="$forumid">
-       °ÑÁªÃËÂÛÌ³ "<font color=red>$oforumname</font>" ÒÆ¶¯µ½<BR> </font>
+       æŠŠè”ç›Ÿè®ºå› "<font color=red>$oforumname</font>" ç§»åŠ¨åˆ°<BR> </font>
             <select name="forum">
        ~;
     $filetoopen = "$lbdir" . "data/shareforums.cgi";
@@ -186,24 +186,24 @@ $forumnamenum = 0;
 	~;
 
     } # end foreach (@forums)
-         print qq~</select> ÏÂÃæ¡£
+         print qq~</select> ä¸‹é¢ã€‚
                    </td></tr>
                     <tr>
                     <td bgcolor=#EEEEEE>
-                    <BR>¡¡¡¡¡¡<input type=submit value="Ìá ½»"></td></form></tr></table></td></tr></table>~;
+                    <BR>ã€€ã€€ã€€<input type=submit value="æ äº¤"></td></form></tr></table></td></tr></table>~;
     
 } # end routine.
 
 sub forumlist {
     $highest = 0;
     print qq~
-    <tr><td bgcolor=#2159C9 colspan=3><font face=ËÎÌå color=#FFFFFF>
-    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÁªÃËÂÛÌ³¹ÜÀí</b>
+    <tr><td bgcolor=#2159C9 colspan=3><font face=å®‹ä½“ color=#FFFFFF>
+    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è”ç›Ÿè®ºå›ç®¡ç†</b>
     </td></tr>
-    <tr><td bgcolor=#FFFFFF colspan=3><font face=ËÎÌå color=#333333>
-    <b>×¢ÒâÊÂÏî£º</b><br><br>
-    ÔÚÏÂÃæ£¬Äú½«¿´µ½Ä¿Ç°ËùÓĞµÄÁªÃËÂÛÌ³¡£Äú¿ÉÒÔ±à¼­ÁªÃËÂÛÌ³Ãû»òÊÇÔö¼ÓÒ»¸öĞÂµÄÁªÃËÂÛÌ³¡£ 
-    Ò²¿ÉÒÔ±à¼­»òÉ¾³ıÄ¿Ç°´æÔÚµÄÁªÃËÂÛÌ³¡£Äú¿ÉÒÔ¶ÔÄ¿Ç°µÄÁªÃËÖØĞÂ½øĞĞÅÅÁĞ¡£<br>
+    <tr><td bgcolor=#FFFFFF colspan=3><font face=å®‹ä½“ color=#333333>
+    <b>æ³¨æ„äº‹é¡¹ï¼š</b><br><br>
+    åœ¨ä¸‹é¢ï¼Œæ‚¨å°†çœ‹åˆ°ç›®å‰æ‰€æœ‰çš„è”ç›Ÿè®ºå›ã€‚æ‚¨å¯ä»¥ç¼–è¾‘è”ç›Ÿè®ºå›åæˆ–æ˜¯å¢åŠ ä¸€ä¸ªæ–°çš„è”ç›Ÿè®ºå›ã€‚ 
+    ä¹Ÿå¯ä»¥ç¼–è¾‘æˆ–åˆ é™¤ç›®å‰å­˜åœ¨çš„è”ç›Ÿè®ºå›ã€‚æ‚¨å¯ä»¥å¯¹ç›®å‰çš„è”ç›Ÿé‡æ–°è¿›è¡Œæ’åˆ—ã€‚<br>
     </td></tr>
     ~;
 
@@ -226,11 +226,11 @@ sub forumlist {
 
          print qq~
             <tr>
-            <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+            <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
             </td></tr>
             <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
-       <a href="$thisprog?action=addforum">Ôö¼ÓĞÂµÄÁªÃËÂÛÌ³</a></font></td>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
+       <a href="$thisprog?action=addforum">å¢åŠ æ–°çš„è”ç›Ÿè®ºå›</a></font></td>
             </td></tr>
        
        ~;
@@ -243,9 +243,9 @@ sub forumlist {
         my $uriforumname = &uri_escape($forumname);
                print qq~
                 <tr>
-                <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=ËÎÌå color=#333333>
-                <b>ÁªÃËÂÛÌ³Ãû³Æ</b>£º $forumname<BR><b>ÁªÃËÂÛÌ³ URL</b>£º $forumurl<br><b>ÁªÃËÂÛÌ³LOGO</b>£º $weblogo<br><b>ÁªÃËÂÛÌ³¼ò½é</b>£º $foruminfo<br>
-                <br><a href="$thisprog?action=edit&forum=$forumnamenum">±à¼­´ËÁªÃËÂÛÌ³</a> | <font face=ËÎÌå color=#333333><a href="$thisprog?action=delete&forum=$forumnamenum&oforumname=$uriforumname">É¾³ı´ËÁªÃËÂÛÌ³</a> | <font face=ËÎÌå color=#333333><a href="$thisprog?action=order&forum=$forumnamenum&oforumname=$uriforumname">ÇøÄÚÅÅĞòÁªÃËÂÛÌ³</a> </font></td>
+                <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=å®‹ä½“ color=#333333>
+                <b>è”ç›Ÿè®ºå›åç§°</b>ï¼š $forumname<BR><b>è”ç›Ÿè®ºå› URL</b>ï¼š $forumurl<br><b>è”ç›Ÿè®ºå›LOGO</b>ï¼š $weblogo<br><b>è”ç›Ÿè®ºå›ç®€ä»‹</b>ï¼š $foruminfo<br>
+                <br><a href="$thisprog?action=edit&forum=$forumnamenum">ç¼–è¾‘æ­¤è”ç›Ÿè®ºå›</a> | <font face=å®‹ä½“ color=#333333><a href="$thisprog?action=delete&forum=$forumnamenum&oforumname=$uriforumname">åˆ é™¤æ­¤è”ç›Ÿè®ºå›</a> | <font face=å®‹ä½“ color=#333333><a href="$thisprog?action=order&forum=$forumnamenum&oforumname=$uriforumname">åŒºå†…æ’åºè”ç›Ÿè®ºå›</a> </font></td>
                 </font></td></tr>
                 ~;
        
@@ -253,11 +253,11 @@ sub forumlist {
     
                
         print qq~
-        <td bgcolor=#FFFFFF colspan=3 ><font face=ËÎÌå color=#333333><hr noshade>
+        <td bgcolor=#FFFFFF colspan=3 ><font face=å®‹ä½“ color=#333333><hr noshade>
         </td></tr>
              <tr>
-            <td bgcolor=#EEEEEE width=20% nowrap><font face=ËÎÌå color=#333333>
-       <a href="$thisprog?action=addforum">Ôö¼ÓĞÂµÄÁªÃËÂÛÌ³</a></font></td>
+            <td bgcolor=#EEEEEE width=20% nowrap><font face=å®‹ä½“ color=#333333>
+       <a href="$thisprog?action=addforum">å¢åŠ æ–°çš„è”ç›Ÿè®ºå›</a></font></td>
             </td></tr>
         </tr></table></td></tr></table>~;
     
@@ -266,8 +266,8 @@ sub forumlist {
 sub addforum {
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Ôö¼ÓÁªÃËÂÛÌ³</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢åŠ è”ç›Ÿè®ºå›</b>
         </td></tr>
         ~;
 
@@ -279,27 +279,27 @@ sub addforum {
         <input type=hidden name="action" value="processnew">       
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÁªÃËÂÛÌ³Ãû³Æ</b><br>ÇëÊäÈëĞÂÁªÃËÂÛÌ³µÄÃû³Æ<BR>(Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ)</font></td>
+        <font face=å®‹ä½“ color=#333333><b>è”ç›Ÿè®ºå›åç§°</b><br>è¯·è¾“å…¥æ–°è”ç›Ÿè®ºå›çš„åç§°<BR>(è¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…)</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="forumname" maxlength=40></td>
         </tr>       
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÁªÃËÂÛÌ³ URL</b><br>ÇëÊäÈëĞÂÁªÃËÂÛÌ³µÄ URL</font></td>
+        <font face=å®‹ä½“ color=#333333><b>è”ç›Ÿè®ºå› URL</b><br>è¯·è¾“å…¥æ–°è”ç›Ÿè®ºå›çš„ URL</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="forumurl" value="http://"></td>
         </tr>   
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÍøÕ¾ LOGO µØÖ·</b><br>ÇëÊäÈëÁªÃËÂÛÌ³Õ¾µãµÄ LOGO µØÖ·£¨88*31£©</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç½‘ç«™ LOGO åœ°å€</b><br>è¯·è¾“å…¥è”ç›Ÿè®ºå›ç«™ç‚¹çš„ LOGO åœ°å€ï¼ˆ88*31ï¼‰</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="weblogo" value="http://"></td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÃèÊö</b><br>ÇëÊäÈëĞÂÂÛÌ³µÄÃèÊö</font></td>
+        <font face=å®‹ä½“ color=#333333><b>è®ºå›æè¿°</b><br>è¯·è¾“å…¥æ–°è®ºå›çš„æè¿°</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="foruminfo"></td>
         </tr>   
@@ -307,7 +307,7 @@ sub addforum {
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 } # end route   
@@ -319,10 +319,10 @@ sub addforum {
 
 sub createforum {   
 		
-		&errorout("¶Ô²»Æğ£¬ÂÛÌ³Ãû×Ö¹ı³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_forumname) >40);
-		&errorout("ÂÛÌ³ÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_foruminfo eq "");
+		&errorout("å¯¹ä¸èµ·ï¼Œè®ºå›åå­—è¿‡é•¿ï¼Œè¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_forumname) >40);
+		&errorout("è®ºå›æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_foruminfo eq "");
                 $new_forumurl=~s ! !!ig;
-		&errorout("ÂÛÌ³µØÖ·²»ÄÜ¿Õ£¡£¡") if ($new_forumurl eq "");
+		&errorout("è®ºå›åœ°å€ä¸èƒ½ç©ºï¼ï¼") if ($new_forumurl eq "");
                 $filetoopen = "$lbdir" . "data/shareforums.cgi";
 	        &winlock($filetoopen) if ($OS_USED eq "Nt");
                 open(FILE, "$filetoopen");
@@ -344,18 +344,18 @@ sub createforum {
 	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
                 
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Ôö¼ÓÁªÃËÂÛÌ³½á¹û</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢åŠ è”ç›Ÿè®ºå›ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                <font face=ËÎÌå color=#333333>
+                <font face=å®‹ä½“ color=#333333>
                 ~;
 
-                print "<b>ÏêÏ¸×ÊÁÏ</b><p>\n";
+                print "<b>è¯¦ç»†èµ„æ–™</b><p>\n";
                 print "<ul>\n";
                
-                print "ĞÂÁªÃËÂÛÌ³ <B>$new_forumname</b> ÒÑ¾­½¨Á¢£¡";
+                print "æ–°è”ç›Ÿè®ºå› <B>$new_forumname</b> å·²ç»å»ºç«‹ï¼";
                                
                 print "</ul></td></tr></table></td></tr></table>\n";
 &outunion;
@@ -367,18 +367,18 @@ sub createforum {
 sub warning { #start
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / É¾³ıÁªÃËÂÛÌ³</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤è”ç›Ÿè®ºå›</b>
         </td></tr>
         <tr>
         <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-        <font face=ËÎÌå color=#990000><b>¾¯¸æ£¡£¡</b>
+        <font face=å®‹ä½“ color=#990000><b>è­¦å‘Šï¼ï¼</b>
         </td></tr>
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <font face=ËÎÌå color=#333333>Èç¹ûÄúÈ·¶¨ÒªÉ¾³ıÁªÃËÂÛÌ³ $oforumname£¬ÄÇÃ´Çëµã»÷ÏÂÃæÁ´½Ó<p>
-        >> <a href="$thisprog?action=delete&checkaction=yes&forum=$forumid&oforumname=$oforumname">É¾³ıÁªÃËÂÛÌ³</a> <<
+        <font face=å®‹ä½“ color=#333333>å¦‚æœæ‚¨ç¡®å®šè¦åˆ é™¤è”ç›Ÿè®ºå› $oforumnameï¼Œé‚£ä¹ˆè¯·ç‚¹å‡»ä¸‹é¢é“¾æ¥<p>
+        >> <a href="$thisprog?action=delete&checkaction=yes&forum=$forumid&oforumname=$oforumname">åˆ é™¤è”ç›Ÿè®ºå›</a> <<
         </td></tr>
         </table></td></tr></table>
         
@@ -414,14 +414,14 @@ sub deleteforum { #start
 
        
                     print qq~
-                    <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / É¾³ıÁªÃËÂÛÌ³½á¹û</b>
+                    <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤è”ç›Ÿè®ºå›ç»“æœ</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                    <font face=ËÎÌå color=#990000>
+                    <font face=å®‹ä½“ color=#990000>
                     
-                    <center><b>ÁªÃËÂÛÌ³ <B>$oforumname</B> ÒÑ±»É¾³ı</b>£¬ÇëË¢ĞÂÁªÃËÂÛÌ³¹ÜÀíÒ³ºóÔÙ¼ÌĞø²Ù×÷£¡</center><p>
+                    <center><b>è”ç›Ÿè®ºå› <B>$oforumname</B> å·²è¢«åˆ é™¤</b>ï¼Œè¯·åˆ·æ–°è”ç›Ÿè®ºå›ç®¡ç†é¡µåå†ç»§ç»­æ“ä½œï¼</center><p>
                     
                   
                                     
@@ -450,8 +450,8 @@ sub editform {
 
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­ÁªÃËÂÛÌ³</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+        <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘è”ç›Ÿè®ºå›</b>
         </td></tr>
        
                 
@@ -460,28 +460,28 @@ sub editform {
         <input type=hidden name="forum" value="$forumid">
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÁªÃËÂÛÌ³Ãû³Æ</b><br>ÇëÊäÈëÁªÃËÂÛÌ³Ãû³Æ<BR>(Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ)</font></td>
+        <font face=å®‹ä½“ color=#333333><b>è”ç›Ÿè®ºå›åç§°</b><br>è¯·è¾“å…¥è”ç›Ÿè®ºå›åç§°<BR>(è¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…)</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="forumname" value="$forumname"  maxlength=40></td>
         </tr>       
         
          <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÁªÃËÂÛÌ³URL</b><br>ÇëÊäÈëÁªÃËÂÛÌ³ URL</font></td>
+        <font face=å®‹ä½“ color=#333333><b>è”ç›Ÿè®ºå›URL</b><br>è¯·è¾“å…¥è”ç›Ÿè®ºå› URL</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="forumurl" value="$forumurl"></td>
         </tr>   
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÍøÕ¾ LOGO µØÖ·</b><br>ÇëÊäÈëÁªÃËÂÛÌ³Õ¾µãµÄLOGOµØÖ·£¨88*31£©</font></td>
+        <font face=å®‹ä½“ color=#333333><b>ç½‘ç«™ LOGO åœ°å€</b><br>è¯·è¾“å…¥è”ç›Ÿè®ºå›ç«™ç‚¹çš„LOGOåœ°å€ï¼ˆ88*31ï¼‰</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="weblogo" value="$weblogo"></td>
         </tr> 
         
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-        <font face=ËÎÌå color=#333333><b>ÁªÃËÂÛÌ³ÃèÊö</b><br>ÇëÊäÈëÁªÃËÂÛÌ³ÃèÊö</font></td>
+        <font face=å®‹ä½“ color=#333333><b>è”ç›Ÿè®ºå›æè¿°</b><br>è¯·è¾“å…¥è”ç›Ÿè®ºå›æè¿°</font></td>
         <td bgcolor=#FFFFFF valign=middle align=left>
         <input type=text size=40 name="foruminfo" value="$foruminfo"></td>
         </tr>   
@@ -489,7 +489,7 @@ sub editform {
             
         <tr>
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 } # end route   
@@ -502,11 +502,11 @@ sub doedit {
         
         # Grab the line to edit.
 	
-	&errorout("¶Ô²»Æğ£¬ÂÛÌ³Ãû×Ö¹ı³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_forumname) >40);
-	&errorout("ÂÛÌ³ÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_foruminfo eq "");
+	&errorout("å¯¹ä¸èµ·ï¼Œè®ºå›åå­—è¿‡é•¿ï¼Œè¯·æ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_forumname) >40);
+	&errorout("è®ºå›æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_foruminfo eq "");
 
          $new_forumurl=~s ! !!ig;
- 	 &errorout("ÂÛÌ³µØÖ·²»ÄÜ¿Õ£¡£¡") if ($new_forumurl eq "");
+ 	 &errorout("è®ºå›åœ°å€ä¸èƒ½ç©ºï¼ï¼") if ($new_forumurl eq "");
          
          $filetoopen = "$lbdir" . "data/shareforums.cgi";
          &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -544,12 +544,12 @@ sub doedit {
 
 
                  print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­ÁªÃËÂÛÌ³½á¹û</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘è”ç›Ÿè®ºå›ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­±£´æ</b><p>
+                <font face=å®‹ä½“ color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><p>
                 
                 </td></tr></table></td></tr></table>
                 ~;
@@ -563,13 +563,13 @@ exit;
 
 sub errorout {
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ·¢Éú´íÎó</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å‘ç”Ÿé”™è¯¯</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                <font face=ËÎÌå color=#333333>
-                <font face=ËÎÌå color=#333333><b>$_[0]</b>
+                <font face=å®‹ä½“ color=#333333>
+                <font face=å®‹ä½“ color=#333333><b>$_[0]</b>
                 </td></tr></table></td></tr></table>
                 ~;
 exit;	
@@ -583,18 +583,18 @@ if (open(SFFILE,"${lbdir}data/shareforums.cgi")) {
     close(SFFILE);
     $lmforums = @lmforums;
 }
-$uniontitle="<font color=$fontcolormisc>£¨¹²ÓĞ $lmforums ¸öÁªÃËÂÛÌ³£©</font>";
+$uniontitle="<font color=$fontcolormisc>ï¼ˆå…±æœ‰ $lmforums ä¸ªè”ç›Ÿè®ºå›ï¼‰</font>";
 $unionoutput = "";
   if (($lmforums ne "")&&($lmforums > 0)) {
     $unionoutput .= qq~
 <tr><td bgcolor=\$titlecolor colspan=2  \$catbackpic>
-<font color=\$titlefontcolor><b>-=> ÁªÃËÂÛÌ³ $uniontitle</b>¡¡ [<a href=leobbs.cgi?action=union><font color=$fontcolormisc>\$unionview</font></a>]¡¡ [<span style="cursor:hand" onClick="javascript:openScript('lmcode.cgi',480,240)">ÂÛÌ³ÁªÃË´úÂë</span>]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color=\$titlefontcolor><b>-=> è”ç›Ÿè®ºå› $uniontitle</b>ã€€ [<a href=leobbs.cgi?action=union><font color=$fontcolormisc>\$unionview</font></a>]ã€€ [<span style="cursor:hand" onClick="javascript:openScript('lmcode.cgi',480,240)">è®ºå›è”ç›Ÿä»£ç </span>]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span style="font-family:webdings;font-size:13px;"> 
-<font onMouseOver="document.all.lmforum.direction='left';document.all.lmforum.scrollAmount=6;document.all.lmforum1.direction='left';document.all.lmforum1.scrollAmount=6;" onMouseOut="document.all.lmforum.scrollAmount=4;document.all.lmforum1.scrollAmount=4;" onMouseUp="document.all.lmforum.scrollAmount=6;document.all.lmforum1.scrollAmount=6;" onMouseDown="document.all.lmforum.scrollAmount=10;document.all.lmforum1.scrollAmount=10;" style="cursor:hand;" title=Ïò×ó¹ö¶¯ÏÔÊ¾>7</font> 
-<font onClick="stop=0;document.all.lmforum.start();stop=0;document.all.lmforum1.start();" style="cursor:hand;" title=¿ªÊ¼¹ö¶¯>4</font> 
-<font onClick="stop=1;document.all.lmforum.stop();stop=1;document.all.lmforum1.stop();" style="cursor:hand;" title=Í£Ö¹¹ö¶¯><</font> 
-<font onMouseOver="document.all.lmforum.direction='right';document.all.lmforum.scrollAmount=6;document.all.lmforum1.direction='right';document.all.lmforum1.scrollAmount=6;" onMouseOut="document.all.lmforum.scrollAmount=4;document.all.lmforum1.scrollAmount=4;" onMouseUp="document.all.lmforum.scrollAmount=6;document.all.lmforum1.scrollAmount=6;" onMouseDown="document.all.lmforum.scrollAmount=10;document.all.lmforum1.scrollAmount=10;" style="cursor:hand;" title=ÏòÓÒ¹ö¶¯ÏÔÊ¾>8</font> 
-</span>&nbsp;[¹ö¶¯·½Ïò¿ØÖÆ°´Å¥]
+<font onMouseOver="document.all.lmforum.direction='left';document.all.lmforum.scrollAmount=6;document.all.lmforum1.direction='left';document.all.lmforum1.scrollAmount=6;" onMouseOut="document.all.lmforum.scrollAmount=4;document.all.lmforum1.scrollAmount=4;" onMouseUp="document.all.lmforum.scrollAmount=6;document.all.lmforum1.scrollAmount=6;" onMouseDown="document.all.lmforum.scrollAmount=10;document.all.lmforum1.scrollAmount=10;" style="cursor:hand;" title=å‘å·¦æ»šåŠ¨æ˜¾ç¤º>7</font> 
+<font onClick="stop=0;document.all.lmforum.start();stop=0;document.all.lmforum1.start();" style="cursor:hand;" title=å¼€å§‹æ»šåŠ¨>4</font> 
+<font onClick="stop=1;document.all.lmforum.stop();stop=1;document.all.lmforum1.stop();" style="cursor:hand;" title=åœæ­¢æ»šåŠ¨><</font> 
+<font onMouseOver="document.all.lmforum.direction='right';document.all.lmforum.scrollAmount=6;document.all.lmforum1.direction='right';document.all.lmforum1.scrollAmount=6;" onMouseOut="document.all.lmforum.scrollAmount=4;document.all.lmforum1.scrollAmount=4;" onMouseUp="document.all.lmforum.scrollAmount=6;document.all.lmforum1.scrollAmount=6;" onMouseDown="document.all.lmforum.scrollAmount=10;document.all.lmforum1.scrollAmount=10;" style="cursor:hand;" title=å‘å³æ»šåŠ¨æ˜¾ç¤º>8</font> 
+</span>&nbsp;[æ»šåŠ¨æ–¹å‘æ§åˆ¶æŒ‰é’®]
 </td></tr>~;
 
 $unionoutput1 = "";
@@ -605,7 +605,7 @@ $unionoutput1 = "";
             next if ($lmforum eq "");
             ($lmforumname,$lmforumurl,$lmforuminfo,$lmforumorder,$lmweblogo) = split(/\t/,$lmforum);
             if (($lmweblogo ne "")&&($lmweblogo ne "http:\/\/")) { $lmlogos .= qq~<a href=$lmforumurl target=_blank onmouseover="document.all.lmforum.stop();" onmouseout="document.all.lmforum.start();"><img src=$lmweblogo width=88 height=31 border=0 title="$lmforumname\n$lmforuminfo"></a> ~; }
-            else { $lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>¡¡~; }
+            else { $lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>ã€€~; }
 	}
 	if ($lmlogos ne "") {
 	    $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=\$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=680 height=1><BR><marquee name="lmforum" id="lmforum">$lmlogos</marquee></td></tr></table></td></tr>~;
@@ -628,7 +628,7 @@ $unionoutput   =~ s/\)/\\\)/isg;
 $unionoutput1 =~ s/(\\|\"|\'|\@|\~)/\\$1/isg;
 $unionoutput1  =~ s/\(/\\\(/isg;
 $unionoutput1  =~ s/\)/\\\)/isg;
-print FILE qq~if (\$union==0) { \$unionview="ÏÔÊ¾ÁªÃËÁĞ±í"; } else { \$unionview="¹Ø±ÕÁªÃËÁĞ±í"; }\n
+print FILE qq~if (\$union==0) { \$unionview="æ˜¾ç¤ºè”ç›Ÿåˆ—è¡¨"; } else { \$unionview="å…³é—­è”ç›Ÿåˆ—è¡¨"; }\n
 \$output .= qq($unionoutput);\n
 \$output .= qq($unionoutput1) if (\$union == 1);
 ~;

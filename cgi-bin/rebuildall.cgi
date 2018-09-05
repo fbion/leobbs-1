@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -93,9 +93,9 @@ if ($action eq "process") {
 	if ($nextforum > $size){
             print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / »Ö¸´-ÖØÐÂ¼ÆËãËùÓÐÂÛÌ³</b></td></tr>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / æ¢å¤-é‡æ–°è®¡ç®—æ‰€æœ‰è®ºå›</b></td></tr>
 		<tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<font color=#333333><b>»Ö¸´-ÖØÐÂ¼ÆËãËùÓÐÂÛÌ³ÒÑ¾­Íê³É!</b></td></tr>
+		<font color=#333333><b>æ¢å¤-é‡æ–°è®¡ç®—æ‰€æœ‰è®ºå›å·²ç»å®Œæˆ!</b></td></tr>
 	    );
     opendir (CATDIR, "${lbdir}cache");
     @dirdata = readdir(CATDIR);
@@ -106,14 +106,14 @@ if ($action eq "process") {
 	} else {
 	    print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / »Ö¸´-ÖØÐÂ¼ÆËãËùÓÐÂÛÌ³</b></td></tr>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / æ¢å¤-é‡æ–°è®¡ç®—æ‰€æœ‰è®ºå›</b></td></tr>
 		<tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<font color=#333333><b>»Ö¸´-ÖØÐÂ¼ÆËãËùÓÐÂÛÌ³</b></td></tr>
+		<font color=#333333><b>æ¢å¤-é‡æ–°è®¡ç®—æ‰€æœ‰è®ºå›</b></td></tr>
 		<td bgcolor=#ffffff valign=middle align=left colspan=2>
-		<font color=black><b><br><br><br>´¦ÀíÖÐ...<br>
-		Ö÷ÌâÊý:$threadcount<br>
-		»Ø¸´Êý:$topiccount<BR></b><BR><BR>
-		<a href=$thisprog?action=process&nextforum=$nextforum>Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯×ªÈë£¬Çëµã»÷¼ÌÐø¡£</a><BR>
+		<font color=black><b><br><br><br>å¤„ç†ä¸­...<br>
+		ä¸»é¢˜æ•°:$threadcount<br>
+		å›žå¤æ•°:$topiccount<BR></b><BR><BR>
+		<a href=$thisprog?action=process&nextforum=$nextforum>å¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è½¬å…¥ï¼Œè¯·ç‚¹å‡»ç»§ç»­ã€‚</a><BR>
 		</td></tr>
 		<meta http-equiv="refresh" content="2; url=$thisprog?action=process&nextforum=$nextforum">
 	    );
@@ -128,15 +128,15 @@ else {
     if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 	print qq(
 	<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-	<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / »Ö¸´-ÖØÐÂ¼ÆËãËùÓÐÂÛÌ³</b></td></tr><tr>
+	<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / æ¢å¤-é‡æ–°è®¡ç®—æ‰€æœ‰è®ºå›</b></td></tr><tr>
 	<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-	<font color=#333333><b>»Ö¸´-ÖØÐÂ¼ÆËãËùÓÐÂÛÌ³</b></td></tr>
+	<font color=#333333><b>æ¢å¤-é‡æ–°è®¡ç®—æ‰€æœ‰è®ºå›</b></td></tr>
 	<form action="$thisprog" method="post">
 	<input type=hidden name="action" value="process">
 	<tr><td bgcolor=#FFFFFF valign=middle colspan=2>
-	<font color=#000000><b>Çë×¢Òâ:</b><br>´Ë¹ý³Ì½«ºÄ·Ñ´óÁ¿ CPU Ê±¼äºÍÏµÍ³×ÊÔ´£¬²»µ½Íò²»µÃÒÑ£¬²»Òª²ÉÓÃ±¾¹¦ÄÜ£¡</td></tr>
+	<font color=#000000><b>è¯·æ³¨æ„:</b><br>æ­¤è¿‡ç¨‹å°†è€—è´¹å¤§é‡ CPU æ—¶é—´å’Œç³»ç»Ÿèµ„æºï¼Œä¸åˆ°ä¸‡ä¸å¾—å·²ï¼Œä¸è¦é‡‡ç”¨æœ¬åŠŸèƒ½ï¼</td></tr>
 	<tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-	<input type=submit name=submit value=Ìá½»></td></form></tr></table></td></tr></table>
+	<input type=submit name=submit value=æäº¤></td></form></tr></table></td></tr></table>
 	);
     }
     else {

@@ -2,7 +2,7 @@ $yemei = qq~<TABLE width=$tablewidth height=90 align=center cellpadding=0 cellsp
  <td align=right>$adscript</td><td align=right><img src=$imagesurl/images/topbg_r.gif></td>
  </TR></TABLE>~;
 
-$daohang = qq~<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$titleborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$menubackground $menubackpic><font color=$menufontcolor>>> »¶Ó­Äú£¬$loggedinas </td><td bgcolor=$menubackground align=right $menubackpic>$sann<a href=$homeurl target=_blank><img src=$imagesurl/images/gohome.gif height=16 border=0></a>&nbsp;</td></tr></table></td></tr></table>$newmail~;
+$daohang = qq~<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$titleborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$menubackground $menubackpic><font color=$menufontcolor>>> æ¬¢è¿Žæ‚¨ï¼Œ$loggedinas </td><td bgcolor=$menubackground align=right $menubackpic>$sann<a href=$homeurl target=_blank><img src=$imagesurl/images/gohome.gif height=16 border=0></a>&nbsp;</td></tr></table></td></tr></table>$newmail~;
 
 $firstout = "yemei";
 1;

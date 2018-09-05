@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -63,22 +63,22 @@ if ($action eq "process") {
         if (-e $filetomake && -w $filetomake) {
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
-                <font color=#333333><center><b>ËùÓÐÐÅÏ¢ÒÑ¾­±£´æ</b></center><br><br>
-                <b>×¢²áÌõ¿îºÍÉùÃ÷ÒÑ¾­±£´æ.Ä¿Ç°µÄ×¢²áÌõ¿îºÍÉùÃ÷ÈçÏÂ£º</b><br><HR><ul>$rules</ul>
-                <HR><br><br><br><center><a href="setregrules.cgi">ÐÞ¸Ä×¢²áÌõ¿îºÍÉùÃ÷</a></center>);
+                <font color=#333333><center><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b></center><br><br>
+                <b>æ³¨å†Œæ¡æ¬¾å’Œå£°æ˜Žå·²ç»ä¿å­˜.ç›®å‰çš„æ³¨å†Œæ¡æ¬¾å’Œå£°æ˜Žå¦‚ä¸‹ï¼š</b><br><HR><ul>$rules</ul>
+                <HR><br><br><br><center><a href="setregrules.cgi">ä¿®æ”¹æ³¨å†Œæ¡æ¬¾å’Œå£°æ˜Ž</a></center>);
                 }
                 else {
                     print qq(
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                    <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                    <font color=#333333><b>ÐÅÏ¢ÎÞ·¨±£´æ</b><br>ÎÄ¼þ»òÕßÄ¿Â¼²»¿ÉÐ´¡£
+                    <font color=#333333><b>ä¿¡æ¯æ— æ³•ä¿å­˜</b><br>æ–‡ä»¶æˆ–è€…ç›®å½•ä¸å¯å†™ã€‚
                     </td></tr></table></td></tr></table>
                     );
                     }
@@ -87,7 +87,7 @@ if ($action eq "process") {
     else {
 
                 $filetoopen = "$lbdir" . "/data/register.dat";
-                open (FILE, "$filetoopen") or $rules = "ÊäÈë×¢²áÌõ¿îºÍÉùÃ÷";
+                open (FILE, "$filetoopen") or $rules = "è¾“å…¥æ³¨å†Œæ¡æ¬¾å’Œå£°æ˜Ž";
                 @rules = <FILE> if (!$rules);
                 close (FILE);
 
@@ -95,11 +95,11 @@ if ($action eq "process") {
 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ×¢²áÌõ¿îºÍÉùÃ÷ÉèÖÃ</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / æ³¨å†Œæ¡æ¬¾å’Œå£°æ˜Žè®¾ç½®</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font color=#333333><b>ÊäÈë×¢²áÌõ¿îºÍÉùÃ÷</b>
+                <font color=#333333><b>è¾“å…¥æ³¨å†Œæ¡æ¬¾å’Œå£°æ˜Ž</b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -108,7 +108,7 @@ if ($action eq "process") {
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
                 <br>
-                <b>×¢Òâ:</b>¡¡¿ÉÒÔÊ¹ÓÃ HTML £¬µ«²»ÄÜÊ¹ÓÃ LeoBBS ±êÇ©¡£<br>
+                <b>æ³¨æ„:</b>ã€€å¯ä»¥ä½¿ç”¨ HTML ï¼Œä½†ä¸èƒ½ä½¿ç”¨ LeoBBS æ ‡ç­¾ã€‚<br>
                 </font></td>
                 </tr>
                 
@@ -126,7 +126,7 @@ if ($action eq "process") {
                 
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit name=submit value=Ìá½»></form></td></tr></table></td></tr></table>
+                <input type=submit name=submit value=æäº¤></form></td></tr></table></td></tr></table>
                 );
                 
         }

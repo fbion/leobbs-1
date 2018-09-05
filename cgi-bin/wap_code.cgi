@@ -1,5 +1,5 @@
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -7,20 +7,20 @@
 sub lbcode {
     my $post = shift;
     study($$post);
-    	$$post =~s/\[UploadFile=(.*?)\]/(ÉÏ´«ÎÄ¼ş)<br>/ig;
+    	$$post =~s/\[UploadFile=(.*?)\]/(ä¸Šä¼ æ–‡ä»¶)<br>/ig;
     if ($wwjf ne "no") {
 	if ($$post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
     	    if ((lc($inmembername) eq lc($membername))||($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes")|| ($myrating >= $1) ){
 	    } else {
-		$$post=qq~£¨ÄúÃ»ÓĞÈ¨ÏŞ¿´Õâ¸öÌû×Ó£¬ÄúµÄÍşÍûÖÁÉÙĞèÒª <b>$1<\/b><br> ~;
-		$addme="(¸½¼ş±£ÃÜ!)<br><br>" if ($addme);
+		$$post=qq~ï¼ˆæ‚¨æ²¡æœ‰æƒé™çœ‹è¿™ä¸ªå¸–å­ï¼Œæ‚¨çš„å¨æœ›è‡³å°‘éœ€è¦ <b>$1<\/b><br> ~;
+		$addme="(é™„ä»¶ä¿å¯†!)<br><br>" if ($addme);
 	    }
-	    $$post=~s/LBHIDDEN\[(.*?)\]LBHIDDEN/£¨´ËÌùÖ»ÓĞÍşÍû´óÓÚµÈÓÚ <b>$1<\/b> µÄ²ÅÄÜ²é¿´£©<br>/sg;   
+	    $$post=~s/LBHIDDEN\[(.*?)\]LBHIDDEN/ï¼ˆæ­¤è´´åªæœ‰å¨æœ›å¤§äºç­‰äº <b>$1<\/b> çš„æ‰èƒ½æŸ¥çœ‹ï¼‰<br>/sg;   
 	}
     }
     else { $$post=~s/LBHIDDEN\[(.*?)\]LBHIDDEN//; }
-        $$post =~s/\[Maiweb_leobbs(.+?)\]/(maiweb)ÇÉ×ìÍŞÍŞÌØĞ§/g;
-$$post =~ s/(\[cimg=)(\S+?)(\,)(\S+?)(\])\s*(\S+?)\s*(\[\/cimg\])/(maiweb)Í¿Ñ»Í¼Æ¬/isg;   
+        $$post =~s/\[Maiweb_leobbs(.+?)\]/(maiweb)å·§å˜´å¨ƒå¨ƒç‰¹æ•ˆ/g;
+$$post =~ s/(\[cimg=)(\S+?)(\,)(\S+?)(\])\s*(\S+?)\s*(\[\/cimg\])/(maiweb)æ¶‚é¸¦å›¾ç‰‡/isg;   
    
     if ($cansale ne "no") { 
 if ($$post=~/LBSALE\[(.*?)\]LBSALE/sg) {
@@ -47,10 +47,10 @@ $isbuyer="yes" if ($allbuyer =~ /\t$inmembername\t/i);
            }
            $allbuyerno = 0 if (($allbuyerno < 0)||($allbuyerno eq ""));
            unless (($inmembername eq $membername )||($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||($isbuyer eq "yes")) {
-         $$post=qq~(²ì¿´Õâ¸öÌû×ÓĞèÒª <b>$1<\/b> $moneyname£¬Ä¿Ç°ÒÑÓĞ <b>$allbuyerno<\/b> ÈË¹ºÂò£¬<a href=\"buypost.cgi?inforum=$inforum&amp;intopic=$intopic&amp;postmast=$most&amp;postnumber=$postno&amp;salemembername=$membername&amp;moneynumber=$1\">\[¹ºÂò\]<\/a>)~;
-               $addme="(¸½¼ş±£ÃÜ!)<br><br>" if ($addme);
+         $$post=qq~(å¯Ÿçœ‹è¿™ä¸ªå¸–å­éœ€è¦ <b>$1<\/b> $moneynameï¼Œç›®å‰å·²æœ‰ <b>$allbuyerno<\/b> äººè´­ä¹°ï¼Œ<a href=\"buypost.cgi?inforum=$inforum&amp;intopic=$intopic&amp;postmast=$most&amp;postnumber=$postno&amp;salemembername=$membername&amp;moneynumber=$1\">\[è´­ä¹°\]<\/a>)~;
+               $addme="(é™„ä»¶ä¿å¯†!)<br><br>" if ($addme);
    } else {
-       $$post=~s/LBSALE\[(.*?)\]LBSALE/£¨´ËÌùÊÛ¼Û <b>$1<\/b> $moneyname£¬Ä¿Ç°ÒÑÓĞ <b>$allbuyerno<\/b> ÈË¹ºÂò¡£)<br><br>/sg;   
+       $$post=~s/LBSALE\[(.*?)\]LBSALE/ï¼ˆæ­¤è´´å”®ä»· <b>$1<\/b> $moneynameï¼Œç›®å‰å·²æœ‰ <b>$allbuyerno<\/b> äººè´­ä¹°ã€‚)<br><br>/sg;   
    }
 }
    }
@@ -62,10 +62,10 @@ $isbuyer="yes" if ($allbuyer =~ /\t$inmembername\t/i);
     }
 
     if (($arrawpostpic eq "on")||($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
-	$$post =~ s/\[url.+?\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]\[\/url\]/<img src=\'$1:\/\/$2\' alt=\'Í¼Æ¬\' width=\'110\' \/>/isg;
-	$$post =~ s/\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=\'$1:\/\/$2\' alt=\'Í¼Æ¬\' width=\'110\' \/>/isg;
-	$$post =~ s/\[img\,(.+?)\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=\'$2:\/\/$3\' align=\'$1\' alt=\'Í¼Æ¬\' width=\'110\' \/>/isg;
-	$$post =~ s/(^|\s|\>|\\|\;)(http|https|ftp):\/\/(\S+?\.)(png|bmp|gif|jpg|jpeg)(\s|$|\<|\[)/$1<img src=\'$2:\/\/$3$4\' width=\'110\' alt=\'Í¼Æ¬\' \/>$5/isg;
+	$$post =~ s/\[url.+?\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]\[\/url\]/<img src=\'$1:\/\/$2\' alt=\'å›¾ç‰‡\' width=\'110\' \/>/isg;
+	$$post =~ s/\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=\'$1:\/\/$2\' alt=\'å›¾ç‰‡\' width=\'110\' \/>/isg;
+	$$post =~ s/\[img\,(.+?)\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=\'$2:\/\/$3\' align=\'$1\' alt=\'å›¾ç‰‡\' width=\'110\' \/>/isg;
+	$$post =~ s/(^|\s|\>|\\|\;)(http|https|ftp):\/\/(\S+?\.)(png|bmp|gif|jpg|jpeg)(\s|$|\<|\[)/$1<img src=\'$2:\/\/$3$4\' width=\'110\' alt=\'å›¾ç‰‡\' \/>$5/isg;
     }
     
     $$post =~ s/(^|\s|\>|\\|\;)www\.(\S+?)(\s|$|\<|\[)/$1www.$2$3/isg;
@@ -75,7 +75,7 @@ $isbuyer="yes" if ($allbuyer =~ /\t$inmembername\t/i);
     $$post =~ s/(<br>){10,}/<br><br><br>/ig;
 
     if (($$post =~/\[curl=(http|https|ftp):\/\/(.*?)\]/i)&&($usecurl ne "no")) {
-        $$post =~ s/\[curl=(http|https|ftp):\/\/(.*?)\]/\(¼ÓÃÜÁ´½Ó\)/ig;
+        $$post =~ s/\[curl=(http|https|ftp):\/\/(.*?)\]/\(åŠ å¯†é“¾æ¥\)/ig;
     }
     unless ($$post =~ /\[\/.{1,12}]/) {
         $$post =~ s/\{br\}/<br>/sg;
@@ -87,13 +87,13 @@ $isbuyer="yes" if ($allbuyer =~ /\t$inmembername\t/i);
     $$post =~ s/\[url\]\s*(.*?)\s*\[\/url\]/$1/isg;
     $$post =~ s/(\[email\])(\S+?\@\S+?)(\[\/email\])/Email:$2)/isg;
     $$post =~ s/\[email=(\S+?\@\S+?)\]\s*(.*?)\s*\[\/email\]/Email:$2/isg;
-## Ö¸¶¨Ìû×Ó¸øÌØÊâ»áÔ±¿´
+## æŒ‡å®šå¸–å­ç»™ç‰¹æ®Šä¼šå‘˜çœ‹
 if ($$post =~m/\[qqh=(.+?)\](.+?)\[\/qqh\]/isg){ 
 $cenviewer="$1";
 if((lc($cenviewer) eq lc($inmembername))||(lc($membername) eq lc($inmembername))){ 
-$$post =~s/\[qqh=(.+?)\](.+?)\[\/qqh\]/\(ÕâÊÇ$membername¸øÄãµÄÇÄÇÄ»°£¬Çë×¢Òâ±£ÃÜ:$2\)<br>/isg; 
+$$post =~s/\[qqh=(.+?)\](.+?)\[\/qqh\]/\(è¿™æ˜¯$membernameç»™ä½ çš„æ‚„æ‚„è¯ï¼Œè¯·æ³¨æ„ä¿å¯†:$2\)<br>/isg; 
 }else{ 
-$$post =~s/\[qqh=(.+?)\](.+?)\[\/qqh\]/\(Äã²»ÄÜ²é¿´±¾ÎÄÕÂµÄÄÚÈİ£¬±¾ÎÄÖ»¸ø$1²é¿´¡£±§Ç¸\)/isg; 
+$$post =~s/\[qqh=(.+?)\](.+?)\[\/qqh\]/\(ä½ ä¸èƒ½æŸ¥çœ‹æœ¬æ–‡ç« çš„å†…å®¹ï¼Œæœ¬æ–‡åªç»™$1æŸ¥çœ‹ã€‚æŠ±æ­‰\)/isg; 
  }
 }
 ## By maiweb end
@@ -101,30 +101,30 @@ $$post =~s/\[qqh=(.+?)\](.+?)\[\/qqh\]/\(Äã²»ÄÜ²é¿´±¾ÎÄÕÂµÄÄÚÈİ£¬±¾ÎÄÖ»¸ø$1²é¿´¡
 	if ($$post =~m/\[jf=(\d+?)\](.+?)\[\/jf\]/isg){ 
 	    $jfpost=$1;
 	    if (($jfpost <= $jifen)||($mymembercode eq "ad")||($mymembercode eq "smo")||($myinmembmod eq "yes")||(lc($membername) eq lc($inmembername))){ 
-	   	$$post =~s/\[jf=(\d+?)\](.*)\[\/jf\]/ÎÄÕÂÄÚÈİ£º£¨»ı·Ö±ØĞë´ïµ½ $jfpost ²ÅÄÜ²é¿´±¾ÄÚÈİ£©$2/isg; 
+	   	$$post =~s/\[jf=(\d+?)\](.*)\[\/jf\]/æ–‡ç« å†…å®¹ï¼šï¼ˆç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpost æ‰èƒ½æŸ¥çœ‹æœ¬å†…å®¹ï¼‰$2/isg; 
 	    } else { 
-	     #   &error("ÓĞÎÊÌâ&»ı·Ö±ØĞë´ïµ½ $jfpost ²ÅÄÜ²é¿´£¬ÄãÄ¿Ç°µÄ»ı·ÖÊÇ $jifen £¡") if (($editpostnumber eq "1")&&($noviewjf eq "yes"));
-   		$$post =~s/(\[jf=(\d+?)\])(.*)(\[\/jf\])/ÎÄÕÂÄÚÈİ£º ±¾ÄÚÈİÒÑ±»Òş²Ø , »ı·Ö±ØĞë´ïµ½ $jfpost ²ÅÄÜ²é¿´/isg; 
-                $addme="¸½¼ş±£ÃÜ!<br><br>" if (($addme)&&($1 =~ m/^\[jf/));
+	     #   &error("æœ‰é—®é¢˜&ç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpost æ‰èƒ½æŸ¥çœ‹ï¼Œä½ ç›®å‰çš„ç§¯åˆ†æ˜¯ $jifen ï¼") if (($editpostnumber eq "1")&&($noviewjf eq "yes"));
+   		$$post =~s/(\[jf=(\d+?)\])(.*)(\[\/jf\])/æ–‡ç« å†…å®¹ï¼š æœ¬å†…å®¹å·²è¢«éšè— , ç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpost æ‰èƒ½æŸ¥çœ‹/isg; 
+                $addme="é™„ä»¶ä¿å¯†!<br><br>" if (($addme)&&($1 =~ m/^\[jf/));
    	    }
    	}
     }
     if ($hidejf eq "yes" ) {
       if ($$post =~m/(\[hide\])(.*)(\[\/hide\])/isg){ 
         if ($viewhide ne "1") { 
-            $$post =~ s/(\[hide\])(.*)(\[\/hide\])/\(±¾²¿·ÖÄÚÈİÒÑ¾­Òş²Ø£¬±ØĞë»Ø¸´ºó£¬²ÅÄÜ²é¿´\)<br>/isg;
-            $addme="(¸½¼ş±£ÃÜ!)<br><br>" if (($addme)&&($1 eq "[hide]"));
+            $$post =~ s/(\[hide\])(.*)(\[\/hide\])/\(æœ¬éƒ¨åˆ†å†…å®¹å·²ç»éšè—ï¼Œå¿…é¡»å›å¤åï¼Œæ‰èƒ½æŸ¥çœ‹\)<br>/isg;
+            $addme="(é™„ä»¶ä¿å¯†!)<br><br>" if (($addme)&&($1 eq "[hide]"));
 	} else { 
-            $$post =~ s/\[hide\](.*)\[hide\](.*)\[\/quote](.*)\[\/hide\]/\(Òş²Ø£º$1<br>$2<br>$3\)/isg; 
-     	    $$post =~ s/\[hide\]\s*(.*?)\s*\[\/hide\]/\(Òş²Ø£º$1\)/isg; 
+            $$post =~ s/\[hide\](.*)\[hide\](.*)\[\/quote](.*)\[\/hide\]/\(éšè—ï¼š$1<br>$2<br>$3\)/isg; 
+     	    $$post =~ s/\[hide\]\s*(.*?)\s*\[\/hide\]/\(éšè—ï¼š$1\)/isg; 
   	}
       }
     }
-    # Ö§¸¶±¦
+    # æ”¯ä»˜å®
 if($$post=~m/\[payto\](.*?)\[\/payto\]/){
-	$$post=~s/\[payto\](.*?)\[\/payto\]/<b>\(ÕâÊÇÖ§¸¶±¦½»Ò×¡£\)<\/b>/g;
+	$$post=~s/\[payto\](.*?)\[\/payto\]/<b>\(è¿™æ˜¯æ”¯ä»˜å®äº¤æ˜“ã€‚\)<\/b>/g;
 	}
-	# Òş²ØÌû
+	# éšè—å¸–
     if ($postjf eq "yes") {
 	if ($$post =~m/\[post=(.+?)\](.+?)\[\/post\]/isg){ 
 	    $viewusepost=$1; 
@@ -132,8 +132,8 @@ if($$post=~m/\[payto\](.*?)\[\/payto\]/){
 	    if (($Checkpost eq 'ok')||($mymembercode eq "ad")||($mymembercode eq "smo")||($myinmembmod eq "yes")||(lc($membername) eq lc($inmembername))){ 
 	   	$$post =~s/\[post=(.+?)\](.*)\[\/post\]/$2/isg; 
 	    } else { 
-   		$$post =~s/(\[post=(.+?)\])(.*)(\[\/post\])/\(±¾ÄÚÈİÒÑ±»Òş²Ø , ·¢ÑÔ×ÜÊıĞëÓĞ <b>$viewusepost<\/b> ²ÅÄÜ²é¿´\)/isg; 
-                $addme="(¸½¼ş±£ÃÜ!)<br><br>" if (($addme)&&($1 =~ m/^\[post/));
+   		$$post =~s/(\[post=(.+?)\])(.*)(\[\/post\])/\(æœ¬å†…å®¹å·²è¢«éšè— , å‘è¨€æ€»æ•°é¡»æœ‰ <b>$viewusepost<\/b> æ‰èƒ½æŸ¥çœ‹\)/isg; 
+                $addme="(é™„ä»¶ä¿å¯†!)<br><br>" if (($addme)&&($1 =~ m/^\[post/));
    	    }
    	}
     }
@@ -161,7 +161,7 @@ if($$post=~m/\[payto\](.*?)\[\/payto\]/){
 	$$post =~ s/(\[INVERT\])(.+?)(\[\/INVERT\])/$2/isg;
 	$$post =~ s/(\[xray\])(.+?)(\[\/xray\])/$2/isg;
 	$$post =~ s/(\[MOVE\])(.+?)(\[\/Move\])/$2/isg;
-	$$post =~ s/\[code(=.*?)?\](.+?)\[\/code\]/<br>(´úÂë£º$2<br>/isg;
+	$$post =~ s/\[code(=.*?)?\](.+?)\[\/code\]/<br>(ä»£ç ï¼š$2<br>/isg;
 	$$post=~s/\[(.+?)\]//g;
 	$$post =~ s/javascript/\&\#106\;avascript/isg;
     $$post =~ s/value/\&\#118\;alue/isg;
@@ -207,21 +207,21 @@ sub waplbhz1 { # by bbser
         my ($str, $strbegin, $strlength) =@_;
         my $strtmp = "";
         my $strtmp1 = "";
-        my $ended = 0;  # È¡µÃµÄ×Ö·û´®ÊÇ·ñÊÇÔ­Ê¼×Ö·û´®µÄ×îºóÒ»¶Î
+        my $ended = 0;  # å–å¾—çš„å­—ç¬¦ä¸²æ˜¯å¦æ˜¯åŸå§‹å­—ç¬¦ä¸²çš„æœ€åä¸€æ®µ
 
-        return -1 if (length($str) < $strbegin); # ²ÎÊıÓĞ´íÎó£¬ÆğÊ¼×Ö·ûÊı±ÈÕû¸ö×Ö·û´®»¹Òª³¤
-	if (length($str) <= $strbegin + $strlength) { #²ÎÊıÖĞ³¤¶È¹ı´ó£¬×Ô¶¯µ÷ÕûÒ»ÏÂ
+        return -1 if (length($str) < $strbegin); # å‚æ•°æœ‰é”™è¯¯ï¼Œèµ·å§‹å­—ç¬¦æ•°æ¯”æ•´ä¸ªå­—ç¬¦ä¸²è¿˜è¦é•¿
+	if (length($str) <= $strbegin + $strlength) { #å‚æ•°ä¸­é•¿åº¦è¿‡å¤§ï¼Œè‡ªåŠ¨è°ƒæ•´ä¸€ä¸‹
 		$strlength = length($str) - $strbegin ;
 		$ended = 1;
 	}
 
         $strtmp = substr($str, $strbegin, $strlength);
 
-	if ($strbegin > 0) { # ²»ÊÇ×î¿ªÍ·µÄÒ»¶Î£¬ËùÒÔÒªÅĞ¶ÏµÚÒ»¸ö×Ö·ûÊÇ²»ÊÇÖĞÎÄ
+	if ($strbegin > 0) { # ä¸æ˜¯æœ€å¼€å¤´çš„ä¸€æ®µï¼Œæ‰€ä»¥è¦åˆ¤æ–­ç¬¬ä¸€ä¸ªå­—ç¬¦æ˜¯ä¸æ˜¯ä¸­æ–‡
 
 	    $strtmp1 = substr($str, 0, $strbegin);
 
-            if ($strtmp1 =~ /^([\000-\177]|[\200-\377][\200-\377])*([\000-\177]|[\200-\377][\200-\377])$/) { #Ç°ÃæÒ»¶Î×Ö·û´®ÊÇÍêÕûµÄºº×Ö
+            if ($strtmp1 =~ /^([\000-\177]|[\200-\377][\200-\377])*([\000-\177]|[\200-\377][\200-\377])$/) { #å‰é¢ä¸€æ®µå­—ç¬¦ä¸²æ˜¯å®Œæ•´çš„æ±‰å­—
             	$strtmp = $strtmp;
             } else {
 		$strtmp =  substr($str, $strbegin -1 , 1) . $strtmp;
@@ -230,7 +230,7 @@ sub waplbhz1 { # by bbser
 
         }
 
-	if ($ended == 0) {  # ²»ÊÇ×îºóÒ»¶Î£¬ËùÒÔÒªÅĞ¶Ï×îºóÒ»¸ö×Ö·ûÊÇ²»ÊÇÖĞÎÄ
+	if ($ended == 0) {  # ä¸æ˜¯æœ€åä¸€æ®µï¼Œæ‰€ä»¥è¦åˆ¤æ–­æœ€åä¸€ä¸ªå­—ç¬¦æ˜¯ä¸æ˜¯ä¸­æ–‡
             if ($strtmp =~ /^([\000-\177]|[\200-\377][\200-\377])*([\000-\177]|[\200-\377][\200-\377])$/) {
             	$strtmp = $strtmp;
             } else {

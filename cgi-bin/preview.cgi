@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -30,17 +30,17 @@ $query = new LBCGI;
 $error =0;
 $inpost = $query->param('body');
 $inpost = &cleaninput("$inpost");
-if ($inpost eq "") {$inpost="ÄÚÈİĞ£Ñé³ö´í&±ØĞëÊäÈëÄÚÈİ£¡"; $error=1;}
+if ($inpost eq "") {$inpost="å†…å®¹æ ¡éªŒå‡ºé”™&å¿…é¡»è¾“å…¥å†…å®¹ï¼"; $error=1;}
 $inforum  = $query->param('forum');
-if ($inforum !~ /^[0-9]+$/) {$inpost="´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡"; $error=1;}
+if ($inforum !~ /^[0-9]+$/) {$inpost="æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼"; $error=1;}
 $intopic  = $query->param('topic');
-if ($intopic !~ /^[0-9]+$/ && $intopic ne "") {$inpost="´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡"; $error=1;}
+if ($intopic !~ /^[0-9]+$/ && $intopic ne "") {$inpost="æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼"; $error=1;}
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 &getoneforum("$inforum");
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./)){ $inpost="ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡"; $error=1;}
+if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./)){ $inpost="æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼"; $error=1;}
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -54,12 +54,12 @@ $end_q_tag = 0;
 $srt_q_tag = 0;
 $end_q_tag++ while $inpost =~ m/\[\/QUOTE\]/ig;
 $srt_q_tag++ while $inpost =~ m/\[QUOTE\]/ig;
-if ($end_q_tag ne $srt_q_tag) { $inpost="ÄÚÈİĞ£Ñé³ö´í&ÄãÊäÈëÁË $srt_q_tag ¸ö [QUOTE] ±êÇ©ºÍ $end_q_tag ¸ö [/QUOTE] ±êÇ©£¬ÊıÄ¿²»Æ¥Åä£¡"; $error=1;}
+if ($end_q_tag ne $srt_q_tag) { $inpost="å†…å®¹æ ¡éªŒå‡ºé”™&ä½ è¾“å…¥äº† $srt_q_tag ä¸ª [QUOTE] æ ‡ç­¾å’Œ $end_q_tag ä¸ª [/QUOTE] æ ‡ç­¾ï¼Œæ•°ç›®ä¸åŒ¹é…ï¼"; $error=1;}
 $postbackcolor = "$postcolorone";
 $postfontcolor = "$postfontcolorone";
 if($error == 0) {
 if (($inpost =~ /(\&\#35\;|#)Moderation Mode/i && ($inmembmod eq "yes" || $membercode eq "ad" || $membercode eq "smo")) || $htmlstate eq "on") {
-	$inpost =~ s/(\&\#35\;|#)Moderation Mode/***** °æÖ÷Ä£Ê½ *****\<br\>/g;
+	$inpost =~ s/(\&\#35\;|#)Moderation Mode/***** ç‰ˆä¸»æ¨¡å¼ *****\<br\>/g;
 	$inpost =~ s/&lt;/</g;
 	$inpost =~ s/&gt;/>/g;
 	$inpost =~ s/&quot;/\"/g;
@@ -69,7 +69,7 @@ if (($inpost =~ /(\&\#35\;|#)Moderation Mode/i && ($inmembmod eq "yes" || $membe
 $inpost =~ s/LBHIDDEN/LBHIDD\&\#069\;N/sg;
 $inpost =~ s/LBSALE/LBSAL\&\#069\;/sg;
 if ($inpost =~ /\[UploadFile.{0,6}=tmp\_.+?\]/) {
-    $inpost =~ s/\[UploadFile.{0,6}=tmp\_.+?\]/\[ĞÂÉÏ´«ÎÄ¼şÔ¤ÀÀÖĞ²»¿ÉÏÔÊ¾\]\<BR\>/isg;
+    $inpost =~ s/\[UploadFile.{0,6}=tmp\_.+?\]/\[æ–°ä¸Šä¼ æ–‡ä»¶é¢„è§ˆä¸­ä¸å¯æ˜¾ç¤º\]\<BR\>/isg;
 }
 
 
@@ -80,7 +80,7 @@ if ($inpost =~ /\[UploadFile.{0,6}=tmp\_.+?\]/) {
 
     if ($idmbcodestate eq 'on') {
 	&lbcode(\$inpost);
-        if ($inpost =~/<blockquote><font face=$font>´úÂë/isg){
+        if ($inpost =~/<blockquote><font face=$font>ä»£ç /isg){
             $inpost =~ s/\&amp\;/\&/ig ;
             $inpost =~ s/\&lt\;br\&gt\;/<br>/ig;
 	}
@@ -92,17 +92,17 @@ if ($inpost =~ /\[UploadFile.{0,6}=tmp\_.+?\]/) {
 
 $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center height="95%">
 <tr><td><table cellpadding=4 cellspacing=1 width=100% height="100%">
-<tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><b>-=> Ô¤ÀÀ <=-</b></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><b>-=> é¢„è§ˆ <=-</b></td></tr>
 <tr><td colspan=2 bgcolor="$postbackcolor" height="*" valign="top"><font color=$postfontcolor>$inpost</td></tr></tr>
-<tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><a href="javascript:close()">-=> ¹Ø±Õ <=-</a></td></tr></table></td></table><SCRIPT>valignend()</SCRIPT><p>~;
+<tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><a href="javascript:close()">-=> å…³é—­ <=-</a></td></tr></table></td></table><SCRIPT>valignend()</SCRIPT><p>~;
 } else {
 @Error=split(/\&/,$inpost);
 $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center height="95%">
 <tr><td><table cellpadding=4 cellspacing=1 width=100% height="100%">
 <tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><b>-=> $Error[0] <=-</b></td></tr>
 <tr><td colspan=2 bgcolor="$postbackcolor" height="*" valign="middle" align="center"><font color=color><b>$Error[1]</b></td></tr></tr>
-<tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><a href="javascript:close()">-=> ¹Ø±Õ <=-</a></td></tr></table></td></table><SCRIPT>valignend()</SCRIPT><p>~;
+<tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><a href="javascript:close()">-=> å…³é—­ <=-</a></td></tr></table></td></table><SCRIPT>valignend()</SCRIPT><p>~;
 }
 
-&output("$boardname - Ô¤ÀÀ",\$output,"msg");
+&output("$boardname - é¢„è§ˆ",\$output,"msg");
 exit;

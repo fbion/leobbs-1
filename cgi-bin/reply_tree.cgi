@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -30,7 +30,7 @@ require "bbs.lib.pl";
 $|++;
 $thisprog = "reply_tree.cgi";
 $query = new LBCGI;
-#Cookie Â·¾¶
+#Cookie è·¯å¾„
 if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
 else {
 	$boardurltemp =$boardurl;
@@ -40,16 +40,16 @@ else {
 #	$cookiepath =~ tr/A-Z/a-z/;
 }
 
-#È¡µÃÂÛÌ³¼°Ö÷Ìâ±àºÅ
+#å–å¾—è®ºå›åŠä¸»é¢˜ç¼–å·
 $inforum			= int($query -> param('forum'));
 $intopic			= int($query -> param('topic'));
 $instart			= int($query -> param('start'));
-&ERROROUT("ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum !~ /^[0-9]+$/)||($intopic !~ /^[0-9]+$/)||($instart !~ /^[0-9]+$/));
+&ERROROUT("è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum !~ /^[0-9]+$/)||($intopic !~ /^[0-9]+$/)||($instart !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
@@ -59,10 +59,7 @@ $screenmode = $query->cookie("screenmode");
 $screenmode = 8 if ($screenmode eq "");
 $addtimes = ($timedifferencevalue + $timezone)*3600;
 
-#È¡³öÖ÷î} ID
-$id_of_this_topid	= sprintf("%04d%05d",$inforum,$intopic);
-#ÓÃ»§×ÊÁÏ
-$inmembername	= $query->cookie("amembernamecookie");
+#å–å‡ºä¸»me	= $query->cookie("amembernamecookie");
 $inpassword 	= $query->cookie("apasswordcookie");
 $userregistered	= "no";
 &ERROROUT("ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -44,12 +44,12 @@ $thisprog = "lookstyles.cgi";
 
 $action      =  $PARAM{'action'};
 $inforum     =  $PARAM{'forum'};
-&error("´ò¿ªÎÄ¼þ&ÀÏ´ó£¬±ðÂÒºÚÎÒµÄ³ÌÐòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ðÂÒºÚÎÒµÄ³ÌÐòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -69,26 +69,26 @@ if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-    if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) { $inmembername = "¿ÍÈË"; }
+    if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) { $inmembername = "å®¢äºº"; }
     else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
         }   
 &getoneforum("$inforum");
 
-&mischeader("±¾°æÅäÉ«ÁÐ±í");
+&mischeader("æœ¬ç‰ˆé…è‰²åˆ—è¡¨");
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&error("´ò¿ªÎÄ¼þ&ÀÏ´ó£¬±ðÂÒºÚÎÒµÄ³ÌÐòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 
-&error("±¾°æÅäÉ«&¶Ô²»Æð£¬±¾°æ¿é²»ÔÊÐí²é¿´ÅäÉ«£¡") if ($look eq "off");
+&error("æœ¬ç‰ˆé…è‰²&å¯¹ä¸èµ·ï¼Œæœ¬ç‰ˆå—ä¸å…è®¸æŸ¥çœ‹é…è‰²ï¼") if ($look eq "off");
 
 if ($privateforum ne "yes") {
-    	&whosonline("$inmembername\t$forumname\tboth\t²é¿´ÂÛÌ³$forumnameµÄÅäÉ«\t");
+    	&whosonline("$inmembername\t$forumname\tboth\tæŸ¥çœ‹è®ºå›$forumnameçš„é…è‰²\t");
     }
     else {
-	&whosonline("$inmembername\t$forumname(ÃÜ)\tboth\t²é¿´±£ÃÜÂÛÌ³$forumnameµÄÅäÉ«\t");
+	&whosonline("$inmembername\t$forumname(å¯†)\tboth\tæŸ¥çœ‹ä¿å¯†è®ºå›$forumnameçš„é…è‰²\t");
     }
 
 $output .= qq~
@@ -97,82 +97,82 @@ $output .= qq~
               
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b>ÂÛÌ³BODY±êÇ©</b>
+                <font color=#990000><b>è®ºå›BODYæ ‡ç­¾</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40% colspan=2>
-                <font color=#333333>¿ØÖÆÕû¸öÂÛÌ³·ç¸ñµÄ±³¾°ÑÕÉ«»òÕß±³¾°Í¼Æ¬µÈ</font></td>
+                <font color=#333333>æŽ§åˆ¶æ•´ä¸ªè®ºå›é£Žæ ¼çš„èƒŒæ™¯é¢œè‰²æˆ–è€…èƒŒæ™¯å›¾ç‰‡ç­‰</font></td>
                 <td bgcolor=#FFFFFF>
                 $lbbody</td>
                 </tr>
                               
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b>ÂÛÌ³Ò³Ê×²Ëµ¥</b>
+                <font color=#990000><b>è®ºå›é¡µé¦–èœå•</b>
                 </font></td>
                 </tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>Ò³Ê×±³¾°ÑÕÉ« (²Ëµ¥´øÉÏ·½)</font></td>
-                <td bgcolor=$titleback  width=12>¡¡</td>
+                <font color=#333333>é¡µé¦–èƒŒæ™¯é¢œè‰² (èœå•å¸¦ä¸Šæ–¹)</font></td>
+                <td bgcolor=$titleback  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $titleback</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>Ò³Ê××ÖÌåÑÕÉ« (²Ëµ¥´øÉÏ·½)</font></td>
-                <td bgcolor=$titlefont  width=12>¡¡</td>
+                <font color=#333333>é¡µé¦–å­—ä½“é¢œè‰² (èœå•å¸¦ä¸Šæ–¹)</font></td>
+                <td bgcolor=$titlefont  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $titlefont</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>Ò³Ê×±ß½çÑÕÉ« (²Ëµ¥´øÉÏ·½)</font></td>
-                <td bgcolor=$titleborder  width=12>¡¡</td>
+                <font color=#333333>é¡µé¦–è¾¹ç•Œé¢œè‰² (èœå•å¸¦ä¸Šæ–¹)</font></td>
+                <td bgcolor=$titleborder  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $titleborder</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>²Ëµ¥´ø×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$menufontcolor  width=12>¡¡</td>
+                <font color=#333333>èœå•å¸¦å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$menufontcolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $menufontcolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>²Ëµ¥´ø±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$menubackground  width=12>¡¡</td>
+                <font color=#333333>èœå•å¸¦èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$menubackground  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $menubackground</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b>×ÖÌåÍâ¹ÛºÍÑÕÉ«</b>
+                <font color=#990000><b>å­—ä½“å¤–è§‚å’Œé¢œè‰²</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>"×îºó·¢ÌùÕß"×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$lastpostfontcolor  width=12>¡¡</td>
+                <font color=#333333>"æœ€åŽå‘è´´è€…"å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$lastpostfontcolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $lastpostfontcolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>"¼ÓÖØÇø"×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$fonthighlight  width=12>¡¡</td>
+                <font color=#333333>"åŠ é‡åŒº"å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$fonthighlight  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $fonthighlight</td>
                 </tr>
@@ -180,254 +180,254 @@ $output .= qq~
                                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>Ò»°ãÓÃ»§Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$posternamecolor  width=12>¡¡</td>
+                <font color=#333333>ä¸€èˆ¬ç”¨æˆ·åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$posternamecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $posternamecolor</td>
                 </tr>
 
 		<tr>
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>Ò»°ãÓÃ»§Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$memglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>ä¸€èˆ¬ç”¨æˆ·åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$memglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$memglow</td>
 		</tr>
                
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>Ì³Ö÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$adminnamecolor  width=12>¡¡</td>
+                <font color=#333333>å›ä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$adminnamecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $adminnamecolor</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>Ì³Ö÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$adminglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>å›ä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$adminglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$adminglow</td>
 		</tr>
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>×Ü°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$smonamecolor  width=12>¡¡</td>
+                <font color=#333333>æ€»ç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$smonamecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $smonamecolor</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>×Ü°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$smoglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>æ€»ç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$smoglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$smoglow</td>
 		</tr>                
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀàÇø°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$cmonamecolor  width=12>¡¡</td>
+                <font color=#333333>åˆ†ç±»åŒºç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$cmonamecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $cmonamecolor</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>·ÖÀàÇø°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$cmoglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>åˆ†ç±»åŒºç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$cmoglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$cmoglow</td>
 		</tr>                
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$teamnamecolor  width=12>¡¡</td>
+                <font color=#333333>ç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$teamnamecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $teamnamecolor</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$teamglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>ç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$teamglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$teamglow</td>
 		</tr>
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>¸±°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$teamnamecolor  width=12>¡¡</td>
+                <font color=#333333>å‰¯ç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$teamnamecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $amonamecolor</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>¸±°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$teamglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>å‰¯ç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$teamglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$amoglow</td>
 		</tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>¹ýÂËºÍ½ûÑÔÓÃ»§Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$banglow  width=12>¡¡</td>
+		<font face=verdana color=#333333>è¿‡æ»¤å’Œç¦è¨€ç”¨æˆ·åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$banglow  width=12>ã€€</td>
 		<td bgcolor=#FFFFFF>
 		$banglow</td>
 		</tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ËùÓÐÒ³ÃæÑÕÉ«</center></b><br>
-                <font color=#333333>ÕâÐ©ÑÕÉ«ÅäÖÃ½«ÓÃÓÚÃ¿¸öÒ³Ãæ¡£ÓÃÓÚ×¢²á¡¢µÇÂ¼¡¢ÔÚÏßÒÔ¼°ÆäËûÒ³Ãæ¡£
+                <font color=#990000><b><center>æ‰€æœ‰é¡µé¢é¢œè‰²</center></b><br>
+                <font color=#333333>è¿™äº›é¢œè‰²é…ç½®å°†ç”¨äºŽæ¯ä¸ªé¡µé¢ã€‚ç”¨äºŽæ³¨å†Œã€ç™»å½•ã€åœ¨çº¿ä»¥åŠå…¶ä»–é¡µé¢ã€‚
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>Ö÷×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$fontcolormisc  width=12>¡¡</td>
+                <font color=#333333>ä¸»å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$fontcolormisc  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $fontcolormisc</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÆäËû±³¾°ÑÕÉ«Ò»</font></td>
-                <td bgcolor=$miscbackone  width=12>¡¡</td>
+                <font color=#333333>å…¶ä»–èƒŒæ™¯é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$miscbackone  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $miscbackone</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÆäËû±³¾°ÑÕÉ«¶þ</font></td>
-                <td bgcolor=$miscbacktwo  width=12>¡¡</td>
+                <font color=#333333>å…¶ä»–èƒŒæ™¯é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$miscbacktwo  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $miscbacktwo</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>±í¸ñÑÕÉ«</center></b><br>
-                <font color=#333333>ÕâÐ©ÑÕÉ«´ó²¿·ÖÓÃÓÚleobbs.cgi£¬forums.cgiºÍtopic.cgi
+                <font color=#990000><b><center>è¡¨æ ¼é¢œè‰²</center></b><br>
+                <font color=#333333>è¿™äº›é¢œè‰²å¤§éƒ¨åˆ†ç”¨äºŽleobbs.cgiï¼Œforums.cgiå’Œtopic.cgi
                 </td></tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀà´ø±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$catback  width=12>¡¡</td>
+                <font color=#333333>åˆ†ç±»å¸¦èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$catback  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $catback</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀà´ø×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$catfontcolor  width=12>¡¡</td>
+                <font color=#333333>åˆ†ç±»å¸¦å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$catfontcolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $catfontcolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ËùÓÐ±í¸ñ±ß½çÑÕÉ«</font></td>
-                <td bgcolor=$tablebordercolor  width=12>¡¡</td>
+                <font color=#333333>æ‰€æœ‰è¡¨æ ¼è¾¹ç•Œé¢œè‰²</font></td>
+                <td bgcolor=$tablebordercolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $tablebordercolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ËùÓÐ±í¸ñ¿í¶È</font></td>
+                <font color=#333333>æ‰€æœ‰è¡¨æ ¼å®½åº¦</font></td>
                 <td bgcolor=#FFFFFF>
                 $tablewidth</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>±êÌâÑÕÉ«</center></b><br>
-                <font color=#333333>ÕâÀïÑÕÉ«ÅäÖÃÓÃÓÚ·¢±íµÚÒ»¸öÖ÷ÌâµÄ±êÌâ
+                <font color=#990000><b><center>æ ‡é¢˜é¢œè‰²</center></b><br>
+                <font color=#333333>è¿™é‡Œé¢œè‰²é…ç½®ç”¨äºŽå‘è¡¨ç¬¬ä¸€ä¸ªä¸»é¢˜çš„æ ‡é¢˜
                 </td></tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÂÛÌ³/Ö÷ÌâµÄ±êÌâÀ¸±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$titlecolor  width=12>¡¡</td>
+                <font color=#333333>è®ºå›/ä¸»é¢˜çš„æ ‡é¢˜æ èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$titlecolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $titlecolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÂÛÌ³/Ö÷ÌâµÄ±êÌâÀ¸×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$titlefontcolor  width=12>¡¡</td>
+                <font color=#333333>è®ºå›/ä¸»é¢˜çš„æ ‡é¢˜æ å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$titlefontcolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $titlefontcolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ÂÛÌ³ÄÚÈÝÑÕÉ«</center></b><br>
-                <font color=#333333>²é¿´ÂÛÌ³ÄÚÈÝÊ±ÑÕÉ« (forums.cgi)
+                <font color=#990000><b><center>è®ºå›å†…å®¹é¢œè‰²</center></b><br>
+                <font color=#333333>æŸ¥çœ‹è®ºå›å†…å®¹æ—¶é¢œè‰² (forums.cgi)
                 </td></tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝÑÕÉ«Ò»</font></td>
-                <td bgcolor=$forumcolorone  width=12>¡¡</td>
+                <font color=#333333>å†…å®¹é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$forumcolorone  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $forumcolorone</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝÑÕÉ«¶þ</font></td>
-                <td bgcolor=$forumcolortwo  width=12>¡¡</td>
+                <font color=#333333>å†…å®¹é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$forumcolortwo  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $forumcolortwo</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$forumfontcolor  width=12>¡¡</td>
+                <font color=#333333>å†…å®¹å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$forumfontcolor  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $forumfontcolor</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>»Ø¸´ÑÕÉ«</center></b><br>
-                <font color=#333333>»Ø¸´Ìù×ÓÑÕÉ«(topic.cgi)
+                <font color=#990000><b><center>å›žå¤é¢œè‰²</center></b><br>
+                <font color=#333333>å›žå¤è´´å­é¢œè‰²(topic.cgi)
                 </td></tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´ÑÕÉ«Ò»</font></td>
-                <td bgcolor=$postcolorone  width=12>¡¡</td>
+                <font color=#333333>å›žå¤é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$postcolorone  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $postcolorone</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´ÑÕÉ«¶þ</font></td>
-                <td bgcolor=$postcolortwo  width=12>¡¡</td>
+                <font color=#333333>å›žå¤é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$postcolortwo  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $postcolortwo</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´×ÖÌåÑÕÉ«Ò»</font></td>
-                <td bgcolor=$postfontcolorone  width=12>¡¡</td>
+                <font color=#333333>å›žå¤å­—ä½“é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$postfontcolorone  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $postfontcolorone</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´×ÖÌåÑÕÉ«¶þ</font></td>
-                <td bgcolor=$postfontcolortwo  width=12>¡¡</td>
+                <font color=#333333>å›žå¤å­—ä½“é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$postfontcolortwo  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 $postfontcolortwo</td>
                 </tr>
@@ -437,6 +437,6 @@ $output .= qq~
 
 
 $output .= qq~</td></tr></table><SCRIPT>valignend()</SCRIPT><br><br></body></html>~;
-&output("²é¿´$forumnameµÄÅäÉ«",\$output);
+&output("æŸ¥çœ‹$forumnameçš„é…è‰²",\$output);
 exit;
 

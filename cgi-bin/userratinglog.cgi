@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -73,26 +73,26 @@ if ($action eq "process") {
 
            print qq~
            <tr><td bgcolor=#2159C9><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÓÃ»§ÍþÍû²Ù×÷ÈÕÖ¾</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤ç”¨æˆ·å¨æœ›æ“ä½œæ—¥å¿—</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center>
-		<font color=#333333><b>ÎÄ¼þÉ¾³ý²Ù×÷ÈÕÖ¾</b>
+		<font color=#333333><b>æ–‡ä»¶åˆ é™¤æ“ä½œæ—¥å¿—</b>
 		</td></tr>
-		<tr><td align=center><br><br>³ýÁË×îºó100Ìõ¼ÇÂ¼£¬ÆäËûÔçÆÚµÄÓÃ»§ÍþÍû²Ù×÷ÈÕÖ¾¼ÍÂ¼ÒÑ¾­É¾³ý!</td></tr>
+		<tr><td align=center><br><br>é™¤äº†æœ€åŽ100æ¡è®°å½•ï¼Œå…¶ä»–æ—©æœŸçš„ç”¨æˆ·å¨æœ›æ“ä½œæ—¥å¿—çºªå½•å·²ç»åˆ é™¤!</td></tr>
            ~;
          
                 }
 		else {
            print qq~
            <tr><td bgcolor=#2159C9><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÓÃ»§ÍþÍû²Ù×÷ÈÕÖ¾</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤ç”¨æˆ·å¨æœ›æ“ä½œæ—¥å¿—</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center>
-		<font color=#333333><b>ÎÄ¼þÉ¾³ý²Ù×÷ÈÕÖ¾</b>
+		<font color=#333333><b>æ–‡ä»¶åˆ é™¤æ“ä½œæ—¥å¿—</b>
 		</td></tr>
-		<tr><td align=center><br><br>×Ü°ßÖñÎÞÈ¨É¾³ýÈÕÖ¾!</td></tr>
+		<tr><td align=center><br><br>æ€»æ–‘ç«¹æ— æƒåˆ é™¤æ—¥å¿—!</td></tr>
            ~;
 		}
         
@@ -157,20 +157,20 @@ if ($action eq "process") {
 		my $showpage = "";
 		if (!$allpages)
 		{
-			$showpage .= "µ±Ç°Ã»ÓÐ¼ÇÂ¼";
+			$showpage .= "å½“å‰æ²¡æœ‰è®°å½•";
 		}
 		elsif ($allpages == 1)
 		{
-			$showpage .= "µ±Ç°¼ÇÂ¼Ö»ÓÐ 1 Ò³";
+			$showpage .= "å½“å‰è®°å½•åªæœ‰ 1 é¡µ";
 		}
 		else
 		{
-			$showpage .= qq~¼ÇÂ¼¹² <b>$allpages</b> Ò³ ~;
+			$showpage .= qq~è®°å½•å…± <b>$allpages</b> é¡µ ~;
 			$i = $page - 1;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ÉÏÒ»Ò³"><<</span> ~ if ($i > 0);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ä¸Šä¸€é¡µ"><<</span> ~ if ($i > 0);
 			$showpage .= "[ ";
 			$i = $page - 3;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">¡û</span> ~ if ($i > 0);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">â†</span> ~ if ($i > 0);
 			$i++;
 			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">$i</span> ~ if ($i > 0);
 			$i++;
@@ -182,21 +182,21 @@ if ($action eq "process") {
 			$i++;
 			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">$i</span> ~ if ($i <= $allpages);
 			$i++;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">¡ú</span> ~ if ($i <= $allpages);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">â†’</span> ~ if ($i <= $allpages);
 			$showpage .= "] ";
 			$i = $page + 1;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ÏÂÒ»Ò³">>></span> ~ if ($i <= $allpages);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ä¸‹ä¸€é¡µ">>></span> ~ if ($i <= $allpages);
 		}
                 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=8><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§ÍþÍû»ý·Ö²Ù×÷ÈÕÖ¾</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·å¨æœ›ç§¯åˆ†æ“ä½œæ—¥å¿—</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=8>
-		<font color=#333333><b>ÓÃ»§ÍþÍû»ý·Ö²Ù×÷ÈÕÖ¾</b>
+		<font color=#333333><b>ç”¨æˆ·å¨æœ›ç§¯åˆ†æ“ä½œæ—¥å¿—</b>
 		</td></tr>
-		<tr><td>¶ÔÏó</td><td>ÄÚÈÝ</td><td>²Ù×÷Õß</td><td>ÏàÓ¦Ìù×Ó</td><td>IP µØÖ·</td><td>´úÀí IP</td><td>²Ù×÷Ê±¼ä</td><td>ÀíÓÉ</td></tr>
+		<tr><td>å¯¹è±¡</td><td>å†…å®¹</td><td>æ“ä½œè€…</td><td>ç›¸åº”è´´å­</td><td>IP åœ°å€</td><td>ä»£ç† IP</td><td>æ“ä½œæ—¶é—´</td><td>ç†ç”±</td></tr>
 		);
 		if ($allnum) {
 		for ($i = $allnum - $page * 12  + 11; $i >= $allnum - $page * 12 && $i >= 0; $i--) {
@@ -205,21 +205,21 @@ if ($action eq "process") {
     		$oldtime = &dateformatshort($oldtime);
     		chomp $reson;
     		chomp $proxy;
-    		$reson = "ÎÞ" if ($reson eq "");
+    		$reson = "æ— " if ($reson eq "");
 		print qq~
-		<tr><td>$name1</td><td>$rate</td><td>$name2</td><td><a href=topic.cgi?forum=$forum1&topic=$topic1 target=_blank>½øÈë</a></td><td>$ip</td><td>$proxy</td><td>$oldtime</td><td><span title="ÀíÓÉ:$reson">ÀíÓÉ</span></td></tr>
+		<tr><td>$name1</td><td>$rate</td><td>$name2</td><td><a href=topic.cgi?forum=$forum1&topic=$topic1 target=_blank>è¿›å…¥</a></td><td>$ip</td><td>$proxy</td><td>$oldtime</td><td><span title="ç†ç”±:$reson">ç†ç”±</span></td></tr>
 		~;
 		   }
 		}
                 $tempoutput = qq~
                 <form name=MAINFORM action=$thisprog method=POST><td bgcolor=#EEEEEE valign=middle colspan=3><br>
-		<input type=hidden name=page value=$page><select name=type><option value="name">°´²Ù×÷Õß</option><option value="target">°´¶ÔÏó</option><option value="time">°´ÌØ¶¨ÈÕÆÚ</option></select> <input name=key type=text size=12 value=$key> <input type=submit value="ËÑÑ°">
+		<input type=hidden name=page value=$page><select name=type><option value="name">æŒ‰æ“ä½œè€…</option><option value="target">æŒ‰å¯¹è±¡</option><option value="time">æŒ‰ç‰¹å®šæ—¥æœŸ</option></select> <input name=key type=text size=12 value=$key> <input type=submit value="æœå¯»">
 		</td></form>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=3><br>
 		$showpage
 		</td>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2><br>
-		<font color=#333333><b><a href=$thisprog?action=process OnClick="return confirm('ÎªÁË°²È«£¬´Ë²Ù×÷»¹»á±£Áô×îºó100Ìõ¼ÇÂ¼µÄ¡£\\nÕæµÄÒªÇå¿ÕÓÃ»§ÍþÍû²Ù×÷ÈÕÖ¾Ã´£¿');">Çå¿ÕÓÃ»§ÍþÍû²Ù×÷ÈÕÖ¾</a></b>
+		<font color=#333333><b><a href=$thisprog?action=process OnClick="return confirm('ä¸ºäº†å®‰å…¨ï¼Œæ­¤æ“ä½œè¿˜ä¼šä¿ç•™æœ€åŽ100æ¡è®°å½•çš„ã€‚\\nçœŸçš„è¦æ¸…ç©ºç”¨æˆ·å¨æœ›æ“ä½œæ—¥å¿—ä¹ˆï¼Ÿ');">æ¸…ç©ºç”¨æˆ·å¨æœ›æ“ä½œæ—¥å¿—</a></b>
 		</td></tr>
                 ~;
 		$tempoutput =~ s/<option value="$type">/<option value="$type" selected>/g;

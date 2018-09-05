@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / ¿◊∞¡º´ø·≥¨º∂¬€Ã≥  #
+#  LEO SuperCool BBS / LeoBBS X / Èõ∑ÂÇ≤ÊûÅÈÖ∑Ë∂ÖÁ∫ßËÆ∫Âùõ  #
 #####################################################
-# ª˘”⁄…Ω”•(∫˝)°¢ª®Œﬁ»±÷∆◊˜µƒ LB5000 XP 2.30 √‚∑—∞Ê  #
-#   –¬∞Ê≥Ã–Ú÷∆◊˜ & ∞Ê»®À˘”–: ¿◊∞¡ø∆ºº (C)(R)2004    #
+# Âü∫‰∫éÂ±±Èπ∞(Á≥ä)„ÄÅËä±Êó†Áº∫Âà∂‰ΩúÁöÑ LB5000 XP 2.30 ÂÖçË¥πÁâà  #
+#   Êñ∞ÁâàÁ®ãÂ∫èÂà∂‰Ωú & ÁâàÊùÉÊâÄÊúâ: Èõ∑ÂÇ≤ÁßëÊäÄ (C)(R)2004    #
 #####################################################
-#      ÷˜“≥µÿ÷∑£∫ http://www.LeoBBS.com/            #
-#      ¬€Ã≥µÿ÷∑£∫ http://bbs.LeoBBS.com/            #
+#      ‰∏ªÈ°µÂú∞ÂùÄÔºö http://www.LeoBBS.com/            #
+#      ËÆ∫ÂùõÂú∞ÂùÄÔºö http://bbs.LeoBBS.com/            #
 #####################################################
 
 $xzb="";
@@ -20,7 +20,7 @@ if (-e "${lbdir}boarddata/xzb$inforum.cgi") {
     }
     if ($xzbcount eq "") { $xzbcount= 0; }
     if ($xzbcount>=$#xzbdata) { $xzbcount = 0; } else { $xzbcount++; }
-    $xzbdata[$xzbcount] =~ s/^££°™££°™°§\t//isg;
+    $xzbdata[$xzbcount] =~ s/^ÔºÉ‚ÄïÔºÉ‚Äï„Éª\t//isg;
     (my $title, my $postid, my $msg, my $posttime)=split(/\t/,$xzbdata[$xzbcount]);
     open(FILEX,">${lbdir}boarddata/xzbs$inforum.cgi");
     print FILEX $xzbcount;
@@ -30,8 +30,8 @@ if (-e "${lbdir}boarddata/xzb$inforum.cgi") {
         $temppostid    =~ s/ /\_/isg;
 	$temppostid    =~ tr/A-Z/a-z/;
         my $titletemps = &lbhz($title,35);
-        $xzb = qq~&nbsp;–°◊÷±®: <img src=$imagesurl/images/icon.gif width=14> <span style=cursor:hand onClick="javascript:openScript('xzb.cgi?action=view&forum=$inforum&id=$xzbcount',420,320)" title="$title"><font color=$fonthighlight>$titletemps</font></span> -- <span style=cursor:hand onClick=javascript:O9('~ . uri_escape($temppostid) . qq~')>$postid</span>~;
-	$xzb = qq~<B>[<a href=xzbadmin.cgi?forum=$inforum>π‹¿Ì</a>]</b>$xzb~ if (($membercode eq "ad")||($membercode eq "smo")||($inmembmod eq "yes"));
+        $xzb = qq~&nbsp;Â∞èÂ≠óÊä•: <img src=$imagesurl/images/icon.gif width=14> <span style=cursor:hand onClick="javascript:openScript('xzb.cgi?action=view&forum=$inforum&id=$xzbcount',420,320)" title="$title"><font color=$fonthighlight>$titletemps</font></span> -- <span style=cursor:hand onClick=javascript:O9('~ . uri_escape($temppostid) . qq~')>$postid</span>~;
+	$xzb = qq~<B>[<a href=xzbadmin.cgi?forum=$inforum>ÁÆ°ÁêÜ</a>]</b>$xzb~ if (($membercode eq "ad")||($membercode eq "smo")||($inmembmod eq "yes"));
     }
 }
 1;

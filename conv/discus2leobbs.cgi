@@ -1,17 +1,17 @@
 #!/usr/bin/perl
 
 ############################################
-# Discus ÓÃ»§×ÊÁÏ --> LeoBBS ÓÃ»§×ÊÁÏ×ª»»Æ÷#
+# Discus ç”¨æˆ·èµ„æ–™ --> LeoBBS ç”¨æˆ·èµ„æ–™è½¬æ¢å™¨#
 ############################################
 
-$discusmember = "/path/to/UBB members dir/";   	# ÊäÈë Discus ÓÃ»§×ÊÁÏËùÔÚµÄÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶£¬×îºó²»ÒªÒÅÂ© / ¡£
-$leobbsmember = "/path/to/leobbs members dir/"; # ÇëÊäÈë LeoBBS ÓÃ»§×ÊÁÏËùÔÚµÄÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶£¬×îºó²»ÒªÒÅÂ© / £¬×¢ÒâÉèÖÃ 777 ÊôĞÔ¡£
+$discusmember = "/path/to/UBB members dir/";   	# è¾“å…¥ Discus ç”¨æˆ·èµ„æ–™æ‰€åœ¨çš„ç›®å½•çš„ç»å¯¹è·¯å¾„ï¼Œæœ€åä¸è¦é—æ¼ / ã€‚
+$leobbsmember = "/path/to/leobbs members dir/"; # è¯·è¾“å…¥ LeoBBS ç”¨æˆ·èµ„æ–™æ‰€åœ¨çš„ç›®å½•çš„ç»å¯¹è·¯å¾„ï¼Œæœ€åä¸è¦é—æ¼ / ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§ã€‚
 
 $date = time();
 print "Content-Type: text/html\n\n";
 print "<html><body>";
-print "<center><h1><b><u>ÓÃ»§×ª»» £¨Discus --> LeoBBS£©</u></b></h1><br><br><br><br><br><br><br><center><h2><b>¿ªÊ¼´¦Àí</b></h2>";
-open(DATEI,"${discusmember}user.txt") || die "Discus ÓÃ»§¿âÃ»ÓĞÕÒµ½";
+print "<center><h1><b><u>ç”¨æˆ·è½¬æ¢ ï¼ˆDiscus --> LeoBBSï¼‰</u></b></h1><br><br><br><br><br><br><br><center><h2><b>å¼€å§‹å¤„ç†</b></h2>";
+open(DATEI,"${discusmember}user.txt") || die "Discus ç”¨æˆ·åº“æ²¡æœ‰æ‰¾åˆ°";
 @memberlist=<DATEI>;
 close(DATEI);
 mkdir(newmember,0777);
@@ -42,5 +42,5 @@ open(MEMBERDATEI,">${leobbsmember}$filenames.cgi");
 print MEMBERDATEI "@memberarray";
 close(MEMBERDATEI);
 }
-print "<BR><BR>×Ü¹²×ª»»ÁË $i ¸öÓÃ»§£¡<BR><BR>\n";
+print "<BR><BR>æ€»å…±è½¬æ¢äº† $i ä¸ªç”¨æˆ·ï¼<BR><BR>\n";
 exit;

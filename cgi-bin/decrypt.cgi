@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -27,25 +27,25 @@ require "data/boardinfo.cgi";
 require "data/styles.cgi";
 require "bbs.lib.pl";
 $query = new LBCGI;
-&error("���ӳ���&�Բ��𣬲�����ʹ�� GET ���ᣡ") unless ($ENV{'REQUEST_METHOD'} =~ /^POST$/i);
-&error("���ӳ���&�Բ��𣬲������Ǳ���̳�������ᣡ") if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/ && $ENV{'HTTP_HOST'} ne '' && $ENV{'HTTP_REFERER'} ne '');
+&error("连接出错&对不起，不允许使用 GET 连结！") unless ($ENV{'REQUEST_METHOD'} =~ /^POST$/i);
+&error("连接出错&对不起，不允许非本论坛主机连结！") if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/ && $ENV{'HTTP_HOST'} ne '' && $ENV{'HTTP_REFERER'} ne '');
 $inforum        = $query -> param('forum');
 $intopic        = $query -> param('topic');
 $inpostno       = $query -> param('postno');
 $decrypt        = $query -> param('clno');
-&error("���ļ�&�ϴ󣬱��Һ��ҵĳ���ѽ��") if (($intopic !~ /^[0-9]+$/)||($inforum !~ /^[0-9]+$/)||($inpostno !~ /^[0-9]+$/)||($decrypt !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic !~ /^[0-9]+$/)||($inforum !~ /^[0-9]+$/)||($inpostno !~ /^[0-9]+$/)||($decrypt !~ /^[0-9]+$/));
 $inmembername = $query->cookie("amembernamecookie");
 $inpassword   = $query->cookie("apasswordcookie");
-&error("��ͨ����&�ϴ󣬱��Һ��ҵĳ�ʽѽ����") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&error("普通错误&老大，别乱黑我的程式呀！！") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
 $inmembername =~ s/\///g;
 $inmembername =~ s/\.\.//g;
 $inmembername =~ s/\\//g;
-if ((!$inmembername) or ($inmembername eq "����")) {
-    &error("��ͨ����&����Ϊ����̳�û����ɽ��룬�����µ�¼��");
+if ((!$inmembername) or ($inmembername eq "客人")) {
+    &error("普通错误&必需为本论坛用户方可进入，请重新登录！");
 }else {
     &getmember("$inmembername","no");
-    &error("��ͨ����&�������û���������������µ�¼��") if ($inpassword ne $password);
-    &error("��ͨ����&�û�û�е�¼��ע�ᣡ") if ($userregistered eq "no");
+    &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
+    &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
 my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
 if (open(FILE, "$filetoopen")) {
@@ -54,7 +54,7 @@ if (open(FILE, "$filetoopen")) {
     chomp @threads;
 }
 else {
-    &error("���ӳ���&�Ҳ����ñ�ŵ����ᣬ��ȷ��������һ����Ч�����ӣ�");
+    &error("连接出错&找不到该编号的连结，请确定你来自一个有效的连接！");
 }
 $get_the_post=$threads[$inpostno];
 @split_the_post=split(/\t/,$get_the_post);
@@ -70,10 +70,10 @@ chomp $get_the_link;
 }
 $get_the_link=$clinklist[$decrypt];
 chomp $get_the_link;
-&error("���ӳ���&�Ҳ����ñ�ŵ����ᣬ��ȷ��������һ����Ч�����ӡ�") if($get_the_link eq "");
+&error("连接出错&找不到该编号的连结，请确定你来自一个有效的连接。") if($get_the_link eq "");
 if($get_the_link=~m/^(http|https|ftp):\/\//i){
 print header(-charset=>gb2312,-location=>$get_the_link,-expires=>now,-cache=>yes);
 }else{
-&error("���ӳ���&�ñ�ŵ����᲻��֧�ֵ�ͨѶЭ����������ֻ֧�� HTTP,HTTPS �� FTP ��");
+&error("连接出错&该编号的连结不是支持的通讯协定，本程序只支持 HTTP,HTTPS 和 FTP 。");
 }
 exit;

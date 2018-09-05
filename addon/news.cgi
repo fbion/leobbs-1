@@ -1,26 +1,26 @@
 #!/usr/bin/perl
 ###############################################################################################################################################
-# LeoBBS ·ÖÂÛÌ³ĞÂÌù×Ó ver 2.0
+# LeoBBS åˆ†è®ºå›æ–°è´´å­ ver 2.0
 ###############################################################################################################################################
-# Ê¹ÓÃ°ì·¨£º news.cgi?forum=·ÖÂÛÌ³ºÅ&max=ÏÔÊ¾¼¸ÌõÌù×Ó&maxlength=±êÌâ³¤¶È&display=1&link=ÑÕÉ«16½øÖÆ´úÂë&vlink=ÑÕÉ«16½øÖÆ´úÂë&alink=ÑÕÉ«16½øÖÆ´úÂë
-# Àı£º ÔÚÄãÖ÷Ò³µÄÊÊµ±Î»ÖÃ¼ÓÈëÒÔÏÂÓï¾ä
+# ä½¿ç”¨åŠæ³•ï¼š news.cgi?forum=åˆ†è®ºå›å·&max=æ˜¾ç¤ºå‡ æ¡è´´å­&maxlength=æ ‡é¢˜é•¿åº¦&display=1&link=é¢œè‰²16è¿›åˆ¶ä»£ç &vlink=é¢œè‰²16è¿›åˆ¶ä»£ç &alink=é¢œè‰²16è¿›åˆ¶ä»£ç 
+# ä¾‹ï¼š åœ¨ä½ ä¸»é¡µçš„é€‚å½“ä½ç½®åŠ å…¥ä»¥ä¸‹è¯­å¥
 #      <script src="news.cgi?forum=1&max=10&maxlength=20&link=0000ff&vlink=7f007f&alink=ff0000&mode=topic"></script>
-#      ÕâÑù¾Í¿ÉÒÔÔÚÏàÓ¦Î»ÖÃÏÔÊ¾1ºÅÂÛÌ³µÄ×îĞÂ10¸öÌù×Ó£¬±êÌâ³¤¶ÈÎª 20£¬ÏÔÊ¾·¢ÌùÊ±¼ä£¬ÓÃÌû×ÓÄ£Ê½²é¿´
-#                                                   (display=0 ±íÊ¾²»ÏÔÊ¾·¢ÌùÊ±¼ä)
-#                                                   (mode=view ±íÊ¾ÓÃĞÂÎÅÄ£Ê½²é¿´)
-# linkÊÇ×Ô¶¨Òå³¬Á´½ÓµÄÑÕÉ«£¬vlinkÊÇ×Ô¶¨ÒåÒÑ·ÃÎÊµÄ³¬Á´½ÓµÄÑÕÉ«£¬alinkÊÇ×Ô¶¨Òåµ±Ç°³¬Á´½ÓµÄÑÕÉ«
+#      è¿™æ ·å°±å¯ä»¥åœ¨ç›¸åº”ä½ç½®æ˜¾ç¤º1å·è®ºå›çš„æœ€æ–°10ä¸ªè´´å­ï¼Œæ ‡é¢˜é•¿åº¦ä¸º 20ï¼Œæ˜¾ç¤ºå‘è´´æ—¶é—´ï¼Œç”¨å¸–å­æ¨¡å¼æŸ¥çœ‹
+#                                                   (display=0 è¡¨ç¤ºä¸æ˜¾ç¤ºå‘è´´æ—¶é—´)
+#                                                   (mode=view è¡¨ç¤ºç”¨æ–°é—»æ¨¡å¼æŸ¥çœ‹)
+# linkæ˜¯è‡ªå®šä¹‰è¶…é“¾æ¥çš„é¢œè‰²ï¼Œvlinkæ˜¯è‡ªå®šä¹‰å·²è®¿é—®çš„è¶…é“¾æ¥çš„é¢œè‰²ï¼Œalinkæ˜¯è‡ªå®šä¹‰å½“å‰è¶…é“¾æ¥çš„é¢œè‰²
 #
-# ËùÓĞ²ÎÊı¾ù¿ÉÒÔÊ¡ÂÔ£¬Ä¬ÈÏÎª²é¿´µÚ1¸öÂÛÌ³µÄÇ°10¸öÌû×Ó£¬±êÌâ×î¶à20¸ö×Ö·û¡¢ÏÔÊ¾Ê±¼ä¡¢ÓÃÌû×ÓÄ£Ê½
+# æ‰€æœ‰å‚æ•°å‡å¯ä»¥çœç•¥ï¼Œé»˜è®¤ä¸ºæŸ¥çœ‹ç¬¬1ä¸ªè®ºå›çš„å‰10ä¸ªå¸–å­ï¼Œæ ‡é¢˜æœ€å¤š20ä¸ªå­—ç¬¦ã€æ˜¾ç¤ºæ—¶é—´ã€ç”¨å¸–å­æ¨¡å¼
 ###############################################################################################################################################
 
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-#  »ùÓÚÉ½Ó¥ºı¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ   #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+#  åŸºäºå±±é¹°ç³Šã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ   #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBoard.com/          #
-#      ÂÛÌ³µØÖ·£º http://www.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBoard.com/          #
+#      è®ºå›åœ°å€ï¼š http://www.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -35,7 +35,7 @@ BEGIN {
 
 #unless ($ENV{'HTTP_REFERER'} =~ /$ENV{'HTTP_HOST'}/) {
 #print "Content-Type:text/html\n\n";
-#print "document.write('<font color=red>¡¡¶Ô²»Æğ£¬²»ÔÊĞí·Ç±¾ÂÛÌ³Ö÷»úµ÷ÓÃ£¡</font>');";
+#print "document.write('<font color=red>ã€€å¯¹ä¸èµ·ï¼Œä¸å…è®¸éæœ¬è®ºå›ä¸»æœºè°ƒç”¨ï¼</font>');";
 #exit;
 #}
 use LBCGI;
@@ -66,23 +66,23 @@ $vlink         = &stripMETA("$vlink");
 $mode       = $query -> param('mode');
 $mode       = &stripMETA("$mode");
 $mode = "" if (($mode ne "topic")&&($mode ne "view"));
-$mode      = "topic" if ($mode eq "");  # Ä¬ÈÏÌû×Ó·½Ê½²é¿´
-$number    = 1  if ($number eq "");     # Ä¬ÈÏ²é¿´µÚÒ»¸öÂÛÌ³
-$display   = 1  if ($display eq "");    # Ä¬ÈÏÏÔÊ¾Ìù×ÓÊ±¼ä
-$max	   = 10 if ($max eq "");        # Ä¬ÈÏÏÔÊ¾ 10 ¸öÌû×Ó
-$maxlengths= 30 if ($maxlengths eq "");  # Ä¬ÈÏ±êÌâ×î¶à 30 ¸ö×Ö·û
+$mode      = "topic" if ($mode eq "");  # é»˜è®¤å¸–å­æ–¹å¼æŸ¥çœ‹
+$number    = 1  if ($number eq "");     # é»˜è®¤æŸ¥çœ‹ç¬¬ä¸€ä¸ªè®ºå›
+$display   = 1  if ($display eq "");    # é»˜è®¤æ˜¾ç¤ºè´´å­æ—¶é—´
+$max	   = 10 if ($max eq "");        # é»˜è®¤æ˜¾ç¤º 10 ä¸ªå¸–å­
+$maxlengths= 30 if ($maxlengths eq "");  # é»˜è®¤æ ‡é¢˜æœ€å¤š 30 ä¸ªå­—ç¬¦
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 print header(-charset=>gb2312);
 if ($number !~ /^[0-9]+$/) {
-   print "document.write('ÆÕÍ¨&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡')\n";
+   print "document.write('æ™®é€š&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼')\n";
    exit;
 }
 
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers ne '') {
-    $str="-* ÕâÊÇ±£ÃÜÂÛÌ³£¬²»ÄÜÁĞ±í *-";
+    $str="-* è¿™æ˜¯ä¿å¯†è®ºå›ï¼Œä¸èƒ½åˆ—è¡¨ *-";
     goto ENDPPP;
 }
     my $filetoopen = "${lbdir}forum$number/foruminfo.cgi";
@@ -92,7 +92,7 @@ if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers 
     (my $no, $no, $no, $no, $no, $no ,$no ,$no ,$privateforum, $startnewthreads,$no) = split(/\t/,$forums);
 
 if (($startnewthreads eq "cert")&&($userincert eq "no")) {
-    $str="-* ÕâÊÇ±£ÃÜÂÛÌ³£¬²»ÄÜÁĞ±í *-";
+    $str="-* è¿™æ˜¯ä¿å¯†è®ºå›ï¼Œä¸èƒ½åˆ—è¡¨ *-";
     goto ENDPPP;
 }
 
@@ -120,7 +120,7 @@ if ($privateforum ne "yes") {
 
             next if ($topicid !~ /^[0-9]+$/);
             $lastpostdate = &longdate($lastpostdate + $addtime);
- 	    $topictitle =~ s/^£ª£££¡£¦£ª//;
+ 	    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
  	    
             if (($posticon1 eq "")||($posticon1 !~ /^[0-9]+$/)) {
 		$posticon1 = int(myrand(23));
@@ -133,8 +133,8 @@ if ($privateforum ne "yes") {
 	    $topictitle =~ s/\&quot;/\"/g;
 #	    $topictitle =~ s/\&lt;/</g;
 #	    $topictitle =~ s/\&gt;/>/g;
-	    $topictitle =~ s/ \&nbsp;/¡¡/g;
-	    $topictitle =~ s/  /¡¡/g;
+	    $topictitle =~ s/ \&nbsp;/ã€€/g;
+	    $topictitle =~ s/  /ã€€/g;
 	    if  ($display eq 1) {
 	        $disptime= " $lastpostdate";
 	    }
@@ -151,7 +151,7 @@ if ($privateforum ne "yes") {
 		$topictitletemp =~ s/>/\&gt;/g;
 		$topictitletemp =~ s/ /\&nbsp;/g;
 	        $topictitletemp = $topictitletemp ."&nbsp;" if (length($topictitletemp) < $maxlength);
-	        $str.="<img src=$imagesurl/posticons/$posticon1 $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$number&topic=$topicid target=_blank><ACRONYM TITLE=\"Ö÷Ìâ£º $topictitle\">$topictitletemp</ACRONYM></a>$disptime<br>";
+	        $str.="<img src=$imagesurl/posticons/$posticon1 $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$number&topic=$topicid target=_blank><ACRONYM TITLE=\"ä¸»é¢˜ï¼š $topictitle\">$topictitletemp</ACRONYM></a>$disptime<br>";
 	    }
 	    else {
 	        $topicspace=$maxlength-length($topictitle);
@@ -165,11 +165,11 @@ if ($privateforum ne "yes") {
         }
     }
     else {
-        $str="-* Ã»ÓĞÕÒµ½ÏàÓ¦µÄÂÛÌ³ *-";
+        $str="-* æ²¡æœ‰æ‰¾åˆ°ç›¸åº”çš„è®ºå› *-";
     }
 }
 else {
-    $str="-* ÕâÊÇ±£ÃÜÂÛÌ³£¬²»ÄÜÁĞ±í *-";
+    $str="-* è¿™æ˜¯ä¿å¯†è®ºå›ï¼Œä¸èƒ½åˆ—è¡¨ *-";
 }
 ENDPPP:
 

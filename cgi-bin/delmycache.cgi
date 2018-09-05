@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -31,15 +31,15 @@ $inpassword     = $queryme->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) {
-    $inmembername = "¿ÍÈË";
-    &error("ÆÕÍ¨´íÎó&¶Ô²»Æğ£¬ÇëÏÈµÇÂ¼ºóÔÙÊ¹ÓÃ±¾¹¦ÄÜ£¿")
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) {
+    $inmembername = "å®¢äºº";
+    &error("æ™®é€šé”™è¯¯&å¯¹ä¸èµ·ï¼Œè¯·å…ˆç™»å½•åå†ä½¿ç”¨æœ¬åŠŸèƒ½ï¼Ÿ")
 }
 else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬ÍµÓÃ»§Ãû²»ÍµÃÜÂëÓĞÊ²Ã´ÓÃÄØ£¿") if ($inpassword ne $password);
-    &error("ÆÕÍ¨´íÎó&ÓÃ»§Ã»ÓĞµÇÂ¼»ò×¢²á£¡") if ($userregistered eq "no");  
+    &error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œå·ç”¨æˆ·åä¸å·å¯†ç æœ‰ä»€ä¹ˆç”¨å‘¢ï¼Ÿ") if ($inpassword ne $password);
+    &error("æ™®é€šé”™è¯¯&ç”¨æˆ·æ²¡æœ‰ç™»å½•æˆ–æ³¨å†Œï¼") if ($userregistered eq "no");  
 }
 
 $cleanmembername = $inmembername;
@@ -52,7 +52,7 @@ unlink ("${lbdir}cache/online/$cleanmembername.pl");
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <SCRIPT>
-alert("ÄúÔÚÂÛÌ³µÄËùÓĞ»º´æ¶¼±»Çå¿ÕÁË£¡");
+alert("æ‚¨åœ¨è®ºå›çš„æ‰€æœ‰ç¼“å­˜éƒ½è¢«æ¸…ç©ºäº†ï¼");
 document.location = 'leobbs.cgi'
 </SCRIPT>
 ~;

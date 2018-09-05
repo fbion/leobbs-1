@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -58,19 +58,19 @@ for ('forum','topic','membername','password','action','postno','inshowsignature'
 }
 $intopictitle  =~ s/\\0//isg;
 #$intopictitle  =~ s/\\/&#92;/isg;
-$intopictitle  = "£ª£££¡£¦£ª$intopictitle";
+$intopictitle  = "ï¼Šï¼ƒï¼ï¼†ï¼Š$intopictitle";
 
 $inforum       = $forum;
 $intopic       = $topic;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡") if ($inforum !~ /^[0-9]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic) && ($intopic !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼") if ($inforum !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 $maxupload = 300 if ($maxupload eq "");
 
-&error("ÆÕÍ¨´íÎó&ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò£¡") if (($postweiwang > $maxweiwang)&&($inhiddentopic eq "yes"));
+&error("æ™®é€šé”™è¯¯&è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åºï¼") if (($postweiwang > $maxweiwang)&&($inhiddentopic eq "yes"));
 $moneymax = 99999 if ($moneymax <=0 || $moneymax >=99999);
 $moneypost = int($moneypost) if (($moneypost ne "")&&($moneyhidden eq "yes"));
-&error("ÆÕÍ¨´íÎó&ÇëÕıÈ·µÄÊäÈëÌû×ÓµÄ¼Û¸ñ£¬²»ÒªÉÙÓÚ 1£¬Ò²²»Òª´óÓÚ $moneymax £¡") if ((($moneypost > $moneymax)||($moneypost < 1))&&($moneyhidden eq "yes"));
+&error("æ™®é€šé”™è¯¯&è¯·æ­£ç¡®çš„è¾“å…¥å¸–å­çš„ä»·æ ¼ï¼Œä¸è¦å°‘äº 1ï¼Œä¹Ÿä¸è¦å¤§äº $moneymax ï¼") if ((($moneypost > $moneymax)||($moneypost < 1))&&($moneyhidden eq "yes"));
 $inmembername  = $membername;
 $inpassword    = $password;
 if ($inpassword ne "") {
@@ -110,43 +110,43 @@ if($moneyhidden eq "yes" && $cansale ne "no"){
 	if ($CANSALELIST ne "") {
 	    my $type = $1;
 	    $CANSALELIST="\t$CANSALELIST\t";
-	    &error("ÆÕÍ¨´íÎó&Äú²»ÄÜ¹»³öÊÛÌû×Ó£¡") if (!$type && $CANSALELIST !~/\t$inmembername\t/ || $type && $CANSALELIST =~/\t$inmembername\t/);
+	    &error("æ™®é€šé”™è¯¯&æ‚¨ä¸èƒ½å¤Ÿå‡ºå”®å¸–å­ï¼") if (!$type && $CANSALELIST !~/\t$inmembername\t/ || $type && $CANSALELIST =~/\t$inmembername\t/);
 	}
     }
 }
 
 $inposticon    = $posticon;
 
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
-if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) { &error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡£¡"); }
+if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) { &error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼ï¼"); }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($inshowemoticons ne "yes") { $inshowemoticons eq "no"; }
 if ($innotify ne "yes")        { $innotify eq "no"; }
 
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) { &error ("·¢±íĞÂÖ÷Ìâ&¶Ô²»Æğ£¬Õâ¸öÂÛÌ³²»´æÔÚ£¡Èç¹ûÈ·¶¨·ÖÂÛÌ³ºÅÂëÃ»´í£¬ÄÇÃ´Çë½øÈë¹ÜÀíÇøĞŞ¸´ÂÛÌ³Ò»´Î£¡"); }
+if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) { &error ("å‘è¡¨æ–°ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œè¿™ä¸ªè®ºå›ä¸å­˜åœ¨ï¼å¦‚æœç¡®å®šåˆ†è®ºå›å·ç æ²¡é”™ï¼Œé‚£ä¹ˆè¯·è¿›å…¥ç®¡ç†åŒºä¿®å¤è®ºå›ä¸€æ¬¡ï¼"); }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
 } else {
     
     &getmember("$inmembername");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($inpassword ne "" && $userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($inpassword ne "" && $userregistered eq "no");
      if ($inpassword ne $password && $userregistered ne "no") {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 
-&doonoff;  #ÂÛÌ³¿ª·ÅÓë·ñ
+&doonoff;  #è®ºå›å¼€æ”¾ä¸å¦
 
 $mymembercode=$membercode;
 $myrating=$rating;
@@ -163,18 +163,18 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &moderator("$inforum");
 $myinmembmod = $inmembmod;
 
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
@@ -184,27 +184,27 @@ if ($wwjf ne "no") {
     for (my $i=0;$i<$maxweiwang;$i++) {
 	$weiwangoption.=qq~<option value=$i>$i</option>~;
     }
-    $weiwangoptionbutton=qq~<input type=checkbox name="inhiddentopic" value="yes">¼ÓÃÜ´ËÌû£¬Ö»¶Ô²¿·ÖÓÃ»§¿É¼û£¬ÓÃ»§ÍşÍûÖÁÉÙĞèÒª  <select name=postweiwang>$weiwangoption</select><br>~;
+    $weiwangoptionbutton=qq~<input type=checkbox name="inhiddentopic" value="yes">åŠ å¯†æ­¤å¸–ï¼Œåªå¯¹éƒ¨åˆ†ç”¨æˆ·å¯è§ï¼Œç”¨æˆ·å¨æœ›è‡³å°‘éœ€è¦  <select name=postweiwang>$weiwangoption</select><br>~;
 } else {
     undef $weiwangoptionbutton;
 }
 
 if ($cansale ne "no") {
-    my $cessinfo = " (ÊÕÈ¡Ë°ÂÊ: $postcess%)" if ($postcess ne '' && $postcess >= 1 && $postcess <= 100);
-    $salepost = qq~<input type=checkbox name="moneyhidden" value="yes">³öÊÛ´ËÌû£¬Ö»ÓĞ¸¶Ç®²Å¿ÉÒÔ²é¿´£¬ÊÛ¼Û <input type="text" name="moneypost" size="5" maxlength="5" value="100"> $moneyname$cessinfo<br>~;
+    my $cessinfo = " (æ”¶å–ç¨ç‡: $postcess%)" if ($postcess ne '' && $postcess >= 1 && $postcess <= 100);
+    $salepost = qq~<input type=checkbox name="moneyhidden" value="yes">å‡ºå”®æ­¤å¸–ï¼Œåªæœ‰ä»˜é’±æ‰å¯ä»¥æŸ¥çœ‹ï¼Œå”®ä»· <input type="text" name="moneypost" size="5" maxlength="5" value="100"> $moneyname$cessinfo<br>~;
 } else {
     undef $salepost;
 }
 
 if ($canchgfont ne "no") {
-    $fontpost = qq~<input type=checkbox name="inshowchgfont" value="yes">Ê¹ÓÃ×ÖÌå×ª»»£¿<br>~;
+    $fontpost = qq~<input type=checkbox name="inshowchgfont" value="yes">ä½¿ç”¨å­—ä½“è½¬æ¢ï¼Ÿ<br>~;
 } else {
     undef $fontpost;
 }
 
 if ($nowater eq "on") { 
     $gsnum = 0 if ($gsnum<=0);
-    $nowaterpost =qq~<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>¹àË®ÏŞÖÆ</b></font></td><td bgcolor=$miscbackone><input type="radio" class=1 name="inwater" value="no"> ²»Ğí¹àË®¡¡ <input name="inwater" type="radio" class=1 value="yes" checked> ÔÊĞí¹àË®¡¡    [Èç¹ûÑ¡Ôñ¡°²»Ğí¹àË®¡±£¬Ôò»Ø¸´²»µÃÉÙÓÚ <B>$gsnum</B> ×Ö½Ú]</td></tr>~;
+    $nowaterpost =qq~<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>çŒæ°´é™åˆ¶</b></font></td><td bgcolor=$miscbackone><input type="radio" class=1 name="inwater" value="no"> ä¸è®¸çŒæ°´ã€€ <input name="inwater" type="radio" class=1 value="yes" checked> å…è®¸çŒæ°´ã€€    [å¦‚æœé€‰æ‹©â€œä¸è®¸çŒæ°´â€ï¼Œåˆ™å›å¤ä¸å¾—å°‘äº <B>$gsnum</B> å­—èŠ‚]</td></tr>~;
 }
 
 if ($useemote eq "yes") {
@@ -216,7 +216,7 @@ if ($useemote eq "yes") {
 else { undef $emote; }
 
 
-$helpurl = &helpfiles("ÔÄ¶Á±ê¼Ç");
+$helpurl = &helpfiles("é˜…è¯»æ ‡è®°");
 $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
 my %Mode = (
@@ -227,22 +227,22 @@ my %Mode = (
     'copy1'      => \&copy1
 );
 
-    if ($arrawpostpic eq "on")      { $postpicstates = "ÔÊĞí";}      else { $postpicstates = "½ûÖ¹";}
-    if ($arrawpostflash eq "on")    { $postflashstates = "ÔÊĞí";}    else { $postflashstates = "½ûÖ¹";}
-    if ($arrawpostfontsize eq "on") { $postfontsizestates = "ÔÊĞí";} else { $postfontsizestates = "½ûÖ¹";}
-    if ($arrawpostsound eq "on")    { $postsoundstates = "ÔÊĞí";}    else { $postsoundstates = "½ûÖ¹";}
+    if ($arrawpostpic eq "on")      { $postpicstates = "å…è®¸";}      else { $postpicstates = "ç¦æ­¢";}
+    if ($arrawpostflash eq "on")    { $postflashstates = "å…è®¸";}    else { $postflashstates = "ç¦æ­¢";}
+    if ($arrawpostfontsize eq "on") { $postfontsizestates = "å…è®¸";} else { $postfontsizestates = "ç¦æ­¢";}
+    if ($arrawpostsound eq "on")    { $postsoundstates = "å…è®¸";}    else { $postsoundstates = "ç¦æ­¢";}
 
-    if ($postjf eq "yes")    { $postjfstates = "ÔÊĞí";}    else { $postjfstates = "½ûÖ¹";}
-    if ($jfmark eq "yes")    { $jfmarkstates = "ÔÊĞí";}    else { $jfmarkstates = "½ûÖ¹";}
-    if ($hidejf eq "yes")    { $hidejfstates = "ÔÊĞí";}    else { $hidejfstates = "½ûÖ¹";}
+    if ($postjf eq "yes")    { $postjfstates = "å…è®¸";}    else { $postjfstates = "ç¦æ­¢";}
+    if ($jfmark eq "yes")    { $jfmarkstates = "å…è®¸";}    else { $jfmarkstates = "ç¦æ­¢";}
+    if ($hidejf eq "yes")    { $hidejfstates = "å…è®¸";}    else { $hidejfstates = "ç¦æ­¢";}
 
     if ($Mode{$action}) { $Mode{$action}->(); }
     elsif ($action eq "addnew"  )  { &addnewthread; }
     elsif ($action eq "addreply")  { &addreply; }
     elsif ($action eq "addnewpay"  )  { &addnewpay; }
-    else { &error("ÆÕÍ¨´íÎó&ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò£¡"); }
+    else { &error("æ™®é€šé”™è¯¯&è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åºï¼"); }
 
-&output("$boardname - ÔÚ$forumnameÄÚ·¢Ìû",\$output);
+&output("$boardname - åœ¨$forumnameå†…å‘å¸–",\$output);
 exit;
 
 sub copy1 {
@@ -259,23 +259,23 @@ sub addnewpay {
 
 sub addreply {
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-        &error("·¢Ìû&ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $replyminjf µÄ²ÅÄÜ»Ø¸´£¡") if ($replyminjf > 0 && $jifen < $replyminjf);
+        &error("å‘å¸–&ä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $replyminjf çš„æ‰èƒ½å›å¤ï¼") if ($replyminjf > 0 && $jifen < $replyminjf);
     }
-    &error("³ö´í&Çë²»ÒªÓÃÍâ²¿Á¬½Ó±¾³ÌĞò£¡") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
+    &error("å‡ºé”™&è¯·ä¸è¦ç”¨å¤–éƒ¨è¿æ¥æœ¬ç¨‹åºï¼") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
     require "dotopicreplay.pl";
 }
 
 sub addnewthread {
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-        &error("·¢Ìû&ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $postminjf µÄ²ÅÄÜ·¢ÑÔ£¡") if ($postminjf > 0 && $jifen < $postminjf);
+        &error("å‘å¸–&ä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $postminjf çš„æ‰èƒ½å‘è¨€ï¼") if ($postminjf > 0 && $jifen < $postminjf);
     }
-    &error("³ö´í&Çë²»ÒªÓÃÍâ²¿Á¬½Ó±¾³ÌĞò£¡") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
+    &error("å‡ºé”™&è¯·ä¸è¦ç”¨å¤–éƒ¨è¿æ¥æœ¬ç¨‹åºï¼") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
     require "doaddnewtopic.pl";
 }
 
 sub replyquote {
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-        &error("·¢Ìû&ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $replyminjf µÄ²ÅÄÜ»Ø¸´£¡") if ($replyminjf > 0 && $jifen < $replyminjf);
+        &error("å‘å¸–&ä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $replyminjf çš„æ‰èƒ½å›å¤ï¼") if ($replyminjf > 0 && $jifen < $replyminjf);
     }
     require "doreplyquote.pl";
 }
@@ -284,58 +284,58 @@ sub newthread {
 #&getoneforum("$inforum");
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("·¢Ìû&ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $postminjf µÄ²ÅÄÜ·¢ÑÔ£¡") if ($postminjf > 0 && $jifen < $postminjf);
+    &error("å‘å¸–&ä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $postminjf çš„æ‰èƒ½å‘è¨€ï¼") if ($postminjf > 0 && $jifen < $postminjf);
 }
 
-    if ($startnewthreads eq "onlysub") {&error("·¢±í&¶Ô²»Æğ£¬ÕâÀïÊÇ´¿×ÓÂÛÌ³Çø£¬²»ÔÊĞí·¢ÑÔ£¡"); }
+    if ($startnewthreads eq "onlysub") {&error("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­è®ºå›åŒºï¼Œä¸å…è®¸å‘è¨€ï¼"); }
     $tempaccess = "forumsallowed". "$inforum";
     $testentry = $query->cookie("$tempaccess");
 
     if ((($testentry eq $forumpass)&&($testentry ne ""))||($allowedentry{$inforum} eq "yes")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
-    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("·¢±í&¶Ô²»Æğ£¬ÄúÃ»ÓĞÔÚ´ËÂÛÌ³ÖĞ·¢±íµÄÈ¨Àû£¡"); }
+    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("å‘è¡¨&å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰åœ¨æ­¤è®ºå›ä¸­å‘è¡¨çš„æƒåˆ©ï¼"); }
 
-    if ($postopen eq "no") { &error("·¢±íÖ÷Ìâ&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞí·¢±íÖ÷Ìâ£¡"); }
+    if ($postopen eq "no") { &error("å‘è¡¨ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸å‘è¡¨ä¸»é¢˜ï¼"); }
 
     if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $inmembmod ne "yes") {
-	&error("·¢±íĞÂÖ÷Ìâ&¶Ô²»Æğ£¬ÄãµÄÉ¾ÌùÂÊ³¬¹ıÁË<b>$deletepercent</b>%£¬¹ÜÀíÔ±²»ÔÊĞíÄã·¢±íĞÂÖ÷Ìâ£¡ÇëÁªÏµÌ³Ö÷½â¾ö£¡") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
+	&error("å‘è¡¨æ–°ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œä½ çš„åˆ è´´ç‡è¶…è¿‡äº†<b>$deletepercent</b>%ï¼Œç®¡ç†å‘˜ä¸å…è®¸ä½ å‘è¡¨æ–°ä¸»é¢˜ï¼è¯·è”ç³»å›ä¸»è§£å†³ï¼") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
     }
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-	if ($privateforum ne "yes") { &whosonline("$inmembername\t$forumname\tnone\t·¢±íĞÂÖ÷Ìâ\t"); }
-	                       else { &whosonline("$inmembername\t$forumname(ÃÜ)\tnone\t·¢±íĞÂµÄ±£ÃÜÖ÷Ìâ\t"); }
+	if ($privateforum ne "yes") { &whosonline("$inmembername\t$forumname\tnone\tå‘è¡¨æ–°ä¸»é¢˜\t"); }
+	                       else { &whosonline("$inmembername\t$forumname(å¯†)\tnone\tå‘è¡¨æ–°çš„ä¿å¯†ä¸»é¢˜\t"); }
     }
-    if ((($onlinetime + $onlinetimeadd) < $onlinepost)&&($onlinepost ne "")&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/))     {  $onlinetime = $onlinetime + $onlinetimeadd; &error("·¢±íĞÂÖ÷Ìâ&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞíÔÚÏßÊ±¼äÉÙÓÚ $onlinepost ÃëµÄÓÃ»§·¢±íÖ÷Ìâ£¡ÄãÄ¿Ç°ÒÑ¾­ÔÚÏß $onlinetime Ãë£¡<BR>Èç¹ûÔÚÏßÊ±¼äÍ³¼Æ²»ÕıÈ·,ÇëÖØĞÂµÇÂ½ÂÛÌ³Ò»´Î¼´¿É½â¾ö£¡"); }
+    if ((($onlinetime + $onlinetimeadd) < $onlinepost)&&($onlinepost ne "")&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/))     {  $onlinetime = $onlinetime + $onlinetimeadd; &error("å‘è¡¨æ–°ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸åœ¨çº¿æ—¶é—´å°‘äº $onlinepost ç§’çš„ç”¨æˆ·å‘è¡¨ä¸»é¢˜ï¼ä½ ç›®å‰å·²ç»åœ¨çº¿ $onlinetime ç§’ï¼<BR>å¦‚æœåœ¨çº¿æ—¶é—´ç»Ÿè®¡ä¸æ­£ç¡®,è¯·é‡æ–°ç™»é™†è®ºå›ä¸€æ¬¡å³å¯è§£å†³ï¼"); }
 
-    &mischeader("·¢±íĞÂÖ÷Ìâ");
+    &mischeader("å‘è¡¨æ–°ä¸»é¢˜");
 
     if ($emailfunctions eq "on") {
 	if ($innotify eq "yes") { $requestnotify = " checked"; } else { $requestnotify = ""; }
-	$requestnotify = qq~<input type=checkbox name="notify" value="yes"$requestnotify>ÓĞ»Ø¸´Ê±Ê¹ÓÃÓÊ¼şÍ¨ÖªÄú£¿<br>~;
+	$requestnotify = qq~<input type=checkbox name="notify" value="yes"$requestnotify>æœ‰å›å¤æ—¶ä½¿ç”¨é‚®ä»¶é€šçŸ¥æ‚¨ï¼Ÿ<br>~;
     }
 
-    if ($startnewthreads eq "no")        { $startthreads = "ÔÚ´ËÂÛÌ³ÖĞĞÂµÄÖ÷ÌâºÍÌû×Ó»Ø¸´Ö»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷·¢±í£¡"; }
-    elsif ($startnewthreads eq "follow") { $startthreads = "ÔÚ´ËÂÛÌ³ÖĞĞÂµÄÖ÷ÌâÖ»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷·¢±í£¡ÆÕÍ¨»áÔ±Ö»¿ÉÒÔ¸úÌû£¡"; }
-    elsif ($startnewthreads eq "all")    { $startthreads = "ÈÎºÎÈË¾ù¿ÉÒÔ·¢±íºÍ»Ø¸´Ö÷Ìâ£¬Î´×¢²áÓÃ»§·¢ÌûÃÜÂëÇëÁô¿Õ£¡"; }
-    elsif ($startnewthreads eq "cert")   { $startthreads = "ÔÚ´ËÂÛÌ³ÖĞĞÂµÄÖ÷ÌâÖ»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷¡¢ÈÏÖ¤µÄ»áÔ±·¢±í£¡"; }
-    else { $startthreads = "ËùÓĞ×¢²á»áÔ±¾ù¿ÉÒÔ·¢±íºÍ»Ø¸´Ö÷Ìâ£¡"; }
+    if ($startnewthreads eq "no")        { $startthreads = "åœ¨æ­¤è®ºå›ä¸­æ–°çš„ä¸»é¢˜å’Œå¸–å­å›å¤åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»å‘è¡¨ï¼"; }
+    elsif ($startnewthreads eq "follow") { $startthreads = "åœ¨æ­¤è®ºå›ä¸­æ–°çš„ä¸»é¢˜åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»å‘è¡¨ï¼æ™®é€šä¼šå‘˜åªå¯ä»¥è·Ÿå¸–ï¼"; }
+    elsif ($startnewthreads eq "all")    { $startthreads = "ä»»ä½•äººå‡å¯ä»¥å‘è¡¨å’Œå›å¤ä¸»é¢˜ï¼Œæœªæ³¨å†Œç”¨æˆ·å‘å¸–å¯†ç è¯·ç•™ç©ºï¼"; }
+    elsif ($startnewthreads eq "cert")   { $startthreads = "åœ¨æ­¤è®ºå›ä¸­æ–°çš„ä¸»é¢˜åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»ã€è®¤è¯çš„ä¼šå‘˜å‘è¡¨ï¼"; }
+    else { $startthreads = "æ‰€æœ‰æ³¨å†Œä¼šå‘˜å‡å¯ä»¥å‘è¡¨å’Œå›å¤ä¸»é¢˜ï¼"; }
 
-    $startthreads .= " <B>(Ìù×ÓÄÚ±ØĞë´ø¸½¼ş)</B>" if ($mastpostatt eq "yes");
+    $startthreads .= " <B>(è´´å­å†…å¿…é¡»å¸¦é™„ä»¶)</B>" if ($mastpostatt eq "yes");
 
     if ($emoticons eq "on") {
-	$emoticonslink = qq~<li><a href="javascript:openScript('misc.cgi?action=showsmilies',300,350)">ÔÊĞí<B>Ê¹ÓÃ</B>±íÇé×Ö·û×ª»»</a>~;
-	$emoticonsbutton =qq~<input type=checkbox name="inshowemoticons" value="yes" checked>ÄúÊÇ·ñÏ£Íû<b>Ê¹ÓÃ</b>±íÇé×Ö·û×ª»»ÔÚÄúµÄÎÄÕÂÖĞ£¿<br>~;
+	$emoticonslink = qq~<li><a href="javascript:openScript('misc.cgi?action=showsmilies',300,350)">å…è®¸<B>ä½¿ç”¨</B>è¡¨æƒ…å­—ç¬¦è½¬æ¢</a>~;
+	$emoticonsbutton =qq~<input type=checkbox name="inshowemoticons" value="yes" checked>æ‚¨æ˜¯å¦å¸Œæœ›<b>ä½¿ç”¨</b>è¡¨æƒ…å­—ç¬¦è½¬æ¢åœ¨æ‚¨çš„æ–‡ç« ä¸­ï¼Ÿ<br>~;
     }
 
     if ($emoticons eq "on") {
 	$output .= qq~<script language="javascript">function smilie(smilietext) {smilietext=' :'+smilietext+': ';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? smilietext + ' ' : smilietext;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=smilietext;document.FORM.inpost.focus();}}</script>~;
     }
-    if ($htmlstate eq "on")     { $htmlstates = "¿ÉÓÃ"; }     else { $htmlstates = "²»¿ÉÓÃ"; }
-    if ($idmbcodestate eq "on") { $idmbcodestates = "¿ÉÓÃ"; $canlbcode =qq~<input type=checkbox name="uselbcode" value="yes" checked>Ê¹ÓÃ LeoBBS ±êÇ©£¿<br>~; } else { $idmbcodestates = "²»¿ÉÓÃ"; $canlbcode= "";}
-    if ($useemote eq "no")      { $emotestates = "²»¿ÉÓÃ"; }  else { $emotestates = "¿ÉÓÃ"; }
+    if ($htmlstate eq "on")     { $htmlstates = "å¯ç”¨"; }     else { $htmlstates = "ä¸å¯ç”¨"; }
+    if ($idmbcodestate eq "on") { $idmbcodestates = "å¯ç”¨"; $canlbcode =qq~<input type=checkbox name="uselbcode" value="yes" checked>ä½¿ç”¨ LeoBBS æ ‡ç­¾ï¼Ÿ<br>~; } else { $idmbcodestates = "ä¸å¯ç”¨"; $canlbcode= "";}
+    if ($useemote eq "no")      { $emotestates = "ä¸å¯ç”¨"; }  else { $emotestates = "å¯ç”¨"; }
 
-    $intopictitle =~ s/^£ª£££¡£¦£ª//;
+    $intopictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
     $output .= qq~<script>
 var autoSave = false;
 function storeCaret(textEl) {if (textEl.createTextRange) textEl.caretPos = document.selection.createRange().duplicate();if (autoSave)savePost();}
@@ -355,11 +355,11 @@ return;}
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>Ë­¿ÉÒÔ·¢±í£¿</b> $startthreads</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>Ö÷Ìâ±êÌâ</b></font>¡¡
+<tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>è°å¯ä»¥å‘è¡¨ï¼Ÿ</b> $startthreads</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ä¸»é¢˜æ ‡é¢˜</b></font>ã€€
 <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
-<OPTION selected value="">Ñ¡Ôñ»°Ìâ</OPTION> <OPTION value=[Ô­´´]>[Ô­´´]</OPTION><OPTION value=[×ªÌû]>[×ªÌû]</OPTION><OPTION value=[¹àË®]>[¹àË®]</OPTION><OPTION value=[ÌÖÂÛ]>[ÌÖÂÛ]</OPTION><OPTION value=[ÇóÖú]>[ÇóÖú]</OPTION><OPTION value=[ÍÆ¼ö]>[ÍÆ¼ö]</OPTION><OPTION value=[¹«¸æ]>[¹«¸æ]</OPTION><OPTION value=[×¢Òâ]>[×¢Òâ]</OPTION><OPTION value=[ÌùÍ¼]>[ÌùÍ¼]</OPTION><OPTION value=[½¨Òé]>[½¨Òé]</OPTION><OPTION value=[ÏÂÔØ]>[ÏÂÔØ]</OPTION><OPTION value=[·ÖÏí]>[·ÖÏí]</OPTION>
-</SELECT></td><td bgcolor=$miscbackone><input type=text size=60 maxlength=80 name="intopictitle" value="$intopictitle">¡¡²»µÃ³¬¹ı 40 ¸öºº×Ö</td></tr>$nowaterpost
+<OPTION selected value="">é€‰æ‹©è¯é¢˜</OPTION> <OPTION value=[åŸåˆ›]>[åŸåˆ›]</OPTION><OPTION value=[è½¬å¸–]>[è½¬å¸–]</OPTION><OPTION value=[çŒæ°´]>[çŒæ°´]</OPTION><OPTION value=[è®¨è®º]>[è®¨è®º]</OPTION><OPTION value=[æ±‚åŠ©]>[æ±‚åŠ©]</OPTION><OPTION value=[æ¨è]>[æ¨è]</OPTION><OPTION value=[å…¬å‘Š]>[å…¬å‘Š]</OPTION><OPTION value=[æ³¨æ„]>[æ³¨æ„]</OPTION><OPTION value=[è´´å›¾]>[è´´å›¾]</OPTION><OPTION value=[å»ºè®®]>[å»ºè®®]</OPTION><OPTION value=[ä¸‹è½½]>[ä¸‹è½½]</OPTION><OPTION value=[åˆ†äº«]>[åˆ†äº«]</OPTION>
+</SELECT></td><td bgcolor=$miscbackone><input type=text size=60 maxlength=80 name="intopictitle" value="$intopictitle">ã€€ä¸å¾—è¶…è¿‡ 40 ä¸ªæ±‰å­—</td></tr>$nowaterpost
     ~;
     &posttable(1);
 }
@@ -370,45 +370,45 @@ sub reply {
     $tempaccess = "forumsallowed". "$inforum";
     $testentry = $query->cookie("$tempaccess");
     if (($allowedentry{$inforum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
-    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("·¢±í&¶Ô²»Æğ£¬Äú²»ÔÊĞíÔÚ´ËÂÛÌ³·¢±í£¡");}
-    if ($postopen eq "no") { &error("·¢±í»ò»Ø¸´Ö÷Ìâ&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞí·¢±í»ò»Ø¸´Ö÷Ìâ£¡"); }
-    &error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜ²é¿´Ìù×ÓÄÚÈİ£¬Çë×¢²á»òµÇÂ¼ºóÔÙÊÔ") if (($guestregistered eq "off")&&($inmembername eq "¿ÍÈË"));
+    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("å‘è¡¨&å¯¹ä¸èµ·ï¼Œæ‚¨ä¸å…è®¸åœ¨æ­¤è®ºå›å‘è¡¨ï¼");}
+    if ($postopen eq "no") { &error("å‘è¡¨æˆ–å›å¤ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸å‘è¡¨æˆ–å›å¤ä¸»é¢˜ï¼"); }
+    &error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½æŸ¥çœ‹è´´å­å†…å®¹ï¼Œè¯·æ³¨å†Œæˆ–ç™»å½•åå†è¯•") if (($guestregistered eq "off")&&($inmembername eq "å®¢äºº"));
 
     open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
     @threads = <FILE>;
     close(FILE);
     $posttoget = $inpostno - 1;
     ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature ,$postdate, $post) = split(/\t/, $threads[$posttoget]);
-    $topictitle =~ s/^£ª£££¡£¦£ª//;
+    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
     if ($emoticons eq "on") {
-        $emoticonslink = qq~<li><a href="javascript:openScript('misc.cgi?action=showsmilies',300,350)">ÔÊĞí<B>Ê¹ÓÃ</B>±íÇé×Ö·û×ª»»</a>~;
-        $emoticonsbutton =qq~<input type=checkbox name="inshowemoticons" value="yes" checked>ÄúÊÇ·ñÏ£Íû<b>Ê¹ÓÃ</b>±íÇé×Ö·û×ª»»ÔÚÄúµÄÎÄÕÂÖĞ£¿<br>~;
+        $emoticonslink = qq~<li><a href="javascript:openScript('misc.cgi?action=showsmilies',300,350)">å…è®¸<B>ä½¿ç”¨</B>è¡¨æƒ…å­—ç¬¦è½¬æ¢</a>~;
+        $emoticonsbutton =qq~<input type=checkbox name="inshowemoticons" value="yes" checked>æ‚¨æ˜¯å¦å¸Œæœ›<b>ä½¿ç”¨</b>è¡¨æƒ…å­—ç¬¦è½¬æ¢åœ¨æ‚¨çš„æ–‡ç« ä¸­ï¼Ÿ<br>~;
     }
     if ($emailfunctions eq "on") {
 	if ($innotify eq "yes") { $requestnotify = " checked"; } else { $requestnotify = ""; }
-	$requestnotify = qq~<input type=checkbox name="notify" value="yes"$requestnotify>ÓĞ»Ø¸´Ê±Ê¹ÓÃÓÊ¼şÍ¨ÖªÄú£¿<br>~;
+	$requestnotify = qq~<input type=checkbox name="notify" value="yes"$requestnotify>æœ‰å›å¤æ—¶ä½¿ç”¨é‚®ä»¶é€šçŸ¥æ‚¨ï¼Ÿ<br>~;
     }
 
-    &mischeader("·¢±í»Ø¸´");
+    &mischeader("å‘è¡¨å›å¤");
 
     $output .= qq~<script language="javascript">function smilie(smilietext) {smilietext=' :'+smilietext+': ';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? smilietext + ' ' : smilietext;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=smilietext;document.FORM.inpost.focus();}}</script>~;
 
-    if ($htmlstate eq "on")     { $htmlstates = "¿ÉÓÃ";     } else { $htmlstates = "²»¿ÉÓÃ";     }
-    if ($idmbcodestate eq "on") { $idmbcodestates = "¿ÉÓÃ"; $canlbcode =qq~<input type=checkbox name="uselbcode" value="yes" checked>Ê¹ÓÃ LeoBBS ±êÇ©£¿<br>~; } else { $idmbcodestates = "²»¿ÉÓÃ"; $canlbcode= "";}
-    if ($useemote eq "no")      { $emotestates = "²»¿ÉÓÃ";  } else { $emotestates = "¿ÉÓÃ"; }
+    if ($htmlstate eq "on")     { $htmlstates = "å¯ç”¨";     } else { $htmlstates = "ä¸å¯ç”¨";     }
+    if ($idmbcodestate eq "on") { $idmbcodestates = "å¯ç”¨"; $canlbcode =qq~<input type=checkbox name="uselbcode" value="yes" checked>ä½¿ç”¨ LeoBBS æ ‡ç­¾ï¼Ÿ<br>~; } else { $idmbcodestates = "ä¸å¯ç”¨"; $canlbcode= "";}
+    if ($useemote eq "no")      { $emotestates = "ä¸å¯ç”¨";  } else { $emotestates = "å¯ç”¨"; }
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
 	if ($privateforum ne "yes") {
-     	    &whosonline("$inmembername\t$forumname\tnone\t»Ø¸´<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
+     	    &whosonline("$inmembername\t$forumname\tnone\tå›å¤<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
 	}
 	else {
-            &whosonline("$inmembername\t$forumname(ÃÜ)\tnone\t»Ø¸´±£ÃÜÌû×Ó\t");
+            &whosonline("$inmembername\t$forumname(å¯†)\tnone\tå›å¤ä¿å¯†å¸–å­\t");
 	}
     }
-    if ((($onlinetime + $onlinetimeadd) < $onlinepost)&&($onlinepost ne "")&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/))     {  $onlinetime = $onlinetime + $onlinetimeadd; &error("»Ø¸´Ö÷Ìâ&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞíÔÚÏßÊ±¼äÉÙÓÚ $onlinepost ÃëµÄÓÃ»§»Ø¸´Ö÷Ìâ£¡ÄãÄ¿Ç°ÒÑ¾­ÔÚÏß $onlinetime Ãë£¡<BR>Èç¹ûÔÚÏßÊ±¼äÍ³¼Æ²»ÕıÈ·,ÇëÖØĞÂµÇÂ½ÂÛÌ³Ò»´Î¼´¿É½â¾ö£¡"); }
+    if ((($onlinetime + $onlinetimeadd) < $onlinepost)&&($onlinepost ne "")&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/))     {  $onlinetime = $onlinetime + $onlinetimeadd; &error("å›å¤ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸åœ¨çº¿æ—¶é—´å°‘äº $onlinepost ç§’çš„ç”¨æˆ·å›å¤ä¸»é¢˜ï¼ä½ ç›®å‰å·²ç»åœ¨çº¿ $onlinetime ç§’ï¼<BR>å¦‚æœåœ¨çº¿æ—¶é—´ç»Ÿè®¡ä¸æ­£ç¡®,è¯·é‡æ–°ç™»é™†è®ºå›ä¸€æ¬¡å³å¯è§£å†³ï¼"); }
 
     $output .= qq~<script>
 var autoSave = false;
@@ -427,7 +427,7 @@ therange.execCommand("Copy")}
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>Ö÷Ìâ±êÌâ</b>£º $topictitle</td></tr>
+<tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>ä¸»é¢˜æ ‡é¢˜</b>ï¼š $topictitle</td></tr>
     ~;
     &posttable(2);
     require "dothreadreview.pl";
@@ -435,10 +435,10 @@ therange.execCommand("Copy")}
 
 sub posttable {
     my $page = shift;
-    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>µ±Ç°ĞÄÇé</b><br><li>½«·ÅÔÚÌû×ÓµÄÇ°Ãæ<BR></font></td><td bgcolor=$miscbackone valign=top>
+    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>å½“å‰å¿ƒæƒ…</b><br><li>å°†æ”¾åœ¨å¸–å­çš„å‰é¢<BR></font></td><td bgcolor=$miscbackone valign=top>
 ~;
     open (FILE, "${lbdir}data/lbpost.cgi");
     my @posticondata = <FILE>;
@@ -455,18 +455,18 @@ sub posttable {
     }
     if ((($page eq 1)&&($arrowupload ne "off"))||(($page eq 2)&&($allowattachment ne "no"))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
     $uploadreqire = "" if ($uploadreqire <= 0);
-    $uploadreqire = "<BR>·¢ÌûÊıÒª´óÓÚ <B>$uploadreqire</B> Æª(ÈÏÖ¤ÓÃ»§²»ÏŞ)" if ($uploadreqire ne "");
+    $uploadreqire = "<BR>å‘å¸–æ•°è¦å¤§äº <B>$uploadreqire</B> ç¯‡(è®¤è¯ç”¨æˆ·ä¸é™)" if ($uploadreqire ne "");
 	$output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
-        $output .= qq~<tr><td bgcolor=$miscbackone><b>ÉÏ´«¸½¼ş»òÍ¼Æ¬</b> (×î´óÈİÁ¿ <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>Ä¿Ç°¸½¼ş:(Èç²»ĞèÒªÄ³¸ö¸½¼ş£¬Ö»ĞèÉ¾³ıÄÚÈİÖĞµÄÏàÓ¦ [UploadFile$imgslt ...] ±êÇ©¼´¿É)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=É¾³ıËùÓĞÎ´±»·¢²¼µÄ¸½¼şÁÙÊ±ÎÄ¼ş OnClick="return confirm('È·¶¨É¾³ıËùÓĞÎ´±»·¢²¼µÄ¸½¼şÁÙÊ±ÎÄ¼şÃ´£¿');">É¾³ı</a>] </font></font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
+        $output .= qq~<tr><td bgcolor=$miscbackone><b>ä¸Šä¼ é™„ä»¶æˆ–å›¾ç‰‡</b> (æœ€å¤§å®¹é‡ <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>ç›®å‰é™„ä»¶:(å¦‚ä¸éœ€è¦æŸä¸ªé™„ä»¶ï¼Œåªéœ€åˆ é™¤å†…å®¹ä¸­çš„ç›¸åº” [UploadFile$imgslt ...] æ ‡ç­¾å³å¯)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=åˆ é™¤æ‰€æœ‰æœªè¢«å‘å¸ƒçš„é™„ä»¶ä¸´æ—¶æ–‡ä»¶ OnClick="return confirm('ç¡®å®šåˆ é™¤æ‰€æœ‰æœªè¢«å‘å¸ƒçš„é™„ä»¶ä¸´æ—¶æ–‡ä»¶ä¹ˆï¼Ÿ');">åˆ é™¤</a>] </font></font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
     }
-    $maxpoststr = "(Ìû×ÓÖĞ×î¶à°üº¬ <B>$maxpoststr</B> ¸ö×Ö·û)" if ($maxpoststr ne "");
+    $maxpoststr = "(å¸–å­ä¸­æœ€å¤šåŒ…å« <B>$maxpoststr</B> ä¸ªå­—ç¬¦)" if ($maxpoststr ne "");
     
-    $output .= qq~</td></tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>ÄÚÈİ</b>¡¡$maxpoststr<p>ÔÚ´ËÂÛÌ³ÖĞ£º<li>HTML ¡¡±êÇ©: <b>$htmlstates</b><li><a href="javascript:openScript('lookemotes.cgi?action=style',300,350)">EMOTE¡¡±êÇ©</a>: <b>$emotestates</b><li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS ±êÇ©</a>: <b>$idmbcodestates</b><li>ÌùÍ¼±êÇ© ¡¡: <b>$postpicstates</b><li>Flash ±êÇ© : <b>$postflashstates</b><li>ÒôÀÖ±êÇ© ¡¡: <b>$postsoundstates</b><li>ÎÄ×Ö´óĞ¡ ¡¡: <b>$postfontsizestates</b><li>ÌûÊı±êÇ© ¡¡: <b>$postjfstates</b><li>»ı·Ö±êÇ© ¡¡: <b>$jfmarkstates</b><li>±£ÃÜ±êÇ© ¡¡: <b>$hidejfstates</b>$emoticonslink</font></td><td bgcolor=$miscbackone>$insidejs<TEXTAREA cols=80 name=inpost id=inpost rows=12 wrap="soft" onkeydown=ctlent() onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">$inpost</TEXTAREA><br>
-&nbsp; Ä£Ê½:<input type="radio" name="mode" value="help" onClick="thelp(1)">°ïÖú¡¡<input type="radio" name="mode" value="prompt" CHECKED onClick="thelp(2)">ÍêÈ«¡¡<input type="radio" name="mode" value="basic"  onClick="thelp(0)">»ù±¾¡¡¡¡>> <a href=javascript:HighlightAll('FORM.inpost')>¸´ÖÆµ½¼ôÌù°å</a> | <a href=javascript:checklength(document.FORM);>²é¿´³¤¶È</a> | <span style=cursor:hand onclick="document.getElementById('inpost').value += trans()">×ª»»¼ôÌù°å³¬ÎÄ±¾</spn><SCRIPT>rtf.document.designMode="On";</SCRIPT> <<
+    $output .= qq~</td></tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>å†…å®¹</b>ã€€$maxpoststr<p>åœ¨æ­¤è®ºå›ä¸­ï¼š<li>HTML ã€€æ ‡ç­¾: <b>$htmlstates</b><li><a href="javascript:openScript('lookemotes.cgi?action=style',300,350)">EMOTEã€€æ ‡ç­¾</a>: <b>$emotestates</b><li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS æ ‡ç­¾</a>: <b>$idmbcodestates</b><li>è´´å›¾æ ‡ç­¾ ã€€: <b>$postpicstates</b><li>Flash æ ‡ç­¾ : <b>$postflashstates</b><li>éŸ³ä¹æ ‡ç­¾ ã€€: <b>$postsoundstates</b><li>æ–‡å­—å¤§å° ã€€: <b>$postfontsizestates</b><li>å¸–æ•°æ ‡ç­¾ ã€€: <b>$postjfstates</b><li>ç§¯åˆ†æ ‡ç­¾ ã€€: <b>$jfmarkstates</b><li>ä¿å¯†æ ‡ç­¾ ã€€: <b>$hidejfstates</b>$emoticonslink</font></td><td bgcolor=$miscbackone>$insidejs<TEXTAREA cols=80 name=inpost id=inpost rows=12 wrap="soft" onkeydown=ctlent() onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">$inpost</TEXTAREA><br>
+&nbsp; æ¨¡å¼:<input type="radio" name="mode" value="help" onClick="thelp(1)">å¸®åŠ©ã€€<input type="radio" name="mode" value="prompt" CHECKED onClick="thelp(2)">å®Œå…¨ã€€<input type="radio" name="mode" value="basic"  onClick="thelp(0)">åŸºæœ¬ã€€ã€€>> <a href=javascript:HighlightAll('FORM.inpost')>å¤åˆ¶åˆ°å‰ªè´´æ¿</a> | <a href=javascript:checklength(document.FORM);>æŸ¥çœ‹é•¿åº¦</a> | <span style=cursor:hand onclick="document.getElementById('inpost').value += trans()">è½¬æ¢å‰ªè´´æ¿è¶…æ–‡æœ¬</spn><SCRIPT>rtf.document.designMode="On";</SCRIPT> <<
 </td></tr></tr>~;
     
     if ($emoticons eq "on") {
-	$output .= qq~<tr><td bgcolor=$miscbackone valign=top colspan=2><font color=$fontcolormisc><b>µã»÷±íÇéÍ¼¼´¿ÉÔÚÌû×ÓÖĞ¼ÓÈëÏàÓ¦µÄ±íÇé</B></font><br>&nbsp;~;
+	$output .= qq~<tr><td bgcolor=$miscbackone valign=top colspan=2><font color=$fontcolormisc><b>ç‚¹å‡»è¡¨æƒ…å›¾å³å¯åœ¨å¸–å­ä¸­åŠ å…¥ç›¸åº”çš„è¡¨æƒ…</B></font><br>&nbsp;~;
 	if (open (FILE, "${lbdir}data/lbemot.cgi")) {
 	    @emoticondata = <FILE>;
 	    close (FILE);
@@ -495,11 +495,11 @@ var beginemot=(page+topage-1)*limit;
 var endemot=(page+topage)*limit ;
 var out='';
 page=page+topage;
-if (page != 1) { out += '<span style=cursor:hand onclick="emotpage(-1)" title=ÉÏÒ»Ò³><font face=webdings size=+1>7</font></span> '; }
+if (page != 1) { out += '<span style=cursor:hand onclick="emotpage(-1)" title=ä¸Šä¸€é¡µ><font face=webdings size=+1>7</font></span> '; }
 for (var i=beginemot;i<emotarray.length && i < endemot ;i++){out += ' <img src=$imagesurl/emot/' + emotarray[i] + ' border=0 onClick="smilie(\\'' + emotarray[i].replace(".gif", "") + '\\');FORM.inpost.focus()" style=cursor:hand> ';}
-if (page != eofpage){ out += ' <span style=cursor:hand onclick="emotpage(1)" title=ÏÂÒ»Ò³><font face=webdings size=+1>8</font></span>'; }
-out += '  µÚ '+ page+' Ò³£¬×Ü¹² '+ eofpage+ ' Ò³£¬¹² '+emotarray.length+' ¸ö';
-out += '  <B><span style=cursor:hand onclick="showall()" title="ÏÔÊ¾ËùÓĞ±íÇéÍ¼Ê¾">[ÏÔÊ¾ËùÓĞ]</span></B>';
+if (page != eofpage){ out += ' <span style=cursor:hand onclick="emotpage(1)" title=ä¸‹ä¸€é¡µ><font face=webdings size=+1>8</font></span>'; }
+out += '  ç¬¬ '+ page+' é¡µï¼Œæ€»å…± '+ eofpage+ ' é¡µï¼Œå…± '+emotarray.length+' ä¸ª';
+out += '  <B><span style=cursor:hand onclick="showall()" title="æ˜¾ç¤ºæ‰€æœ‰è¡¨æƒ…å›¾ç¤º">[æ˜¾ç¤ºæ‰€æœ‰]</span></B>';
 emotbox.innerHTML=out;
 }
 emotpage (1);
@@ -509,12 +509,12 @@ function showall (){var out ='';for (var i=0;i<emotarray.length;i++){out += ' <i
 	}
     	$output .= qq~</td></tr>~;
     }
-    $output .= qq~<tr><td bgcolor=$miscbacktwo valign=top><font color=$fontcolormisc><b>Ñ¡Ïî</b><p>$helpurl</font></td>
+    $output .= qq~<tr><td bgcolor=$miscbacktwo valign=top><font color=$fontcolormisc><b>é€‰é¡¹</b><p>$helpurl</font></td>
 <td bgcolor=$miscbacktwo><font color=$fontcolormisc>$canlbcode
-<input type=checkbox name="inshowsignature" value="yes" checked>ÊÇ·ñÏÔÊ¾ÄúµÄÇ©Ãû£¿<br>
+<input type=checkbox name="inshowsignature" value="yes" checked>æ˜¯å¦æ˜¾ç¤ºæ‚¨çš„ç­¾åï¼Ÿ<br>
 $requestnotify$emoticonsbutton$fontpost$weiwangoptionbutton$salepost
 </font><BR></td></tr><tr><td bgcolor=$miscbacktwo colspan=2 align=center>
-<input type=Submit value="·¢ ±í" name=Submit onClick="return clckcntr();">¡¡¡¡<input type=button value='Ô¤ ÀÀ' name=Button onclick=gopreview()>¡¡¡¡<input type="reset" name="Clear" value="Çå ³ı"></td></form></tr></table></tr></td></table>
+<input type=Submit value="å‘ è¡¨" name=Submit onClick="return clckcntr();">ã€€ã€€<input type=button value='é¢„ è§ˆ' name=Button onclick=gopreview()>ã€€ã€€<input type="reset" name="Clear" value="æ¸… é™¤"></td></form></tr></table></tr></td></table>
 <SCRIPT>valignend()</SCRIPT>
 <form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$inforum"></form>
 <script>
@@ -541,41 +541,4 @@ sub addmytopic {
    mkdir ("${lbdir}$recorddir/$mode", 0777) if (!(-e "${lbdir}$recorddir/$mode"));
    my $filetoopen = $lbdir . "$recorddir/" . $mode . "/" . $cleanmembername . ".cgi";
    my $lockfile = &lockfilename($filetoopen);
-   if (!(-e "$lockfile.lck")) {
-      &winlock($filetoopen) if ($OS_USED eq "Nt");
-
-      my $oldnum = 0;
-      if (-e $filetoopen)
-      {
-              open(FILE, $filetoopen);
-              flock(FILE, 1) if ($OS_USED eq "Unix");
-              @oldtopics = <FILE>;
-              close(FILE);
-              chomp(@oldtopics);
-              $oldnum = @oldtopics;
-      }
-      open (FILE, ">$filetoopen");
-      flock(FILE, 2) if ($OS_USED eq "Unix");
-      print FILE "$inforum\t$intopic\t$topictitle\t$currenttime\t$posticon\n";
-      my $i = 0;
-      while ($i < $maxpersontopic - 1 && $i < $oldnum)
-      {
-              my $tempcontent = shift(@oldtopics);
-              last unless ($tempcontent ne "");
-              my ($tempinforum, $tempintopic, $temptopictitle, $tempcurrenttime, $tempposticon) = split(/\t/, $tempcontent);
-              unless ($tempinforum == $inforum && $tempintopic == $intopic)
-              {
-                      if ($temptopictitle ne "")
-                      {
-                              print FILE "$tempinforum\t$tempintopic\t$temptopictitle\t$tempcurrenttime\t$tempposticon\n";
-                              $i++;
-                      }
-              }
-      }
-      close(FILE);
-      &winunlock($filetoopen) if ($OS_USED eq "Nt");
-   }
-    else {
-    	unlink ("$lockfile.lck") if ((-M "$lockfile.lck") *86400 > 30);
-    }
-}
+   isc><b>

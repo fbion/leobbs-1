@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -25,13 +25,13 @@ require "wap.pl";
 require "data/styles.cgi";
 $|++;
 &waptitle;
-$show.= qq~<card  title="$boardname-·¢±íÖ÷Ìâ">~;
+$show.= qq~<card  title="$boardname-å‘è¡¨ä¸»é¢˜">~;
 $lid = $query -> param('lid');
 &check($lid);
 $inforum        = $query -> param('f');
 $intopictitle        = $query -> param('title');
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername");
 }   
@@ -53,51 +53,45 @@ $inpost        =~ s/\[ADMINOPE=(.+?)\]/\[ADMINOP\&\#069\;=$1\]/sg;
 &moderator("$inforum");
 $myinmembmod = $inmembmod;
 if ($allowusers ne ''){
-    &errorout('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &errorout('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
-if ($startnewthreads eq "onlysub") {&errorout("·¢±í&¶Ô²»Æğ£¬ÕâÀïÊÇ´¿×ÓÂÛÌ³Çø£¬²»ÔÊĞí·¢ÑÔ£¡"); }
+if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­è®ºå›åŒºï¼Œä¸å…è®¸å‘è¨€ï¼"); }
 
     if (($floodcontrol eq "on") && ($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'amo') && ($membercode ne 'cmo') && ($membercode ne "mo") && ($inmembmod ne "yes")) {
 	($lastpost, $posturl, $posttopic) = split(/\%\%\%/,$lastpostdate);
 	$lastpost = $lastpost + $floodcontrollimit;
 	if ($lastpost > $currenttime)  {
 	    my $lastpost1 = $lastpost - $currenttime;
-	    &errorout("·¢±íĞÂÖ÷Ìâ&¹àË®Ô¤·À»úÖÆÒÑ¾­Ê¹ÓÃ£¬Äú±ØĞëÔÙµÈ´ı $lastpost1 ÃëÖÓ²ÅÄÜÔÙ´Î·¢±í£¡");
+	    &errorout("å‘è¡¨æ–°ä¸»é¢˜&çŒæ°´é¢„é˜²æœºåˆ¶å·²ç»ä½¿ç”¨ï¼Œæ‚¨å¿…é¡»å†ç­‰å¾… $lastpost1 ç§’é’Ÿæ‰èƒ½å†æ¬¡å‘è¡¨ï¼");
 	}
     }
-    if ($postopen eq "no") { &errorout("·¢±í»ò»Ø¸´Ö÷Ìâ&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞí·¢±í»ò»Ø¸´Ö÷Ìâ£¡"); }
-    if (($userregistered eq "no")&&(length($inmembername) > 12)) { &errorout("·¢±íĞÂÖ÷Ìâ&ÄúÊäÈëµÄÓÃ»§ÃûÌ«³¤£¬Çë¿ØÖÆÔÚ6¸öºº×ÖÄÚ£¡");   }
-    if (($userregistered eq "no")&&($inmembername =~ /^¿ÍÈË/)) { &errorout("·¢±íĞÂÖ÷Ìâ&Çë²»ÒªÔÚÓÃ»§ÃûµÄ¿ªÍ·ÖĞÊ¹ÓÃ¿ÍÈË×ÖÑù£¡");   }
-    if ($inmembername eq "¿ÍÈË") { &errorout("·¢±íĞÂÖ÷Ìâ&Çë²»ÒªÔÚÓÃ»§ÃûµÄ¿ªÍ·ÖĞÊ¹ÓÃ¿ÍÈË×ÖÑù£¡");   }
-    if (($userregistered eq "no")&&($startnewthreads ne "all")) { &errorout("·¢±íĞÂÖ÷Ìâ&ÄúÃ»ÓĞ×¢²á£¡");   }
-   # elsif ((($inpassword ne $password)&&($userregistered ne "no"))||(($inpassword ne "")&&($userregistered eq "no"))) { &errorout("·¢±íĞÂÖ÷Ìâ&ÄúµÄÃÜÂë´íÎó£¡"); }
-    elsif (($membercode eq "banned")||($membercode eq "masked"))      { &errorout("Ìí¼Ó»Ø¸´&Äú±»½ûÖ¹·¢ÑÔ»òÕß·¢ÑÔ±»ÆÁ±Î£¬ÇëÁªÏµ¹ÜÀíÔ±½â¾ö£¡"); }
-    elsif ($intopictitle eq "£ª£££¡£¦£ª") { &errorout("·¢±íĞÂÖ÷Ìâ&±ØĞëÊäÈëÖ÷Ìâ±êÌâ£¡"); }
-    elsif (length($intopictitle) > 92)   { &errorout("·¢±íĞÂÖ÷Ìâ&Ö÷Ìâ±êÌâ¹ı³¤£¡"); }
+    if ($postopen eq "no") { &errorout("å‘è¡¨æˆ–å›å¤ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸å‘è¡¨æˆ–å›å¤ä¸»é¢˜ï¼"); }
+    if (($userregistered eq "no")&&(length($inmembername) > 12)) { &errorout("å‘è¡¨æ–°ä¸»é¢˜&æ‚¨è¾“å…¥çš„ç”¨æˆ·åå¤ªé•¿ï¼Œè¯·æ§åˆ¶åœ¨6ä¸ªæ±‰å­—å†…ï¼");   }
+    if (($userregistered eq "no")&&($inmembername =~ /^å®¢äºº/)) { &errorout("å‘è¡¨æ–°ä¸»é¢˜&è¯·ä¸è¦åœ¨ç”¨æˆ·åçš„å¼€å¤´ä¸­ä½¿ç”¨å®¢äººå­—æ ·ï¼");   }
+    if ($inmembername eq "å®¢äºº") { &errorout("å‘è¡¨æ–°ä¸»é¢˜&è¯·ä¸è¦åœ¨ç”¨æˆ·åçš„å¼€å¤´ä¸­ä½¿ç”¨å®¢äººå­—æ ·ï¼");   }
+    if (($userregistered eq "no")&&($startnewthreads ne "all")) { &errorout("å‘è¡¨æ–°ä¸»é¢˜&æ‚¨æ²¡æœ‰æ³¨å†Œï¼");   }
+   # elsif ((($inpassword ne $password)&&($userregistered ne "no"))||(($inpassword ne "")&&($userregistered eq "no"))) { &errorout("å‘è¡¨æ–°ä¸»é¢˜&æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
+    elsif (($membercode eq "banned")||($membercode eq "masked"))      { &errorout("æ·»åŠ å›å¤&æ‚¨è¢«ç¦æ­¢å‘è¨€æˆ–è€…å‘è¨€è¢«å±è”½ï¼Œè¯·è”ç³»ç®¡ç†å‘˜è§£å†³ï¼"); }
+    elsif ($intopictitle eq "ï¼Šï¼ƒï¼ï¼†ï¼Š") { &errorout("å‘è¡¨æ–°ä¸»é¢˜&å¿…é¡»è¾“å…¥ä¸»é¢˜æ ‡é¢˜ï¼"); }
+    elsif (length($intopictitle) > 92)   { &errorout("å‘è¡¨æ–°ä¸»é¢˜&ä¸»é¢˜æ ‡é¢˜è¿‡é•¿ï¼"); }
     else  {
-	$intopictitle =~ s/\(ÎŞÄÚÈİ\)$//;
-	if (($inpost eq "")&&($addme eq "")) { $intopictitle.=" (ÎŞÄÚÈİ)"; }}
+	$intopictitle =~ s/\(æ— å†…å®¹\)$//;
+	if (($inpost eq "")&&($addme eq "")) { $intopictitle.=" (æ— å†…å®¹)"; }}
         $intopictitle =~ s/()+//isg;
 	my $tempintopictitle = $intopictitle;
 	$tempintopictitle =~ s/ //g;
 	$tempintopictitle =~ s/\&nbsp\;//g;
-        $tempintopictitle =~ s/¡¡//isg;
-        $tempintopictitle =~ s/©¡//isg;
-        $tempintopictitle =~ s/^£ª£££¡£¦£ª//;
-	if ($tempintopictitle eq "") { &errorout("·¢±íĞÂÖ÷Ìâ&Ö÷Ìâ±êÌâÓĞÎÊÌâ£¡"); }
-
-        $tempaccess = "forumsallowed". "$inforum";
-        $testentry = $query->cookie("$tempaccess");
-        if (($allowedentry{$inforum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
+        $tempintopictitle =~ s/ã€€//isg;
+        $tempintopictitle =~ s/mo')||($inmembmod eq "yes")) { $allowed = "yes"; }
         if (($privateforum eq "yes") && ($allowed ne "yes")) { &errorout("·¢±í&¶Ô²»Æğ£¬Äú²»ÔÊĞíÔÚ´ËÂÛÌ³·¢±í£¡"); }
 
 	if ($startnewthreads eq "no") {

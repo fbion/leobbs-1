@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin1url" target=_blank><font color=#000000>$plugin1name</font></a>&nbsp;</div>~ if ($plugin1name ne "");
@@ -59,7 +59,7 @@ $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin48url" target=_bla
 $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin49url" target=_blank><font color=#000000>$plugin49name</font></a>&nbsp;</div>~ if ($plugin49name ne "");
 $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin50url" target=_blank><font color=#000000>$plugin50name</font></a>&nbsp;</div>~ if ($plugin50name ne "");
 if ($pluginadd ne "") {
-    $loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[2])" onMouseout="delayhidemenu()">²å¼ş&nbsp;</span>~;
+    $loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[2])" onMouseout="delayhidemenu()">æ’ä»¶&nbsp;</span>~;
     $pluginadd = qq~
 <script>
 linkset[2]='$pluginadd'

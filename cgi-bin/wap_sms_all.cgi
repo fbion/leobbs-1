@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -30,8 +30,8 @@ $show.= qq~<card  title="$boardname"> ~;
 $lid = $query -> param('lid');
 &check($lid);
 $pa    = $query -> param('pa');
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername","no");
 }  
@@ -58,7 +58,7 @@ if($ag<1){$ag=1;}
 	$post =~ s/\&amp;nbsp;/\&nbsp;/g;
 	$post =~ s/\&amp;gt;/\&gt;/g;
 	$post =~ s/\&amp;lt;/\&lt;/g;
-	$post =~ s/\&amp;#36;/\¡ç/g;
+	$post =~ s/\&amp;#36;/\ï¼„/g;
 	$post =~ s/\&amp\;(.{1,6})\&\#59\;/\&$1\;/isg;
     $post =~ s/\&\#([0-9]{1,6})\&\#59\;/\&\#$1\;/isg;
 	$post =~ s/\&amp;quot;/\"/g;
@@ -67,13 +67,13 @@ if($ag<1){$ag=1;}
 	$post =~ s/\&amp;amp;/\&amp;/g;
 	$ag1=$ag+1;
 	$ag2=$ag-1;chomp $post;
-	$post .="<br/>[$ag/$yemaÒ³]<br/>";
-	$post.="<a href=\"wap_sms_all.cgi?lid=$lid&pno=$postno&amp;pa=$pa&amp;ag=$ag1\">[ÏÂÒ»Ò³]</a>&nbsp;"if($ag1<=$yema);
-	$post.="<a href=\"wap_sms_all.cgi?lid=$lid&amp;pno=$postno&amp;pa=$pa&amp;ag=$ag2\">[ÉÏÒ»Ò³]</a>&nbsp;"if($ag2>=1);
+	$post .="<br/>[$ag/$yemaé¡µ]<br/>";
+	$post.="<a href=\"wap_sms_all.cgi?lid=$lid&pno=$postno&amp;pa=$pa&amp;ag=$ag1\">[ä¸‹ä¸€é¡µ]</a>&nbsp;"if($ag1<=$yema);
+	$post.="<a href=\"wap_sms_all.cgi?lid=$lid&amp;pno=$postno&amp;pa=$pa&amp;ag=$ag2\">[ä¸Šä¸€é¡µ]</a>&nbsp;"if($ag2>=1);
  $sj = &dateformat($sj + ($timedifferencevalue*3600) + ($timezone*3600));
- 	$who=~s/£ª£££¡£¦£ª//;
+ 	$who=~s/ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	$who1=uri_escape($who);
 	$ti1=uri_escape($ti);
  $a .= qq~<p>$post</p>~;
-$show.= qq~<p><b>±êÌâ£º$ti</b><br/>×÷Õß:$who<br/>Ê±¼ä:$sj</p>$a<p><a href=\"wap_smssend.cgi?lid=$lid&amp;name=$who1&amp;ti=$ti1\">»Ø¸´</a><br/><a href="wap_sms.cgi?lid=$lid&amp;paGe=$pa">¶ÌÏûÏ¢</a><br/><a href="wap_index.cgi?lid=$lid">ÂÛÌ³Ê×Ò³</a></p>~;
+$show.= qq~<p><b>æ ‡é¢˜ï¼š$ti</b><br/>ä½œè€…:$who<br/>æ—¶é—´:$sj</p>$a<p><a href=\"wap_smssend.cgi?lid=$lid&amp;name=$who1&amp;ti=$ti1\">å›å¤</a><br/><a href="wap_sms.cgi?lid=$lid&amp;paGe=$pa">çŸ­æ¶ˆæ¯</a><br/><a href="wap_index.cgi?lid=$lid">è®ºå›é¦–é¡µ</a></p>~;
 &wapfoot;

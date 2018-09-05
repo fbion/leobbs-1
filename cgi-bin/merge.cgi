@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -61,12 +61,12 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	if($action eq 'submit') {
 		if($oforum == $dforum) {
 			print qq~
-			<tr><td bgcolor=#2159C9 colspan=2><font face=���� color=#FFFFFF>
-		        <b>��ӭ������̳�������� / �ϲ���̳</b>
+			<tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
+		        <b>欢迎来到论坛管理中心 / 合并论坛</b>
 		        </td></tr>
 		        <tr>
 		        <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		        <font face=���� color=#990000><b>������\~\~\~һ����̳��ô�ϲ�ѽ��</td></tr>
+		        <font face=宋体 color=#990000><b>出错了\~\~\~一个论坛怎么合并呀？</td></tr>
         	        </table></td></tr></table>
         	        ~;
         	        print qq~</td></tr></table></body></html>~;
@@ -147,8 +147,8 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	         rebuildLIST(-Forum=>"$dforum");
 
 		print qq~
-	        <tr><td bgcolor=#2159C9 colspan=2><font face=���� color=#FFFFFF>
-	        <b>��ӭ������̳�������� / �ϲ���̳</b>
+	        <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
+	        <b>欢迎来到论坛管理中心 / 合并论坛</b>
 	        </td></tr>
 
 	        ~;
@@ -166,20 +166,20 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	}
 
         print qq~
-        <tr><td bgcolor=#2159C9 colspan=2><font face=���� color=#FFFFFF>
-        <b>��ӭ������̳�������� / �ϲ���̳</b>
+        <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
+        <b>欢迎来到论坛管理中心 / 合并论坛</b>
         </td></tr>
         <tr>
         <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-        <font face=���� color=#990000><b>��ע��:</b>�˹��̽��ķѴ���CPUʱ���ϵͳ��Դ�������򲻵��ѣ���Ҫ���ñ����ܣ�<br>
-        �ϲ�ǰ������ȹر�������̳��
+        <font face=宋体 color=#990000><b>请注意:</b>此过程将耗费大量CPU时间和系统资源，不到万不得已，不要采用本功能！<br>
+        合并前请务必先关闭整个论坛。
         </td></tr>
         <tr>
         <td bgcolor=#FFFFFF valign=middle colspan=2 align=center>
         <form action=$thisprog method=post>
-        ����̳<select name="oforum">$tempoutput</select>�ϲ�����̳<select name="dforum">$tempoutput</select><BR>
-        <input type="checkbox" name="delsource" value='yes' checked> �ϲ���ɾ��ԭ����̳��һ�����ݣ�<BR><BR>
-        <input type="submit" value="ȷ��">
+        把论坛<select name="oforum">$tempoutput</select>合并到论坛<select name="dforum">$tempoutput</select><BR>
+        <input type="checkbox" name="delsource" value='yes' checked> 合并后，删除原来论坛的一切数据？<BR><BR>
+        <input type="submit" value="确定">
         <input type="hidden" name="action" value="submit"></form>
         </td></tr>
        </table></td></tr></table>
@@ -225,9 +225,9 @@ sub recount { #start
          <tr>
          <td bgcolor=#FFFFFF colspan=2>
          <font color=#990000>
-         <center><b>��̳�ϲ��ɹ�</b></center><p>
-         �������� $threadcount<p>
-         �ظ����� $topiccount
+         <center><b>论坛合并成功</b></center><p>
+         主题数： $threadcount<p>
+         回复数： $topiccount
          </td></tr></table></td></tr></table>
          ~;
 

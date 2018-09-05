@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -17,15 +17,15 @@ BEGIN {
 require "data/boardinfo.cgi";
 require "wap.pl";
 &waptitle;
-$show.= qq~\n<card  title="$boardname-×¢²á">\n ~;
-$show.= qq~<p><b>ÔÚ$boardname×¢²á</b>\n</p><p>×¢²áÕËºÅ£º<input type="text" name="n"/>\n</p><p>×¢²áÃÜÂë£º<input type='password' name="p"/>\n</p><p>ÖØ¸´ÃÜÂë£º<input type='password' name="p1"/>\n</p><p>ÓÊ¼şµØÖ·£º<input type='text' name="email"/>\n</p><p>
-<anchor>[×¢²á]<go href="wap_save_reg.cgi" method="post">\n
+$show.= qq~\n<card  title="$boardname-æ³¨å†Œ">\n ~;
+$show.= qq~<p><b>åœ¨$boardnameæ³¨å†Œ</b>\n</p><p>æ³¨å†Œè´¦å·ï¼š<input type="text" name="n"/>\n</p><p>æ³¨å†Œå¯†ç ï¼š<input type='password' name="p"/>\n</p><p>é‡å¤å¯†ç ï¼š<input type='password' name="p1"/>\n</p><p>é‚®ä»¶åœ°å€ï¼š<input type='text' name="email"/>\n</p><p>
+<anchor>[æ³¨å†Œ]<go href="wap_save_reg.cgi" method="post">\n
 <postfield name="n" value="\$(n)"/>\n
 <postfield name="p" value="\$(p)"/>\n
 <postfield name="p1" value="\$(p1)"/>\n
 <postfield name="email" value="\$(email)"/>\n
 </go>\n
-</anchor>\n <a href="wap_index.cgi">[¿ÍÈË]</a> <a href="wap.cgi">[µÇÂ¼]</a>\n~;
+</anchor>\n <a href="wap_index.cgi">[å®¢äºº]</a> <a href="wap.cgi">[ç™»å½•]</a>\n~;
 $show.= qq~
 </p>~;
 &wapfoot;

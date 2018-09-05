@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -115,7 +115,7 @@ if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password
 	     }
 	     else {
 	     	$existforum =~ s/forum//isg;
-                print FILE "$existforum\tÂÛÌ³·ÖÀà¶ªÊ§\t999\tÂÛÌ³Ãû³Æ¶ªÊ§\tÂÛÌ³ÃèÊö¶ªÊ§\t\toff\ton\tno\tyes\t\t\t0\t0\t\tno\t\t\tno\tyes\t\t\t";
+                print FILE "$existforum\tè®ºå›åˆ†ç±»ä¸¢å¤±\t999\tè®ºå›åç§°ä¸¢å¤±\tè®ºå›æè¿°ä¸¢å¤±\t\toff\ton\tno\tyes\t\t\t0\t0\t\tno\t\t\tno\tyes\t\t\t";
 	     }
 	}
         close(FILE);
@@ -147,7 +147,7 @@ if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password
 		    if ($#tempcforum >= 0) {
 		        print FILE "$forum\n";
 		    } else {
-			$forum =~ s/^$forumid\t(.+?)\t(.+?)\t/$forumid\tÂÛÌ³·ÖÀà¶ªÊ§\t999\t/isg;
+			$forum =~ s/^$forumid\t(.+?)\t(.+?)\t/$forumid\tè®ºå›åˆ†ç±»ä¸¢å¤±\t999\t/isg;
 		        print FILE "$forum\n";
 		    }
 		}
@@ -156,9 +156,9 @@ if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password
 
         &winunlock($filetoopen) if ($OS_USED eq "Nt");
         print qq(<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÖØĞÂ½¨Á¢ÂÛÌ³Ö÷½çÃæ</b></td></tr>
+<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é‡æ–°å»ºç«‹è®ºå›ä¸»ç•Œé¢</b></td></tr>
 <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-<font color=#333333><b>ÖØĞÂ½¨Á¢ Allforums.cgi ÎÄ¼ş£¬»Ö¸´Ö÷½çÃæÒÑ¾­Íê³É!</b>
+<font color=#333333><b>é‡æ–°å»ºç«‹ Allforums.cgi æ–‡ä»¶ï¼Œæ¢å¤ä¸»ç•Œé¢å·²ç»å®Œæˆ!</b>
 </td></tr>
 );
     opendir (CATDIR, "${lbdir}cache");
@@ -168,14 +168,14 @@ if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password
     foreach (@dirdata) { unlink ("${lbdir}cache/$_"); }
     }
     else {
-        print qq~<tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÖØĞÂ½¨Á¢ÂÛÌ³Ö÷½çÃæ</b></td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é‡æ–°å»ºç«‹è®ºå›ä¸»ç•Œé¢</b></td></tr>
 <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-<font face=ËÎÌå color=#990000><b>´Ë¹¦ÄÜÖ÷ÒªÓÃÓÚĞŞ¸´Ö÷½çÃæÖĞ·ÖÂÛÌ³ĞÅÏ¢¶ªÊ§»òÕßËğ»µ£¬ÍêÈ«ÖÇÄÜ»¯¡£</b>
+<font face=å®‹ä½“ color=#990000><b>æ­¤åŠŸèƒ½ä¸»è¦ç”¨äºä¿®å¤ä¸»ç•Œé¢ä¸­åˆ†è®ºå›ä¿¡æ¯ä¸¢å¤±æˆ–è€…æŸåï¼Œå®Œå…¨æ™ºèƒ½åŒ–ã€‚</b>
 </td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-<font face=ËÎÌå color=#333333>Èç¹ûÄúÈ·¶¨£¬ÄÇÃ´Çëµã»÷ÏÂÃæÁ´½Ó<p>
->> <a href="$thisprog?action=delete&checkaction=yes">ÖØĞÂ½¨Á¢ Allforums.cgi ÎÄ¼ş£¬»Ö¸´Ö÷½çÃæ</a> <<
+<font face=å®‹ä½“ color=#333333>å¦‚æœæ‚¨ç¡®å®šï¼Œé‚£ä¹ˆè¯·ç‚¹å‡»ä¸‹é¢é“¾æ¥<p>
+>> <a href="$thisprog?action=delete&checkaction=yes">é‡æ–°å»ºç«‹ Allforums.cgi æ–‡ä»¶ï¼Œæ¢å¤ä¸»ç•Œé¢</a> <<
 </td></tr></table></td></tr></table>
 ~;
     }

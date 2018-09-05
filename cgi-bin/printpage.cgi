@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -34,20 +34,20 @@ $thisprog = "printpage.cgi";
 $query = new LBCGI;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 $inforum        = $query -> param('forum');
 $intopic        = $query -> param('topic');
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic) && ($intopic !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
@@ -55,15 +55,15 @@ if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
     $myrating = -1;
 	    if ($regaccess eq "on" && &checksearchbot) {
 	    	print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	    	print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
 	    	exit;
 	    }
-    &error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜ²é¿´Ìù×ÓÄÚÈİ£¬Çë×¢²á»òµÇÂ¼ºóÔÙÊÔ") if ($guestregistered eq "off");
+    &error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½æŸ¥çœ‹è´´å­å†…å®¹ï¼Œè¯·æ³¨å†Œæˆ–ç™»å½•åå†è¯•") if ($guestregistered eq "off");
 }
 else {
 #    &getmember("$inmembername");
@@ -74,9 +74,9 @@ else {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 #&getoneforum("$inforum");
 #    &moderator("$inforum");
 $myinmembmod = $inmembmod;
@@ -86,28 +86,28 @@ $myinmembmod = $inmembmod;
         &setlastvisit("$inforum,$currenttime");
     }
     &getoneforum("$inforum");
-&doonoff;  #ÂÛÌ³¿ª·ÅÓë·ñ
+&doonoff;  #è®ºå›å¼€æ”¾ä¸å¦
 
 if ($privateforum eq "yes"){
-    if ($inmembername eq "¿ÍÈË") {
+    if ($inmembername eq "å®¢äºº") {
 	print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
 	exit;
     }
     if (($allowedentry{$inforum} eq "yes")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; } else { $allowed = "no"; }
 }
 
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
@@ -121,27 +121,27 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
 
     
     ($no, $topictitle, $no, $no, $no ,$startedpostdate, $no) = split(/\t/, @threads[0]);
-    $topictitle =~ s/^£ª£££¡£¦£ª//;
+    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	if ($addtopictime eq "yes") {
 	    my $topictime = &dispdate($startedpostdate + ($timedifferencevalue*3600) + ($timezone*3600));
 	    $topictitle = "[$topictime] $topictitle";
 	}
 
-if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "¿ÍÈË"))&&($userincert eq "no")) { &error("½øÈëÂÛÌ³&ÄãÒ»°ã»áÔ±²»ÔÊĞí½øÈë´ËÂÛÌ³£¡"); }
+if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "å®¢äºº"))&&($userincert eq "no")) { &error("è¿›å…¥è®ºå›&ä½ ä¸€èˆ¬ä¼šå‘˜ä¸å…è®¸è¿›å…¥æ­¤è®ºå›ï¼"); }
 
     if (($privateforum eq "yes") && ($allowed ne "yes")) {
-        &error("½øÈëË½ÃÜÂÛÌ³&¶Ô²»Æğ£¬ÄãÎŞÈ¨·ÃÎÊÕâ¸öÂÛÌ³£¡");
+        &error("è¿›å…¥ç§å¯†è®ºå›&å¯¹ä¸èµ·ï¼Œä½ æ— æƒè®¿é—®è¿™ä¸ªè®ºå›ï¼");
     }
     else {
       my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
       $filetoopens = &lockfilename($filetoopens);
       if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tboth\tä¯ÀÀ<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>(ÎÄ±¾·½Ê½)\t");
+            &whosonline("$inmembername\t$forumname\tboth\tæµè§ˆ<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>(æ–‡æœ¬æ–¹å¼)\t");
         }
         else {
-            &whosonline("$inmembername\t$forumname(ÃÜ)\tboth\tä¯ÀÀ±£ÃÜÌù×Ó(ÎÄ±¾·½Ê½)\t");
+            &whosonline("$inmembername\t$forumname(å¯†)\tboth\tæµè§ˆä¿å¯†è´´å­(æ–‡æœ¬æ–¹å¼)\t");
         }
       }
     }
@@ -170,24 +170,24 @@ $tempforumno=~s/childforum-//;
 	        A:hover   {	TEXT-DECORATION: underline overline}
 
 		.t     {	LINE-HEIGHT: 1.4			}
-		BODY   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		TD	   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		SELECT {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;	}
-		INPUT  {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt; height:22px;	}
-		TEXTAREA{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;	}
-		DIV    {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		FORM   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		OPTION {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		P	   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		TD	   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		BR	   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
+		BODY   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		TD	   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		SELECT {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;	}
+		INPUT  {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt; height:22px;	}
+		TEXTAREA{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;	}
+		DIV    {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		FORM   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		OPTION {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		P	   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		TD	   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		BR	   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
 	</style>
     </head>
     <body topmargin=10 leftmargin=0 onload="window.print()">
     <table cellpadding=0 cellspacing=0 width=90% align=center>
         <tr>
             <td>
-            <p><b>ÒÔÎÄ±¾·½Ê½²é¿´Ö÷Ìâ</b><p>
+            <p><b>ä»¥æ–‡æœ¬æ–¹å¼æŸ¥çœ‹ä¸»é¢˜</b><p>
             <b>- $boardname</b> ($boardurl/leobbs.cgi)<br>$addlink
             <b>$addspace-- $forumname</b> ($boardurl/forums.cgi?forum=$inforum)<br>
             <b>$addspace--- $topictitle</b> ($boardurl/topic.cgi?forum=$inforum&topic=$intopic)
@@ -218,21 +218,21 @@ $rn = 1;
             &getmember("$membername","no");
             if ($membercode eq "masked") {
     	        $addme = "";
-                $post = qq(<br>------------------------<br><font color=$posternamecolor>´ËÓÃ»§µÄ·¢ÑÔÒÑ¾­±»ÆÁ±Î£¡<br>ÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±£¡</font><br>------------------------<BR>);
+                $post = qq(<br>------------------------<br><font color=$posternamecolor>æ­¤ç”¨æˆ·çš„å‘è¨€å·²ç»è¢«å±è”½ï¼<br>å¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ï¼</font><br>------------------------<BR>);
             }
 	}
-#        $post = "(ÃÜ)" if ($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
-#        $post =~ s/(\[hide\])(.+?)(\[\/hide\])/(±¾²¿·ÖÄÚÈİÒÑ¾­Òş²Ø)/isg;
-#        $post =~s/\[post=(.+?)\](.+?)\[\/post\]/(±¾ÄÚÈİÒÑ±»Òş²Ø)/isg; 
+#        $post = "(å¯†)" if ($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
+#        $post =~ s/(\[hide\])(.+?)(\[\/hide\])/(æœ¬éƒ¨åˆ†å†…å®¹å·²ç»éšè—)/isg;
+#        $post =~s/\[post=(.+?)\](.+?)\[\/post\]/(æœ¬å†…å®¹å·²è¢«éšè—)/isg; 
 
     if ($wwjf ne "no") {
 	if ($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
     	    if ((lc($inmembername) eq lc($membername))||($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes")|| ($myrating >= $1) ){
 	    }else{
-		$post=qq~<FONT COLOR=$fonthighlight><B>[Hidden Post: Rating $1]</B></FONT> <BR>  <BR> <FONT COLOR=$posternamecolor>£¨ÄúÃ»ÓĞÈ¨ÏŞ¿´Õâ¸öÌû×Ó£¬ÄúµÄÍşÍûÖÁÉÙĞèÒª <B>$1<\/B>£©</FONT><BR>  <BR> ~;
-		$addme="¸½¼ş±£ÃÜ!<br>";
+		$post=qq~<FONT COLOR=$fonthighlight><B>[Hidden Post: Rating $1]</B></FONT> <BR>  <BR> <FONT COLOR=$posternamecolor>ï¼ˆæ‚¨æ²¡æœ‰æƒé™çœ‹è¿™ä¸ªå¸–å­ï¼Œæ‚¨çš„å¨æœ›è‡³å°‘éœ€è¦ <B>$1<\/B>ï¼‰</FONT><BR>  <BR> ~;
+		$addme="é™„ä»¶ä¿å¯†!<br>";
 	    }
-	    $post=~s/LBHIDDEN\[(.*?)\]LBHIDDEN/<font color=$fonthighlight>£¨´ËÌùÖ»ÓĞÍşÍû´óÓÚµÈÓÚ <B>$1<\/B> µÄ²ÅÄÜ²é¿´£©<\/font><br>/sg;   
+	    $post=~s/LBHIDDEN\[(.*?)\]LBHIDDEN/<font color=$fonthighlight>ï¼ˆæ­¤è´´åªæœ‰å¨æœ›å¤§äºç­‰äº <B>$1<\/B> çš„æ‰èƒ½æŸ¥çœ‹ï¼‰<\/font><br>/sg;   
 	}
     }
     else { $post=~s/LBHIDDEN\[(.*?)\]LBHIDDEN//; }
@@ -260,8 +260,8 @@ $rn = 1;
             }
             $allbuyerno = 0 if (($allbuyerno < 0)||($allbuyerno eq ""));
             unless ((lc($inmembername) eq lc($membername))||($mymembercode eq "ad")||($mymembercode eq 'smo')||($mymembercode eq 'mo')||($mymembercode eq 'amo')||($myinmembmod eq "yes")||($isbuyer eq "yes")) {
-                $post=qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[²é¿´Õâ¸öÌû×ÓĞèÒª <b>$1</b> $moneyname£¬Ä¿Ç°ÒÑÓĞ <B>$allbuyerno</B> ÈË¹ºÂò]</FONT><BR><br><FORM action=buypost.cgi method=post><input name=inforum type=hidden value=$inforum><input name=intopic type=hidden value=$intopic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="ËãÄãºİ¡£¡£ÎÒÂò£¬ÎÒ¸¶Ç®"></form><BR> ~;
-                $addme="¸½¼ş±£ÃÜ!<br>";
+                $post=qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[æŸ¥çœ‹è¿™ä¸ªå¸–å­éœ€è¦ <b>$1</b> $moneynameï¼Œç›®å‰å·²æœ‰ <B>$allbuyerno</B> äººè´­ä¹°]</FONT><BR><br><FORM action=buypost.cgi method=post><input name=inforum type=hidden value=$inforum><input name=intopic type=hidden value=$intopic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="ç®—ä½ ç‹ ã€‚ã€‚æˆ‘ä¹°ï¼Œæˆ‘ä»˜é’±"></form><BR> ~;
+                $addme="é™„ä»¶ä¿å¯†!<br>";
 	    }
 	    else {
 	    	$buyeroutput = "";
@@ -271,7 +271,7 @@ $rn = 1;
 function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & myindex1 != 1) { var newwindow = list.options[myindex1].value; var msgwindow = window.open(newwindow,"",""); }}
 </SCRIPT><form action="profile.cgi" method=post name="modjump"><img src=$imagesurl/images/team2.gif width=19 height=19 align=absmiddle>
 <input type=hidden name=action value=show><select onchange="surfto(this)">
-<option>¹ºÂòÃûµ¥£º</option><option>------------</option>
+<option>è´­ä¹°åå•ï¼š</option><option>------------</option>
 ~;
 	                foreach (@allbuyer) {
 	                    chomp $_;
@@ -284,7 +284,7 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
 	                $buyeroutput .= qq~</select><BR>\n~;
                     }
                 }
-	        $post=~s/LBSALE\[(.*?)\]LBSALE/$buyeroutput<font color=$fonthighlight>£¨´ËÌùÊÛ¼Û <B>$1<\/B> $moneyname£¬Ä¿Ç°ÒÑÓĞ <B>$allbuyerno<\/B> ÈË¹ºÂò£©<\/font><br><br>/sg;   
+	        $post=~s/LBSALE\[(.*?)\]LBSALE/$buyeroutput<font color=$fonthighlight>ï¼ˆæ­¤è´´å”®ä»· <B>$1<\/B> $moneynameï¼Œç›®å‰å·²æœ‰ <B>$allbuyerno<\/B> äººè´­ä¹°ï¼‰<\/font><br><br>/sg;   
 	    }
 	}
     }
@@ -293,12 +293,12 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
     if ($hidejf eq "yes" ) {
       if ($post =~m/(\[hide\])(.*)(\[\/hide\])/isg){ 
         if ($viewhide ne "1") { 
-            $post =~ s/(\[hide\])(.*)(\[\/hide\])/<blockquote><font color=$posternamecolor>Òş²Ø£º <hr noshade size=1><font color=$fonthighlight>±¾²¿·ÖÄÚÈİÒÑ¾­Òş²Ø£¬±ØĞë»Ø¸´ºó£¬²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/blockquote><\/font><\/blockquote>/isg;
-            $addme="¸½¼ş±£ÃÜ!<br><br>" if (($addme)&&($1 eq "[hide]"));
+            $post =~ s/(\[hide\])(.*)(\[\/hide\])/<blockquote><font color=$posternamecolor>éšè—ï¼š <hr noshade size=1><font color=$fonthighlight>æœ¬éƒ¨åˆ†å†…å®¹å·²ç»éšè—ï¼Œå¿…é¡»å›å¤åï¼Œæ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/blockquote><\/font><\/blockquote>/isg;
+            $addme="é™„ä»¶ä¿å¯†!<br><br>" if (($addme)&&($1 eq "[hide]"));
 	} 
         else { 
-            $post =~ s/\[hide\](.*)\[hide\](.*)\[\/quote](.*)\[\/hide\]/<blockquote><font color=$posternamecolor>Òş²Ø£º <hr noshade>$1<blockquote><hr noshade size=1>$2<hr noshade size=1><\/blockquote>$3<\/font><hr noshade><\/blockquote>/isg; 
-     	    $post =~ s/\[hide\]\s*(.*?)\s*\[\/hide\]/<blockquote><font color=$posternamecolor>Òş²Ø£º <hr noshade size=1>$1<hr noshade size=1><\/blockquote><\/font>/isg; 
+            $post =~ s/\[hide\](.*)\[hide\](.*)\[\/quote](.*)\[\/hide\]/<blockquote><font color=$posternamecolor>éšè—ï¼š <hr noshade>$1<blockquote><hr noshade size=1>$2<hr noshade size=1><\/blockquote>$3<\/font><hr noshade><\/blockquote>/isg; 
+     	    $post =~ s/\[hide\]\s*(.*?)\s*\[\/hide\]/<blockquote><font color=$posternamecolor>éšè—ï¼š <hr noshade size=1>$1<hr noshade size=1><\/blockquote><\/font>/isg; 
   	}
       }
     }
@@ -309,10 +309,10 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
 	    if ($StartCheck >= $viewusepost) { $Checkpost='ok'; } else { $Checkpost='not'; }
 
 	    if(($Checkpost eq 'ok')||($mymembercode eq "ad")||($mymembercode eq "smo")||($myinmembmod eq "yes")||($membername eq $inmembername)){ 
-	   	$post =~s/\[post=(\d+?)\](.+?)\[\/post\]/<blockquote><font color=$posternamecolor>ÎÄÕÂÄÚÈİ£º£¨·¢ÑÔ×ÜÊıĞëÓĞ <B>$viewusepost<\/B> ²ÅÄÜ²é¿´±¾Ìù£© <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg; 
+	   	$post =~s/\[post=(\d+?)\](.+?)\[\/post\]/<blockquote><font color=$posternamecolor>æ–‡ç« å†…å®¹ï¼šï¼ˆå‘è¨€æ€»æ•°é¡»æœ‰ <B>$viewusepost<\/B> æ‰èƒ½æŸ¥çœ‹æœ¬è´´ï¼‰ <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg; 
 	    }else{ 
-   		$post =~s/(\[post=(\d+?)\])(.*)(\[\/post\])/<blockquote><font color=$posternamecolor>ÎÄÕÂÄÚÈİ£º <hr noshade size=1><font color=$fonthighlight>±¾ÄÚÈİÒÑ±»Òş²Ø , ·¢ÑÔ×ÜÊıĞëÓĞ <B>$viewusepost<\/B> ²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/font><\/blockquote>/isg; 
-                $addme="¸½¼ş±£ÃÜ!<br><br>" if (($addme)&&($1 =~ m/^\[post/));
+   		$post =~s/(\[post=(\d+?)\])(.*)(\[\/post\])/<blockquote><font color=$posternamecolor>æ–‡ç« å†…å®¹ï¼š <hr noshade size=1><font color=$fonthighlight>æœ¬å†…å®¹å·²è¢«éšè— , å‘è¨€æ€»æ•°é¡»æœ‰ <B>$viewusepost<\/B> æ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/font><\/blockquote>/isg; 
+                $addme="é™„ä»¶ä¿å¯†!<br><br>" if (($addme)&&($1 =~ m/^\[post/));
    	    }
    	}
     }
@@ -323,11 +323,11 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
 	    $jfpost=$1; 
 
 	    if (($jfpost <= $jifen)||($mymembercode eq "ad")||($mymembercode eq "smo")||($myinmembmod eq "yes")||(lc($membername) eq lc($inmembername))){ 
-	   	$post =~s/\[jf=(\d+?)\](.*)\[\/jf\]/<blockquote><font color=$posternamecolor>ÎÄÕÂÄÚÈİ£º£¨»ı·Ö±ØĞë´ïµ½ <B>$jfpost<\/B> ²ÅÄÜ²é¿´±¾ÄÚÈİ£© <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg; 
+	   	$post =~s/\[jf=(\d+?)\](.*)\[\/jf\]/<blockquote><font color=$posternamecolor>æ–‡ç« å†…å®¹ï¼šï¼ˆç§¯åˆ†å¿…é¡»è¾¾åˆ° <B>$jfpost<\/B> æ‰èƒ½æŸ¥çœ‹æœ¬å†…å®¹ï¼‰ <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg; 
 	    } else { 
-	        &error("ÓĞÎÊÌâ&»ı·Ö±ØĞë´ïµ½ $jfpost ²ÅÄÜ²é¿´£¬ÄãÄ¿Ç°µÄ»ı·ÖÊÇ $jifen £¡") if (($editpostnumber eq "1")&&($noviewjf eq "yes"));
-   		$post =~s/(\[jf=(\d+?)\])(.*)(\[\/jf\])/<blockquote><font color=$posternamecolor>ÎÄÕÂÄÚÈİ£º <hr noshade size=1><font color=$fonthighlight>±¾ÄÚÈİÒÑ±»Òş²Ø , »ı·Ö±ØĞë´ïµ½ <B>$jfpost<\/B> ²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/font><\/blockquote>/isg;
-                $addme="¸½¼ş±£ÃÜ!<br><br>" if (($addme)&&($1 =~ m/^\[jf/));
+	        &error("æœ‰é—®é¢˜&ç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpost æ‰èƒ½æŸ¥çœ‹ï¼Œä½ ç›®å‰çš„ç§¯åˆ†æ˜¯ $jifen ï¼") if (($editpostnumber eq "1")&&($noviewjf eq "yes"));
+   		$post =~s/(\[jf=(\d+?)\])(.*)(\[\/jf\])/<blockquote><font color=$posternamecolor>æ–‡ç« å†…å®¹ï¼š <hr noshade size=1><font color=$fonthighlight>æœ¬å†…å®¹å·²è¢«éšè— , ç§¯åˆ†å¿…é¡»è¾¾åˆ° <B>$jfpost<\/B> æ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/font><\/blockquote>/isg;
+                $addme="é™„ä»¶ä¿å¯†!<br><br>" if (($addme)&&($1 =~ m/^\[jf/));
    	    }
    	}
     }
@@ -339,19 +339,19 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
     $post =~ s/\[ADMINOPE=(.+?)\]//isg;
 
     if ($post =~ /\[POSTISDELETE=(.+?)\]/) {
-    	if ($1 ne " ") { $presult = "<BR>ÆÁ±ÎÀíÓÉ£º$1<BR>"; } else { $presult = "<BR>"; }
-        $post = qq(<br>--------------------------<br><font color=$posternamecolor>´ËÌû×ÓÄÚÈİÒÑ¾­±»µ¥¶ÀÆÁ±Î£¡$presultÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±£¡</font><br>--------------------------<BR>);
+    	if ($1 ne " ") { $presult = "<BR>å±è”½ç†ç”±ï¼š$1<BR>"; } else { $presult = "<BR>"; }
+        $post = qq(<br>--------------------------<br><font color=$posternamecolor>æ­¤å¸–å­å†…å®¹å·²ç»è¢«å•ç‹¬å±è”½ï¼$presultå¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ï¼</font><br>--------------------------<BR>);
     }
 
         $postdate = &dateformat($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
-$post =~ s/\[watermark\](.+?)\[\/watermark\]/<font color=red>¼ÓË®Ó¡ÄÚÈİ²»ÄÜ´òÓ¡<\/font>/isg;
-$post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[¼ÓÃÜÁ¬½á\]/isg if ($usecurl ne "no");
+$post =~ s/\[watermark\](.+?)\[\/watermark\]/<font color=red>åŠ æ°´å°å†…å®¹ä¸èƒ½æ‰“å°<\/font>/isg;
+$post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[åŠ å¯†è¿ç»“\]/isg if ($usecurl ne "no");
 
         $output .= qq~
         <p>
         <hr><p>
-        -- ×÷Õß£º $membername<BR>
-        -- ·¢²¼Ê±¼ä£º $postdate<p>
+        -- ä½œè€…ï¼š $membername<BR>
+        -- å‘å¸ƒæ—¶é—´ï¼š $postdate<p>
         $post
         <p><p>
         ~;
@@ -363,7 +363,7 @@ $post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[¼ÓÃÜÁ¬½á\]/isg if ($usecu
 
     $output .= qq~
         </td></tr></table><center><hr width=90%><font color=$fontcolormisc>
-           $boardcopyright¡¡ °æ±¾£º $versionnumber
+           $boardcopyrightã€€ ç‰ˆæœ¬ï¼š $versionnumber
            </font></center>
         </body></html>
     ~;

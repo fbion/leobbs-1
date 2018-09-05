@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #####################################################
-# LeoBBSx ÊÊÓÃµÄ·ÖÀàÒ³¹¦ÄÜ (²âÊÔ°æ)
-# ±àĞ´£ºAnthony
-# ÍøÖ·£ºhttp://www.youtough.com/bbs/leobbs.cgi
-# ×îááĞŞ¸ÄÈÕÆÚ£º2004/05/13a
-# ×¢£ºËùÓĞÉ¾È¥°æÈ¨ºÅ¼°Î¥¹æĞŞ¸Ä°æÈ¨ºÅÖ®ÈËÊ¿ÇĞÎğÊ¹ÓÃ£¡
-#     ÁíÍâÈç·â°üµ½ÄãµÄÍâ¹Ò°æ±¾ÄÚ£¬ÇëÍ¨ÖªÎÒ¡£
+# LeoBBSx é€‚ç”¨çš„åˆ†ç±»é¡µåŠŸèƒ½ (æµ‹è¯•ç‰ˆ)
+# ç¼–å†™ï¼šAnthony
+# ç½‘å€ï¼šhttp://www.youtough.com/bbs/leobbs.cgi
+# æœ€å¾Œä¿®æ”¹æ—¥æœŸï¼š2004/05/13a
+# æ³¨ï¼šæ‰€æœ‰åˆ å»ç‰ˆæƒå·åŠè¿è§„ä¿®æ”¹ç‰ˆæƒå·ä¹‹äººå£«åˆ‡å‹¿ä½¿ç”¨ï¼
+#     å¦å¤–å¦‚å°åŒ…åˆ°ä½ çš„å¤–æŒ‚ç‰ˆæœ¬å†…ï¼Œè¯·é€šçŸ¥æˆ‘ã€‚
 #####################################################
 
 BEGIN {
@@ -41,9 +41,9 @@ if ($COOKIE_USED eq 1)
 	$boardurltemp =~ s/^http:\/\/(.*?)(\/.*?$|$)/$1/;
 	$cookiepath = $boardurltemp;
 }
-&ipbanned; #·âÉ±Ò»Ğ© IP
+&ipbanned; #å°æ€ä¸€äº› IP
 $inselectstyle = $query->cookie ('selectstyle');
-&error ('ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒ¹¥»÷ÎÒµÄ³ÌÊ½Ñ½£¡') if ($inselectstyle =~  m/\/|\\|\.\./);
+&error ('æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±æ”»å‡»æˆ‘çš„ç¨‹å¼å‘€ï¼') if ($inselectstyle =~  m/\/|\\|\.\./);
 if ($inselectstyle ne '' && (-e "${lbdir}data/skin/${inselectstyle}.cgi"))
 {
 	require "${lbdir}data/skin/${inselectstyle}.cgi";
@@ -56,7 +56,7 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ($inmembername eq '')
 {
-	$inmembername = '¿ÍÈË';
+	$inmembername = 'å®¢äºº';
 } else {
 	&getmember ($inmembername, 'no');
 	if ($inpassword ne $password)
@@ -64,16 +64,16 @@ if ($inmembername eq '')
 		$namecookie        = cookie(-name => 'amembernamecookie', -value => '', -path => $cookiepath . '/');
 		$passcookie        = cookie(-name => 'apasswordcookie',   -value => '', -path => $cookiepath . '/');
 		print header(-cookie=>[$namecookie, $passcookie] , -expires=>$EXP_MODE , -cache=>$CACHE_MODES);
-		&error ('ÆÕÍ¨´íÎó&ÃÜÂëÓë»áÔ±Ãû³Æ²»Ïà·û£¬ÇëÖØĞÂµÇÈë£¡');
+		&error ('æ™®é€šé”™è¯¯&å¯†ç ä¸ä¼šå‘˜åç§°ä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å…¥ï¼');
 	}
-	&error ('ÆÕÍ¨´íÎó&´Ë»áÔ±¸ù±¾²»´æÔÚ£¡') if ($userregistered eq 'no');
+	&error ('æ™®é€šé”™è¯¯&æ­¤ä¼šå‘˜æ ¹æœ¬ä¸å­˜åœ¨ï¼') if ($userregistered eq 'no');
 	eval ('use VISITFORUM qw (getlastvisit);');
 	&getlastvisit;
 }
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $timeadd  = $timedifferencevalue*3600 + $timezone*3600;
@@ -90,7 +90,7 @@ if (((-e "${lbdir}cache/forumcache-$skin.pl")&&((-M "${lbdir}cache/forumcache-$s
 	select(undef, undef, undef, 0.2) if (-e "${lbdir}cache/forumcache-$skin.pl.lock");
 	select(undef, undef, undef, 0.3) if (-e "${lbdir}cache/forumcache-$skin.pl.lock");
 	unlink("${lbdir}cache/forumcache.pl.lock");
-	&error("ÆÕÍ¨´íÎó&·şÎñÆ÷Ã¦£¬ÇëÉÔºóÔÙÊÔ£¡£¡") if (-e "${lbdir}cache/forumcache.pl.lock");
+	&error("æ™®é€šé”™è¯¯&æœåŠ¡å™¨å¿™ï¼Œè¯·ç¨åå†è¯•ï¼ï¼") if (-e "${lbdir}cache/forumcache.pl.lock");
     }
     if (-e "${lbdir}cache/forumcache-$skin.pl") {
         eval{ require "${lbdir}cache/forumcache-$skin.pl"; };
@@ -106,20 +106,20 @@ print header(-cookie  =>[$onlineviewcookie, $cookie, $tempcookie ,$unioncookie,$
 
 
 $incategory = $query->param ('category');
-&error ('ÆÕÍ¨´íÎó&ÊäÈëÓĞÎó') if ($incategory !~ /^[0-9]+$/);
+&error ('æ™®é€šé”™è¯¯&è¾“å…¥æœ‰è¯¯') if ($incategory !~ /^[0-9]+$/);
 $incategory = sprintf ('%09d', $incategory);
 
 if ($membercode !~ /^(ad|(s|c|)mo)$/)
 {
-	&error ('ÆÕÍ¨´íÎó&×ÊÁÏ²»´æÔÚ') if ((@rearrangedforums = grep (/^$incategory\t(.*?\t){10}no\t/, @rearrangedforums)) < 1);
+	&error ('æ™®é€šé”™è¯¯&èµ„æ–™ä¸å­˜åœ¨') if ((@rearrangedforums = grep (/^$incategory\t(.*?\t){10}no\t/, @rearrangedforums)) < 1);
 } else {
-	&error ('ÆÕÍ¨´íÎó&×ÊÁÏ²»´æÔÚ') if ((@rearrangedforums = grep (/^$incategory\t/, @rearrangedforums)) < 1);
+	&error ('æ™®é€šé”™è¯¯&èµ„æ–™ä¸å­˜åœ¨') if ((@rearrangedforums = grep (/^$incategory\t/, @rearrangedforums)) < 1);
 }
 
 my $categoryname = $rearrangedforums[0];
 $categoryname =~ s /^(.*?\t){2}(.*?)\t.*?$/$2/;
-&whosonline("$inmembername\t$categoryname\t$categoryname\t²é¿´·ÖÀàÂÛÌ³ÉÏµÄ·ÖÇø");
-&mischeader ("<a href=$thisprog?category=" . int ($incategory) . ">$categoryname</a> ¡ú ²é¿´·ÖÀàÂÛÌ³ÉÏµÄ·ÖÇø");
+&whosonline("$inmembername\t$categoryname\t$categoryname\tæŸ¥çœ‹åˆ†ç±»è®ºå›ä¸Šçš„åˆ†åŒº");
+&mischeader ("<a href=$thisprog?category=" . int ($incategory) . ">$categoryname</a> â†’ æŸ¥çœ‹åˆ†ç±»è®ºå›ä¸Šçš„åˆ†åŒº");
 $output .= qq~<style>
 TABLE {BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 1px; }
 TD    {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: #333333; }
@@ -145,12 +145,12 @@ foreach (@rearrangedforums)
 	{
 		$childforumnums = grep (/^[0-9]+\tchildforum\-$forumid\t/, @forums);
 		$countcforum = $childforumnums;
-		$childforumnums = $childforumnums > 0 ? qq~  <span title="ÓĞ $childforumnums ¸ö¸½Êô×ÓÂÛÌ³">[$childforumnums]</span>~ : "";
+		$childforumnums = $childforumnums > 0 ? qq~  <span title="æœ‰ $childforumnums ä¸ªé™„å±å­è®ºå›">[$childforumnums]</span>~ : "";
 	}
 	$forumnameadd = "$boardname - $forumname";
 	$forumnameadd =~ s/\&\#039\;/\\\'/g;
 	$titleinfos{"$forumname\n"} =~ s/\|/\n/isg;
-	my $forumbookmark = qq~<span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$forumid', '$forumnameadd')"><img src=$imagesurl/images/fav_add.gif width=15 alt="½« $forumname ¼Óµ½ÎÒµÄ×î°®"></span>~;
+	my $forumbookmark = qq~<span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$forumid', '$forumnameadd')"><img src=$imagesurl/images/fav_add.gif width=15 alt="å°† $forumname åŠ åˆ°æˆ‘çš„æœ€çˆ±"></span>~;
 	$forumname = qq~<a href=forums.cgi?forum=$forumid$titleinfos{"$forumname\n"}><font color=$fontcolormisc2>$forumname</a>$childforumnums~;
 	$forumlastvisit = $lastvisitinfo{$forumid};
 	$folderpicture = qq(  );
@@ -160,7 +160,7 @@ foreach (@rearrangedforums)
 	$todayforumpost = 0 if (($nowtime ne $todayforumposttime)||($todayforumpost eq ''));
 	$todayforumpost += $todayforumpostadds[$forumid] if($todayforumpostadds[$forumid] ne '');
 
-    	    if (($lastposttime > $forumlastvisit)&&($inmembername ne "¿ÍÈË")&&($action ne "resetall")) {
+    	    if (($lastposttime > $forumlastvisit)&&($inmembername ne "å®¢äºº")&&($action ne "resetall")) {
 		if ($privateforum eq "yes") { $folderpicture = qq~<img src=$imagesurl/images/$skin/$bm_havenew style=cursor:hand onClick=javascript:O3($forumid)>~; }
 		      elsif ($startnewthreads eq "follow") { $folderpicture = qq~<img src=$imagesurl/images/$skin/$pl_havenew style=cursor:hand onClick=javascript:O3($forumid)>~; }
 		      elsif ($startnewthreads eq "yes")    { $folderpicture = qq~<img src=$imagesurl/images/$skin/$zg_havenew style=cursor:hand onClick=javascript:O3($forumid)>~; }
@@ -187,25 +187,25 @@ foreach (@rearrangedforums)
 		$lastposttime  = &longdateandtime ($lastposttime);
 		$forumlastpost = qq~<br>&nbsp;$lastposttime<br>~;
 	} else {
-		$forumlastpost = qq~<BR>&nbsp;Ã»ÓĞÌû×Ó£¬»òÓÉÓÚ·şÎñÆ÷<BR>&nbsp;·±Ã¦£¬Êı¾İÔİÊ±Î´Öª ...~;
+		$forumlastpost = qq~<BR>&nbsp;æ²¡æœ‰å¸–å­ï¼Œæˆ–ç”±äºæœåŠ¡å™¨<BR>&nbsp;ç¹å¿™ï¼Œæ•°æ®æš‚æ—¶æœªçŸ¥ ...~;
 		$lastposter  = '';
 	}
 	$topictitle = '' unless (($privateforum ne 'yes')||($membercode =~ /^(ad|smo)$/));
 	if ($hiddenforum eq 'yes')
 	{
-		$hiddeninfo = '  <i>(Òş²Ø)</i>';
+		$hiddeninfo = '  <i>(éšè—)</i>';
 	} else {
 		$hiddeninfo = '';
 	}
 	if ($forumnamedisp eq 1 && $startnewthreads ne 'onlysub')
 	{
-		$forumnamelink = qq~<table width=100% cellpadding=2 cellspacing=0><tr><td width=93%>$forumname$hiddeninfo</td><td width=12><a href=post.cgi?action=new&forum=$forumid><img src="$imagesurl/images/$skin/fpost2.gif" alt="ÔÚ´Ë·ÖÂÛÌ³·¢±íĞÂÖ÷Ìâ" width=12 border=0></a></td><td width=12><a href=poll.cgi?action=new&forum=$forumid><img src="$imagesurl/images/$skin/fpost1.gif" alt="ÔÚ´Ë·ÖÂÛÌ³·¢±íĞÂÍ¶Æ±" width=12 border=0></a></td><td width=12><a href=jinghua.cgi?action=list&forum=$forumid><img src="$imagesurl/images/$skin/fpost3.gif" alt="²é¿´´Ë·ÖÂÛÌ³µÄ¾«»ªÎÄÕÂ" width=12 border=0></a></td></tr><tr><td colspan=4 width=100%><img src=$imagesurl/images/forumme.gif width=9> <font color=$forumfontcolor>$forumdescription</td></tr></table></td></tr></table>~;
+		$forumnamelink = qq~<table width=100% cellpadding=2 cellspacing=0><tr><td width=93%>$forumname$hiddeninfo</td><td width=12><a href=post.cgi?action=new&forum=$forumid><img src="$imagesurl/images/$skin/fpost2.gif" alt="åœ¨æ­¤åˆ†è®ºå›å‘è¡¨æ–°ä¸»é¢˜" width=12 border=0></a></td><td width=12><a href=poll.cgi?action=new&forum=$forumid><img src="$imagesurl/images/$skin/fpost1.gif" alt="åœ¨æ­¤åˆ†è®ºå›å‘è¡¨æ–°æŠ•ç¥¨" width=12 border=0></a></td><td width=12><a href=jinghua.cgi?action=list&forum=$forumid><img src="$imagesurl/images/$skin/fpost3.gif" alt="æŸ¥çœ‹æ­¤åˆ†è®ºå›çš„ç²¾åæ–‡ç« " width=12 border=0></a></td></tr><tr><td colspan=4 width=100%><img src=$imagesurl/images/forumme.gif width=9> <font color=$forumfontcolor>$forumdescription</td></tr></table></td></tr></table>~;
 	} else {
 		$forumnamelink = "$forumname$hiddeninfo<font color=$forumfontcolor><br><img src=$imagesurl/images/forumme.gif width=9> $forumdescription</td></tr></table>";
 	}
 	$output .= qq~<table cellpadding=6 cellspacing=0 width=$tablewidth height=24 align=center bordercolor=$tablebordercolor border=1><tr><td bgcolor=$forumcolorone align=center width=26>$folderpicture</td><td bgcolor=$forumcolortwo valign=top width=*>
 <table width=100% cellpadding=1><tr><td width=1%>$team</td><td width=12></td><td width=*>$forumnamelink</td><td bgcolor=$forumcolorone align=center width=90><font color=$forumfontcolor>$modout[$forumid]</td>
-<td bgcolor=$forumcolortwo width=97><table width=100% cellpadding=0 cellspacing=0><tr><td align=left><font color=$fontcolormisc2>&nbsp;½ñÈÕ£º<br>&nbsp;Ö÷Ìâ£º<br>&nbsp;»Ø¸´£º</td><td align=right>$todayforumpost&nbsp;<br>$threads&nbsp;<br>$posts&nbsp;</td></tr></table></td>
+<td bgcolor=$forumcolortwo width=97><table width=100% cellpadding=0 cellspacing=0><tr><td align=left><font color=$fontcolormisc2>&nbsp;ä»Šæ—¥ï¼š<br>&nbsp;ä¸»é¢˜ï¼š<br>&nbsp;å›å¤ï¼š</td><td align=right>$todayforumpost&nbsp;<br>$threads&nbsp;<br>$posts&nbsp;</td></tr></table></td>
 <td bgcolor=$forumcolorone width=168><font color=$lastpostfontcolor>$topictitle$lastposter$forumlastpost</td><td bgcolor=$forumcolortwo align=center width=26>$forumbookmark</td></tr></table>
 ~;
 
@@ -229,7 +229,7 @@ foreach (@rearrangedforums)
 			my ($ctodayforumpost, $ctodayforumposttime) = split(/\|/, $ctodayforumpost);
 			$ctodayforumpost = 0 if (($nowtime ne $ctodayforumposttime)||($ctodayforumpost eq ''));
 ##############
-			if (($clastposttime > $forumlastvisit)&&($inmembername ne '¿ÍÈË'))
+			if (($clastposttime > $forumlastvisit)&&($inmembername ne 'å®¢äºº'))
 			{
 				$cposts   = qq~<font color=$fonthighlight><b>$cposts</b>~;
 				$cthreads = qq~<font color=$fonthighlight><b>$cthreads</b>~;
@@ -244,26 +244,26 @@ foreach (@rearrangedforums)
 				$clastposttime  = &longdateandtime ($clastposttime);
 				$forumlastpost = qq~<br>&nbsp;$clastposttime<br>~;
 			} else {
-				$forumlastpost = qq~<BR>&nbsp;Ã»ÓĞÌû×Ó£¬»òÓÉÓÚ·şÎñÆ÷<BR>&nbsp;·±Ã¦£¬Êı¾İÔİÊ±Î´Öª ...~;
+				$forumlastpost = qq~<BR>&nbsp;æ²¡æœ‰å¸–å­ï¼Œæˆ–ç”±äºæœåŠ¡å™¨<BR>&nbsp;ç¹å¿™ï¼Œæ•°æ®æš‚æ—¶æœªçŸ¥ ...~;
 				$clastposter  = '';
 			}
 			$topictitle = '' unless ((($cprivateforum ne 'yes')||($membercode =~ /^(ad|smo)$/))&&($topictitle));
-			$forumbookmark = qq~<span style=CURSOR: hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$cforumid', '$boardname - $cforumnameadd1')"><img src=$imagesurl/images/fav_add.gif border=0 width=16 alt="½«$cforumnameadd¼Óµ½ÎÒµÄ×î°®"></span>~;
+			$forumbookmark = qq~<span style=CURSOR: hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$cforumid', '$boardname - $cforumnameadd1')"><img src=$imagesurl/images/fav_add.gif border=0 width=16 alt="å°†$cforumnameaddåŠ åˆ°æˆ‘çš„æœ€çˆ±"></span>~;
 			if ($chiddenforum eq 'yes')
 			{
-				$hiddeninfo = '  <i>(Òş²Ø)</i>';
+				$hiddeninfo = '  <i>(éšè—)</i>';
 			} else {
 				$hiddeninfo = '';
 			}
 			if ($forumnamedisp eq 1)
 			{
-				$cforumnamelink = qq~<table width=100% cellpadding=2 cellspacing=0><tr><td width=93%>$cforumname$hiddeninfo</td><td width=12><a href=post.cgi?action=new&forum=$cforumid><img src=$imagesurl/images/$skin/fpost2.gif alt=ÔÚ´Ë·ÖÂÛÌ³·¢±íĞÂÖ÷Ìâ width=12 border=0></a></td><td width=12><a href=poll.cgi?action=new&forum=$cforumid><img src=$imagesurl/images/$skin/fpost1.gif alt=ÔÚ´Ë·ÖÂÛÌ³·¢±íĞÂÍ¶Æ± width=12 border=0></a></td><td width=12><a href=jinghua.cgi?action=list&forum=$cforumid><img src=$imagesurl/images/$skin/fpost3.gif alt=²é¿´´Ë·ÖÂÛÌ³µÄ¾«»ªÎÄÕÂ width=12 border=0></a></td></tr><tr><td colspan=4 width=100%><img src=$imagesurl/images/forumme.gif width=9> <font color=$forumfontcolor>$cforumdescription</td></tr></table></td></tr></table>~;	
+				$cforumnamelink = qq~<table width=100% cellpadding=2 cellspacing=0><tr><td width=93%>$cforumname$hiddeninfo</td><td width=12><a href=post.cgi?action=new&forum=$cforumid><img src=$imagesurl/images/$skin/fpost2.gif alt=åœ¨æ­¤åˆ†è®ºå›å‘è¡¨æ–°ä¸»é¢˜ width=12 border=0></a></td><td width=12><a href=poll.cgi?action=new&forum=$cforumid><img src=$imagesurl/images/$skin/fpost1.gif alt=åœ¨æ­¤åˆ†è®ºå›å‘è¡¨æ–°æŠ•ç¥¨ width=12 border=0></a></td><td width=12><a href=jinghua.cgi?action=list&forum=$cforumid><img src=$imagesurl/images/$skin/fpost3.gif alt=æŸ¥çœ‹æ­¤åˆ†è®ºå›çš„ç²¾åæ–‡ç«  width=12 border=0></a></td></tr><tr><td colspan=4 width=100%><img src=$imagesurl/images/forumme.gif width=9> <font color=$forumfontcolor>$cforumdescription</td></tr></table></td></tr></table>~;	
 			} else {
 				$cforumnamelink = "$cforumname$hiddeninfo<font color=$forumfontcolor><br><img src=$imagesurl/images/forumme.gif width=9> $cforumdescription</td></tr></table>";
 			}
 			$output .= qq~<table cellpadding=6 cellspacing=0 width=$tablewidth height=24 align=center bordercolor=$tablebordercolor border=1><tr><td bgcolor=$forumcolortwo valign=top width=*>
 <table width=100% cellpadding=1><tr><td width=1%>$cteam</td><td width=12></td><td width=*>$cforumnamelink</td><td bgcolor=$forumcolorone align=center width=90><font color=$forumfontcolor>$modout</td>
-<td bgcolor=$forumcolortwo align=left width=97><table width=100% cellpadding=0 cellspacing=0><tr><td align=left><font color=$fontcolormisc2>&nbsp;½ñÈÕ£º<br>&nbsp;Ö÷Ìâ£º<br>&nbsp;»Ø¸´£º</td><td align=right>$ctodayforumpost&nbsp;<br>$cthreads&nbsp;<br>$cposts&nbsp;</td></tr></table></td>
+<td bgcolor=$forumcolortwo align=left width=97><table width=100% cellpadding=0 cellspacing=0><tr><td align=left><font color=$fontcolormisc2>&nbsp;ä»Šæ—¥ï¼š<br>&nbsp;ä¸»é¢˜ï¼š<br>&nbsp;å›å¤ï¼š</td><td align=right>$ctodayforumpost&nbsp;<br>$cthreads&nbsp;<br>$cposts&nbsp;</td></tr></table></td>
 <td bgcolor=$forumcolorone width=168><font color=$lastpostfontcolor>$topictitle$clastposter$forumlastpost</td><td bgcolor=$forumcolortwo align=center width=26>$forumbookmark</td></tr></table>
 ~;
 		}

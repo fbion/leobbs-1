@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -36,7 +36,7 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = new LBCGI;
 #&ipbanned;
 
-&error("¶ÌÏûÏ¢½ûÖ¹Ê¹ÓÃ&ºÜ±§Ç¸£¬Ì³Ö÷ÓÉÓÚÄ³ÖÖÔ­ÒòÒÑ½ûÖ¹ËùÓĞÓÃ»§Ê¹ÓÃ¶ÌÏûÏ¢¹¦ÄÜ&msg") if ($allowusemsg eq "off");
+&error("çŸ­æ¶ˆæ¯ç¦æ­¢ä½¿ç”¨&å¾ˆæŠ±æ­‰ï¼Œå›ä¸»ç”±äºæŸç§åŸå› å·²ç¦æ­¢æ‰€æœ‰ç”¨æˆ·ä½¿ç”¨çŸ­æ¶ˆæ¯åŠŸèƒ½&msg") if ($allowusemsg eq "off");
 
 $action = $query->param("action");
 
@@ -51,7 +51,7 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -68,20 +68,20 @@ if ($action eq "send" || $action eq "new")
 	$inmessage = &cleaninput($inmessage);
 	$inmsgtitle = &cleaninput($inmsgtitle);
 }
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inmembername =~  m/\// || $inmembername =~ m/\\/ || $inmembername =~ m/\.\./);
-&error("ÆÕÍ¨´íÎó&Çë²»ÒªĞŞ¸ÄÉú³ÉµÄ URL£¡") if ($inmsg =~ /[^0-9]/);
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inmembername =~  m/\// || $inmembername =~ m/\\/ || $inmembername =~ m/\.\./);
+&error("æ™®é€šé”™è¯¯&è¯·ä¸è¦ä¿®æ”¹ç”Ÿæˆçš„ URLï¼") if ($inmsg =~ /[^0-9]/);
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË")
+if ($inmembername eq "" || $inmembername eq "å®¢äºº")
 {
-	&error("ÆÕÍ¨´íÎó&Äã»¹Ã»µÇÂ¼ÄØ£¿ÇëÏÈµÇÂ¼ÂÛÌ³£¡&msg");
+	&error("æ™®é€šé”™è¯¯&ä½ è¿˜æ²¡ç™»å½•å‘¢ï¼Ÿè¯·å…ˆç™»å½•è®ºå›ï¼&msg");
 }
 else
 {
 	&getmember($inmembername,"no");
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡&msg") if ($userregistered eq "no");
-	&error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡&msg") if ($inpassword ne $password);
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼&msg") if ($userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼&msg") if ($inpassword ne $password);
 }
-&doonoff;  #ÂÛÌ³¿ª·ÅÓë·ñ
+&doonoff;  #è®ºå›å¼€æ”¾ä¸å¦
 
 $msgmm = 0 if (($msgmm <= 0)||($msgmm eq ""));
 $msgmneedmm = "off" if (($msgmm <= 0)||($msgmm eq ""));
@@ -111,14 +111,14 @@ function disable(btn)
 .gray	{cursor: hand; filter:gray}
 </style>~;
 
-$inboxpm = qq~<img src=$imagesurl/images/inboxpm.gif border=0 alt="ÊÕ¼şÏä" width=40 height=40>~;
-$outboxpm = qq~<img src=$imagesurl/images/outboxpm.gif border=0 alt="·¢¼şÏä" width=40 height=40>~;
-$newpm = qq~<img src=$imagesurl/images/newpm.gif border=0 alt="·¢ËÍÏûÏ¢" width=40 height=40>~;
-$replypm = qq~<img src=$imagesurl/images/replypm.gif border=0 alt="»Ø¸´ÏûÏ¢" width=40 height=40>~;
-$fwpm = qq~<img src=$imagesurl/images/fwpm.gif border=0 alt="×ª·¢ÏûÏ¢" width=40 height=40>~;
-$deletepm = qq~<img src=$imagesurl/images/deletepm.gif border=0 alt="É¾³ıÏûÏ¢" width=40 height=40>~;
-$friendpm = qq~<img src=$imagesurl/images/friendpm.gif border=0 alt="´ò¿ªºÃÓÑÂ¼" width=40 height=40>~;
-$blockpm = qq~<img src=$imagesurl/images/blockpm.gif border=0 alt="´ò¿ªºÚÃûµ¥" width=40 height=40>~;
+$inboxpm = qq~<img src=$imagesurl/images/inboxpm.gif border=0 alt="æ”¶ä»¶ç®±" width=40 height=40>~;
+$outboxpm = qq~<img src=$imagesurl/images/outboxpm.gif border=0 alt="å‘ä»¶ç®±" width=40 height=40>~;
+$newpm = qq~<img src=$imagesurl/images/newpm.gif border=0 alt="å‘é€æ¶ˆæ¯" width=40 height=40>~;
+$replypm = qq~<img src=$imagesurl/images/replypm.gif border=0 alt="å›å¤æ¶ˆæ¯" width=40 height=40>~;
+$fwpm = qq~<img src=$imagesurl/images/fwpm.gif border=0 alt="è½¬å‘æ¶ˆæ¯" width=40 height=40>~;
+$deletepm = qq~<img src=$imagesurl/images/deletepm.gif border=0 alt="åˆ é™¤æ¶ˆæ¯" width=40 height=40>~;
+$friendpm = qq~<img src=$imagesurl/images/friendpm.gif border=0 alt="æ‰“å¼€å¥½å‹å½•" width=40 height=40>~;
+$blockpm = qq~<img src=$imagesurl/images/blockpm.gif border=0 alt="æ‰“å¼€é»‘åå•" width=40 height=40>~;
 
 $output .= qq~
 <p>
@@ -141,9 +141,9 @@ if ($action eq "attach") {
 	my $msgtograb = $boxmessages[$inmsg];
 	chomp($msgtograb);
 	my ($from, $readstate, $date, $messagetitle, $post, $attach) = split(/\t/, $msgtograb);
-	&error("¶ÁÈ¡¸½¼ş&ÏûÏ¢Ã»ÓĞ¸½¼ş£¡»ò´ËÏûÏ¢ÒÑ±»É¾³ı£¡&msg") if ($attach eq '');
+	&error("è¯»å–é™„ä»¶&æ¶ˆæ¯æ²¡æœ‰é™„ä»¶ï¼æˆ–æ­¤æ¶ˆæ¯å·²è¢«åˆ é™¤ï¼&msg") if ($attach eq '');
 
-	my ($filename, $content) = split('£ª£££¡£¦£ª', $attach);
+	my ($filename, $content) = split('ï¼Šï¼ƒï¼ï¼†ï¼Š', $attach);
 	my $fileext = lc((split(/\./, $filename))[-1]);
 	$content = &Base64decode($content);
 	my $filesize = length($content);
@@ -162,10 +162,10 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 if ($action eq "new")
 {
 	my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
-	&error("²»ÔÊĞí·¢ËÍ¶ÌĞÅÏ¢&ÄúÉèÖÃÁË¶ÌĞÅÏ¢Ãâ´òÈÅ£¬ÕâÑùÄãÊÇÎŞ·¨½ÓÊÜ¶ÌÏûÏ¢µÄ£¬ËùÒÔÄãÒ²ÎŞ·¨·¢ËÍ¶ÌÏûÏ¢£¡<br><font color=$fonthighlight>ÇëÈ¡Ïû¶ÌĞÅÏ¢Ãâ´òÈÅ£¬È»ºóÔÙÖØĞÂ·¢ËÍ¶ÌÏûÏ¢£¡</font><br><br>&msg") if (-e $messfilename && $membercode ne "ad");
+	&error("ä¸å…è®¸å‘é€çŸ­ä¿¡æ¯&æ‚¨è®¾ç½®äº†çŸ­ä¿¡æ¯å…æ‰“æ‰°ï¼Œè¿™æ ·ä½ æ˜¯æ— æ³•æ¥å—çŸ­æ¶ˆæ¯çš„ï¼Œæ‰€ä»¥ä½ ä¹Ÿæ— æ³•å‘é€çŸ­æ¶ˆæ¯ï¼<br><font color=$fonthighlight>è¯·å–æ¶ˆçŸ­ä¿¡æ¯å…æ‰“æ‰°ï¼Œç„¶åå†é‡æ–°å‘é€çŸ­æ¶ˆæ¯ï¼</font><br><br>&msg") if (-e $messfilename && $membercode ne "ad");
         $mymoney2 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 	if (($msgmneedmm ne "off")&&($actionto eq "msg")) {
-	    &error("$moneyname²»×ã&·¢ËÍ¶ÌÏûÏ¢ĞèÒª·ÑÓÃ:$msgmm $moneyname£¬µ«ÄãÖ»ÓĞ $mymoney2 $moneyname¡¡<BR><BR>&msg") if ($mymoney2 < $msgmm);
+	    &error("$moneynameä¸è¶³&å‘é€çŸ­æ¶ˆæ¯éœ€è¦è´¹ç”¨:$msgmm $moneynameï¼Œä½†ä½ åªæœ‰ $mymoney2 $moneynameã€€<BR><BR>&msg") if ($mymoney2 < $msgmm);
 	}
 	my $cleanname = $intouser;
 	$cleanname =~ tr/A-Z/a-z/;
@@ -183,19 +183,19 @@ if ($action eq "new")
 	my $friendlist = "";
 	foreach (@currentlist) {
 		chomp;
-		s/^£ª£££¡£¦£ª//isg;
+		s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 		$friendlist .= qq~<option value="$_">$_</option>~;
 	}
 
 	if ($msgmneedmm ne "off") {
 	$addout=qq~
 	<tr>
-            <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>ÄúµÄÏÖ½ğ£º</b></td>
+            <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>æ‚¨çš„ç°é‡‘ï¼š</b></td>
             <td bgcolor=$miscbackone align="left">&nbsp;<B>$mymoney2</B> $moneyname</td>
             </tr>
 	<tr>
-            <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>·ÑÓÃ£º</b></td>
-            <td bgcolor=$miscbackone align="left">&nbsp;<b>$msgmm</B> $moneyname/Ìõ</td>
+            <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>è´¹ç”¨ï¼š</b></td>
+            <td bgcolor=$miscbackone align="left">&nbsp;<b>$msgmm</B> $moneyname/æ¡</td>
             </tr>
 	~;
 	}
@@ -207,15 +207,15 @@ function friendls1() {
     if (myfriend != "") document.FORM.touser.value = document.FORM.touser.value = myfriend;
 }
 </script>
-<tr><td bgColor=$miscbacktwo align=center colSpan=2 $catbackpic height=26><font color=$fontcolormisc><b>·¢ËÍ¶ÌÏûÏ¢</b></td></tr>
-<tr><td bgColor=$miscbackone align=center colSpan=2><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbacktwo colSpan=2 align=center><form action=messanger.cgi method=POST name=FORM enctype="multipart/form-data"><input type=hidden name=action value="send"><input type=hidden name=check value="yes"><font color=$fontcolormisc><b>ÇëÍêÕûÊäÈëÏÂÁĞĞÅÏ¢</b></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=2 $catbackpic height=26><font color=$fontcolormisc><b>å‘é€çŸ­æ¶ˆæ¯</b></td></tr>
+<tr><td bgColor=$miscbackone align=center colSpan=2><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbacktwo colSpan=2 align=center><form action=messanger.cgi method=POST name=FORM enctype="multipart/form-data"><input type=hidden name=action value="send"><input type=hidden name=check value="yes"><font color=$fontcolormisc><b>è¯·å®Œæ•´è¾“å…¥ä¸‹åˆ—ä¿¡æ¯</b></td></tr>
 <tr>
-<td bgColor=$miscbackone><font color=$fontcolormisc><b>ÊÕ¼şÈË£º</b></font></td>
-<td bgColor=$miscbackone><input type=text name=touser value="$cleanname" size=16> ¡¡<select name=friend OnChange="friendls1()"><option>ºÃÓÑÃûµ¥</option>$friendlist</select></td>
+<td bgColor=$miscbackone><font color=$fontcolormisc><b>æ”¶ä»¶äººï¼š</b></font></td>
+<td bgColor=$miscbackone><input type=text name=touser value="$cleanname" size=16> ã€€<select name=friend OnChange="friendls1()"><option>å¥½å‹åå•</option>$friendlist</select></td>
 </tr>
 <tr>
-<td bgColor=$miscbackone valign=top><font color=$fontcolormisc><b>±êÌâ£º</b></font></td>
+<td bgColor=$miscbackone valign=top><font color=$fontcolormisc><b>æ ‡é¢˜ï¼š</b></font></td>
 <td bgColor=$miscbackone><input type=text name=msgtitle size=36 maxlength=80 value=$inmsgtitle></td>
 </tr>~;
 	if ($allowmsgattachment ne 'no')
@@ -225,7 +225,7 @@ function friendls1() {
 		$addtypedisp =~ s/ \,/\,/ig;
 		$addtypedisp =~ tr/A-Z/a-z/;
 		my @addtypedisp = split(/\,/, $addtypedisp);
-		$addtypedisp = "<select><option value=#>Ö§³ÖÀàĞÍ£º</option><option value=#>----------</option>";
+		$addtypedisp = "<select><option value=#>æ”¯æŒç±»å‹ï¼š</option><option value=#>----------</option>";
 		foreach (@addtypedisp)
 		{
 			chomp;
@@ -235,7 +235,7 @@ function friendls1() {
 		$addtypedisp .= qq~</select>~;
 		$output .= qq~
 <tr>
-<td bgColor=$miscbackone valign=top width=30%><font color=$fontcolormisc><b>¸½¼ş£º</b><br>(×î´ó <b>60</b> KB)</font></td>
+<td bgColor=$miscbackone valign=top width=30%><font color=$fontcolormisc><b>é™„ä»¶ï¼š</b><br>(æœ€å¤§ <b>60</b> KB)</font></td>
 <td bgColor=$miscbackone><input type=file size=30 name=addme><br>$addtypedisp</td>
 </tr>
 ~;
@@ -243,10 +243,10 @@ function friendls1() {
 
 $output .= qq~
 <tr>
-<td bgColor=$miscbackone valign=top><font color=$fontcolormisc><b>ÄÚÈİ£º</b></td>
-<td bgColor=$miscbackone><textarea cols=35 rows=6 name=message OnKeyDown="ctlent()">$inmessage</textarea><br><input type=checkbox name=backup value="yes" class=1><font color=$fontcolormisc>ÊÇ·ñ¸´ÖÆÒ»·İÏûÏ¢ÖÁ·¢¼şÏä£¿</font></td>
+<td bgColor=$miscbackone valign=top><font color=$fontcolormisc><b>å†…å®¹ï¼š</b></td>
+<td bgColor=$miscbackone><textarea cols=35 rows=6 name=message OnKeyDown="ctlent()">$inmessage</textarea><br><input type=checkbox name=backup value="yes" class=1><font color=$fontcolormisc>æ˜¯å¦å¤åˆ¶ä¸€ä»½æ¶ˆæ¯è‡³å‘ä»¶ç®±ï¼Ÿ</font></td>
 </tr>$addout
-<tr><td  colSpan=2 bgColor=$miscbacktwo align=center><input type=submit value="·¢ ËÍ" name=Submit> ¡¡<input type=reset name=Clear value="Çå ³ı"></td></form></tr>
+<tr><td  colSpan=2 bgColor=$miscbacktwo align=center><input type=submit value="å‘ é€" name=Submit> ã€€<input type=reset name=Clear value="æ¸… é™¤"></td></form></tr>
 ~;
 }
 
@@ -273,21 +273,21 @@ function HighlightAll(theField)
 	therange.execCommand("Copy");
 }
 </script>
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>µ¼³ö¶ÌÏûÏ¢</b></td></tr>
-<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>å¯¼å‡ºçŸ­æ¶ˆæ¯</b></td></tr>
+<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
 <tr><td bgColor=$miscbackone align=center><form name=FORM2><textarea name=inpost rows=12 style="width=90%">~;
-	my $boxname = $inwhere eq "inbox" ? "ÊÕ¼şÏä" : "·¢¼şÏä";
+	my $boxname = $inwhere eq "inbox" ? "æ”¶ä»¶ç®±" : "å‘ä»¶ç®±";
 	$current_time = localtime;
 	$output .= qq~
-$boardnameÖĞ$inmembernameµÄ¶ÌĞÅÏ¢$boxnameµ¼³öÄÚÈİ
-(µ¼³öÊ±¼ä£º$current_time)
+$boardnameä¸­$inmembernameçš„çŸ­ä¿¡æ¯$boxnameå¯¼å‡ºå†…å®¹
+(å¯¼å‡ºæ—¶é—´ï¼š$current_time)
 ----------------------------------------
 ~;
 	my $addtime = ($timedifferencevalue + $timezone) * 3600;
 	foreach (@messanges)
 	{
 		($usrname, $msgread, $msgtime, $msgtitle, $msgwords) = split(/\t/, $_);
-		$usrname =~ s/^£ª£££¡£¦£ª//isg;
+		$usrname =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 		$msgwords =~ s/\r//ig;
 		$msgwords =~ s/&nbsp;/ /g;
 		$msgwords =~ s/"/\&quot;/g;
@@ -295,14 +295,14 @@ $boardnameÖĞ$inmembernameµÄ¶ÌĞÅÏ¢$boxnameµ¼³öÄÚÈİ
 		$msgwords =~ s/<br>/\n/g;
 		$msgwords =~ s/<p>/\n/g;
 		$msgtime = &dateformat($msgtime + $addtime);
-		$output .= "\n[ÊÕ·¢¶ÔÏó]£º$usrname\n[ÊÕ·¢Ê±¼ä]£º$msgtime\n[¶ÌĞÅ±êÌâ]£º$msgtitle\n[¶ÌĞÅÄÚÈİ]£º$msgwords\n";
+		$output .= "\n[æ”¶å‘å¯¹è±¡]ï¼š$usrname\n[æ”¶å‘æ—¶é—´]ï¼š$msgtime\n[çŸ­ä¿¡æ ‡é¢˜]ï¼š$msgtitle\n[çŸ­ä¿¡å†…å®¹]ï¼š$msgwords\n";
 	}
-	$output .= qq~</textarea><br>>> <a href="javascript:HighlightAll('FORM2.inpost')">¸´ÖÆµ½¼ôÌù°å <<</a></form>
-<font color=red>ÄúÔÚ$boxnameÖĞµÄ¶ÌÏûÏ¢ÒÑÈ«²¿µ¼³ö£¬ÕâĞ©¶ÌĞÅÏ¢²¢Î´±»ÕæÕıÉ¾³ı£¡<br>Îª¼õÉÙ·şÎñÆ÷Ñ¹Á¦£¬Çë¾¡Ôç<a href=$thisprog?action=deleteall&where=$inwhere>[Çå¿Õ]</a>ÄúÔÚ$boxnameÖĞµÄ¶ÌÏûÏ¢£¡<br><br></td></tr>~;
+	$output .= qq~</textarea><br>>> <a href="javascript:HighlightAll('FORM2.inpost')">å¤åˆ¶åˆ°å‰ªè´´æ¿ <<</a></form>
+<font color=red>æ‚¨åœ¨$boxnameä¸­çš„çŸ­æ¶ˆæ¯å·²å…¨éƒ¨å¯¼å‡ºï¼Œè¿™äº›çŸ­ä¿¡æ¯å¹¶æœªè¢«çœŸæ­£åˆ é™¤ï¼<br>ä¸ºå‡å°‘æœåŠ¡å™¨å‹åŠ›ï¼Œè¯·å°½æ—©<a href=$thisprog?action=deleteall&where=$inwhere>[æ¸…ç©º]</a>æ‚¨åœ¨$boxnameä¸­çš„çŸ­æ¶ˆæ¯ï¼<br><br></td></tr>~;
 	}
 	else
 	{
-		&error("¶ÌÏûÏ¢&ÎÄ¼şÃ»ÓĞÕÒµ½£¬ÇëÖØ¸´¸Õ²Å²½Öè£¡&msg");
+		&error("çŸ­æ¶ˆæ¯&æ–‡ä»¶æ²¡æœ‰æ‰¾åˆ°ï¼Œè¯·é‡å¤åˆšæ‰æ­¥éª¤ï¼&msg");
 	}
 }
 
@@ -331,28 +331,28 @@ elsif ($action eq "markall")
 		close(FILE);
 		&winunlock($filetoopen) if ($OS_USED eq "Nt");
 	}
-	my $boxname = $inwhere eq "inbox" ? "ÊÕ¼şÏä" : "·¢¼şÏä";
+	my $boxname = $inwhere eq "inbox" ? "æ”¶ä»¶ç®±" : "å‘ä»¶ç®±";
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>ËùÓĞµÄ¶ÌÏûÏ¢ÒÑ±»±ê¼ÇÎªÒÑ¶Á</b></td></tr>
-<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ÄúÔÚ$boxnameÖĞµÄ¶ÌÏûÏ¢ÒÑ¾­È«²¿±ê¼ÇÎªÒÑ¶Á</b><br><br></td></tr>~;
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>æ‰€æœ‰çš„çŸ­æ¶ˆæ¯å·²è¢«æ ‡è®°ä¸ºå·²è¯»</b></td></tr>
+<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>æ‚¨åœ¨$boxnameä¸­çš„çŸ­æ¶ˆæ¯å·²ç»å…¨éƒ¨æ ‡è®°ä¸ºå·²è¯»</b><br><br></td></tr>~;
 }
 
 elsif ($action eq "send")
 {
-	&error("³ö´í&Çë²»ÒªÓÃÍâ²¿Á¬½Ó±¾³ÌĞò£¡") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
-	&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡&msg") if ($intouser =~  m/\// || $intouser =~ m/\\/ || $intouser =~ m/\.\./);
-	&error("¶ÌÏûÏ¢&Äú±»½ûÖ¹·¢ÑÔ£¡&msg") if ($membercode eq "banned" || $membercode eq "masked");
-	if (($onlinetime + $onlinetimeadd) < $onlinemessage && $onlinemessage ne "" && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) { $onlinetime = $onlinetime + $onlinetimeadd; &error("¶ÌÏûÏ¢&±¾ÂÛÌ³²»ÔÊĞíÔÚÏßÊ±¼äÉÙÓÚ $onlinemessage ÃëµÄÓÃ»§·¢ËÍ¶ÌÏûÏ¢£¡ÄãÄ¿Ç°ÒÑ¾­ÔÚÏß $onlinetime Ãë£¡<BR>Èç¹ûÔÚÏßÊ±¼äÍ³¼Æ²»ÕıÈ·,ÇëÖØĞÂµÇÂ½ÂÛÌ³Ò»´Î¼´¿É½â¾ö£¡&msg"); }
+	&error("å‡ºé”™&è¯·ä¸è¦ç”¨å¤–éƒ¨è¿æ¥æœ¬ç¨‹åºï¼") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
+	&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼&msg") if ($intouser =~  m/\// || $intouser =~ m/\\/ || $intouser =~ m/\.\./);
+	&error("çŸ­æ¶ˆæ¯&æ‚¨è¢«ç¦æ­¢å‘è¨€ï¼&msg") if ($membercode eq "banned" || $membercode eq "masked");
+	if (($onlinetime + $onlinetimeadd) < $onlinemessage && $onlinemessage ne "" && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) { $onlinetime = $onlinetime + $onlinetimeadd; &error("çŸ­æ¶ˆæ¯&æœ¬è®ºå›ä¸å…è®¸åœ¨çº¿æ—¶é—´å°‘äº $onlinemessage ç§’çš„ç”¨æˆ·å‘é€çŸ­æ¶ˆæ¯ï¼ä½ ç›®å‰å·²ç»åœ¨çº¿ $onlinetime ç§’ï¼<BR>å¦‚æœåœ¨çº¿æ—¶é—´ç»Ÿè®¡ä¸æ­£ç¡®,è¯·é‡æ–°ç™»é™†è®ºå›ä¸€æ¬¡å³å¯è§£å†³ï¼&msg"); }
 	my @sendtouserlist = split(/\;/, $intouser);
-	&error("¶ÌÏûÏ¢½ûÖ¹·¢ËÍ&ºÜ±§Ç¸£¬Ò»´ÎÈº·¢Ñ¶Ï¢×î¸ßÊıÁ¿ÊÇ $maxsend Ìõ£¡&msg") if (@sendtouserlist > $maxsend && $maxsend =~ /^[0-9]+$/ && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo");
+	&error("çŸ­æ¶ˆæ¯ç¦æ­¢å‘é€&å¾ˆæŠ±æ­‰ï¼Œä¸€æ¬¡ç¾¤å‘è®¯æ¯æœ€é«˜æ•°é‡æ˜¯ $maxsend æ¡ï¼&msg") if (@sendtouserlist > $maxsend && $maxsend =~ /^[0-9]+$/ && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo");
 	$inbackup = $query->param("backup");
-	&error("¶ÌÏûÏ¢&Ã»ÓĞÖ¸¶¨ÊÕ¼şÈË£¡&msg") if (@sendtouserlist == 0);
+	&error("çŸ­æ¶ˆæ¯&æ²¡æœ‰æŒ‡å®šæ”¶ä»¶äººï¼&msg") if (@sendtouserlist == 0);
 	
 	$mymoney2 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 	$msgmm = 0 if (($msgmm < 0)||($msgmm eq "")||($membercode eq "ad")||($membercode eq 'smo')||($membercode eq 'amo')||($membercode eq 'cmo')||($membercode eq "mo"));
 	if ($msgmneedmm ne "off") {
-		if ($mymoney2 < $msgmm) { &error("$moneyname²»×ã&·¢ËÍ¶ÌÏûÏ¢ĞèÒª·ÑÓÃ:$msgmm $moneyname£¬µ«ÄãÖ»ÓĞ$mymoney2 $moneyname¡¡<BR><BR>&msg"); }
+		if ($mymoney2 < $msgmm) { &error("$moneynameä¸è¶³&å‘é€çŸ­æ¶ˆæ¯éœ€è¦è´¹ç”¨:$msgmm $moneynameï¼Œä½†ä½ åªæœ‰$mymoney2 $moneynameã€€<BR><BR>&msg"); }
 		else {
 		    $cleanmembername = $inmembername;
            	    $cleanmembername =~ s/ /\_/g;
@@ -372,15 +372,15 @@ elsif ($action eq "send")
         	}
 	}
 
-    # $addme=$query->upload('addme'); #Èç¹ûCGI.pm°æ±¾>2.47£¬ÍÆ¼öÊ¹ÓÃ
-    $addme=$query->param('addme'); #Èç¹ûCGI.pm°æ±¾<2.47£¬ÓÃËûÌæ»»ÉÏ¾ä
+    # $addme=$query->upload('addme'); #å¦‚æœCGI.pmç‰ˆæœ¬>2.47ï¼Œæ¨èä½¿ç”¨
+    $addme=$query->param('addme'); #å¦‚æœCGI.pmç‰ˆæœ¬<2.47ï¼Œç”¨ä»–æ›¿æ¢ä¸Šå¥
 
         my $attach = '';
         if ($addme && $allowmsgattachment ne 'no')
         {
 
-               my ($up_filename) = $addme =~ m|([^/:\\]+)$|; #×¢Òâ,»ñÈ¡ÎÄ¼şÃû×ÖµÄĞÎÊ½±ä»¯
-               my @up_names = split(/\./,$up_filename); #×¢Òâ
+               my ($up_filename) = $addme =~ m|([^/:\\]+)$|; #æ³¨æ„,è·å–æ–‡ä»¶åå­—çš„å½¢å¼å˜åŒ–
+               my @up_names = split(/\./,$up_filename); #æ³¨æ„
                my $up_name = $up_names[0];
                my $up_ext = $up_names[-1];
                $up_ext = lc($up_ext);
@@ -391,12 +391,12 @@ elsif ($action eq "send")
                 {
                         $checkadd = 1, last if ($up_ext eq lc($_));
                 }
-                &error("ÉÏ´«³ö´í&²»Ö§³ÖÄãËùÉÏ´«µÄ¸½¼şÀàĞÍ($up_ext)£¬ÇëÖØĞÂÑ¡Ôñ£¡&msg") if ($checkadd == 0);
+                &error("ä¸Šä¼ å‡ºé”™&ä¸æ”¯æŒä½ æ‰€ä¸Šä¼ çš„é™„ä»¶ç±»å‹($up_ext)ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼&msg") if ($checkadd == 0);
                 my $filesize = 0;
                 my $bufferall = '';
 
 
-                 binmode ($addme); #×¢Òâ
+                 binmode ($addme); #æ³¨æ„
 
                  while (read($addme,$buffer,4096) )
                  {#2
@@ -411,9 +411,9 @@ elsif ($action eq "send")
                   $filesize += 4;
                   } #2
 
-                 close ($addme); #×¢Òâ
+                 close ($addme); #æ³¨æ„
 
-                &error("ÉÏ´«³ö´í&ÉÏ´«¸½¼ş´óĞ¡³¬¹ı 60 KB£¬ÇëÖØĞÂÑ¡Ôñ£¡&msg") if (length($bufferall) > 60 * 1024);
+                &error("ä¸Šä¼ å‡ºé”™&ä¸Šä¼ é™„ä»¶å¤§å°è¶…è¿‡ 60 KBï¼Œè¯·é‡æ–°é€‰æ‹©ï¼&msg") if (length($bufferall) > 60 * 1024);
 
                 if ($up_ext eq "gif" || $up_ext eq "jpg" || $up_ext eq "bmp" || $up_ext eq "jpeg" || $up_ext eq "png" || $up_ext eq "ppm" || $up_ext eq "svg" || $up_ext eq "xbm" || $up_ext eq "xpm")
                 {
@@ -421,10 +421,10 @@ elsif ($action eq "send")
                         if ($@ eq "")
                         {
                                 my $info = image_info(\$bufferall);
-                                &error("ÉÏ´«³ö´í&ÉÏ´«¸½¼ş²»ÊÇÍ¼Æ¬ÎÄ¼ş£¬ÇëÉÏ´«±ê×¼µÄÍ¼Æ¬ÎÄ¼ş£¡&msg") if ($info->{error} eq "Unrecognized file format");
+                                &error("ä¸Šä¼ å‡ºé”™&ä¸Šä¼ é™„ä»¶ä¸æ˜¯å›¾ç‰‡æ–‡ä»¶ï¼Œè¯·ä¸Šä¼ æ ‡å‡†çš„å›¾ç‰‡æ–‡ä»¶ï¼&msg") if ($info->{error} eq "Unrecognized file format");
                         }
                 }
-                $attach = "$up_filename£ª£££¡£¦£ª" . &Base64encode($bufferall);
+                $attach = "$up_filenameï¼Šï¼ƒï¼ï¼†ï¼Š" . &Base64encode($bufferall);
         }
 
 	undef @NoRegUser; undef @Max; undef @NoPM;
@@ -444,7 +444,7 @@ elsif ($action eq "send")
 		&getmember($_,"no");
 		if ($userregistered eq "no")
 		{
-			push(@NoRegUser, "·¢ËÍ¶ÌĞÅÏ¢´íÎó-Ã»ÓĞÕÒµ½ÓÃ»§¡¸$_¡¹");
+			push(@NoRegUser, "å‘é€çŸ­ä¿¡æ¯é”™è¯¯-æ²¡æœ‰æ‰¾åˆ°ç”¨æˆ·ã€Œ$_ã€");
 			next;
 		}
 
@@ -460,7 +460,7 @@ elsif ($action eq "send")
 					@allmessages = split (/\n/, $allmessages);
 				}
 				if (@allmessages >= $maxmsgno) {
-					push(@Max, "ÎŞ·¨·¢ËÍ¶ÌĞÅÏ¢¸ø¶Ô·½-$_µÄ¶ÌÏûÏ¢ÊÕ¼şÏäÒÑÈİÄÉ $maxmsgno ÌõÏûÏ¢£¬¿Õ¼äÒÑÂú");
+					push(@Max, "æ— æ³•å‘é€çŸ­ä¿¡æ¯ç»™å¯¹æ–¹-$_çš„çŸ­æ¶ˆæ¯æ”¶ä»¶ç®±å·²å®¹çº³ $maxmsgno æ¡æ¶ˆæ¯ï¼Œç©ºé—´å·²æ»¡");
 					next;
 				}
 			}
@@ -472,9 +472,9 @@ elsif ($action eq "send")
 				$blacklist =~ s/\r//isg;
 				@blacklist = split (/\n/, $blacklist);
 				chomp(@blacklist);
-				if (grep(/^£ª£££¡£¦£ª$inmembername$/i, @blacklist))
+				if (grep(/^ï¼Šï¼ƒï¼ï¼†ï¼Š$inmembername$/i, @blacklist))
 				{
-					push(@Max, "ÎŞ·¨·¢ËÍ¶ÌĞÅÏ¢¸ø¶Ô·½-$_ÒÑ½«ÄãÄÉÈëÆäºÚÃûµ¥ÄÚ£¬²»½ÓÊÜÄãµÄÈÎºÎ¶ÌĞÅÏ¢£¡");
+					push(@Max, "æ— æ³•å‘é€çŸ­ä¿¡æ¯ç»™å¯¹æ–¹-$_å·²å°†ä½ çº³å…¥å…¶é»‘åå•å†…ï¼Œä¸æ¥å—ä½ çš„ä»»ä½•çŸ­ä¿¡æ¯ï¼");
 					next;
 				}
 			}
@@ -484,7 +484,7 @@ elsif ($action eq "send")
 			{
 				$mess = <FILE>;
 				close(FILE);	
-				push(@NoPM, "ÎŞ·¨·¢ËÍ¶ÌĞÅÏ¢-$_ÉèÖÃÁË¶ÌÏûÏ¢Ãâ´òÈÅ¹¦ÄÜ¡¡<br><br>×Ô¶¯Ãâ´òÈÅ»Ø¸² <font color=$fonthighlight>$mess</font><br><br>");
+				push(@NoPM, "æ— æ³•å‘é€çŸ­ä¿¡æ¯-$_è®¾ç½®äº†çŸ­æ¶ˆæ¯å…æ‰“æ‰°åŠŸèƒ½ã€€<br><br>è‡ªåŠ¨å…æ‰“æ‰°å›è¦† <font color=$fonthighlight>$mess</font><br><br>");
 				next;
 			}
 		}
@@ -496,34 +496,8 @@ elsif ($action eq "send")
 		my $tempinmsgtitle = $inmsgtitle;
 		$tempinmsgtitle =~ s/ //g;
 		$tempinmsgtitle =~ s/\&nbsp\;//g;
-		$tempinmsgtitle =~ s/¡¡//isg;
-		$tempinmsgtitle =~ s/©¡//isg;
-		$tempinmsgtitle =~ s/^£ª£££¡£¦£ª//;
-		&error("·¢ËÍÁôÑÔ&±êÌâÓĞÎÊÌâ£¡&msg") if ($tempinmsgtitle eq "");
-		&error("·¢ËÍÁôÑÔ&Çë½«ĞÅÏ¢ÌîĞ´ÍêÕû£¡&msg") if ($inmessage eq "");
-
-		my $filetoopen = "${lbdir}${msgdir}/in/${cleanintouser}_msg.cgi";
-		&winlock($filetoopen) if ($OS_USED eq "Nt");
-		if (open(FILE, $filetoopen)) {
-			flock(FILE, 1) if ($OS_USED eq "Unix");
-       			sysread(FILE, $inboxmessages,(stat(FILE))[7]);
-			close(FILE);
-			$inboxmessages =~ s/\r//isg;
-		}
-		open(FILE, ">$filetoopen");
-		flock(FILE, 2) if ($OS_USED eq "Unix");
-		print FILE "£ª£££¡£¦£ª$inmembername\tno\t$currenttime\t$inmsgtitle\t$inmessage\t$attach\n$inboxmessages";
-		close(FILE);
-		&winunlock($filetoopen) if ($OS_USED eq "Nt");
-		unlink ("${lbdir}cache/mymsg/${cleanintouser}.pl");
-	}
-
-	if ($inbackup eq "yes")
-	{
-		undef @outboxmessages;
-
-		$filetoopen = "${lbdir}${msgdir}/out/${memberfilename}_out.cgi";
-		&winlock($filetoopen) if ($OS_USED eq "Nt");
+		$tempinmsgtitle =~ s/ã€€//isg;
+		$tempinmsgtitle =~ s/winlock($filetoopen) if ($OS_USED eq "Nt");
 		if (open (FILE, $filetoopen)) {
 			flock(FILE, 1) if ($OS_USED eq "Unix");
        			sysread(FILE, $outboxmessages,(stat(FILE))[7]);

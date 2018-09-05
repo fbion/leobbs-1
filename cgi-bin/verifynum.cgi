@@ -1,14 +1,14 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-###»ñÈ¡ÕæÊµµÄ IP µØÖ·
+###èŽ·å–çœŸå®žçš„ IP åœ°å€
 $ipaddress = $ENV{'REMOTE_ADDR'};
 $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
 $ipaddress = $trueipaddress if (($trueipaddress ne "") && ($trueipaddress ne "unknown"));
@@ -16,7 +16,7 @@ $trueipaddress = $ENV{'HTTP_CLIENT_IP'};
 $ipaddress = $trueipaddress if (($trueipaddress ne "") && ($trueipaddress ne "unknown"));
 $ipaddress =~ s/[^\d\.]//g;
 
-###»ñÈ¡½ø³ÌËæ»úID
+###èŽ·å–è¿›ç¨‹éšæœºID
 eval('use Digest::MD5 qw(md5_hex);');
 $sessionid = int(&myrand(100000));
 $sessionid = crypt($sessionid, aun);
@@ -26,14 +26,14 @@ $sessionid =~ s/\|//g;
 $sessionid = substr($sessionid, 4, 7);
 $sessionid = md5_hex($sessionid);
 
-###Éú³ÉËæ»úÑéÖ¤Âë
+###ç”ŸæˆéšæœºéªŒè¯ç 
 $verifynum = int(&myrand(10000));
 $verifynum = sprintf("%04d", $verifynum);
 
-###»ñÈ¡µ±Ç°Ê±¼ä
+###èŽ·å–å½“å‰æ—¶é—´
 $currenttime = time;
 
-#Çå³ý¹ýÆÚÐ£ÑéÎÄ¼þ
+#æ¸…é™¤è¿‡æœŸæ ¡éªŒæ–‡ä»¶
 mkdir("${imagesdir}verifynum", 0777) unless (-d "${imagesdir}verifynum");
 chmod(0777,"${imagesdir}verifynum");
 opendir(DIR, "${imagesdir}verifynum");
@@ -52,14 +52,14 @@ closedir(DIR);
 @verifyfiles = grep(/\.cgi$/i, @verifyfiles);
 foreach (@verifyfiles) {unlink("${lbdir}verifynum/$_") if (-M "${lbdir}verifynum/$_" > 0.004);}
 
-###½«µ±Ç°½ø³ÌÑéÖ¤Âë±£´æ
+###å°†å½“å‰è¿›ç¨‹éªŒè¯ç ä¿å­˜
 my $filetomake = "${lbdir}verifynum/$sessionid.cgi";
 open(FILE, ">$filetomake");
 print FILE "$verifynum\t$currenttime\t$ipaddress";
 close(FILE);
 
 if ($verifyusegd eq "no") {
-#BMPÍ¼Æ¬Éú³É
+#BMPå›¾ç‰‡ç”Ÿæˆ
 local @n0 = ("3c","66","66","66","66","66","66","66","66","3c");
 local @n1 = ("1c","0c","0c","0c","0c","0c","0c","0c","1c","0c");
 local @n2 = ("7e","60","60","30","18","0c","06","06","66","3c");
@@ -109,7 +109,7 @@ $image .= "00000000000000000000FFFFFF00";
 $image .= join('', @bitmap);
 $image = pack ('H*', $image);
 
-###Éú³ÉÍ¼Æ¬ÎÄ¼þ
+###ç”Ÿæˆå›¾ç‰‡æ–‡ä»¶
 my $filetomake = "${imagesdir}verifynum/$sessionid.bmp";
 open(FILE, ">$filetomake");
 binmode(FILE);

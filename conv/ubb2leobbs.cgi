@@ -1,19 +1,19 @@
 #!/usr/bin/perl
 
 ################################
-# UBB --> LeoBBS ÓÃ»§×ÊÁÏ×ª»»Æ÷#
+# UBB --> LeoBBS ç”¨æˆ·èµ„æ–™è½¬æ¢å™¨#
 ################################
 
-$ubbmember    = "/path/to/UBB members dir/";   	# ÊäÈë UBB ÓÃ»§×ÊÁÏËùÔÚµÄÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶£¬×îºó²»ÒªÒÅÂ© / ¡£
-$leobbsmember = "/path/to/LeoBBS members dir/"; # ÇëÊäÈë LeoBBS ÓÃ»§×ÊÁÏËùÔÚµÄÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶£¬×îºó²»ÒªÒÅÂ© /  £¬×¢ÒâÉèÖÃ 777 ÊôĞÔ¡£
+$ubbmember    = "/path/to/UBB members dir/";   	# è¾“å…¥ UBB ç”¨æˆ·èµ„æ–™æ‰€åœ¨çš„ç›®å½•çš„ç»å¯¹è·¯å¾„ï¼Œæœ€åä¸è¦é—æ¼ / ã€‚
+$leobbsmember = "/path/to/LeoBBS members dir/"; # è¯·è¾“å…¥ LeoBBS ç”¨æˆ·èµ„æ–™æ‰€åœ¨çš„ç›®å½•çš„ç»å¯¹è·¯å¾„ï¼Œæœ€åä¸è¦é—æ¼ /  ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§ã€‚
 
-### Èç¹ûÄã²»¶® CGI£¬ÒÔÏÂ²¿·ÖÇëÇ§Íò²»ÒªĞŞ¸Ä£¡
-$ending = ".cgi"; 		# LeoBBS µÄÓÃ»§Êı¾İÎÄ¼şºó×ºÎª .cgi
-$membernumber = 00000001;	# UBB ÓÃ»§¿ªÊ¼±àºÅ
-$totlenumber = 0;		# ÓÃ»§¸öÊıÇå 0
+### å¦‚æœä½ ä¸æ‡‚ CGIï¼Œä»¥ä¸‹éƒ¨åˆ†è¯·åƒä¸‡ä¸è¦ä¿®æ”¹ï¼
+$ending = ".cgi"; 		# LeoBBS çš„ç”¨æˆ·æ•°æ®æ–‡ä»¶åç¼€ä¸º .cgi
+$membernumber = 00000001;	# UBB ç”¨æˆ·å¼€å§‹ç¼–å·
+$totlenumber = 0;		# ç”¨æˆ·ä¸ªæ•°æ¸… 0
 $nowtime = time;
 print "Content-type: text/html\n\n";
-print "UBB --> LeoBBS ÓÃ»§Êı¾İ×ª»»Æ÷<BR><BR>\n";
+print "UBB --> LeoBBS ç”¨æˆ·æ•°æ®è½¬æ¢å™¨<BR><BR>\n";
 while ($membernumber < 100000)    {
    if ($membernumber < 10) 	 { $membernumber = "0000000$membernumber"; }
    elsif ($membernumber < 100)   { $membernumber = "000000$membernumber";  }
@@ -23,23 +23,23 @@ while ($membernumber < 100000)    {
    if (open(FILE,"$ubbmember$membernumber$ending")){
       @ubbmem = <FILE>;
       close(FILE);
-      print "ÌáÈ¡ÓÃ»§ÎÄ¼ş£º $ubbmember$membernumber$ending<BR>\n";
+      print "æå–ç”¨æˆ·æ–‡ä»¶ï¼š $ubbmember$membernumber$ending<BR>\n";
       for ($i=0;$i<=14;$i++) { chop (@ubbmem[$i]); }
       $name = "@ubbmem[0]";
-      print "ÌáÈ¡ÓÃ»§Ãû£º $name<BR>\n";
+      print "æå–ç”¨æˆ·åï¼š $name<BR>\n";
       $realname = $name;
       $name =~ s/ /_/gi;
       $name =~ tr/A-Z/a-z/;
       $name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\=\+\\\[\]\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
       $filetocheck = "$leobbsmember" . "$name$ending";
-      if (-e $filetocheck) { print "ÓÃ»§ $realname ÒÑ¾­´æÔÚ£¬²»ÄÜ×ª»»£¡"; next; }
+      if (-e $filetocheck) { print "ç”¨æˆ· $realname å·²ç»å­˜åœ¨ï¼Œä¸èƒ½è½¬æ¢ï¼"; next; }
       open(IBMEMBER,">$leobbsmember$name$ending");
       print IBMEMBER "$realname\t@ubbmem[1]\tMember\tme\t@ubbmem[7]\t@ubbmem[2]\t@ubbmem[11]\txxx.xxx.xxx.xxx\t@ubbmem[3]\t\t@ubbmem[13]\t@ubbmem[6]\t@ubbmem[9]\t$nowtime\tNot Posted\t@ubbmem[12]\t\t\t\t\t\t\t\n";
       close(IBMEMBER);
-      print "ÓÃ»§ $realname ÒÑ¾­³É¹¦×ª»»³É LeoBBS ÓÃ»§ÁË£¡<BR><BR>";
+      print "ç”¨æˆ· $realname å·²ç»æˆåŠŸè½¬æ¢æˆ LeoBBS ç”¨æˆ·äº†ï¼<BR><BR>";
       $totlenumber ++;
    }
    $membernumber = $membernumber+1;
 }
-print "×Ü¹²×ª»»ÁË $totlenumber ¸öÓÃ»§£¡<BR><BR>\n";
+print "æ€»å…±è½¬æ¢äº† $totlenumber ä¸ªç”¨æˆ·ï¼<BR><BR>\n";
 exit;

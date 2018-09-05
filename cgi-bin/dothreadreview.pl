@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 (my $membername1, my $topictitle1, my $postipaddresstemp1, my $showemoticons1, my $showsignature1, my $postdate1, my $post1, my $posticon1) = split(/\t/, $threads[0]);
@@ -25,43 +25,43 @@ if ($noviewthis ne "yes") {
     my $threadsize=@sortedthreads;
     $listmy=0 if ($listmy eq "");
     if ($listmy==0){
-	$listmy=qq~[<a href=$thisprog?action=$action&forum=$inforum&topic=$intopic&postno=$inpostno&listmy=1>ÁĞ³öËùÓĞ»Ø¸´</a>]~;
-	$listme=",×î¶àÁĞ³ö $maxlistpost ¸ö";
+	$listmy=qq~[<a href=$thisprog?action=$action&forum=$inforum&topic=$intopic&postno=$inpostno&listmy=1>åˆ—å‡ºæ‰€æœ‰å›å¤</a>]~;
+	$listme=",æœ€å¤šåˆ—å‡º $maxlistpost ä¸ª";
 	$threadsize=$maxlistpost if ($threadsize>$maxlistpost);
     } else {
-	$listmy=qq~[<a href=$thisprog?action=$action&forum=$inforum&topic=$intopic&postno=$inpostno&listmy=0>ÁĞ³öÇ° $maxlistpost ¸ö»Ø¸´</a>]~;
+	$listmy=qq~[<a href=$thisprog?action=$action&forum=$inforum&topic=$intopic&postno=$inpostno&listmy=0>åˆ—å‡ºå‰ $maxlistpost ä¸ªå›å¤</a>]~;
 	$listme="";
     }
-    $output .= qq~<p><script language="javascript">function addquote(no){var membername = eval("membername" + no);var postdate = eval("postdate" + no);var post = eval("post" + no);var text = "[quote][b]ÏÂÃæÒıÓÃÓÉ[u]" + membername.innerText + "[/u]ÔÚ [i]" + postdate.innerText + "[/i] ·¢±íµÄÄÚÈİ£º[/b]\\n" + post.innerText.substring(0, 200) + "\\n[/quote]\\n";if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos){var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;}else{document.FORM.inpost.value += text;}document.FORM.inpost.focus();}</script>
+    $output .= qq~<p><script language="javascript">function addquote(no){var membername = eval("membername" + no);var postdate = eval("postdate" + no);var post = eval("post" + no);var text = "[quote][b]ä¸‹é¢å¼•ç”¨ç”±[u]" + membername.innerText + "[/u]åœ¨ [i]" + postdate.innerText + "[/i] å‘è¡¨çš„å†…å®¹ï¼š[/b]\\n" + post.innerText.substring(0, 200) + "\\n[/quote]\\n";if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos){var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;}else{document.FORM.inpost.value += text;}document.FORM.inpost.focus();}</script>
 <SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100% >
-<tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>Ìû×ÓÒ»ÀÀ£º$topictitle (ĞÂ»Ø¸´ÔÚ×îÇ°$listme)</b>¡¡ $listmy</td>
+<tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>å¸–å­ä¸€è§ˆï¼š$topictitle (æ–°å›å¤åœ¨æœ€å‰$listme)</b>ã€€ $listmy</td>
 ~;
 
     $postbackcolor = $miscbackone;
     for (my $i=0;$i<$threadsize;$i++){
         ($membername, $topictitle, $postipaddress ,$showemoticons ,$showsignature ,$postdate ,$post, $posticon) = split(/\t/, $sortedthreads[$i]);
 	&getmember($membername,"no");
-	$post = "´ËÓÃ»§µÄ·¢ÑÔÒÑ¾­±»ÆÁ±Î£¡" if ($membercode eq "masked");
+	$post = "æ­¤ç”¨æˆ·çš„å‘è¨€å·²ç»è¢«å±è”½ï¼" if ($membercode eq "masked");
 
         $postdate = $postdate + ($timedifferencevalue + $timezone)*3600;
         $postdate = &dateformat("$postdate");
-	$post =~ s/\[hide\](.*)\[\/hide\]/<font color=red>Òş²ØÄÚÈİ²»ÄÜÔ¤ÀÀ<\/font>/isg; 
-	$post="<font color=red>¼ÓÃÜÌû×Ó²»ÄÜÔ¤ÀÀ<\/font>" if (($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg)||($post=~/LBSALE\[(.*?)\]LBSALE/sg));
-	$post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[¼ÓÃÜÁ¬½á\]/isg if ($usecurl ne "no");
+	$post =~ s/\[hide\](.*)\[\/hide\]/<font color=red>éšè—å†…å®¹ä¸èƒ½é¢„è§ˆ<\/font>/isg; 
+	$post="<font color=red>åŠ å¯†å¸–å­ä¸èƒ½é¢„è§ˆ<\/font>" if (($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg)||($post=~/LBSALE\[(.*?)\]LBSALE/sg));
+	$post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[åŠ å¯†è¿ç»“\]/isg if ($usecurl ne "no");
 	$post =~ s/\[USECHGFONTE\]//sg;
-	$post =~ s/\[post=(.+?)\](.+?)\[\/post\]/<blockquote><font face=$font>ÎÄÕÂÄÚÈİ : <hr noshade size=1><font color=red>±¾ÄÚÈİÒÑ±»Òş²Ø , ×Ü·¢ÑÔÊıĞëÓĞ$1²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/font><\/blockquote>/isg; 
-	$post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]/<blockquote><font face=$font>ÎÄÕÂÄÚÈİ : <hr noshade size=1><font color=red>±¾ÄÚÈİÒÑ±»Òş²Ø , »ı·Ö±ØĞë´ïµ½$1²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/font><\/blockquote>/isg; 
+	$post =~ s/\[post=(.+?)\](.+?)\[\/post\]/<blockquote><font face=$font>æ–‡ç« å†…å®¹ : <hr noshade size=1><font color=red>æœ¬å†…å®¹å·²è¢«éšè— , æ€»å‘è¨€æ•°é¡»æœ‰$1æ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/font><\/blockquote>/isg; 
+	$post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]/<blockquote><font face=$font>æ–‡ç« å†…å®¹ : <hr noshade size=1><font color=red>æœ¬å†…å®¹å·²è¢«éšè— , ç§¯åˆ†å¿…é¡»è¾¾åˆ°$1æ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/font><\/blockquote>/isg; 
 
 	if ($post =~ /\[POSTISDELETE=(.+?)\]/) {
     	    $postdelete = 1;
-    	    if ($1 ne " ") { $presult = "<BR>ÆÁ±ÎÀíÓÉ£º$1<BR>"; } else { $presult = "<BR>"; }
-	    $post = "´ËÌû×ÓÄÚÈİÒÑ¾­±»µ¥¶ÀÆÁ±Î£¡$presult";
+    	    if ($1 ne " ") { $presult = "<BR>å±è”½ç†ç”±ï¼š$1<BR>"; } else { $presult = "<BR>"; }
+	    $post = "æ­¤å¸–å­å†…å®¹å·²ç»è¢«å•ç‹¬å±è”½ï¼$presult";
 	}
 
         if ($idmbcodestate eq 'on') {
 	    &lbcode(\$post);
-            if ($post =~/<blockquote><font face=$font>´úÂë/isg){
+            if ($post =~/<blockquote><font face=$font>ä»£ç /isg){
                 $post =~ s/\&amp\;/\&/ig ;
                 $post =~ s/\&lt\;br\&gt\;/<br>/ig;
 	    }
@@ -81,7 +81,7 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 
 	$output .= qq~<table style="TABLE-LAYOUT:fixed" cellpadding=8 cellspacing=1 width=100%>
 <tr><td bgcolor=$miscbackone rowspan=2 valign="top" width=20%><font color=$fontcolormisc><b><span id=membername$i>$membername</span></b></font></td>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><input type=button onClick="addquote($i)" value="ÒıÓÃ"> <b>·¢±íÓÚ£º <span id=postdate$i>$postdate</span></b></td></tr>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><input type=button onClick="addquote($i)" value="å¼•ç”¨"> <b>å‘è¡¨äºï¼š <span id=postdate$i>$postdate</span></b></td></tr>
 <tr><td bgcolor="$miscbackone" style="LEFT:0px;WIDTH:100%;WORD-WRAP:break-word"><font color=$fontcolormisc><span id=post$i>$post</span></td></tr>
 <tr><td colspan=2 bgcolor=$miscbacktwo>&nbsp;</td></tr></table>
         ~;

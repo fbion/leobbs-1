@@ -1,7 +1,7 @@
 $pluginadd = qq~
 <script>
-linkset[2]='<center><div class="menuitems"><a href="http://www.leobbs.com/plugin/rili.htm" target=_blank><font color=#000000>ÉçÇøÈÕÀú</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/tfk.htm" target=_blank><font color=#000000>Ìî·½¿é</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/elsfk.htm" target=_blank><font color=#000000>¶íÂŞË¹·½¿é</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/mary/mary.htm" target=_blank><font color=#000000>³¬¼¶ÂêÀö</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/ppl/index.html" target=_blank><font color=#000000>ÅİÅİÁú</font></a></div></center>'
+linkset[2]='<center><div class="menuitems"><a href="http://www.leobbs.com/plugin/rili.htm" target=_blank><font color=#000000>ç¤¾åŒºæ—¥å†</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/tfk.htm" target=_blank><font color=#000000>å¡«æ–¹å—</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/elsfk.htm" target=_blank><font color=#000000>ä¿„ç½—æ–¯æ–¹å—</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/mary/mary.htm" target=_blank><font color=#000000>è¶…çº§ç›ä¸½</font></a></div><div class="menuitems"><a href="http://www.leobbs.com/plugin/ppl/index.html" target=_blank><font color=#000000>æ³¡æ³¡é¾™</font></a></div></center>'
 </script>
 ~;
-$loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[2])" onMouseout="delayhidemenu()">²å¼ş&nbsp;</span>~;
+$loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[2])" onMouseout="delayhidemenu()">æ’ä»¶&nbsp;</span>~;
 1;

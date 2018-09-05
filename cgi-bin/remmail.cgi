@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -58,7 +58,7 @@ foreach $removed (@members) {
   $output = qq~
    <tr bgcolor="#FFFFFF">
    <td align="center">
-   ��ã�$member�����Ѿ��˳� LeoBBS �ʼ��б��ˡ�
+   你好，$member：你已经退出 LeoBBS 邮件列表了。
    </td>
    </tr>
   ~;
@@ -76,8 +76,8 @@ $adminemail_out = &encodeemail($adminemail_out);
 $output = qq~
  <tr bgcolor="#FFFFFF">
  <td align="center">
- ��ã�$member�����Ѿ��˳� LeoBBS �ʼ��б��ˡ�
- <br>����������¼��룬����ϵ <a href="mailto:$adminemail_out">̳��</a> ��
+ 你好，$member：你已经退出 LeoBBS 邮件列表了。
+ <br>如果你想重新加入，请联系 <a href="mailto:$adminemail_out">坛主</a> 。
  </td>
  </tr>
 ~;
@@ -88,8 +88,8 @@ $output = qq~
 $output = qq~
  <tr bgcolor="#FFFFFF">
  <td align="center">
- �Բ������ Cookie ��ƥ�䡣<br>��������˳����ʼ��б�����ô�������ȵ�¼��̳��
- <br><a href="loginout.cgi">���˵�¼������</a>
+ 对不起，你的 Cookie 不匹配。<br>如果你想退出此邮件列表，那么必须首先登录论坛。
+ <br><a href="loginout.cgi">按此登录后重试</a>
  </td>
  </tr>
 ~;
@@ -106,7 +106,7 @@ print qq~
  <body bgcolor="#FFFFFF">
  <table border="0" align="center" width="456">
  <tr>
- <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333 size=3><b>��ӭʹ�� LeoBBS �ʼ��б�</td>
+ <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333 size=3><b>欢迎使用 LeoBBS 邮件列表</td>
  </tr>
  $output
  </table>

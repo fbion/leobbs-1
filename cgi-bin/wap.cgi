@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -23,13 +23,13 @@ chmod(0777,"${lbdir}wap");
 
 $lid = $query -> param('lid');
 &check($lid);
-if ($inmembername ne ''&&$inmembername ne '¿ÍÈË'){
-	$ad="<a href=\"wap_index.cgi?lid=$lid\">ÂÛÌ³</a> <br/><a href=\"wap_login.cgi?lid=$lid&amp;check=loginout\">×¢Ïú$inmembername</a> <a href=\"wap_set.cgi?lid=$lid\">ÉèÖÃ</a>";}
+if ($inmembername ne ''&&$inmembername ne 'å®¢äºº'){
+	$ad="<a href=\"wap_index.cgi?lid=$lid\">è®ºå›</a> <br/><a href=\"wap_login.cgi?lid=$lid&amp;check=loginout\">æ³¨é”€$inmembername</a> <a href=\"wap_set.cgi?lid=$lid\">è®¾ç½®</a>";}
 else{
-	$ad="<a href=\"wap_login.cgi\">µÇÂ½</a> <a href=\"wap_reg.cgi\">×¢²á</a> <a href=\"wap_index.cgi\">ÂÛÌ³</a>";
+	$ad="<a href=\"wap_login.cgi\">ç™»é™†</a> <a href=\"wap_reg.cgi\">æ³¨å†Œ</a> <a href=\"wap_index.cgi\">è®ºå›</a>";
 }
 &waptitle; 
 $show.= qq~<card  title="$boardname">~;
-$show.= qq~<p align='center'>$inmembername,»¶Ó­¹âÁÙ$boardname</p><p>[ÉçÇø¹¦ÄÜ]<br/>$ad<br/><a href="wap_new.cgi?lid=$lid">×îĞÂÌû×Ó</a><br/><a href="wap_sms.cgi?lid=$lid">¶ÌÏûÏ¢</a><br/>~;
+$show.= qq~<p align='center'>$inmembername,æ¬¢è¿å…‰ä¸´$boardname</p><p>[ç¤¾åŒºåŠŸèƒ½]<br/>$ad<br/><a href="wap_new.cgi?lid=$lid">æœ€æ–°å¸–å­</a><br/><a href="wap_sms.cgi?lid=$lid">çŸ­æ¶ˆæ¯</a><br/>~;
 $show.= qq~</p>~;
 &wapfoot;

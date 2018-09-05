@@ -1,31 +1,31 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-    $helpurl = &helpfiles("ÒÅÍüÃÜÂë");
+    $helpurl = &helpfiles("é—å¿˜å¯†ç ");
     $helpurl = qq~$helpurl<img src="$imagesurl/images/$skin/help_b.gif" border=0></a>~;
 
-    $output =~ s/\ ÓÃ»§×ÊÁÏ/\ Íü¼ÇÂÛÌ³ÃÜÂë/g;
+    $output =~ s/\ ç”¨æˆ·èµ„æ–™/\ å¿˜è®°è®ºå›å¯†ç /g;
     $output .= qq~<p>
 <tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center>
 <form action=$thisprog method=post>
 <input type=hidden name=action value=sendpassword>
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû£¬ÎÒÃÇ¿ÉÒÔ½«ÄúµÄÂÛÌ³ÃÜÂëÈ¡µÃ·½Ê½Í¨¹ýÓÊ¼þ·¢¸øÄú£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</td>
-<td bgcolor=$miscbackone><input type=text name=membername>¡¡ $helpurl<BR><font color=$fonthighlight>ÓÐ²¿·ÖÐÅÏä£¨±ÈÈç Hotmail£©»á°ÑÂÛÌ³ÃÜÂëÐÅ·ÅÈëÀ¬»øÓÊ¼þ¼Ð£¬Çë×¢Òâ¼ì²é£¡</font></td></tr>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åï¼Œæˆ‘ä»¬å¯ä»¥å°†æ‚¨çš„è®ºå›å¯†ç å–å¾—æ–¹å¼é€šè¿‡é‚®ä»¶å‘ç»™æ‚¨ï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</td>
+<td bgcolor=$miscbackone><input type=text name=membername>ã€€ $helpurl<BR><font color=$fonthighlight>æœ‰éƒ¨åˆ†ä¿¡ç®±ï¼ˆæ¯”å¦‚ Hotmailï¼‰ä¼šæŠŠè®ºå›å¯†ç ä¿¡æ”¾å…¥åžƒåœ¾é‚®ä»¶å¤¹ï¼Œè¯·æ³¨æ„æ£€æŸ¥ï¼</font></td></tr>
 <tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center> 
-<font color=$fontcolormisc><b>ÈçÄãÃ»ÓÐÌîÐ´ÕýÈ·µÄE-Mail¿ÉÒÔÊäÈëÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ð°¸È¡µÃÂÛÌ³ÃÜÂë»ñÈ¡·½Ê½£¡</b></font></td></tr> 
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâ</td> 
+<font color=$fontcolormisc><b>å¦‚ä½ æ²¡æœ‰å¡«å†™æ­£ç¡®çš„E-Mailå¯ä»¥è¾“å…¥è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆå–å¾—è®ºå›å¯†ç èŽ·å–æ–¹å¼ï¼</b></font></td></tr> 
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥è®ºå›å¯†ç æç¤ºé—®é¢˜</td> 
 <td bgcolor=$miscbackone><input type=text size=20 name=getpassq></td></tr> 
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÂÛÌ³ÃÜÂëÌáÊ¾´ð°¸</td> 
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥è®ºå›å¯†ç æç¤ºç­”æ¡ˆ</td> 
 <td bgcolor=$miscbackone><input type=text size=20 name=getpassa></td></tr> 
-<td bgcolor=$miscbacktwo valign=middle colspan=2 align=center><input type=submit name=submit value="Ìá ½»">
+<td bgcolor=$miscbacktwo valign=middle colspan=2 align=center><input type=submit name=submit value="æ äº¤">
 </td></form></tr></table></td></tr></table>
 ~;
 1;

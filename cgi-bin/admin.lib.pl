@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 sub getadmincheck {
@@ -20,7 +20,7 @@ sub getadmincheck {
         my $logintime = <FILE>;
         close(FILE);
         chomp $logintime;
-        if ($currenttime > $logintime + 900 ) { # ¹ÜÀíÔ±µÇÂ¼Èç¹û15·ÖÖÓÎ´×öÈÎºÎ²Ù×÷£¬ÐèÒªÖØÐÂµÇÂ¼
+        if ($currenttime > $logintime + 900 ) { # ç®¡ç†å‘˜ç™»å½•å¦‚æžœ15åˆ†é’Ÿæœªåšä»»ä½•æ“ä½œï¼Œéœ€è¦é‡æ–°ç™»å½•
             unlink ("$memberfilename");
 	    print "Set-Cookie: adminpass=\"\"\n";
 	    $inpassword = "";
@@ -57,21 +57,21 @@ sub adminlogin {
     $loginprog = $thisprog if ($loginprog eq "");
     print qq~
 <tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
-<b>»¶Ó­À´µ½ LeoBBS ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+<b>æ¬¢è¿Žæ¥åˆ° LeoBBS è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
 </td></tr>
 <form action=admin.cgi method=post>
 <input type=hidden name=action value=login>
 <input type=hidden name=loginprog value=$loginprog>
-<tr><td bgcolor=#EEEEEE valign=middle colspan=2 align=center><font color=#333333><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂëµÇÂ¼</b></font></td></tr>
-<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><BR><font color=#555555>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td>
+<tr><td bgcolor=#EEEEEE valign=middle colspan=2 align=center><font color=#333333><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç ç™»å½•</b></font></td></tr>
+<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><BR><font color=#555555>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td>
 <td bgcolor=#FFFFFF valign=middle><BR><input type=text name=membername value="$inmembername" maxlength=15></td></tr>
-<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>ÇëÊäÈëÄúµÄÃÜÂë</font></td>
+<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td>
 <td bgcolor=#FFFFFF valign=middle><input type=password name=password maxlength=20></td></tr>
 ~;
-print qq~<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>ÇëÊäÈëÓÒ±ßÍ¼Æ¬µÄÊý×Ö</font></td><td bgcolor=#FFFFFF valign=middle><input type=hidden name=sessionid value="$sessionid"><input type=text name="verifynum" size=4 maxlength=4>¡¡¡¡<img src=$imagesurl/verifynum/$sessionid.$houzhui border=0 align=absmiddle> Èç¹û¿´²»Çå£¬ÇëË¢ÐÂ±¾Ò³</td></tr>~ if ($useverify eq "yes");
-print qq~<tr><td bgcolor=#FFFFFF valign=middle colspan=2 align=center><BR><input type=submit name=submit value="µÇ Â¼"></form></td></tr>
+print qq~<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>è¯·è¾“å…¥å³è¾¹å›¾ç‰‡çš„æ•°å­—</font></td><td bgcolor=#FFFFFF valign=middle><input type=hidden name=sessionid value="$sessionid"><input type=text name="verifynum" size=4 maxlength=4>ã€€ã€€<img src=$imagesurl/verifynum/$sessionid.$houzhui border=0 align=absmiddle> å¦‚æžœçœ‹ä¸æ¸…ï¼Œè¯·åˆ·æ–°æœ¬é¡µ</td></tr>~ if ($useverify eq "yes");
+print qq~<tr><td bgcolor=#FFFFFF valign=middle colspan=2 align=center><BR><input type=submit name=submit value="ç™» å½•"></form></td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle align=left colspan=2><font color=#555555>
-<blockquote><b>Çë×¢Òâ:</b><p><b>Ö»ÓÐÂÛÌ³µÄÌ³Ö÷²ÅÄÜµÇÂ¼ÂÛÌ³¹ÜÀíÖÐÐÄ¡£Î´¾­¹ýÊÚÈ¨µÄ³¢ÊÔµÇÂ¼ÐÐÎª½«»á±»¼ÇÂ¼ÔÚ°¸£¡</b><p>ÔÚ½øÈëÂÛÌ³¹ÜÀíÖÐÐÄÇ°£¬ÇëÈ·¶¨ÄãµÄä¯ÀÀÆ÷´ò¿ªÁË Cookie Ñ¡Ïî¡£<br> Cookie Ö»»á´æÔÚÓÚµ±Ç°µÄä¯ÀÀÆ÷½ø³ÌÖÐ¡£ÎªÁË°²È«Æð¼û£¬µ±Äã¹Ø±ÕÁËä¯ÀÀÆ÷ºó£¬Cookie »áÊ§Ð§²¢±»×Ô¶¯É¾³ý¡£</blockquote>
+<blockquote><b>è¯·æ³¨æ„:</b><p><b>åªæœ‰è®ºå›çš„å›ä¸»æ‰èƒ½ç™»å½•è®ºå›ç®¡ç†ä¸­å¿ƒã€‚æœªç»è¿‡æŽˆæƒçš„å°è¯•ç™»å½•è¡Œä¸ºå°†ä¼šè¢«è®°å½•åœ¨æ¡ˆï¼</b><p>åœ¨è¿›å…¥è®ºå›ç®¡ç†ä¸­å¿ƒå‰ï¼Œè¯·ç¡®å®šä½ çš„æµè§ˆå™¨æ‰“å¼€äº† Cookie é€‰é¡¹ã€‚<br> Cookie åªä¼šå­˜åœ¨äºŽå½“å‰çš„æµè§ˆå™¨è¿›ç¨‹ä¸­ã€‚ä¸ºäº†å®‰å…¨èµ·è§ï¼Œå½“ä½ å…³é—­äº†æµè§ˆå™¨åŽï¼ŒCookie ä¼šå¤±æ•ˆå¹¶è¢«è‡ªåŠ¨åˆ é™¤ã€‚</blockquote>
 </td></tr></table></td></tr></table>
 ~;
 }
@@ -80,14 +80,14 @@ sub admintitle {
     print qq~
 <html>
 <head>
-<title>LeoBBS - ÂÛÌ³¹ÜÀíÖÐÐÄ</title>
+<title>LeoBBS - è®ºå›ç®¡ç†ä¸­å¿ƒ</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <style>
-BODY {BACKGROUND: #799ae1; FONT: 9pt ËÎÌå;}
+BODY {BACKGROUND: #799ae1; FONT: 9pt å®‹ä½“;}
 TABLE {BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px}
-TD {FONT: 12px ËÎÌå}
+TD {FONT: 12px å®‹ä½“}
 IMG {BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px;}
-A {COLOR: #215dc6; FONT: 12px ËÎÌå; TEXT-DECORATION: none}
+A {COLOR: #215dc6; FONT: 12px å®‹ä½“; TEXT-DECORATION: none}
 A:hover {COLOR: #428eff}
 .sec_menu {BACKGROUND: #d6dff7; BORDER-BOTTOM: white 1px solid; BORDER-LEFT: white 1px solid; BORDER-RIGHT: white 1px solid; OVERFLOW: hidden}
 .menu_title {}
@@ -113,7 +113,7 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <tr>
           <TD vAlign=top><IMG src="$imagesurl/images/title.gif" width=200 height=38><BR>
 	  <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=20 align=center><font color=#336333><b>×¢£º×Ü°ßÖñ¿É²Ù×÷´ø (*) µÄÏîÄ¿</b></TD></TR>
+              <TR><TD height=20 align=center><font color=#336333><b>æ³¨ï¼šæ€»æ–‘ç«¹å¯æ“ä½œå¸¦ (*) çš„é¡¹ç›®</b></TD></TR>
 	  </TABLE>
 	</TD></TR>
  	</TABLE>
@@ -124,14 +124,14 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ¹ÜÀíµ¼º½</SPAN> </TD></TR>
+          <SPAN>â— ç®¡ç†å¯¼èˆª</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="admin.cgi">¹ÜÀíÖÐÐÄÊ×Ò³(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="leobbs.cgi">½øÈëÄúµÄÂÛÌ³(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="indexshow.cgi">Ê×Ò³JavaScriptµ÷ÓÃÏòµ¼</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="admin.cgi?action=logout">ÍË³ö¹ÜÀíÖÐÐÄ(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="admin.cgi">ç®¡ç†ä¸­å¿ƒé¦–é¡µ(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="leobbs.cgi">è¿›å…¥æ‚¨çš„è®ºå›(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="indexshow.cgi">é¦–é¡µJavaScriptè°ƒç”¨å‘å¯¼</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="admin.cgi?action=logout">é€€å‡ºç®¡ç†ä¸­å¿ƒ(*)</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -141,15 +141,15 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÓÃ»§¹ÜÀí</SPAN> </TD></TR>
+          <SPAN>â— ç”¨æˆ·ç®¡ç†</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="setmembers.cgi">ÓÃ»§¹ÜÀí/ÅÅÃû(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="usermanager.cgi">ÓÃ»§·ÖÀà/¹ÜÀí(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="cansale.cgi">Ìû×ÓÂòÂôÓÃ»§¹ÜÀí(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setmemberbak.cgi">ÓÃ»§¿â±¸·Ý/»¹Ô­</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="resetusr.cgi">ÓÃ»§Êý¾ÝÇå¿ÕÖØÖÃ</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setmembers.cgi">ç”¨æˆ·ç®¡ç†/æŽ’å(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="usermanager.cgi">ç”¨æˆ·åˆ†ç±»/ç®¡ç†(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="cansale.cgi">å¸–å­ä¹°å–ç”¨æˆ·ç®¡ç†(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setmemberbak.cgi">ç”¨æˆ·åº“å¤‡ä»½/è¿˜åŽŸ</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="resetusr.cgi">ç”¨æˆ·æ•°æ®æ¸…ç©ºé‡ç½®</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -159,14 +159,14 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ×¢²á¹ÜÀí</SPAN> </TD></TR>
+          <SPAN>â— æ³¨å†Œç®¡ç†</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="noreg.cgi">±£ÁôÌØÊâÓÃ»§Ãû(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="noregemail.cgi">±£ÁôÌØÊâ Email(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setallowemail.cgi">ÏÞÖÆ(ÔÊÐí)¿É×¢²áµÄÓÊÏäÃû(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="noregip.cgi">½ûÖ¹ÌØÊâ IP ×¢²áÓÃ»§(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="noreg.cgi">ä¿ç•™ç‰¹æ®Šç”¨æˆ·å(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="noregemail.cgi">ä¿ç•™ç‰¹æ®Š Email(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setallowemail.cgi">é™åˆ¶(å…è®¸)å¯æ³¨å†Œçš„é‚®ç®±å(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="noregip.cgi">ç¦æ­¢ç‰¹æ®Š IP æ³¨å†Œç”¨æˆ·(*)</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -176,17 +176,17 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÂÛÌ³¹ÜÀí</SPAN> </TD></TR>
+          <SPAN>â— è®ºå›ç®¡ç†</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="setforums.cgi">ÂÛÌ³ÉèÖÃºÍ¹ÜÀí</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setcatedisplay.cgi">ÂÛÌ³ÇøÐÅÏ¢ÅÅÁÐÄ£Ê½</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="merge.cgi">ºÏ²¢ÂÛÌ³</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="adbackup.cgi">ÂÛÌ³±¸·Ýµ½±¾µØ/»¹Ô­</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="shareforums.cgi">ÁªÃËÂÛÌ³¹ÜÀí</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="rebuildall.cgi">ÖØ½¨ËùÓÐÂÛÌ³</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="rebuildmain.cgi">ÖØÐÂ½¨Á¢ÂÛÌ³Ö÷½çÃæ(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setforums.cgi">è®ºå›è®¾ç½®å’Œç®¡ç†</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setcatedisplay.cgi">è®ºå›åŒºä¿¡æ¯æŽ’åˆ—æ¨¡å¼</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="merge.cgi">åˆå¹¶è®ºå›</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="adbackup.cgi">è®ºå›å¤‡ä»½åˆ°æœ¬åœ°/è¿˜åŽŸ</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="shareforums.cgi">è”ç›Ÿè®ºå›ç®¡ç†</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="rebuildall.cgi">é‡å»ºæ‰€æœ‰è®ºå›</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="rebuildmain.cgi">é‡æ–°å»ºç«‹è®ºå›ä¸»ç•Œé¢(*)</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -196,22 +196,22 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÉèÖÃ¹ÜÀí</SPAN> </TD></TR>
+          <SPAN>â— è®¾ç½®ç®¡ç†</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="foruminit.cgi">³õÊ¼»¯ÂÛÌ³Êý¾Ý</a> <B>(×¢)</B></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setstyles.cgi">Ä¬ÈÏ·ç¸ñÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setvariables.cgi">»ù±¾±äÁ¿ÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setmpic.cgi">ÂÛÌ³ÑÕÉ«&Í¼Æ¬ÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setbank.cgi">ÉçÇøÒøÐÐÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setcity.cgi">ÉçÇø»õ±ÒÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setawards.cgi">ÉçÇøÑ«ÕÂ¹ÜÀí</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setmembertitles.cgi">ÓÃ»§µÈ¼¶ÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setjhmp.cgi">ÉçÇøÃÅÅÉ¹ÜÀíÆ÷</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setemoticon.cgi">±íÇé×ª»»ÉèÖÃ¹ÜÀí</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setemotes.cgi">EMOTE ÉèÖÃ</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setad.cgi">Ìû×ÓËæ»ú¹ã¸æ¹ÜÀíÆ÷</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="foruminit.cgi">åˆå§‹åŒ–è®ºå›æ•°æ®</a> <B>(æ³¨)</B></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setstyles.cgi">é»˜è®¤é£Žæ ¼è®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setvariables.cgi">åŸºæœ¬å˜é‡è®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setmpic.cgi">è®ºå›é¢œè‰²&å›¾ç‰‡è®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setbank.cgi">ç¤¾åŒºé“¶è¡Œè®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setcity.cgi">ç¤¾åŒºè´§å¸è®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setawards.cgi">ç¤¾åŒºå‹‹ç« ç®¡ç†</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setmembertitles.cgi">ç”¨æˆ·ç­‰çº§è®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setjhmp.cgi">ç¤¾åŒºé—¨æ´¾ç®¡ç†å™¨</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setemoticon.cgi">è¡¨æƒ…è½¬æ¢è®¾ç½®ç®¡ç†</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setemotes.cgi">EMOTE è®¾ç½®</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setad.cgi">å¸–å­éšæœºå¹¿å‘Šç®¡ç†å™¨</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -221,14 +221,14 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÏÞÖÆ¹ÜÀí</SPAN> </TD></TR>
+          <SPAN>â— é™åˆ¶ç®¡ç†</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="setbadwords.cgi">´ÊÓï×Ô¶¯×ª»»</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setfilter.cgi">²»Á¼´ÊÓï¹ýÂË(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setipbans.cgi">IP ½ûÖ¹(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setidbans.cgi">ID ½ûÖ¹(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setbadwords.cgi">è¯è¯­è‡ªåŠ¨è½¬æ¢</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setfilter.cgi">ä¸è‰¯è¯è¯­è¿‡æ»¤(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setipbans.cgi">IP ç¦æ­¢(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setidbans.cgi">ID ç¦æ­¢(*)</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -238,16 +238,16 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÌØÊâ¹¦ÄÜ</SPAN> </TD></TR>
+          <SPAN>â— ç‰¹æ®ŠåŠŸèƒ½</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="exportemail.cgi">µ¼³ö»áÔ± Email µØÖ·</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="massmsg.cgi">¶ÌÏûÏ¢¹ã²¥</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="mailmembers.cgi">Email Èº·¢</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="filemanage.cgi">ÂÛÌ³ÎÄ¼þ³¬¼¶¹ÜÀíÆ÷</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setplugin.cgi">ÂÛÌ³²å¼þÉè¶¨</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setskin.cgi">¹ÜÀíÇø²å¼þÉè¶¨</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="exportemail.cgi">å¯¼å‡ºä¼šå‘˜ Email åœ°å€</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="massmsg.cgi">çŸ­æ¶ˆæ¯å¹¿æ’­</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="mailmembers.cgi">Email ç¾¤å‘</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="filemanage.cgi">è®ºå›æ–‡ä»¶è¶…çº§ç®¡ç†å™¨</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setplugin.cgi">è®ºå›æ’ä»¶è®¾å®š</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setskin.cgi">ç®¡ç†åŒºæ’ä»¶è®¾å®š</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -257,15 +257,15 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÂÛÌ³±à¼­</SPAN> </TD></TR>
+          <SPAN>â— è®ºå›ç¼–è¾‘</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="setregrules.cgi">ÐÞ¸Ä×¢²áÉùÃ÷</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setregmsg.cgi">ÐÞ¸Ä¶ÌÏûÏ¢»¶Ó­ÐÅÏ¢</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="settemplate.cgi">±à¼­ÂÛÌ³Ä£°å</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="setcss.cgi">ÂÛÌ³ CSS ´úÂëÉú³É</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="newstyles.cgi">ÐÂ½¨/ÐÞ¸Ä·ç¸ñÎÄ¼þ</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setregrules.cgi">ä¿®æ”¹æ³¨å†Œå£°æ˜Ž</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setregmsg.cgi">ä¿®æ”¹çŸ­æ¶ˆæ¯æ¬¢è¿Žä¿¡æ¯</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="settemplate.cgi">ç¼–è¾‘è®ºå›æ¨¡æ¿</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="setcss.cgi">è®ºå› CSS ä»£ç ç”Ÿæˆ</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="newstyles.cgi">æ–°å»º/ä¿®æ”¹é£Žæ ¼æ–‡ä»¶</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -275,15 +275,15 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÆäËüÉèÖÃ</SPAN> </TD></TR>
+          <SPAN>â— å…¶å®ƒè®¾ç½®</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="userratinglog.cgi">ÓÃ»§ÍþÍû»ý·Ö²Ù×÷ÈÕÖ¾(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="baddellogs.cgi">ÂÛÌ³°²È«ÈÕÖ¾</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="adminloginlogs.cgi">¹ÜÀíÇø°²È«ÈÕÖ¾</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="sizecount.cgi">Í³¼ÆÂÛÌ³Õ¼ÓÃ¿Õ¼ä</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="vercheck.cgi">ÂÛÌ³°æ±¾/¸üÐÂ</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="userratinglog.cgi">ç”¨æˆ·å¨æœ›ç§¯åˆ†æ“ä½œæ—¥å¿—(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="baddellogs.cgi">è®ºå›å®‰å…¨æ—¥å¿—</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="adminloginlogs.cgi">ç®¡ç†åŒºå®‰å…¨æ—¥å¿—</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="sizecount.cgi">ç»Ÿè®¡è®ºå›å ç”¨ç©ºé—´</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="vercheck.cgi">è®ºå›ç‰ˆæœ¬/æ›´æ–°</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -300,7 +300,7 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TBODY>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ÂÛÌ³²å¼þ</SPAN> </TD></TR>
+          <SPAN>â— è®ºå›æ’ä»¶</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
@@ -325,13 +325,13 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
 <TABLE align=left cellPadding=0 cellSpacing=0 width=200>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ ¹ÜÀíµ¼º½</SPAN> </TD></TR>
+          <SPAN>â— ç®¡ç†å¯¼èˆª</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;>> <a href="admin.cgi">¹ÜÀíÖÐÐÄÊ×Ò³(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="leobbs.cgi">½øÈëÄúµÄÂÛÌ³(*)</a></TD></TR>
-              <TR><TD height=18>&nbsp;>> <a href="admin.cgi?action=logout">ÍË³ö¹ÜÀíÖÐÐÄ(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="admin.cgi">ç®¡ç†ä¸­å¿ƒé¦–é¡µ(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="leobbs.cgi">è¿›å…¥æ‚¨çš„è®ºå›(*)</a></TD></TR>
+              <TR><TD height=18>&nbsp;>> <a href="admin.cgi?action=logout">é€€å‡ºç®¡ç†ä¸­å¿ƒ(*)</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>
@@ -340,13 +340,13 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
 <TABLE align=left cellPadding=0 cellSpacing=0 width=200>
         <tr>
           <TD background=$imagesurl/images/title_bg_show.gif class=menu_title height=25 onmouseout="this.className='menu_title';" onmouseover="this.className='menu_title2';">
-          <SPAN>¡ñ LeoBBS ÐÅÏ¢</SPAN> </TD></TR>
+          <SPAN>â— LeoBBS ä¿¡æ¯</SPAN> </TD></TR>
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-              <TR><TD height=18>&nbsp;³ÌÐò°æ±¾: $versionnumber</TD></TR>
-              <TR><TD height=18>&nbsp;°æÈ¨ËùÓÐ: É½Ó¥(ºý)¡¢»¨ÎÞÈ±</TD></TR>
-              <TR><TD height=18>&nbsp;¼¼ÊõÖ§³Ö: <a href="http://bbs.leobbs.com/" target=_blank>¼«¿á³¬¼¶ÂÛÌ³</a></TD></TR>
+              <TR><TD height=18>&nbsp;ç¨‹åºç‰ˆæœ¬: $versionnumber</TD></TR>
+              <TR><TD height=18>&nbsp;ç‰ˆæƒæ‰€æœ‰: å±±é¹°(ç³Š)ã€èŠ±æ— ç¼º</TD></TR>
+              <TR><TD height=18>&nbsp;æŠ€æœ¯æ”¯æŒ: <a href="http://bbs.leobbs.com/" target=_blank>æžé…·è¶…çº§è®ºå›</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>

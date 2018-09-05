@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 sub rebuildLIST {
@@ -71,12 +71,12 @@ sub readthreadpl {
 	    	$addmetype = "";
 	    }
 
- 	    $topictitle1 =~ s/^£ª£££¡£¦£ª//;
-            if ($topictitle1 eq "") { $topictitle1 = $topictitle2; $topictitle1 =~ s/^£ª£££¡£¦£ª//; }
+ 	    $topictitle1 =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+            if ($topictitle1 eq "") { $topictitle1 = $topictitle2; $topictitle1 =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//; }
 	    $threadviews = ($topicall+1) * 8 if ($threadviews eq "");
 	    $membername2 = "" if ($topicall eq 0);
-	    $post2       = "(±£ÃÜ)" if ($post2=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
-	    $post2       = "(±£ÃÜ)" if ($post2=~/LBSALE\[(.*?)\]LBSALE/sg);
+	    $post2       = "(ä¿å¯†)" if ($post2=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
+	    $post2       = "(ä¿å¯†)" if ($post2=~/LBSALE\[(.*?)\]LBSALE/sg);
             $post2       = &temppost($post2);
 	    $post2       = &lbhz($post2, 50);
 
@@ -97,7 +97,7 @@ sub readthreadpl {
 	    }
 	}
 	else {
-	    $topictitle =~ s/^£ª£££¡£¦£ª//;
+	    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	    $posticon =~ s/\s//isg;
 	    if ($posticon =~/<br>/i) { $posticon = "<br>"; }
    	    $threadviews = ($threadposts+1) * 8 if ($threadviews eq "");

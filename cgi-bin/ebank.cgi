@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -52,14 +52,14 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) #±ØĞëµÇÂ¼²ÅÄÜ·ÃÎÊÒøĞĞ
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) #å¿…é¡»ç™»å½•æ‰èƒ½è®¿é—®é“¶è¡Œ
 {
-	&error("ÆÕÍ¨´íÎó&ÄãÏÖÔÚµÄÉí·İÊÇ·Ã¿Í£¬±ØĞëµÇÂ½ÒÔºó²ÅÄÜ·ÃÎÊÒøĞĞ£¡");
+	&error("æ™®é€šé”™è¯¯&ä½ ç°åœ¨çš„èº«ä»½æ˜¯è®¿å®¢ï¼Œå¿…é¡»ç™»é™†ä»¥åæ‰èƒ½è®¿é—®é“¶è¡Œï¼");
 }
 
 else
@@ -69,9 +69,9 @@ else
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 }
 
 $cleanmembername = $inmembername;
@@ -79,21 +79,21 @@ $cleanmembername =~ s/ /\_/sg;
 $cleanmembername =~ tr/A-Z/a-z/;
 $currenttime = time;
 
-#±ÜÃâ¶ñÒâÓÃ»§Í¬Ê±Ìá½»¶à¸ö½»Ò×ÇëÇóÔì³ÉµÄ¸ºÕ®´æ¿îµÈÏÖÏó
+#é¿å…æ¶æ„ç”¨æˆ·åŒæ—¶æäº¤å¤šä¸ªäº¤æ˜“è¯·æ±‚é€ æˆçš„è´Ÿå€ºå­˜æ¬¾ç­‰ç°è±¡
 $ebanklockfile = $lbdir . "lock/" . $cleanmembername . "_ebank.lck";
 if (-e $ebanklockfile)
 {
-	&myerror("ÒøĞĞ´íÎó&Çë²»ÒªÍ¬Ê±ÔÚÒøĞĞ½øĞĞ¶à±Ê½»Ò×£¡") if ($currenttime < (stat($ebanklockfile))[9] + 3);
+	&myerror("é“¶è¡Œé”™è¯¯&è¯·ä¸è¦åŒæ—¶åœ¨é“¶è¡Œè¿›è¡Œå¤šç¬”äº¤æ˜“ï¼") if ($currenttime < (stat($ebanklockfile))[9] + 3);
 }
 open(LOCKCALFILE, ">$ebanklockfile");
 print LOCKCALFILE "1;";
 close(LOCKCALFILE);
-#END·ÀË¢
+#ENDé˜²åˆ·
 
-#ÓÃ»§½ğÇ®
+#ç”¨æˆ·é‡‘é’±
 $myallmoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 
-#ÒÀ´ÎÎªÕË»§×´Ì¬£¨¿ÕÖµ£ºÎ´¿ª»§£¬1£»Õı³££¬-1£ºÕË»§¶³½á£©£¬´æ¿î£¬´æ¿îÊ±¼ä£¬´û¿î¡¢´û¿îÊ±¼ä£¬´û¿îµÖÑº»ı·ÖÖµ£¬×î½üÊı´Î½»Ò×Ê±¼ä£¬Ô¤ÁôÁËÎå¸ö±äÁ¿ÒÔ±ãÒÔºó¿ª·¢ĞÂ¹¦ÄÜ±ÈÈç¶¨ÆÚ´æ¿î¡¢ÓÃ»§ÊÇ·ñ±£ÃÜ×Ô¼ºµÄ´æ¿î
+#ä¾æ¬¡ä¸ºè´¦æˆ·çŠ¶æ€ï¼ˆç©ºå€¼ï¼šæœªå¼€æˆ·ï¼Œ1ï¼›æ­£å¸¸ï¼Œ-1ï¼šè´¦æˆ·å†»ç»“ï¼‰ï¼Œå­˜æ¬¾ï¼Œå­˜æ¬¾æ—¶é—´ï¼Œè´·æ¬¾ã€è´·æ¬¾æ—¶é—´ï¼Œè´·æ¬¾æŠµæŠ¼ç§¯åˆ†å€¼ï¼Œæœ€è¿‘æ•°æ¬¡äº¤æ˜“æ—¶é—´ï¼Œé¢„ç•™äº†äº”ä¸ªå˜é‡ä»¥ä¾¿ä»¥åå¼€å‘æ–°åŠŸèƒ½æ¯”å¦‚å®šæœŸå­˜æ¬¾ã€ç”¨æˆ·æ˜¯å¦ä¿å¯†è‡ªå·±çš„å­˜æ¬¾
 ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 unless ($mystatus eq "1" || $mystatus eq "-1" || $ebankdata eq "")
 {
@@ -107,7 +107,7 @@ if ($mystatus)
 	{
 		$myloandays = &getbetween($myloantime, $currenttime) + 1;
 		if ($myloandays > $bankloanmaxdays)
-		{#Èç¹û´û¿î¹ıÆÚ
+		{#å¦‚æœè´·æ¬¾è¿‡æœŸ
 			&dooutloan($cleanmembername);
 			$myallmoney -= $myloan;
 			$rating -= $myloanrating;
@@ -120,10 +120,10 @@ if ($mystatus)
 	}
 }		
 
-#×Ô¶¯¶³½á·¢ÑÔ±»ÆÁ±ÎÓÃ»§¡¢½ûÑÔÓÃ»§£¨¼àÓüÖĞµÄ·¸ÈË°ş¶á½ğÈÚÈ¨Àû£¿:D£©
+#è‡ªåŠ¨å†»ç»“å‘è¨€è¢«å±è”½ç”¨æˆ·ã€ç¦è¨€ç”¨æˆ·ï¼ˆç›‘ç‹±ä¸­çš„çŠ¯äººå‰¥å¤ºé‡‘èæƒåˆ©ï¼Ÿ:Dï¼‰
 $mystatus = -1 if (($membercode eq "banned" || $membercode eq "masked") && $mystatus == 1);
 
-#¼ì²é¹ıÆÚ´û¿î
+#æ£€æŸ¥è¿‡æœŸè´·æ¬¾
 if (-e $lbdir . "ebankdata/allloan.cgi")
 {
 	&winlock($lbdir . "ebankdata/allloan.cgi") if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));
@@ -162,20 +162,20 @@ if (-e $lbdir . "ebankdata/allloan.cgi")
 		&dooutloan($_);
 	}
 }
-#End¹ıÆÚ´û¿î
+#Endè¿‡æœŸè´·æ¬¾
 
 &title;
 $action = $query->param('action');
 my %Mode = (
-	'changepass' => \&changepass,	#ĞŞ¸ÄÈ¡¿îÃÜÂë
-	'open' => \&open,     #¿ª»§
-	'logoff' => \&logoff, #Ïú»§
-	'get' => \&get,       #È¡¿î
-	'save' => \&save,     #´æ¿î
-	'btrans' => \&btrans, #×ªÕÊ
-	'post' => \&post,     #»ã¿î
-	'loan' => \&loan,     #´û¿î
-	'repay' => \&repay    #³¥»¹
+	'changepass' => \&changepass,	#ä¿®æ”¹å–æ¬¾å¯†ç 
+	'open' => \&open,     #å¼€æˆ·
+	'logoff' => \&logoff, #é”€æˆ·
+	'get' => \&get,       #å–æ¬¾
+	'save' => \&save,     #å­˜æ¬¾
+	'btrans' => \&btrans, #è½¬å¸
+	'post' => \&post,     #æ±‡æ¬¾
+	'loan' => \&loan,     #è´·æ¬¾
+	'repay' => \&repay    #å¿è¿˜
 	);
 
 if ($Mode{$action})
@@ -184,25 +184,25 @@ if ($Mode{$action})
 }
 else
 {
-	&display;             #ÓªÒµÌü
+	&display;             #è¥ä¸šå…
 }
 
-unlink($ebanklockfile); #½â³ıËø¶¨
+unlink($ebanklockfile); #è§£é™¤é”å®š
 
 print header(-cookie=>[$onlineviewcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &output($pagetitle,\$output);
 exit;
 
-sub display #ÓªÒµÌü
+sub display #è¥ä¸šå…
 {
 	my $onlineview = $query->cookie("onlineview");
 	$onlineview = 0 if ($onlineview eq "");
 	$onlineview = $onlineview == 1 ? 0 : 1 if ($action eq "onlineview");
 	$onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "+30d");
-	my $onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>¹Ø±ÕÏêÏ¸ÁĞ±í</font></a>]" : "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>ÏÔÊ¾ÏêÏ¸ÁĞ±í</font></a>]";
+	my $onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>å…³é—­è¯¦ç»†åˆ—è¡¨</font></a>]" : "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>æ˜¾ç¤ºè¯¦ç»†åˆ—è¡¨</font></a>]";
 
-	#È¡µÃ×Ü´æ¿îĞÅÏ¢
+	#å–å¾—æ€»å­˜æ¬¾ä¿¡æ¯
 	my $allusers = 0;
 	my $allsaves = 0;
 	if (-e $lbdir . "ebankdata/allsaves.cgi")
@@ -214,7 +214,7 @@ sub display #ÓªÒµÌü
 		($allusers, $allsaves) = split(/,/, $allinfo);
 	}
 
-	#È¡µÃÅÅÃûĞÅÏ¢
+	#å–å¾—æ’åä¿¡æ¯
 	my @maxusers;
 	my @maxsaves;
 	if (-e $lbdir . "ebankdata/order.cgi")
@@ -234,7 +234,7 @@ sub display #ÓªÒµÌü
 	my $banktrans100rate = $banktransrate * 100;
 	my $bankpost100rate = $bankpostrate * 100;
 
-	my $helpurl = &helpfiles("ÒøĞĞ");
+	my $helpurl = &helpfiles("é“¶è¡Œ");
 	$helpurl = qq~$helpurl<img src="$imagesurl/images/$skin/help_b.gif" border=0></span>~;
 
 	my $freshtime = $query->cookie("freshtime");
@@ -251,25 +251,25 @@ sub display #ÓªÒµÌü
 	{
 		$screenmode = $query->cookie("screenmode");
 		$screenmode = 8 if ($screenmode eq "");
-		&whosonline("$inmembername\t$bankname\t$bankname\tÒøĞĞÓªÒµ´óÌü");
-		$membertongji =~ s/±¾·ÖÂÛÌ³/$bankname/o;
+		&whosonline("$inmembername\t$bankname\t$bankname\té“¶è¡Œè¥ä¸šå¤§å…");
+		$membertongji =~ s/æœ¬åˆ†è®ºå›/$bankname/o;
 		undef $memberoutput if ($onlineview != 1);
 	}
 	else
 	{
 		$memberoutput = "";
-		$membertongji = " <b>ÓÉÓÚ·şÎñÆ÷·±Ã¦£¬ËùÒÔÒøĞĞÓªÒµ´óÌüµÄÔÚÏßÊı¾İÔİÊ±²»Ìá¹©ÏÔÊ¾¡£</b>";
+		$membertongji = " <b>ç”±äºæœåŠ¡å™¨ç¹å¿™ï¼Œæ‰€ä»¥é“¶è¡Œè¥ä¸šå¤§å…çš„åœ¨çº¿æ•°æ®æš‚æ—¶ä¸æä¾›æ˜¾ç¤ºã€‚</b>";
 		$onlinetitle = "";
 	}
 
 	$output .= qq~$refreshnow
-	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> ¡ú $bankname</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> â†’ $bankname</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font face=$font color=$fontcolormisc><b>»¶Ó­¹âÁÙ$banknameÓªÒµ´óÌü</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font face=$font color=$fontcolormisc><b>æ¬¢è¿å…‰ä¸´$banknameè¥ä¸šå¤§å…</b></font></td></tr>
 <tr>
-	<td bgcolor=$forumcolorone width=92%><font color=$titlefontcolor>$membertongji¡¡ $onlinetitle</td>
+	<td bgcolor=$forumcolorone width=92%><font color=$titlefontcolor>$membertongjiã€€ $onlinetitle</td>
 	<td bgcolor=$forumcolorone width=8% align=center><a href="javascript:this.location.reload()"><img src=$imagesurl/images/refresh.gif border=0 width=40 height=12></a></td>
 </tr>~;
 	$output .= qq~<tr><td colspan=2 bgcolor=$forumcolorone><table cellPadding=1 cellSpacing=0 border=0>$memberoutput</table><script language="JavaScript"> function O9(id) {if(id != "") window.open("profile.cgi?action=show&member=" + id);}</script></td></tr>~ if ($onlineview == 1 && $memberoutput);
@@ -277,13 +277,13 @@ sub display #ÓªÒµÌü
 	$waitress = "$imagesurl/ebank/mm$waitress.gif";
 	if ($bankgetpass ne "")
 	{
-		$promptpassword = qq~prompt("ÇëÊäÈëÄãµÄÈ¡¿îÃÜÂë:", "")~;
-		$promptchange = "ĞŞ¸Ä¸öÈËÈ¡¿îÃÜÂë";
+		$promptpassword = qq~prompt("è¯·è¾“å…¥ä½ çš„å–æ¬¾å¯†ç :", "")~;
+		$promptchange = "ä¿®æ”¹ä¸ªäººå–æ¬¾å¯†ç ";
 	}
 	else
 	{
 		$promptpassword = '1';
-		$promptchange = "´´½¨¸öÈËÈ¡¿îÃÜÂë";
+		$promptchange = "åˆ›å»ºä¸ªäººå–æ¬¾å¯†ç ";
 	}
 	$output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><br>
 <SCRIPT>valigntop()</SCRIPT>
@@ -292,14 +292,14 @@ sub display #ÓªÒµÌü
 <script language="JavaScript" src="$imagesurl/ebank/fader.js"></script>
 <script language="JavaScript" type="text/javascript">
 prefix="";
-arNews = ["$bankmessage", "", "<b><font color=#99ccff>µ¥±Ê½»Ò×¶î£º ×îµÍ <i>$bankmindeal</i> $moneyname£¬×î¸ß <i>$bankmaxdeal</i> $moneyname¡¡24Ğ¡Ê±×î´ó½»Ò×´ÎÊı£º $bankmaxdaydo</font></b>", "", "<b><font color=#885200>µ±Ç°´æ¿îÈÕÀûÂÊ£º <i>$banksave100rate</i>%¡¡µ±Ç°´û¿îÈÕÀûÂÊ£º <i>$bankloan100rate</i>%¡¡´û¿î³¥»¹ÆÚÏŞ£º <i>$bankloanmaxdays</i> ÌìÒÔÄÚ</font></b>", "", "<b><font color=green>×ªÕËÊÖĞø·ÑÂÊ£º <i>$banktrans100rate</i>%¡¡»ã¿îÊÖĞø·ÑÂÊ£º <i>$bankpost100rate</i>%¡¡(×îµÍ <i>$bankmindeal</i> $moneyname)</font></b>", ""];
+arNews = ["$bankmessage", "", "<b><font color=#99ccff>å•ç¬”äº¤æ˜“é¢ï¼š æœ€ä½ <i>$bankmindeal</i> $moneynameï¼Œæœ€é«˜ <i>$bankmaxdeal</i> $moneynameã€€24å°æ—¶æœ€å¤§äº¤æ˜“æ¬¡æ•°ï¼š $bankmaxdaydo</font></b>", "", "<b><font color=#885200>å½“å‰å­˜æ¬¾æ—¥åˆ©ç‡ï¼š <i>$banksave100rate</i>%ã€€å½“å‰è´·æ¬¾æ—¥åˆ©ç‡ï¼š <i>$bankloan100rate</i>%ã€€è´·æ¬¾å¿è¿˜æœŸé™ï¼š <i>$bankloanmaxdays</i> å¤©ä»¥å†…</font></b>", "", "<b><font color=green>è½¬è´¦æ‰‹ç»­è´¹ç‡ï¼š <i>$banktrans100rate</i>%ã€€æ±‡æ¬¾æ‰‹ç»­è´¹ç‡ï¼š <i>$bankpost100rate</i>%ã€€(æœ€ä½ <i>$bankmindeal</i> $moneyname)</font></b>", ""];
 </script>
 <span id="elFader" style="position:relative;visibility:hidden; height:16" ></span></font>
 </td></tr>
 <tr>
 	<td bgcolor=$miscbacktwo width=260 rowspan=4 valign=top>
-		<table><tr><td><font face=$font color=$fontcolormisc><br>¡¡ÏÖÈÎĞĞ³¤£º <font color=#990000>$bankmanager</font><br><br>¡¡¿Í»§ÊıÁ¿£º $allusers<br><br>¡¡´æ¿î×Ü¶î£º<br>¡¡ <font color=#000099><i>$allsaves</i></font> $moneyname<br></td><td width=40% align=center><img src=$waitress width=90 height=90 alt="ÕâÊÇÕıÔÚ¸øÄú·şÎñµÄµ±°àÓªÒµÔ±MM:)" OnClick="DoKiss()"></td></tr>
-		<tr><td colspan=2><br>¡¡µ±Ç°Ê±¼ä£º <span id=showtime></span></td></tr>
+		<table><tr><td><font face=$font color=$fontcolormisc><br>ã€€ç°ä»»è¡Œé•¿ï¼š <font color=#990000>$bankmanager</font><br><br>ã€€å®¢æˆ·æ•°é‡ï¼š $allusers<br><br>ã€€å­˜æ¬¾æ€»é¢ï¼š<br>ã€€ <font color=#000099><i>$allsaves</i></font> $moneyname<br></td><td width=40% align=center><img src=$waitress width=90 height=90 alt="è¿™æ˜¯æ­£åœ¨ç»™æ‚¨æœåŠ¡çš„å½“ç­è¥ä¸šå‘˜MM:)" OnClick="DoKiss()"></td></tr>
+		<tr><td colspan=2><br>ã€€å½“å‰æ—¶é—´ï¼š <span id=showtime></span></td></tr>
 <script language="JavaScript" src="$imagesurl/ebank/ebank.js">
 </script>
 <script language="JavaScript"><!--
@@ -317,49 +317,49 @@ function PromptGetPass(formname)
 }
 function PromptLogOff()
 {
-	if (confirm('Õâ½«°ÑÄãËùÓĞµÄ´æ¿îºÍÀÛ¼ÆÀûÏ¢¼Óµ½ÄãµÄÏÖ½ğÉÏ£¬\\nÈç¹ûÄãÔÚ±¾ĞĞÓĞ´û¿î£¬±ØĞëÏÈ»¹´ûÒÔºó²ÅÄÜÏú»§¡£\\nÊÇ·ñÕæµÄÒªÏú»§£¿'))
+	if (confirm('è¿™å°†æŠŠä½ æ‰€æœ‰çš„å­˜æ¬¾å’Œç´¯è®¡åˆ©æ¯åŠ åˆ°ä½ çš„ç°é‡‘ä¸Šï¼Œ\\nå¦‚æœä½ åœ¨æœ¬è¡Œæœ‰è´·æ¬¾ï¼Œå¿…é¡»å…ˆè¿˜è´·ä»¥åæ‰èƒ½é”€æˆ·ã€‚\\næ˜¯å¦çœŸçš„è¦é”€æˆ·ï¼Ÿ'))
 		if (mypass = $promptpassword)
 			location.href = "$thisprog?action=logoff&getpass=" + mypass;
 }
 function PromptChangePass()
 {
 	if (mypass = $promptpassword)
-		if (newpass = prompt("ÇëÊäÈëĞÂµÄÈ¡¿îÃÜÂë:", ""))
-			if (newpass2 = prompt("ÇëÔÙ´ÎÊäÈëĞÂµÄÈ¡¿îÃÜÂë:", ""))
-				if (newpass != newpass2) alert("Á½´ÎÊäÈëµÄĞÂÃÜÂë²»Ò»ÖÂ£¡");
+		if (newpass = prompt("è¯·è¾“å…¥æ–°çš„å–æ¬¾å¯†ç :", ""))
+			if (newpass2 = prompt("è¯·å†æ¬¡è¾“å…¥æ–°çš„å–æ¬¾å¯†ç :", ""))
+				if (newpass != newpass2) alert("ä¸¤æ¬¡è¾“å…¥çš„æ–°å¯†ç ä¸ä¸€è‡´ï¼");
 				else location.href = "$thisprog?action=changepass&getpass=" + mypass + "&newpass=" + newpass;
 }
 --></script>~;
 
 	if ($mystatus)
 	{
-		$output .= qq~<tr><td align=center colspan=2><br><table border=1 cellPadding=10 cellSpacing=3><tr><td style="line-height: 140%"><font color=#000066>¸öÈË²ÆÎñ×´¿ö</font>¡¡¡¡¡¡¡¡<a href=# OnClick="PromptChangePass()"><font color=blue>$promptchange</font></a><br>~;
+		$output .= qq~<tr><td align=center colspan=2><br><table border=1 cellPadding=10 cellSpacing=3><tr><td style="line-height: 140%"><font color=#000066>ä¸ªäººè´¢åŠ¡çŠ¶å†µ</font>ã€€ã€€ã€€ã€€<a href=# OnClick="PromptChangePass()"><font color=blue>$promptchange</font></a><br>~;
 		if ($mystatus == 1)
 		{
-			$output .= qq~<font color=green>ÕË»§×´Ì¬¡¡¡¡¡¡¡¡¡¡¡¡Õı³£Ê¹ÓÃ</font><br>~;
+			$output .= qq~<font color=green>è´¦æˆ·çŠ¶æ€ã€€ã€€ã€€ã€€ã€€ã€€æ­£å¸¸ä½¿ç”¨</font><br>~;
 		}
 		else
 		{
-			$output .= qq~<font color=red>ÕË»§×´Ì¬¡¡¡¡¡¡¡¡¡¡¡¡ÔİÊ±¶³½á</font><br>~;
+			$output .= qq~<font color=red>è´¦æˆ·çŠ¶æ€ã€€ã€€ã€€ã€€ã€€ã€€æš‚æ—¶å†»ç»“</font><br>~;
 		}
-		$output .= qq~µ±Ç°ÏÖ½ğ¡¡¡¡¡¡¡¡¡¡¡¡<i>$myallmoney</i> $moneyname<br>~;
-		$output .= qq~»îÆÚ´æ¿î¡¡¡¡¡¡¡¡¡¡¡¡<i>$mysaves</i> $moneyname<br>ÀÛ¼ÆÊ±¼äºÍÀûÏ¢¡¡¡¡¡¡<i>$mysavedays</i> Ìì¹² <i>$mysaveaccrual</i> $moneyname<br>~;
-		$output .= qq~<font color=#ff99cc>µ±Ç°´û¿î¡¡¡¡¡¡¡¡¡¡¡¡<i>$myloan</i> $moneyname</font><br><font color=#ff99cc>ÀÛ¼ÆÊ±¼äºÍÀûÏ¢¡¡¡¡¡¡<i>$myloandays</i> Ìì¹² <i>$myloanaccrual</i> $moneyname</font><br>~ if ($myloan);
+		$output .= qq~å½“å‰ç°é‡‘ã€€ã€€ã€€ã€€ã€€ã€€<i>$myallmoney</i> $moneyname<br>~;
+		$output .= qq~æ´»æœŸå­˜æ¬¾ã€€ã€€ã€€ã€€ã€€ã€€<i>$mysaves</i> $moneyname<br>ç´¯è®¡æ—¶é—´å’Œåˆ©æ¯ã€€ã€€ã€€<i>$mysavedays</i> å¤©å…± <i>$mysaveaccrual</i> $moneyname<br>~;
+		$output .= qq~<font color=#ff99cc>å½“å‰è´·æ¬¾ã€€ã€€ã€€ã€€ã€€ã€€<i>$myloan</i> $moneyname</font><br><font color=#ff99cc>ç´¯è®¡æ—¶é—´å’Œåˆ©æ¯ã€€ã€€ã€€<i>$myloandays</i> å¤©å…± <i>$myloanaccrual</i> $moneyname</font><br>~ if ($myloan);
 		$output .= qq~</td></tr></table><br></td></tr>~;
 	}
-	$output .= qq~<tr><td colspan=2 align=center><a href=setbank.cgi><font color=blue>½øÈëÒøĞĞ¹ÜÀíÖĞĞÄ</font></a></td></tr>~ if (($membercode eq "ad" && $bankadminallow ne "manager") || ($membercode eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$inmembername,/i);
-	$output .= qq~<tr><td colspan=2><hr width=250></td></tr><tr><td colspan=2 align=center><font color=#7700ff>$bankname½Ü³ö¿Í»§<br><br></font></td></tr><tr><td bgcolor=$titlecolor align=center>¿Í »§ ÕÊ ºÅ</td><td bgcolor=$titlecolor align=center>µ± Ç° ´æ ¿î</td></tr>~;
+	$output .= qq~<tr><td colspan=2 align=center><a href=setbank.cgi><font color=blue>è¿›å…¥é“¶è¡Œç®¡ç†ä¸­å¿ƒ</font></a></td></tr>~ if (($membercode eq "ad" && $bankadminallow ne "manager") || ($membercode eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$inmembername,/i);
+	$output .= qq~<tr><td colspan=2><hr width=250></td></tr><tr><td colspan=2 align=center><font color=#7700ff>$banknameæ°å‡ºå®¢æˆ·<br><br></font></td></tr><tr><td bgcolor=$titlecolor align=center>å®¢ æˆ· å¸ å·</td><td bgcolor=$titlecolor align=center>å½“ å‰ å­˜ æ¬¾</td></tr>~;
 
 	for ($i = 1; $i <= @maxusers; $i++)
 	{
-		$output .= qq~<tr><td bgcolor=$miscbackone>¡¡$i. <a href=profile.cgi?action=show&member=~ . uri_escape($maxusers[$i - 1]) . qq~ target=_blank>$maxusers[$i - 1]</a></td><td bgcolor=$miscbackone>&nbsp;<i>$maxsaves[$i - 1]</i></td></tr>~;
+		$output .= qq~<tr><td bgcolor=$miscbackone>ã€€$i. <a href=profile.cgi?action=show&member=~ . uri_escape($maxusers[$i - 1]) . qq~ target=_blank>$maxusers[$i - 1]</a></td><td bgcolor=$miscbackone>&nbsp;<i>$maxsaves[$i - 1]</i></td></tr>~;
 	}
 	$output .= qq~<tr><td colspan=2 align=center><br><br></td></tr></table></td>~;
 
 	if ($bankopen ne "on")
 	{
 		$output .= qq~
-	<td bgcolor=$miscbackone align=center><font color=red size=4><b>ÒøĞĞÅÌµãÖĞ£¬ÔİÊ±Í£Òµ£¬ÇëÉÔºò·ÃÎÊ£¡</b></font></td>
+	<td bgcolor=$miscbackone align=center><font color=red size=4><b>é“¶è¡Œç›˜ç‚¹ä¸­ï¼Œæš‚æ—¶åœä¸šï¼Œè¯·ç¨å€™è®¿é—®ï¼</b></font></td>
 </tr>~;
 	}
 
@@ -368,7 +368,7 @@ function PromptChangePass()
 		unless ($mystatus)
 		{
 			$output .= qq~
-	<td bgcolor=$miscbackone align=center><font size=4>Äãµ±Ç°ÓµÓĞ <i>$myallmoney</i> $moneynameÏÖ½ğ£¬<br>¿ª»§ÖÁÉÙĞèÒª <i>$bankmindeal</i> $moneynameÏÖ½ğ²ÅÄÜÍê³É¡£<br><br>ÄãĞèÒª<a href=$thisprog?action=open><font color=#0000ff><b>¿ª»§</b></font></a>ºó²ÅÄÜÊ¹ÓÃ±¾ĞĞµÄ¸÷ÏîÒµÎñ¡£</font></td>
+	<td bgcolor=$miscbackone align=center><font size=4>ä½ å½“å‰æ‹¥æœ‰ <i>$myallmoney</i> $moneynameç°é‡‘ï¼Œ<br>å¼€æˆ·è‡³å°‘éœ€è¦ <i>$bankmindeal</i> $moneynameç°é‡‘æ‰èƒ½å®Œæˆã€‚<br><br>ä½ éœ€è¦<a href=$thisprog?action=open><font color=#0000ff><b>å¼€æˆ·</b></font></a>åæ‰èƒ½ä½¿ç”¨æœ¬è¡Œçš„å„é¡¹ä¸šåŠ¡ã€‚</font></td>
 </tr>~;
 		}
 
@@ -377,13 +377,13 @@ function PromptChangePass()
 			if ($membercode eq "banned" || $membercode eq "masked")
 			{
 				$output .= qq~
-	<td bgcolor=$miscbackone align=center><font size=4>ÓÉÓÚÄã±»½ûÖ¹·¢ÑÔ£¬ËùÒÔÄãµÄÕËºÅ±»ÒøĞĞ×Ô¶¯¶³½á¡£</font></td>
+	<td bgcolor=$miscbackone align=center><font size=4>ç”±äºä½ è¢«ç¦æ­¢å‘è¨€ï¼Œæ‰€ä»¥ä½ çš„è´¦å·è¢«é“¶è¡Œè‡ªåŠ¨å†»ç»“ã€‚</font></td>
 </tr>~;
 			}
 			else
 			{
 				$output .= qq~
-	<td bgcolor=$miscbackone align=center><font size=4>ÓÉÓÚÄãÎ¥·´ÁËÄ³Ğ©¹æ¶¨½øĞĞ·Ç·¨½ğÈÚ»î¶¯£¬<br>ÄãµÄÕËºÅ±»ĞĞ³¤ÔİÊ±¶³½á£¬Çë¾¡¿ìÓëÆäÁªÏµ¡£</font></td>
+	<td bgcolor=$miscbackone align=center><font size=4>ç”±äºä½ è¿åäº†æŸäº›è§„å®šè¿›è¡Œéæ³•é‡‘èæ´»åŠ¨ï¼Œ<br>ä½ çš„è´¦å·è¢«è¡Œé•¿æš‚æ—¶å†»ç»“ï¼Œè¯·å°½å¿«ä¸å…¶è”ç³»ã€‚</font></td>
 </tr>~;
 			}
 		}
@@ -391,23 +391,23 @@ function PromptChangePass()
 		else
 		{
 			$output .= qq~
-	<td bgcolor=$miscbackone valign=top>¡¡<img src="$imagesurl/ebank/bank.gif" width=16><font color=#99ccff>»îÆÚ´¢Ğî</font><img src="$imagesurl/ebank/bank.gif" width=16>¡¡£±ºÅ¹ñÌ¨¡¡ ±¾¹ñÌ¨Í¬Ê±¼æ°ìÏú»§Çëµã<a href=# OnClick="PromptLogOff()"><font color=#cc0000><b>ÕâÀï</b></font></a><hr><br>
-	<form name=save action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="save">¡¡ ÎÒÒª´æÈëÏÖ½ğ:¡¡<input type=text size=10 name=savemoney> $moneyname¡¡¡¡<input name=submit type=submit value=´æ¡¡Èë style="background:#99ccff">¡¡<input name=reset type=reset value=ÖØ¡¡Ìî style="background:#cccccc"></form>
-	<form name=get action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="get"><input type=hidden name=getpass>¡¡ ÎÒÒªÈ¡³ö´æ¿î:¡¡<input type=text size=10 name=getmoney> $moneyname¡¡¡¡<input name=submit type=submit value=È¡¡¡³ö style="background:#99ccff" OnClick="return PromptGetPass('get')">¡¡<input name=reset type=reset value=ÖØ¡¡Ìî style="background:#cccccc"></form>
+	<td bgcolor=$miscbackone valign=top>ã€€<img src="$imagesurl/ebank/bank.gif" width=16><font color=#99ccff>æ´»æœŸå‚¨è“„</font><img src="$imagesurl/ebank/bank.gif" width=16>ã€€ï¼‘å·æŸœå°ã€€ æœ¬æŸœå°åŒæ—¶å…¼åŠé”€æˆ·è¯·ç‚¹<a href=# OnClick="PromptLogOff()"><font color=#cc0000><b>è¿™é‡Œ</b></font></a><hr><br>
+	<form name=save action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="save">ã€€ æˆ‘è¦å­˜å…¥ç°é‡‘:ã€€<input type=text size=10 name=savemoney> $moneynameã€€ã€€<input name=submit type=submit value=å­˜ã€€å…¥ style="background:#99ccff">ã€€<input name=reset type=reset value=é‡ã€€å¡« style="background:#cccccc"></form>
+	<form name=get action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="get"><input type=hidden name=getpass>ã€€ æˆ‘è¦å–å‡ºå­˜æ¬¾:ã€€<input type=text size=10 name=getmoney> $moneynameã€€ã€€<input name=submit type=submit value=å–ã€€å‡º style="background:#99ccff" OnClick="return PromptGetPass('get')">ã€€<input name=reset type=reset value=é‡ã€€å¡« style="background:#cccccc"></form>
 	</td>
 </tr>
 <tr>
-	<td bgcolor=$miscbacktwo valign=top>¡¡<img src="$imagesurl/ebank/bank.gif" width=16><font color=green>×ªÕÊ»ã¿î</font><img src="$imagesurl/ebank/bank.gif" width=16>¡¡£²ºÅ¹ñÌ¨¡¡ ±¾¹ñÌ¨Í¬Ê±¼æ°ìÏú»§Çëµã<a href=# OnClick="PromptLogOff()"><font color=#cc0000><b>ÕâÀï</b></font></a><hr><br>~;
+	<td bgcolor=$miscbacktwo valign=top>ã€€<img src="$imagesurl/ebank/bank.gif" width=16><font color=green>è½¬å¸æ±‡æ¬¾</font><img src="$imagesurl/ebank/bank.gif" width=16>ã€€ï¼’å·æŸœå°ã€€ æœ¬æŸœå°åŒæ—¶å…¼åŠé”€æˆ·è¯·ç‚¹<a href=# OnClick="PromptLogOff()"><font color=#cc0000><b>è¿™é‡Œ</b></font></a><hr><br>~;
 
 			if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" )
 			{
-				$output .= qq~¡¡ ĞĞ³¤Éè¶¨ÁËÖ»ÓĞÍşÍû´ïµ½ $banktransneed ÒÔÉÏµÄ»áÔ±ºÍ°æÖ÷²ÅÄÜÊ¹ÓÃ×ªÕÊºÍ»ã¿î¹¦ÄÜ£¡<br><br>~;
+				$output .= qq~ã€€ è¡Œé•¿è®¾å®šäº†åªæœ‰å¨æœ›è¾¾åˆ° $banktransneed ä»¥ä¸Šçš„ä¼šå‘˜å’Œç‰ˆä¸»æ‰èƒ½ä½¿ç”¨è½¬å¸å’Œæ±‡æ¬¾åŠŸèƒ½ï¼<br><br>~;
 			}
 			else
-			{#ºÃÓÑÁĞ±í´¦Àí²¿·Ö
+			{#å¥½å‹åˆ—è¡¨å¤„ç†éƒ¨åˆ†
 				&getmyfriendlist;
-				my $friendlist1 = qq~<select name=friends OnChange="btransfriend();"><option>ÎÒµÄºÃÓÑ</option>~;
-				my $friendlist2 = qq~<select name=friends OnChange="postfriend();"><option>ÎÒµÄºÃÓÑ</option>~;
+				my $friendlist1 = qq~<select name=friends OnChange="btransfriend();"><option>æˆ‘çš„å¥½å‹</option>~;
+				my $friendlist2 = qq~<select name=friends OnChange="postfriend();"><option>æˆ‘çš„å¥½å‹</option>~;
 				foreach (@myfriendlist)
 				{
 					$friendlist1 .= qq~<option value="$_">$_</option>~;
@@ -417,8 +417,8 @@ function PromptChangePass()
 				$friendlist2 .= qq~</select>~;
 
 				$output .= qq~
-	<form name=btrans action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="btrans"><input type=hidden name=getpass>¡¡ ÎÒÒª×ªÕÊ:¡¡<input type=text size=10 name=btransmoney> $moneyname¡¡¸ø¡¡<input type=text size=12 name=btransuser>¡¡$friendlist1<br>¡¡ ×ªÕË¸½ÑÔ:¡¡<input type=text size=30 maxsize=50 name=btransmessage>¡¡¡¡<input name=submit type=submit value=×ª¡¡³ö style="background:green" OnClick="return PromptGetPass('btrans')">¡¡<input name=reset type=reset value=ÖØ¡¡Ìî style="background:#cccccc"></form>
-	<form name=post action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="post"><input type=hidden name=getpass>¡¡ ÎÒÒª»ã¿î:¡¡<input type=text size=10 name=postmoney> $moneyname¡¡¸ø¡¡<input type=text size=12 name=postuser>¡¡$friendlist2<br>¡¡ »ã¿î¸½ÑÔ:¡¡<input type=text size=30 maxsize=50 name=postmessage>¡¡¡¡<input name=submit type=submit value=»ã¡¡³ö style="background:green" OnClick="return PromptGetPass('post')">¡¡<input name=reset type=reset value=ÖØ¡¡Ìî style="background:#cccccc"></form>~;
+	<form name=btrans action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="btrans"><input type=hidden name=getpass>ã€€ æˆ‘è¦è½¬å¸:ã€€<input type=text size=10 name=btransmoney> $moneynameã€€ç»™ã€€<input type=text size=12 name=btransuser>ã€€$friendlist1<br>ã€€ è½¬è´¦é™„è¨€:ã€€<input type=text size=30 maxsize=50 name=btransmessage>ã€€ã€€<input name=submit type=submit value=è½¬ã€€å‡º style="background:green" OnClick="return PromptGetPass('btrans')">ã€€<input name=reset type=reset value=é‡ã€€å¡« style="background:#cccccc"></form>
+	<form name=post action=$thisprog method=POST OnSubmit="submit.disabled=true; reset.disabled=true;"><input type=hidden name=action value="post"><input type=hidden name=getpass>ã€€ æˆ‘è¦æ±‡æ¬¾:ã€€<input type=text size=10 name=postmoney> $moneynameã€€ç»™ã€€<input type=text size=12 name=postuser>ã€€$friendlist2<br>ã€€ æ±‡æ¬¾é™„è¨€:ã€€<input type=text size=30 maxsize=50 name=postmessage>ã€€ã€€<input name=submit type=submit value=æ±‡ã€€å‡º style="background:green" OnClick="return PromptGetPass('post')">ã€€<input name=reset type=reset value=é‡ã€€å¡« style="background:#cccccc"></form>~;
 			}
 
 			$output .= qq~</td>
@@ -427,40 +427,40 @@ function PromptChangePass()
 			if ($myloan)
 			{
 				$output .= qq~
-	<td bgcolor=$miscbackone valign=top>¡¡<img src="$imagesurl/ebank/bank.gif" width=16><font color=#ff7777>ÉçÇøĞÅ´û</font><img src="$imagesurl/ebank/bank.gif" width=16>¡¡£³ºÅ¹ñÌ¨<hr><br>
-	¡¡ ³¥»¹ÄãµÄ´û¿îÇë<a href=$thisprog?action=repay><font color=#ff99cc>µã»÷ÕâÀï</font></a>¡£<br><br>
+	<td bgcolor=$miscbackone valign=top>ã€€<img src="$imagesurl/ebank/bank.gif" width=16><font color=#ff7777>ç¤¾åŒºä¿¡è´·</font><img src="$imagesurl/ebank/bank.gif" width=16>ã€€ï¼“å·æŸœå°<hr><br>
+	ã€€ å¿è¿˜ä½ çš„è´·æ¬¾è¯·<a href=$thisprog?action=repay><font color=#ff99cc>ç‚¹å‡»è¿™é‡Œ</font></a>ã€‚<br><br>
 	</td>
 </tr>~;
 			}
 			else
 			{
-				$output .= qq~<td bgcolor=$miscbackone valign=top>¡¡<img src="$imagesurl/ebank/bank.gif" width=16><font color=red>ÉçÇøĞÅ´û</font><img src="$imagesurl/ebank/bank.gif" width=16>¡¡£³ºÅ¹ñÌ¨<hr><br>~;
+				$output .= qq~<td bgcolor=$miscbackone valign=top>ã€€<img src="$imagesurl/ebank/bank.gif" width=16><font color=red>ç¤¾åŒºä¿¡è´·</font><img src="$imagesurl/ebank/bank.gif" width=16>ã€€ï¼“å·æŸœå°<hr><br>~;
 
 				if ($bankallowloan eq "yes")
 				{
 					if ($rating > 0)
 					{
-						$output .= qq~<form name=loan action=$thisprog method=POST OnSubmit="submit.disabled=true"><input type=hidden name=action value="loan">¡¡ ÎÒÒªµÖÑº¡¡ <select size=1 name=loanrate>~;
+						$output .= qq~<form name=loan action=$thisprog method=POST OnSubmit="submit.disabled=true"><input type=hidden name=action value="loan">ã€€ æˆ‘è¦æŠµæŠ¼ã€€ <select size=1 name=loanrate>~;
 						for ($i = 1; $i <= $rating; $i++)
 						{
 							$output .= qq~<option value=$i>$i</option>~;
 						}
-						$output .= qq~</select>¡¡µãÍşÍûÀ´´û¿î:¡¡<input type=text size=10 name=loanmoney> $moneyname¡¡¡¡<input type=text size=1 style="width: 1px; height: 1px"><input name=submit type=submit value=¾ö¶¨ÁË style="background:#ff7777"><br>¡¡ ( Ã¿µãÍşÍûÔÊĞí×î¶àµÖÑº $bankrateloan $moneyname )</form>~;
+						$output .= qq~</select>ã€€ç‚¹å¨æœ›æ¥è´·æ¬¾:ã€€<input type=text size=10 name=loanmoney> $moneynameã€€ã€€<input type=text size=1 style="width: 1px; height: 1px"><input name=submit type=submit value=å†³å®šäº† style="background:#ff7777"><br>ã€€ ( æ¯ç‚¹å¨æœ›å…è®¸æœ€å¤šæŠµæŠ¼ $bankrateloan $moneyname )</form>~;
 					}
 					else
 					{
-						$output .= qq~¡¡ ÄãÃ»ÓĞÍşÍûµãÀ´µÖÑº£¬ÎŞ·¨´û¿î£¡<br><br>~;
+						$output .= qq~ã€€ ä½ æ²¡æœ‰å¨æœ›ç‚¹æ¥æŠµæŠ¼ï¼Œæ— æ³•è´·æ¬¾ï¼<br><br>~;
 					}
 				}
 				else
 				{
-					$output .= qq~¡¡ ĞĞ³¤ÒÑ¾­Í£ÓÃÁË´û¿î·şÎñ£¡<br><br>~;
+					$output .= qq~ã€€ è¡Œé•¿å·²ç»åœç”¨äº†è´·æ¬¾æœåŠ¡ï¼<br><br>~;
 				}
 				$output .= qq~</td></tr>~;
 			}
 
-			$output .= qq~<tr><td bgcolor=$miscbacktwo valign=top>¡¡<img src="$imagesurl/ebank/bank.gif" width=16><font color=#000066>¸öÈËÕËÄ¿</font><img src="$imagesurl/ebank/bank.gif" width=16>¡¡ÒÔÏÂÊÇÄã×î½üµÄÒøĞĞ½»Ò×¼ÇÂ¼¡£<hr>~;
-			$output .= qq~<table border=1 width=100% bordercolor=#cccccc><tr><td align=center width=30%>½»Ò×Ê±¼ä</td><td align=center width=30%>ÊÂ¼ş</td><td align=center width=20%>½ğ¶î($moneyname)</td><td align=center width=20%>Óà¶î($moneyname)</td></tr>~;
+			$output .= qq~<tr><td bgcolor=$miscbacktwo valign=top>ã€€<img src="$imagesurl/ebank/bank.gif" width=16><font color=#000066>ä¸ªäººè´¦ç›®</font><img src="$imagesurl/ebank/bank.gif" width=16>ã€€ä»¥ä¸‹æ˜¯ä½ æœ€è¿‘çš„é“¶è¡Œäº¤æ˜“è®°å½•ã€‚<hr>~;
+			$output .= qq~<table border=1 width=100% bordercolor=#cccccc><tr><td align=center width=30%>äº¤æ˜“æ—¶é—´</td><td align=center width=30%>äº‹ä»¶</td><td align=center width=20%>é‡‘é¢($moneyname)</td><td align=center width=20%>ä½™é¢($moneyname)</td></tr>~;
 			if (-e $lbdir . "ebankdata/log/" . $cleanmembername . ".cgi")
 			{
 				open(FILE, $lbdir . "ebankdata/log/" . $cleanmembername . ".cgi");
@@ -481,62 +481,62 @@ function PromptChangePass()
 	$output .= qq~
 </table></td></tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	$pagetitle = "$boardname - $banknameÓªÒµ´óÌü";
+	$pagetitle = "$boardname - $banknameè¥ä¸šå¤§å…";
 
 	return;
 }
 
-sub changepass #ĞŞ¸ÄÈ¡¿îÃÜÂë
+sub changepass #ä¿®æ”¹å–æ¬¾å¯†ç 
 {
 	my $getpass = $query->param('getpass');
 	my $newpass = $query->param('newpass');
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÄÄÀ´µÄÈ¡¿îÃÜÂë£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄ¾ÉµÄÈ¡¿îÃÜÂë´íÎó£¡") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄĞÂµÄÈ¡¿îÃÜÂëÎª¿Õ£¿") if ($newpass eq "");
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄĞÂµÄÈ¡¿îÃÜÂëº¬ÓĞ²»ºÏÊÊµÄ·Ç·¨×Ö·û£¡") if ($newpass =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]/is);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄĞÂµÄÈ¡¿îÃÜÂëÌ«³¤£¡") if (length($newpass) > 16);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œå“ªæ¥çš„å–æ¬¾å¯†ç ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„æ—§çš„å–æ¬¾å¯†ç é”™è¯¯ï¼") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„æ–°çš„å–æ¬¾å¯†ç ä¸ºç©ºï¼Ÿ") if ($newpass eq "");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„æ–°çš„å–æ¬¾å¯†ç å«æœ‰ä¸åˆé€‚çš„éæ³•å­—ç¬¦ï¼") if ($newpass =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]/is);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„æ–°çš„å–æ¬¾å¯†ç å¤ªé•¿ï¼") if (length($newpass) > 16);
 	&updateuserinfo($cleanmembername, 0, 0, "nochange", 0, "nochange", 0, "nochange", 0, "no", $newpass);
-	&printjump("Éè¶¨È¡¿îÃÜÂë³É¹¦");
+	&printjump("è®¾å®šå–æ¬¾å¯†ç æˆåŠŸ");
 	return;
 }
 
-sub open #¿ª»§
+sub open #å¼€æˆ·
 {
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨¿ª»§£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÒÑ¾­ÔÚ±¾ÒøĞĞ¿ª¹ı»§ÁË£¡") if ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•å¼€æˆ·ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ å·²ç»åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·äº†ï¼") if ($mystatus);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÏÖ½ğ²»¹»¿ª»§×îµÍÒªÇó£¡") if ($myallmoney < $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„ç°é‡‘ä¸å¤Ÿå¼€æˆ·æœ€ä½è¦æ±‚ï¼") if ($myallmoney < $bankmindeal);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞ¿ª»§") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œå¼€æˆ·") unless(-e "$filetoopens.lck");
 
 	&updateuserinfo($cleanmembername, 0, -$bankmindeal, 1, $bankmindeal, $currenttime, 0, "", 0, "yes");
 	&updateallsave(1, $bankmindeal);
 
-	&logpriviate("¿ª»§", $bankmindeal, $bankmindeal);
-	&logaction($inmembername, "¿ª»§³É¹¦£¬´æÈë $bankmindeal $moneyname¡£");
+	&logpriviate("å¼€æˆ·", $bankmindeal, $bankmindeal);
+	&logaction($inmembername, "å¼€æˆ·æˆåŠŸï¼Œå­˜å…¥ $bankmindeal $moneynameã€‚");
 
 	&order($cleanmembername, $bankmindeal);
-	&printjump("¿ª»§³É¹¦");
+	&printjump("å¼€æˆ·æˆåŠŸ");
 	return;
 }
 
-sub logoff #Ïú»§
+sub logoff #é”€æˆ·
 {
 	my $getpass = $query->param('getpass');
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨Ïú»§£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÔõÃ´Ïú»§£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄÈ¡¿îÃÜÂë´íÎó£¡") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•é”€æˆ·ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œæ€ä¹ˆé”€æˆ·ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„å–æ¬¾å¯†ç é”™è¯¯ï¼") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&Äã±ØĞëÏÈ³¥»¹ÔÚ±¾ÒøĞĞµÄ´û¿îºó²ÅÄÜÏú»§£¡") if ($myloan);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ å¿…é¡»å…ˆå¿è¿˜åœ¨æœ¬é“¶è¡Œçš„è´·æ¬¾åæ‰èƒ½é”€æˆ·ï¼") if ($myloan);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞÏú»§") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œé”€æˆ·") unless(-e "$filetoopens.lck");
 
 	&updateuserinfo($cleanmembername, 0, $mysaves + $mysaveaccrual, "", -$mysaves, "", 0, "", 0, "yes");
 	&updateallsave(-1, -$mysaves);
@@ -544,128 +544,101 @@ sub logoff #Ïú»§
 	my $filetodel = $lbdir . "ebankdata/log/" . $cleanmembername . ".cgi";
 	unlink($filetodel);
 
-	&logaction($inmembername, "Ïú»§³É¹¦£¬È¡×ß´æ¿î $mysaves $moneyname£¬½áËãÀûÏ¢ $mysaveaccrual $moneyname¡£");
+	&logaction($inmembername, "é”€æˆ·æˆåŠŸï¼Œå–èµ°å­˜æ¬¾ $mysaves $moneynameï¼Œç»“ç®—åˆ©æ¯ $mysaveaccrual $moneynameã€‚");
 
 	&order($cleanmembername, 0);
-	&printjump("Ïú»§³É¹¦");
+	&printjump("é”€æˆ·æˆåŠŸ");
 	return;
 }
 
-sub get #È¡¿î
+sub get #å–æ¬¾
 {
 	my $getmoney = $query->param('getmoney');
 	my $getpass = $query->param('getpass');
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨È¡¿î£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÔõÃ´È¡¿î£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄÈ¡¿îÃÜÂë´íÎó£¡") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•å–æ¬¾ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œæ€ä¹ˆå–æ¬¾ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„å–æ¬¾å¯†ç é”™è¯¯ï¼") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&È¡¿îÊı¶îÊäÈë´íÎó£¬Çë¼ì²é£¡") if ($getmoney =~ /[^0-9]/ or $getmoney eq "");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÓĞÄÇÃ´¶à´æ¿î¿ÉÒÔÈ¡³ö£¬Èç¹û²»Ïú»§£¬ÄãµÄ»§Í·±ØĞëÖÁÉÙ´æÓĞ $bankmindeal $moneyname£¡") if ($getmoney > $mysaves + $mysaveaccrual - $bankmindeal);
-	&myerror("ÒøĞĞ´íÎó&È¡¿îÊı¶î³¬¹ı±¾ĞĞ×î´óµ¥±Ê½»Ò×¶î $bankmaxdeal $moneyname") if ($getmoney > $bankmaxdeal);
-	&myerror("ÒøĞĞ´íÎó&È¡¿îÊı¶îĞ¡ÓÚ±¾ĞĞ×îĞ¡µ¥±Ê½»Ò×¶î $bankmindeal $moneyname") if ($getmoney < $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&å–æ¬¾æ•°é¢è¾“å…¥é”™è¯¯ï¼Œè¯·æ£€æŸ¥ï¼") if ($getmoney =~ /[^0-9]/ or $getmoney eq "");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡æœ‰é‚£ä¹ˆå¤šå­˜æ¬¾å¯ä»¥å–å‡ºï¼Œå¦‚æœä¸é”€æˆ·ï¼Œä½ çš„æˆ·å¤´å¿…é¡»è‡³å°‘å­˜æœ‰ $bankmindeal $moneynameï¼") if ($getmoney > $mysaves + $mysaveaccrual - $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&å–æ¬¾æ•°é¢è¶…è¿‡æœ¬è¡Œæœ€å¤§å•ç¬”äº¤æ˜“é¢ $bankmaxdeal $moneyname") if ($getmoney > $bankmaxdeal);
+	&myerror("é“¶è¡Œé”™è¯¯&å–æ¬¾æ•°é¢å°äºæœ¬è¡Œæœ€å°å•ç¬”äº¤æ˜“é¢ $bankmindeal $moneyname") if ($getmoney < $bankmindeal);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞÈ¡¿î") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œå–æ¬¾") unless(-e "$filetoopens.lck");
 
 	&updateuserinfo($cleanmembername, 0, $getmoney, "nochange", $mysaveaccrual - $getmoney, $currenttime, 0, "nochange", 0, "yes");
 	&updateallsave(0, $mysaveaccrual - $getmoney);
 
-	&logpriviate("½áÏ¢", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
-	&logpriviate("È¡³ö", -$getmoney, $mysaves + $mysaveaccrual - $getmoney);
-	&logaction($inmembername, "<font color=#99ccff>È¡³ö´æ¿î $getmoney $moneyname£¬Í¬Ê±½áËãÀûÏ¢ $mysaveaccrual $moneyname¡£</font>");
+	&logpriviate("ç»“æ¯", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
+	&logpriviate("å–å‡º", -$getmoney, $mysaves + $mysaveaccrual - $getmoney);
+	&logaction($inmembername, "<font color=#99ccff>å–å‡ºå­˜æ¬¾ $getmoney $moneynameï¼ŒåŒæ—¶ç»“ç®—åˆ©æ¯ $mysaveaccrual $moneynameã€‚</font>");
 
 	&order($cleanmembername, $mysaves + $mysaveaccrual - $getmoney);
-	&printjump("È¡¿î³É¹¦");
+	&printjump("å–æ¬¾æˆåŠŸ");
 	return;
 }
 
-sub save #´æ¿î
+sub save #å­˜æ¬¾
 {
 	my $savemoney = $query->param('savemoney');
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨´æ¿î£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÔõÃ´´æ¿î£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•å­˜æ¬¾ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œæ€ä¹ˆå­˜æ¬¾ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&´æ¿îÊı¶îÊäÈë´íÎó£¬Çë¼ì²é£¡") if ($savemoney =~ /[^0-9]/ or $savemoney eq "");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÓĞÄÇÃ´¶àÏÖ½ğ¿ÉÒÔ´æ£¡") if ($savemoney > $myallmoney);
-	&myerror("ÒøĞĞ´íÎó&´æ¿îÊı¶î³¬¹ı±¾ĞĞ×î´óµ¥±Ê½»Ò×¶î $bankmaxdeal $moneyname") if ($savemoney > $bankmaxdeal);
-	&myerror("ÒøĞĞ´íÎó&´æ¿îÊı¶îĞ¡ÓÚ±¾ĞĞ×îĞ¡µ¥±Ê½»Ò×¶î $bankmindeal $moneyname") if ($savemoney < $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&å­˜æ¬¾æ•°é¢è¾“å…¥é”™è¯¯ï¼Œè¯·æ£€æŸ¥ï¼") if ($savemoney =~ /[^0-9]/ or $savemoney eq "");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡æœ‰é‚£ä¹ˆå¤šç°é‡‘å¯ä»¥å­˜ï¼") if ($savemoney > $myallmoney);
+	&myerror("é“¶è¡Œé”™è¯¯&å­˜æ¬¾æ•°é¢è¶…è¿‡æœ¬è¡Œæœ€å¤§å•ç¬”äº¤æ˜“é¢ $bankmaxdeal $moneyname") if ($savemoney > $bankmaxdeal);
+	&myerror("é“¶è¡Œé”™è¯¯&å­˜æ¬¾æ•°é¢å°äºæœ¬è¡Œæœ€å°å•ç¬”äº¤æ˜“é¢ $bankmindeal $moneyname") if ($savemoney < $bankmindeal);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞ´æ¿î") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œå­˜æ¬¾") unless(-e "$filetoopens.lck");
 
 	&updateuserinfo($cleanmembername, 0, -$savemoney, "nochange", $mysaveaccrual + $savemoney, $currenttime, 0, "nochange", 0, "yes");
 	&updateallsave(0, $mysaveaccrual + $savemoney);
 
-	&logpriviate("½áÏ¢", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
-	&logpriviate("´æÈë", $savemoney, $mysaves + $mysaveaccrual + $savemoney);
-	&logaction($inmembername, "<font color=#99ccff>´æÈë´æ¿î $savemoney $moneyname£¬Í¬Ê±½áËãÀûÏ¢ $mysaveaccrual $moneyname¡£</font>");
+	&logpriviate("ç»“æ¯", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
+	&logpriviate("å­˜å…¥", $savemoney, $mysaves + $mysaveaccrual + $savemoney);
+	&logaction($inmembername, "<font color=#99ccff>å­˜å…¥å­˜æ¬¾ $savemoney $moneynameï¼ŒåŒæ—¶ç»“ç®—åˆ©æ¯ $mysaveaccrual $moneynameã€‚</font>");
 
 	&order($cleanmembername, $mysaves + $mysaveaccrual + $savemoney);
-	&printjump("´æ¿î³É¹¦");
+	&printjump("å­˜æ¬¾æˆåŠŸ");
 	return;
 }
 
-sub btrans #×ªÕÊ
+sub btrans #è½¬å¸
 {
 	my $btransuser = $query->param('btransuser');
 	my $btransmoney = $query->param('btransmoney');
 	my $btransmessage = $query->param('btransmessage');
 	my $getpass = $query->param('getpass');
 	$btransuser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨×ªÕÊ£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÔõÃ´×ªÕÊ£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄÈ¡¿îÃÜÂë´íÎó£¡") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•è½¬å¸ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œæ€ä¹ˆè½¬å¸ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„å–æ¬¾å¯†ç é”™è¯¯ï¼") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&×ªÕË¸½ÑÔÌ«³¤ÁË£¡") if (length($btransmessage) > 50);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄĞÅÓÃ¶È£¨ÍşÍû£©²»¹»¸ß£¬ÎŞ·¨Ê¹ÓÃ×ªÕÊÒµÎñ£¡") if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo");
-	&myerror("ÒøĞĞ´íÎó&×ªÕÊÊı¶îÊäÈë´íÎó£¬Çë¼ì²é£¡") if ($btransmoney =~ /[^0-9]/ or $btransmoney eq "");
-	my $banktranscharge = int($banktransrate * $btransmoney + 0.5); #ËÄÉáÎåÈë:)
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&è½¬è´¦é™„è¨€å¤ªé•¿äº†ï¼") if (length($btransmessage) > 50);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„ä¿¡ç”¨åº¦ï¼ˆå¨æœ›ï¼‰ä¸å¤Ÿé«˜ï¼Œæ— æ³•ä½¿ç”¨è½¬å¸ä¸šåŠ¡ï¼") if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo");
+	&myerror("é“¶è¡Œé”™è¯¯&è½¬å¸æ•°é¢è¾“å…¥é”™è¯¯ï¼Œè¯·æ£€æŸ¥ï¼") if ($btransmoney =~ /[^0-9]/ or $btransmoney eq "");
+	my $banktranscharge = int($banktransrate * $btransmoney + 0.5); #å››èˆäº”å…¥:)
 	$banktranscharge = $bankmindeal if ($banktranscharge < $bankmindeal);
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÓĞÄÇÃ´¶à´æ¿îÓÃÀ´×ªÕÊºÍÖ§¸¶×ªÕÊ·ÑÓÃ£¬Èç¹û²»Ïú»§£¬ÄãµÄ»§Í·±ØĞëÖÁÉÙ´æÓĞ $bankmindeal $moneyname£¡") if ($btransmoney + $banktranscharge > $mysaves + $mysaveaccrual - $bankmindeal);
-	&myerror("ÒøĞĞ´íÎó&×ªÕÊÊı¶î³¬¹ı±¾ĞĞ×î´óµ¥±Ê½»Ò×¶î $bankmaxdeal $moneyname") if ($btransmoney > $bankmaxdeal);
-	&myerror("ÒøĞĞ´íÎó&×ªÕÊÊı¶îĞ¡ÓÚ±¾ĞĞ×îĞ¡µ¥±Ê½»Ò×¶î $bankmindeal $moneyname") if ($btransmoney < $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡æœ‰é‚£ä¹ˆå¤šå­˜æ¬¾ç”¨æ¥è½¬å¸å’Œæ”¯ä»˜è½¬å¸è´¹ç”¨ï¼Œå¦‚æœä¸é”€æˆ·ï¼Œä½ çš„æˆ·å¤´å¿…é¡»è‡³å°‘å­˜æœ‰ $bankmindeal $moneynameï¼") if ($btransmoney + $banktranscharge > $mysaves + $mysaveaccrual - $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&è½¬å¸æ•°é¢è¶…è¿‡æœ¬è¡Œæœ€å¤§å•ç¬”äº¤æ˜“é¢ $bankmaxdeal $moneyname") if ($btransmoney > $bankmaxdeal);
+	&myerror("é“¶è¡Œé”™è¯¯&è½¬å¸æ•°é¢å°äºæœ¬è¡Œæœ€å°å•ç¬”äº¤æ˜“é¢ $bankmindeal $moneyname") if ($btransmoney < $bankmindeal);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞ×ªÕË") unless(-e "$filetoopens.lck");
+	&rn;
+}
 
-	$btransuser =~ s/ /\_/sg;
-	$btransuser =~ tr/A-Z/a-z/;
-	&myerror("ÒøĞĞ´íÎó&×Ô¼º¸ø×Ô¼º×ªÊ²Ã´ÕÊ£¡") if ($btransuser eq $cleanmembername);
-	$btransmessage = &unHTML($btransmessage);
-
-	&getmember($btransuser);
-	&myerror("ÒøĞĞ´íÎó&×ªÕÊ¶ÔÏóÓÃ»§²»´æÔÚ£¡") if ($userregistered eq "no");
-	my ($tmystatus, $tmysaves, $tmysavetime, $tmyloan, $tmyloantime, $tmyloanrating, $tbankadd1, $tbankadd2, $tbankadd3, $tbankadd4, $tbankadd5) = split(/,/, $ebankdata);
-	&myerror("ÒøĞĞ´íÎó&×ªÕÊ¶ÔÏóÓÃ»§²¢Ã»ÓĞÔÚ±¾ĞĞ¿ª»§£¡Äã¿ÉÒÔ¿¼ÂÇÊ¹ÓÃ»ã¿îÒµÎñ¡£") if ($tmystatus eq "");
-	&myerror("ÒøĞĞ´íÎó&¶Ô·½ÕË»§ÒÑ¾­±»¶³½á£¬ÎŞ·¨¸øËû»ã¿î£¡") if ($tmystatus == -1 || $membercode eq "banned" || $membercode eq "masked");
-	my $tmysavedays = &getbetween($tmysavetime, $currenttime);
-	my $tmysaveaccrual = int($tmysaves * $banksaverate * $tmysavedays);
-
-	&updateuserinfo($cleanmembername, 0, 0, "nochange", $mysaveaccrual - $btransmoney - $banktranscharge, $currenttime, 0, "nochange", 0, "yes");
-	&updateuserinfo($btransuser, 0, 0, "nochange", $tmysaveaccrual + $btransmoney, $currenttime, 0, "nochange", 0, "no");
-	&updateallsave(0, $mysaveaccrual + $tmysaveaccrual - $banktranscharge);	
-
-	&bankmessage($btransuser, "×ªÕÊÍ¨Öª", "¡¡¡¡$inmembername ÏòÄãÔÚ±¾ĞĞµÄÕÊ»§Àï×ªÈëÁË $btransmoney $moneyname´æ¿î£¬ÏÖÔÚÒÑ¾­µ½ÕÊ£¬Çë²éÊÕ£¡<br>¡¡¡¡×ªÕË¸½ÑÔ£º<font color=green>$btransmessage</font>¡£");
-
-	&logpriviate("½áÏ¢", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
-	&logpriviate("×ªÕÊÊÖĞø·Ñ", -$banktranscharge, $mysaves + $mysaveaccrual - $banktranscharge);
-	&logpriviate("×ª³öµ½$btransuser", -$btransmoney, $mysaves + $mysaveaccrual - $banktranscharge - $btransmoney);
-	&order($cleanmembername, $mysaves + $mysaveaccrual - $banktranscharge - $btransmoney, $btransuser, $tmysaves + $tmysaveaccrual + $btransmoney);
-
-	$cleanmembername = $btransuser;
-	&logpriviate("½áÏ¢", $tmysaveaccrual, $tmysaves + $tmysaveaccrual) if ($tmysaveaccrual != 0);
-	&logpriviate("´Ó$inmembername×ªÈë", $btransmoney, $tmysaves + $tmysaveaccrual + $btransmoney);
-
-	&logaction($inmembername, "<font color=green>×ª³ö´æ¿î $btransmoney $moneyname¸ø $btransuser£¬½»ÄÉÊÖĞø·Ñ $banktranscharge $moneyname£¬Í¬Ê±½áËã×ª³ö·½½áËãÀûÏ¢ $mysaveaccrual $moneyname£¬×ªÈë·½½áËãÀûÏ¢ $tmysaveaccrual $moneyname¡£×ªÕË¸½ÑÔ£º$btransmessage</font>");
+sub btrans #æme¸ø $btransuser£¬½»ÄÉÊÖĞø·Ñ $banktranscharge $moneyname£¬Í¬Ê±½áËã×ª³ö·½½áËãÀûÏ¢ $mysaveaccrual $moneyname£¬×ªÈë·½½áËãÀûÏ¢ $tmysaveaccrual $moneyname¡£×ªÕË¸½ÑÔ£º$btransmessage</font>");
 	&printjump("×ªÕÊ³É¹¦");
 	return;
 }

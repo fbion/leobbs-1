@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -33,23 +33,23 @@ require "data/cityinfo.cgi";
 $|++;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 $query = new LBCGI;
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
-$topanzahl       = $hottopicmark;       #ÏÔÊ¾·¢ÌùÇ°¶àÉÙÃû£¿ÏÔÊ¾×îĞÂ¶àÉÙ¸ö¼ÓÈëµÄÓÃ»§£¿
-$startseite      = "1";         	#Ä¬ÈÏÅÅĞò:  1->·¢ÌùÊı, 2->Ç°NÃû, 3->ÓÃ»§Ãû, 4->×¢²áÈÕÆÚ
-$memberproseite  = $maxthreads; 	#Ã¿Ò³ÏÔÊ¾ÓÃ»§Êı
+$topanzahl       = $hottopicmark;       #æ˜¾ç¤ºå‘è´´å‰å¤šå°‘åï¼Ÿæ˜¾ç¤ºæœ€æ–°å¤šå°‘ä¸ªåŠ å…¥çš„ç”¨æˆ·ï¼Ÿ
+$startseite      = "1";         	#é»˜è®¤æ’åº:  1->å‘è´´æ•°, 2->å‰Nå, 3->ç”¨æˆ·å, 4->æ³¨å†Œæ—¥æœŸ
+$memberproseite  = $maxthreads; 	#æ¯é¡µæ˜¾ç¤ºç”¨æˆ·æ•°
 if (! $inmembername) { $inmembername = cookie("amembernamecookie"); }
 if (! $inpassword)   { $inpassword   = cookie("apasswordcookie");   }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-   $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+   $inmembername = "å®¢äºº";
 }
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
@@ -57,25 +57,25 @@ if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$cat
 if ($infosopen == 2) {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("²é¿´»áÔ±ÁĞ±í&¿ÍÈËÎŞÈ¨²é¿´»áÔ±ÁĞ±í£¡") if ($inmembername eq "¿ÍÈË");
-    if ($userregistered eq "no") { &error("²é¿´»áÔ±ÁĞ±í&Äã»¹Ã»×¢²áÄØ£¡"); }
-    elsif ($inpassword ne $password) { &error("²é¿´»áÔ±ÁĞ±í&ÄãµÄÃÜÂëÓĞÎÊÌâ£¡"); }
-    &error("²é¿´»áÔ±ÁĞ±í&ÂÛÌ³»áÔ±ÁĞ±íÖ»ÓĞÌ³Ö÷ºÍ°æÖ÷¿ÉÒÔ²é¿´£¡") if (($membercode ne "ad")&&($membercode ne 'amo')&&($membercode ne 'smo')&&($membercode ne 'cmo')&&($membercode ne "mo"));
+    &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&å®¢äººæ— æƒæŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨ï¼") if ($inmembername eq "å®¢äºº");
+    if ($userregistered eq "no") { &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
+    elsif ($inpassword ne $password) { &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&ä½ çš„å¯†ç æœ‰é—®é¢˜ï¼"); }
+    &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&è®ºå›ä¼šå‘˜åˆ—è¡¨åªæœ‰å›ä¸»å’Œç‰ˆä¸»å¯ä»¥æŸ¥çœ‹ï¼") if (($membercode ne "ad")&&($membercode ne 'amo')&&($membercode ne 'smo')&&($membercode ne 'cmo')&&($membercode ne "mo"));
 }
 elsif ($infosopen == 3) {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("²é¿´»áÔ±ÁĞ±í&¿ÍÈËÎŞÈ¨²é¿´»áÔ±ÁĞ±í£¡") if ($inmembername eq "¿ÍÈË");
-    if ($userregistered eq "no") { &error("²é¿´»áÔ±ÁĞ±í&Äã»¹Ã»×¢²áÄØ£¡"); }
-    elsif ($inpassword ne $password) { &error("²é¿´»áÔ±ÁĞ±í&ÄãµÄÃÜÂëÓĞÎÊÌâ£¡"); }
-    &error("²é¿´»áÔ±ÁĞ±í&ÂÛÌ³»áÔ±ÁĞ±íÖ»ÓĞÌ³Ö÷¿ÉÒÔ²é¿´£¡") if ($membercode ne "ad");
+    &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&å®¢äººæ— æƒæŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨ï¼") if ($inmembername eq "å®¢äºº");
+    if ($userregistered eq "no") { &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
+    elsif ($inpassword ne $password) { &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&ä½ çš„å¯†ç æœ‰é—®é¢˜ï¼"); }
+    &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&è®ºå›ä¼šå‘˜åˆ—è¡¨åªæœ‰å›ä¸»å¯ä»¥æŸ¥çœ‹ï¼") if ($membercode ne "ad");
 }
 elsif ($infosopen == 1) {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("²é¿´»áÔ±ÁĞ±í&¿ÍÈËÎŞÈ¨²é¿´»áÔ±ÁĞ±í£¡") if ($inmembername eq "¿ÍÈË");
-    if ($userregistered eq "no") { &error("²é¿´»áÔ±ÁĞ±í&Äã»¹Ã»×¢²áÄØ£¡"); }
-    elsif ($inpassword ne $password) { &error("²é¿´»áÔ±ÁĞ±í&ÄãµÄÃÜÂëÓĞÎÊÌâ£¡"); }
+    &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&å®¢äººæ— æƒæŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨ï¼") if ($inmembername eq "å®¢äºº");
+    if ($userregistered eq "no") { &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
+    elsif ($inpassword ne $password) { &error("æŸ¥çœ‹ä¼šå‘˜åˆ—è¡¨&ä½ çš„å¯†ç æœ‰é—®é¢˜ï¼"); }
 }
 else {
 #    &getmember("$inmembername");
@@ -85,7 +85,7 @@ else {
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-&whosonline("$inmembername\tÓÃ»§ÁĞ±í\tboth\t²é¿´ÓÃ»§ÁĞ±í\t");
+&whosonline("$inmembername\tç”¨æˆ·åˆ—è¡¨\tboth\tæŸ¥çœ‹ç”¨æˆ·åˆ—è¡¨\t");
 }
 open (FILE, "${lbdir}data/lbmember.cgi");
 sysread(FILE, $totlemembertemp,(stat(FILE))[7]);
@@ -125,8 +125,8 @@ $jfmember {"$tmpuserdetail[0]"} = $tmpuserdetail[7] if ($tmpuserdetail[7] > 0);
 @sortiert5 = reverse sort { $jfmember{$a} <=> $jfmember{$b} } keys(%jfmember);
 
 $output .= qq~<br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´µ½±¾Õ¾ËùÓĞ×¢²á»áÔ±µÄÁĞ±íºÍÏêÏ¸ĞÅÏ¢ÒÔ¼°·¢ÌûÅÅÃûÇé¿ö</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="memberlist.cgi">ÓÃ»§ÁĞ±í</a> ¡ú ²é¿´ÓÃ»§ÁĞ±í/ÅÅÃû<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹åˆ°æœ¬ç«™æ‰€æœ‰æ³¨å†Œä¼šå‘˜çš„åˆ—è¡¨å’Œè¯¦ç»†ä¿¡æ¯ä»¥åŠå‘å¸–æ’åæƒ…å†µ</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="memberlist.cgi">ç”¨æˆ·åˆ—è¡¨</a> â†’ æŸ¥çœ‹ç”¨æˆ·åˆ—è¡¨/æ’å<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 ~;
 read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
@@ -158,7 +158,7 @@ sub jhum {
     $inpage = $query -> param ("page");
     if ($inpage eq "") {$inpage = 1;}
     $a = 8;
-    $Listenname = "ÒÔ¾«»ªÊıÅÅĞò";
+    $Listenname = "ä»¥ç²¾åæ•°æ’åº";
     &Tabellenanfang(2);
     @memberarray = @sortiert4;
     &splitting;
@@ -185,7 +185,7 @@ sub moneyum {
     $inpage = $query -> param ("page");
     if ($inpage eq "") {$inpage = 1;}
     $a = 7;
-    $Listenname = "ÒÔ½ğÇ®ÅÅĞò";
+    $Listenname = "ä»¥é‡‘é’±æ’åº";
     &Tabellenanfang(1);
     @memberarray = @sortiert3;
     &splitting;
@@ -214,7 +214,7 @@ sub Namensortiert {
 	$a = 3;
 	@memberarray = @cgi;
 	&splitting;
-	$Listenname = "ÒÔÓÃ»§ÃûÅÅĞò";
+	$Listenname = "ä»¥ç”¨æˆ·åæ’åº";
 	&Tabellenanfang;
 	foreach $member (@cgi[$startmember ... $endmember]) {
 	    $member =~s/ /_/g;
@@ -240,7 +240,7 @@ sub banned {
 	$a = 6;
 	@memberarray = @banned;
 	&splitting;
-	$Listenname = "±»½ûÖ¹·¢ÑÔµÄ";
+	$Listenname = "è¢«ç¦æ­¢å‘è¨€çš„";
 	&Tabellenanfang;
 	foreach $member (@banned[$startmember ... $endmember]) {
 	    $member =~s/ /_/g;
@@ -267,13 +267,13 @@ sub searchmember {
           <td> 
           <table cellpadding=6 cellspacing=1 border=0 width=100%> 
           <tr> 
-          <td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>»áÔ± $searchmembername ×ÊÁÏ²éÕÒÖĞ , ÇëÉÔºó</b></font></td></tr> 
+          <td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>ä¼šå‘˜ $searchmembername èµ„æ–™æŸ¥æ‰¾ä¸­ , è¯·ç¨å</b></font></td></tr> 
           <tr> 
           <td bgcolor=$miscbackone><font color=$fontcolormisc> 
-          ¾ßÌåÇé¿ö : 
+          å…·ä½“æƒ…å†µ : 
           <ul> 
-          <li><a href="memberlist.cgi?a=4">·µ»ØÓÃ»§ÁĞ±í</a> 
-          <li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a> 
+          <li><a href="memberlist.cgi?a=4">è¿”å›ç”¨æˆ·åˆ—è¡¨</a> 
+          <li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a> 
           </ul> 
           </tr> 
           </td> 
@@ -290,7 +290,7 @@ sub Postsortiert {
 	$a = 1;
 	@memberarray = @sortiert;
 	&splitting;
-	$Listenname = "ÒÔ·¢Ìù×ÜÊıÅÅĞò";
+	$Listenname = "ä»¥å‘è´´æ€»æ•°æ’åº";
 	&Tabellenanfang;
 	foreach $member (@sortiert[$startmember ... $endmember]) {
 	    $member =~s/ /_/g;
@@ -311,7 +311,7 @@ sub Postsortiert {
 
 }
 sub Topten {
-    $Listenname = "·¢Ìù×ÜÊıÇ° $topanzahl Ãû";
+    $Listenname = "å‘è´´æ€»æ•°å‰ $topanzahl å";
     &Tabellenanfang;
     @sortiert = splice(@sortiert,0,$topanzahl);
     foreach $member (@sortiert) {
@@ -336,7 +336,7 @@ sub datum {
     $inpage = $query -> param ("page");
     if ($inpage eq "") {$inpage = 1;}
     $a = 4;
-    $Listenname = "ÒÔ×¢²áÊ±¼äÅÅĞò";
+    $Listenname = "ä»¥æ³¨å†Œæ—¶é—´æ’åº";
     &Tabellenanfang;
     @memberarray = @sortiert1;
     &splitting;
@@ -358,7 +358,7 @@ sub datum {
     $output .= qq~</table>~;
 }
 sub redatum {
-    $Listenname = "×îĞÂ $topanzahl Ãû×¢²áÓÃ»§";
+    $Listenname = "æœ€æ–° $topanzahl åæ³¨å†Œç”¨æˆ·";
     &Tabellenanfang;
     @memberarray = @sortiert2;
     @sortiert2 = splice(@sortiert2,0,$topanzahl);
@@ -384,7 +384,7 @@ sub jfum {
    $inpage = $query -> param ("page");
    if ($inpage eq "") {$inpage = 1;}
    $a = 9;
-   $Listenname = "ÒÔ»ı·ÖÅÅĞò";
+   $Listenname = "ä»¥ç§¯åˆ†æ’åº";
    &Tabellenanfang(3);
    @memberarray = @sortiert5;
    &splitting;
@@ -415,21 +415,21 @@ sub Tabellenanfang {
     	<tr><td bgcolor=$titlecolor>
       	<table cellpadding=6 cellspacing=1 border=0 width=100%>
     	<tr bgcolor=$forumcolorone><td colspan=3 valign=top>&nbsp;>> <B>$Listenname</B> <<<BR><BR>
-	&nbsp;×Ü×¢²áÓÃ»§Êı£º $totlemembertemp ÈË ¡¡·¢Ìù×ÜÊı£º $totalpostandthreads Æª</font></td>
+	&nbsp;æ€»æ³¨å†Œç”¨æˆ·æ•°ï¼š $totlemembertemp äºº ã€€å‘è´´æ€»æ•°ï¼š $totalpostandthreads ç¯‡</font></td>
 	<td colspan=7 align=right><form method=get action=memberlist.cgi>
         <select name=a>
-            <option value=2>·¢Ìù×ÜÊıÇ° $topanzahl Ãû</option>
-            <option value=5>×îĞÂ $topanzahl Ãû×¢²áÓÃ»§</option>
-            <option value=3>ÒÔÓÃ»§ÃûÅÅĞò</option>
-            <option value=1>ÒÔ·¢Ìù×ÜÊıÅÅĞò</option>
-            <option value=4>ÒÔ×¢²áÊ±¼äÅÅĞò</option>
-            <option value=6>±»½ûÖ¹·¢ÑÔµÄ</option>
-            <option value=7>ÏÖ½ğÅÅÃû</option>
-            <option value=8>¾«»ªÊıÅÅÃû</option>
-            <option value=9>»ı·ÖÅÅÃû</option>
+            <option value=2>å‘è´´æ€»æ•°å‰ $topanzahl å</option>
+            <option value=5>æœ€æ–° $topanzahl åæ³¨å†Œç”¨æˆ·</option>
+            <option value=3>ä»¥ç”¨æˆ·åæ’åº</option>
+            <option value=1>ä»¥å‘è´´æ€»æ•°æ’åº</option>
+            <option value=4>ä»¥æ³¨å†Œæ—¶é—´æ’åº</option>
+            <option value=6>è¢«ç¦æ­¢å‘è¨€çš„</option>
+            <option value=7>ç°é‡‘æ’å</option>
+            <option value=8>ç²¾åæ•°æ’å</option>
+            <option value=9>ç§¯åˆ†æ’å</option>
         </select>
-	<input type=submit value="ÅÅ Ğò"></form><form method=get action=memberlist.cgi>
-	ÓÃ»§£º <input type=text name="searchmember">		<input type=submit value="²é ÕÒ">
+	<input type=submit value="æ’ åº"></form><form method=get action=memberlist.cgi>
+	ç”¨æˆ·ï¼š <input type=text name="searchmember">		<input type=submit value="æŸ¥ æ‰¾">
 	</td></form></tr>
 ~;
     @L=("*","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","All");
@@ -445,16 +445,16 @@ sub Tabellenanfang {
     }
     $output.=qq~</tr></table></td></tr>~;
     if ($xiaoguo eq "") {
-        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ÓÃ»§Ãû</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>Ö÷Ò³</b></td><td align=center $catbackpic><b>¶ÌÏûÏ¢</td><td align=center $catbackpic><b>×îºó·¢Ìù</td><td align=center $catbackpic><b>×¢²áÊ±¼ä</b></td><td align=center $catbackpic><b>µÈ¼¶×´Ì¬</b></td><td align=center $catbackpic><b>·¢Ìù×ÜÊı</b></td></font></tr>~;
+        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ç”¨æˆ·å</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>ä¸»é¡µ</b></td><td align=center $catbackpic><b>çŸ­æ¶ˆæ¯</td><td align=center $catbackpic><b>æœ€åå‘è´´</td><td align=center $catbackpic><b>æ³¨å†Œæ—¶é—´</b></td><td align=center $catbackpic><b>ç­‰çº§çŠ¶æ€</b></td><td align=center $catbackpic><b>å‘è´´æ€»æ•°</b></td></font></tr>~;
     }
     elsif ($xiaoguo eq "1") {
-        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ÓÃ»§Ãû</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>Ö÷Ò³</b></td><td align=center $catbackpic><b>¶ÌÏûÏ¢</td><td align=center $catbackpic><b>×îºó·¢Ìù</td><td align=center $catbackpic><b>×¢²áÊ±¼ä</b></td><td align=center $catbackpic><b>µÈ¼¶×´Ì¬</b></td><td align=center $catbackpic><b>ÏÖ½ğÊı</b></td></font></tr>~;
+        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ç”¨æˆ·å</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>ä¸»é¡µ</b></td><td align=center $catbackpic><b>çŸ­æ¶ˆæ¯</td><td align=center $catbackpic><b>æœ€åå‘è´´</td><td align=center $catbackpic><b>æ³¨å†Œæ—¶é—´</b></td><td align=center $catbackpic><b>ç­‰çº§çŠ¶æ€</b></td><td align=center $catbackpic><b>ç°é‡‘æ•°</b></td></font></tr>~;
     }
     elsif ($xiaoguo eq "2") {
-        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ÓÃ»§Ãû</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>Ö÷Ò³</b></td><td align=center $catbackpic><b>¶ÌÏûÏ¢</td><td align=center $catbackpic><b>×îºó·¢Ìù</td><td align=center $catbackpic><b>×¢²áÊ±¼ä</b></td><td align=center $catbackpic><b>µÈ¼¶×´Ì¬</b></td><td align=center $catbackpic><b>¾«»ªÌùÊı</b></td></font></tr>~;
+        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ç”¨æˆ·å</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>ä¸»é¡µ</b></td><td align=center $catbackpic><b>çŸ­æ¶ˆæ¯</td><td align=center $catbackpic><b>æœ€åå‘è´´</td><td align=center $catbackpic><b>æ³¨å†Œæ—¶é—´</b></td><td align=center $catbackpic><b>ç­‰çº§çŠ¶æ€</b></td><td align=center $catbackpic><b>ç²¾åè´´æ•°</b></td></font></tr>~;
     }
     elsif ($xiaoguo eq "3") {
-       $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ÓÃ»§Ãû</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>Ö÷Ò³</b></td><td align=center $catbackpic><b>¶ÌÏûÏ¢</td><td align=center $catbackpic><b>×îºó·¢Ìù</td><td align=center $catbackpic><b>×¢²áÊ±¼ä</b></td><td align=center $catbackpic><b>µÈ¼¶×´Ì¬</b></td><td align=center $catbackpic><b>»ı·ÖÊı</b></td></font></tr>~;
+       $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>ç”¨æˆ·å</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>ä¸»é¡µ</b></td><td align=center $catbackpic><b>çŸ­æ¶ˆæ¯</td><td align=center $catbackpic><b>æœ€åå‘è´´</td><td align=center $catbackpic><b>æ³¨å†Œæ—¶é—´</b></td><td align=center $catbackpic><b>ç­‰çº§çŠ¶æ€</b></td><td align=center $catbackpic><b>ç§¯åˆ†æ•°</b></td></font></tr>~;
    }
 
 }
@@ -489,32 +489,32 @@ sub Listing {
     $visitno = $memberdaten[27];
 
     ($postdate, $posturl, $posttopic) = split(/\%%%/, $memberdaten[14]);
-    if (($postdate ne "Ã»ÓĞ·¢±í¹ı")&&($postdate ne "")) {
+    if (($postdate ne "æ²¡æœ‰å‘è¡¨è¿‡")&&($postdate ne "")) {
         $postdate = $postdate + ($userdetail[16] * 3600) + ($timezone * 3600);
         $lastpostdate = &longdate ("$postdate");
         $lastposttime = &longdate ("$postdate");
-        $posttopic =~ s/^£ª£££¡£¦£ª//;
+        $posttopic =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	$lastpostdetails = qq~<a href=$posturl><img border=0 src=$imagesurl/images/openfold.gif alt=$posttopic></a>~;
     }
-    else{$lastpostdetails = "Ã»ÓĞ";}
+    else{$lastpostdetails = "æ²¡æœ‰";}
     $date = &longdate($date + ($memberdaten[16]*3600) + ($timezone*3600));
     $postundmember {"$name"} = $anzahl;
     if (($icq) && ($icq =~ /[0-9]/)){
 	$icqgraphic = qq~<a href="javascript:openScript('misc.cgi?action=icq&UIN=$icq',450,300)"><img src=$imagesurl/images/icq.gif border=0 width=16 height=16></a>~;
     }
-    else{$icqgraphic = "Ã»ÓĞ";}
+    else{$icqgraphic = "æ²¡æœ‰";}
 
-    if (($home eq "http://") || ($home eq "")) { $home = "Ã»ÓĞ"; }
+    if (($home eq "http://") || ($home eq "")) { $home = "æ²¡æœ‰"; }
     else{
 	$home = "<a href=$home target=_blank><img border=0 src=$imagesurl/images/homepage.gif></a>"
     }
 
-    if ($oicqnumber) { $oicqgraphic = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank><img src=$imagesurl/images/oicq.gif alt="²é¿´ OICQ:$oicqnumber µÄ×ÊÁÏ" border=0 width=16 height=16></a>~; }
-    else{$oicqgraphic = "Ã»ÓĞ";}
+    if ($oicqnumber) { $oicqgraphic = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank><img src=$imagesurl/images/oicq.gif alt="æŸ¥çœ‹ OICQ:$oicqnumber çš„èµ„æ–™" border=0 width=16 height=16></a>~; }
+    else{$oicqgraphic = "æ²¡æœ‰";}
     $email = &encodeemail($email);
     if ($email eq "" || $emailstatus eq "no" || $emailstatus eq "msn" || $emailstatus eq "popo"){
-	$email = "Ã»ÓĞ" if ($email eq "");
-	$email = "±£ÃÜ" if ($emailstatus eq "no");
+	$email = "æ²¡æœ‰" if ($email eq "");
+	$email = "ä¿å¯†" if ($emailstatus eq "no");
 	$email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/msn.gif></a>" if ($emailstatus eq "msn");
 	$email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/popo.gif></a>" if ($emailstatus eq "popo");
     }
@@ -561,11 +561,11 @@ sub Listing {
         	$membergraphic = "$smodgraphic" if ($smodgraphic ne "");
         }
         elsif ($rang eq "banned") {
-        	$mtitle = "ÒÑ±»½ûÖ¹·¢ÑÔ";
+        	$mtitle = "å·²è¢«ç¦æ­¢å‘è¨€";
         	$membergraphic = "";
         }
         elsif ($rang eq "masked") {
-        	$mtitle = "·¢ÑÔÒÑ±»ÆÁ±Î";
+        	$mtitle = "å‘è¨€å·²è¢«å±è”½";
         	$membergraphic = "";
         }
 
@@ -594,18 +594,18 @@ sub splitting {
 
     $currentpage = int(($inpage-1) / $prrepages) + 1;
 
-    $pagelinks =qq~±¾ÅÅÃû¹²ÓĞ $pagenumbers Ò³¡¡~;
+    $pagelinks =qq~æœ¬æ’åå…±æœ‰ $pagenumbers é¡µã€€~;
 #$mypage-- if ($mypage eq $inpage); 
-    if ($currentpage > 1){ $mypage = ($currentpage-1)*$prrepages; $pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$mypage$pagel>ÉÏÒ»×é</a>] ~;}
+    if ($currentpage > 1){ $mypage = ($currentpage-1)*$prrepages; $pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$mypage$pagel>ä¸Šä¸€ç»„</a>] ~;}
 
     for ($page=$mypage+1;$page<$mypage+$prrepages+1;$page++){
         if ($page<=$pagenumbers){
-          if ($inpage ne $page) {$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$page$pagel>µÚ$pageÒ³</a>] ~; }
-	    else{$pagelinks .= qq~[<B>µÚ$pageÒ³</B>] ~;}
+          if ($inpage ne $page) {$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$page$pagel>ç¬¬$pageé¡µ</a>] ~; }
+	    else{$pagelinks .= qq~[<B>ç¬¬$pageé¡µ</B>] ~;}
         }
     }
     $nextpage=$currentpage*$prrepages+1;
-    if ($pagenumbers> $nextpage){$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$nextpage$pagel>ÏÂÒ»×é</a>] ~;}
+    if ($pagenumbers> $nextpage){$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$nextpage$pagel>ä¸‹ä¸€ç»„</a>] ~;}
     if ($totalpages <= 1) {$pagelinks = qq~~;}
 
     $startmember = ($inpage - 1) * $memberproseite;
@@ -618,11 +618,11 @@ $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 bor
 <tr>
 <td><table cellpadding=6 cellspacing=1 border=0 width=100%>
 <tr bgcolor=$menubackground>
-<td align=center><font face=ËÎÌå color=$fontcolormisc>$pagelinks</font></td>
+<td align=center><font face=å®‹ä½“ color=$fontcolormisc>$pagelinks</font></td>
 </tr>
 </table></td>
 </tr>
 </table><SCRIPT>valignend()</SCRIPT></center>~ if ($pagelinks ne "");
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - ÓÃ»§ÁĞ±í",\$output);
+&output("$boardname - ç”¨æˆ·åˆ—è¡¨",\$output);
 exit;

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -37,14 +37,14 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $forum  = $query->param("forum");
 $inforum = $forum;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9]+$/);
 $intopic = $query->param("topic");
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($intopic !~ /^[0-9]+$/ && $intopic ne "");
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($intopic !~ /^[0-9]+$/ && $intopic ne "");
 
 $filename = $query->param('filename');
 $filename =~ s/[\a\f\n\e\0\r\t\*\\\/\,\|\<\>\?\.]//isg;
 if ($intopic ne "") { $tmptopic = $intopic%100; $filename = "$tmptopic/$filename"; }
-&error("´ò¿ªÎÄ¼ş&¸Ã BitTorrent ÎÄ¼ş²»´æÔÚ£¡£¡") unless (-e "${imagesdir}$usrdir/$inforum/$filename.torrent");
+&error("æ‰“å¼€æ–‡ä»¶&è¯¥ BitTorrent æ–‡ä»¶ä¸å­˜åœ¨ï¼ï¼") unless (-e "${imagesdir}$usrdir/$inforum/$filename.torrent");
 
 my $btinfofile = "${imagesdir}$usrdir/$inforum/$filename.torrent.btfile";
 my $filetoopens = &lockfilename($btinfofile);
@@ -90,13 +90,13 @@ else
 	chomp($btinfo);
 	my ($btfileinfo, $hash, $seedinfo) = split(/\n/, $btinfo);
 	($announce, $seeds, $leeches, $downloaded) = split (/\|/, $seedinfo);
-	if ((($seeds eq "")||($seeds eq "Î´Öª"))&&($announce ne "")) {
+	if ((($seeds eq "")||($seeds eq "æœªçŸ¥"))&&($announce ne "")) {
 	  eval("use BTINFO;");
 	  if ($@ eq "") {
 	    my $seedinfo = output_torrent_data($hash, $announce);
 	    $btinfo = "$btfileinfo\n$hash\n$announce\|$seedinfo";
 	    ($announce, $seeds, $leeches, $downloaded) = split (/\|/, $seedinfo);
-	    if (($seeds ne "")&&($seeds ne "Î´Öª")) {
+	    if (($seeds ne "")&&($seeds ne "æœªçŸ¥")) {
 	        open(FILE, ">$btinfofile");
 	        print FILE $btinfo;
 	        close(FILE);
@@ -109,15 +109,15 @@ my ($btfileinfo, undef, $seedinfo) = split(/\n/, $btinfo);
 
 ($announce, $seeds, $leeches, $downloaded) = split (/\|/, $seedinfo);
 if ($seeds eq "") {
-	$seeds = "Î´Öª";
-	$leeches = "Î´Öª";
-	$downloaded = "Î´Öª";
+	$seeds = "æœªçŸ¥";
+	$leeches = "æœªçŸ¥";
+	$downloaded = "æœªçŸ¥";
 }
 
 print qq~
 <html>
 <head>
-<title>»¶Ó­Äú¹âÁÙ$boardname BitTorrent</title>
+<title>æ¬¢è¿æ‚¨å…‰ä¸´$boardname BitTorrent</title>
 <meta http-equiv="Content-Type" Content="text/html; charset=gb2312">
 <style>
 a:visited	{text-decoration: none}
@@ -127,7 +127,7 @@ a:link		{text-decoration: none;}
 a:hover		{color: #5511ff; text-decoration: none; position: relative; right: 0px; top: 1px} 
 .t		{line-height: 1.4}
 .t		{line-height: 1.4}
-body		{font-family: ËÎÌå; font-size: 9pt;}
+body		{font-family: å®‹ä½“; font-size: 9pt;}
 td,div,form,option,p,td,br{font-family: Tahoma; font-size: 9pt} 
 textarea,select	{border-width: 1; border-color: #000000; background-color: #efefef; font-family: Tahoma; font-size: 9pt; font-style: bold;}
 </style>
@@ -136,7 +136,7 @@ textarea,select	{border-width: 1; border-color: #000000; background-color: #efef
 <br><center>
 <table cellSpacing=1 cellPadding=4 bgColor=$tablebordercolor width=150>
 <tr bgColor=$titlecolor><td align=middle nowrap><font color=$titlefontcolor>$filename.torrent</td></tr>
-<tr bgColor=$postcolorone><td nowrap>&nbsp;<font color=$postfontcolorone>ÖÖ×ÓÊı£º$seeds£ &nbsp;Á¬½ÓÊı£º$leeches£ &nbsp;Íê³ÉÊı£º$downloaded<br>&nbsp;$announce<br><BR>Èç¹ûÖÖ×ÓÊıµÈ¶¼ÊÇÎ´Öª£¬ÔòËµÃ÷¶Ô·½·şÎñÆ÷Á¬½Ó²»ÉÏ»òÕß¾Ü¾øÊı¾İ²éÑ¯¡£</td></tr>
+<tr bgColor=$postcolorone><td nowrap>&nbsp;<font color=$postfontcolorone>ç§å­æ•°ï¼š$seedsÎñÆ÷Á¬½Ó²»ÉÏ»òÕß¾Ü¾øÊı¾İ²éÑ¯¡£</td></tr>
 </table>
 <br><br>
 </body></html>~;

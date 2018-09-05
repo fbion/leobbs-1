@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -29,9 +29,9 @@ require "bbs.lib.pl";
 $|++;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-$bgcolor = "white"; # ±³¾°ÑÕÉ«
-$interval = 10;   #Ò»ĞĞ¼¸¸öÍ¼±ê
-$linesperpage = 8; #Ò»Ò³¼¸ĞĞ
+$bgcolor = "white"; # èƒŒæ™¯é¢œè‰²
+$interval = 10;   #ä¸€è¡Œå‡ ä¸ªå›¾æ ‡
+$linesperpage = 8; #ä¸€é¡µå‡ è¡Œ
 
 ########### No need to edit below this line ###################
 $thisprog = "viewavatars.cgi";
@@ -51,19 +51,19 @@ if ($inpage eq "") { $inpage = 1; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
 $inmembername   = cookie("amembernamecookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) {
-  $inmembername = "¿ÍÈË";
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) {
+  $inmembername = "å®¢äºº";
 } else {
 #  &getmember("$inmembername");
     &getmember("$inmembername","no");
-  &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+  &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 }
 $defaultwidth  = "width=$defaultwidth"   if ($defaultwidth ne "" );
 $defaultheight = "height=$defaultheight" if ($defaultheight ne "");
@@ -121,8 +121,8 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´µ½±¾Õ¾ËùÓĞµÄÍ·Ïñ</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="viewavatars.cgi">ÓÃ»§Í·ÏñÁĞ±í</a> ¡ú ²é¿´ÁĞ±í<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹åˆ°æœ¬ç«™æ‰€æœ‰çš„å¤´åƒ</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="viewavatars.cgi">ç”¨æˆ·å¤´åƒåˆ—è¡¨</a> â†’ æŸ¥çœ‹åˆ—è¡¨<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 
 ~;
@@ -146,7 +146,7 @@ $output .= qq~
 </table><SCRIPT>valignend()</SCRIPT>
 ~;
 
-&output("$boardname - ÓÃ»§Í·ÏñÁĞ±í",\$output);
+&output("$boardname - ç”¨æˆ·å¤´åƒåˆ—è¡¨",\$output);
 
 sub splitpages {
  $totalpages = @cleanimages / $perpage;
@@ -161,17 +161,17 @@ sub splitpages {
  while ($pagenumbers > $pagedigit) {
    $pagedigit++;
    if ($inpage ne $page) {
-     $pagelinks .= qq~[<a href="$thisprog?startimage=$start&endimage=$end&page=$page">µÚ$pagedigitÒ³</a>] ~;
+     $pagelinks .= qq~[<a href="$thisprog?startimage=$start&endimage=$end&page=$page">ç¬¬$pagedigité¡µ</a>] ~;
    }
-   else { $pagelinks .= qq~[<B>µÚ$pagedigitÒ³</B>] ~; }
+   else { $pagelinks .= qq~[<B>ç¬¬$pagedigité¡µ</B>] ~; }
    $start += $perpage;
    $end += $perpage;
    $page++;
  }
  $page--;
- $pagelinks = qq~±¾ÁĞ±í¹²ÓĞ$pageÒ³¡¡$pagelinks~;
+ $pagelinks = qq~æœ¬åˆ—è¡¨å…±æœ‰$pageé¡µã€€$pagelinks~;
 
  if ($totalpages <= 1) { 
-  $pagelinks = qq~ÓÃ»§Í·ÏñÁĞ±íÖ»ÓĞÒ»Ò³.~; 
+  $pagelinks = qq~ç”¨æˆ·å¤´åƒåˆ—è¡¨åªæœ‰ä¸€é¡µ.~; 
  }
 }

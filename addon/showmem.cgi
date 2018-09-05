@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-#  »ùÓÚÉ½Ó¥ºı¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ   #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+#  åŸºäºå±±é¹°ç³Šã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ   #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBoard.com/          #
-#      ÂÛÌ³µØÖ·£º http://www.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBoard.com/          #
+#      è®ºå›åœ°å€ï¼š http://www.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -22,7 +22,7 @@ BEGIN {
 #unless ($ENV{"HTTP_REFERER"} =~ /$ENV{"HTTP_HOST"}/i)
 #{
 #	print "Content-Type: text/html\n\n";
-#	print "document.write('<font color=red>¡¡¶Ô²»Æğ£¬²»ÔÊĞí·Ç±¾ÂÛÌ³Ö÷»úµ÷ÓÃ£¡</font>');";
+#	print "document.write('<font color=red>ã€€å¯¹ä¸èµ·ï¼Œä¸å…è®¸éæœ¬è®ºå›ä¸»æœºè°ƒç”¨ï¼</font>');";
 #	exit;
 #}
 
@@ -54,12 +54,12 @@ close(FILE);
 
 $str = "";
 $str.= "<table cellSpacing=0 cellPadding=0 border=0 width=100%>";
-$str.= "<tr><td align=center><b>Ãû×Ö</b></td><td align=center><b>·¢ÌùÁ¿</b></td><td align=center><b>×´Ì¬</b></td></tr>";
+$str.= "<tr><td align=center><b>åå­—</b></td><td align=center><b>å‘è´´é‡</b></td><td align=center><b>çŠ¶æ€</b></td></tr>";
 
 for ($i = 0; $i < $show && $i < @members; $i++)
 {
 	my ($membername, $post) = split(/\t/, $members[$i]);
-	my $memberstat = grep(/^$membername\t/i, @onlinedata1) ? "<font color=#ff0000>ÔÚÏß</font>" : "²»ÔÚÏß";
+	my $memberstat = grep(/^$membername\t/i, @onlinedata1) ? "<font color=#ff0000>åœ¨çº¿</font>" : "ä¸åœ¨çº¿";
 	my $name = $uri_escape eq "no" ? $membername : uri_escape($membername);
 	$str .= "<tr><td align=center><a href=$boardurl/profile.cgi?action=show&member=$name target=_blank>$membername</a></td><td align=center>$post</td><td align=center>$memberstat</td></tr>";
 }

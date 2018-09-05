@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -88,13 +88,13 @@ if ($action eq "process") {
 
            print qq~
            <tr><td bgcolor=#2159C9><font color=#FFFFFF>
-		<b>��ӭ������̳�������� / ɾ����־</b>
+		<b>欢迎来到论坛管理中心 / 删除日志</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center>
-		<font color=#333333><b>�ļ�ɾ��������־</b>
+		<font color=#333333><b>文件删除操作日志</b>
 		</td></tr>
-		<tr><td align=center><br><br>�������100����¼���������ڵİ�ȫ��־��¼�Ѿ�ɾ��!</td></tr>
+		<tr><td align=center><br><br>除了最后100条记录，其他早期的安全日志纪录已经删除!</td></tr>
            ~;
          
                 }
@@ -165,20 +165,20 @@ if ($action eq "process") {
 		my $showpage = "";
 		if (!$allpages)
 		{
-			$showpage .= "��ǰû�м�¼";
+			$showpage .= "当前没有记录";
 		}
 		elsif ($allpages == 1)
 		{
-			$showpage .= "��ǰ��¼ֻ�� 1 ҳ";
+			$showpage .= "当前记录只有 1 页";
 		}
 		else
 		{
-			$showpage .= qq~��¼�� <b>$allpages</b> ҳ ~;
+			$showpage .= qq~记录共 <b>$allpages</b> 页 ~;
 			$i = $page - 1;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="��һҳ"><<</span> ~ if ($i > 0);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="上一页"><<</span> ~ if ($i > 0);
 			$showpage .= "[ ";
 			$i = $page - 3;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">��</span> ~ if ($i > 0);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">←</span> ~ if ($i > 0);
 			$i++;
 			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">$i</span> ~ if ($i > 0);
 			$i++;
@@ -190,21 +190,21 @@ if ($action eq "process") {
 			$i++;
 			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">$i</span> ~ if ($i <= $allpages);
 			$i++;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">��</span> ~ if ($i <= $allpages);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">→</span> ~ if ($i <= $allpages);
 			$showpage .= "] ";
 			$i = $page + 1;
-			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="��һҳ">>></span> ~ if ($i <= $allpages);
+			$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="下一页">>></span> ~ if ($i <= $allpages);
 		}
 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=6><font color=#FFFFFF>
-		<b>��ӭ������̳�������� / ��̳��ȫ��־</b>
+		<b>欢迎来到论坛管理中心 / 论坛安全日志</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=6>
-		<font color=#333333><b>��̳��ȫ������־</b>
+		<font color=#333333><b>论坛安全操作日志</b>
 		</td></tr>
-		<tr><td>������</td><td>����</td><td>IP ��ַ</td><td>���� IP</td><td>������־</td><td>����ʱ��</td></tr>
+		<tr><td>操作者</td><td>密码</td><td>IP 地址</td><td>代理 IP</td><td>操作日志</td><td>操作时间</td></tr>
 		);
 		if ($allnum) {
 		for ($i = $allnum - $page * 12  + 11; $i >= $allnum - $page * 12 && $i >= 0; $i--) {
@@ -219,13 +219,13 @@ if ($action eq "process") {
                 my $tempoutput = qq~
                 <tr>
                 <form name=MAINFORM action=$thisprog method=POST><td bgcolor=#EEEEEE valign=middle colspan=2><br>
-		<input type=hidden name=page value=$page><select name=type><option value="name">��������</option><option value="time">���ض�����</option><option value="action">����������</option></select> <input name=key type=text size=12 value=$key> <input type=submit value="��Ѱ">
+		<input type=hidden name=page value=$page><select name=type><option value="name">按操作者</option><option value="time">按特定日期</option><option value="action">按操作内容</option></select> <input name=key type=text size=12 value=$key> <input type=submit value="搜寻">
 		</td></form>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=3><br>
 		$showpage
 		</td>
 		<td bgcolor=#EEEEEE valign=middle align=center><br>
-		<font color=#333333><b><a href=$thisprog?action=process OnClick="return confirm('Ϊ�˰�ȫ���˲������ᱣ�����100����¼�ġ�\\n���Ҫɾ����ȫ��־ô��');">ɾ����ȫ��־</a></b>
+		<font color=#333333><b><a href=$thisprog?action=process OnClick="return confirm('为了安全，此操作还会保留最后100条记录的。\\n真的要删除安全日志么？');">删除安全日志</a></b>
 		</td></tr>
                 ~;
 		$tempoutput =~ s/<option value="$type">/<option value="$type" selected>/g;

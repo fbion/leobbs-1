@@ -1,36 +1,36 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     my ($no,$alipayid,$warename,$oldpost,$wareprice,$wareurl,$postage_mail,$postage_express,$postage_ems) = split(/\[ALIPAYE\]/,$$post);
     
     my $zanshi; my $youfei;
     $wareurl = "http://$wareurl" if ($wareurl ne "");
-    if ($wareurl ne "") { $zanshi = " ¡¡[<a href=\"$wareurl\">ÉÌÆ·Õ¹Ê¾</a>]"; }
+    if ($wareurl ne "") { $zanshi = " ã€€[<a href=\"$wareurl\">å•†å“å±•ç¤º</a>]"; }
     if ($postage_mail ne "" || $postage_express ne "" || $postage_ems ne "") {
-	$youfei = "Âò¼Ò³Ğµ£ÓÊ·Ñ£¬"; $youfei .= "Æ½ÓÊ $postage_mail Ôª / " if ($postage_mail ne ""); $youfei .= "¿ìµİ $postage_express Ôª / " if ($postage_express ne ""); $youfei .= "EMS $postage_ems Ôª / " if ($postage_ems ne "");
+	$youfei = "ä¹°å®¶æ‰¿æ‹…é‚®è´¹ï¼Œ"; $youfei .= "å¹³é‚® $postage_mail å…ƒ / " if ($postage_mail ne ""); $youfei .= "å¿«é€’ $postage_express å…ƒ / " if ($postage_express ne ""); $youfei .= "EMS $postage_ems å…ƒ / " if ($postage_ems ne "");
 	chop $youfei;chop $youfei;chop $youfei;
     } else {
-	$youfei = "Âô¼Ò³Ğµ£ÓÊ·Ñ";
+	$youfei = "å–å®¶æ‰¿æ‹…é‚®è´¹";
     }
 
     my $firstline = $oldpost;
-    $firstline =~ s/(\[Õâ¸öÌù×Ó×îºóÓÉ.+?ÔÚ.+?´Î±à¼­\])/$1/isg;
+    $firstline =~ s/(\[è¿™ä¸ªè´´å­æœ€åç”±.+?åœ¨.+?æ¬¡ç¼–è¾‘\])/$1/isg;
     $firstline = $1;
-    $oldpost=~ s/\[Õâ¸öÌù×Ó×îºóÓÉ.+?ÔÚ.+?´Î±à¼­\]<br>//isg;
+    $oldpost=~ s/\[è¿™ä¸ªè´´å­æœ€åç”±.+?åœ¨.+?æ¬¡ç¼–è¾‘\]<br>//isg;
 
     my $post1 = qq~$firstline<BR><BR>
-<B>Âô¼ÒÃû³Æ£º</B> $alipayid ¡¡[<a href=https://www.alipay.com/trade/i_credit.do?email=$alipayid target=_blank>²é¿´¸ÃÂô¼ÒĞÅÓÃ</a>] <BR><BR>
-<B>ÉÌÆ·Ãû³Æ£º</B> $warename$zanshi<BR><BR>
-<B>ÉÌÆ·¼Û¸ñ£º</B> $wareprice Ôª<BR><BR>
-<B>ÓÊ·ÑÇé¿ö£º</B> $youfei<BR><BR>
-<B>ÉÌÆ·ÃèÊö£º</B><BR>
+<B>å–å®¶åç§°ï¼š</B> $alipayid ã€€[<a href=https://www.alipay.com/trade/i_credit.do?email=$alipayid target=_blank>æŸ¥çœ‹è¯¥å–å®¶ä¿¡ç”¨</a>] <BR><BR>
+<B>å•†å“åç§°ï¼š</B> $warename$zanshi<BR><BR>
+<B>å•†å“ä»·æ ¼ï¼š</B> $wareprice å…ƒ<BR><BR>
+<B>é‚®è´¹æƒ…å†µï¼š</B> $youfei<BR><BR>
+<B>å•†å“æè¿°ï¼š</B><BR>
 $oldpost<BR><BR>
 ~;
 $warename=uri_escape($warename);

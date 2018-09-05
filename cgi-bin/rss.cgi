@@ -1,21 +1,21 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 #######################################################################
 #
-#  Programming(±àĞ´) By ×Ó³Ì(JackyCheng)£¨http://www.leohacks.com & http://blog.mycrazy.info)
-#  ĞŞ¸Ä×÷Õß: °¢Ç¿ (CPower)
-#  ½øÒ»²½¸ÄĞ´: BBSER
+#  Programming(ç¼–å†™) By å­ç¨‹(JackyCheng)ï¼ˆhttp://www.leohacks.com & http://blog.mycrazy.info)
+#  ä¿®æ”¹ä½œè€…: é˜¿å¼º (CPower)
+#  è¿›ä¸€æ­¥æ”¹å†™: BBSER
 #
 #######################################################################
-# RSS ¼¯ºÏ£ºÂÛÌ³×îĞÂÌù¶©ÔÄ¡¢·ÖÂÛÌ³×îĞÂÌù¶©ÔÄ
+# RSS é›†åˆï¼šè®ºå›æœ€æ–°è´´è®¢é˜…ã€åˆ†è®ºå›æœ€æ–°è´´è®¢é˜…
 #######################################################################
 
 BEGIN {
@@ -39,7 +39,7 @@ require "data/styles.cgi";
 require "code.cgi";
 $|++;
 
-$max=$query->param('max') || 15; #Ä¬ÈÏÏÔÊ¾×îºó 15 ¸öÌû×ÓµÄÁĞ±í
+$max=$query->param('max') || 15; #é»˜è®¤æ˜¾ç¤ºæœ€å 15 ä¸ªå¸–å­çš„åˆ—è¡¨
 
 $number = $query -> param('forum');
 $number1 = $query -> param('forums');
@@ -49,12 +49,12 @@ $number = $number1 if ($number eq "");
 if ($number ne "") {&forums;} else {&viewall;}
 
 sub viewall
-{ # ¶©ÔÄÂÛÌ³×îĞÂÌù×Ó
+{ # è®¢é˜…è®ºå›æœ€æ–°è´´å­
 
     my $rssdir = "$lbdir" . "cache/rssdata";
     if (!( -e "$rssdir")){mkdir("$rssdir",0777);chmod(0777,"$rssdir");}
 
-    if((-e "$rssdir/allrss.xml")&&((-M "$rssdir"."/allrss.xml") * 86400 < 300)) # Èç¹ûĞ¡ÓÚ 5 ·ÖÖÓ
+    if((-e "$rssdir/allrss.xml")&&((-M "$rssdir"."/allrss.xml") * 86400 < 300)) # å¦‚æœå°äº 5 åˆ†é’Ÿ
     {
 	undef $/;
 	my $filetoopen = "$lbdir" . "cache/rssdata/allrss.xml";
@@ -69,9 +69,9 @@ sub viewall
     $rssout = qq~Content-type:application/xml\n\n~;
     $rssout .= qq~<?xml version="1.0" encoding="gb2312"?>\n<rss version="2.0">\n~;
     $rssout .= qq~<channel>\n~;
-    $rssout .= qq~\t<title><![CDATA[$boardname - ÂÛÌ³×îĞÂÌù]]></title>\n~;
+    $rssout .= qq~\t<title><![CDATA[$boardname - è®ºå›æœ€æ–°è´´]]></title>\n~;
     $rssout .= qq~\t<link>$boardurl/leobbs.cgi</link>\n~;
-    $rssout .= qq~\t<description><![CDATA[$boardname ×îĞÂ $max ¸öÌù×ÓÁĞ±í]]></description>\n~;
+    $rssout .= qq~\t<description><![CDATA[$boardname æœ€æ–° $max ä¸ªè´´å­åˆ—è¡¨]]></description>\n~;
     $rssout .= qq~\t<copyright>$boardname</copyright>\n~;
     $rssout .=  qq~\t<managingEditor>$adminemail_in</managingEditor>\n~;
     $rssout .= qq~\t<language>zh-cn</language>\n~;
@@ -83,10 +83,10 @@ sub viewall
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[¹ÜÀíÔ±²»ÔÊĞí´ËÂÛÌ³Ê¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[¹ÜÀíÔ±²»ÔÊĞí´ËÂÛÌ³Ê¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[ç®¡ç†å‘˜ä¸å…è®¸æ­¤è®ºå›ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[ç®¡ç†å‘˜ä¸å…è®¸æ­¤è®ºå›ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -99,10 +99,10 @@ sub viewall
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[´ËÂÛÌ³ÉèÖÃÖ»ÓĞ×¢²á»áÔ±²ÅÄÜ²é¿´£¬ËùÒÔÎŞ·¨Ê¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[´ËÂÛÌ³ÉèÖÃÖ»ÓĞ×¢²á»áÔ±²ÅÄÜ²é¿´£¬ËùÒÔÎŞ·¨Ê¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[æ­¤è®ºå›è®¾ç½®åªæœ‰æ³¨å†Œä¼šå‘˜æ‰èƒ½æŸ¥çœ‹ï¼Œæ‰€ä»¥æ— æ³•ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[æ­¤è®ºå›è®¾ç½®åªæœ‰æ³¨å†Œä¼šå‘˜æ‰èƒ½æŸ¥çœ‹ï¼Œæ‰€ä»¥æ— æ³•ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -127,7 +127,7 @@ sub viewall
 	    ($forumid, $topicid, $topictitle, $posttime,undef, $membername) = split(/\t/,$topic);
 	    my $posttime = &dateformat ($posttime + $addtime);
 
-	    $topictitle =~ s/^£ª£££¡£¦£ª//;
+	    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	if ($addtopictime eq "yes") {
 	    my $topictime = &dispdate($posttime + ($timedifferencevalue*3600) + ($timezone*3600));
@@ -147,20 +147,20 @@ sub viewall
 	    $topictitle =~ s/\'/\`/g;
 	    $topictitle =~ s/\&amp;/\&/g;
 	    $topictitle =~ s/\&quot;/\"/g;
-	    $topictitle =~ s/ \&nbsp;/¡¡/g;
+	    $topictitle =~ s/ \&nbsp;/ã€€/g;
 
 	    $link=$boardurl."/";
 	    $link1="topic.cgi?forum=".$forumid."&amp;topic=". $topicid ."&amp;show=0";
 	    $link2="post.cgi?action=reply&amp;forum=$forumid&amp;topic=$topicid";
 
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[$topictitle]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>$membername</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<link>$link$link1</link>\n~;		# Á´½Ó
-	    $rssout .= qq~\t\t<comments>$link$link2</comments>\n~;	# ÄÚÈİ
+	    $rssout .= qq~\t\t<title><![CDATA[$topictitle]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>$membername</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<link>$link$link1</link>\n~;		# é“¾æ¥
+	    $rssout .= qq~\t\t<comments>$link$link2</comments>\n~;	# å†…å®¹
 	    $rssout .= qq~\t\t<description><![CDATA[$posttemp]]></description>\n~;	#
-	    $rssout .= qq~\t\t<category>$forumname</category>\n~;	# °æ¿é
+	    $rssout .= qq~\t\t<category>$forumname</category>\n~;	# ç‰ˆå—
 	    $rssout .= qq~\t</item>\n~;
       	   }
     }
@@ -178,15 +178,15 @@ sub viewall
 }
 
 sub forums
-{ # ÂÛÌ³·Ö°æ¿é×îĞÂÌù¶©ÔÄ
-    if ($number =~ /[^0-9]/ or $number eq ""){ print "ÊäÈë°æ¿éºÅ´íÎó£¡";exit; }
+{ # è®ºå›åˆ†ç‰ˆå—æœ€æ–°è´´è®¢é˜…
+    if ($number =~ /[^0-9]/ or $number eq ""){ print "è¾“å…¥ç‰ˆå—å·é”™è¯¯ï¼";exit; }
 
 if (-e "${lbdir}data/style${number}.cgi") { require "${lbdir}data/style${number}.cgi"; }
 
     my $rssdir = "$lbdir" . "cache/rssdata";
     if (!( -e "$rssdir")){mkdir("$rssdir",0777);chmod(0777,"$rssdir");}
 
-    if((-e "$rssdir/forums$number.xml")&&((-M "$rssdir"."/forums$number.xml") * 86400 < 300)) # Èç¹ûĞ¡ÓÚ 5 ·ÖÖÓ
+    if((-e "$rssdir/forums$number.xml")&&((-M "$rssdir"."/forums$number.xml") * 86400 < 300)) # å¦‚æœå°äº 5 åˆ†é’Ÿ
     {
 	undef $/;
 	my $filetoopen = "$lbdir" . "cache/rssdata/forums$number.xml";
@@ -202,9 +202,9 @@ if (-e "${lbdir}data/style${number}.cgi") { require "${lbdir}data/style${number}
     $rssout = qq~Content-type:application/xml\n\n~;
     $rssout .= qq~<?xml version="1.0" encoding="gb2312"?>\n<rss version="2.0">\n~;
     $rssout .= qq~<channel>\n~;
-    $rssout .= qq~\t<title><![CDATA[$boardname - $forumname ×îĞÂÌù×Ó]]></title>\n~;
+    $rssout .= qq~\t<title><![CDATA[$boardname - $forumname æœ€æ–°è´´å­]]></title>\n~;
     $rssout .= qq~\t<link>$boardurl/forums.cgi&amp;forum=$number</link>\n~;
-    $rssout .= qq~\t<description><![CDATA[$boardname - $forumname ×îĞÂ $max ¸öÌù×ÓÁĞ±í]]></description>\n~;
+    $rssout .= qq~\t<description><![CDATA[$boardname - $forumname æœ€æ–° $max ä¸ªè´´å­åˆ—è¡¨]]></description>\n~;
     $rssout .= qq~\t<copyright>$boardname</copyright>\n~;
     $rssout .= qq~\t<managingEditor>$adminemail_in</managingEditor>\n~;
     $rssout .= qq~\t<language>zh-cn</language>\n~;
@@ -216,10 +216,10 @@ if (-e "${lbdir}data/style${number}.cgi") { require "${lbdir}data/style${number}
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[¹ÜÀíÔ±²»ÔÊĞí´ËÂÛÌ³·ÖÇøÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[¹ÜÀíÔ±²»ÔÊĞí´ËÂÛÌ³·ÖÇøÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[ç®¡ç†å‘˜ä¸å…è®¸æ­¤è®ºå›åˆ†åŒºä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[ç®¡ç†å‘˜ä¸å…è®¸æ­¤è®ºå›åˆ†åŒºä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -232,10 +232,10 @@ if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers 
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[±£ÃÜÂÛÌ³Çø²»ÄÜÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[±£ÃÜÂÛÌ³Çø²»ÄÜÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[ä¿å¯†è®ºå›åŒºä¸èƒ½ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[ä¿å¯†è®ºå›åŒºä¸èƒ½ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -247,10 +247,10 @@ if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers 
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[´ËÂÛÌ³ÉèÖÃÖ»ÓĞ×¢²á»áÔ±²ÅÄÜ²é¿´£¬ËùÒÔÎŞ·¨Ê¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[´ËÂÛÌ³ÉèÖÃÖ»ÓĞ×¢²á»áÔ±²ÅÄÜ²é¿´£¬ËùÒÔÎŞ·¨Ê¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[æ­¤è®ºå›è®¾ç½®åªæœ‰æ³¨å†Œä¼šå‘˜æ‰èƒ½æŸ¥çœ‹ï¼Œæ‰€ä»¥æ— æ³•ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[æ­¤è®ºå›è®¾ç½®åªæœ‰æ³¨å†Œä¼šå‘˜æ‰èƒ½æŸ¥çœ‹ï¼Œæ‰€ä»¥æ— æ³•ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -269,10 +269,10 @@ if (($startnewthreads eq "cert")&&($userincert eq "no")) {
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[±£ÃÜÂÛÌ³Çø²»ÄÜÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[±£ÃÜÂÛÌ³Çø²»ÄÜÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[ä¿å¯†è®ºå›åŒºä¸èƒ½ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[ä¿å¯†è®ºå›åŒºä¸èƒ½ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -304,7 +304,7 @@ if (($startnewthreads eq "cert")&&($userincert eq "no")) {
                 next if ($topicid !~ /^[0-9]+$/);
 
                 $lastpostdate = &dateformat($lastpostdate + $addtime);
- 	        $topictitle =~ s/^£ª£££¡£¦£ª//;
+ 	        $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	if ($addtopictime eq "yes") {
 	    my $topictime = &dispdate($startedpostdate + ($timedifferencevalue*3600) + ($timezone*3600));
@@ -315,21 +315,21 @@ if (($startnewthreads eq "cert")&&($userincert eq "no")) {
  	        $topictitle =~ s/\'/\`/g;
                 $topictitle =~ s/\&amp;/\&/g;
 	        $topictitle =~ s/\&quot;/\"/g;
-	        $topictitle =~ s/ \&nbsp;/¡¡/g;
-	        $topictitle =~ s/  /¡¡/g;
+	        $topictitle =~ s/ \&nbsp;/ã€€/g;
+	        $topictitle =~ s/  /ã€€/g;
 
 	        $link=$boardurl."/";
 	        $link1="topic.cgi?forum=".$number."&amp;topic=". $topicid ."&amp;show=0";
 	        $link2="post.cgi?action=reply&amp;forum=$number&amp;topic=$topicid";
 
 	        $rssout .= qq~\t<item>\n~;
-	        $rssout .= qq~\t\t<title><![CDATA[$topictitle]]></title>\n~;	# ±êÌâ
-	        $rssout .= qq~\t\t<author>$startedby</author>\n~;	# ×÷Õß
-	        $rssout .= qq~\t\t<pubDate>$lastpostdate</pubDate>\n~;		# ÈÕÆÚ
-	        $rssout .= qq~\t\t<link>$link$link1</link>\n~;		# Á´½Ó
-	        $rssout .= qq~\t\t<comments>$link$link2</comments>\n~;	# ÄÚÈİ
+	        $rssout .= qq~\t\t<title><![CDATA[$topictitle]]></title>\n~;	# æ ‡é¢˜
+	        $rssout .= qq~\t\t<author>$startedby</author>\n~;	# ä½œè€…
+	        $rssout .= qq~\t\t<pubDate>$lastpostdate</pubDate>\n~;		# æ—¥æœŸ
+	        $rssout .= qq~\t\t<link>$link$link1</link>\n~;		# é“¾æ¥
+	        $rssout .= qq~\t\t<comments>$link$link2</comments>\n~;	# å†…å®¹
 	        $rssout .= qq~\t\t<description><![CDATA[$posttemp]]></description>\n~;	#
-	        $rssout .= qq~\t\t<category>$forumname</category>\n~;	# °æ¿é
+	        $rssout .= qq~\t\t<category>$forumname</category>\n~;	# ç‰ˆå—
 	        $rssout .= qq~\t</item>\n~;
             }
 	}
@@ -339,10 +339,10 @@ if (($startnewthreads eq "cert")&&($userincert eq "no")) {
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[Ã»ÓĞÕÒµ½´Ë·ÖÂÛÌ³]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[Ã»ÓĞÕÒµ½´Ë·ÖÂÛÌ³]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[æ²¡æœ‰æ‰¾åˆ°æ­¤åˆ†è®ºå›]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[æ²¡æœ‰æ‰¾åˆ°æ­¤åˆ†è®ºå›]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -355,10 +355,10 @@ if (($startnewthreads eq "cert")&&($userincert eq "no")) {
 	    $addtime = $timedifferencevalue*3600 + $timezone*3600 + $addtime;
 	    my $posttime = &dateformat ($posttime + $addtime);
 	    $rssout .= qq~\t<item>\n~;
-	    $rssout .= qq~\t\t<title><![CDATA[±£ÃÜÂÛÌ³Çø²»ÄÜÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></title>\n~;	# ±êÌâ
-	    $rssout .= qq~\t\t<author>ÏµÍ³¹ÜÀíÔ±</author>\n~;	# ×÷Õß
-	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# ÈÕÆÚ
-	    $rssout .= qq~\t\t<description><![CDATA[±£ÃÜÂÛÌ³Çø²»ÄÜÊ¹ÓÃ RSS ¹¦ÄÜ£¡]]></description>\n~;	#
+	    $rssout .= qq~\t\t<title><![CDATA[ä¿å¯†è®ºå›åŒºä¸èƒ½ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></title>\n~;	# æ ‡é¢˜
+	    $rssout .= qq~\t\t<author>ç³»ç»Ÿç®¡ç†å‘˜</author>\n~;	# ä½œè€…
+	    $rssout .= qq~\t\t<pubDate>$posttime</pubDate>\n~;		# æ—¥æœŸ
+	    $rssout .= qq~\t\t<description><![CDATA[ä¿å¯†è®ºå›åŒºä¸èƒ½ä½¿ç”¨ RSS åŠŸèƒ½ï¼]]></description>\n~;	#
 	    $rssout .= qq~\t</item>\n~;
 	    $rssout .= qq~</channel>\n~;
 	    $rssout .= qq~</rss>\n~;
@@ -390,13 +390,13 @@ sub readthreadpl {
     (my $membername1, my $topictitle1, my $postipaddress1, my $showemoticons1, my $showsignature1, my $postdate1, my $post, my $posticon1) = split(/\t/,$postfirst);
 
     $threadviews = ($topicall+1) * 8 if ($threadviews eq "");
-    $post = "(±£ÃÜ)" if ($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
-    $post = "(±£ÃÜ)" if ($post=~/LBSALE\[(.*?)\]LBSALE/sg);
+    $post = "(ä¿å¯†)" if ($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
+    $post = "(ä¿å¯†)" if ($post=~/LBSALE\[(.*?)\]LBSALE/sg);
     $post =~ s/\[hidepoll\]//isg;
     $post =~ s/\[USECHGFONTE\]//sg;
     $post =~ s/\[DISABLELBCODE\]//sg;
     $post =~ s/\[POSTISDELETE=(.+?)\]//sg;
-    $post =~ s/(^|\>|\n)\[Õâ¸ö(.+?)×îºóÓÉ(.+?)±à¼­\]/$1\<font color=$posternamecolor\>\[Õâ¸ö$2×îºóÓÉ$3±à¼­\]\<\/font\>/isg;
+    $post =~ s/(^|\>|\n)\[è¿™ä¸ª(.+?)æœ€åç”±(.+?)ç¼–è¾‘\]/$1\<font color=$posternamecolor\>\[è¿™ä¸ª$2æœ€åç”±$3ç¼–è¾‘\]\<\/font\>/isg;
 
     if ($emoticons eq "on")
     {
@@ -406,7 +406,7 @@ sub readthreadpl {
 
     if ($idmbcodestate eq 'on') {
 	&lbcode(\$post);
-        if ($post =~/<blockquote><font face=$font>´úÂë/isg){
+        if ($post =~/<blockquote><font face=$font>ä»£ç /isg){
             $post =~ s/\&amp\;/\&/ig ;
             $post =~ s/\&lt\;br\&gt\;/<br>/ig;
 	}
@@ -419,11 +419,11 @@ sub readthreadpl {
     $post =~ s/\"attachment.cgi\?/\"$boardurl\/attachment.cgi?/isg;
     $post =~ s/\'attachment.cgi\?/\'$boardurl\/attachment.cgi?/isg;
     
-    $post = &lbhz($post, 1500);	# ÏÔÊ¾ÄÚÈİ1000¸ö×Ö½Ú£¬Èç¹ûĞèÒªÏÔÊ¾È«²¿ÄÚÈİ£¬½«´ËĞĞÉ¾³ı¡£
+    $post = &lbhz($post, 1500);	# æ˜¾ç¤ºå†…å®¹1000ä¸ªå­—èŠ‚ï¼Œå¦‚æœéœ€è¦æ˜¾ç¤ºå…¨éƒ¨å†…å®¹ï¼Œå°†æ­¤è¡Œåˆ é™¤ã€‚
 
     if ($topictitle1 eq "") { return ""; }
     else {
-	$topictitle1 =~ s/^£ª£££¡£¦£ª//;
+	$topictitle1 =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	my $line = "$postdate1\t$intopic\t$topictitle1\t$topicdescription\t$threadstate\t$topicall\t$threadviews\t$membername1\t$postdate1\t$membername1\t\t$post\t\t";
         $line =~ s/[\a\f\n\e\0\r]//isg;
 	return ("$line");

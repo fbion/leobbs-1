@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 require "${lbdir}data/outputbutton.pl" if (-e "${lbdir}data/outputbutton.pl");
@@ -15,7 +15,7 @@ $outputbutton =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
 if ($query->cookie("selectstyle")) { $inselectstyle = $query->cookie("selectstyle"); }
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
 
-$output .= qq~<tr><td bgcolor=$titlecolor colspan=3 $catbackpic><font color=$titlefontcolor><B>-=> ¿ìËÙµÇÂ¼Èë¿Ú</B>¡¡ [ À´×Ô£º$trueipaddress£¬$fromwhere1 ¡£ÏµÍ³£º$osinfo£¬$browseinfo ]</td></tr>
+$output .= qq~<tr><td bgcolor=$titlecolor colspan=3 $catbackpic><font color=$titlefontcolor><B>-=> å¿«é€Ÿç™»å½•å…¥å£</B>ã€€ [ æ¥è‡ªï¼š$trueipaddressï¼Œ$fromwhere1 ã€‚ç³»ç»Ÿï¼š$osinfoï¼Œ$browseinfo ]</td></tr>
 <script>
 function submitonce(theform){
 if (document.all||document.getElementById){
@@ -30,8 +30,8 @@ tempobj.disabled=true
 <td bgcolor=$forumcolortwo colspan=1 width=*>
 <input type=hidden name=action value=login>
 <input type=hidden name=selectstyle value="$inselectstyle">
-¡¡ÓÃ»§Ãû £º <input type=text name=inmembername size=12 maxlength=16 onmouseover=this.focus() onfocus=this.select()>¡¡¡¡ÃÜ¡¡Âë £º <input type=password name=inpassword size=12 maxlength=20 onmouseover=this.focus() onfocus=this.select()>¡¡ Cookie £º <select name=CookieDate><option selected value=0>²»±£´æ</option><option value=+1d>±£´æÒ»Ìì</option><option value=+30d>±£´æÒ»ÔÂ</option><option value=+20y>ÓÀ¾Ã±£´æ</option></select><BR><BR>
-¡¡µÇÂ¼µ½ £º <select name=forum><option selected value=>ÂÛÌ³Ê×Ò³</option>$outputbutton</select>¡¡¡¡¡¡<input type=submit name=submit value="¡¡µÇ¡¡ Â¼¡¡">¡¡¡¡ <B><a href=register.cgi><U><font color=$fonthighlight>×¢²áĞÂÓÃ»§</font></u></a></B><BR><BR>
+ã€€ç”¨æˆ·å ï¼š <input type=text name=inmembername size=12 maxlength=16 onmouseover=this.focus() onfocus=this.select()>ã€€ã€€å¯†ã€€ç  ï¼š <input type=password name=inpassword size=12 maxlength=20 onmouseover=this.focus() onfocus=this.select()>ã€€ Cookie ï¼š <select name=CookieDate><option selected value=0>ä¸ä¿å­˜</option><option value=+1d>ä¿å­˜ä¸€å¤©</option><option value=+30d>ä¿å­˜ä¸€æœˆ</option><option value=+20y>æ°¸ä¹…ä¿å­˜</option></select><BR><BR>
+ã€€ç™»å½•åˆ° ï¼š <select name=forum><option selected value=>è®ºå›é¦–é¡µ</option>$outputbutton</select>ã€€ã€€ã€€<input type=submit name=submit value="ã€€ç™»ã€€ å½•ã€€">ã€€ã€€ <B><a href=register.cgi><U><font color=$fonthighlight>æ³¨å†Œæ–°ç”¨æˆ·</font></u></a></B><BR><BR>
 </td>~;
 
 1;

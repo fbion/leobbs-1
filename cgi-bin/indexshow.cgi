@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #####################################################
-#  Ê×Ò³Jsµ÷ÓÃÏòµ¼
+#  é¦–é¡µJsè°ƒç”¨å‘å¯¼
 #  By maiweb 2005-08-05
 #  leobbs-vip.com
 #####################################################
@@ -63,45 +63,45 @@ $a
 		FORM.outScript.value='';
 		var aad = eval(FORM.D1.value);
 		if(aad==0){
-		ts.innerHTML ='<font color=red>ÄãËùÒªµ÷ÓÃµÄ¹¦ÄÜÈ±ÉÙÎÄ¼ş£¡Çë°ÑÄãÔÚ¹Ù·½ÏÂÔØµÄÍêÕûÑ¹Ëõ°üÀïÃæµÄaddonÄ¿Â¼ÏÂÃæµÄ<b><u>'+FORM.D1.value+'.cgi</u></b>ÎÄ¼şÉÏ´«µ½cgi-binÄ¿Â¼ÏÂÃæ£¬È»ºó<b>Ë¢ĞÂ</b>±¾Ò³¼ÌĞø£¡</font>';
+		ts.innerHTML ='<font color=red>ä½ æ‰€è¦è°ƒç”¨çš„åŠŸèƒ½ç¼ºå°‘æ–‡ä»¶ï¼è¯·æŠŠä½ åœ¨å®˜æ–¹ä¸‹è½½çš„å®Œæ•´å‹ç¼©åŒ…é‡Œé¢çš„addonç›®å½•ä¸‹é¢çš„<b><u>'+FORM.D1.value+'.cgi</u></b>æ–‡ä»¶ä¸Šä¼ åˆ°cgi-binç›®å½•ä¸‹é¢ï¼Œç„¶å<b>åˆ·æ–°</b>æœ¬é¡µç»§ç»­ï¼</font>';
 		formshow.innerHTML ='';
 		FORM.tj.disabled = true;
 		return false;
 		}else{
-		ts.innerHTML ='Çë¸ù¾İÏÂÃæµÄ²½ÖèÒ»²½²½½øĞĞ£¡';
+		ts.innerHTML ='è¯·æ ¹æ®ä¸‹é¢çš„æ­¥éª¤ä¸€æ­¥æ­¥è¿›è¡Œï¼';
 		FORM.tj.disabled = false;
 		}
 		
 		if(FORM.D1.value =='news'||FORM.D1.value =='newsjh'){
-			formshow.innerHTML ='2£¬Ñ¡ÔñÒªµ÷ÓÃµÄ°æ¿é<br><br><select size="1" name="forum"><option value="">Ñ¡ÔñÒªµ÷ÓÃµÄ°æ¿é$outputbutton</select><br><br>';
+			formshow.innerHTML ='2ï¼Œé€‰æ‹©è¦è°ƒç”¨çš„ç‰ˆå—<br><br><select size="1" name="forum"><option value="">é€‰æ‹©è¦è°ƒç”¨çš„ç‰ˆå—$outputbutton</select><br><br>';
 		}
 		else if(FORM.D1.value =='allnews'){
-			formshow.innerHTML ='2£¬Ìû×ÓºóÃæÊÇ·ñÏÔÊ¾×÷Õß<br><br><select size="1" name="name"><option value="">Ìû×ÓºóÃæÊÇ·ñÏÔÊ¾×÷Õß<option value=1>ÏÔÊ¾·¢ÌûÕß<option value=0>²»ÏÔÊ¾·¢ÌûÕß</select><br><br>';
+			formshow.innerHTML ='2ï¼Œå¸–å­åé¢æ˜¯å¦æ˜¾ç¤ºä½œè€…<br><br><select size="1" name="name"><option value="">å¸–å­åé¢æ˜¯å¦æ˜¾ç¤ºä½œè€…<option value=1>æ˜¾ç¤ºå‘å¸–è€…<option value=0>ä¸æ˜¾ç¤ºå‘å¸–è€…</select><br><br>';
 		}
 		else if(FORM.D1.value =='getanc'){
-		formshow.innerHTML ='2£¬ÊäÈëµ÷ÓÃµÄ¹«¸æ³¤¶È<br><br><input type=text size=4 name=max><br><br>';return;
+		formshow.innerHTML ='2ï¼Œè¾“å…¥è°ƒç”¨çš„å…¬å‘Šé•¿åº¦<br><br><input type=text size=4 name=max><br><br>';return;
 		}
 		else if(FORM.D1.value =='showmem'){
-		formshow.innerHTML ='2£¬ÊäÈëµ÷ÓÃµÄ»áÔ±ÊıÄ¿<br><br><input type=text size=4 name=show><br><br>';return;
+		formshow.innerHTML ='2ï¼Œè¾“å…¥è°ƒç”¨çš„ä¼šå‘˜æ•°ç›®<br><br><input type=text size=4 name=show><br><br>';return;
 		}
 		else if(FORM.D1.value =='getanc2'){
-		formshow.innerHTML ='2£¬Ñ¡ÔñÒªµ÷ÓÃµÄ°æ¿é<br><br><select size="1" name="forum"><option value="">Ñ¡ÔñÒªµ÷ÓÃµÄ°æ¿é$outputbutton</select><br><br>3£¬¹«¸æµÄ±êÌâ³¤¶È<br><br><input type=text size=2 name=maxlength><br><br>4£¬ÏÔÊ¾µÄ¹«¸æÊıÁ¿<br><br><input type=text size=2 name=max><br><br>';return;
+		formshow.innerHTML ='2ï¼Œé€‰æ‹©è¦è°ƒç”¨çš„ç‰ˆå—<br><br><select size="1" name="forum"><option value="">é€‰æ‹©è¦è°ƒç”¨çš„ç‰ˆå—$outputbutton</select><br><br>3ï¼Œå…¬å‘Šçš„æ ‡é¢˜é•¿åº¦<br><br><input type=text size=2 name=maxlength><br><br>4ï¼Œæ˜¾ç¤ºçš„å…¬å‘Šæ•°é‡<br><br><input type=text size=2 name=max><br><br>';return;
 		}
 		else{
 			formshow.innerHTML ='';return;
 		}
-			formshow.innerHTML +='3£¬ÊäÈëµ÷ÓÃµÄÊıÁ¿:<input type=text size=4 name=max>';
-			formshow.innerHTML +=' 4£¬Ìû×Ó±êÌâ³¤¶È:<input type=text size=4 name=maxlength><br><br>';
-			formshow.innerHTML +='5£¬Ìû×ÓºóÃæÊÇ·ñÏÔÊ¾·¢±íÊ±¼ä<br><br><select size="1" name="display"><option value=1>ÏÔÊ¾·¢ÌûÊ±¼ä<option value=0>²»ÏÔÊ¾·¢ÌûÊ±¼ä</select><br><br>';
-			formshow.innerHTML +='6£¬´ò¿ªÄ£Ê½<br><br><select size="1" name="mode"><option value=view>ĞÂÎÅÄ£Ê½<option value=topic>ÂÛÌ³Ä£Ê½</select><br><br>';
-			formshow.innerHTML +='7£¬ÑÕÉ«<br><br>³¬Á´½ÓµÄÑÕÉ«:<input type=text size=6 name=link  onclick="javascript:selcolor(link)"> ÒÑ·ÃÎÊ¹ıµÄ³¬Á´½Ó:<input type=text size=6 name=vlink  onclick="javascript:selcolor(vlink)"> µ±Ç°³¬Á´½Ó:<input type=text size=6 name=alink  onclick="javascript:selcolor(alink)"><br><br>';
+			formshow.innerHTML +='3ï¼Œè¾“å…¥è°ƒç”¨çš„æ•°é‡:<input type=text size=4 name=max>';
+			formshow.innerHTML +=' 4ï¼Œå¸–å­æ ‡é¢˜é•¿åº¦:<input type=text size=4 name=maxlength><br><br>';
+			formshow.innerHTML +='5ï¼Œå¸–å­åé¢æ˜¯å¦æ˜¾ç¤ºå‘è¡¨æ—¶é—´<br><br><select size="1" name="display"><option value=1>æ˜¾ç¤ºå‘å¸–æ—¶é—´<option value=0>ä¸æ˜¾ç¤ºå‘å¸–æ—¶é—´</select><br><br>';
+			formshow.innerHTML +='6ï¼Œæ‰“å¼€æ¨¡å¼<br><br><select size="1" name="mode"><option value=view>æ–°é—»æ¨¡å¼<option value=topic>è®ºå›æ¨¡å¼</select><br><br>';
+			formshow.innerHTML +='7ï¼Œé¢œè‰²<br><br>è¶…é“¾æ¥çš„é¢œè‰²:<input type=text size=6 name=link  onclick="javascript:selcolor(link)"> å·²è®¿é—®è¿‡çš„è¶…é“¾æ¥:<input type=text size=6 name=vlink  onclick="javascript:selcolor(vlink)"> å½“å‰è¶…é“¾æ¥:<input type=text size=6 name=alink  onclick="javascript:selcolor(alink)"><br><br>';
 	}
 	function checkForm(thisform){
 		var baseurl = '$boardurl/'+thisform.D1.value+'.cgi';
 		realurl = baseurl;
 		if(thisform.D1.value=='news'||thisform.D1.value=='newsjh'||thisform.D1.value=='getanc2'){
 		if(thisform.forum.value==''){
-		alert('ÇëÎñ±ØÑ¡Ôñµ÷ÓÃµÄ°æ¿é£¡');
+		alert('è¯·åŠ¡å¿…é€‰æ‹©è°ƒç”¨çš„ç‰ˆå—ï¼');
 		thisform.forum.focus();
 		return false;
 		}
@@ -110,7 +110,7 @@ $a
 		}
 		if(thisform.D1.value=='allnews'){
 		if(thisform.name.value==''){
-		alert('ÇëÎñ±ØÑ¡Ôñµ÷ÓÃÊÇ·ñÑ¡Ôñ·¢Ìû×÷Õß£¡');
+		alert('è¯·åŠ¡å¿…é€‰æ‹©è°ƒç”¨æ˜¯å¦é€‰æ‹©å‘å¸–ä½œè€…ï¼');
 		thisform.name.focus();
 		return false;
 		}else{
@@ -118,14 +118,14 @@ $a
 		}
 		if(thisform.D1.value=='getanc2'){
 		if(thisform.maxlength.value==''){
-		alert('ÇëÎñ±ØÊäÈëµ÷ÓÃµÄ¹«¸æ±êÌâ³¤¶È£¡Èç 30');
+		alert('è¯·åŠ¡å¿…è¾“å…¥è°ƒç”¨çš„å…¬å‘Šæ ‡é¢˜é•¿åº¦ï¼å¦‚ 30');
 		thisform.maxlength.focus();
 		return false;
 		}else{
 		realurl +='?maxlength='+thisform.maxlength.value;
 		}
 		if(thisform.max.value==''){
-		alert('ÇëÎñ±ØÊäÈëµ÷ÓÃµÄ¹«¸æÊıÁ¿£¡ Èç 10');
+		alert('è¯·åŠ¡å¿…è¾“å…¥è°ƒç”¨çš„å…¬å‘Šæ•°é‡ï¼ å¦‚ 10');
 		thisform.max.focus();
 		return false;
 		}else{
@@ -135,7 +135,7 @@ $a
 		if(thisform.D1.value!='mainlogin'&&thisform.D1.value!='getanc2'&&thisform.D1.value!='info'){
 		if(thisform.D1.value=='showmem'){
 		if(thisform.show.value==''){
-		alert('ÇëÎñ±ØÊäÈëµ÷ÓÃµÄ»áÔ±ÊıÄ¿£¡Èç 10');
+		alert('è¯·åŠ¡å¿…è¾“å…¥è°ƒç”¨çš„ä¼šå‘˜æ•°ç›®ï¼å¦‚ 10');
 		thisform.show.focus();
 		return false;
 		}else{
@@ -143,7 +143,7 @@ $a
 		}}else{
 		if(thisform.D1.value=='getanc'){
 		if(thisform.max.value==''){
-		alert('ÇëÎñ±ØÊäÈëµ÷ÓÃµÄ¹«¸æ³¤¶È£¡Èç 500');
+		alert('è¯·åŠ¡å¿…è¾“å…¥è°ƒç”¨çš„å…¬å‘Šé•¿åº¦ï¼å¦‚ 500');
 		thisform.max.focus();
 		return false;
 		}else{
@@ -151,14 +151,14 @@ $a
 		}
 		}else{
 		if(thisform.max.value==''){
-		alert('ÇëÎñ±ØÊäÈëµ÷ÓÃµÄÌû×ÓÊıÁ¿£¡Èç 10');
+		alert('è¯·åŠ¡å¿…è¾“å…¥è°ƒç”¨çš„å¸–å­æ•°é‡ï¼å¦‚ 10');
 		thisform.max.focus();
 		return false;
 		}else{
 		realurl +='&max='+thisform.max.value;
 		}
 		if(thisform.maxlength.value==''){
-		alert('ÇëÎñ±ØÊäÈëµ÷ÓÃµÄÌû×Ó³¤¶È£¡Èç 30');
+		alert('è¯·åŠ¡å¿…è¾“å…¥è°ƒç”¨çš„å¸–å­é•¿åº¦ï¼å¦‚ 30');
 		thisform.maxlength.focus();
 		return false;
 		}else{
@@ -193,26 +193,26 @@ $a
 	}
 </SCRIPT>
 	<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>	<form onsubmit="return checkForm(this);" method=post name=FORM>
-    <b>ÌáÊ¾£º</b><br><span id=ts>Çë¸ù¾İÏÂÃæµÄ²½ÖèÒ»²½²½½øĞĞ£¡</span><p>
-   1£¬ÇëÑ¡ÔñÄãÒªµ÷ÓÃµÄÀàĞÍ£º<p>
+    <b>æç¤ºï¼š</b><br><span id=ts>è¯·æ ¹æ®ä¸‹é¢çš„æ­¥éª¤ä¸€æ­¥æ­¥è¿›è¡Œï¼</span><p>
+   1ï¼Œè¯·é€‰æ‹©ä½ è¦è°ƒç”¨çš„ç±»å‹ï¼š<p>
                 <select size="1" name="D1" onchange="if(this.options[this.selectedIndex].value!=''){nextstep();}">
-  <option selected value=''>Ñ¡ÔñÄãÒªµ÷ÓÃµÄÀà±ğ</option>
-  <option value="allnews">È«ÂÛÌ³×îĞÂÌû×Óµ÷ÓÃ</option>
-  <option value="news">·ÖÂÛÌ³×îĞÂÌû×Óµ÷ÓÃ</option>
-  <option value="newsjh">·ÖÂÛÌ³¾«»ªÌû×Óµ÷ÓÃ</option>
-  <option value="mainlogin">ÂÛÌ³µÇÂ½¿òµ÷ÓÃ</option>
-  <option value="getanc">ÂÛÌ³×îĞÂ¹«¸æµ÷ÓÃ</option>
-  <option value="getanc2">·ÖÂÛÌ³×îĞÂ¹«¸æµ÷ÓÃ</option>
-  <option value="info">ÂÛÌ³»ù±¾ĞÅÏ¢µ÷ÓÃ</option>
-  <option value="showmem">ÂÛÌ³·¢ÌûÅÅĞĞ</option></p>
+  <option selected value=''>é€‰æ‹©ä½ è¦è°ƒç”¨çš„ç±»åˆ«</option>
+  <option value="allnews">å…¨è®ºå›æœ€æ–°å¸–å­è°ƒç”¨</option>
+  <option value="news">åˆ†è®ºå›æœ€æ–°å¸–å­è°ƒç”¨</option>
+  <option value="newsjh">åˆ†è®ºå›ç²¾åå¸–å­è°ƒç”¨</option>
+  <option value="mainlogin">è®ºå›ç™»é™†æ¡†è°ƒç”¨</option>
+  <option value="getanc">è®ºå›æœ€æ–°å…¬å‘Šè°ƒç”¨</option>
+  <option value="getanc2">åˆ†è®ºå›æœ€æ–°å…¬å‘Šè°ƒç”¨</option>
+  <option value="info">è®ºå›åŸºæœ¬ä¿¡æ¯è°ƒç”¨</option>
+  <option value="showmem">è®ºå›å‘å¸–æ’è¡Œ</option></p>
   &nbsp;
 </select><p><span id=formshow></span><textarea rows="5" name="outScript" cols="28" readonly disabled></textarea><br>
 <br>
-<button type=submit name=tj disabled>Éú³É´úÂë</button> <button name=copy onClick=HighlightAll('FORM.outScript')>¿½±´´úÂë</button>
+<button type=submit name=tj disabled>ç”Ÿæˆä»£ç </button> <button name=copy onClick=HighlightAll('FORM.outScript')>æ‹·è´ä»£ç </button>
 </form><p><br><br></p><p align=center>&copy CopyRight By Maiweb 2005-08-05</p></td></tr>~;
 	}
 	else {

@@ -1,28 +1,28 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-if ($inmembername eq "") { $inusername = "¿ÍÈË"; }
+if ($inmembername eq "") { $inusername = "å®¢äºº"; }
 $ipaddress = "$ENV{'REMOTE_ADDR'}($ENV{'HTTP_X_FORWARDED_FOR'} -- $ENV{'HTTP_CLIENT_IP'})";
 $inmembername =~ s/\_/ /g;
 
 $output .= qq~<p>
 <tr>
-<td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font color=$fontcolormisc><b><font color=$fonthighlight>²»ÔÊÐí·¢ËÍ¹ÜÀíÔ±µÄÂÛÌ³ÃÜÂë</b></font></td></tr>
+<td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font color=$fontcolormisc><b><font color=$fonthighlight>ä¸å…è®¸å‘é€ç®¡ç†å‘˜çš„è®ºå›å¯†ç </b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-<b>´Ó°²È«½Ç¶È¿¼ÂÇ£¬Ì³Ö÷ºÍ×Ü°æÖ÷µÄÂÛÌ³ÃÜÂëÊÇËø¶¨µÄ£¬²»ÔÊÐíÍ¨¹ý Email »òÕß»Ø´ðÎÊÌâÀ´¼ÄËÍ¡£</b><p>
-ÎªÁË·ÀÖ¹ÓÐ hacker ¹¥»÷·þÎñÆ÷£¬ÄãµÄ IP µØÖ· $ipaddress ºÍÄãµÄÓÃ»§Ãû $inmembername ÒÑ¾­±»¼ÇÂ¼¡£<br>
-ÄãÓÃµÄä¯ÀÀÆ÷£º $ENV{'HTTP_USER_AGENT'}<p>
-Èç¹ûÄã²»ÊÇ¹ÊÒâµÄ£¬Äã²»Òª¹ýÓÚµ£ÐÄ¡£<p><p>
+<b>ä»Žå®‰å…¨è§’åº¦è€ƒè™‘ï¼Œå›ä¸»å’Œæ€»ç‰ˆä¸»çš„è®ºå›å¯†ç æ˜¯é”å®šçš„ï¼Œä¸å…è®¸é€šè¿‡ Email æˆ–è€…å›žç­”é—®é¢˜æ¥å¯„é€ã€‚</b><p>
+ä¸ºäº†é˜²æ­¢æœ‰ hacker æ”»å‡»æœåŠ¡å™¨ï¼Œä½ çš„ IP åœ°å€ $ipaddress å’Œä½ çš„ç”¨æˆ·å $inmembername å·²ç»è¢«è®°å½•ã€‚<br>
+ä½ ç”¨çš„æµè§ˆå™¨ï¼š $ENV{'HTTP_USER_AGENT'}<p>
+å¦‚æžœä½ ä¸æ˜¯æ•…æ„çš„ï¼Œä½ ä¸è¦è¿‡äºŽæ‹…å¿ƒã€‚<p><p>
 </td></tr></table></td></tr></table>
 ~;
-$output =~ s/ÓÃ»§×ÊÁÏ/¾¯¸æ£¡/g;
+$output =~ s/ç”¨æˆ·èµ„æ–™/è­¦å‘Šï¼/g;
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output($boardname,\$output);
 1;

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -76,24 +76,24 @@ if ($action eq "process") {
         
         if (-e $filetomake && -w $filetomake) {
                  print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§µÈ¼¶</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·ç­‰çº§</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ËùÓÐÐÅÏ¢ÒÑ±£´æ</b>
+                <font face=å®‹ä½“ color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ä¿å­˜</b>
                 </td></tr></table></td></tr></table>
                 ~;
             }
 
         else {
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ËùÓÐµÄÐÅÏ¢Ã»ÓÐ±£´æ</b><br>ÓÐÎÄ¼þ»òÄ¿Â¼Îª²»¿ÉÐ´£¬ÇëÉèÖÃÊôÐÔ 777 £¡
+                <font face=å®‹ä½“ color=#333333><b>æ‰€æœ‰çš„ä¿¡æ¯æ²¡æœ‰ä¿å­˜</b><br>æœ‰æ–‡ä»¶æˆ–ç›®å½•ä¸ºä¸å¯å†™ï¼Œè¯·è®¾ç½®å±žæ€§ 777 ï¼
                 </td></tr></table></td></tr></table>
                 ~;
             }
@@ -115,18 +115,18 @@ else {
                 $inmembername =~ s/\_/ /g;
                 
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§µÈ¼¶</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·ç­‰çº§</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÓÃ»§µÈ¼¶ÉèÖÃ</b>
+                <font face=å®‹ä½“ color=#333333><b>ç”¨æˆ·ç­‰çº§è®¾ç½®</b>
                 </td></tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-                <b>Èç¹ûÄã²»ÐèÒªÕâÃ´¶àµÄ¼¶±ð£¬ÄÇÃ´¿ÉÒÔ°ÑµÈÓÚºÍ¸ßÓÚÄã¶¨ÒåµÄ×î¸ß¼¶±ðµÄ»ý·ÖÊýÈ«²¿¸ÄÎª 999999999 ¼´¿ÉÒÔÆÁ±Îµô¸ß¼¶±ð¡£±ÈÈç£ºÄã¶¨Òå×î¸ß¼¶±ðÊÇ5£¬ÄÇÃ´Äã¾ÍÓ¦¸Ã°Ñ 5 ÒÔÉÏºÍ×î¸ß¼¶ÕâÐ©¼¶±ðµÄ»ý·ÖÊýÄ¿È«²¿¸Ä 999999999 ¼´¿É¡£<BR><BR>
-                Èç¹ûÐÞ¸ÄÕâÀïµÄÈÎºÎÒ»²¿·Ö£¬ÄÇÃ´ÇëÐÞ¸Äºóµ½ÂÛÌ³³õÊ¼»¯ÖÐÇå¿Õ Cache Ò»´Î</b>
+                <b>å¦‚æžœä½ ä¸éœ€è¦è¿™ä¹ˆå¤šçš„çº§åˆ«ï¼Œé‚£ä¹ˆå¯ä»¥æŠŠç­‰äºŽå’Œé«˜äºŽä½ å®šä¹‰çš„æœ€é«˜çº§åˆ«çš„ç§¯åˆ†æ•°å…¨éƒ¨æ”¹ä¸º 999999999 å³å¯ä»¥å±è”½æŽ‰é«˜çº§åˆ«ã€‚æ¯”å¦‚ï¼šä½ å®šä¹‰æœ€é«˜çº§åˆ«æ˜¯5ï¼Œé‚£ä¹ˆä½ å°±åº”è¯¥æŠŠ 5 ä»¥ä¸Šå’Œæœ€é«˜çº§è¿™äº›çº§åˆ«çš„ç§¯åˆ†æ•°ç›®å…¨éƒ¨æ”¹ 999999999 å³å¯ã€‚<BR><BR>
+                å¦‚æžœä¿®æ”¹è¿™é‡Œçš„ä»»ä½•ä¸€éƒ¨åˆ†ï¼Œé‚£ä¹ˆè¯·ä¿®æ”¹åŽåˆ°è®ºå›åˆå§‹åŒ–ä¸­æ¸…ç©º Cache ä¸€æ¬¡</b>
                 </td>
                 </tr>
                 
@@ -135,290 +135,290 @@ else {
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>³õ¼¶µÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>åˆçº§çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>³õ¼¶µÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>åˆçº§çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle0" value="$mtitle0"></td>
                 </tr>
 
                <tr>
                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-               <font face=ËÎÌå color=#333333><b>³õ¼¶µÄÍ¼Ïñ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>åˆçº§çš„å›¾åƒ</b></font></td>
                <td bgcolor=#FFFFFF valign=middle align=left>
                <input type=text size=40 name="mgraphic0" value="$mgraphic0"></td>
                </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ò»µÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§ä¸€çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ò»µÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸€çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark1" value="$mpostmark1"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ò»µÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸€çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle1" value="$mtitle1"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ò»µÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸€çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic1" value="$mgraphic1"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶¶þµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§äºŒçš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶¶þµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§äºŒçš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark2" value="$mpostmark2"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶¶þµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§äºŒçš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle2" value="$mtitle2"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶¶þµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§äºŒçš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic2" value="$mgraphic2"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶ÈýµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§ä¸‰çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÈýµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸‰çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark3" value="$mpostmark3"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÈýµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸‰çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle3" value="$mtitle3"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÈýµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸‰çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic3" value="$mgraphic3"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶ËÄµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§å››çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ËÄµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å››çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark4" value="$mpostmark4"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ËÄµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å››çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle4" value="$mtitle4"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ËÄµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å››çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic4" value="$mgraphic4"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶ÎåµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§äº”çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÎåµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§äº”çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark5" value="$mpostmark5"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÎåµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§äº”çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle5" value="$mtitle5"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÎåµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§äº”çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic5" value="$mgraphic5"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶ÁùµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§å…­çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÁùµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å…­çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark6" value="$mpostmark6"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÁùµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å…­çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle6" value="$mtitle6"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÁùµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å…­çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic6" value="$mgraphic6"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶ÆßµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§ä¸ƒçš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÆßµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸ƒçš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark7" value="$mpostmark7"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÆßµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸ƒçš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle7" value="$mtitle7"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶ÆßµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¸ƒçš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic7" value="$mgraphic7"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶°ËµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§å…«çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶°ËµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å…«çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark8" value="$mpostmark8"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶°ËµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å…«çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle8" value="$mtitle8"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶°ËµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§å…«çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic8" value="$mgraphic8"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶¾ÅµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§ä¹çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶¾ÅµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¹çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark9" value="$mpostmark9"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶¾ÅµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¹çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle9" value="$mtitle9"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶¾ÅµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§ä¹çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic9" value="$mgraphic9"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®µÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åçš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®µÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åçš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark10" value="$mpostmark10"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®µÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åçš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle10" value="$mtitle10"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®µÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åçš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic10" value="$mgraphic10"></td>
                 </tr>
@@ -426,27 +426,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®Ò»µÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åä¸€çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®Ò»µÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸€çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark11" value="$mpostmark11"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®Ò»µÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸€çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle11" value="$mtitle11"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®Ò»µÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸€çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic11" value="$mgraphic11"></td>
                 </tr>
@@ -454,27 +454,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®¶þµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åäºŒçš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®¶þµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åäºŒçš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark12" value="$mpostmark12"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®¶þµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åäºŒçš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle12" value="$mtitle12"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®¶þµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åäºŒçš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic12" value="$mgraphic12"></td>
                 </tr>
@@ -482,27 +482,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®ÈýµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åä¸‰çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÈýµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸‰çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark13" value="$mpostmark13"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÈýµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸‰çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle13" value="$mtitle13"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÈýµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸‰çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic13" value="$mgraphic13"></td>
                 </tr>
@@ -510,27 +510,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®ËÄµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åå››çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ËÄµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå››çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark14" value="$mpostmark14"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ËÄµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå››çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle14" value="$mtitle14"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ËÄµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå››çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic14" value="$mgraphic14"></td>
                 </tr>
@@ -538,27 +538,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®ÎåµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åäº”çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÎåµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åäº”çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark15" value="$mpostmark15"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÎåµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åäº”çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle15" value="$mtitle15"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÎåµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åäº”çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic15" value="$mgraphic15"></td>
                 </tr>
@@ -566,27 +566,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®ÁùµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åå…­çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÁùµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå…­çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark16" value="$mpostmark16"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÁùµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå…­çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle16" value="$mtitle16"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÁùµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå…­çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic16" value="$mgraphic16"></td>
                 </tr>
@@ -594,27 +594,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®ÆßµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åä¸ƒçš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÆßµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸ƒçš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark17" value="$mpostmark17"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÆßµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸ƒçš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle17" value="$mtitle17"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®ÆßµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¸ƒçš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic17" value="$mgraphic17"></td>
                 </tr>
@@ -622,27 +622,27 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®°ËµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åå…«çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®°ËµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå…«çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark18" value="$mpostmark18"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®°ËµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå…«çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle18" value="$mtitle18"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®°ËµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åå…«çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic18" value="$mgraphic18"></td>
                 </tr>
@@ -650,64 +650,44 @@ else {
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>µÈ¼¶Ê®¾ÅµÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>ç­‰çº§åä¹çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®¾ÅµÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¹çš„æœ€å¤§ç§¯åˆ†æ•° (è¾¾åˆ°å°±å‡çº§)</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mpostmark19" value="$mpostmark19"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®¾ÅµÄÃû³Æ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¹çš„åç§°</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mtitle19" value="$mtitle19"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>µÈ¼¶Ê®¾ÅµÄÍ¼Ïñ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>ç­‰çº§åä¹çš„å›¾åƒ</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="mgraphic19" value="$mgraphic19"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>×î¸ßµÈ¼¶µÄÏêÏ¸×ÊÁÏ</b>
+                <font face=å®‹ä½“ color=#990000><b>æœ€é«˜ç­‰çº§çš„è¯¦ç»†èµ„æ–™</b>
                 </font></td>
                 </tr>
                 
                 <tr>
-                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>×î¸ßµÈ¼¶µÄ×î´ó»ý·ÖÊý (´ïµ½¾ÍÉý¼¶)</b></font></td>
-                <td bgcolor=#FFFFFF valign=middle align=left>
-                <input type=text size=40 name="mpostmarkmax" value="$mpostmarkmax"></td>
+                <td bgcolorark19" value="$mpostmark19"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>×î¸ßµÈ¼¶µÄÃû³Æ</b></font></td>
-                <td bgcolor=#FFFFFF valign=middle align=left>
-                <input type=text size=40 name="mtitlemax" value="$mtitlemax"></td>
-                </tr>
-                
-                <tr>
-                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=ËÎÌå color=#333333><b>×î¸ßµÈ¼¶µÄÍ¼Ïñ</b></font></td>
-                <td bgcolor=#FFFFFF valign=middle align=left>
-                <input type=text size=40 name="mgraphicmax" value="$mgraphicmax"></td>
-                </tr>
-
-                <tr>
-                <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#990000><b>¹ÜÀíÔ±×¨ÓÃµÄÃû³ÆºÍÍ¼Ïñ (Èç¹û²»ÏëÒª£¬ÇëÈ«²¿Áô¿Õ)</b>
-                </font></td>
-                </tr>
-                
+                <font face=ç€¹
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
                 <font face=ËÎÌå color=#333333><b>¸±°æÖ÷µÄµÈ¼¶Ãû³Æ</b></font></td>

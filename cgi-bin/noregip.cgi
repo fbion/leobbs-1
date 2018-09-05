@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -61,20 +61,20 @@ if ($action eq "process") {
         close (FILE);
         
         if (-e $filetomake && -w $filetomake) {
-	    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
-            </td></tr><tr><td bgcolor=#FFFFFF colspan=2><font color=#333333><center><b>ËùÓÐµÄÐÅÏ¢ÒÑ¾­±£´æ</b></center><br><br>
-            <b>ÄãÒÑ¾­½ûÖ¹ÁËÏÂÁÐ IP £¬Ê¹ÓÃÕâÐ© IP µÄÓÃ»§½«²»ÔÊÐí±»ÉêÇë¡£</b><br><br>~;
+	    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
+            </td></tr><tr><td bgcolor=#FFFFFF colspan=2><font color=#333333><center><b>æ‰€æœ‰çš„ä¿¡æ¯å·²ç»ä¿å­˜</b></center><br><br>
+            <b>ä½ å·²ç»ç¦æ­¢äº†ä¸‹åˆ— IP ï¼Œä½¿ç”¨è¿™äº› IP çš„ç”¨æˆ·å°†ä¸å…è®¸è¢«ç”³è¯·ã€‚</b><br><br>~;
             
             @saveduserarray = split(/\t/,$userarray);
             foreach (@saveduserarray) {
                 chomp $_;
                 print "$_<br>";
 	    }
-            print qq~<br><br><br><center><a href="noregip.cgi">½ûÖ¹¸ü¶àµÄÌØÊâ IP µØÖ·×¢²áÓÃ»§</a></center>~;
+            print qq~<br><br><br><center><a href="noregip.cgi">ç¦æ­¢æ›´å¤šçš„ç‰¹æ®Š IP åœ°å€æ³¨å†Œç”¨æˆ·</a></center>~;
 	}
         else {
-	    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b></td></tr><tr>
-            <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>ËùÓÐµÄÐÅÏ¢Ã»ÓÐ±£´æ</b><br>ÓÐÎÄ¼þ»òÄ¿Â¼Îª²»¿ÉÐ´£¬ÇëÉèÖÃÊôÐÔ 777 £¡
+	    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b></td></tr><tr>
+            <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>æ‰€æœ‰çš„ä¿¡æ¯æ²¡æœ‰ä¿å­˜</b><br>æœ‰æ–‡ä»¶æˆ–ç›®å½•ä¸ºä¸å¯å†™ï¼Œè¯·è®¾ç½®å±žæ€§ 777 ï¼
             </td></tr></table></td></tr></table>~;
 	}
     }
@@ -89,18 +89,18 @@ else {
         my $badusers = <FILE>;
         close (FILE);
         $badusers =~ s/\t/\n/g;
-        print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ½ûÖ¹Ò»Ð©ÌØÊâµÄ IP µØÖ·×¢²áÓÃ»§</b></td></tr><tr>
-	    <td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>½ûÖ¹Ò»Ð©ÌØÊâµÄ IP µØÖ·×¢²áÓÃ»§</b></td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¦æ­¢ä¸€äº›ç‰¹æ®Šçš„ IP åœ°å€æ³¨å†Œç”¨æˆ·</b></td></tr><tr>
+	    <td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>ç¦æ­¢ä¸€äº›ç‰¹æ®Šçš„ IP åœ°å€æ³¨å†Œç”¨æˆ·</b></td></tr>
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="process">
             <tr><td bgcolor=#FFFFFF colspan=2><font color=#000000>
-            <b>Çë×¢Òâ£º</b> ´Ë¹¦ÄÜÊÇÓÃÀ´½ûÖ¹Ò»Ð©ÌØÊâµÄ IP µØÖ·£¬Ê¹ÓÃÕâÐ© IP µÄÓÃ»§½«²»ÔÊÐí±»×¢²á¡£ÕâÑù¿ÉÒÔ×èÖ¹Ò»Ð©µ·ÂÒµÄÈË¶à´Î×¢²áÓÃ»§¡£<BR><BR>ÊäÈëµÄÊ±ºò£¬Ã¿ÐÐÊäÈëÒ»¸ö IP µØÖ·¼´¿É(±ØÐëÊäÈëÍêÕû£¬±ÈÈç£º 202.96.111.42 )¡£<BR><BR>
+            <b>è¯·æ³¨æ„ï¼š</b> æ­¤åŠŸèƒ½æ˜¯ç”¨æ¥ç¦æ­¢ä¸€äº›ç‰¹æ®Šçš„ IP åœ°å€ï¼Œä½¿ç”¨è¿™äº› IP çš„ç”¨æˆ·å°†ä¸å…è®¸è¢«æ³¨å†Œã€‚è¿™æ ·å¯ä»¥é˜»æ­¢ä¸€äº›æ£ä¹±çš„äººå¤šæ¬¡æ³¨å†Œç”¨æˆ·ã€‚<BR><BR>è¾“å…¥çš„æ—¶å€™ï¼Œæ¯è¡Œè¾“å…¥ä¸€ä¸ª IP åœ°å€å³å¯(å¿…é¡»è¾“å…¥å®Œæ•´ï¼Œæ¯”å¦‚ï¼š 202.96.111.42 )ã€‚<BR><BR>
             </font></td></tr>
             <tr><td bgcolor=#FFFFFF align=center colspan=2>
             <textarea cols=60 rows=18 wrap="virtual" name="userarray">$badusers</textarea><BR><BR>
             </td></tr>
             <tr><td bgcolor=#EEEEEE align=center colspan=2>
-            <input type=submit name=submit value="Ìá ½»"></td></form></tr></table></td></tr></table>~;
+            <input type=submit name=submit value="æ äº¤"></td></form></tr></table></td></tr></table>~;
     }
     else {
 	&adminlogin;

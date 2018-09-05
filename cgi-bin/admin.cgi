@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -34,24 +34,24 @@ require "bbs.lib.pl";
 
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;');
     unless (WebGzip::getStatus()) {
-	$gzipfunc = qq~Gzip Ä£¿éÊÇ·ñ¿ÉÓÃ? == [Í¨¹ı]~;
+	$gzipfunc = qq~Gzip æ¨¡å—æ˜¯å¦å¯ç”¨? == [é€šè¿‡]~;
     }
     else {
     	$e = WebGzip::getStatus();
-    	$gzipfunc = qq~<font color=#FF0000>Gzip Ä£¿éÊÇ·ñ¿ÉÓÃ? == [Ê§°Ü]</font> $e~ 
+    	$gzipfunc = qq~<font color=#FF0000>Gzip æ¨¡å—æ˜¯å¦å¯ç”¨? == [å¤±è´¥]</font> $e~ 
     }
 
 eval ('use GD;');
 if ($@) {
-    $gdfunc = qq~<font color=#FF0000>GD Ä£¿éÊÇ·ñ¿ÉÓÃ? == [Ê§°Ü]</font>~;
+    $gdfunc = qq~<font color=#FF0000>GD æ¨¡å—æ˜¯å¦å¯ç”¨? == [å¤±è´¥]</font>~;
 }
 else {
-    $gdfunc = qq~GD Ä£¿éÊÇ·ñ¿ÉÓÃ? == [Í¨¹ı]~;
+    $gdfunc = qq~GD æ¨¡å—æ˜¯å¦å¯ç”¨? == [é€šè¿‡]~;
 }
 
 $thisprog = "admin.cgi";
 $query = new LBCGI;
-#&ipbanned; #·âÉ±Ò»Ğ© ip
+#&ipbanned; #å°æ€ä¸€äº› ip
 $action       = $query -> param('action');
 $loginprog    = $query -> param('loginprog');
 $inmembername = $query -> param('membername');
@@ -90,10 +90,10 @@ chmod(0777,"${lbdir}$memdir/old");
 if ((-e "${lbdir}install.cgi")&&(!(-e "${lbdir}data/install.lock"))) {
     print "Content-type: text/html\n\n";
     print qq(
-    <HTML><HEAD><TITLE>°²×°´íÎó</TITLE></HEAD>
+    <HTML><HEAD><TITLE>å®‰è£…é”™è¯¯</TITLE></HEAD>
     <BODY BGCOLOR=#ffffff TEXT=#000000>
-    <H1>LeoBBS ´íÎó</H1><FONT COLOR=#ff0000><B>°²È«¾¯¸æ</B>£º
-    <br>install.cgi ÎÄ¼şÈÔÈ»ÔÚÄúµÄ·şÎñÆ÷ÉÏ£¬ÇëÂíÉÏÀûÓÃ FTP À´½«ÆäÉ¾³ı£¡£¡<br> µ±ÄãÉ¾³ıÖ®ºó£¬Ë¢ĞÂ±¾Ò³ÃæÖØĞÂ½øÈë¹ÜÀíÖĞĞÄ¡£</FONT></body></html>);
+    <H1>LeoBBS é”™è¯¯</H1><FONT COLOR=#ff0000><B>å®‰å…¨è­¦å‘Š</B>ï¼š
+    <br>install.cgi æ–‡ä»¶ä»ç„¶åœ¨æ‚¨çš„æœåŠ¡å™¨ä¸Šï¼Œè¯·é©¬ä¸Šåˆ©ç”¨ FTP æ¥å°†å…¶åˆ é™¤ï¼ï¼<br> å½“ä½ åˆ é™¤ä¹‹åï¼Œåˆ·æ–°æœ¬é¡µé¢é‡æ–°è¿›å…¥ç®¡ç†ä¸­å¿ƒã€‚</FONT></body></html>);
     exit;
 }
 
@@ -107,10 +107,10 @@ if ($action eq "logout") {
     &admintitle;
     print qq(
     <tr><td bgcolor=#2159C9><font color=#FFFFFF>
-    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ</b>
+    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
     </td></tr>
     <tr><td bgcolor=#EEEEEE valign=middle align=center>
-    <font color=#333333><b>ÄúÒÑ¾­°²È«ÍË³ö¹ÜÀíÖĞĞÄ</b></font>
+    <font color=#333333><b>æ‚¨å·²ç»å®‰å…¨é€€å‡ºç®¡ç†ä¸­å¿ƒ</b></font>
     </td></tr>
     <tr><td bgcolor=#FFFFFF></td></tr>
     </td></tr></table></td></tr></table>
@@ -148,13 +148,13 @@ else {
 	    my $thistime=time;
 	    $filetomake = "$lbdir" . "data/adminlogin.cgi";
             open(FILE, ">>$filetomake");
-            print FILE "$inmembername\tÃÜÂë²»ÏÔÊ¾\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\tµÇÂ¼³É¹¦\t$thistime\t\n";
+            print FILE "$inmembername\tå¯†ç ä¸æ˜¾ç¤º\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\tç™»å½•æˆåŠŸ\t$thistime\t\n";
             close(FILE);
 	}
 
 	if ($loginprog ne "") { print "<script language='javascript'>document.location = '$loginprog'</script>"; }
 
-        $warning = qq~<br><font color=#000000>»·¾³¼à²â£º<b>Í¨¹ı</b></font>~;
+        $warning = qq~<br><font color=#000000>ç¯å¢ƒç›‘æµ‹ï¼š<b>é€šè¿‡</b></font>~;
 
         $current_time = localtime;
         $inmembername =~ s/\_/ /g;
@@ -167,51 +167,51 @@ else {
 		
         $testcookie = $ENV{HTTP_COOKIE};
         if ($testcookie) {
-            $cookie_result = qq(Cookies ÊÇ·ñ¿ÉÓÃ? == [Í¨¹ı]);
+            $cookie_result = qq(Cookies æ˜¯å¦å¯ç”¨? == [é€šè¿‡]);
         } else {
-            $cookie_result = qq(<font color=#FF0000>Cookies ÊÇ·ñ¿ÉÓÃ? == [Ê§°Ü]</font>);
+            $cookie_result = qq(<font color=#FF0000>Cookies æ˜¯å¦å¯ç”¨? == [å¤±è´¥]</font>);
         }
 
 	$cgipath = &mypath();
 
 	    eval {$aa = md5_hex("112");};
 	    if ($@) {eval('use Digest::MD5 qw(md5_hex);$aa = md5_hex("112");');}
-	    unless ($@) {$md5mode = qq(MD5 Ä£¿éÊÇ·ñ¿ÉÓÃ? == [Í¨¹ı]);} else {$md5mode = qq(<font color=#FF0000>MD5 Ä£¿éÊÇ·ñ¿ÉÓÃ? == [Ê§°Ü]</font>);}
+	    unless ($@) {$md5mode = qq(MD5 æ¨¡å—æ˜¯å¦å¯ç”¨? == [é€šè¿‡]);} else {$md5mode = qq(<font color=#FF0000>MD5 æ¨¡å—æ˜¯å¦å¯ç”¨? == [å¤±è´¥]</font>);}
 
         print qq~
-<tr><td bgcolor=#2159C9><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ</b></td></tr>
-<tr><td bgcolor=#EEEEEE valign=middle align=center><font color=#333333><b>»¶Ó­ $inmembername</b></font></td></tr>
+<tr><td bgcolor=#2159C9><font color=#FFFFFF><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b></td></tr>
+<tr><td bgcolor=#EEEEEE valign=middle align=center><font color=#333333><b>æ¬¢è¿ $inmembername</b></font></td></tr>
 <tr><td bgcolor=#FFFFFF></td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle align=left>
 <font color=#000000><center><br>
-·şÎñÆ÷Ê±¼ä£º<b>$current_time</b><br>
+æœåŠ¡å™¨æ—¶é—´ï¼š<b>$current_time</b><br>
 </center>
 $warning
 <hr>
 <font color=#000000><p>
-<b>ÂÛÌ³Êı¾İÕªÒª</b><br><br><br>
-×¢²áÓÃ»§Êı£º$totalmembers ÈË
-<br>×Ü·¢±íÖ÷Ìâ£º$totalthreads Æª
-<br>×Ü·¢±í»Ø¸´£º$totalposts Æª<br><br>
-<br>×¢²áÓÃ»§Æ½¾ù·¢±íÖ÷ÌâÊı£º$start_topic_ratio Æª
-<br>×¢²áÓÃ»§Æ½¾ù»Ø¸´Ö÷ÌâÊı£º$posting_ratio Æª
+<b>è®ºå›æ•°æ®æ‘˜è¦</b><br><br><br>
+æ³¨å†Œç”¨æˆ·æ•°ï¼š$totalmembers äºº
+<br>æ€»å‘è¡¨ä¸»é¢˜ï¼š$totalthreads ç¯‡
+<br>æ€»å‘è¡¨å›å¤ï¼š$totalposts ç¯‡<br><br>
+<br>æ³¨å†Œç”¨æˆ·å¹³å‡å‘è¡¨ä¸»é¢˜æ•°ï¼š$start_topic_ratio ç¯‡
+<br>æ³¨å†Œç”¨æˆ·å¹³å‡å›å¤ä¸»é¢˜æ•°ï¼š$posting_ratio ç¯‡
 <br><br>
-<br>Ä¿Â¼Â·¾¶¡¡£º<font color=#FF0000>$cgipath</font> == [ÕıÈ·]
-<br>Perl  °æ±¾£º<font color=#FF0000>$]</font> == [Í¨¹ı]
-<br>LBCGI °æ±¾£º<font color=#FF0000>$version_needed</font> == [Í¨¹ı]
-<br>MD5¡¡ ²âÊÔ£º$md5mode
-<br>Gzip¡¡²âÊÔ£º$gzipfunc
-<br>GD¡¡¡¡²âÊÔ£º$gdfunc
-<br>Cookie²âÊÔ£º$cookie_result
+<br>ç›®å½•è·¯å¾„ã€€ï¼š<font color=#FF0000>$cgipath</font> == [æ­£ç¡®]
+<br>Perl  ç‰ˆæœ¬ï¼š<font color=#FF0000>$]</font> == [é€šè¿‡]
+<br>LBCGI ç‰ˆæœ¬ï¼š<font color=#FF0000>$version_needed</font> == [é€šè¿‡]
+<br>MD5ã€€ æµ‹è¯•ï¼š$md5mode
+<br>Gzipã€€æµ‹è¯•ï¼š$gzipfunc
+<br>GDã€€ã€€æµ‹è¯•ï¼š$gdfunc
+<br>Cookieæµ‹è¯•ï¼š$cookie_result
 <br><br>
 <form action=setmembers.cgi method=POST>
-<font color=#333333><b>²é¿´¡¢±à¼­¡¢É¾³ı¡¢½ûÖ¹ÓÃ»§</b><BR>
+<font color=#333333><b>æŸ¥çœ‹ã€ç¼–è¾‘ã€åˆ é™¤ã€ç¦æ­¢ç”¨æˆ·</b><BR>
 <input type=hidden name=action value=edit>
 <input type=text name=member size=10 maxlength=16>
-<input type=submit value=¿ìËÙ¶¨Î»>
+<input type=submit value=å¿«é€Ÿå®šä½>
 </form>
 <br><br><hr>
-°æÈ¨ËùÓĞ£ºÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±</font>
+ç‰ˆæƒæ‰€æœ‰ï¼šå±±é¹°(ç³Š)ã€èŠ±æ— ç¼º</font>
 </font></td></tr></table></td></tr></table>
 ~;
     } else {
@@ -223,7 +223,7 @@ $warning
 	    my $thistime=time;
 	    $filetomake = "$lbdir" . "data/adminlogin.cgi";
             open(FILE, ">>$filetomake");
-            print FILE "$inmembername\t´í$inpasswordtemp\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t\<B\>µÇÂ¼Ê§°Ü\<\/B\>\t$thistime\t\n";
+            print FILE "$inmembername\té”™$inpasswordtemp\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t\<B\>ç™»å½•å¤±è´¥\<\/B\>\t$thistime\t\n";
             close(FILE);
             undef $thistime;
 	}
@@ -236,9 +236,9 @@ sub testsystem {
     if (1 == 0) {
 	print "Content-type: text/html\n\n";
 	print qq(
-	    <HTML><HEAD><TITLE>³õÊ¼»¯´íÎó</TITLE></HEAD>
+	    <HTML><HEAD><TITLE>åˆå§‹åŒ–é”™è¯¯</TITLE></HEAD>
 	    <BODY BGCOLOR=#ffffff TEXT=#000000>
-	    <H1>LeoBBS ³ö´í</H1>Èç¹ûÄú¿´µ½Õâ¸ö´íÎóĞÅÏ¢£¬ÄÇÃ´ËµÃ÷±¾³ÌĞòÃ»ÓĞÕıÈ·Ö´ĞĞ£¬Ëü½ö½öÊÇ×÷ÎªÆÕÍ¨µÄ HTML Êä³öÏÔÊ¾¡£Äú±ØĞëÒªÑ¯ÎÊÄúµÄ·şÎñÆ÷¹ÜÀíÔ±£¬Õâ¸öÄ¿Â¼ÊÇ·ñÓĞÖ´ĞĞ CGI ³ÌĞòµÄÈ¨ÏŞ¡£<p></body></html>
+	    <H1>LeoBBS å‡ºé”™</H1>å¦‚æœæ‚¨çœ‹åˆ°è¿™ä¸ªé”™è¯¯ä¿¡æ¯ï¼Œé‚£ä¹ˆè¯´æ˜æœ¬ç¨‹åºæ²¡æœ‰æ­£ç¡®æ‰§è¡Œï¼Œå®ƒä»…ä»…æ˜¯ä½œä¸ºæ™®é€šçš„ HTML è¾“å‡ºæ˜¾ç¤ºã€‚æ‚¨å¿…é¡»è¦è¯¢é—®æ‚¨çš„æœåŠ¡å™¨ç®¡ç†å‘˜ï¼Œè¿™ä¸ªç›®å½•æ˜¯å¦æœ‰æ‰§è¡Œ CGI ç¨‹åºçš„æƒé™ã€‚<p></body></html>
 	);
     	exit;
     }
@@ -252,9 +252,9 @@ sub testsystem {
     if ($] < 5.004) {
 	print "Content-type: text/html\n\n";
 	print qq(
-	    <HTML><HEAD><TITLE>³õÊ¼»¯´íÎó</TITLE></HEAD>
+	    <HTML><HEAD><TITLE>åˆå§‹åŒ–é”™è¯¯</TITLE></HEAD>
 	    <BODY BGCOLOR=#ffffff TEXT=#000000>
-	    <H1>LeoBBS ³ö´í</H1><FONT COLOR=#ff0000><B>Perl °æ±¾¾¯¸æ</B>£ºÄúÑ¡ÔñµÄ Perl Â·¾¶ - <B>$perl</B>£¬³ÌĞò¼ì²âµ½ËüµÄ°æ±¾Îª $]£¬¶ø LeoBBS ±ØĞëÔËĞĞÔÚ Perl 5.004 ÒÔÉÏ°æ±¾¡£ <U>Ç¿ÁÒ</U> ÍÆ¼öÄúÁªÏµ·şÎñÆ÷¹ÜÀíÔ±Éı¼¶ Perl µ½ Perl 5.004 ÒÔÉÏ°æ±¾¡£</FONT></body></html>
+	    <H1>LeoBBS å‡ºé”™</H1><FONT COLOR=#ff0000><B>Perl ç‰ˆæœ¬è­¦å‘Š</B>ï¼šæ‚¨é€‰æ‹©çš„ Perl è·¯å¾„ - <B>$perl</B>ï¼Œç¨‹åºæ£€æµ‹åˆ°å®ƒçš„ç‰ˆæœ¬ä¸º $]ï¼Œè€Œ LeoBBS å¿…é¡»è¿è¡Œåœ¨ Perl 5.004 ä»¥ä¸Šç‰ˆæœ¬ã€‚ <U>å¼ºçƒˆ</U> æ¨èæ‚¨è”ç³»æœåŠ¡å™¨ç®¡ç†å‘˜å‡çº§ Perl åˆ° Perl 5.004 ä»¥ä¸Šç‰ˆæœ¬ã€‚</FONT></body></html>
 	);
 	exit;
     }
@@ -271,14 +271,14 @@ sub checkverify {
 		return;
 	}
 
-	###»ñÈ¡ÕæÊµµÄ IP µØÖ·
+	###è·å–çœŸå®çš„ IP åœ°å€
 	my $ipaddress = $ENV{'REMOTE_ADDR'};
 	my $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
 	$ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
 	$trueipaddress = $ENV{'HTTP_CLIENT_IP'};
 	$ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
 
-	###»ñÈ¡µ±Ç°½ø³ÌµÄÑéÖ¤ÂëºÍÑéÖ¤Âë²úÉúÊ±¼ä¡¢ÓÃ»§ÃÜÂë
+	###è·å–å½“å‰è¿›ç¨‹çš„éªŒè¯ç å’ŒéªŒè¯ç äº§ç”Ÿæ—¶é—´ã€ç”¨æˆ·å¯†ç 
 	my $filetoopen = "${lbdir}verifynum/$sessionid.cgi";
 	open(FILE, $filetoopen);
 	$readdisktimes++;
@@ -289,7 +289,7 @@ sub checkverify {
 	my ($trueverifynum, $verifytime, $savedipaddress) = split(/\t/, $content);
 	my $currenttime = time;
 
-	if (($verifynum ne $trueverifynum || $currenttime > $verifytime + 120 || $ipaddress ne $savedipaddress)&&($useverify eq "yes")) { #ÑéÖ¤ÂëÓĞĞ§Ê±¼ä½öÎª2·ÖÖÓ
+	if (($verifynum ne $trueverifynum || $currenttime > $verifytime + 120 || $ipaddress ne $savedipaddress)&&($useverify eq "yes")) { #éªŒè¯ç æœ‰æ•ˆæ—¶é—´ä»…ä¸º2åˆ†é’Ÿ
 	    $inpassword = "";
 	} else {
 	    unlink("${lbdir}verifynum/$sessionid.cgi");
@@ -308,7 +308,7 @@ sub checkverify {
 	return;
 }
 
-# ²âÊÔ¾ø¶ÔÂ·¾¶
+# æµ‹è¯•ç»å¯¹è·¯å¾„
 sub mypath {
     local $temp;
     if ($ENV{'SERVER_SOFTWARE'} =~ /apache/i) {

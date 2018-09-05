@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -32,7 +32,7 @@ $|++;
 
 $thisprog = "setjhmp.cgi";
 $query = new LBCGI;
-#&ipbanned; #·âÉ±Ò»Ğ© ip
+#&ipbanned; #å°æ€ä¸€äº› ip
 
 $addme=$query->param('addme');
 
@@ -61,7 +61,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
     print qq~
     <tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
-    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÃÅÅÉ¹ÜÀíÆ÷</b>
+    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é—¨æ´¾ç®¡ç†å™¨</b>
     </td></tr>~;
     if ($Mode{$action}) { 
         $Mode{$action}->();
@@ -80,12 +80,12 @@ sub jhmplist {
 	</script>
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#990000><b>×¢ÒâÊÂÏî</b>
+    <font color=#990000><b>æ³¨æ„äº‹é¡¹</b>
     </td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF colspan=2 align=center>
-    ¡¡¡¡ÔÚÏÂÃæ£¬Äú½«¿´µ½Ä¿Ç°ËùÓĞµÄÃÅÅÉ¡£Äú¿ÉÒÔÔö¼ÓÒ»¸öĞÂµÄÃÅÅÉ¡£Ò²¿ÉÒÔ±à¼­»òÉ¾³ıÄ¿Ç°´æÔÚÃÅÅÉ¡£<p>
+    ã€€ã€€åœ¨ä¸‹é¢ï¼Œæ‚¨å°†çœ‹åˆ°ç›®å‰æ‰€æœ‰çš„é—¨æ´¾ã€‚æ‚¨å¯ä»¥å¢åŠ ä¸€ä¸ªæ–°çš„é—¨æ´¾ã€‚ä¹Ÿå¯ä»¥ç¼–è¾‘æˆ–åˆ é™¤ç›®å‰å­˜åœ¨é—¨æ´¾ã€‚<p>
     </td>
     </tr>
     ~;
@@ -103,8 +103,8 @@ sub jhmplist {
 	print qq~
     <tr>
     <td bgcolor=#FFFFFF align=center colspan=2><table width=90% cellspacing="0" cellpadding="2">
-	<tr><td align="center" colspan="4" bgcolor="#EEEEEE">|| <a href="$thisprog?action=createform">Ôö¼ÓĞÂÃÅÅÉ</a> ||</td></tr>
-	<tr><td align="center" bgcolor=$catback><b style="color:blue">ÃÅÅÉÃû³Æ</b></td><td align="center" width="20%" bgcolor=$catback><b style="color:blue">ÃÅÅÉ´´Á¢ÈË</b></td><td align="center" width="10%" bgcolor=$catback><b style="color:blue">ÃÅÅÉ×´Ì¬</b></td><td align="center" width="30%" bgcolor=$catback><b style="color:blue">Ïà¹Ø²Ù×÷</b></td></tr>
+	<tr><td align="center" colspan="4" bgcolor="#EEEEEE">|| <a href="$thisprog?action=createform">å¢åŠ æ–°é—¨æ´¾</a> ||</td></tr>
+	<tr><td align="center" bgcolor=$catback><b style="color:blue">é—¨æ´¾åç§°</b></td><td align="center" width="20%" bgcolor=$catback><b style="color:blue">é—¨æ´¾åˆ›ç«‹äºº</b></td><td align="center" width="10%" bgcolor=$catback><b style="color:blue">é—¨æ´¾çŠ¶æ€</b></td><td align="center" width="30%" bgcolor=$catback><b style="color:blue">ç›¸å…³æ“ä½œ</b></td></tr>
 	~;
     $jhmpnum = 0;
     foreach $jhmp (@jhmp) {
@@ -113,15 +113,15 @@ sub jhmplist {
 		($jhmpname, $jhmpstatus, $jhmporganiger) = split(/\t/,$jhmp);
 		$jhmpurl=~s/\\//g;
 		$jhmpnum++;
-		$jhmpstatus=($jhmpstatus)?"¿ª·ÅÃÅÅÉ":"Òş²ØÃÅÅÉ";
+		$jhmpstatus=($jhmpstatus)?"å¼€æ”¾é—¨æ´¾":"éšè—é—¨æ´¾";
 		print qq~
-		<tr><td align="left">¡¡¡¡<b>$jhmpname</b></td><td align="center"><span style="cursor:hand" onClick="javascript:O9('$jhmporganiger')"><font color="#333333"><u>$jhmporganiger</u></font></span></td><td align="center"><u>$jhmpstatus</u></td><td align="center"><a href="$thisprog?action=edit&jhmpid=$jhmpnum">[±à¼­]</a> <a href="$thisprog?action=delete&jhmpid=$jhmpnum">[É¾³ı]</a></td></tr>
+		<tr><td align="left">ã€€ã€€<b>$jhmpname</b></td><td align="center"><span style="cursor:hand" onClick="javascript:O9('$jhmporganiger')"><font color="#333333"><u>$jhmporganiger</u></font></span></td><td align="center"><u>$jhmpstatus</u></td><td align="center"><a href="$thisprog?action=edit&jhmpid=$jhmpnum">[ç¼–è¾‘]</a> <a href="$thisprog?action=delete&jhmpid=$jhmpnum">[åˆ é™¤]</a></td></tr>
 	    ~;
 	}
     
     
 	print qq~
-	<tr><td align="center" colspan="4" bgcolor="#EEEEEE">¹²ÓĞÃÅÅÉ $jhmpnum ¸ö </td></tr></table>
+	<tr><td align="center" colspan="4" bgcolor="#EEEEEE">å…±æœ‰é—¨æ´¾ $jhmpnum ä¸ª </td></tr></table>
 	~;
 }
 sub createform{
@@ -133,30 +133,30 @@ sub createform{
     <input type=hidden name="action" value="processnew">    
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-    <font color=#333333><b>ÃÅÅÉÃû³Æ</b><br>ÇëÊäÈëĞÂÃÅÅÉµÄÃû³Æ<BR></font></td>
+    <font color=#333333><b>é—¨æ´¾åç§°</b><br>è¯·è¾“å…¥æ–°é—¨æ´¾çš„åç§°<BR></font></td>
     <td bgcolor=#FFFFFF valign=middle align=left>
     <input type=text size=20 name="jhmpname" value=""></td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-    <font color=#333333><b>ÃÅÅÉ×´Ì¬Âë</b><br>ÇëÑ¡ÔñÃÅÅÉµÄ¿ª·Å×´Ì¬</font></td>
+    <font color=#333333><b>é—¨æ´¾çŠ¶æ€ç </b><br>è¯·é€‰æ‹©é—¨æ´¾çš„å¼€æ”¾çŠ¶æ€</font></td>
     <td bgcolor=#FFFFFF valign=middle align=left>
-    <select name="jhmpstatus"><option value="1">¿ª·Å£¬ÔÊĞí×ÔÓÉ¼ÓÈë</option><option value="0">Òş²Ø£¬²»ÔÊĞí×ÔÓÉ¼ÓÈë</option></select>
+    <select name="jhmpstatus"><option value="1">å¼€æ”¾ï¼Œå…è®¸è‡ªç”±åŠ å…¥</option><option value="0">éšè—ï¼Œä¸å…è®¸è‡ªç”±åŠ å…¥</option></select>
     </td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-    <font  color=#333333><b>ÃÅÅÉ´´Á¢ÈË</b><br>ÇëÊäÈëÃÅÅÉµÄ´´Á¢ÈË</font></td>
+    <font  color=#333333><b>é—¨æ´¾åˆ›ç«‹äºº</b><br>è¯·è¾“å…¥é—¨æ´¾çš„åˆ›ç«‹äºº</font></td>
     <td bgcolor=#FFFFFF valign=middle align=left>
-    <input type=text size=20 name="jhmporganiger" value="$inmembername"> <input type=button value="¼ì²é" onClick="O9(this.form.jhmporganiger.value)"></td>
+    <input type=text size=20 name="jhmporganiger" value="$inmembername"> <input type=button value="æ£€æŸ¥" onClick="O9(this.form.jhmporganiger.value)"></td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-    <input type=submit value="Ìá ½»"></form>
+    <input type=submit value="æ äº¤"></form>
     </td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
+    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">è¿”å›</a> --</td>
     </tr>
     ~;
 }
@@ -170,10 +170,10 @@ sub editform {
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 	chomp @jhmp;
 	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("¸ÃÃÅÅÉ²»´æÔÚ£¡"); return;}
+    unless (defined $jhmp[$jhmpid-1]){&errorout("è¯¥é—¨æ´¾ä¸å­˜åœ¨ï¼"); return;}
     ($jhmpname,$jhmpstatus,$jhmporganiger) = split(/\t/,$jhmp[$jhmpid-1]);   
     $jhmpurl=~s/\\//g;
-	$jhmpstatus_select=qq(<option value="1">¿ª·Å£¬ÔÊĞí×ÔÓÉ¼ÓÈë</option><option value="0">Òş²Ø£¬²»ÔÊĞí×ÔÓÉ¼ÓÈë</option>);
+	$jhmpstatus_select=qq(<option value="1">å¼€æ”¾ï¼Œå…è®¸è‡ªç”±åŠ å…¥</option><option value="0">éšè—ï¼Œä¸å…è®¸è‡ªç”±åŠ å…¥</option>);
 	$jhmpstatus_select=~s/ value="$jhmpstatus">/ value="$jhmpstatus" selected>/;
     print qq~
     <script language="javascript">
@@ -184,36 +184,36 @@ sub editform {
     <input type=hidden name="jhmpid" value="$jhmpid">
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-    <font color=#333333><b>ÃÅÅÉÃû³Æ</b><br>ÇëÊäÈëĞÂÃÅÅÉµÄÃû³Æ<BR></font></td>
+    <font color=#333333><b>é—¨æ´¾åç§°</b><br>è¯·è¾“å…¥æ–°é—¨æ´¾çš„åç§°<BR></font></td>
     <td bgcolor=#FFFFFF valign=middle align=left>
     <input type=text size=20 name="jhmpname" value="$jhmpname"></td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-    <font color=#333333><b>ÃÅÅÉ×´Ì¬Âë</b><br>ÇëÑ¡ÔñÃÅÅÉµÄ¿ª·Å×´Ì¬</font></td>
+    <font color=#333333><b>é—¨æ´¾çŠ¶æ€ç </b><br>è¯·é€‰æ‹©é—¨æ´¾çš„å¼€æ”¾çŠ¶æ€</font></td>
     <td bgcolor=#FFFFFF valign=middle align=left>
     <select name="jhmpstatus">$jhmpstatus_select</select>
     </td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-    <font  color=#333333><b>ÃÅÅÉ´´Á¢ÈË</b><br>ÇëÊäÈëÃÅÅÉµÄ´´Á¢ÈË</font></td>
+    <font  color=#333333><b>é—¨æ´¾åˆ›ç«‹äºº</b><br>è¯·è¾“å…¥é—¨æ´¾çš„åˆ›ç«‹äºº</font></td>
     <td bgcolor=#FFFFFF valign=middle align=left>
-    <input type=text size=20 name="jhmporganiger" value="$jhmporganiger"> <input type=button value="¼ì²é" onClick="O9(this.form.jhmporganiger.value)"></td>
+    <input type=text size=20 name="jhmporganiger" value="$jhmporganiger"> <input type=button value="æ£€æŸ¥" onClick="O9(this.form.jhmporganiger.value)"></td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-    <input type=submit value="Ìá ½»"></form>
+    <input type=submit value="æ äº¤"></form>
     </td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
+    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">è¿”å›</a> --</td>
     </tr>
     ~;
 }
 sub createaction {
-    if ($jhmpname eq "" || $jhmporganiger eq ""){&errorout("ÃÅÅÉÃû³Æ¼°´´Á¢ÈË²»ÄÜÎª¿Õ£¡"); return;}
-    if(length($jhmpname)>21) {&errorout("½­ºşÃÅÅÉ¹ı³¤£¬Çë²»Òª³¬¹ı20¸ö×Ö·û£¨10¸öºº×Ö£©£¡"); return;}
+    if ($jhmpname eq "" || $jhmporganiger eq ""){&errorout("é—¨æ´¾åç§°åŠåˆ›ç«‹äººä¸èƒ½ä¸ºç©ºï¼"); return;}
+    if(length($jhmpname)>21) {&errorout("æ±Ÿæ¹–é—¨æ´¾è¿‡é•¿ï¼Œè¯·ä¸è¦è¶…è¿‡20ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰ï¼"); return;}
     $jhmpstatus=($jhmpstatus)?1:0;
     $filetoopen = "$lbdir" . "data/jhmp.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -224,7 +224,7 @@ sub createaction {
 	chomp @jhmp;
 	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
 	@exisjhmp = grep(/^$jhmpname\t[1|0]\t/,@jhmp);
-    if (@exisjhmp){&errorout("¸ÃÃÅÅÉÃû³ÆÒÑ±»Ê¹ÓÃ£¡"); return;}
+    if (@exisjhmp){&errorout("è¯¥é—¨æ´¾åç§°å·²è¢«ä½¿ç”¨ï¼"); return;}
 	
     open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -244,19 +244,19 @@ sub createaction {
     print qq~
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-    <fon color=#2159C9><b>Ôö¼Ó½á¹û</b><p>
-    <li>ĞÂÃÅÅÉ <B>$jhmpname</b> ÒÑ¾­½¨Á¢£¡
-    <br><BR><a href=$thisprog?action=createform>¼ÌĞøÔö¼ÓÃÅÅÉ</a>
+    <fon color=#2159C9><b>å¢åŠ ç»“æœ</b><p>
+    <li>æ–°é—¨æ´¾ <B>$jhmpname</b> å·²ç»å»ºç«‹ï¼
+    <br><BR><a href=$thisprog?action=createform>ç»§ç»­å¢åŠ é—¨æ´¾</a>
     </td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
+    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">è¿”å›</a> --</td>
     </tr>
     ~;
 }
 sub editaction {
-    if ($jhmpname eq "" || $jhmporganiger eq ""){&errorout("ÃÅÅÉÃû³Æ¼°´´Á¢ÈË²»ÄÜÎª¿Õ£¡"); return;}
-    if(length($jhmpname)>21) {&errorout("½­ºşÃÅÅÉ¹ı³¤£¬Çë²»Òª³¬¹ı20¸ö×Ö·û£¨10¸öºº×Ö£©£¡"); return;}
+    if ($jhmpname eq "" || $jhmporganiger eq ""){&errorout("é—¨æ´¾åç§°åŠåˆ›ç«‹äººä¸èƒ½ä¸ºç©ºï¼"); return;}
+    if(length($jhmpname)>21) {&errorout("æ±Ÿæ¹–é—¨æ´¾è¿‡é•¿ï¼Œè¯·ä¸è¦è¶…è¿‡20ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰ï¼"); return;}
     $jhmpstatus=($jhmpstatus)?1:0;
     $filetoopen = "$lbdir" . "data/jhmp.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -266,9 +266,9 @@ sub editaction {
     close(FILE);
 	chomp @jhmp;
 	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("¸ÃÃÅÅÉ²»´æÔÚ£¡"); return;}
+    unless (defined $jhmp[$jhmpid-1]){&errorout("è¯¥é—¨æ´¾ä¸å­˜åœ¨ï¼"); return;}
 	@exisjhmp = grep(/^$jhmpname\t[1|0]\t/,@jhmp);
-#    if (@exisjhmp){&errorout("¸ÃÃÅÅÉÃû³ÆÒÑ±»Ê¹ÓÃ£¡"); return;}
+#    if (@exisjhmp){&errorout("è¯¥é—¨æ´¾åç§°å·²è¢«ä½¿ç”¨ï¼"); return;}
     
     open(FILE,">$filetoopen");
     flock(FILE,2) if ($OS_USED eq "Unix");
@@ -294,12 +294,12 @@ sub editaction {
     print qq~
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-    <fon color=#2159C9><b>±à¼­½á¹û</b><p>
-    <li>ÃÅÅÉ <B>$oldjhmpname</b> ÒÑ¾­¸üĞÂ£¡
+    <fon color=#2159C9><b>ç¼–è¾‘ç»“æœ</b><p>
+    <li>é—¨æ´¾ <B>$oldjhmpname</b> å·²ç»æ›´æ–°ï¼
     </td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
+    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">è¿”å›</a> --</td>
     </tr>
     ~;
 }
@@ -314,22 +314,22 @@ sub deleteaction {
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 	chomp @jhmp;
 	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("¸ÃÃÅÅÉ²»´æÔÚ£¡"); return;}
+    unless (defined $jhmp[$jhmpid-1]){&errorout("è¯¥é—¨æ´¾ä¸å­˜åœ¨ï¼"); return;}
     ($jhmpname,$jhmpstatus,$jhmporganiger) = split(/\t/,$jhmp[$jhmpid-1]);   
     print qq~
     <tr>
     <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-    <font color=#990000><b>¾¯¸æ£¡£¡</b>
+    <font color=#990000><b>è­¦å‘Šï¼ï¼</b>
     </td></tr>
     
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-    <font color=#333333>Èç¹ûÄúÈ·¶¨ÒªÉ¾³ıÃÅÅÉ <u>$jhmpname</u>£¬ÄÇÃ´Çëµã»÷ÏÂÃæÁ´½Ó<p>
-    >> <a href="$thisprog?action=delete&checkaction=yes&jhmpid=$jhmpid">É¾³ıÃÅÅÉ</a> <<
+    <font color=#333333>å¦‚æœæ‚¨ç¡®å®šè¦åˆ é™¤é—¨æ´¾ <u>$jhmpname</u>ï¼Œé‚£ä¹ˆè¯·ç‚¹å‡»ä¸‹é¢é“¾æ¥<p>
+    >> <a href="$thisprog?action=delete&checkaction=yes&jhmpid=$jhmpid">åˆ é™¤é—¨æ´¾</a> <<
     </td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
+    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">è¿”å›</a> --</td>
     </tr>
     ~;
     return;
@@ -343,7 +343,7 @@ sub deleteaction {
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 	chomp @jhmp;
 	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("¸ÃÃÅÅÉ²»´æÔÚ£¡"); return;}
+    unless (defined $jhmp[$jhmpid-1]){&errorout("è¯¥é—¨æ´¾ä¸å­˜åœ¨ï¼"); return;}
 
     open(FILE,">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -368,12 +368,12 @@ sub deleteaction {
     print qq~
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
-    <fon color=#2159C9><b>É¾³ı½á¹û</b><p>
-    <li>ÃÅÅÉ <B>$oldjhmpname</B> ÒÑ±»É¾³ı£¡
+    <fon color=#2159C9><b>åˆ é™¤ç»“æœ</b><p>
+    <li>é—¨æ´¾ <B>$oldjhmpname</B> å·²è¢«åˆ é™¤ï¼
     </td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
+    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">è¿”å›</a> --</td>
     </tr>
     ~;
 }
@@ -383,14 +383,4 @@ sub errorout{
     print qq~
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#990000><b>¹ÜÀí³ÌÊ½³öåe</b>
-    </td>
-    </tr>
-    <tr>
-    <td bgcolor=#FFFFFF align="center" colspan=2><font color=red>$errormsg</font></td>
-    </tr>
-    <tr>
-    <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">·µ»Ø</a> --</td>
-    </tr>
-    ~;
-}
+    <font color=#990000><b>ç®¡ç†ç¨‹å¼å‡º

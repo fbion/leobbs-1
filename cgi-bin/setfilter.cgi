@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -57,7 +57,7 @@ if ($action eq "process") {
 	$userarray =~ s/\r\n/\n/ig;
 	$userarray =~ s/\n+/\n/ig;
 	$userarray =~ s/\n/\t/isg;
-	$userarray =~ s/£ª£££¡£¦£ª//isg;
+	$userarray =~ s/ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 
         @saveduserarray = split(/\t/,$userarray);
         
@@ -70,28 +70,28 @@ if ($action eq "process") {
                 
 		print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333><center><b>ËùÓÐµÄÐÅÏ¢ÒÑ¾­±£´æ</b></center><br><br>
-                <b>ÏÂÁÐ²»Á¼´ÊÓï±»±£´æ£¬ÕâÐ©´Ê»ãÔÚÂÛÌ³ÖÐ½«×Ô¶¯±» ****** Ìæ»»¡£</b><br><br>
+                <font color=#333333><center><b>æ‰€æœ‰çš„ä¿¡æ¯å·²ç»ä¿å­˜</b></center><br><br>
+                <b>ä¸‹åˆ—ä¸è‰¯è¯è¯­è¢«ä¿å­˜ï¼Œè¿™äº›è¯æ±‡åœ¨è®ºå›ä¸­å°†è‡ªåŠ¨è¢« ****** æ›¿æ¢ã€‚</b><br><br>
                 );
                 
                 foreach $user(@saveduserarray) {
                     chomp $user;
                     print qq($user<br>);
                 }
-                print qq(<br><br><br><center><a href="setfilter.cgi">¼ÌÐøÔö¼ÓÒª¹ýÂËµÄ²»Á¼´ÊÓï</a></center>);
+                print qq(<br><br><br><center><a href="setfilter.cgi">ç»§ç»­å¢žåŠ è¦è¿‡æ»¤çš„ä¸è‰¯è¯è¯­</a></center>);
 	}
         else {
 		print qq(
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                    <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#FFFFFF align=center colspan=2>
-                    <font color=#333333><b>ËùÓÐµÄÐÅÏ¢Ã»ÓÐ±£´æ</b><br>ÓÐÎÄ¼þ»òÄ¿Â¼Îª²»¿ÉÐ´£¬ÇëÉèÖÃÊôÐÔ 777 £¡
+                    <font color=#333333><b>æ‰€æœ‰çš„ä¿¡æ¯æ²¡æœ‰ä¿å­˜</b><br>æœ‰æ–‡ä»¶æˆ–ç›®å½•ä¸ºä¸å¯å†™ï¼Œè¯·è®¾ç½®å±žæ€§ 777 ï¼
                     </td></tr></table></td></tr></table>
                 );
 	}
@@ -116,11 +116,11 @@ else {
 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ²»Á¼´ÊÓï¹ýÂË</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ä¸è‰¯è¯è¯­è¿‡æ»¤</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>²»Á¼´ÊÓï¹ýÂË</b>
+                <font color=#333333><b>ä¸è‰¯è¯è¯­è¿‡æ»¤</b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -129,9 +129,9 @@ else {
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#000000>
-                <b>Çë×¢Òâ£º</b> ´Ë¹¦ÄÜÊÇÓÃÀ´¶ÔÒ»Ð©²»Á¼´Ê»ã½øÐÐ¹ýÂË¡£ÕâÑù³öÏÖÕâÐ©²»Á¼´Ê»ãµÄÌû×Ó½«ÎÞ·¨·¢²¼£¡
-                <BR><BR>ÊäÈëµÄÊ±ºò£¬Ã¿ÐÐÊäÈëÒ»¸ö²»Á¼´Ê»ã¼´¿É¡£<BR><BR>
-                ÌØ±ð×¢Òâ£º²»ÔÊÐí¶Ô | ×Ö·û½øÐÐ¹ýÂË¡£<BR><BR>
+                <b>è¯·æ³¨æ„ï¼š</b> æ­¤åŠŸèƒ½æ˜¯ç”¨æ¥å¯¹ä¸€äº›ä¸è‰¯è¯æ±‡è¿›è¡Œè¿‡æ»¤ã€‚è¿™æ ·å‡ºçŽ°è¿™äº›ä¸è‰¯è¯æ±‡çš„å¸–å­å°†æ— æ³•å‘å¸ƒï¼
+                <BR><BR>è¾“å…¥çš„æ—¶å€™ï¼Œæ¯è¡Œè¾“å…¥ä¸€ä¸ªä¸è‰¯è¯æ±‡å³å¯ã€‚<BR><BR>
+                ç‰¹åˆ«æ³¨æ„ï¼šä¸å…è®¸å¯¹ | å­—ç¬¦è¿›è¡Œè¿‡æ»¤ã€‚<BR><BR>
                 </font></td>
                 </tr>
                 
@@ -143,7 +143,7 @@ else {
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <input type=submit name=submit value="Ìá ½»"></td></form></tr></table></td></tr></table>
+                <input type=submit name=submit value="æ äº¤"></td></form></tr></table></td></tr></table>
                 );
                 
 	}

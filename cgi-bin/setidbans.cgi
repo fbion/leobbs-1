@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -75,12 +75,12 @@ if ($action eq "process") {
 		if (($lmembercode eq "ad")||($lmembercode eq "smo")||($lmembercode eq "cmo")||($lmembercode eq "mo")||($lmembercode eq "amo")){
 		    print qq(
 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ID ½ûÖ¹</b>
+<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ID ç¦æ­¢</b>
 </td></tr>
 <tr>
 <td bgcolor=#FFFFFF valign=middle colspan=2>
-<font color=#333333><center><b>ËùÓÐµÄÐÅÏ¢ÒÑ¾­±£´æ</b></center><br><br>
-<b>Äã²»ÄÜ½ûÖ¹ ID:$_,ÒòÎªËû£¨Ëý£©ÊÇ¹ÜÀíÔ±£¡</b><br><br>
+<font color=#333333><center><b>æ‰€æœ‰çš„ä¿¡æ¯å·²ç»ä¿å­˜</b></center><br><br>
+<b>ä½ ä¸èƒ½ç¦æ­¢ ID:$_,å› ä¸ºä»–ï¼ˆå¥¹ï¼‰æ˜¯ç®¡ç†å‘˜ï¼</b><br><br>
 );
 		    print qq~</td></tr></table></body></html>~;
 		    exit;
@@ -107,25 +107,25 @@ if ($action eq "process") {
         if (-e $filetomake && -w $filetomake) {
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ID ½ûÖ¹</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ID ç¦æ­¢</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle colspan=2>
-		<font color=#333333><center><b>ËùÓÐµÄÐÅÏ¢ÒÑ¾­±£´æ</b></center><br><br>
-		<b>ÄãÒÑ¾­½ûÖ¹ÁËÏÂÁÐ ID</b><br><br>
+		<font color=#333333><center><b>æ‰€æœ‰çš„ä¿¡æ¯å·²ç»ä¿å­˜</b></center><br><br>
+		<b>ä½ å·²ç»ç¦æ­¢äº†ä¸‹åˆ— ID</b><br><br>
 		);
                     print qq(<b>$wordarray2display</b><br>);
                 print qq(
-                <br><br><br><center><a href="setidbans.cgi">ÔÙ´ÎÔö¼ÓÒ»Ð©½ûÖ¹µÄ ID</a></center>);
+                <br><br><br><center><a href="setidbans.cgi">å†æ¬¡å¢žåŠ ä¸€äº›ç¦æ­¢çš„ ID</a></center>);
                 }
                 else {
                     print qq(
                     <tr><td bgcolor=#2159C9" colspan=2><font color=#FFFFFF>
-			<b>»¶Ó­À´µ½ LeoBBS ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+			<b>æ¬¢è¿Žæ¥åˆ° LeoBBS è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
 			</td></tr>
 			<tr>
 			<td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-			<font color=#333333><b>ËùÓÐµÄÐÅÏ¢Ã»ÓÐ±£´æ</b><br>ÓÐÎÄ¼þ»òÄ¿Â¼Îª²»¿ÉÐ´£¬ÇëÉèÖÃÊôÐÔ 777 £¡
+			<font color=#333333><b>æ‰€æœ‰çš„ä¿¡æ¯æ²¡æœ‰ä¿å­˜</b><br>æœ‰æ–‡ä»¶æˆ–ç›®å½•ä¸ºä¸å¯å†™ï¼Œè¯·è®¾ç½®å±žæ€§ 777 ï¼
                     	</td></tr></table></td></tr></table>
 		     	);
                     }
@@ -145,22 +145,22 @@ if ($action eq "process") {
                 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ID ½ûÖ¹</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ID ç¦æ­¢</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<font color=#333333><b>ID ½ûÖ¹ÁÐ±í</b>
+		<font color=#333333><b>ID ç¦æ­¢åˆ—è¡¨</b>
 		</td></tr>
 		<form action="$thisprog" method="post">
 		<input type=hidden name="action" value="process">
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle colspan=2>
 		<font color=#000000>
-		<b>Çë×¢Òâ:</b>Èç¹ûÄã½ûÖ¹ÁËÒ»¸ö ID µÄ»°£¬ÄÇÃ´Õâ¸ö ID ½«¶øÎÞ·¨µÇÂ¼£¡<br>
+		<b>è¯·æ³¨æ„:</b>å¦‚æžœä½ ç¦æ­¢äº†ä¸€ä¸ª ID çš„è¯ï¼Œé‚£ä¹ˆè¿™ä¸ª ID å°†è€Œæ— æ³•ç™»å½•ï¼<br>
 		<br>
-		<b>ËµÃ÷:</b><BR>
-		             ÄãÈç¹ûÒª½ûÖ¹Ò»¸ö ID£¬¿ÉÒÔÖ±½ÓÊäÈë ID ÔÚÕâÀï£¬±ÈÈç£º Tom<BR>
-		             Ã¿ÐÐÐ´Ò»¸ö ID£¬×¢Òâ×îºó»Ø³µ£¡<BR><BR>
+		<b>è¯´æ˜Ž:</b><BR>
+		             ä½ å¦‚æžœè¦ç¦æ­¢ä¸€ä¸ª IDï¼Œå¯ä»¥ç›´æŽ¥è¾“å…¥ ID åœ¨è¿™é‡Œï¼Œæ¯”å¦‚ï¼š Tom<BR>
+		             æ¯è¡Œå†™ä¸€ä¸ª IDï¼Œæ³¨æ„æœ€åŽå›žè½¦ï¼<BR><BR>
 	                </font></td>
 		</tr>
 		<tr>
@@ -179,7 +179,7 @@ if ($action eq "process") {
 		</tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<input type=submit name=submit value=Ìá½»></td></form></tr></table></td></tr></table>
+		<input type=submit name=submit value=æäº¤></td></form></tr></table></td></tr></table>
 );
                 
                 }

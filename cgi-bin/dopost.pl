@@ -1,20 +1,20 @@
 ########################
 #
-#ÉÏ´«´¦Àí By Â·Ñî
+#ä¸Šä¼ å¤„ç† By è·¯æ¨
 #
 ########################
 
-sub upfileonpost #Ìá½»µÄÊ±ºò´¦ÀíÁÙÊ±ÎÄ¼şµ½ºÏÊÊµÄµØ·½£º£©¸üĞÂÌû×Ó
+sub upfileonpost #æäº¤çš„æ—¶å€™å¤„ç†ä¸´æ—¶æ–‡ä»¶åˆ°åˆé€‚çš„åœ°æ–¹ï¼šï¼‰æ›´æ–°å¸–å­
 {
   my ($inpost,$inforum,$intopic) = @_;
 
   if ( $$inpost =~/\[UploadFile.{0,6}=tmp_([^\]]+?)\]/is)
   {
     use File::Copy;
-    my $tmppath=&getusrdir(1); #ÁÙÊ±Ä¿Â¼
+    my $tmppath=&getusrdir(1); #ä¸´æ—¶ç›®å½•
 
     $topic =$intopic%100;
-    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #Ä¿µÄÄ¿Â¼
+    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #ç›®çš„ç›®å½•
     mkdir ("${imagesdir}$usrdir/$inforum", 0777) if (!(-e "${imagesdir}$usrdir/$inforum"));
     chmod(0777,"${imagesdir}$usrdir/$inforum");
     mkdir ("$topath", 0777) if (!(-e "$topath"));
@@ -23,40 +23,40 @@ sub upfileonpost #Ìá½»µÄÊ±ºò´¦ÀíÁÙÊ±ÎÄ¼şµ½ºÏÊÊµÄµØ·½£º£©¸üĞÂÌû×Ó
     my $tmpshow=$$inpost;
     while ($tmpshow =~ /\[UploadFile.{0,6}=tmp\_([^\]]+?)\]/i) {
       my $filename = $1;
-      if (!(-e "$tmppath/tmp_$filename")) { $$inpost=~ s/\[UploadFile.{0,6}=tmp\_$filename\]//isg; }  #É¾³ı²»ÔÚµÄÎÄ¼ş
+      if (!(-e "$tmppath/tmp_$filename")) { $$inpost=~ s/\[UploadFile.{0,6}=tmp\_$filename\]//isg; }  #åˆ é™¤ä¸åœ¨çš„æ–‡ä»¶
       else {
     	if ($filename =~ /\.torrent/i) {
 	    copy("$tmppath/tmp_$filename", "$topath/$filename"); unlink("$tmppath/tmp_$filename"); copy("$tmppath/tmp_$filename.btfile", "$topath/$filename.btfile"); unlink("$tmppath/tmp_$filename.btfile");
     	} else {
  	    copy("$tmppath/tmp_$filename", "$topath/$filename"); unlink("$tmppath/tmp_$filename");
     	}
-	$tmpprint = "$tmpprint$filename\n";  #ÒªĞ´½øcacheµÄÄÚÈİ
+	$tmpprint = "$tmpprint$filename\n";  #è¦å†™è¿›cacheçš„å†…å®¹
       }
       $tmpshow =~ s/\[UploadFile.{0,6}=tmp\_$filename\]//isg;
     }
     
-    $$inpost=~ s/(\[UploadFile.{0,6}=)tmp\_(([^\]]+?)\])/$1$2/isg; #¸üĞÂÌû×Ó
+    $$inpost=~ s/(\[UploadFile.{0,6}=)tmp\_(([^\]]+?)\])/$1$2/isg; #æ›´æ–°å¸–å­
 
     mkdir("${lbdir}FileCount/$inforum", 0777) if (!(-e "${lbdir}FileCount/$inforum"));
     chmod(0777,"${lbdir}FileCount/$inforum");
-    open (FILE, ">>${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #Ğ´½øcache
+    open (FILE, ">>${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #å†™è¿›cache
     print FILE "$tmpprint";
     close(FILE);
     my @tmpprint = split(/\n/,$tmpprint);
     $tmpprint = $tmpprint[0];
     my ($up_name,$up_ext) = split(/.*\./,$tmpprint);
-    return $up_ext;  ##ÓĞ¸½¼ş£»¸øBTÇøÁô×öÅĞ¶Ï
+    return $up_ext;  ##æœ‰é™„ä»¶ï¼›ç»™BTåŒºç•™åšåˆ¤æ–­
    }
-  else {return 0; } ###ÎŞ¸½¼şµ±È»ÎŞBT
+  else {return 0; } ###æ— é™„ä»¶å½“ç„¶æ— BT
 }
 
-sub delupfiles #É¾³ıµ±Ç°Ìû×ÓÈ«²¿¸½¼ş£¨±éÀúÌû×Ó·½Ê½£©---É¾³ı»Ø¸´Ê±ºòÓÃ
+sub delupfiles #åˆ é™¤å½“å‰å¸–å­å…¨éƒ¨é™„ä»¶ï¼ˆéå†å¸–å­æ–¹å¼ï¼‰---åˆ é™¤å›å¤æ—¶å€™ç”¨
 {
   my ($inpost,$inforum,$intopic) = @_;
   if ( $$inpost =~/\[UploadFile.{0,6}=([^\]]+?)\]/is)
   {
     $topic =$intopic%100;
-    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #Ä¿µÄÄ¿Â¼
+    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #ç›®çš„ç›®å½•
 
     my $usruploadfile = "${lbdir}FileCount/$inforum/${inforum}\_${intopic}.pl";
     if (open(FILEUP,"$usruploadfile")) 
@@ -67,7 +67,7 @@ sub delupfiles #É¾³ıµ±Ç°Ìû×ÓÈ«²¿¸½¼ş£¨±éÀúÌû×Ó·½Ê½£©---É¾³ı»Ø¸´Ê±ºòÓÃ
     }
 
     my $tmpshow=$$inpost;
-    $tmpshow =~ s/\[UploadFile.{0,6}=tmp\_[^\]]+?\]//isg;  #ÁÙÊ±ÎÄ¼ş²»´¦Àí£¬ÒòÎªÊÇÕâ´ÎÉÏ´«µÄ
+    $tmpshow =~ s/\[UploadFile.{0,6}=tmp\_[^\]]+?\]//isg;  #ä¸´æ—¶æ–‡ä»¶ä¸å¤„ç†ï¼Œå› ä¸ºæ˜¯è¿™æ¬¡ä¸Šä¼ çš„
 
     while ($tmpshow =~ /\[UploadFile.{0,6}=([^\]]+?)\]/i) {
     	my $filename = $1;
@@ -79,14 +79,14 @@ sub delupfiles #É¾³ıµ±Ç°Ìû×ÓÈ«²¿¸½¼ş£¨±éÀúÌû×Ó·½Ê½£©---É¾³ı»Ø¸´Ê±ºòÓÃ
         $tmpshow =~ s/\[UploadFile.{0,6}=([^\]]+?)\]//i;
     }
 #    $tmpshow =~ s/(.*?)(\[UploadFile.{0,6}=[^\]]+?\])(.*?)/$2/isg;
-#    $tmpshow=~ s/\[UploadFile.{0,6}=([^\]]+?(\.torrent))\]/unlink\("$topath\/$1"\)\; unlink\("$topath\/$1\.btfile"\)\;  $tmpprint\=\~ s\/$1\/\/isg\;/isg;  ##É¾³ıBTÎÄ¼ş
+#    $tmpshow=~ s/\[UploadFile.{0,6}=([^\]]+?(\.torrent))\]/unlink\("$topath\/$1"\)\; unlink\("$topath\/$1\.btfile"\)\;  $tmpprint\=\~ s\/$1\/\/isg\;/isg;  ##åˆ é™¤BTæ–‡ä»¶
 #    $tmpshow=~ s/\[UploadFile.{0,6}=([^\]]+?)\]/ unlink\("$topath\/$1"\)\;/isg; ###unlink\("$topath\/$1"\)\;$tmpprint\=\~ s\/$1\/\/isg\;/isg; 
 
 #    $err=0;
  #   eval $tmpshow; #unlink
 #    if ($@) {$err=1;} 
 
-    ### $tmpprint=~ s/$1//isg;  #ÒªĞ´½øcacheµÄÄÚÈİ
+    ### $tmpprint=~ s/$1//isg;  #è¦å†™è¿›cacheçš„å†…å®¹
 
     $$inpost =~ s/\[UploadFile(.{0,6})=(tmp\_[^\]]+?)\]/\[Uploadhtc$1=$2\]/isg;
     $$inpost =~ s/\[UploadFile.{0,6}=(.+?)\]//isg;
@@ -94,7 +94,7 @@ sub delupfiles #É¾³ıµ±Ç°Ìû×ÓÈ«²¿¸½¼ş£¨±éÀúÌû×Ó·½Ê½£©---É¾³ı»Ø¸´Ê±ºòÓÃ
 
     $tmpprint =~ s/\n\n/\n/isg;
     
-    open (FILE, ">${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #Ğ´½øcache
+    open (FILE, ">${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #å†™è¿›cache
     print FILE "$tmpprint";
     close(FILE);
     return $err; 
@@ -102,12 +102,12 @@ sub delupfiles #É¾³ıµ±Ç°Ìû×ÓÈ«²¿¸½¼ş£¨±éÀúÌû×Ó·½Ê½£©---É¾³ı»Ø¸´Ê±ºòÓÃ
   else {return 0; }
 }
 
-sub delallupfiles #É¾³ıµ±Ç°Ö÷ÌùÈ«²¿¸½¼ş,È«²¿É¾³ıµÄÊ±ºòµ÷ÓÃ£¨cache·½Ê½£©
+sub delallupfiles #åˆ é™¤å½“å‰ä¸»è´´å…¨éƒ¨é™„ä»¶,å…¨éƒ¨åˆ é™¤çš„æ—¶å€™è°ƒç”¨ï¼ˆcacheæ–¹å¼ï¼‰
 {
   my ($inforum,$intopic) = @_;
 
     $topic =$intopic%100;
-    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #Ä¿µÄÄ¿Â¼
+    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #ç›®çš„ç›®å½•
 
     my $usruploadfile = "${lbdir}FileCount/$inforum/${inforum}\_${intopic}.pl";
     if (open(FILEUP,"$usruploadfile")) 
@@ -123,15 +123,15 @@ sub delallupfiles #É¾³ıµ±Ç°Ö÷ÌùÈ«²¿¸½¼ş,È«²¿É¾³ıµÄÊ±ºòµ÷ÓÃ£¨cache·½Ê½£©
 
 }
 
-sub moveallupfiles #ÒÆ¶¯/copyµ±Ç°Ö÷ÌùÈ«²¿¸½¼ş,ÒÆ¶¯/copyµÄÊ±ºòµ÷ÓÃ£¨cache·½Ê½£©
+sub moveallupfiles #ç§»åŠ¨/copyå½“å‰ä¸»è´´å…¨éƒ¨é™„ä»¶,ç§»åŠ¨/copyçš„æ—¶å€™è°ƒç”¨ï¼ˆcacheæ–¹å¼ï¼‰
 {
   my ($oldforum,$oldtopic,$newforum,$newtopic,$copy) = @_;
 
     my $topic =$oldtopic%100;
-    my $nowpath = "${imagesdir}$usrdir/$oldforum/$topic"; #Ô­À´Ä¿Â¼
+    my $nowpath = "${imagesdir}$usrdir/$oldforum/$topic"; #åŸæ¥ç›®å½•
 
     $topic =$newtopic%100;
-    my $topath = "${imagesdir}$usrdir/$newforum/$topic"; #Ä¿µÄÄ¿Â¼
+    my $topath = "${imagesdir}$usrdir/$newforum/$topic"; #ç›®çš„ç›®å½•
     mkdir ("${imagesdir}$usrdir/$newforum", 0777) if (!(-e "${imagesdir}$usrdir/$newforum"));
     chmod(0777,"${imagesdir}$usrdir/$newforum");
     mkdir ("$topath", 0777) if (!(-e "$topath"));
@@ -172,7 +172,7 @@ sub moveallupfiles #ÒÆ¶¯/copyµ±Ç°Ö÷ÌùÈ«²¿¸½¼ş,ÒÆ¶¯/copyµÄÊ±ºòµ÷ÓÃ£¨cache·½Ê½£©
 
 }
 
-sub getusrdir #»ñÈ¡ÁÙÊ±ÎÄ¼ş¼Ğ
+sub getusrdir #è·å–ä¸´æ—¶æ–‡ä»¶å¤¹
 {
  my $incanshu=shift;
 # my $tmpname = $inmembername;
@@ -187,30 +187,30 @@ sub getusrdir #»ñÈ¡ÁÙÊ±ÎÄ¼ş¼Ğ
  mkdir ("$pathtocheck", 0777) if (!(-e "$pathtocheck"));
  chmod(0777,"$pathtocheck");
 
- opendir (DIR, "$pathtocheck"); #µÚ1´Î
+ opendir (DIR, "$pathtocheck"); #ç¬¬1æ¬¡
  my @files = readdir(DIR);
  closedir (DIR);
 
- foreach (@files) {unlink("$pathtocheck/$_") if ((-M "$pathtocheck/$_") *86400 > 60*60);} #ÁÙÊ±ÉÏ´«±£Áô60min
+ foreach (@files) {unlink("$pathtocheck/$_") if ((-M "$pathtocheck/$_") *86400 > 60*60);} #ä¸´æ—¶ä¸Šä¼ ä¿ç•™60min
 
 
- opendir (DIR, "$pathtocheck"); #µÚ2´Î
+ opendir (DIR, "$pathtocheck"); #ç¬¬2æ¬¡
  @files = readdir(DIR);
  closedir (DIR);
  $filesno = @files;
  $filesno = $filesno - 2;
  $maxaddnum = 10 if ($maxaddnum eq "" || $maxaddnum < 1);
  if ($incanshu ne 1) {
-     if ($filesno > $maxaddnum && $membercode ne "ad" && $membercode ne "smo") {$pathtocheck = "ERR";} ##Í¬Ê±ÉÏ´«µ½ÁË×î´óÏŞ¶È##{$thisout="Äú½ñÌìÉÏ´«µÄ¶«Î÷Ì«¶àÁË»òÕßÇë²»ÒªÍ¬Ê±ÔÚ¼¸¸öÇøÍ¬Ê±ÉÏ´«£¬Ğ»Ğ»ºÏ×÷";&thisout("$thisoutput");exit;}
+     if ($filesno > $maxaddnum && $membercode ne "ad" && $membercode ne "smo") {$pathtocheck = "ERR";} ##åŒæ—¶ä¸Šä¼ åˆ°äº†æœ€å¤§é™åº¦##{$thisout="æ‚¨ä»Šå¤©ä¸Šä¼ çš„ä¸œè¥¿å¤ªå¤šäº†æˆ–è€…è¯·ä¸è¦åŒæ—¶åœ¨å‡ ä¸ªåŒºåŒæ—¶ä¸Šä¼ ï¼Œè°¢è°¢åˆä½œ";&thisout("$thisoutput");exit;}
  }
  return "$pathtocheck" ;
 }
 
-sub gettmpname #»ñÈ¡ÁÙÊ±ÎÄ¼şÃû×Ö
+sub gettmpname #è·å–ä¸´æ—¶æ–‡ä»¶åå­—
 {
  my $thisname =shift;
- $thisname=uri_escape($thisname); #½¨ÒéÉÏ´«µÄÎÄ¼ş²»Òªº¬ÖĞÎÄ(Â·Ñî)
- $thisname =~ s/%/1/isg;#½¨ÒéÉÏ´«µÄÎÄ¼ş²»Òªº¬ÖĞÎÄ(Â·Ñî)
+ $thisname=uri_escape($thisname); #å»ºè®®ä¸Šä¼ çš„æ–‡ä»¶ä¸è¦å«ä¸­æ–‡(è·¯æ¨)
+ $thisname =~ s/%/1/isg;#å»ºè®®ä¸Šä¼ çš„æ–‡ä»¶ä¸è¦å«ä¸­æ–‡(è·¯æ¨)
  $thisname =~ s/\./2/isg;
  $thisname =~ s/\\/3/isg;
  $thisname =~ s/\//4/isg;
@@ -229,7 +229,7 @@ sub gettmpname #»ñÈ¡ÁÙÊ±ÎÄ¼şÃû×Ö
  $thisname =~ s/[\W]/0/isg;
  $thisname = substr($thisname,0,16) if (length($thisname)>16);
  my $prefix = "tmp";
- if ($thisname=~/^tmp/) {$prefix .= "_up";} #tmp¿ªÍ·×÷ÎªÊ¶±ğ£¬ËùÒÔÈç¹û¿ªÍ·ÊÇtmpÔò¼ÓÉÏupÇ°×º
+ if ($thisname=~/^tmp/) {$prefix .= "_up";} #tmpå¼€å¤´ä½œä¸ºè¯†åˆ«ï¼Œæ‰€ä»¥å¦‚æœå¼€å¤´æ˜¯tmpåˆ™åŠ ä¸Šupå‰ç¼€
  my $thistime =time;
  $thisname = "${prefix}_${thisname}_$thistime";
  return "$thisname";

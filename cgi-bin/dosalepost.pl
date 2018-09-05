@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 sub dosalepost {
@@ -30,16 +30,16 @@ sub dosalepost {
             $allbuyerno = 0 if (($allbuyerno < 0)||($allbuyerno eq ""));
             { @allexege = ($$post =~ /\[buyexege\].*?\[\/buyexege\]/ig); }
             unless ((lc($inmembername) eq lc($membername))||($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||($isbuyer eq "yes")) {
-                $$post=qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[²é¿´Õâ¸öÌû×ÓĞèÒª <b>$1</b> $moneyname£¬Ä¿Ç°ÒÑÓĞ <B>$allbuyerno</B> ÈË¹ºÂò]</FONT><BR><br><script>function salesubmitonce(theform){if (document.all||document.getElementById){for (i=0;i<theform.length;i++){ var tempobj=theform.elements[i]; if(tempobj.type.toLowerCase()=="submit"||tempobj.type.toLowerCase()=="reset") { tempobj.disabled=true; }}}}</script>
-                <FORM action=buypost.cgi method=post onSubmit="salesubmitonce(this)"><input name=inforum type=hidden value=$inforum><input name=intopic type=hidden value=$intopic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="ËãÄãºİ¡£¡£ÎÒÂò£¬ÎÒ¸¶Ç®"></form><BR> ~;
+                $$post=qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[æŸ¥çœ‹è¿™ä¸ªå¸–å­éœ€è¦ <b>$1</b> $moneynameï¼Œç›®å‰å·²æœ‰ <B>$allbuyerno</B> äººè´­ä¹°]</FONT><BR><br><script>function salesubmitonce(theform){if (document.all||document.getElementById){for (i=0;i<theform.length;i++){ var tempobj=theform.elements[i]; if(tempobj.type.toLowerCase()=="submit"||tempobj.type.toLowerCase()=="reset") { tempobj.disabled=true; }}}}</script>
+                <FORM action=buypost.cgi method=post onSubmit="salesubmitonce(this)"><input name=inforum type=hidden value=$inforum><input name=intopic type=hidden value=$intopic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="ç®—ä½ ç‹ ã€‚ã€‚æˆ‘ä¹°ï¼Œæˆ‘ä»˜é’±"></form><BR> ~;
                 $$post .= join ('<BR>', @allexege);
-                $addme="¸½¼ş±£ÃÜ!<br><br>" if ($addme);
+                $addme="é™„ä»¶ä¿å¯†!<br><br>" if ($addme);
 	    } else {
 	    	$buyeroutput = "";
 	    	if ((lc($inmembername) eq lc($membername))||($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")) {
                     if ($allbuyerno > 0 ) {
 	                $buyeroutput = qq~<SCRIPT LANGUAGE="JavaScript">function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & myindex1 != 1) { var newwindow = list.options[myindex1].value; var msgwindow = window.open("profile.cgi?action=show&member=" + newwindow,"",""); } }</SCRIPT><img src=$imagesurl/images/team2.gif width=19 height=19 align=absmiddle><select onchange="surfto(this)">
-<option>¹ºÂòÃûµ¥£º</option><option>------------</option>
+<option>è´­ä¹°åå•ï¼š</option><option>------------</option>
 ~;
 	                foreach (@allbuyer) {
 	                    chomp $_;
@@ -53,8 +53,8 @@ sub dosalepost {
 	                $buyeroutput .= qq~</select></form><BR>\n~;
                     }
                 }
-	        $$post=~s/LBSALE\[(.*?)\]LBSALE/$buyeroutput<font color=$fonthighlight>£¨´ËÌùÊÛ¼Û <B>$1<\/B> $moneyname£¬Ä¿Ç°ÒÑÓĞ <B>$allbuyerno<\/B> ÈË¹ºÂò£©<\/font><br><br>/sg;   
+	        $$post=~s/LBSALE\[(.*?)\]LBSALE/$buyeroutput<font color=$fonthighlight>ï¼ˆæ­¤è´´å”®ä»· <B>$1<\/B> $moneynameï¼Œç›®å‰å·²æœ‰ <B>$allbuyerno<\/B> äººè´­ä¹°ï¼‰<\/font><br><br>/sg;   
 	    }
-	    $$post =~ s/\[buyexege\](.*?)\[\/buyexege\]/<blockquote><font color=$posternamecolor>ÂòÂôÎÄÕÂ×¢½âÄÚÈİ£º <hr noshade size=1>$1<hr noshade size=1><\/blockquote><\/font>/g;
+	    $$post =~ s/\[buyexege\](.*?)\[\/buyexege\]/<blockquote><font color=$posternamecolor>ä¹°å–æ–‡ç« æ³¨è§£å†…å®¹ï¼š <hr noshade size=1>$1<hr noshade size=1><\/blockquote><\/font>/g;
 	}
 1;

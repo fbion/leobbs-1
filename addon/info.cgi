@@ -1,24 +1,24 @@
 #!/usr/bin/perl
 ###################################################
-# LeoBBS Ê×Ò³ÏÔÊ¾ÂÛÌ³ĞÅÏ¢ ver 2.0
+# LeoBBS é¦–é¡µæ˜¾ç¤ºè®ºå›ä¿¡æ¯ ver 2.0
 ###################################################
-# Ê¹ÓÃ°ì·¨£º info.cgi
-# Àı£º ÔÚÄãÖ÷Ò³µÄÊÊµ±Î»ÖÃ¼ÓÈëÒÔÏÂÓï¾ä
+# ä½¿ç”¨åŠæ³•ï¼š info.cgi
+# ä¾‹ï¼š åœ¨ä½ ä¸»é¡µçš„é€‚å½“ä½ç½®åŠ å…¥ä»¥ä¸‹è¯­å¥
 #      <script src="info.cgi"></script>
-#      ÕâÑù¾Í¿ÉÒÔÔÚÏàÓ¦Î»ÖÃÏÔÊ¾Õû¸öÂÛÌ³µÄÒ»Ğ©ĞÅÏ¢
+#      è¿™æ ·å°±å¯ä»¥åœ¨ç›¸åº”ä½ç½®æ˜¾ç¤ºæ•´ä¸ªè®ºå›çš„ä¸€äº›ä¿¡æ¯
 #
-#   Èç¹û²»ĞèÒªÏÔÊ¾ÕâÃ´ÏêÏ¸£¬Çë×Ô¼º¿´Õâ¸ö³ÌĞò×îºóµÄ
-#   Êä³ö²¿·Ö£¬É¾³ıµô²»ÒªÏÔÊ¾µÄĞĞ£¬¾Í¿ÉÒÔÁË¡£
+#   å¦‚æœä¸éœ€è¦æ˜¾ç¤ºè¿™ä¹ˆè¯¦ç»†ï¼Œè¯·è‡ªå·±çœ‹è¿™ä¸ªç¨‹åºæœ€åçš„
+#   è¾“å‡ºéƒ¨åˆ†ï¼Œåˆ é™¤æ‰ä¸è¦æ˜¾ç¤ºçš„è¡Œï¼Œå°±å¯ä»¥äº†ã€‚
 ###################################################
 
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-#  »ùÓÚÉ½Ó¥ºı¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ   #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+#  åŸºäºå±±é¹°ç³Šã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ   #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBoard.com/          #
-#      ÂÛÌ³µØÖ·£º http://www.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBoard.com/          #
+#      è®ºå›åœ°å€ï¼š http://www.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -33,7 +33,7 @@ BEGIN {
 
 #unless ($ENV{'HTTP_REFERER'} =~ /$ENV{'HTTP_HOST'}/) {
 #print "Content-Type:text/html\n\n";
-#print "document.write('<font color=red>¡¡¶Ô²»Æğ£¬²»ÔÊĞí·Ç±¾ÂÛÌ³Ö÷»úµ÷ÓÃ£¡</font>');";
+#print "document.write('<font color=red>ã€€å¯¹ä¸èµ·ï¼Œä¸å…è®¸éæœ¬è®ºå›ä¸»æœºè°ƒç”¨ï¼</font>');";
 #exit;
 #}
 use LBCGI;
@@ -73,16 +73,16 @@ $cleanlastregistered = qq~<a href=$boardurl/profile.cgi?action=show&member=~ . (
 $onlinemaxtime1 =&dateformatshort($onlinemaxtime1 + ($timezone*3600) + ($timedifferencevalue*3600));
 
 $str = "";
-$str.= "ÔÚÏßÈËÊı: $total_users<br>";
-$str.= "×Ü·ÃÎÊÁ¿: $count1<br>";
-$str.= "×Üµã»÷Êı: $count2<br>";
-$str.= "ÔÚÏß·åÖµ: $onlinemax1<br>";
-$str.= "·åÖµÊ±¿Ì: $onlinemaxtime1<br>";
-$str.= "×¢²á»áÔ±: $totalmembers<br>";
-$str.= "Ö÷Ìâ×ÜÊı: $totalthreads<br>";
-$str.= "»Ø¸´×ÜÊı: $totalposts<br>";
-$str.= "Ìù×Ó×ÜÊı: $all<br>";
-$str.= "×îºó¼ÓÃË: $cleanlastregistered<br>";
+$str.= "åœ¨çº¿äººæ•°: $total_users<br>";
+$str.= "æ€»è®¿é—®é‡: $count1<br>";
+$str.= "æ€»ç‚¹å‡»æ•°: $count2<br>";
+$str.= "åœ¨çº¿å³°å€¼: $onlinemax1<br>";
+$str.= "å³°å€¼æ—¶åˆ»: $onlinemaxtime1<br>";
+$str.= "æ³¨å†Œä¼šå‘˜: $totalmembers<br>";
+$str.= "ä¸»é¢˜æ€»æ•°: $totalthreads<br>";
+$str.= "å›å¤æ€»æ•°: $totalposts<br>";
+$str.= "è´´å­æ€»æ•°: $all<br>";
+$str.= "æœ€ååŠ ç›Ÿ: $cleanlastregistered<br>";
 print "document.write('$str')\n";
 exit;
 sub dateformatshort {

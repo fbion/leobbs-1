@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -117,8 +117,8 @@ $typedisplay
 <script language="JavaScript">
 setTimeout("MAINFORM.submit()", 2000);
 </script>
-<tr><td bgcolor=#2159C9><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§Êý¾ÝÖØÖÃ</b></td></tr>
-<tr><td align=center><br>ÒÑ¾­ÖØÖÃÁË$step1¸öÓÃ»§£¬ÏÖÔÚ¿ªÊ¼ÏÂÃæ$prestep¸öÓÃ»§µÄÊý¾ÝÖØÖÃ<BR>Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯Ç°½ø£¬Çë<a href="javascript: MAINFORM.submit()">µã»÷¼ÌÐø</a>¡£</td></tr>~;
+<tr><td bgcolor=#2159C9><font color=#ffffff><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·æ•°æ®é‡ç½®</b></td></tr>
+<tr><td align=center><br>å·²ç»é‡ç½®äº†$step1ä¸ªç”¨æˆ·ï¼ŒçŽ°åœ¨å¼€å§‹ä¸‹é¢$prestepä¸ªç”¨æˆ·çš„æ•°æ®é‡ç½®<BR>å¦‚æžœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‰è¿›ï¼Œè¯·<a href="javascript: MAINFORM.submit()">ç‚¹å‡»ç»§ç»­</a>ã€‚</td></tr>~;
 		}
 
 		else
@@ -130,26 +130,26 @@ setTimeout("MAINFORM.submit()", 2000);
     	unlink ("${lbdir}cache/meminfo/$_");
     }
 			print qq~
-<tr><td bgcolor=#2159C9><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§Êý¾ÝÖØÖÃ</b></td></tr>
-<tr><td align=center><br><b>ÓÃ»§Êý¾ÝÖØÖÃÍê³É!</b></td></tr>~;
+<tr><td bgcolor=#2159C9><font color=#ffffff><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·æ•°æ®é‡ç½®</b></td></tr>
+<tr><td align=center><br><b>ç”¨æˆ·æ•°æ®é‡ç½®å®Œæˆ!</b></td></tr>~;
 		}
 	}
 
 	else
 	{
-		print qq~<form action=$thisprog method=POST onSubmit="return confirm('ÄãÈ·ÈÏÕæµÄÒªÖØÖÃËùÓÐÓÃ»§µÄÊý¾Ý£¿')">
+		print qq~<form action=$thisprog method=POST onSubmit="return confirm('ä½ ç¡®è®¤çœŸçš„è¦é‡ç½®æ‰€æœ‰ç”¨æˆ·çš„æ•°æ®ï¼Ÿ')">
 <input type=hidden name=action value="process">
 <input type=hidden name=step value=1>
-<tr><td bgColor=#2159C9 colSpan=4><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÓÃ»§Êý¾ÝÖØÖÃ</b></td></tr>
-<tr><td bgColor=#ffffff colSpan=4><b>ÇëÑ¡ÔñÒªÖØÖÃµÄÓÃ»§Êý¾Ý</b></td></tr>
-<tr bgColor=#ffffff><td><input type=checkbox name=resettype value="numberofposts"> ·¢ÌûÊýÁ¿</td><td><input type=checkbox name=resettype value="numberofreplys"> »ØÌûÊýÁ¿</td><td><input type=checkbox name=resettype value="postdel"> ±»É¾ÌûÊýÁ¿</td><td><input type=checkbox name=resettype value="rating"> ÍþÍû</td></tr>
-<tr bgColor=#ffffff><td><input type=checkbox name=resettype value="mymoney"> ¶îÍâ½ðÇ®</td><td><input type=checkbox name=resettype value="ebankdata"> ÒøÐÐÊý¾Ý</td><td><input type=checkbox name=resettype value="jifen"> ¶îÍâ»ý·Ö</td><td><input type=checkbox name=resettype value="onlinetime"> ÔÚÏßÊ±¼ä</td></tr>
-<tr bgColor=#ffffff><td><input type=checkbox name=resettype value="userface"> ÐéÄâÐÎÏó</td><td><input type=checkbox name=resettype value="membertitle"> ÓÃ»§Í·ÏÎ</td><td><input type=checkbox name=resettype value="jhmp"> ½­ºþÃÅÅÉ</td><td><input type=checkbox name=resettype value="signature"> ÓÃ»§Ç©Ãû</td></tr>
-<tr bgColor=#ffffff><td colSpan=4> ÆäËûÓÃ»§Êý¾Ý×Ö¶ÎÃû <input type=text size=12 name=resettype> <i>¸ß¼¶Ñ¡Ïî£¬±ÈÈçÌîÐ´ signature ½«Çå¿ÕËùÓÐÓÃ»§Ç©Ãû£¬·ÇÊìÏ¤µÄÇëÁô¿Õ£¬²»ÒªËæ±ãÌîÐ´£¡</i></td></tr>
-<tr bgColor=#ffffff><td colSpan=4> ÆäËûÓÃ»§Êý¾Ý×Ö¶ÎÃû <input type=text size=12 name=resettype> <i>¸ß¼¶Ñ¡Ïî£¬·ÇÊìÏ¤µÄÓÃ»§ÇëÁô¿Õ£¬²»ÒªËæ±ãÌîÐ´£¡</i></td></tr>
-<tr bgColor=#ffffff><td colSpan=4> ÆäËûÓÃ»§Êý¾Ý×Ö¶ÎÃû <input type=text size=12 name=resettype> <i>¸ß¼¶Ñ¡Ïî£¬·ÇÊìÏ¤µÄÓÃ»§ÇëÁô¿Õ£¬²»ÒªËæ±ãÌîÐ´£¡</i></td></tr>
-<tr bgColor=#ffffff><td colSpan=4> Ã¿´ÎÖØÖÃµÄÓÃ»§Êý <input type=text size=4 maxlength=4 name=prestep value=300> Ä¬ÈÏ£º300£¬Èç¹û³öÏÖ°×ÆÁµÈÏÖÏó£¬ÇëÊÊµ±¼õÉÙÕâ¸öÊýÖµ£®</td></tr>
-<tr><td bgColor=#ffffff colSpan=4 align=center><input type=submit value="ÖØ¡¡ÖÃ"></td></tr></form>~;
+<tr><td bgColor=#2159C9 colSpan=4><font color=#ffffff><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ·æ•°æ®é‡ç½®</b></td></tr>
+<tr><td bgColor=#ffffff colSpan=4><b>è¯·é€‰æ‹©è¦é‡ç½®çš„ç”¨æˆ·æ•°æ®</b></td></tr>
+<tr bgColor=#ffffff><td><input type=checkbox name=resettype value="numberofposts"> å‘å¸–æ•°é‡</td><td><input type=checkbox name=resettype value="numberofreplys"> å›žå¸–æ•°é‡</td><td><input type=checkbox name=resettype value="postdel"> è¢«åˆ å¸–æ•°é‡</td><td><input type=checkbox name=resettype value="rating"> å¨æœ›</td></tr>
+<tr bgColor=#ffffff><td><input type=checkbox name=resettype value="mymoney"> é¢å¤–é‡‘é’±</td><td><input type=checkbox name=resettype value="ebankdata"> é“¶è¡Œæ•°æ®</td><td><input type=checkbox name=resettype value="jifen"> é¢å¤–ç§¯åˆ†</td><td><input type=checkbox name=resettype value="onlinetime"> åœ¨çº¿æ—¶é—´</td></tr>
+<tr bgColor=#ffffff><td><input type=checkbox name=resettype value="userface"> è™šæ‹Ÿå½¢è±¡</td><td><input type=checkbox name=resettype value="membertitle"> ç”¨æˆ·å¤´è¡”</td><td><input type=checkbox name=resettype value="jhmp"> æ±Ÿæ¹–é—¨æ´¾</td><td><input type=checkbox name=resettype value="signature"> ç”¨æˆ·ç­¾å</td></tr>
+<tr bgColor=#ffffff><td colSpan=4> å…¶ä»–ç”¨æˆ·æ•°æ®å­—æ®µå <input type=text size=12 name=resettype> <i>é«˜çº§é€‰é¡¹ï¼Œæ¯”å¦‚å¡«å†™ signature å°†æ¸…ç©ºæ‰€æœ‰ç”¨æˆ·ç­¾åï¼Œéžç†Ÿæ‚‰çš„è¯·ç•™ç©ºï¼Œä¸è¦éšä¾¿å¡«å†™ï¼</i></td></tr>
+<tr bgColor=#ffffff><td colSpan=4> å…¶ä»–ç”¨æˆ·æ•°æ®å­—æ®µå <input type=text size=12 name=resettype> <i>é«˜çº§é€‰é¡¹ï¼Œéžç†Ÿæ‚‰çš„ç”¨æˆ·è¯·ç•™ç©ºï¼Œä¸è¦éšä¾¿å¡«å†™ï¼</i></td></tr>
+<tr bgColor=#ffffff><td colSpan=4> å…¶ä»–ç”¨æˆ·æ•°æ®å­—æ®µå <input type=text size=12 name=resettype> <i>é«˜çº§é€‰é¡¹ï¼Œéžç†Ÿæ‚‰çš„ç”¨æˆ·è¯·ç•™ç©ºï¼Œä¸è¦éšä¾¿å¡«å†™ï¼</i></td></tr>
+<tr bgColor=#ffffff><td colSpan=4> æ¯æ¬¡é‡ç½®çš„ç”¨æˆ·æ•° <input type=text size=4 maxlength=4 name=prestep value=300> é»˜è®¤ï¼š300ï¼Œå¦‚æžœå‡ºçŽ°ç™½å±ç­‰çŽ°è±¡ï¼Œè¯·é€‚å½“å‡å°‘è¿™ä¸ªæ•°å€¼ï¼Ž</td></tr>
+<tr><td bgColor=#ffffff colSpan=4 align=center><input type=submit value="é‡ã€€ç½®"></td></tr></form>~;
 	}
 }
 

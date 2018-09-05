@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -22,25 +22,25 @@ $name        = $query -> param('name');
 $title        = $query -> param('ti');
 $title = 'Re:'.$title if($title ne '');
 &waptitle;
-$show.= qq~<head><meta forua="true" http-equiv="Cache-Control" content="max-age=0"/><meta http-equiv="Cache-Control" content="no-cache"/></head><card  title="·¢¶ÌÏûÏ¢">~;
+$show.= qq~<head><meta forua="true" http-equiv="Cache-Control" content="max-age=0"/><meta http-equiv="Cache-Control" content="no-cache"/></head><card  title="å‘çŸ­æ¶ˆæ¯">~;
 $lid = $query -> param('lid');
 &check($lid);
 if($name ne ''){
 	$a="";$c="<postfield name=\"name\" value=\"$name\"/>";
 }else{
-	$a="<p><b>ÊÕ¼şÈË£º</b><input type=\"text\" name=\"name\" value=\"\" /></p>";$c="<postfield name=\"name\" value=\"\$(name)\"/>";
+	$a="<p><b>æ”¶ä»¶äººï¼š</b><input type=\"text\" name=\"name\" value=\"\" /></p>";$c="<postfield name=\"name\" value=\"\$(name)\"/>";
 }
 if($title ne ''){
 	$b="";$d="<postfield name=\"title\" value=\"$title\"/>";
 }else{
-	$b="<p><b>±êÌâ£º</b><input type=\"text\" name=\"title\" value=\"\" /></p>";$d="<postfield name=\"title\" value=\"\$(title)\"/>";
+	$b="<p><b>æ ‡é¢˜ï¼š</b><input type=\"text\" name=\"title\" value=\"\" /></p>";$d="<postfield name=\"title\" value=\"\$(title)\"/>";
 }
-$show.= qq~$a$b<p><b>ÄÚÈİ£º</b><input type="text" name="inpost" value=" "/></p><p><anchor>·¢ËÍ&gt;&gt;<go href="wap_smssave.cgi" method="post">
+$show.= qq~$a$b<p><b>å†…å®¹ï¼š</b><input type="text" name="inpost" value=" "/></p><p><anchor>å‘é€&gt;&gt;<go href="wap_smssave.cgi" method="post">
 <postfield name="inpost" value="\$(inpost)"/>
 <postfield name="lid" value="$lid"/>
 $c
 $d
 </go>
 </anchor></p>~;
-$show.= qq~<p><br/><br/><a href="wap_index.cgi?lid=$lid">·µ»ØÊ×Ò³</a></p>~;
+$show.= qq~<p><br/><br/><a href="wap_index.cgi?lid=$lid">è¿”å›é¦–é¡µ</a></p>~;
 &wapfoot;

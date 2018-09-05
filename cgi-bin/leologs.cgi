@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -56,13 +56,13 @@ if ($action eq "process") {
            unlink $filetoopen;
            print qq~
            <tr><td bgcolor=#2159C9"><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÈÕÖ¾</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤æ—¥å¿—</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center>
-		<font color=#333333><b>ÎÄ¼þÉ¾³ý²Ù×÷ÈÕÖ¾</b>
+		<font color=#333333><b>æ–‡ä»¶åˆ é™¤æ“ä½œæ—¥å¿—</b>
 		</td></tr>
-		<tr><td align=center><br><br>°²È«ÈÕÖ¾ÒÑ¾­É¾³ý!</td></tr>
+		<tr><td align=center><br><br>å®‰å…¨æ—¥å¿—å·²ç»åˆ é™¤!</td></tr>
            ~;
          
                 }
@@ -82,13 +82,13 @@ if ($action eq "process") {
                 
                 print qq(
                 <tr><td bgcolor=#2159C9" colspan=6><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÈÕÖ¾</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤æ—¥å¿—</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=6>
-		<font color=#333333><b>ÎÄ¼þÉ¾³ý²Ù×÷ÈÕÖ¾</b>
+		<font color=#333333><b>æ–‡ä»¶åˆ é™¤æ“ä½œæ—¥å¿—</b>
 		</td></tr>
-		<tr><td>²Ù×÷Õß</td><td>ÃÜÂë</td><td>IPµØÖ·</td><td>´úÀíIP</td><td>²Ù×÷ÂÛÌ³</td><td>²Ù×÷Ê±¼ä</td></tr>
+		<tr><td>æ“ä½œè€…</td><td>å¯†ç </td><td>IPåœ°å€</td><td>ä»£ç†IP</td><td>æ“ä½œè®ºå›</td><td>æ“ä½œæ—¶é—´</td></tr>
 		);
 		foreach (@baddel){
 		(my $name, my $pass, my $ip, my $proxy, my $forums,my $oldtime) = split(/\t/,$_);
@@ -100,7 +100,7 @@ if ($action eq "process") {
                 print qq~
                 <tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=6><br>
-		<font color=#333333><b><a href=$thisprog?action=process>É¾³ý°²È«ÈÕÖ¾</a></b>
+		<font color=#333333><b><a href=$thisprog?action=process>åˆ é™¤å®‰å…¨æ—¥å¿—</a></b>
 		</td></tr>
                 ~;
                 }

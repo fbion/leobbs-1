@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -25,19 +25,19 @@ require "wap.pl";
 require "data/styles.cgi";
 $|++;
 &waptitle;
-$show.= qq~<card  title="±£´æ¶ÌÏûÏ¢">~;
+$show.= qq~<card  title="ä¿å­˜çŸ­æ¶ˆæ¯">~;
 $lid = $query -> param('lid');
 &check($lid);
 $intopictitle        = $query -> param('title');
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername","no");
 }   
 $name     = $query -> param('name');
 $name = $uref->fromUTF8("gb2312",$name);
 &getmember("$name","no");
-    &erroroutout("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &erroroutout("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 $inpost        = $query -> param('inpost');
 $inpost=$uref->fromUTF8("gb2312",$inpost);
 $intopictitle=$uref->fromUTF8("gb2312",$intopictitle);
@@ -60,5 +60,5 @@ $intopictitle = &cleaninput("$intopictitle");
 		}
 		close(FILE);
 		undef @filedata;
-    $show.= qq~<p>³É¹¦·¢ËÍ!<br/><a href="wap_index.cgi?lid=$lid">·µ»ØÊ×Ò³</a></p><p><a href="wap_sms.cgi?lid=$lid">·µ»Ø¶ÌÏûÏ¢</a></p>~;
+    $show.= qq~<p>æˆåŠŸå‘é€!<br/><a href="wap_index.cgi?lid=$lid">è¿”å›é¦–é¡µ</a></p><p><a href="wap_sms.cgi?lid=$lid">è¿”å›çŸ­æ¶ˆæ¯</a></p>~;
 &wapfoot;

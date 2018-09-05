@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -35,19 +35,19 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $query          = $queryme -> param('query');
 
 if (($query eq "")||($query !~ /^[0-9\.]+$/)) {
-    &error("ÆÕÍ¨´íÎó&Çë²»ÒªºúÂÒÊ¹ÓÃ±¾¹¦ÄÜ£¡") ;
+    &error("æ™®é€šé”™è¯¯&è¯·ä¸è¦èƒ¡ä¹±ä½¿ç”¨æœ¬åŠŸèƒ½ï¼") ;
 }
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) {
-    $inmembername = "¿ÍÈË";
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) {
+    $inmembername = "å®¢äºº";
 }
 else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬ÍµÓÃ»§Ãû²»ÍµÃÜÂëÓĞÊ²Ã´ÓÃÄØ£¿") if ($inpassword ne $password);
-    &error("ÆÕÍ¨´íÎó&ÓÃ»§Ã»ÓĞµÇÂ¼»ò×¢²á£¡") if ($userregistered eq "no");  
+    &error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œå·ç”¨æˆ·åä¸å·å¯†ç æœ‰ä»€ä¹ˆç”¨å‘¢ï¼Ÿ") if ($inpassword ne $password);
+    &error("æ™®é€šé”™è¯¯&ç”¨æˆ·æ²¡æœ‰ç™»å½•æˆ–æ³¨å†Œï¼") if ($userregistered eq "no");  
 }
 if (($membercode ne "ad")&&($membercode ne "smo")){
-    &error("ÆÕÍ¨´íÎó&Äã²»ÊÇ±¾ÂÛÌ³µÄÌ³Ö÷»ò×Ü°ßÖñ£¬ËùÒÔ²»ÄÜÊ¹ÓÃ¸Ã¹¦ÄÜ£¡") ;
+    &error("æ™®é€šé”™è¯¯&ä½ ä¸æ˜¯æœ¬è®ºå›çš„å›ä¸»æˆ–æ€»æ–‘ç«¹ï¼Œæ‰€ä»¥ä¸èƒ½ä½¿ç”¨è¯¥åŠŸèƒ½ï¼") ;
 }
 my $host = "sunny.nic.com";
 my $path = "/cgi-bin/whois";
@@ -65,8 +65,8 @@ $out =~ s/<br \/>//isg;
 $out =~ s/<p>.*<\/p>//isg;
 $out =~ s/<hr>(.*)$//isg;
 $out =~ s/<\/pre>(.*)$//isg;
-$out = "²éÑ¯¼ä¸ôÌ«¶Ì£¬ÎŞ·¨»ñÈ¡ÏêÏ¸ĞÅÏ¢£¬ÇëÉÔºóÔÙÊÔ£¡<BR><BR><BR>" if ($out =~ m/Forbidden/);
-$out = qq~LeoBBS WHOIS ÏêÏ¸ĞÅÏ¢($query)£º<BR>Êı¾İÀ´Ô´£º<a href=http://sunny.nic.com/cgi-bin/whois>NIC Whois</a><BR><BR><BR>~ . $out . "<center><hr width=500><font color=black>°æÈ¨ËùÓĞ£º<a href=http://www.leobbs.com target=_blank>À×°Á¿Æ¼¼</a> & <a href=http://bbs.leobbs.com target=_blank>À×°Á¼«¿á³¬¼¶ÂÛÌ³</a>¡¡¡¡Copyright 2003-2004<BR>";
+$out = "æŸ¥è¯¢é—´éš”å¤ªçŸ­ï¼Œæ— æ³•è·å–è¯¦ç»†ä¿¡æ¯ï¼Œè¯·ç¨åå†è¯•ï¼<BR><BR><BR>" if ($out =~ m/Forbidden/);
+$out = qq~LeoBBS WHOIS è¯¦ç»†ä¿¡æ¯($query)ï¼š<BR>æ•°æ®æ¥æºï¼š<a href=http://sunny.nic.com/cgi-bin/whois>NIC Whois</a><BR><BR><BR>~ . $out . "<center><hr width=500><font color=black>ç‰ˆæƒæ‰€æœ‰ï¼š<a href=http://www.leobbs.com target=_blank>é›·å‚²ç§‘æŠ€</a> & <a href=http://bbs.leobbs.com target=_blank>é›·å‚²æé…·è¶…çº§è®ºå›</a>ã€€ã€€Copyright 2003-2004<BR>";
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print $out;
 exit;

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -30,12 +30,12 @@ $|++;
 $query = new LBCGI;
 $action = $query->param('action');
 
-$mypath = mypath(); #    	·µ»Øµ±Ç°µÄ¾ø¶ÔÂ·¾¶ (ÕıÈ·) ×îºóÃ»ÓĞ /
-$myurl  = myurl();  #    	·µ»Øµ±Ç°µÄ URL Â·¾¶ (ÕıÈ·) ×îºóÃ»ÓĞ /
-($html_dir, $html_url) = split(/\|/,myimgdir()); # ·µ»Øµ±Ç°Í¼ÏñÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶ºÍ url Â·¾¶ (²»Ò»¶¨ÕıÈ·) ×îºóÃ»ÓĞ /
+$mypath = mypath(); #    	è¿”å›å½“å‰çš„ç»å¯¹è·¯å¾„ (æ­£ç¡®) æœ€åæ²¡æœ‰ /
+$myurl  = myurl();  #    	è¿”å›å½“å‰çš„ URL è·¯å¾„ (æ­£ç¡®) æœ€åæ²¡æœ‰ /
+($html_dir, $html_url) = split(/\|/,myimgdir()); # è¿”å›å½“å‰å›¾åƒç›®å½•çš„ç»å¯¹è·¯å¾„å’Œ url è·¯å¾„ (ä¸ä¸€å®šæ­£ç¡®) æœ€åæ²¡æœ‰ /
 
 if (-e "$mypath/data/install.lock") {
-    &output("<BR><BR><BR><font size=+1 color=red><center>¾¯¸æ£¡£¡°²×°³ÌĞò±»Ëø¶¨£¬ÎŞ·¨ÖØ¸´°²×°¡£<BR><BR><BR>ÇëÊÖ¹¤É¾³ı data Ä¿Â¼ÏÂµÄ install.lock ÎÄ¼şºóÖØĞÂÔËĞĞ¡£</center></font><BR><BR><BR>");
+    &output("<BR><BR><BR><font size=+1 color=red><center>è­¦å‘Šï¼ï¼å®‰è£…ç¨‹åºè¢«é”å®šï¼Œæ— æ³•é‡å¤å®‰è£…ã€‚<BR><BR><BR>è¯·æ‰‹å·¥åˆ é™¤ data ç›®å½•ä¸‹çš„ install.lock æ–‡ä»¶åé‡æ–°è¿è¡Œã€‚</center></font><BR><BR><BR>");
     exit;
 }
 
@@ -46,25 +46,25 @@ function selectimg(){
 document.bbsimg.src = FORM.imagesurl.value+"/images/teamad.gif";}
 </script>
 <BR>
-¡¡¡¡ÔÚ½øĞĞ°²×°Ç°£¬ÇëÏÈÈ·¶¨ÄúÒÑ¾­ÍêÕûÉÏ´«ÁËÕû¸öÂÛÌ³³ÌĞòºÍÍ¼Æ¬ÎÄ¼ş£¬²¢ÒÑ¾­°´ÕÕÒªÇóÉèÖÃºÃÁËËùÓĞÄ¿Â¼ºÍÎÄ¼şµÄÊôĞÔ¡£<BR>
-¡¡¡¡ÏÂÃæ 1 ºÍ 2 ÖĞµÄÄ¬ÈÏÉèÖÃÊÇÓÉ³ÌĞò×Ô¶¯ÅĞ¶ÏÉú³ÉµÄ£¬ÊÊÓÃÓÚ´ó²¿·Ö°²×°±¾³ÌĞòµÄ¿Í»§£¬Èç¹ûÓĞ´íÎó£¬Çë×ÔĞĞĞŞ¸Ä³ÉÕıÈ·µÄÖµ¡£<BR><BR>
-¡¡¡¡¡î <a href=http://www.leobbs.com/leobbs/buy.asp target=_blank><B>Èç¹ûÒòÎªÄúË®Æ½ÓĞÏŞ¶øÎŞ·¨Õı³£°²×°ºÍÊ¹ÓÃ±¾ÂÛÌ³£¬Çë°´´Ë×¢²á±¾ÂÛÌ³ÉÌÒµ°æ£¬»ñµÃ°²×°Ê¹ÓÃĞ­ÖúµÈ¼¼ÊõÖ§³ÖÓë·şÎñ¡£</B></a><BR><BR>
+ã€€ã€€åœ¨è¿›è¡Œå®‰è£…å‰ï¼Œè¯·å…ˆç¡®å®šæ‚¨å·²ç»å®Œæ•´ä¸Šä¼ äº†æ•´ä¸ªè®ºå›ç¨‹åºå’Œå›¾ç‰‡æ–‡ä»¶ï¼Œå¹¶å·²ç»æŒ‰ç…§è¦æ±‚è®¾ç½®å¥½äº†æ‰€æœ‰ç›®å½•å’Œæ–‡ä»¶çš„å±æ€§ã€‚<BR>
+ã€€ã€€ä¸‹é¢ 1 å’Œ 2 ä¸­çš„é»˜è®¤è®¾ç½®æ˜¯ç”±ç¨‹åºè‡ªåŠ¨åˆ¤æ–­ç”Ÿæˆçš„ï¼Œé€‚ç”¨äºå¤§éƒ¨åˆ†å®‰è£…æœ¬ç¨‹åºçš„å®¢æˆ·ï¼Œå¦‚æœæœ‰é”™è¯¯ï¼Œè¯·è‡ªè¡Œä¿®æ”¹æˆæ­£ç¡®çš„å€¼ã€‚<BR><BR>
+ã€€ã€€â˜† <a href=http://www.leobbs.com/leobbs/buy.asp target=_blank><B>å¦‚æœå› ä¸ºæ‚¨æ°´å¹³æœ‰é™è€Œæ— æ³•æ­£å¸¸å®‰è£…å’Œä½¿ç”¨æœ¬è®ºå›ï¼Œè¯·æŒ‰æ­¤æ³¨å†Œæœ¬è®ºå›å•†ä¸šç‰ˆï¼Œè·å¾—å®‰è£…ä½¿ç”¨ååŠ©ç­‰æŠ€æœ¯æ”¯æŒä¸æœåŠ¡ã€‚</B></a><BR><BR>
 <form action="install.cgi" method=POST name=FORM>
 <input name=action type=hidden value="proceed">
-¡¡<font color=red><B>1.</B> </font><font color=blue>ÉèÖÃ³ÌĞò½Å±¾µÄÂ·¾¶£¨Ò»°ãÇé¿öÏÂ£¬×Ô¶¯ÅĞ¶Ï³ÌĞò»ñµÃÕâÀïµÄÊı¾İ¶¼ÊÇÕıÈ·µÄ£©</font><BR>
-¡¡½Å±¾³ÌĞò(cgi-bin)µÄ°²×°Â·¾¶¡¡¡¡<input name=lbdir type=text size=55 value="$mypath/">¡¡<font color=red>½áÎ²ÓĞ "/"</font><br>
-¡¡½Å±¾³ÌĞò(cgi-bin)µÄ URL Â·¾¶¡¡ <input name=boardurl type=text size=55 value="$myurl">¡¡<font color=red>½áÎ²Ã»ÓĞ "/"</font><br>
+ã€€<font color=red><B>1.</B> </font><font color=blue>è®¾ç½®ç¨‹åºè„šæœ¬çš„è·¯å¾„ï¼ˆä¸€èˆ¬æƒ…å†µä¸‹ï¼Œè‡ªåŠ¨åˆ¤æ–­ç¨‹åºè·å¾—è¿™é‡Œçš„æ•°æ®éƒ½æ˜¯æ­£ç¡®çš„ï¼‰</font><BR>
+ã€€è„šæœ¬ç¨‹åº(cgi-bin)çš„å®‰è£…è·¯å¾„ã€€ã€€<input name=lbdir type=text size=55 value="$mypath/">ã€€<font color=red>ç»“å°¾æœ‰ "/"</font><br>
+ã€€è„šæœ¬ç¨‹åº(cgi-bin)çš„ URL è·¯å¾„ã€€ <input name=boardurl type=text size=55 value="$myurl">ã€€<font color=red>ç»“å°¾æ²¡æœ‰ "/"</font><br>
 <br><br>
-¡¡<font color=red><B>2.</B> </font><font color=blue>ÉèÖÃÍ¼ÏñÎÄ¼şµÄÂ·¾¶£¨Èç¹ûµÚ¶şĞĞµÄ×îºóÓĞĞ¦Á³Í¼µÄ»°£¬¾ÍËµÃ÷µÚ¶şĞĞÌîĞ´µÄÊı¾İÊÇÕıÈ·µÄ£¬·ñÔòÇë×ÔĞĞĞŞ¸ÄÌîĞ´£©</font><BR>
-¡¡Í¼ÏñÎÄ¼ş(non-cgi)µÄ°²×°Â·¾¶¡¡¡¡<input name=imagesdir type=text size=55 value="$html_dir/">¡¡¡¡¡¡<font color=red>½áÎ²ÓĞ "/"</font><br>
-¡¡Í¼ÏñÎÄ¼ş(non-cgi) URL Â·¾¶¡¡ ¡¡<input name=imagesurl type=text size=55 value="$html_url" onChange=selectimg() onkeydown=selectimg() onkeyup=selectimg() onselect=selectimg()> <img name=bbsimg src=$html_url/images/teamad.gif width=16 height=14 title=Èç¹ûÄãÄÜ¿´µ½ÕâÕÅĞ¦Á³Í¼µÄ»°£¬¾ÍËµÃ÷ÕâÀïÌîĞ´µÄÊı¾İÊÇÕıÈ·µÄ>¡¡<font color=red>½áÎ²Ã»ÓĞ "/"</font><br>
+ã€€<font color=red><B>2.</B> </font><font color=blue>è®¾ç½®å›¾åƒæ–‡ä»¶çš„è·¯å¾„ï¼ˆå¦‚æœç¬¬äºŒè¡Œçš„æœ€åæœ‰ç¬‘è„¸å›¾çš„è¯ï¼Œå°±è¯´æ˜ç¬¬äºŒè¡Œå¡«å†™çš„æ•°æ®æ˜¯æ­£ç¡®çš„ï¼Œå¦åˆ™è¯·è‡ªè¡Œä¿®æ”¹å¡«å†™ï¼‰</font><BR>
+ã€€å›¾åƒæ–‡ä»¶(non-cgi)çš„å®‰è£…è·¯å¾„ã€€ã€€<input name=imagesdir type=text size=55 value="$html_dir/">ã€€ã€€ã€€<font color=red>ç»“å°¾æœ‰ "/"</font><br>
+ã€€å›¾åƒæ–‡ä»¶(non-cgi) URL è·¯å¾„ã€€ ã€€<input name=imagesurl type=text size=55 value="$html_url" onChange=selectimg() onkeydown=selectimg() onkeyup=selectimg() onselect=selectimg()> <img name=bbsimg src=$html_url/images/teamad.gif width=16 height=14 title=å¦‚æœä½ èƒ½çœ‹åˆ°è¿™å¼ ç¬‘è„¸å›¾çš„è¯ï¼Œå°±è¯´æ˜è¿™é‡Œå¡«å†™çš„æ•°æ®æ˜¯æ­£ç¡®çš„>ã€€<font color=red>ç»“å°¾æ²¡æœ‰ "/"</font><br>
 <br><br><br>
-¡¡<font color=red><B>3.</B> </font><font color=blue>ÉèÖÃ³õÊ¼»¯¹ÜÀíÔ±£¨Èç¹ûÊÇÉı¼¶°²×°µÄ»°£¬ÄÇÃ´ÕâÀïÊÇÎŞĞèÌîĞ´µÄ£¬ÇëÎñ±ØÁô¿Õ£©</font><BR>
-¡¡³õÊ¼¹ÜÀíÔ±ÓÃ»§Ãû¡¡¡¡<input name=adminname type=text size=14 maxlenght=12>¡¡¡¡¡¡¡¡¿ªÍ·²»ÒªÊ¹ÓÃ¿ÍÈË×ÖÑù£¬Ò²²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©<br>
-¡¡³õÊ¼¹ÜÀíÔ±ÃÜÂë¡¡¡¡¡¡<input name=adminpass type=password size=20>¡¡Ö»ÔÊĞí´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ£¬²»ÄÜÈ«²¿ÊÇÊı×Ö£¬²¢²»µÃÉÙÓÚ8¸ö×Ö·û<br>
-¡¡³õÊ¼¹ÜÀíÔ±ÃÜÂë¡¡¡¡¡¡<input name=adminpass1 type=password size=20>¡¡Çë°´ÕÕÉÏÒ»ĞĞÔÙÖØĞÂÊäÒ»±é£¬ÒÔ±ãÈ·¶¨£¡<br>
+ã€€<font color=red><B>3.</B> </font><font color=blue>è®¾ç½®åˆå§‹åŒ–ç®¡ç†å‘˜ï¼ˆå¦‚æœæ˜¯å‡çº§å®‰è£…çš„è¯ï¼Œé‚£ä¹ˆè¿™é‡Œæ˜¯æ— éœ€å¡«å†™çš„ï¼Œè¯·åŠ¡å¿…ç•™ç©ºï¼‰</font><BR>
+ã€€åˆå§‹ç®¡ç†å‘˜ç”¨æˆ·åã€€ã€€<input name=adminname type=text size=14 maxlenght=12>ã€€ã€€ã€€ã€€å¼€å¤´ä¸è¦ä½¿ç”¨å®¢äººå­—æ ·ï¼Œä¹Ÿä¸è¦è¶…è¿‡12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰<br>
+ã€€åˆå§‹ç®¡ç†å‘˜å¯†ç ã€€ã€€ã€€<input name=adminpass type=password size=20>ã€€åªå…è®¸å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆï¼Œä¸èƒ½å…¨éƒ¨æ˜¯æ•°å­—ï¼Œå¹¶ä¸å¾—å°‘äº8ä¸ªå­—ç¬¦<br>
+ã€€åˆå§‹ç®¡ç†å‘˜å¯†ç ã€€ã€€ã€€<input name=adminpass1 type=password size=20>ã€€è¯·æŒ‰ç…§ä¸Šä¸€è¡Œå†é‡æ–°è¾“ä¸€éï¼Œä»¥ä¾¿ç¡®å®šï¼<br>
 <br><BR>
-<center><input type=submit value=" Éè ¶¨ Íê ±Ï " OnClick="return confirm('È·¶¨ÉèÖÃÕıÈ·²¢±£´æÃ´£¿');"></form>
+<center><input type=submit value=" è®¾ å®š å®Œ æ¯• " OnClick="return confirm('ç¡®å®šè®¾ç½®æ­£ç¡®å¹¶ä¿å­˜ä¹ˆï¼Ÿ');"></form>
 ~;
    &output("$output");
    exit;
@@ -104,13 +104,13 @@ if ($action eq "proceed") {
 	$memfavdir = @memfavdir;
 
 	if (($searchdir > 2)||($memdir > 1)||($msgdir > 1)||($recorddir > 1)||($ftpdir > 1)||($memfavdir > 1)) {
-	    if ($searchdir > 2)    { $output = "search ¿ªÍ·µÄÄ¿Â¼ÓĞÁ½¸ö»òÁ½¸öÒÔÉÏ"; }
-	    elsif ($memdir > 1)    { $output = "members ¿ªÍ·µÄÄ¿Â¼ÓĞÁ½¸ö»òÁ½¸öÒÔÉÏ"; }
-	    elsif ($recorddir > 1) { $output = "record ¿ªÍ·µÄÄ¿Â¼ÓĞÁ½¸ö»òÁ½¸öÒÔÉÏ"; }
-	    elsif ($ftpdir > 1)    { $output = "ftpdata ¿ªÍ·µÄÄ¿Â¼ÓĞÁ½¸ö»òÁ½¸öÒÔÉÏ"; }
-	    elsif ($msgdir > 1)    { $output = "messages ¿ªÍ·µÄÄ¿Â¼ÓĞÁ½¸ö»òÁ½¸öÒÔÉÏ"; }
-	    elsif ($memfavdir > 1) { $output = "memfav ¿ªÍ·µÄÄ¿Â¼ÓĞÁ½¸ö»òÁ½¸öÒÔÉÏ"; }
-	    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>$mypath Ä¿Â¼ÏÂµÄÒÔ $output£¬<BR><BR>ÇëÉ¾³ı¶àÓàµÄ£¬±£³Ö´ËÏà¹ØÄ¿Â¼Ö»ÓĞÒ»¸ö£¬È»ºóÖØĞÂÔËĞĞ°²×°³ÌĞòÒ»´Î¡£</font><BR><BR><BR>");
+	    if ($searchdir > 2)    { $output = "search å¼€å¤´çš„ç›®å½•æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Š"; }
+	    elsif ($memdir > 1)    { $output = "members å¼€å¤´çš„ç›®å½•æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Š"; }
+	    elsif ($recorddir > 1) { $output = "record å¼€å¤´çš„ç›®å½•æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Š"; }
+	    elsif ($ftpdir > 1)    { $output = "ftpdata å¼€å¤´çš„ç›®å½•æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Š"; }
+	    elsif ($msgdir > 1)    { $output = "messages å¼€å¤´çš„ç›®å½•æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Š"; }
+	    elsif ($memfavdir > 1) { $output = "memfav å¼€å¤´çš„ç›®å½•æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Š"; }
+	    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>$mypath ç›®å½•ä¸‹çš„ä»¥ $outputï¼Œ<BR><BR>è¯·åˆ é™¤å¤šä½™çš„ï¼Œä¿æŒæ­¤ç›¸å…³ç›®å½•åªæœ‰ä¸€ä¸ªï¼Œç„¶åé‡æ–°è¿è¡Œå®‰è£…ç¨‹åºä¸€æ¬¡ã€‚</font><BR><BR><BR>");
 	    exit;
 	}
 
@@ -124,65 +124,44 @@ if ($action eq "proceed") {
 	chmod(0777,"$mypath/data");
 	$memdirwritabler = $memdirwritabler1 = $datadirwritabler ="";
 	$makefile = "$mypath/$memdir/test.txt";
-	open (TEST, ">$makefile") or $memdirwritabler = "Ä¿Â¼ $mypath/$memdir Îª²»¿ÉĞ´£¬Çë¸Ä±äÊôĞÔÎª 777 ¡£<BR>";
+	open (TEST, ">$makefile") or $memdirwritabler = "ç›®å½• $mypath/$memdir ä¸ºä¸å¯å†™ï¼Œè¯·æ”¹å˜å±æ€§ä¸º 777 ã€‚<BR>";
 	print TEST "-";
 	close (TEST);
-	$memdirwritabler = "Ä¿Â¼ $mypath/$memdir Îª²»¿ÉĞ´£¬Çë¸Ä±äÊôĞÔÎª 777 ¡£<BR>" if (!(-e "$makefile"));
+	$memdirwritabler = "ç›®å½• $mypath/$memdir ä¸ºä¸å¯å†™ï¼Œè¯·æ”¹å˜å±æ€§ä¸º 777 ã€‚<BR>" if (!(-e "$makefile"));
 	unlink "$makefile";
 	$makefile = "$mypath/$memdir/old/test.txt";
-	open (TEST, ">$makefile") or $memdirwritabler1 = "Ä¿Â¼ $mypath/$memdir/old Îª²»¿ÉĞ´£¬Çë¸Ä±äÊôĞÔÎª 777 ¡£<BR>";
+	open (TEST, ">$makefile") or $memdirwritabler1 = "ç›®å½• $mypath/$memdir/old ä¸ºä¸å¯å†™ï¼Œè¯·æ”¹å˜å±æ€§ä¸º 777 ã€‚<BR>";
 	print TEST "-";
 	close (TEST);
-	$memdirwritabler1 = "Ä¿Â¼ $mypath/$memdir/old Îª²»¿ÉĞ´£¬Çë¸Ä±äÊôĞÔÎª 777 ¡£<BR>" if (!(-e "$makefile"));
+	$memdirwritabler1 = "ç›®å½• $mypath/$memdir/old ä¸ºä¸å¯å†™ï¼Œè¯·æ”¹å˜å±æ€§ä¸º 777 ã€‚<BR>" if (!(-e "$makefile"));
 	unlink "$makefile";
 	$makefile = "$mypath/data/test.txt";
-	open (TEST, ">$makefile") or $datadirwritabler = "Ä¿Â¼ $mypath/data Îª²»¿ÉĞ´£¬Çë¸Ä±äÊôĞÔÎª 777 ¡£<BR>";
+	open (TEST, ">$makefile") or $datadirwritabler = "ç›®å½• $mypath/data ä¸ºä¸å¯å†™ï¼Œè¯·æ”¹å˜å±æ€§ä¸º 777 ã€‚<BR>";
 	print TEST "-";
 	close (TEST);
-	$datadirwritabler = "Ä¿Â¼ $mypath/data Îª²»¿ÉĞ´£¬Çë¸Ä±äÊôĞÔÎª 777 ¡£<BR>" if (!(-e "$makefile"));
+	$datadirwritabler = "ç›®å½• $mypath/data ä¸ºä¸å¯å†™ï¼Œè¯·æ”¹å˜å±æ€§ä¸º 777 ã€‚<BR>" if (!(-e "$makefile"));
 	unlink "$makefile";
 	if (($memdirwritabler ne "")||($memdirwritabler1 ne "")||($datadirwritabler)) {
-	    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>$datadirwritabler$memdirwritabler$memdirwritabler1</font><BR><BR><BR>");
+	    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>$datadirwritabler$memdirwritabler$memdirwritabler1</font><BR><BR><BR>");
 	    exit;
 	}
 
 	chmod(0666,"${lbdir}data/boardinfo.cgi");
 
 	if (!(-e "${lbdir}data/boardinfo.cgi")) {
-	    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>Î´·¢ÏÖ ${lbdir}data/boardinfo.cgi ÎÄ¼ş£¬¿ÉÄÜÄúÊäÈëµÄ *.cgi ½Å±¾µÄ°²×°Â·¾¶´íÎó£¬Çë·µ»ØÖØĞÂÊäÈë¡£</font><BR><BR><BR>");
+	    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>æœªå‘ç° ${lbdir}data/boardinfo.cgi æ–‡ä»¶ï¼Œå¯èƒ½æ‚¨è¾“å…¥çš„ *.cgi è„šæœ¬çš„å®‰è£…è·¯å¾„é”™è¯¯ï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ã€‚</font><BR><BR><BR>");
    	    exit;
 	}
 	if (!(-e "${imagesdir}images/logo.gif")) {
-	    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>Î´·¢ÏÖ ${imagesdir}images/logo.gif ÎÄ¼ş£¬¿ÉÄÜÄúÊäÈëµÄ image Í¼ÏñÎÄ¼şµÄ°²×°Â·¾¶´íÎó£¬Çë·µ»ØÖØĞÂÊäÈë¡£</font><BR><BR><BR>");
+	    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>æœªå‘ç° ${imagesdir}images/logo.gif æ–‡ä»¶ï¼Œå¯èƒ½æ‚¨è¾“å…¥çš„ image å›¾åƒæ–‡ä»¶çš„å®‰è£…è·¯å¾„é”™è¯¯ï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ã€‚</font><BR><BR><BR>");
    	    exit;
 	}
 
 	if (($adminname ne "")&&($adminpass ne "")) {
 		$adminnametemp = $adminname;
 		$adminname =~ s/\&nbsp\;//ig;
-		$adminname =~ s/¡¡/ /g;
-		$adminname =~ s/©¡/ /g;
-		$adminname =~ s/[ ]+/ /g;
-		$adminname =~ s/[ ]+/_/;
-		$adminname =~ s/[_]+/_/;
-		$adminname =~ s/ÿ//isg;
-		$adminname =~ s///isg;
-		$adminname =~ s/¡¡//isg;
-		$adminname =~ s/©¡//isg;
-		$adminname =~ s/()+//isg;
-		$adminname =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]//isg;
-		$adminname =~ s/\s*$//g;
-		$adminname =~ s/^\s*//g;
-		if ($adminnametemp ne $adminname) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>ÄúÊäÈëµÄ¹ÜÀíÔ±ÓÃ»§ÃûÓĞÎÊÌâ£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
-   		    exit;
-		}
-		if ($adminname =~ /^¿ÍÈË/) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>Çë²»ÒªÔÚ¹ÜÀíÔ±ÓÃ»§ÃûµÄ¿ªÍ·ÖĞÊ¹ÓÃ¿ÍÈË×ÖÑù£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
-   		    exit;
-		}
-    		if (length($adminname)>12) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÓÃ»§ÃûÌ«³¤£¬Çë²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
+		$adminname =~ s/ã€€/ /g;
+		$adminname =~ s/<BR><BR><BR>¹ÜÀíÔ±ÓÃ»§ÃûÌ«³¤£¬Çë²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
    		    exit;
     		}
     		if (length($adminname)<2)  {

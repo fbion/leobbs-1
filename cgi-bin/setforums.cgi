@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -38,7 +38,7 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-#&ipbanned; #·âÉ±Ò»Ð© ip
+#&ipbanned; #å°æ€ä¸€äº› ip
 
 $inmembername = $query->cookie("adminname");
 $inpassword   = $query->cookie("adminpass");
@@ -150,8 +150,8 @@ sub dellogs {
                 }
                 close (FILE);
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>É¾³ý¸ÃÇøµÄ°æÎñÈÕÖ¾</b><p>
-<font color=#333333>³ýÁË×îºó50Ìõ¼ÇÂ¼£¬ÆäËûÔçÆÚµÄ°æÎñÈÕÖ¾¼ÍÂ¼ÒÑ¾­É¾³ý!£¡</font>
+<font color=#990000><b>åˆ é™¤è¯¥åŒºçš„ç‰ˆåŠ¡æ—¥å¿—</b><p>
+<font color=#333333>é™¤äº†æœ€åŽ50æ¡è®°å½•ï¼Œå…¶ä»–æ—©æœŸçš„ç‰ˆåŠ¡æ—¥å¿—çºªå½•å·²ç»åˆ é™¤!ï¼</font>
 </td></tr>
 ~;
 }	
@@ -160,8 +160,8 @@ sub delxzb {
     unlink ("${lbdir}data/xzb$inforum.cgi");
     unlink ("${lbdir}data/xzbs$inforum.cgi");
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>É¾³ý¸ÃÇøËùÓÐµÄÐ¡×Ö±¨</b><p>
-<font color=#333333>¸ÃÇøËùÓÐµÄÐ¡×Ö±¨ÒÑ¾­±»É¾³ý£¡</font>
+<font color=#990000><b>åˆ é™¤è¯¥åŒºæ‰€æœ‰çš„å°å­—æŠ¥</b><p>
+<font color=#333333>è¯¥åŒºæ‰€æœ‰çš„å°å­—æŠ¥å·²ç»è¢«åˆ é™¤ï¼</font>
 </td></tr>
 ~;
 }	
@@ -169,8 +169,8 @@ sub delxzb {
 sub delans {
     unlink ("${lbdir}data/news$inforum.cgi");
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>É¾³ý¸ÃÇøËùÓÐµÄ¹«¸æ</b><p>
-<font color=#333333>¸ÃÇøËùÓÐµÄ¹«¸æÒÑ¾­±»É¾³ý£¡</font>
+<font color=#990000><b>åˆ é™¤è¯¥åŒºæ‰€æœ‰çš„å…¬å‘Š</b><p>
+<font color=#333333>è¯¥åŒºæ‰€æœ‰çš„å…¬å‘Šå·²ç»è¢«åˆ é™¤ï¼</font>
 </td></tr>
 ~;
 }	
@@ -189,13 +189,13 @@ sub bakcat {
         unlink ("${lbdir}data/allforums.pl");
         copy("${lbdir}data/allforums.cgi","${lbdir}data/allforums.pl");
         chmod (0666,"${lbdir}data/allforums.pl");
-        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ÜÀí</b></td></tr>
-<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>ËùÓÐ·ÖÀàÒÑ¾­±¸·Ý</b><br>µ±Ç°ÂÛÌ³ $size ¸öÒÑ¾­±¸·Ý£¡</td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç®¡ç†</b></td></tr>
+<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>æ‰€æœ‰åˆ†ç±»å·²ç»å¤‡ä»½</b><br>å½“å‰è®ºå› $size ä¸ªå·²ç»å¤‡ä»½ï¼</td></tr>
 ~;
     }
     else {
-        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ÜÀí</b></td></tr>
-<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>ËùÓÐ·ÖÀàÃ»ÓÐ±¸·Ý</b><br>µ±Ç°ÂÛÌ³·ÖÀàÎÄ¼þÃ»ÓÐÕÒµ½£¬ÇëÊ¹ÓÃÖØÐÂ½¨Á¢ÂÛÌ³Ö÷½çÃæ¹¦ÄÜÒ»´Î£¡</td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç®¡ç†</b></td></tr>
+<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>æ‰€æœ‰åˆ†ç±»æ²¡æœ‰å¤‡ä»½</b><br>å½“å‰è®ºå›åˆ†ç±»æ–‡ä»¶æ²¡æœ‰æ‰¾åˆ°ï¼Œè¯·ä½¿ç”¨é‡æ–°å»ºç«‹è®ºå›ä¸»ç•Œé¢åŠŸèƒ½ä¸€æ¬¡ï¼</td></tr>
 ~;
     }
 }
@@ -210,13 +210,13 @@ sub upcat {
         unlink ("${lbdir}data/allforums.cgi");
         copy("${lbdir}data/allforums.pl","${lbdir}data/allforums.cgi");
         chmod (0666,"${lbdir}data/allforums.cgi");
-        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ÜÀí</b></td></tr>
-<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>ËùÓÐ·ÖÀàÒÑ¾­»¹Ô­</b><br>µ±Ç°ÂÛÌ³ $size ¸öÒÑ¾­»¹Ô­£¡</td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç®¡ç†</b></td></tr>
+<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>æ‰€æœ‰åˆ†ç±»å·²ç»è¿˜åŽŸ</b><br>å½“å‰è®ºå› $size ä¸ªå·²ç»è¿˜åŽŸï¼</td></tr>
 ~;
     }
     else {
-        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ÜÀí</b></td></tr>
-<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>ËùÓÐ·ÖÀàÃ»ÓÐ»¹Ô­</b><br>µ±Ç°±¸·Ý·ÖÀàÎÄ¼þÃ»ÓÐÕÒµ½£¬Ê¹ÓÃ»¹Ô­Ç°ÇëÏÈ±¸·Ý£¡</td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç®¡ç†</b></td></tr>
+<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>æ‰€æœ‰åˆ†ç±»æ²¡æœ‰è¿˜åŽŸ</b><br>å½“å‰å¤‡ä»½åˆ†ç±»æ–‡ä»¶æ²¡æœ‰æ‰¾åˆ°ï¼Œä½¿ç”¨è¿˜åŽŸå‰è¯·å…ˆå¤‡ä»½ï¼</td></tr>
 ~;
     }
     opendir (CATDIR, "${lbdir}cache");
@@ -261,21 +261,21 @@ sub updatecount {
     }
     &winunlock($filetomake) if ($OS_USED eq "Nt");
 
-    print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ÜÀí</b></td></tr>
-<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>ËùÓÐÐÅÏ¢ÒÑ¾­±£´æ</b><br>
-Ö÷Ìâ×ÜÊý£º$totle1 Æª<BR>»Ø¸´×ÜÊý£º$totle2 Æª</td></tr>
+    print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç®¡ç†</b></td></tr>
+<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><br>
+ä¸»é¢˜æ€»æ•°ï¼š$totle1 ç¯‡<BR>å›žå¤æ€»æ•°ï¼š$totle2 ç¯‡</td></tr>
 ~;
 }
 
 sub forumlist {
-    print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÂÛÌ³¹ÜÀí</b></td></tr>
+    print qq~<tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç®¡ç†</b></td></tr>
 <tr><td bgcolor=#FFFFFF colspan=3><font color=#333333>
-<b>£±£®<a href="$thisprog?action=updatecount">ÖØÐÂÍ³¼Æ</a>£º</b><br>¶ÔÕû¸öÂÛÌ³µÄÌù×ÓÖØÐÂÍ³¼Æ×ÜÊý£¬ÕâÑù¿ÉÒÔÐÞ¸´Ê×Ò³ÉÏ×ÜÊýÏÔÊ¾µÄ´íÎó¡£<br><br>
+<b>ï¼‘ï¼Ž<a href="$thisprog?action=updatecount">é‡æ–°ç»Ÿè®¡</a>ï¼š</b><br>å¯¹æ•´ä¸ªè®ºå›çš„è´´å­é‡æ–°ç»Ÿè®¡æ€»æ•°ï¼Œè¿™æ ·å¯ä»¥ä¿®å¤é¦–é¡µä¸Šæ€»æ•°æ˜¾ç¤ºçš„é”™è¯¯ã€‚<br><br>
 </td></tr><tr><td bgcolor=#FFFFFF colspan=3><font color=#333333>
-<b>£²£®<a href="$thisprog?action=bakcat" OnClick="return confirm('È·¶¨±¸·ÝÂÛÌ³·ÖÀàÃ´£¿');">±¸·ÝÂÛÌ³·ÖÀà</a>/<a href="$thisprog?action=upcat" OnClick="return confirm('È·¶¨»¹Ô­ÂÛÌ³·ÖÀàÃ´£¿');">»¹Ô­ÂÛÌ³·ÖÀà</a></b><br>
-¶ÔÕû¸öÂÛÌ³µÄ·ÖÀà½øÐÐ±¸·Ý£¬ÕâÑù¿ÉÒÔÐÞ¸´ËùÓÐÂÛÌ³¶ªÊ§µÄÇé¿ö¡£(ÂÛÌ³Ò²»á×Ô¶¯½øÐÐ±¸·ÝºÍ»Ö¸´)<br><br>
+<b>ï¼’ï¼Ž<a href="$thisprog?action=bakcat" OnClick="return confirm('ç¡®å®šå¤‡ä»½è®ºå›åˆ†ç±»ä¹ˆï¼Ÿ');">å¤‡ä»½è®ºå›åˆ†ç±»</a>/<a href="$thisprog?action=upcat" OnClick="return confirm('ç¡®å®šè¿˜åŽŸè®ºå›åˆ†ç±»ä¹ˆï¼Ÿ');">è¿˜åŽŸè®ºå›åˆ†ç±»</a></b><br>
+å¯¹æ•´ä¸ªè®ºå›çš„åˆ†ç±»è¿›è¡Œå¤‡ä»½ï¼Œè¿™æ ·å¯ä»¥ä¿®å¤æ‰€æœ‰è®ºå›ä¸¢å¤±çš„æƒ…å†µã€‚(è®ºå›ä¹Ÿä¼šè‡ªåŠ¨è¿›è¡Œå¤‡ä»½å’Œæ¢å¤)<br><br>
 </td></tr><tr><td bgcolor=#FFFFFF colspan=3><font color=#333333>
-<b>£³£®×¢ÒâÊÂÏî£º</b><br>ÔÚÏÂÃæ£¬Äú½«¿´µ½Ä¿Ç°ËùÓÐµÄÂÛÌ³·ÖÀà¡£Äú¿ÉÒÔ±à¼­ÂÛÌ³·ÖÀàÃû»òÊÇÔö¼ÓÒ»¸öÐÂµÄÂÛÌ³µ½Õâ¸ö·ÖÀàÖÐ¡£Ò²¿ÉÒÔ±à¼­»òÉ¾³ýÄ¿Ç°´æÔÚµÄÂÛÌ³¡£Äú¿ÉÒÔ¶ÔÄ¿Ç°µÄ·ÖÀàÖØÐÂ½øÐÐÅÅÁÐ¡£<br>
+<b>ï¼“ï¼Žæ³¨æ„äº‹é¡¹ï¼š</b><br>åœ¨ä¸‹é¢ï¼Œæ‚¨å°†çœ‹åˆ°ç›®å‰æ‰€æœ‰çš„è®ºå›åˆ†ç±»ã€‚æ‚¨å¯ä»¥ç¼–è¾‘è®ºå›åˆ†ç±»åæˆ–æ˜¯å¢žåŠ ä¸€ä¸ªæ–°çš„è®ºå›åˆ°è¿™ä¸ªåˆ†ç±»ä¸­ã€‚ä¹Ÿå¯ä»¥ç¼–è¾‘æˆ–åˆ é™¤ç›®å‰å­˜åœ¨çš„è®ºå›ã€‚æ‚¨å¯ä»¥å¯¹ç›®å‰çš„åˆ†ç±»é‡æ–°è¿›è¡ŒæŽ’åˆ—ã€‚<br>
 </td></tr>
 ~;
     $filetoopen = "$lbdir" . "data/allforums.cgi";
@@ -319,24 +319,24 @@ sub forumlist {
         $categoryplace  = sprintf("%01d",$categoryplace);
         if ($categoryplace ne $lastcategoryplace) {
             if ($categoryplace > $highest) { $highest = $categoryplace; }
-            print qq~<tr><td bgcolor=#FFFFFF colspan=3 ><font color=#333333><hr noshade></td></tr><tr><td bgcolor=#EEEEEE width=20% nowrap><font color=#333333>·ÖÀàÃû£º <b>$category</b><td bgcolor=#EEEEEE width=15% align=center nowrap><font color=#333333><a href="$thisprog?action=editcatname&category=$categoryplace">±à¼­·ÖÀàÃû³Æ</a></td><td bgcolor=#EEEEEE width=25%><font color=#333333><a href="$thisprog?action=addforum&category=$categoryplace">Ôö¼ÓÂÛÌ³µ½´Ë·ÖÀàÖÐ</a></font></td></td></tr>~;
+            print qq~<tr><td bgcolor=#FFFFFF colspan=3 ><font color=#333333><hr noshade></td></tr><tr><td bgcolor=#EEEEEE width=20% nowrap><font color=#333333>åˆ†ç±»åï¼š <b>$category</b><td bgcolor=#EEEEEE width=15% align=center nowrap><font color=#333333><a href="$thisprog?action=editcatname&category=$categoryplace">ç¼–è¾‘åˆ†ç±»åç§°</a></td><td bgcolor=#EEEEEE width=25%><font color=#333333><a href="$thisprog?action=addforum&category=$categoryplace">å¢žåŠ è®ºå›åˆ°æ­¤åˆ†ç±»ä¸­</a></font></td></td></tr>~;
         }
    	eval{ require "${lbdir}boarddata/forumposts$forumid.pl";};
         if($category =~/^childforum-[0-9]+/){
-        $temp="×ÓÂÛÌ³Ãû";$addforumline="";$addspace="¡¡";
+        $temp="å­è®ºå›å";$addforumline="";$addspace="ã€€";
         }else{
-        $temp="ÂÛÌ³Ãû";$addforumline=qq~<BR><a href="$thisprog?action=addforum&category=childforum-$forumid">Ôö¼Ó×ÓÂÛÌ³µ½´ËÂÛÌ³ÖÐ</a>~;$addspace="";
+        $temp="è®ºå›å";$addforumline=qq~<BR><a href="$thisprog?action=addforum&category=childforum-$forumid">å¢žåŠ å­è®ºå›åˆ°æ­¤è®ºå›ä¸­</a>~;$addspace="";
         }
        $filerequire = "$lbdir" . "data/style${forumid}.cgi"; 
        if (-e $filerequire) { 
-       $mydelthisstlye = qq~ <a href="forumstyles.cgi?action=delstyle&forum=$forumid">É¾³ý¸ÃÇø×Ô¶¨Òå·ç¸ñ</a> |~; 
-       $mystyle = qq~| <a href="forumstyles.cgi?action=style&forum=$forumid"><font color=red>ÐÞ¸Ä¸ÃÇø·ç¸ñ</font></a>~; 
+       $mydelthisstlye = qq~ <a href="forumstyles.cgi?action=delstyle&forum=$forumid">åˆ é™¤è¯¥åŒºè‡ªå®šä¹‰é£Žæ ¼</a> |~; 
+       $mystyle = qq~| <a href="forumstyles.cgi?action=style&forum=$forumid"><font color=red>ä¿®æ”¹è¯¥åŒºé£Žæ ¼</font></a>~; 
        } 
        else { 
-       $mystyle = qq~| <a href="forumstyles.cgi?action=style&forum=$forumid">Ìí¼Ó¸ÃÇø·ç¸ñ</a>~; 
+       $mystyle = qq~| <a href="forumstyles.cgi?action=style&forum=$forumid">æ·»åŠ è¯¥åŒºé£Žæ ¼</a>~; 
        }
     
-	print qq~<tr><td bgcolor=#FFFFFF colspan=3 nowrap>$addspace<font color=#333333>$temp£º <b>$forumname</b>¡¡<br>$addspaceÖ÷ÌâÊý£º <b>$threads</b>¡¡<-->¡¡<font color=#333333>»Ø¸´Êý£º <b>$posts</b><br><br>$addspace<a href="$thisprog?action=edit&forum=$forumid">±à¼­¸ÃÇø</a> | <a href="$thisprog?action=recount&forum=$forumid">ÖØÐÂ¼ÆËãÖ÷ÌâºÍ»Ø¸´Êý / ÐÞ¸´</a> $mystyle | <a href="$thisprog?action=reorder&forum=$forumid">·ÖÇøÄÚÅÅÐò¸ÃÇø</a><BR>$addspace<a href="$thisprog?action=delxzb&forum=$forumid">É¾³ý¸ÃÇøËùÓÐÐ¡×Ö±¨</a> | <a href="$thisprog?action=delans&forum=$forumid">É¾³ý¸ÃÇøËùÓÐ¹«¸æ</a> | <a href="$thisprog?action=dellogs&forum=$forumid">É¾³ý¸ÃÇø°æÎñÈÕÖ¾</a> | $mydelthisstlye <a href="$thisprog?action=delete&forum=$forumid">É¾³ý¸ÃÇøËùÓÐ×ÊÁÏ</a>$addforumline<BR><BR></td></font></td></tr>~;
+	print qq~<tr><td bgcolor=#FFFFFF colspan=3 nowrap>$addspace<font color=#333333>$tempï¼š <b>$forumname</b>ã€€<br>$addspaceä¸»é¢˜æ•°ï¼š <b>$threads</b>ã€€<-->ã€€<font color=#333333>å›žå¤æ•°ï¼š <b>$posts</b><br><br>$addspace<a href="$thisprog?action=edit&forum=$forumid">ç¼–è¾‘è¯¥åŒº</a> | <a href="$thisprog?action=recount&forum=$forumid">é‡æ–°è®¡ç®—ä¸»é¢˜å’Œå›žå¤æ•° / ä¿®å¤</a> $mystyle | <a href="$thisprog?action=reorder&forum=$forumid">åˆ†åŒºå†…æŽ’åºè¯¥åŒº</a><BR>$addspace<a href="$thisprog?action=delxzb&forum=$forumid">åˆ é™¤è¯¥åŒºæ‰€æœ‰å°å­—æŠ¥</a> | <a href="$thisprog?action=delans&forum=$forumid">åˆ é™¤è¯¥åŒºæ‰€æœ‰å…¬å‘Š</a> | <a href="$thisprog?action=dellogs&forum=$forumid">åˆ é™¤è¯¥åŒºç‰ˆåŠ¡æ—¥å¿—</a> | $mydelthisstlye <a href="$thisprog?action=delete&forum=$forumid">åˆ é™¤è¯¥åŒºæ‰€æœ‰èµ„æ–™</a>$addforumline<BR><BR></td></font></td></tr>~;
         $lastcategoryplace = $categoryplace;
 	undef $mydelthisstlye; 
         undef $mystyle;
@@ -344,7 +344,7 @@ sub forumlist {
     $highest++;
     print qq~<td bgcolor=#FFFFFF colspan=3 ><font color=#333333><hr noshade></td></tr>
 <tr><td bgcolor=#EEEEEE colspan=3 align=center><font color=#333333>
-<a href="$thisprog?action=reordercategories">ÂÛÌ³·ÖÀàÖØÐÂÅÅÐò</a>¡¡¡¡--¡¡¡¡<a href="$thisprog?action=addcategory&category=$highest">Ôö¼Ó·ÖÀà(Í¬Ê±Ôö¼ÓÒ»¸öÂÛÌ³)</a>
+<a href="$thisprog?action=reordercategories">è®ºå›åˆ†ç±»é‡æ–°æŽ’åº</a>ã€€ã€€--ã€€ã€€<a href="$thisprog?action=addcategory&category=$highest">å¢žåŠ åˆ†ç±»(åŒæ—¶å¢žåŠ ä¸€ä¸ªè®ºå›)</a>
 </font></td></tr></tr></table></td></tr></table>
 ~;
 }
@@ -382,9 +382,9 @@ sub recount {
 	    print FILE "\$threads = $topiccount;\n\$posts = $threadcount;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
             close(FILE);
 
-    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ÖØ¼ÆËãÖ÷ÌâºÍ»Ø¸´Êý</b>
+    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é‡è®¡ç®—ä¸»é¢˜å’Œå›žå¤æ•°</b>
 </td></tr><tr><td bgcolor=#FFFFFF colspan=2><font color=#990000>
-<center><b>ÂÛÌ³¸üÐÂ³É¹¦</b></center><p>Ö÷ÌâÊý£º $topiccount<p>»Ø¸´Êý£º $threadcount
+<center><b>è®ºå›æ›´æ–°æˆåŠŸ</b></center><p>ä¸»é¢˜æ•°ï¼š $topiccount<p>å›žå¤æ•°ï¼š $threadcount
 </td></tr></table></td></tr></table>
 ~;
 }
@@ -393,7 +393,7 @@ sub addforum {
 
         print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / Ôö¼ÓÂÛÌ³</b>
+        <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢žåŠ è®ºå›</b>
         </td></tr>
         ~;
 
@@ -413,7 +413,7 @@ sub addforum {
             ($trash, $tempcategoryname, $tempcategoryplace, $trash) = split(/\t/, $_);
             if ($incategory eq $tempcategoryplace && $tempcategoryname !~/childforum-[0-9]+/) {
                 $category = $tempcategoryname;
-                $categoryn = "ÔÚ '$tempcategoryname' ·ÖÀàÖÐÔö¼ÓÐÂµÄÂÛÌ³";
+                $categoryn = "åœ¨ '$tempcategoryname' åˆ†ç±»ä¸­å¢žåŠ æ–°çš„è®ºå›";
             }
         }
 	}else{
@@ -422,8 +422,8 @@ sub addforum {
             if ($incategory eq "childforum-$tempforumno") {
                 $category = $incategory;
                 $incategory = $tempcategoryplace;
-                $categoryn = "ÔÚ '$tempforumname' ÖÐÔö¼ÓÐÂµÄ×ÓÂÛÌ³";
-		$modiii = "<BR><font color=blue>×ÓÂÛÌ³»á×Ô¶¯¼Ì³Ð¸¸ÂÛÌ³µÄ°ßÖñ£¬ËùÒÔ×¢Òâ²»ÒªÖØ¸´ÊäÈë°ßÖñ</font>";
+                $categoryn = "åœ¨ '$tempforumname' ä¸­å¢žåŠ æ–°çš„å­è®ºå›";
+		$modiii = "<BR><font color=blue>å­è®ºå›ä¼šè‡ªåŠ¨ç»§æ‰¿çˆ¶è®ºå›çš„æ–‘ç«¹ï¼Œæ‰€ä»¥æ³¨æ„ä¸è¦é‡å¤è¾“å…¥æ–‘ç«¹</font>";
             }
         }
 	}
@@ -446,90 +446,90 @@ sub addforum {
         <input type=hidden name="action" value="processnew">       
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³Ãû³Æ</b><br>ÇëÊäÈëÐÂÂÛÌ³µÄÃû³Æ<BR>(Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ)</font></td>
+        <font color=#333333><b>è®ºå›åç§°</b><br>è¯·è¾“å…¥æ–°è®ºå›çš„åç§°<BR>(è¯·æŽ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…)</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forumname" value="$forumname" maxlength=40></td>
         </tr>       
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³ÃèÊö</b><br>ÇëÊäÈëÐÂÂÛÌ³µÄÃèÊö£¬Ö§³Ö HTML Óï·¨</font></td>
+        <font color=#333333><b>è®ºå›æè¿°</b><br>è¯·è¾“å…¥æ–°è®ºå›çš„æè¿°ï¼Œæ”¯æŒ HTML è¯­æ³•</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forumdescription" value="$forumdescription"></td>
         </tr>   
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³°æÖ÷</b><br>ÇëÊäÈëÂÛÌ³°æÖ÷£¬Èç¹ûÄúÏ£ÍûÓÐ¶à¸ö°æÖ÷£¬ÇëÊ¹ÓÃ "," (Ó¢ÎÄ¶ººÅ£¬²»ÊÇÖÐÎÄ¶ººÅ)¸ô¿ª¡£<BR><B>ÀýÈç</B>£ºÉ½Ó¥, »¨ÎÞÈ±</font></td>
+        <font color=#333333><b>è®ºå›ç‰ˆä¸»</b><br>è¯·è¾“å…¥è®ºå›ç‰ˆä¸»ï¼Œå¦‚æžœæ‚¨å¸Œæœ›æœ‰å¤šä¸ªç‰ˆä¸»ï¼Œè¯·ä½¿ç”¨ "," (è‹±æ–‡é€—å·ï¼Œä¸æ˜¯ä¸­æ–‡é€—å·)éš”å¼€ã€‚<BR><B>ä¾‹å¦‚</B>ï¼šå±±é¹°, èŠ±æ— ç¼º</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forummoderator" value="$forummoderator">$modiii</td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÊ¹ÓÃ HTML ±êÇ©£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½¿ç”¨ HTML æ ‡ç­¾ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="htmlstate">
-        <option value="on">Ê¹ÓÃ<option value="off" selected>²»Ê¹ÓÃ</select>
+        <option value="on">ä½¿ç”¨<option value="off" selected>ä¸ä½¿ç”¨</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÊ¹ÓÃ LeoBBS ±êÇ©£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½¿ç”¨ LeoBBS æ ‡ç­¾ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="idmbcodestate">
-        <option value="on" selected>Ê¹ÓÃ<option value="off">²»Ê¹ÓÃ</select>
+        <option value="on" selected>ä½¿ç”¨<option value="off">ä¸ä½¿ç”¨</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñ×÷ÎªË½ÓÐÂÛÌ³£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½œä¸ºç§æœ‰è®ºå›ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="privateforum">
-        <option value="yes">ÊÇ<option value="no" selected>·ñ</select> ¶ÔÌ³Ö÷ºÍ×Ü°ßÖñÎÞÐ§
+        <option value="yes">æ˜¯<option value="no" selected>å¦</select> å¯¹å›ä¸»å’Œæ€»æ–‘ç«¹æ— æ•ˆ
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>Ë½ÓÐÂÛÌ³ÃÜÂë</b>(Ö»¶ÔË½ÓÐÂÛÌ³ÓÐÐ§)</font></td>
+        <font color=#333333><b>ç§æœ‰è®ºå›å¯†ç </b>(åªå¯¹ç§æœ‰è®ºå›æœ‰æ•ˆ)</font></td>
         <td bgcolor=#FFFFFF>
-       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> ¶ÔÌ³Ö÷ºÍ×Ü°ßÖñÎÞÐ§</td>
+       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> å¯¹å›ä¸»å’Œæ€»æ–‘ç«¹æ— æ•ˆ</td>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÒþ²ØÂÛÌ³£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦éšè—è®ºå›ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="hiddenforum">
-        <option value="yes">ÊÇ<option value="no" selected>·ñ</select>
+        <option value="yes">æ˜¯<option value="no" selected>å¦</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÏÔÊ¾µ¼º½À¸£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦æ˜¾ç¤ºå¯¼èˆªæ ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="indexforum">
-        <option value="yes" selected>ÊÇ<option value="no" >·ñ</select>
+        <option value="yes" selected>æ˜¯<option value="no" >å¦</select>
         </td>
         </tr>
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³ÐÔÖÊ</b><br>1. Õý¹æÂÛÌ³-Ö»ÔÊÐí×¢²á»áÔ±·¢ÑÔ<br>2. ¿ª·ÅÂÛÌ³-ÔÊÐíËùÓÐÈË·¢ÑÔ<br>3. ÆÀÂÛÂÛÌ³-Ì³Ö÷ºÍ°æÖ÷ÔÊÐí·¢ÑÔ£¬ÆäËû×¢²áÓÃ»§Ö»ÄÜ»Ø¸´<br>4. ¾«»ªÇø-Ö»ÔÊÐí°æÖ÷ºÍÌ³Ö÷·¢ÑÔºÍ²Ù×÷<br>5. ÈÏÖ¤ÂÛÌ³-³ýÌ³Ö÷ºÍ°æÖ÷Íâ£¬ÆäËû×¢²áÓÃ»§·¢ÑÔÐèÒªÈÏÖ¤<br>6. ´¿×ÓÂÛÌ³-ÀïÃæÖ»ÓÐ×ÓÂÛÌ³£¬¶ø¸¸ÂÛÌ³²»ÔÊÐí·¢Ìù»Ø¸´<br></font></td>
+        <font color=#333333><b>è®ºå›æ€§è´¨</b><br>1. æ­£è§„è®ºå›-åªå…è®¸æ³¨å†Œä¼šå‘˜å‘è¨€<br>2. å¼€æ”¾è®ºå›-å…è®¸æ‰€æœ‰äººå‘è¨€<br>3. è¯„è®ºè®ºå›-å›ä¸»å’Œç‰ˆä¸»å…è®¸å‘è¨€ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·åªèƒ½å›žå¤<br>4. ç²¾åŽåŒº-åªå…è®¸ç‰ˆä¸»å’Œå›ä¸»å‘è¨€å’Œæ“ä½œ<br>5. è®¤è¯è®ºå›-é™¤å›ä¸»å’Œç‰ˆä¸»å¤–ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·å‘è¨€éœ€è¦è®¤è¯<br>6. çº¯å­è®ºå›-é‡Œé¢åªæœ‰å­è®ºå›ï¼Œè€Œçˆ¶è®ºå›ä¸å…è®¸å‘è´´å›žå¤<br></font></td>
         <td bgcolor=#FFFFFF>
         <select name="startnewthreads">
-        <option value="yes" selected>Õý¹æÂÛÌ³<option value="all">¿ª·ÅÂÛÌ³<option value="follow">ÆÀÂÛÂÛÌ³<option value="no">¾«»ªÇø<option value="cert">ÈÏÖ¤ÂÛÌ³<option value="onlysub">´¿×ÓÂÛÌ³</select>
+        <option value="yes" selected>æ­£è§„è®ºå›<option value="all">å¼€æ”¾è®ºå›<option value="follow">è¯„è®ºè®ºå›<option value="no">ç²¾åŽåŒº<option value="cert">è®¤è¯è®ºå›<option value="onlysub">çº¯å­è®ºå›</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³Í¼Æ¬£¨Ö§³ÖFLASH£©</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ£¬±»ÓÃÀ´·ÅÖÃÔÚÂÛÌ³Ò³Ãæ×óÉÏ·½£¬´óÐ¡Çë¿ØÖÆÔÚ 160*60 ÒÔÄÚ¡£<BR><b>Çë²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333><b>è®ºå›å›¾ç‰‡ï¼ˆæ”¯æŒFLASHï¼‰</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹ï¼Œè¢«ç”¨æ¥æ”¾ç½®åœ¨è®ºå›é¡µé¢å·¦ä¸Šæ–¹ï¼Œå¤§å°è¯·æŽ§åˆ¶åœ¨ 160*60 ä»¥å†…ã€‚<BR><b>è¯·ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=20 name="forumgraphic" value="logo.gif">
 ~;
@@ -556,49 +556,49 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.image2.value;}
 function select3(){
 document.bbsimg.src = FORM.addme.value;}
 </script>
-<select name="image" onChange=select()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+<select name="image" onChange=select()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
         </tr>
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³FLASH¶¯»­¸ß¶È¡¢¿í¶È</b><br>ÇëÕýÈ·ÊäÈëFLASH¶¯»­µÄ¸ß¶È¼°¿í¶È¡£<BR></font></td>
+        <font color=#333333><b>è®ºå›FLASHåŠ¨ç”»é«˜åº¦ã€å®½åº¦</b><br>è¯·æ­£ç¡®è¾“å…¥FLASHåŠ¨ç”»çš„é«˜åº¦åŠå®½åº¦ã€‚<BR></font></td>
         <td bgcolor=#FFFFFF>
-        ¿í¶È£º<input type=text size=3 name="fgwidth">¡¡¡¡¸ß¶È£º<input type=text size=3 name="fgwidth1"></td>
+        å®½åº¦ï¼š<input type=text size=3 name="fgwidth">ã€€ã€€é«˜åº¦ï¼š<input type=text size=3 name="fgwidth1"></td>
         </tr>
                
 	<tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍ¼Æ¬</b>(Èç¹ûÃ»ÓÐ£¬Çë±£³ÖÔ­Ñù)<br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼Æ¬±»ÓÃÀ´·ÅÖÃÔÚÊ×Ò³ÃæÏÂ¡£<BR><b>²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333><b>é˜Ÿä¼å›¾ç‰‡</b>(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ä¿æŒåŽŸæ ·)<br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾ç‰‡è¢«ç”¨æ¥æ”¾ç½®åœ¨é¦–é¡µé¢ä¸‹ã€‚<BR><b>ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
-        <input type=text size=20 name="teamlogo" value=""> <select name="image2" onChange=select2()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+        <input type=text size=20 name="teamlogo" value=""> <select name="image2" onChange=select2()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
         </tr> 
          
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍ¼Æ¬FLASH¶¯»­¸ß¶È¡¢¿í¶È</b><br>ÇëÕýÈ·ÊäÈëFLASH¶¯»­µÄ¸ß¶È¼°¿í¶È¡£<BR></font></td>
+        <font color=#333333><b>é˜Ÿä¼å›¾ç‰‡FLASHåŠ¨ç”»é«˜åº¦ã€å®½åº¦</b><br>è¯·æ­£ç¡®è¾“å…¥FLASHåŠ¨ç”»çš„é«˜åº¦åŠå®½åº¦ã€‚<BR></font></td>
         <td bgcolor=#FFFFFF>
-        ¿í¶È£º<input type=text size=3 name="fgheight">¡¡¡¡¸ß¶È£º<input type=text size=3 name="fgheight1"></td>
+        å®½åº¦ï¼š<input type=text size=3 name="fgheight">ã€€ã€€é«˜åº¦ï¼š<input type=text size=3 name="fgheight1"></td>
         </tr>
 
 	<tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÉÏ´«ÂÛÌ³/¶ÓÎéÍ¼Æ¬</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼Æ¬±»ÓÃ×÷ÂÛÌ³Í¼Æ¬/¶ÓÎéÍ¼Æ¬¡£</font></td>
+        <font color=#333333><b>ä¸Šä¼ è®ºå›/é˜Ÿä¼å›¾ç‰‡</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾ç‰‡è¢«ç”¨ä½œè®ºå›å›¾ç‰‡/é˜Ÿä¼å›¾ç‰‡ã€‚</font></td>
         <td bgcolor=#FFFFFF>
-        <input type="file" size=20 name="addme" onchange="select3()"><br>Ö§³ÖÀàÐÍ£ºgif¡¢jpg¡¢bmp¡¢png¡¢swf</td>
+        <input type="file" size=20 name="addme" onchange="select3()"><br>æ”¯æŒç±»åž‹ï¼šgifã€jpgã€bmpã€pngã€swf</td>
         </tr> 
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍøÖ·</b>(Èç¹ûÃ»ÓÐ£¬Çë±£³ÖÔ­Ñù)<br>ÓÃÀ´×öÉÏÃæÂÛÌ³Í¼Æ¬µÄµØÖ·Á´½Ó</td>
+        <font color=#333333><b>é˜Ÿä¼ç½‘å€</b>(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ä¿æŒåŽŸæ ·)<br>ç”¨æ¥åšä¸Šé¢è®ºå›å›¾ç‰‡çš„åœ°å€é“¾æŽ¥</td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="teamurl" value="http://"></td>
         </tr><tr>
         <td bgcolor=#FFFFFF colspan=2>
-<font color=#333333><b>Í¼ÏñÔ¤ÀÀ(²»Ö§³Ö Flash)</b></font><br><IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle" onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333"></td>
+<font color=#333333><b>å›¾åƒé¢„è§ˆ(ä¸æ”¯æŒ Flash)</b></font><br><IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle" onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333"></td>
         </tr>
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 } # end route   
@@ -609,10 +609,10 @@ document.bbsimg.src = FORM.addme.value;}
 
 
 sub createforum {
-#		&errorout("±£ÃÜÂÛÌ³£¬ÃÜÂë²»ÄÜ¿Õ£¡£¡") if (($new_privateforum eq "yes")&&($new_forumpass eq ""));
-		&errorout("¶Ô²»Æð£¬ÂÛÌ³Ãû×Ö¹ý³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_forumname) >40);
-		&errorout("ÂÛÌ³Ãû×Ö²»ÄÜ¿Õ£¡£¡") if ($new_forumname eq "");
-		&errorout("ÂÛÌ³ÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_forumdescription eq "");
+#		&errorout("ä¿å¯†è®ºå›ï¼Œå¯†ç ä¸èƒ½ç©ºï¼ï¼") if (($new_privateforum eq "yes")&&($new_forumpass eq ""));
+		&errorout("å¯¹ä¸èµ·ï¼Œè®ºå›åå­—è¿‡é•¿ï¼Œè¯·æŽ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_forumname) >40);
+		&errorout("è®ºå›åå­—ä¸èƒ½ç©ºï¼ï¼") if ($new_forumname eq "");
+		&errorout("è®ºå›æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_forumdescription eq "");
 		$new_privateforum = "yes" if ($new_forumpass ne "");
 
 &douppics();
@@ -688,10 +688,10 @@ foreach $_ (@molist){
     $_ =~ s/ /\_/g;
     $_ =~ tr/A-Z/a-z/;
     next if ($_ eq "");
-    next if (($_ =~ /³ÏÆ¸ÖÐ/i)||($_ =~ /°ßÖñ/i)||($_ =~ /È«Ìå¹ÜÀíÈËÔ±/i)||($_ =~ /¹ÜÀíÔ±/i)||($_ =~ /ÔÝÊ±¿ÕÈ±/i)||($_ =~ /°æÖ÷/i)||($_ =~ /Ì³Ö÷/i));
+    next if (($_ =~ /è¯šè˜ä¸­/i)||($_ =~ /æ–‘ç«¹/i)||($_ =~ /å…¨ä½“ç®¡ç†äººå‘˜/i)||($_ =~ /ç®¡ç†å‘˜/i)||($_ =~ /æš‚æ—¶ç©ºç¼º/i)||($_ =~ /ç‰ˆä¸»/i)||($_ =~ /å›ä¸»/i));
     my $namenumber = &getnamenumber($_);
     &checkmemfile($_,$namenumber);
-    if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { &winunlock($filetoopen) if ($OS_USED eq "Nt"); &errorout("ÂÛÌ³°æÖ÷Ãûµ¥ÖÐ£¬$_ Õâ¸öÓÃ»§ ID ÊÇ²»´æÔÚµÄ£¡");}
+    if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { &winunlock($filetoopen) if ($OS_USED eq "Nt"); &errorout("è®ºå›ç‰ˆä¸»åå•ä¸­ï¼Œ$_ è¿™ä¸ªç”¨æˆ· ID æ˜¯ä¸å­˜åœ¨çš„ï¼");}
 }
 
                 $filetomake1 = "$dirtomake/foruminfo.cgi";
@@ -713,43 +713,38 @@ foreach $_ (@molist){
                     ($tempforumno,undef,$tempcategorynumber)=split(/\t/,$line);
                     print FILE "$line\n";
                     if($new_categoryname =~/childforum-[0-9]+/){
-                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t\n" if($new_categoryname eq "childforum-$tempforumno");
-                $Get=1;
-                    }
-                    }
-                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t\n" if($new_categoryname !~/childforum-[0-9]+/);
+                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_
+                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t";
                 close(FILE);
-#	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-	    open(FILE, ">${lbdir}boarddata/forumposts$newforumid.pl");
-	    print FILE "\$threads = 0;\n\$posts = 0;\n\$todayforumpost = \"0\";\n1;\n";
-            close(FILE);
+                $filetoopen = "$lbdir" . "data/allforums.cgi";
+#		&winlock($filetoopen) if ($OS_USED eq "Nt");
+                open(FILE, "$filetoopen");
+#	        flock(FILE, 1) if ($OS_USED eq "Unix");
+                @forums = <FILE>;
+                close(FILE);
 
-                print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / Ôö¼ÓÂÛÌ³½á¹û</b>
-                </td></tr>
-                <tr>
-                <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>
-                ~;
-
-                print "<b>ÏêÏ¸×ÊÁÏ</b><p>\n";
-                print "<ul>\n";
-                if (-e $dirtomake) {
-                print "<li><b>ÐÂÂÛÌ³Ä¿Â¼ÒÑ¾­½¨Á¢</b><p>\n";
+                open(FILE, ">$filetoopen");
+                flock(FILE, 2) if ($OS_USED eq "Unix");
+                foreach $line (@forums) {
+                    chomp $line;
+                    ($tempforumno,undef,$tempcategorynumber)=split(/\t/,$line);
+                    print FILE "$line\n";
+                    if($new_categoryname =~/childforum-[0-9]+/){
+                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_           if (-e $dirtomake) {
+                print "<li><b>æ–°è®ºå›ç›®å½•å·²ç»å»ºç«‹</b><p>\n";
                     }
                     else {
-                        print "<li><b>ÐÂÂÛÌ³Ä¿Â¼Ã»ÓÐ½¨Á¢</b><p>Çë²é¿´ÊÇ·ñ¸Ä±äÁËÄ¿Â¼ÊôÐÔ£¿Çë¸ÄÊôÐÔ»Ø 777 £¡<p>\n";
+                        print "<li><b>æ–°è®ºå›ç›®å½•æ²¡æœ‰å»ºç«‹</b><p>è¯·æŸ¥çœ‹æ˜¯å¦æ”¹å˜äº†ç›®å½•å±žæ€§ï¼Ÿè¯·æ”¹å±žæ€§å›ž 777 ï¼<p>\n";
                         }
 
 
                 $filetoopen = "$dirtomake/index.html";
                 if (-e $filetoopen) {
-                    print "<li><b>ÐÂÂÛÌ³ (index.html) ÎÄ¼þ½¨Á¢</b><p>\n";
+                    print "<li><b>æ–°è®ºå› (index.html) æ–‡ä»¶å»ºç«‹</b><p>\n";
                     }
                     else {
-                        print "<li><b>ÐÂÂÛÌ³ (index.html) ÎÄ¼þÃ»ÓÐ½¨Á¢</b><p>Çë²é¿´ÊÇ·ñ¸Ä±äÁËÄ¿Â¼ÊôÐÔ£¿Çë¸ÄÊôÐÔ»Ø 777 £¡\n";
+                        print "<li><b>æ–°è®ºå› (index.html) æ–‡ä»¶æ²¡æœ‰å»ºç«‹</b><p>è¯·æŸ¥çœ‹æ˜¯å¦æ”¹å˜äº†ç›®å½•å±žæ€§ï¼Ÿè¯·æ”¹å±žæ€§å›ž 777 ï¼\n";
                         }
                 print "$filetoopen<p>\n";
                 print "</ul>\n";
@@ -758,10 +753,10 @@ print "</td></tr></table></td></tr></table>";
 } ######## end routine
 
 sub warning {
-    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÂÛÌ³</b></td></tr>
-<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>¾¯¸æ£¡£¡</b></td></tr>
-<tr><td bgcolor=#FFFFFF align=center colspan=2><font color=#333333>Èç¹ûÄúÈ·¶¨ÒªÉ¾³ýÂÛÌ³£¬ÄÇÃ´Çëµã»÷ÏÂÃæÁ´½Ó<p>
->> <a href="$thisprog?action=delete&checkaction=yes&forum=$inforum">É¾³ýÂÛÌ³ÒÔ¼°ÂÛÌ³ÏÂµÄËùÓÐÎÄ¼þ</a> <<
+    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤è®ºå›</b></td></tr>
+<tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>è­¦å‘Šï¼ï¼</b></td></tr>
+<tr><td bgcolor=#FFFFFF align=center colspan=2><font color=#333333>å¦‚æžœæ‚¨ç¡®å®šè¦åˆ é™¤è®ºå›ï¼Œé‚£ä¹ˆè¯·ç‚¹å‡»ä¸‹é¢é“¾æŽ¥<p>
+>> <a href="$thisprog?action=delete&checkaction=yes&forum=$inforum">åˆ é™¤è®ºå›ä»¥åŠè®ºå›ä¸‹çš„æ‰€æœ‰æ–‡ä»¶</a> <<
 </td></tr></table></td></tr></table>
 ~;
 }
@@ -769,7 +764,7 @@ sub warning {
 sub deleteforum { #start
     my $thistime=time;
     open(FILE, ">>${lbdir}data/baddel.cgi");
-    print FILE "$inmembername\tÃÜÂë²»ÏÔÊ¾\t$ENV{'REMOTE_ADDR'}\t$ENV{'HTTP_X_FORWARDED_FOR'}/$ENV{'HTTP_CLIENT_IP'}\tÉ¾³ýÂÛÌ³$forumname\t$thistime\t\n";
+    print FILE "$inmembername\tå¯†ç ä¸æ˜¾ç¤º\t$ENV{'REMOTE_ADDR'}\t$ENV{'HTTP_X_FORWARDED_FOR'}/$ENV{'HTTP_CLIENT_IP'}\tåˆ é™¤è®ºå›$forumname\t$thistime\t\n";
     close(FILE);
     undef $thistime;
 
@@ -873,11 +868,11 @@ sub deleteforum { #start
     unlink ("${lbdir}boarddata/forumposts$inforum.pl");
     unlink ("${lbdir}boarddata/foruminfo$inforum.cgi");
 
-    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / É¾³ýÂÛÌ³½á¹û</b></td></tr>
+    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ é™¤è®ºå›ç»“æžœ</b></td></tr>
 <tr><td bgcolor=#FFFFFF colspan=2><font color=#990000>
-<center><b>ÂÛÌ³ÒÑ±»É¾³ý</b></center><p>
-¹²ÓÐ $thdcount Ö÷Ìâ±»É¾³ý<p>
-¹²ÓÐ $threadcount »Ø¸´±»É¾³ý<p>
+<center><b>è®ºå›å·²è¢«åˆ é™¤</b></center><p>
+å…±æœ‰ $thdcount ä¸»é¢˜è¢«åˆ é™¤<p>
+å…±æœ‰ $threadcount å›žå¤è¢«åˆ é™¤<p>
 </td></tr></table></td></tr></table>
 ~;
 &forumjump;
@@ -902,10 +897,10 @@ sub editform {
          }
 		if($category=~/childforum-[0-9]+/){
 			$category=~s/^childforum-//;
-			$categoryn="±à¼­ '$forumname[$category]' ÖÐµÄ×ÓÂÛÌ³ '$forumname' ";
-			$modiii = "<BR><font color=blue>×ÓÂÛÌ³»á×Ô¶¯¼Ì³Ð¸¸ÂÛÌ³µÄ°ßÖñ£¬ËùÒÔ×¢Òâ²»ÒªÖØ¸´ÊäÈë°ßÖñ</font>";
+			$categoryn="ç¼–è¾‘ '$forumname[$category]' ä¸­çš„å­è®ºå› '$forumname' ";
+			$modiii = "<BR><font color=blue>å­è®ºå›ä¼šè‡ªåŠ¨ç»§æ‰¿çˆ¶è®ºå›çš„æ–‘ç«¹ï¼Œæ‰€ä»¥æ³¨æ„ä¸è¦é‡å¤è¾“å…¥æ–‘ç«¹</font>";
 		}else{
-			$categoryn="±à¼­ '$category' ·ÖÀàÖÐµÄ '$forumname' ÂÛÌ³";
+			$categoryn="ç¼–è¾‘ '$category' åˆ†ç±»ä¸­çš„ '$forumname' è®ºå›";
 			$modiii = "";
 		}
     ($fgwidth,$fgwidth1) = split(/\|/,$fgwidth);
@@ -916,7 +911,7 @@ sub editform {
 
         print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ±à¼­ÂÛÌ³</b>
+        <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘è®ºå›</b>
         </td></tr>
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
@@ -928,98 +923,98 @@ sub editform {
         <input type=hidden name="forum" value="$inforum">
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³Ãû³Æ</b><br>ÇëÊäÈëÂÛÌ³Ãû³Æ</font></td>
+        <font color=#333333><b>è®ºå›åç§°</b><br>è¯·è¾“å…¥è®ºå›åç§°</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forumname" value="$forumname"></td>
         </tr>       
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³ÃèÊö</b><br>ÇëÊäÈëÂÛÌ³ÃèÊö£¬Ö§³Ö HTML Óï·¨</font></td>
+        <font color=#333333><b>è®ºå›æè¿°</b><br>è¯·è¾“å…¥è®ºå›æè¿°ï¼Œæ”¯æŒ HTML è¯­æ³•</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forumdescription" value="$forumdescription"></td>
         </tr>   
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³°æÖ÷</b><br>ÇëÊäÈëÂÛÌ³°æÖ÷£¬Èç¹ûÄúÏ£ÍûÓÐ¶à¸ö°æÖ÷£¬ÇëÊ¹ÓÃ "," (Ó¢ÎÄ¶ººÅ£¬²»ÊÇÖÐÎÄ¶ººÅ)¸ô¿ª¡£<BR><B>ÀýÈç</B>£ºÉ½Ó¥, »¨ÎÞÈ±</font></td>
+        <font color=#333333><b>è®ºå›ç‰ˆä¸»</b><br>è¯·è¾“å…¥è®ºå›ç‰ˆä¸»ï¼Œå¦‚æžœæ‚¨å¸Œæœ›æœ‰å¤šä¸ªç‰ˆä¸»ï¼Œè¯·ä½¿ç”¨ "," (è‹±æ–‡é€—å·ï¼Œä¸æ˜¯ä¸­æ–‡é€—å·)éš”å¼€ã€‚<BR><B>ä¾‹å¦‚</B>ï¼šå±±é¹°, èŠ±æ— ç¼º</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forummoderator" value="$forummoderator">$modiii</td>
         </tr>
         ~;
         
-        $tempoutput = qq~<select name="htmlstate"><option value="on">Ê¹ÓÃ<option value="off">²»Ê¹ÓÃ</select>~;
+        $tempoutput = qq~<select name="htmlstate"><option value="on">ä½¿ç”¨<option value="off">ä¸ä½¿ç”¨</select>~;
         $tempoutput =~ s/value=\"$htmlstate\"/value=\"$htmlstate\" selected/g;
         
         print qq~
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÊ¹ÓÃ HTML ±êÇ©£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½¿ç”¨ HTML æ ‡ç­¾ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         $tempoutput
         </td>
         </tr>
         ~;
         
-        $tempoutput = qq~<select name="idmbcodestate"><option value="on">Ê¹ÓÃ<option value="off">²»Ê¹ÓÃ</select>~;
+        $tempoutput = qq~<select name="idmbcodestate"><option value="on">ä½¿ç”¨<option value="off">ä¸ä½¿ç”¨</select>~;
         $tempoutput =~ s/value=\"$idmbcodestate\"/value=\"$idmbcodestate\" selected/g;
         
         print qq~
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÊ¹ÓÃ LeoBBS ±êÇ©£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½¿ç”¨ LeoBBS æ ‡ç­¾ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         $tempoutput
         </td>
         </tr>
         ~;
         
-        $tempoutput = qq~<select name="privateforum"><option value="yes">ÊÇ<option value="no">·ñ</select>~;
+        $tempoutput = qq~<select name="privateforum"><option value="yes">æ˜¯<option value="no">å¦</select>~;
         $tempoutput =~ s/value=\"$privateforum\"/value=\"$privateforum\" selected/g;
         if (!$privateforum) { 
-            $tempoutput = qq~<select name="privateforum"><option value="yes">ÊÇ<option value="no" selected>·ñ</select>~;
+            $tempoutput = qq~<select name="privateforum"><option value="yes">æ˜¯<option value="no" selected>å¦</select>~;
             }
         print qq~
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñ×÷ÎªË½ÓÐÂÛÌ³£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½œä¸ºç§æœ‰è®ºå›ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
-        $tempoutput  ¶ÔÌ³Ö÷ºÍ×Ü°ßÖñÎÞÐ§
+        $tempoutput  å¯¹å›ä¸»å’Œæ€»æ–‘ç«¹æ— æ•ˆ
         </td>
         </tr>
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>Ë½ÓÐÂÛÌ³ÃÜÂë</b>(Ö»¶ÔË½ÓÐÂÛÌ³ÓÐÐ§)</font></td>
+        <font color=#333333><b>ç§æœ‰è®ºå›å¯†ç </b>(åªå¯¹ç§æœ‰è®ºå›æœ‰æ•ˆ)</font></td>
         <td bgcolor=#FFFFFF>
-       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> ¶ÔÌ³Ö÷ºÍ×Ü°ßÖñÎÞÐ§</td>
+       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> å¯¹å›ä¸»å’Œæ€»æ–‘ç«¹æ— æ•ˆ</td>
         </td>
         </tr>
         ~;
         
-        $tempoutput = qq~<select name="hiddenforum"><option value="yes">ÊÇ<option value="no">·ñ</select>~;
+        $tempoutput = qq~<select name="hiddenforum"><option value="yes">æ˜¯<option value="no">å¦</select>~;
         $tempoutput =~ s/value=\"$hiddenforum\"/value=\"$hiddenforum\" selected/g;
         if (!$hiddenforum) { 
-            $tempoutput = qq~<select name="hiddenforum"><option value="yes">ÊÇ<option value="no" selected>·ñ</select>~;
+            $tempoutput = qq~<select name="hiddenforum"><option value="yes">æ˜¯<option value="no" selected>å¦</select>~;
             }
         print qq~
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÒþ²ØÂÛÌ³£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦éšè—è®ºå›ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         $tempoutput
         </td>
         </tr>
         ~;
         
-        $tempoutput = qq~<select name="indexforum"><option value="yes">ÊÇ<option value="no">·ñ</select>~;
+        $tempoutput = qq~<select name="indexforum"><option value="yes">æ˜¯<option value="no">å¦</select>~;
         $tempoutput =~ s/value=\"$indexforum\"/value=\"$indexforum\" selected/g;
         if (!$indexforum) { 
-            $tempoutput = qq~<select name="indexforum"><option value="yes" selected>ÊÇ<option value="no" >·ñ</select>~;
+            $tempoutput = qq~<select name="indexforum"><option value="yes" selected>æ˜¯<option value="no" >å¦</select>~;
             }
         print qq~
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÏÔÊ¾µ¼º½À¸£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦æ˜¾ç¤ºå¯¼èˆªæ ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         $tempoutput
         </td>
@@ -1027,13 +1022,13 @@ sub editform {
         
         ~;
         
-        $tempoutput = qq~<select name="startnewthreads"><option value="yes" selected>Õý¹æÂÛÌ³<option value="all">¿ª·ÅÂÛÌ³<option value="follow">ÆÀÂÛÂÛÌ³<option value="no">¾«»ªÇø<option value="cert">ÈÏÖ¤ÂÛÌ³<option value="onlysub">´¿×ÓÂÛÌ³</select>~;
+        $tempoutput = qq~<select name="startnewthreads"><option value="yes" selected>æ­£è§„è®ºå›<option value="all">å¼€æ”¾è®ºå›<option value="follow">è¯„è®ºè®ºå›<option value="no">ç²¾åŽåŒº<option value="cert">è®¤è¯è®ºå›<option value="onlysub">çº¯å­è®ºå›</select>~;
         $tempoutput =~ s/value=\"$startnewthreads\"/value=\"$startnewthreads\" selected/g;
         
         print qq~
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³ÐÔÖÊ</b><br>1. Õý¹æÂÛÌ³-Ö»ÔÊÐí×¢²á»áÔ±·¢ÑÔ<br>2. ¿ª·ÅÂÛÌ³-ÔÊÐíËùÓÐÈË·¢ÑÔ<br>3. ÆÀÂÛÂÛÌ³-Ì³Ö÷ºÍ°æÖ÷ÔÊÐí·¢ÑÔ£¬ÆäËû×¢²áÓÃ»§Ö»ÄÜ»Ø¸´<br>4. ¾«»ªÇø-Ö»ÔÊÐí°æÖ÷ºÍÌ³Ö÷·¢ÑÔºÍ²Ù×÷<br>5. ÈÏÖ¤ÂÛÌ³-³ýÌ³Ö÷ºÍ°æÖ÷Íâ£¬ÆäËû×¢²áÓÃ»§·¢ÑÔÐèÒªÈÏÖ¤<br>6. ´¿×ÓÂÛÌ³-ÀïÃæÖ»ÓÐ×ÓÂÛÌ³£¬¶ø¸¸ÂÛÌ³²»ÔÊÐí·¢Ìù»Ø¸´<br></font></td>
+        <font color=#333333><b>è®ºå›æ€§è´¨</b><br>1. æ­£è§„è®ºå›-åªå…è®¸æ³¨å†Œä¼šå‘˜å‘è¨€<br>2. å¼€æ”¾è®ºå›-å…è®¸æ‰€æœ‰äººå‘è¨€<br>3. è¯„è®ºè®ºå›-å›ä¸»å’Œç‰ˆä¸»å…è®¸å‘è¨€ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·åªèƒ½å›žå¤<br>4. ç²¾åŽåŒº-åªå…è®¸ç‰ˆä¸»å’Œå›ä¸»å‘è¨€å’Œæ“ä½œ<br>5. è®¤è¯è®ºå›-é™¤å›ä¸»å’Œç‰ˆä¸»å¤–ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·å‘è¨€éœ€è¦è®¤è¯<br>6. çº¯å­è®ºå›-é‡Œé¢åªæœ‰å­è®ºå›ï¼Œè€Œçˆ¶è®ºå›ä¸å…è®¸å‘è´´å›žå¤<br></font></td>
         <td bgcolor=#FFFFFF>
         $tempoutput
         </td>
@@ -1041,7 +1036,7 @@ sub editform {
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³Í¼Æ¬</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ£¬±»ÓÃÀ´·ÅÖÃÔÚÂÛÌ³Ò³Ãæ×óÉÏ·½£¬´óÐ¡Çë¿ØÖÆÔÚ 160*60 ÒÔÄÚ¡£<BR><b>Çë²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333><b>è®ºå›å›¾ç‰‡</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹ï¼Œè¢«ç”¨æ¥æ”¾ç½®åœ¨è®ºå›é¡µé¢å·¦ä¸Šæ–¹ï¼Œå¤§å°è¯·æŽ§åˆ¶åœ¨ 160*60 ä»¥å†…ã€‚<BR><b>è¯·ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=30 name="forumgraphic" value="$forumgraphic"> 
 ~;
@@ -1067,46 +1062,46 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.image2.value;}
 function select3(){
 document.bbsimg.src = FORM.addme.value;}
 </script>
-<select name="image" onChange=select()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+<select name="image" onChange=select()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
         </tr>
 	<tr>
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³FLASH¶¯»­¸ß¶È¡¢¿í¶È</b><br>ÇëÕýÈ·ÊäÈë FLASH ¶¯»­µÄ¸ß¶È¼°¿í¶È¡£<BR></font></td>
+        <font color=#333333><b>è®ºå›FLASHåŠ¨ç”»é«˜åº¦ã€å®½åº¦</b><br>è¯·æ­£ç¡®è¾“å…¥ FLASH åŠ¨ç”»çš„é«˜åº¦åŠå®½åº¦ã€‚<BR></font></td>
         <td bgcolor=#FFFFFF>
-        ¿í¶È£º<input type=text size=3 name="fgwidth" value="$fgwidth">¡¡¡¡¸ß¶È£º<input type=text size=3 name="fgwidth1" value="$fgwidth1"></td>
+        å®½åº¦ï¼š<input type=text size=3 name="fgwidth" value="$fgwidth">ã€€ã€€é«˜åº¦ï¼š<input type=text size=3 name="fgwidth1" value="$fgwidth1"></td>
         </tr>
 	<tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍ¼Æ¬</b>(Èç¹ûÃ»ÓÐ£¬Çë±£³ÖÔ­Ñù)<br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ£¬±»ÓÃÀ´·ÅÖÃÔÚÖ÷Ò³ÃæÏÂ¡£<BR><b>²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333><b>é˜Ÿä¼å›¾ç‰‡</b>(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ä¿æŒåŽŸæ ·)<br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹ï¼Œè¢«ç”¨æ¥æ”¾ç½®åœ¨ä¸»é¡µé¢ä¸‹ã€‚<BR><b>ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
-        <input type=text size=30 name="teamlogo" value="$teamlogo"> <select name="image2" onChange=select2()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+        <input type=text size=30 name="teamlogo" value="$teamlogo"> <select name="image2" onChange=select2()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
         </tr> 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍ¼Æ¬FLASH¶¯»­¸ß¶È¡¢¿í¶È</b><br>ÇëÕýÈ·ÊäÈë FLASH ¶¯»­µÄ¸ß¶È¼°¿í¶È¡£<BR></font></td>
+        <font color=#333333><b>é˜Ÿä¼å›¾ç‰‡FLASHåŠ¨ç”»é«˜åº¦ã€å®½åº¦</b><br>è¯·æ­£ç¡®è¾“å…¥ FLASH åŠ¨ç”»çš„é«˜åº¦åŠå®½åº¦ã€‚<BR></font></td>
         <td bgcolor=#FFFFFF>
-        ¿í¶È£º<input type=text size=3 name="fgheight" value="$fgheight">¡¡¡¡¸ß¶È£º<input type=text size=3 name="fgheight1" value="$fgheight1"></td>
+        å®½åº¦ï¼š<input type=text size=3 name="fgheight" value="$fgheight">ã€€ã€€é«˜åº¦ï¼š<input type=text size=3 name="fgheight1" value="$fgheight1"></td>
         </tr>
 	<tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÉÏ´«ÂÛÌ³/¶ÓÎéÍ¼Æ¬</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼Æ¬±»ÓÃ×÷ÂÛÌ³Í¼Æ¬/¶ÓÎéÍ¼Æ¬¡£</font></td>
+        <font color=#333333><b>ä¸Šä¼ è®ºå›/é˜Ÿä¼å›¾ç‰‡</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾ç‰‡è¢«ç”¨ä½œè®ºå›å›¾ç‰‡/é˜Ÿä¼å›¾ç‰‡ã€‚</font></td>
         <td bgcolor=#FFFFFF>
-        <input type="file" size=20 name="addme" onchange="select3()"><br>Ö§³ÖÀàÐÍ£ºgif¡¢jpg¡¢bmp¡¢png¡¢swf</td>
+        <input type="file" size=20 name="addme" onchange="select3()"><br>æ”¯æŒç±»åž‹ï¼šgifã€jpgã€bmpã€pngã€swf</td>
         </tr> 
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍøÖ·</b>(Èç¹ûÃ»ÓÐ£¬Çë±£³ÖÔ­Ñù)</td>
+        <font color=#333333><b>é˜Ÿä¼ç½‘å€</b>(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ä¿æŒåŽŸæ ·)</td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="teamurl" value="$teamurl"></td>
         </tr><tr>
         <td bgcolor=#FFFFFF colspan=2>
-<font color=#333333><b>Í¼ÏñÔ¤ÀÀ(²»Ö§³Ö Flash)</b></font><br><IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle"></td>
+<font color=#333333><b>å›¾åƒé¢„è§ˆ(ä¸æ”¯æŒ Flash)</b></font><br><IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle"></td>
         </tr>
         <tr>
         <td bgcolor=#F0F0F0 align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table><center>
+        <input type=submit value="æ äº¤"></form></td></tr></table><center>
         ~;
         print "</td></tr></table>";
 } # end route   
@@ -1116,10 +1111,10 @@ document.bbsimg.src = FORM.addme.value;}
 
 
 sub doedit {
-#	&errorout("±£ÃÜÂÛÌ³£¬ÃÜÂë²»ÄÜ¿Õ£¡£¡") if (($new_privateforum eq "yes")&&($new_forumpass eq ""));
-	&errorout("¶Ô²»Æð£¬ÂÛÌ³Ãû×Ö¹ý³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_forumname) >40);
-	&errorout("ÂÛÌ³Ãû×Ö²»ÄÜ¿Õ£¡£¡") if ($new_forumname eq "");
-	&errorout("ÂÛÌ³ÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_forumdescription eq "");
+#	&errorout("ä¿å¯†è®ºå›ï¼Œå¯†ç ä¸èƒ½ç©ºï¼ï¼") if (($new_privateforum eq "yes")&&($new_forumpass eq ""));
+	&errorout("å¯¹ä¸èµ·ï¼Œè®ºå›åå­—è¿‡é•¿ï¼Œè¯·æŽ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_forumname) >40);
+	&errorout("è®ºå›åå­—ä¸èƒ½ç©ºï¼ï¼") if ($new_forumname eq "");
+	&errorout("è®ºå›æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_forumdescription eq "");
 	$new_privateforum = "yes" if ($new_forumpass ne "");
 
          $filetoopen = "$lbdir" . "data/allforums.cgi";
@@ -1154,12 +1149,12 @@ foreach $_ (@molist){
     $_ =~ s/ /\_/g;
     $_ =~ tr/A-Z/a-z/;
     next if ($_ eq "");
-    next if (($_ =~ /³ÏÆ¸ÖÐ/i)||($_ =~ /°ßÖñ/i)||($_ =~ /È«Ìå¹ÜÀíÈËÔ±/i)||($_ =~ /¹ÜÀíÔ±/i)||($_ =~ /ÔÝÊ±¿ÕÈ±/i)||($_ =~ /°æÖ÷/i)||($_ =~ /Ì³Ö÷/i));
+    next if (($_ =~ /è¯šè˜ä¸­/i)||($_ =~ /æ–‘ç«¹/i)||($_ =~ /å…¨ä½“ç®¡ç†äººå‘˜/i)||($_ =~ /ç®¡ç†å‘˜/i)||($_ =~ /æš‚æ—¶ç©ºç¼º/i)||($_ =~ /ç‰ˆä¸»/i)||($_ =~ /å›ä¸»/i));
     my $namenumber = &getnamenumber($_);
     &checkmemfile($_,$namenumber);
     if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { 
 #    	&winunlock($filetoopen) if ($OS_USED eq "Nt");
-    	&errorout("ÂÛÌ³°æÖ÷Ãûµ¥ÖÐ£¬$_ Õâ¸öÓÃ»§ ID ÊÇ²»´æÔÚµÄ£¡");
+    	&errorout("è®ºå›ç‰ˆä¸»åå•ä¸­ï¼Œ$_ è¿™ä¸ªç”¨æˆ· ID æ˜¯ä¸å­˜åœ¨çš„ï¼");
     }
 }
 
@@ -1202,14 +1197,14 @@ foreach $_ (@molist){
 
                  print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ±à¼­ÂÛÌ³½á¹û</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘è®ºå›ç»“æžœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>ËùÓÐÐÅÏ¢ÒÑ¾­±£´æ</b><p>
-                Èç¹ûÄúÉè¶¨ÁËÄ³ÈËÎª°æÖ÷£¬Äã»òÐí»áÏë´Ó¹ÜÀíÖÐÐÄ±à¼­ËûµÄ×ÊÁÏ£¬Ê¹Ëû³ÉÎª°æÖ÷¡£<BR>
-                ÆäÊµÕâ¸öÊÇÃ»±ØÒªµÄ¡£Õâ¸ö½ö½öÓ°Ïì·¢ÌùºóÃû×Ö±ßÉÏµÄ '°ßÖñ' Í¼±ê£¬·Ç°æÖ÷²»ÏÔÊ¾ <br>
-				'°ßÖñ' Í¼±ê£¬²¢ÇÒ²»ÔÚ¹ÜÀíÍÅ¶ÓÖÐÏÔÊ¾£¡µ«ÊÇÁ½ÖÖ°ßÖñÈ¨Á¦ÊÇÒ»ÑùµÄ¡£</font>
+                <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><p>
+                å¦‚æžœæ‚¨è®¾å®šäº†æŸäººä¸ºç‰ˆä¸»ï¼Œä½ æˆ–è®¸ä¼šæƒ³ä»Žç®¡ç†ä¸­å¿ƒç¼–è¾‘ä»–çš„èµ„æ–™ï¼Œä½¿ä»–æˆä¸ºç‰ˆä¸»ã€‚<BR>
+                å…¶å®žè¿™ä¸ªæ˜¯æ²¡å¿…è¦çš„ã€‚è¿™ä¸ªä»…ä»…å½±å“å‘è´´åŽåå­—è¾¹ä¸Šçš„ 'æ–‘ç«¹' å›¾æ ‡ï¼Œéžç‰ˆä¸»ä¸æ˜¾ç¤º <br>
+				'æ–‘ç«¹' å›¾æ ‡ï¼Œå¹¶ä¸”ä¸åœ¨ç®¡ç†å›¢é˜Ÿä¸­æ˜¾ç¤ºï¼ä½†æ˜¯ä¸¤ç§æ–‘ç«¹æƒåŠ›æ˜¯ä¸€æ ·çš„ã€‚</font>
                 </td></tr></table><center>
                 ~;
 print "</td></tr></table>";
@@ -1229,116 +1224,116 @@ sub catform {
         <input type=hidden name="action" value="doaddcategory">
         <input type=hidden name="category" value="$incategory">
         <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-        <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / Ôö¼Ó·ÖÀà(Í¬Ê±Ôö¼ÓÒ»¸öÂÛÌ³)</b>
+        <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢žåŠ åˆ†ç±»(åŒæ—¶å¢žåŠ ä¸€ä¸ªè®ºå›)</b>
         </td></tr>
         <tr>
         
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>Ôö¼Ó·ÖÀà(Í¬Ê±Ôö¼ÓÒ»¸öÂÛÌ³)</b>
+        <font color=#990000><b>å¢žåŠ åˆ†ç±»(åŒæ—¶å¢žåŠ ä¸€ä¸ªè®ºå›)</b>
         </td></tr>
 
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>·ÖÀàÃû³Æ</b><br>ÇëÊäÈëÐÂ·ÖÀàÃû³Æ</font></td>
+        <font color=#333333><b>åˆ†ç±»åç§°</b><br>è¯·è¾“å…¥æ–°åˆ†ç±»åç§°</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="categoryname" value="$categoryname"></td>
         </tr>
 
 	<tr>
 	<td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>Çø°æÖ÷</b><br>ÇëÊäÈë¹ÜÀí´Ë·ÖÀàµÄÇø°æÖ÷£¬Èç¹ûÄúÏ£ÍûÓÐ¶à¸öÇø°æÖ÷£¬ÇëÊ¹ÓÃ "," (Ó¢ÎÄ¶ººÅ£¬²»ÊÇÖÐÎÄ¶ººÅ)¸ô¿ª¡£<BR><B>ÀýÈç</B>£ºÉ½Ó¥, »¨ÎÞÈ±</font></td> 
+        <font color=#333333><b>åŒºç‰ˆä¸»</b><br>è¯·è¾“å…¥ç®¡ç†æ­¤åˆ†ç±»çš„åŒºç‰ˆä¸»ï¼Œå¦‚æžœæ‚¨å¸Œæœ›æœ‰å¤šä¸ªåŒºç‰ˆä¸»ï¼Œè¯·ä½¿ç”¨ "," (è‹±æ–‡é€—å·ï¼Œä¸æ˜¯ä¸­æ–‡é€—å·)éš”å¼€ã€‚<BR><B>ä¾‹å¦‚</B>ï¼šå±±é¹°, èŠ±æ— ç¼º</font></td> 
         <td bgcolor=#FFFFFF> 
         <input type=text size=40 name="catemods" value="$catemods"></td> 
         </tr>
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³Ãû³Æ</b><br>ÇëÊäÈëÐÂÂÛÌ³µÄÃû³Æ<BR>(Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ)</font></td>
+        <font color=#333333><b>è®ºå›åç§°</b><br>è¯·è¾“å…¥æ–°è®ºå›çš„åç§°<BR>(è¯·æŽ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…)</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forumname" value="$forumname" maxlength=40></td>
         </tr>       
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³ÃèÊö</b><br>ÇëÊäÈëÐÂÂÛÌ³µÄÃèÊö£¬Ö§³Ö HTML Óï·¨</font></td>
+        <font color=#333333><b>è®ºå›æè¿°</b><br>è¯·è¾“å…¥æ–°è®ºå›çš„æè¿°ï¼Œæ”¯æŒ HTML è¯­æ³•</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forumdescription" value="$forumdescription"></td>
         </tr>   
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³°æÖ÷</b><br>ÇëÊäÈëÂÛÌ³°æÖ÷£¬Èç¹ûÄúÏ£ÍûÓÐ¶à¸ö°æÖ÷£¬ÇëÊ¹ÓÃ "," (Ó¢ÎÄ¶ººÅ£¬²»ÊÇÖÐÎÄ¶ººÅ)¸ô¿ª¡£<BR><B>ÀýÈç</B>£ºÉ½Ó¥, »¨ÎÞÈ±</font></td>
+        <font color=#333333><b>è®ºå›ç‰ˆä¸»</b><br>è¯·è¾“å…¥è®ºå›ç‰ˆä¸»ï¼Œå¦‚æžœæ‚¨å¸Œæœ›æœ‰å¤šä¸ªç‰ˆä¸»ï¼Œè¯·ä½¿ç”¨ "," (è‹±æ–‡é€—å·ï¼Œä¸æ˜¯ä¸­æ–‡é€—å·)éš”å¼€ã€‚<BR><B>ä¾‹å¦‚</B>ï¼šå±±é¹°, èŠ±æ— ç¼º</font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="forummoderator" value="$forummoderator"></td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÊ¹ÓÃ HTML ±êÇ©£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½¿ç”¨ HTML æ ‡ç­¾ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="htmlstate">
-        <option value="on">Ê¹ÓÃ<option value="off" selected>²»Ê¹ÓÃ</select>
+        <option value="on">ä½¿ç”¨<option value="off" selected>ä¸ä½¿ç”¨</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÊ¹ÓÃ LeoBBS ±êÇ©£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½¿ç”¨ LeoBBS æ ‡ç­¾ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="idmbcodestate">
-        <option value="on" selected>Ê¹ÓÃ<option value="off">²»Ê¹ÓÃ</select>
+        <option value="on" selected>ä½¿ç”¨<option value="off">ä¸ä½¿ç”¨</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñ×÷ÎªË½ÓÐÂÛÌ³£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦ä½œä¸ºç§æœ‰è®ºå›ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="privateforum">
-        <option value="yes">ÊÇ<option value="no" selected>·ñ</select> ¶ÔÌ³Ö÷ºÍ×Ü°ßÖñÎÞÐ§
+        <option value="yes">æ˜¯<option value="no" selected>å¦</select> å¯¹å›ä¸»å’Œæ€»æ–‘ç«¹æ— æ•ˆ
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>Ë½ÓÐÂÛÌ³ÃÜÂë</b>(Ö»¶ÔË½ÓÐÂÛÌ³ÓÐÐ§)</font></td>
+        <font color=#333333><b>ç§æœ‰è®ºå›å¯†ç </b>(åªå¯¹ç§æœ‰è®ºå›æœ‰æ•ˆ)</font></td>
         <td bgcolor=#FFFFFF>
-       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> ¶ÔÌ³Ö÷ºÍ×Ü°ßÖñÎÞÐ§</td>
+       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> å¯¹å›ä¸»å’Œæ€»æ–‘ç«¹æ— æ•ˆ</td>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÒþ²ØÂÛÌ³£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦éšè—è®ºå›ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="hiddenforum">
-        <option value="yes">ÊÇ<option value="no" selected>·ñ</select>
+        <option value="yes">æ˜¯<option value="no" selected>å¦</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÊÇ·ñÏÔÊ¾µ¼º½À¸£¿</b></font></td>
+        <font color=#333333><b>æ˜¯å¦æ˜¾ç¤ºå¯¼èˆªæ ï¼Ÿ</b></font></td>
         <td bgcolor=#FFFFFF>
         <select name="indexforum">
-        <option value="yes" selected>ÊÇ<option value="no" >·ñ</select>
+        <option value="yes" selected>æ˜¯<option value="no" >å¦</select>
         </td>
         </tr>
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³ÐÔÖÊ</b><br>1. Õý¹æÂÛÌ³-Ö»ÔÊÐí×¢²á»áÔ±·¢ÑÔ<br>2. ¿ª·ÅÂÛÌ³-ÔÊÐíËùÓÐÈË·¢ÑÔ<br>3. ÆÀÂÛÂÛÌ³-Ì³Ö÷ºÍ°æÖ÷ÔÊÐí·¢ÑÔ£¬ÆäËû×¢²áÓÃ»§Ö»ÄÜ»Ø¸´<br>4. ¾«»ªÇø-Ö»ÔÊÐí°æÖ÷ºÍÌ³Ö÷·¢ÑÔºÍ²Ù×÷<br>5. ÈÏÖ¤ÂÛÌ³-³ýÌ³Ö÷ºÍ°æÖ÷Íâ£¬ÆäËû×¢²áÓÃ»§·¢ÑÔÐèÒªÈÏÖ¤<br>6. ´¿×ÓÂÛÌ³-ÀïÃæÖ»ÓÐ×ÓÂÛÌ³£¬¶ø¸¸ÂÛÌ³²»ÔÊÐí·¢Ìù»Ø¸´<br></font></td>
+        <font color=#333333><b>è®ºå›æ€§è´¨</b><br>1. æ­£è§„è®ºå›-åªå…è®¸æ³¨å†Œä¼šå‘˜å‘è¨€<br>2. å¼€æ”¾è®ºå›-å…è®¸æ‰€æœ‰äººå‘è¨€<br>3. è¯„è®ºè®ºå›-å›ä¸»å’Œç‰ˆä¸»å…è®¸å‘è¨€ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·åªèƒ½å›žå¤<br>4. ç²¾åŽåŒº-åªå…è®¸ç‰ˆä¸»å’Œå›ä¸»å‘è¨€å’Œæ“ä½œ<br>5. è®¤è¯è®ºå›-é™¤å›ä¸»å’Œç‰ˆä¸»å¤–ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·å‘è¨€éœ€è¦è®¤è¯<br>6. çº¯å­è®ºå›-é‡Œé¢åªæœ‰å­è®ºå›ï¼Œè€Œçˆ¶è®ºå›ä¸å…è®¸å‘è´´å›žå¤<br></font></td>
         <td bgcolor=#FFFFFF>
         <select name="startnewthreads">
-        <option value="yes" selected>Õý¹æÂÛÌ³<option value="all">¿ª·ÅÂÛÌ³<option value="follow">ÆÀÂÛÂÛÌ³<option value="no">¾«»ªÇø<option value="cert">ÈÏÖ¤ÂÛÌ³<option value="onlysub">´¿×ÓÂÛÌ³</select>
+        <option value="yes" selected>æ­£è§„è®ºå›<option value="all">å¼€æ”¾è®ºå›<option value="follow">è¯„è®ºè®ºå›<option value="no">ç²¾åŽåŒº<option value="cert">è®¤è¯è®ºå›<option value="onlysub">çº¯å­è®ºå›</select>
         </td>
         </tr>
         
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³Í¼Æ¬£¨Ö§³ÖFLASH£©</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ£¬±»ÓÃÀ´·ÅÖÃÔÚÂÛÌ³Ò³Ãæ×óÉÏ·½£¬´óÐ¡Çë¿ØÖÆÔÚ 160*60 ÒÔÄÚ¡£<BR><b>Çë²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333><b>è®ºå›å›¾ç‰‡ï¼ˆæ”¯æŒFLASHï¼‰</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹ï¼Œè¢«ç”¨æ¥æ”¾ç½®åœ¨è®ºå›é¡µé¢å·¦ä¸Šæ–¹ï¼Œå¤§å°è¯·æŽ§åˆ¶åœ¨ 160*60 ä»¥å†…ã€‚<BR><b>è¯·ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=20 name="forumgraphic" value="logo.gif">
 ~;
@@ -1365,49 +1360,49 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.image2.value;}
 function select3(){
 document.bbsimg.src = FORM.addme.value;}
 </script>
-<select name="image" onChange=select()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+<select name="image" onChange=select()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
         </tr>
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÂÛÌ³FLASH¶¯»­¸ß¶È¡¢¿í¶È</b><br>ÇëÕýÈ·ÊäÈëFLASH¶¯»­µÄ¸ß¶È¼°¿í¶È¡£<BR></font></td>
+        <font color=#333333><b>è®ºå›FLASHåŠ¨ç”»é«˜åº¦ã€å®½åº¦</b><br>è¯·æ­£ç¡®è¾“å…¥FLASHåŠ¨ç”»çš„é«˜åº¦åŠå®½åº¦ã€‚<BR></font></td>
         <td bgcolor=#FFFFFF>
-        ¿í¶È£º<input type=text size=3 name="fgwidth">¡¡¡¡¸ß¶È£º<input type=text size=3 name="fgwidth1"></td>
+        å®½åº¦ï¼š<input type=text size=3 name="fgwidth">ã€€ã€€é«˜åº¦ï¼š<input type=text size=3 name="fgwidth1"></td>
         </tr>
                
 	<tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍ¼Æ¬</b>(Èç¹ûÃ»ÓÐ£¬Çë±£³ÖÔ­Ñù)<br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼Æ¬±»ÓÃÀ´·ÅÖÃÔÚÊ×Ò³ÃæÏÂ¡£<BR><b>²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333><b>é˜Ÿä¼å›¾ç‰‡</b>(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ä¿æŒåŽŸæ ·)<br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾ç‰‡è¢«ç”¨æ¥æ”¾ç½®åœ¨é¦–é¡µé¢ä¸‹ã€‚<BR><b>ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
-        <input type=text size=20 name="teamlogo" value=""> <select name="image2" onChange=select2()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+        <input type=text size=20 name="teamlogo" value=""> <select name="image2" onChange=select2()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
         </tr> 
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍ¼Æ¬FLASH¶¯»­¸ß¶È¡¢¿í¶È</b><br>ÇëÕýÈ·ÊäÈëFLASH¶¯»­µÄ¸ß¶È¼°¿í¶È¡£<BR></font></td>
+        <font color=#333333><b>é˜Ÿä¼å›¾ç‰‡FLASHåŠ¨ç”»é«˜åº¦ã€å®½åº¦</b><br>è¯·æ­£ç¡®è¾“å…¥FLASHåŠ¨ç”»çš„é«˜åº¦åŠå®½åº¦ã€‚<BR></font></td>
         <td bgcolor=#FFFFFF>
-        ¿í¶È£º<input type=text size=3 name="fgheight">¡¡¡¡¸ß¶È£º<input type=text size=3 name="fgheight1"></td>
+        å®½åº¦ï¼š<input type=text size=3 name="fgheight">ã€€ã€€é«˜åº¦ï¼š<input type=text size=3 name="fgheight1"></td>
         </tr>
          
 	<tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>ÉÏ´«ÂÛÌ³/¶ÓÎéÍ¼Æ¬</b><br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼Æ¬±»ÓÃ×÷ÂÛÌ³Í¼Æ¬/¶ÓÎéÍ¼Æ¬¡£</font></td>
+        <font color=#333333><b>ä¸Šä¼ è®ºå›/é˜Ÿä¼å›¾ç‰‡</b><br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾ç‰‡è¢«ç”¨ä½œè®ºå›å›¾ç‰‡/é˜Ÿä¼å›¾ç‰‡ã€‚</font></td>
         <td bgcolor=#FFFFFF>
-        <input type="file" size=20 name="addme" onchange="select3()"><br>Ö§³ÖÀàÐÍ£ºgif¡¢jpg¡¢bmp¡¢png¡¢swf</td>
+        <input type="file" size=20 name="addme" onchange="select3()"><br>æ”¯æŒç±»åž‹ï¼šgifã€jpgã€bmpã€pngã€swf</td>
         </tr> 
 
         <tr>
         <td bgcolor=#FFFFFF width=40%>
-        <font color=#333333><b>¶ÓÎéÍøÖ·</b>(Èç¹ûÃ»ÓÐ£¬Çë±£³ÖÔ­Ñù)<br>ÓÃÀ´×öÉÏÃæÂÛÌ³Í¼Æ¬µÄµØÖ·Á´½Ó</td>
+        <font color=#333333><b>é˜Ÿä¼ç½‘å€</b>(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ä¿æŒåŽŸæ ·)<br>ç”¨æ¥åšä¸Šé¢è®ºå›å›¾ç‰‡çš„åœ°å€é“¾æŽ¥</td>
         <td bgcolor=#FFFFFF>
         <input type=text size=40 name="teamurl" value="http://"></td>
         </tr> 
         <td bgcolor=#FFFFFF colspan=2>
-<font color=#333333><b>Í¼ÏñÔ¤ÀÀ(²»Ö§³Ö Flash)</b></font><br><IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle" onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333"></td>
+<font color=#333333><b>å›¾åƒé¢„è§ˆ(ä¸æ”¯æŒ Flash)</b></font><br><IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle" onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333"></td>
         </tr>
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-        <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+        <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
         ~;
         
 } # end route   
@@ -1418,11 +1413,11 @@ document.bbsimg.src = FORM.addme.value;}
 
 
 sub doaddcategory {
-#		&errorout("±£ÃÜÂÛÌ³£¬ÃÜÂë²»ÄÜ¿Õ£¡£¡") if (($new_privateforum eq "yes")&&($new_forumpass eq ""));
-		&errorout("¶Ô²»Æð£¬ÂÛÌ³Ãû×Ö¹ý³¤£¬Çë¿ØÖÆÔÚ 20 ¸öºº×ÖÄÚ£¡") if (length($new_forumname) >40);
-		&errorout("ÂÛÌ³Ãû×Ö²»ÄÜ¿Õ£¡£¡") if ($new_forumname eq "");
-		&errorout("ÂÛÌ³ÃèÊö²»ÄÜ¿Õ£¡£¡") if ($new_forumdescription eq "");
-		&errorout("ÂÛÌ³Àà±ð²»ÄÜ¿Õ£¡£¡") if ($new_categoryname eq "");
+#		&errorout("ä¿å¯†è®ºå›ï¼Œå¯†ç ä¸èƒ½ç©ºï¼ï¼") if (($new_privateforum eq "yes")&&($new_forumpass eq ""));
+		&errorout("å¯¹ä¸èµ·ï¼Œè®ºå›åå­—è¿‡é•¿ï¼Œè¯·æŽ§åˆ¶åœ¨ 20 ä¸ªæ±‰å­—å†…ï¼") if (length($new_forumname) >40);
+		&errorout("è®ºå›åå­—ä¸èƒ½ç©ºï¼ï¼") if ($new_forumname eq "");
+		&errorout("è®ºå›æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($new_forumdescription eq "");
+		&errorout("è®ºå›ç±»åˆ«ä¸èƒ½ç©ºï¼ï¼") if ($new_categoryname eq "");
 
 	&douppics();
 	
@@ -1430,88 +1425,8 @@ sub doaddcategory {
                foreach(@catemolist){ 
                chomp $_; 
                $_ =~ s/ /\_/g; 
-               $_ =~ tr/A-Z/a-z/; 
-               next if ($_ eq ""); 
-               my $namenumber = &getnamenumber($_);
-		&checkmemfile($_,$namenumber);
-               if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) {&errorout("Çø°æÖ÷Ãûµ¥ÖÐ£¬$_ Õâ¸öÓÃ»§ ID ÊÇ²»´æÔÚµÄ£¡"); } 
-               }
-
-                $filetoopen = "$lbdir" . "data/allforums.cgi";
-                open(FILE, "$filetoopen");
-                @forums = <FILE>;
-                close(FILE);
-
-                foreach (@forums) {
-                    ($forumid, $binit) = split(/\t/,$_);
-                    if ($forumid > $high) { $high = $forumid; }
-                    }
-
-                $high++;
-
-                $newforumid = $high;
-
-                $dirtomake = "$lbdir" . "forum$newforumid";
-                mkdir ("$dirtomake", 0777);
-
-                $dirtomake1 = "$lbdir" . "FileCount/$newforumid";
-                mkdir ("$dirtomake1", 0777);
-
-                $filetomake = "$dirtomake1/index.html";
-                open(FILE,">$filetomake");
-                print FILE "-";
-                close(FILE);
-
-                $dirtomake1 = "$imagesdir" . "$usrdir/$newforumid";
-                mkdir ("$dirtomake1", 0777);
-
-                $filetomake = "$dirtomake1/index.html";
-                open(FILE,">$filetomake");
-                print FILE "-";
-                close(FILE);
-
-                $filetomake = "$dirtomake/index.html";
-                open(FILE,">$filetomake");
-                print FILE "-";
-                close(FILE);
-
-                $filetomake = "$lbdir" . "boarddata/listno$newforumid.cgi";
-                open(FILE,">$filetomake");
-                close(FILE);
-                $filetomake = "$lbdir" . "boarddata/listall$newforumid.cgi";
-                open(FILE,">$filetomake");
-                close(FILE);
-
-	        open(FILE, ">${lbdir}boarddata/foruminfo$newforumid.cgi");
-	        print FILE "%%%%%%\t0\t0\t\t\t\n";
-                close(FILE);
-
-                $filetomake = "$dirtomake/.htaccess";
-                open(FILE, ">$filetomake");
-                print FILE "AuthUserFile /dev/null\n";
-                print FILE "AuthGroupFile /dev/null\n";
-                print FILE "AuthName DenyViaWeb\n";
-                print FILE "AuthType Basic\n";
-                print FILE "\n\n\n\n";
-                print FILE "<Limit GET>\n";
-                print FILE "order allow,deny\n";
-                print FILE "deny from all\n";
-                print FILE "</Limit>\n";
-                close (FILE);
-
-my @molist = split(/\,/,$new_forummoderator);
-foreach $_ (@molist){
-    chomp $_;
-    $_ =~ s/ /\_/g;
-    $_ =~ tr/A-Z/a-z/;
-    next if ($_ eq "");
-    next if (($_ =~ /³ÏÆ¸ÖÐ/i)||($_ =~ /°ßÖñ/i)||($_ =~ /È«Ìå¹ÜÀíÈËÔ±/i)||($_ =~ /¹ÜÀíÔ±/i)||($_ =~ /ÔÝÊ±¿ÕÈ±/i)||($_ =~ /°æÖ÷/i)||($_ =~ /Ì³Ö÷/i));
-    my $namenumber = &getnamenumber($_);
-    &checkmemfile($_,$namenumber);
-    if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { &winunlock($filetoopen) if ($OS_USED eq "Nt"); &errorout("ÂÛÌ³°æÖ÷Ãûµ¥ÖÐ£¬$_ Õâ¸öÓÃ»§ ID ÊÇ²»´æÔÚµÄ£¡"); }
-}
-
-                $filetomake1 = "$dirtomake/foruminfo.cgi";
+               FFFF width=40%>
+        <font color=#333333><b>ç’å“„          $filetomake1 = "$dirtomake/foruminfo.cgi";
                 open(FILE,">$filetomake1");
                 print FILE "$newforumid\t$new_categoryname\t$incategory\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t";
                 close(FILE);

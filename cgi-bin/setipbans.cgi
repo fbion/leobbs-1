@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -79,25 +79,25 @@ if ($action eq "process") {
         if (-e $filetomake && -w $filetomake) {
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / IP ½ûÖ¹</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / IP ç¦æ­¢</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle colspan=2>
-		<font color=#333333><center><b>ËùÓÐµÄÐÅÏ¢ÒÑ¾­±£´æ</b></center><br><br>
-		<b>ÄãÒÑ¾­¶ÔÏÂÁÐ IP ½øÐÐÁË´¦Àí£¨µÚÒ»¸ö×Ö·ûÊÇ - µÄÎª½ûÖ¹£©</b><br><br>
+		<font color=#333333><center><b>æ‰€æœ‰çš„ä¿¡æ¯å·²ç»ä¿å­˜</b></center><br><br>
+		<b>ä½ å·²ç»å¯¹ä¸‹åˆ— IP è¿›è¡Œäº†å¤„ç†ï¼ˆç¬¬ä¸€ä¸ªå­—ç¬¦æ˜¯ - çš„ä¸ºç¦æ­¢ï¼‰</b><br><br>
 		);
                     print qq(<b>$wordarray2display</b><br>);
                 print qq(
-                <br><br><br><center><a href="setipbans.cgi">ÔÙ´ÎÔö¼ÓÒ»Ð©½ûÖ¹µÄ IP</a></center>);
+                <br><br><br><center><a href="setipbans.cgi">å†æ¬¡å¢žåŠ ä¸€äº›ç¦æ­¢çš„ IP</a></center>);
                 }
                 else {
                     print qq(
                     <tr><td bgcolor=#2159C9" colspan=2><font color=#FFFFFF>
-			<b>»¶Ó­À´µ½ LeoBBS ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+			<b>æ¬¢è¿Žæ¥åˆ° LeoBBS è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
 			</td></tr>
 			<tr>
 			<td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-			<font color=#333333><b>ËùÓÐµÄÐÅÏ¢Ã»ÓÐ±£´æ</b><br>ÓÐÎÄ¼þ»òÄ¿Â¼Îª²»¿ÉÐ´£¬ÇëÉèÖÃÊôÐÔ 777 £¡
+			<font color=#333333><b>æ‰€æœ‰çš„ä¿¡æ¯æ²¡æœ‰ä¿å­˜</b><br>æœ‰æ–‡ä»¶æˆ–ç›®å½•ä¸ºä¸å¯å†™ï¼Œè¯·è®¾ç½®å±žæ€§ 777 ï¼
                     	</td></tr></table></td></tr></table>
 		     	);
                     }
@@ -117,74 +117,74 @@ if ($action eq "process") {
                 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / IP ½ûÖ¹</b>
+		<b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / IP ç¦æ­¢</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<font color=#333333><b>IP ½ûÖ¹ÁÐ±í</b>
+		<font color=#333333><b>IP ç¦æ­¢åˆ—è¡¨</b>
 		</td></tr>
 		<form action="$thisprog" method="post">
 		<input type=hidden name="action" value="process">
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle colspan=2>
 		<font color=#000000>
-		<b>Çë×¢Òâ:</b>Èç¹ûÄã½ûÖ¹ÁËÒ»¸ö IP µÄ»°£¬ÄÇÃ´Õâ¸ö IP ½«ÎÞ·¨½øÈëÂÛÌ³£¡<br>
+		<b>è¯·æ³¨æ„:</b>å¦‚æžœä½ ç¦æ­¢äº†ä¸€ä¸ª IP çš„è¯ï¼Œé‚£ä¹ˆè¿™ä¸ª IP å°†æ— æ³•è¿›å…¥è®ºå›ï¼<br>
 		<br>
                     <table width="100%" border="1" height="122" cellspacing="0" cellpadding="0">
                       <tr> 
                         <td width="34%"> 
-                          <div align="center">¹æÔò</div>
+                          <div align="center">è§„åˆ™</div>
                         </td>
                         <td width="33%"> 
-                          <div align="center">Àý£±</div>
+                          <div align="center">ä¾‹ï¼‘</div>
                         </td>
                         <td width="33%"> 
-                          <div align="center">Àý£²</div>
+                          <div align="center">ä¾‹ï¼’</div>
                         </td>
                       </tr>
                       <tr> 
-                        <td height="51" width="35%">£±ÁÐ³öµÄµ¥»ú»òÍø¶ÎµØÖ·ÎªÔÊÐíµØÖ·<br>
-                          £²ÔÚipÇ°¼Ó¡°-¡±Îª²»ÔÊÐí<br>
-                          £³Í¬Ò»Íø¶ÎµÄ£¬Ó¦³¤µØÖ·ÅÅÇ°</td>
+                        <td height="51" width="35%">ï¼‘åˆ—å‡ºçš„å•æœºæˆ–ç½‘æ®µåœ°å€ä¸ºå…è®¸åœ°å€<br>
+                          ï¼’åœ¨ipå‰åŠ â€œ-â€ä¸ºä¸å…è®¸<br>
+                          ï¼“åŒä¸€ç½‘æ®µçš„ï¼Œåº”é•¿åœ°å€æŽ’å‰</td>
                         <td height="51" width="33%"> 
                           <p>80.32.96.11<br>
                             -80.32.96.<br>
                             <br>
-                            ×¢£º²»ÔÊÐí80.32.96¶Î£¬Ö»ÔÊÐí80.32.96.11<br>
+                            æ³¨ï¼šä¸å…è®¸80.32.96æ®µï¼Œåªå…è®¸80.32.96.11<br>
                           </p>
                         </td>
                         <td height="51" width="33%">-80.32.96.11 <br>
                           80.32.96.<br>
                           <br>
-                          ×¢£ºÔÊÐí80.32.96¶Î£¬²»ÔÊÐí80.32.96.11</td>
+                          æ³¨ï¼šå…è®¸80.32.96æ®µï¼Œä¸å…è®¸80.32.96.11</td>
                       </tr>
                       <tr> 
                         <td> 
-                          <div align="center">±¸×¢</div>
+                          <div align="center">å¤‡æ³¨</div>
                         </td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                       </tr>
                       <tr> 
-                        <td colspan="3">ËµÃ÷£±£º²»ÁÐ³öµÄµØÖ·Ä¬ÈÏÎªÔÊÐí£¬¼û±¸×¢¡£</td>
+                        <td colspan="3">è¯´æ˜Žï¼‘ï¼šä¸åˆ—å‡ºçš„åœ°å€é»˜è®¤ä¸ºå…è®¸ï¼Œè§å¤‡æ³¨ã€‚</td>
                       </tr>
                       <tr>
-                        <td colspan="3">ËµÃ÷£²£ºµØÖ·²»×ãÈýÎ»£¬×ó±ß²»ÓÃ²¹£°£¨²»Òª»­ÉßÌí×ãÅ¶£©¡£</td>
+                        <td colspan="3">è¯´æ˜Žï¼’ï¼šåœ°å€ä¸è¶³ä¸‰ä½ï¼Œå·¦è¾¹ä¸ç”¨è¡¥ï¼ï¼ˆä¸è¦ç”»è›‡æ·»è¶³å“¦ï¼‰ã€‚</td>
                       </tr>
                       <tr> 
-                        <td colspan="3">ËµÃ÷£³£ºÈç¹ûÄãÒª½ûÖ¹Ò»¸ö B ÀàÍø£¬ÄÇÃ´Äã¿ÉÒÔ²»ÊäÈë IP µÄ×îºóÁ½Î»£¬±ÈÈç£º202.100.¡£</td>
+                        <td colspan="3">è¯´æ˜Žï¼“ï¼šå¦‚æžœä½ è¦ç¦æ­¢ä¸€ä¸ª B ç±»ç½‘ï¼Œé‚£ä¹ˆä½ å¯ä»¥ä¸è¾“å…¥ IP çš„æœ€åŽä¸¤ä½ï¼Œæ¯”å¦‚ï¼š202.100.ã€‚</td>
                       </tr>
                       <tr>
-                        <td colspan="3">ËµÃ÷£´£º×¢ÒâÉÏÃæµÄÐ´·¨£¬Èç¹û½ûÖ¹µÄÊÇÒ»¸ö C Àà»òÕß B ÀàÍø£¬Çë×îºó±£ÁôµãºÅ(.)£¬ÇÐ¼Ç£¡</td>
+                        <td colspan="3">è¯´æ˜Žï¼”ï¼šæ³¨æ„ä¸Šé¢çš„å†™æ³•ï¼Œå¦‚æžœç¦æ­¢çš„æ˜¯ä¸€ä¸ª C ç±»æˆ–è€… B ç±»ç½‘ï¼Œè¯·æœ€åŽä¿ç•™ç‚¹å·(.)ï¼Œåˆ‡è®°ï¼</td>
                       </tr>
                       <tr> 
-                        <td colspan="3">ËµÃ÷£µ£ºÃ¿ÐÐÐ´Ò»¸ö IP£¬×¢Òâ×îºó»Ø³µ£¡</td>
+                        <td colspan="3">è¯´æ˜Žï¼•ï¼šæ¯è¡Œå†™ä¸€ä¸ª IPï¼Œæ³¨æ„æœ€åŽå›žè½¦ï¼</td>
                       </tr>
                       <tr> 
-                        <td colspan="3">ËµÃ÷£¶£ºÈç¹ûÒª·âÀàËÆ210.126.1.ÕâÑùµÄIP¶Î£¬ÇëÓÃ-210.126.1\.£¡</td>
+                        <td colspan="3">è¯´æ˜Žï¼–ï¼šå¦‚æžœè¦å°ç±»ä¼¼210.126.1.è¿™æ ·çš„IPæ®µï¼Œè¯·ç”¨-210.126.1\.ï¼</td>
                       </tr>
                       <tr> 
-                        <td colspan="3">ËµÃ÷£·£ºÈç¹ûÒª·âÀàËÆ210.126.1.4ÕâÑùµÄIP¶Î£¬ÇëÓÃ-210.126.1.4\$ £¡</td>
+                        <td colspan="3">è¯´æ˜Žï¼—ï¼šå¦‚æžœè¦å°ç±»ä¼¼210.126.1.4è¿™æ ·çš„IPæ®µï¼Œè¯·ç”¨-210.126.1.4\$ ï¼</td>
                       </tr>
                     </table>
 	                </font></td>
@@ -204,7 +204,7 @@ if ($action eq "process") {
 		</tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<input type=submit name=submit value=Ìá½»></td></form></tr></table></td></tr></table>
+		<input type=submit name=submit value=æäº¤></td></form></tr></table></td></tr></table>
 );
                 
                 }

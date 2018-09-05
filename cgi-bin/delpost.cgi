@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -53,8 +53,8 @@ $inpost = " " if ($inpost eq "");
 $inforum       = $forum;
 $intopic       = $topic;
 $movetoid =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic) && ($intopic !~ /^[0-9 ]+$/));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9 ]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic) && ($intopic !~ /^[0-9 ]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9 ]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inmembername  = $membername;
@@ -75,31 +75,31 @@ $inposticon	= $posticon;
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) { &error("ÆÕÍ¨´íÎó&Çë²»ÒªĞŞ¸ÄÉú³ÉµÄ URL£¡"); }
+if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) { &error("æ™®é€šé”™è¯¯&è¯·ä¸è¦ä¿®æ”¹ç”Ÿæˆçš„ URLï¼"); }
 
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername");
 #    &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 &moderator("$inforum");
@@ -115,13 +115,13 @@ elsif ($action eq "processedit" && $indeletepost eq "yes") { &deletepost;   }
 elsif ($action eq "directdel") {&deletepost}
 elsif ($action eq "postdeleteonce") {&postdeleteonce}
 elsif ($action eq "unpostdeleteonce") {&unpostdeleteonce}
-else { &error("ÆÕÍ¨´íÎó&ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò"); }
+else { &error("æ™®é€šé”™è¯¯&è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åº"); }
 
-&output("$boardname - Ö÷Ìâ´¦Àí",\$output);
+&output("$boardname - ä¸»é¢˜å¤„ç†",\$output);
 exit;
     
 sub deletethread {
-    &mischeader("É¾³ıÖ÷Ìâ");
+    &mischeader("åˆ é™¤ä¸»é¢˜");
     $cleartoedit = "no";
     if (($membercode eq "ad")  && ($inpassword eq $password)) { $cleartoedit = "yes"; }
     if (($membercode eq 'smo') && ($inpassword eq $password)) { $cleartoedit = "yes"; }
@@ -154,8 +154,8 @@ sub deletethread {
 	        }
 	    }
         }
-        if ($delcount > $maxdeloneday){ &error("É¾³ıÖ÷Ìâ&Äã½ñÌìÉ¾³ıÌû×ÓÌ«¶à£¬ÇëÃ÷Ìì¼ÌĞø£¡"); } 
-        if ($delcou > $maxdeloneday)  { &error("É¾³ıÖ÷Ìâ&Äã½ñÌìÉ¾³ıÌû×ÓÌ«¶à£¬ÇëÃ÷Ìì¼ÌĞø£¡"); } 
+        if ($delcount > $maxdeloneday){ &error("åˆ é™¤ä¸»é¢˜&ä½ ä»Šå¤©åˆ é™¤å¸–å­å¤ªå¤šï¼Œè¯·æ˜å¤©ç»§ç»­ï¼"); } 
+        if ($delcou > $maxdeloneday)  { &error("åˆ é™¤ä¸»é¢˜&ä½ ä»Šå¤©åˆ é™¤å¸–å­å¤ªå¤šï¼Œè¯·æ˜å¤©ç»§ç»­ï¼"); } 
         undef $delcount; 
         undef $delcou; 
     }
@@ -163,7 +163,7 @@ sub deletethread {
     if ($checked eq "yes"){ #1
         @intopic=split(/ /,$intopic);
         $alldeltopic=@intopic;
-        &error("É¾³ıÖ÷Ìâ&ÇëÏÈÑ¡ÔñĞèÒªÉ¾³ıµÄÖ÷Ìâ£¡") if ($alldeltopic <= 0);
+        &error("åˆ é™¤ä¸»é¢˜&è¯·å…ˆé€‰æ‹©éœ€è¦åˆ é™¤çš„ä¸»é¢˜ï¼") if ($alldeltopic <= 0);
         foreach $intopic (@intopic) {#2
             $filetoopen = "${lbdir}forum$inforum/$intopic.thd.cgi";
             if (!(-e $filetoopen)) { $alldeltopic -- ; }
@@ -178,7 +178,7 @@ sub deletethread {
         	}
 		unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
 
-        	if ($cleartoedit eq "no") { &error("É¾³ıÖ÷Ìâ&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷»ò°æÖ÷£¬Ò²²»ÊÇ±¾Ö÷ÌâµÄ·¢²¼Õß£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+        	if ($cleartoedit eq "no") { &error("åˆ é™¤ä¸»é¢˜&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»æˆ–ç‰ˆä¸»ï¼Œä¹Ÿä¸æ˜¯æœ¬ä¸»é¢˜çš„å‘å¸ƒè€…ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
         	else {#4
                     &sendtoposter("$inmembername","$startedby","","deletethread","$inforum","$intopic", "$topictitle","$inpost") if (($sendmanageinfo eq "yes")&&(lc($inmembername) ne lc($startedby)));
 	  	    $nametocheck = $startedby;
@@ -255,7 +255,7 @@ sub deletethread {
 			chomp $_; 
 			unlink ("${imagesdir}$usrdir/$inforum/$_"); 
 		    }
-		    &delallupfiles($inforum,$intopic); ##ĞÂµÄÌû×Ó¸½¼şÉ¾³ı(cache·½Ê½)
+		    &delallupfiles($inforum,$intopic); ##æ–°çš„å¸–å­é™„ä»¶åˆ é™¤(cacheæ–¹å¼)
 	        }#4
 	    }#3
 	}#2
@@ -267,23 +267,23 @@ sub deletethread {
 	    $trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
 	    my $thistime=time;
             if (open(FILE, ">>${lbdir}data/baddel.cgi")) {
-                print FILE "$inmembername\tÃÜÂë²»ÏÔÊ¾\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\tÉ¾³ı$forumname $alldeltopic ¸öÌù×Ó\t$thistime\t\n";
+                print FILE "$inmembername\tå¯†ç ä¸æ˜¾ç¤º\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\tåˆ é™¤$forumname $alldeltopic ä¸ªè´´å­\t$thistime\t\n";
                 close(FILE);
             }
             undef $thistime;
         }
-        if ($inpost ne "") { $inpost = "<BR>É¾³ıÀíÓÉ£º$inpost"; }
+        if ($inpost ne "") { $inpost = "<BR>åˆ é™¤ç†ç”±ï¼š$inpost"; }
 		if ($alldeltopic == 1)
 		{
-			$topictitle =~ s/^£ª£££¡£¦£ª//;
-			&addadminlog("É¾³ıÖ÷Ìâ <i>$topictitle</i><BR>×÷Õß£º$startedby$inpost");
+			$topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+			&addadminlog("åˆ é™¤ä¸»é¢˜ <i>$topictitle</i><BR>ä½œè€…ï¼š$startedby$inpost");
 		}
 		else
 		{
-			&addadminlog("ÅúÁ¿É¾³ıÖ÷Ìâ $alldeltopic Æª$inpost") if ($alldeltopic > 1);
+			&addadminlog("æ‰¹é‡åˆ é™¤ä¸»é¢˜ $alldeltopic ç¯‡$inpost") if ($alldeltopic > 1);
 		}
 
-    if ($cleartoedit eq "no")  { &error("É¾³ıÖ÷Ìâ&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷»ò°æÖ÷£¬Ò²²»ÊÇ±¾Ö÷ÌâµÄ·¢²¼Õß£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    if ($cleartoedit eq "no")  { &error("åˆ é™¤ä¸»é¢˜&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»æˆ–ç‰ˆä¸»ï¼Œä¹Ÿä¸æ˜¯æœ¬ä¸»é¢˜çš„å‘å¸ƒè€…ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
     if ($cleartoedit eq "yes") {
 	$file = "$lbdir" . "boarddata/listno$inforum.cgi";
         &winlock($file) if ($OS_USED eq "Nt");
@@ -491,10 +491,10 @@ if ($category =~ /childforum-[0-9]+/) {
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>É¾³ı³É¹¦</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>¾ßÌåÇé¿ö£º<ul>
-<li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a>
-<li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>åˆ é™¤æˆåŠŸ</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å…·ä½“æƒ…å†µï¼š<ul>
+<li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a>
+<li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -503,16 +503,16 @@ if ($category =~ /childforum-[0-9]+/) {
         @intopic = $query -> param('topic');
         $alldeltopic=@intopic;
         $alldeltopic = 0 if ($intopic[0] eq 'action');
-        &error("É¾³ıÖ÷Ìâ&ÇëÏÈÑ¡ÔñĞèÒªÉ¾³ıµÄÖ÷Ìâ£¡") if ($alldeltopic <= 0);
+        &error("åˆ é™¤ä¸»é¢˜&è¯·å…ˆé€‰æ‹©éœ€è¦åˆ é™¤çš„ä¸»é¢˜ï¼") if ($alldeltopic <= 0);
         if ($alldeltopic eq 1) {
             $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
 		open(FILE, "$filetoopen");
 		$threads = <FILE>;
 		close(FILE);
 	    	($startedby, $topictitle, my $no, $no, $no ,$no, $no, $no, $no, $no) = split(/\t/,$threads);
-	    	$topictitle =~ s/^£ª£££¡£¦£ª//;
-	    	$topictitle = qq~É¾³ıÖ÷Ìâ"<a href=topic.cgi?forum=$inforum&topic=$intopic target=_blank>$topictitle</a>"~;
-	} else { $topictitle = qq~ÅúÁ¿É¾³ı $alldeltopic ¸öÖ÷Ìâ~; }
+	    	$topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+	    	$topictitle = qq~åˆ é™¤ä¸»é¢˜"<a href=topic.cgi?forum=$inforum&topic=$intopic target=_blank>$topictitle</a>"~;
+	} else { $topictitle = qq~æ‰¹é‡åˆ é™¤ $alldeltopic ä¸ªä¸»é¢˜~; }
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -521,32 +521,32 @@ if ($category =~ /childforum-[0-9]+/) {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="@intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [$topictitle]</b></font></td></tr>
-<tr><td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc><b>¸Ã²Ù×÷ÊÇ²»¿ÉÄæµÄ£¬Çë×ĞÏ¸¿¼ÂÇ£¡</font></td>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>É¾³ıÀíÓÉ£º</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÊÇ·ñ¼ÆËã½øÎÄÕÂ±»É¾Êı£¿</font></td>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><input type="radio" name="leavemessage" value="yes" checked>¼ÆËã¡¡<input type="radio" name="leavemessage" value="no">²»¼ÆËã </font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></tr></form></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [$topictitle]</b></font></td></tr>
+<tr><td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc><b>è¯¥æ“ä½œæ˜¯ä¸å¯é€†çš„ï¼Œè¯·ä»”ç»†è€ƒè™‘ï¼</font></td>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>åˆ é™¤ç†ç”±ï¼š</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>æ˜¯å¦è®¡ç®—è¿›æ–‡ç« è¢«åˆ æ•°ï¼Ÿ</font></td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><input type="radio" name="leavemessage" value="yes" checked>è®¡ç®—ã€€<input type="radio" name="leavemessage" value="no">ä¸è®¡ç®— </font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></tr></form></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
     }
 } # end deletethread
 sub deletepost {
-    &mischeader("É¾³ı»Ø¸´");
+    &mischeader("åˆ é™¤å›å¤");
   if ($checked eq "yes"){ #1
     $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
     if (-e $filetoopen) {
        &winlock($filetoopen) if ($OS_USED eq "Nt");
-       open(FILE, "$filetoopen") or &error("É¾³ı&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡");
+       open(FILE, "$filetoopen") or &error("åˆ é™¤&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼");
        flock(FILE, 1) if ($OS_USED eq "Unix");
        @allthreads = <FILE>;
        close(FILE);
        &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    }else { unlink ("$lbdir" . "forum$inforum/$intopic.pl"); &error("É¾³ı&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡"); }
+    }else { unlink ("$lbdir" . "forum$inforum/$intopic.pl"); &error("åˆ é™¤&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼"); }
     @threads=@allthreads;
     $tt=@threads;
     $postcountcheck = 0;
@@ -560,24 +560,24 @@ sub deletepost {
 	@inpostno=grep(/[0-9]+/,@inpostno);
 	@oldinpostno=@inpostno;
 	$delcount=@inpostno;
-	&error("É¾³ı»Ø¸´&ÇëÏÈÑ¡ÔñĞèÒªÉ¾³ıµÄ»Ø¸´£¡") if($delcount <= 0);
+	&error("åˆ é™¤å›å¤&è¯·å…ˆé€‰æ‹©éœ€è¦åˆ é™¤çš„å›å¤ï¼") if($delcount <= 0);
 	$checkcandel=0;
 	foreach $posttodelete (@inpostno){
 	$posttodelete--;
-	if ($posttodelete eq "0") { &error("É¾³ı»Ø¸´&ÕâÀïÊÇÓÃÀ´É¾³ı»Ø¸´µÄ£¬²»ÄÜÉ¾³ıÖ÷Ìâ£¡"); }
+	if ($posttodelete eq "0") { &error("åˆ é™¤å›å¤&è¿™é‡Œæ˜¯ç”¨æ¥åˆ é™¤å›å¤çš„ï¼Œä¸èƒ½åˆ é™¤ä¸»é¢˜ï¼"); }
     ($startedby[$posttodelete], $topictitle) = split(/\t/,$allthreads[$posttodelete]);
     if ($arrowuserdel eq "on" && $checkcandelm ne "YES") {
     	if ((lc($inmembername) eq lc($startedby[$posttodelete])) && ($inpassword eq $password)) { $cleartoedit = "yes";$checkcandel++;
-    	}else{ &error("É¾³ı»Ø¸´&²»ÊÇÔ­×÷Õß¡¢ÂÛÌ³¹ÜÀíÔ±£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    	}else{ &error("åˆ é™¤å›å¤&ä¸æ˜¯åŸä½œè€…ã€è®ºå›ç®¡ç†å‘˜ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
     }
     unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
 	
-	(undef, undef, undef, undef, undef ,undef, $delpostES, undef) = split(/\t/, $newallthread[$posttodelete]); #Â·Ñî
+	(undef, undef, undef, undef, undef ,undef, $delpostES, undef) = split(/\t/, $newallthread[$posttodelete]); #è·¯æ¨
 	$newallthread[$posttodelete]="";
 	$checkaddon[$posttodelete]="YES";
 	}
     unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-        if (($cleartoedit eq "no"||($checkcandel != $delcount && $checkcandelm ne "YES")) && $checked eq "yes") { &error("É¾³ı»Ø¸´&²»ÊÇÔ­×÷Õß¡¢ÂÛÌ³¹ÜÀíÔ±£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+        if (($cleartoedit eq "no"||($checkcandel != $delcount && $checkcandelm ne "YES")) && $checked eq "yes") { &error("åˆ é™¤å›å¤&ä¸æ˜¯åŸä½œè€…ã€è®ºå›ç®¡ç†å‘˜ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
         if ($cleartoedit eq "yes" && ($checkcandel == $delcount || $checkcandelm eq "YES")) {
         	$postdelnum = 0;
 	  	foreach $posttodelete (@inpostno){
@@ -644,8 +644,8 @@ sub deletepost {
         ($postermembername2, $topictitle2, $postipaddress2, $showemoticons2, $showsignature2 ,$postdate2, $post2, $posticon2) = split(/\t/, $newallthread[$#newallthread]);
         $postermembername2 = "" if ($#newallthread eq "0");
 	$inposttemp = $post2;
-	$inposttemp="(ÃÜ)" if ($inposttemp=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
-	$inposttemp="(ÃÜ)" if ($inposttemp=~/LBSALE\[(.*?)\]LBSALE/sg);
+	$inposttemp="(å¯†)" if ($inposttemp=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg);
+	$inposttemp="(å¯†)" if ($inposttemp=~/LBSALE\[(.*?)\]LBSALE/sg);
         $inposttemp=&temppost($inposttemp);
         $inposttemp = &lbhz($inposttemp,50);
 
@@ -666,11 +666,11 @@ sub deletepost {
         }
         &winunlock($filetoopen) if ($OS_USED eq "Nt");
 	
-##########ÀÏµÄ¸½¼şÉ¾³ı ±£Áô£¬ÎªÁË¼æÈİ
-       # unlink ("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #ÏÖÔÚ²»ÄÜÉ¾³ıËû
+##########è€çš„é™„ä»¶åˆ é™¤ ä¿ç•™ï¼Œä¸ºäº†å…¼å®¹
+       # unlink ("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #ç°åœ¨ä¸èƒ½åˆ é™¤ä»–
        $filetoopen = "${lbdir}FileCount/$inforum/$inforum\_$intopic.cgi";
 
-#########ºÜ¹ÖµÄÖØÃüÃû£º£©ÎªÁË¼æÈİ£¬±£Áô£¨Â·Ñî£©
+#########å¾ˆæ€ªçš„é‡å‘½åï¼šï¼‰ä¸ºäº†å…¼å®¹ï¼Œä¿ç•™ï¼ˆè·¯æ¨ï¼‰
        my $dirtoopen2 = "$imagesdir" . "$usrdir/$inforum";
        opendir (DIR, "$dirtoopen2");
        @dirdata = readdir(DIR);
@@ -693,23 +693,19 @@ sub deletepost {
        	   if($#filetorename >= 0){
        	   ($filename,$fileext)=split(/\./,$filetorename[0]);
        	   $ii=$i-1;
-       	   rename ("${imagesdir}$usrdir/$inforum/$inforum\_$intopic\_$i.$fileext","${imagesdir}$usrdir/$inforum/$inforum\_$intopic\_$ii.$fileext");
-       	   $DTHack=~s/$inforum\_$intopic\_$i/$inforum\_$intopic\_$ii/isg if (-e $filetoopen && $dispshowcount eq "yes" && $DTHack=~m/$inforum\_$intopic\_$i/);
+       	   rename ("${imagesdir}$usrdir/$inforum/$inforum\_$intopic\_$i.$fileext","${imagesdir}$us   	   chomp @files;
+       	   if($#files >= 0){
+       	   $DTHack=~s/$inforum\_$intopic\_$pno\=$inforum\_$intopic\_$pno.(.+?)\=[0-9]+\n//s if (-e $filetoopen && $dispshowcount eq "yes" && $DTHack=~m/$inforum\_$intopic\_$pno/);
+       	   	foreach $file(@files){
+       	   unlink ("$dirtoopen2/$file");
+       	   	}
        	   }
-       	}
-       }
-###############ÀÏµÄ¸½¼şÉ¾³ıEND
-       &delupfiles(\$delpostES,$inforum,$intopic);      ###ĞÂµÄ·½·¨BYÂ·Ñî
-
-       my $dirtoopen2 = "${lbdir}$saledir";
-       opendir (DIR, "$dirtoopen2");
-       @dirdata = readdir(DIR);
-       closedir (DIR);
-       @oldinpostno = @oldinpostnobak;
-
-       foreach $pno (@oldinpostno) {
-       	  $pno--;
-       	  unlink ("$dirtoopen2/$inforum\_$intopic\_$pno\.cgi") if (-e "$dirtoopen2/$inforum\_$intopic\_$pno\.cgi");
+       	for(my $i=$pno+1;$i<$tt;$i++){
+       	   @filetorename=grep(/^$inforum\_$intopic\_$i/,@dirdata);
+       	   if($#filetorename >= 0){
+       	   ($filename,$fileext)=split(/\./,$filetorename[0]);
+       	   $ii=$i-1;
+       	   rename ("${imagesdir}$usrdir/$inforum/$inforum\_$intopic\_$i.$fileext","${imagesdir}$usrtoopen2/$inforum\_$intopic\_$pno\.cgi");
        	  for(my $i=$pno+1;$i<$tt;$i++){
        	      $ii=$i-1;
        	      rename ("${lbdir}$saledir/$inforum\_$intopic\_$i.cgi","${lbdir}$saledir/$inforum\_$intopic\_$ii.cgi") if (-e "${lbdir}$saledir/$inforum\_$intopic\_$i.cgi");
@@ -767,9 +763,9 @@ sub deletepost {
         &winunlock($filetomake) if ($OS_USED eq "Nt");
       }
 
-       &mischeader("É¾³ı»Ø¸´");
-        if ($inpost ne "") { $inpost = "<BR>É¾³ıÀíÓÉ£º$inpost"; }
-	&addadminlog("É¾³ı»Ø¸´ $delcount Æª$inpost", $intopic);
+       &mischeader("åˆ é™¤å›å¤");
+        if ($inpost ne "") { $inpost = "<BR>åˆ é™¤ç†ç”±ï¼š$inpost"; }
+	&addadminlog("åˆ é™¤å›å¤ $delcount ç¯‡$inpost", $intopic);
 
         if ($refreshurl == 1) {
 	        $relocurl = "topic.cgi?forum=$inforum&topic=$intopic";
@@ -795,14 +791,14 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
             <td>
             <table cellpadding=6 cellspacing=1 width=100%>
             <tr>
-            <td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ÒÑÉ¾³ı <font color=$fonthighlight>$delcount</font> Æª»Ø¸´£¬ÇëÎñ±ØË¢ĞÂÌù×ÓÒ³Ãæ</b></font></td></tr>
+            <td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>å·²åˆ é™¤ <font color=$fonthighlight>$delcount</font> ç¯‡å›å¤ï¼Œè¯·åŠ¡å¿…åˆ·æ–°è´´å­é¡µé¢</b></font></td></tr>
             <tr>
             <td bgcolor=$miscbackone><font color=$fontcolormisc>
-            ¾ßÌåÇé¿ö£º
+            å…·ä½“æƒ…å†µï¼š
             <ul>
-            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">·µ»ØÖ÷Ìâ</a>
-            <li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a>
-            <li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">è¿”å›ä¸»é¢˜</a>
+            <li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a>
+            <li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
             </ul>
             </tr>
             </td>
@@ -811,7 +807,7 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
              <meta http-equiv="refresh" content="3; url=$relocurl">
             ~;
             } # end if clear to edit
-            else { &error("É¾³ı»Ø¸´&²»ÊÇÔ­×÷Õß¡¢ÂÛÌ³¹ÜÀíÔ±£¡"); }
+            else { &error("åˆ é™¤å›å¤&ä¸æ˜¯åŸä½œè€…ã€è®ºå›ç®¡ç†å‘˜ï¼"); }
 
       } else {
 	$inpostno = $postno;
@@ -826,15 +822,15 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
 <input type=hidden name="postno" value="$postno">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [É¾³ı $inpostno ¸ö»Ø¸´]</b></font></td></tr>
-<tr><td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc><b>¸Ã²Ù×÷ÊÇ²»¿ÉÄæµÄ£¬Çë×ĞÏ¸¿¼ÂÇ£¡</font></td>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>É¾³ıÀíÓÉ£º</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÊÇ·ñ¼ÆËã½øÎÄÕÂ±»É¾Êı£¿</font></td> 
-<td bgcolor=$miscbackone><font color=$fontcolormisc><input type="radio" name="leavemessage" value="yes" checked>¼ÆËã¡¡<input type="radio" name="leavemessage" value="no">²»¼ÆËã </font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></tr></form></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [åˆ é™¤ $inpostno ä¸ªå›å¤]</b></font></td></tr>
+<tr><td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc><b>è¯¥æ“ä½œæ˜¯ä¸å¯é€†çš„ï¼Œè¯·ä»”ç»†è€ƒè™‘ï¼</font></td>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>åˆ é™¤ç†ç”±ï¼š</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>æ˜¯å¦è®¡ç®—è¿›æ–‡ç« è¢«åˆ æ•°ï¼Ÿ</font></td> 
+<td bgcolor=$miscbackone><font color=$fontcolormisc><input type="radio" name="leavemessage" value="yes" checked>è®¡ç®—ã€€<input type="radio" name="leavemessage" value="no">ä¸è®¡ç®— </font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></tr></form></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -843,7 +839,7 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
 } # end subdelete
 
 sub movetopic {
-    &mischeader("ÒÆ¶¯Ö÷Ìâ");
+    &mischeader("ç§»åŠ¨ä¸»é¢˜");
     @intopic=split(/ /,$intopic);
     $thismovetopic=@intopic;
 
@@ -852,10 +848,10 @@ sub movetopic {
     if (($membercode eq 'smo') && ($inpassword eq $password)) { $cleartomove = 'yes'; }
     if (($inmembmod eq "yes")  && ($membercode ne 'amo') && ($inpassword eq $password)) { $cleartomove = "yes"; }
     unless ($cleartomove eq "yes") { $cleartomove = "no"; }
-    if ($cleartomove eq "no") { &error("ÒÆ¶¯Ö÷Ìâ&Äú²»ÊÇÌ³Ö÷»ò°æÖ÷£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    if ($cleartomove eq "no") { &error("ç§»åŠ¨ä¸»é¢˜&æ‚¨ä¸æ˜¯å›ä¸»æˆ–ç‰ˆä¸»ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
     if (($cleartomove eq "yes") && ($checked eq "yes") && ($movetoid)) {
-        if ($movetoid == $inforum) { &error("ÒÆ¶¯Ö÷Ìâ&²»ÔÊĞíÔÚÍ¬¸öÂÛÌ³ÉÏÒÆ¶¯Ö÷Ìâ£¡"); }
+        if ($movetoid == $inforum) { &error("ç§»åŠ¨ä¸»é¢˜&ä¸å…è®¸åœ¨åŒä¸ªè®ºå›ä¸Šç§»åŠ¨ä¸»é¢˜ï¼"); }
         my $filetoopen = "${lbdir}forum$inforum/foruminfo.cgi";
         open(FILE, "$filetoopen");
         my $forums = <FILE>;
@@ -868,7 +864,7 @@ sub movetopic {
         close(FILE);
         (my $trash, $trash, $trash, $newforumname, $trash, $trash, $trash, $trash, $trash, $nowstartnewthreads, $trash) = split(/\t/,$forums);
 
-        if ($nowstartnewthreads eq "onlysub") {&error("ÒÆ¶¯&¶Ô²»Æğ£¬Ä¿±êÇøÊÇ´¿×ÓÂÛÌ³Çø£¬²»ÔÊĞíÓĞÌù×Ó£¡"); }
+        if ($nowstartnewthreads eq "onlysub") {&error("ç§»åŠ¨&å¯¹ä¸èµ·ï¼Œç›®æ ‡åŒºæ˜¯çº¯å­è®ºå›åŒºï¼Œä¸å…è®¸æœ‰è´´å­ï¼"); }
 
         opendir (DIR, "${imagesdir}$usrdir/$inforum");
         @files = readdir(DIR);
@@ -876,8 +872,8 @@ sub movetopic {
 
         $inpostaddon = "<p>" if ($inpost ne "");
         if ($indeletepost eq "yes") {
-            $moveinfoold = qq~´ËÌùÒÑ±»¹ÜÀíÔ±$inmembername×ªÒÆÖÁ£º <a href=forums.cgi?forum=$movetoid target=_self>$newforumname</a>~;
-            $moveinfonew = qq~´ËÌù×ªÒÆ×Ô£º <a href=forums.cgi?forum=$inforum target=_self>$oldforumname</a>~;
+            $moveinfoold = qq~æ­¤è´´å·²è¢«ç®¡ç†å‘˜$inmembernameè½¬ç§»è‡³ï¼š <a href=forums.cgi?forum=$movetoid target=_self>$newforumname</a>~;
+            $moveinfonew = qq~æ­¤è´´è½¬ç§»è‡ªï¼š <a href=forums.cgi?forum=$inforum target=_self>$oldforumname</a>~;
         }
         else { $moveinfonew = ""; $moveinfoold = ""; }
         
@@ -910,18 +906,18 @@ sub movetopic {
                 $newthreadnumber = $highestno + 1;
 	    }
 
-            $myinpost  = qq~***** °æÖ÷Ä£Ê½ *****<p>$inpost$inpostaddon¸ÃÌù×ÓÊÇ¹ÜÀíÔ±´Ó<a href=forums.cgi?forum=$inforum>$oldforumname</a>×ªÒÆ¹ıÀ´µÄ£¡~;
-            $newinpost = qq~***** °æÖ÷Ä£Ê½ *****<p>$inpost$inpostaddon<a href=topic.cgi?forum=$movetoid&topic=$newthreadnumber>¸ÃÌù×ÓÒÑ±»¹ÜÀíÔ±×ªÒÆ£¬Çëµã»÷ÕâÀï²é¿´</a>~;
+            $myinpost  = qq~***** ç‰ˆä¸»æ¨¡å¼ *****<p>$inpost$inpostaddonè¯¥è´´å­æ˜¯ç®¡ç†å‘˜ä»<a href=forums.cgi?forum=$inforum>$oldforumname</a>è½¬ç§»è¿‡æ¥çš„ï¼~;
+            $newinpost = qq~***** ç‰ˆä¸»æ¨¡å¼ *****<p>$inpost$inpostaddon<a href=topic.cgi?forum=$movetoid&topic=$newthreadnumber>è¯¥è´´å­å·²è¢«ç®¡ç†å‘˜è½¬ç§»ï¼Œè¯·ç‚¹å‡»è¿™é‡ŒæŸ¥çœ‹</a>~;
     
             open (ENT, "${lbdir}forum$inforum/$intopic.pl");
             $in = <ENT>;
             close (ENT);
             ($topicid, $topictitle, $topicdescription, $threadstate, $threadposts ,$threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $lastinposticon,$inposttemp,$addmetemp) = split(/\t/,$in);
-            $topictitle =~ s/£ª£££¡£¦£ª//;
+            $topictitle =~ s/ï¼Šï¼ƒï¼ï¼†ï¼Š//;
             &sendtoposter("$inmembername","$startedby","$newforumname","move","$inforum","$intopic", "$topictitle","") if(($sendmanageinfo eq "yes")&&(lc($inmembername) ne lc($startedby)));
 	    $threadposts ++ if ($indeletepost eq "yes");
 
-            $myinpost="$inmembername\t$topictitle\t$ENV{'REMOTE_ADDR'}\tyes\tyes\t$currenttime\t$myinpost\t$inposticon\t\n";#$topictitleÕâÀï²ÅÓĞ
+            $myinpost="$inmembername\t$topictitle\t$ENV{'REMOTE_ADDR'}\tyes\tyes\t$currenttime\t$myinpost\t$inposticon\t\n";#$topictitleè¿™é‡Œæ‰æœ‰
 
 	    if ($moveinfonew ne "") {
 	        $topicdescription = $moveinfonew;
@@ -930,7 +926,7 @@ sub movetopic {
 	    $lastinposticon = $inposticon if ($inposticon ne "");
 
 	    if ($indeletepost eq "yes") {
-                $moveforumwrite = "$newthreadnumber\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$lastinposticon\t***** °æÖ÷Ä£Ê½ *****\t$addmetemp\t";
+                $moveforumwrite = "$newthreadnumber\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$lastinposticon\t***** ç‰ˆä¸»æ¨¡å¼ *****\t$addmetemp\t";
 	    }
 	    else {
                 $moveforumwrite = "$newthreadnumber\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$currenttime\t$lastinposticon\t$inposttemp\t$addmetemp\t";
@@ -965,7 +961,7 @@ sub movetopic {
    	    copy("${lbdir}forum$inforum/rate$intopic.file.pl",  "${lbdir}forum$movetoid/rate$newthreadnumber.file.pl")   if (-e "${lbdir}forum$inforum/rate$intopic.file.pl");
    	    copy("${lbdir}forum$inforum/rateip$intopic.file.pl","${lbdir}forum$movetoid/rateip$newthreadnumber.file.pl") if (-e "${lbdir}forum$inforum/rateip$intopic.file.pl");
 
-####¾ÉµÄ·½Ê½
+####æ—§çš„æ–¹å¼
 	    @files1 = grep(/^$inforum\_$intopic\./,@files);
             $files1 = @files1;
 	    if ($files1 > 0) {
@@ -984,8 +980,8 @@ sub movetopic {
 		    copy("${imagesdir}$usrdir/$inforum/$name.$ext","${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber\_$name3\.$ext");
 	        }
 	    }
-#####¾ÉµÄ·½Ê½
-            &moveallupfiles($inforum,$intopic,$movetoid,$newthreadnumber,$inleavemessage); #ĞÂµÄ·½Ê½
+#####æ—§çš„æ–¹å¼
+            &moveallupfiles($inforum,$intopic,$movetoid,$newthreadnumber,$inleavemessage); #æ–°çš„æ–¹å¼
 
             if (open(FILE, ">${lbdir}boarddata/lastnum$movetoid.cgi")) {
                 print FILE $newthreadnumber;
@@ -1013,9 +1009,9 @@ sub movetopic {
 			close(NHACK);
    }
 
-#### ½¨Á¢ºÃÁËĞÂÎÄ¼ş
+#### å»ºç«‹å¥½äº†æ–°æ–‡ä»¶
 
-            if ($inleavemessage eq "yes") { # ±£ÁôÔ­À´µÄÌû×Ó£¬´¦ÀíÔ­À´Ìû×ÓÔö¼Ó×îºóÒ»ÌõÊı¾İ
+            if ($inleavemessage eq "yes") { # ä¿ç•™åŸæ¥çš„å¸–å­ï¼Œå¤„ç†åŸæ¥å¸–å­å¢åŠ æœ€åä¸€æ¡æ•°æ®
                 $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
 		if (-e $filetoopen) {
                     &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -1075,7 +1071,7 @@ sub movetopic {
 	    }
         }
 
-	if ($inleavemessage eq "no") {  #É¾³ıÔ­À´ÂÛÌ³µÄÌû×Ó£¬´¦Àí×îĞÂÌù×ÓÖĞµÄÊı¾İ
+	if ($inleavemessage eq "no") {  #åˆ é™¤åŸæ¥è®ºå›çš„å¸–å­ï¼Œå¤„ç†æœ€æ–°è´´å­ä¸­çš„æ•°æ®
 	    $filetomakeopen = "$lbdir" . "data/recentpost.cgi";
 	    open(FILE, "$filetomakeopen");
 	    @recentposts=<FILE>;
@@ -1176,12 +1172,12 @@ sub movetopic {
 
 		if ($movetopicnums == 1)
 		{
-			$topictitle =~ s/^£ª£££¡£¦£ª//;
-			&addadminlog("ÒÆ¶¯Ö÷Ìâ <i>$topictitle</i> <BR>µ½ $newforumname", $intopic);
+			$topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+			&addadminlog("ç§»åŠ¨ä¸»é¢˜ <i>$topictitle</i> <BR>åˆ° $newforumname", $intopic);
 		}
 		else
 		{
-			&addadminlog("ÅúÁ¿ÒÆ¶¯Ö÷Ìâ $movetopicnums Æªµ½ $newforumname") if ($movetopicnums > 1);
+			&addadminlog("æ‰¹é‡ç§»åŠ¨ä¸»é¢˜ $movetopicnums ç¯‡åˆ° $newforumname") if ($movetopicnums > 1);
 		}
 
 opendir (CATDIR, "${lbdir}cache");
@@ -1202,11 +1198,11 @@ unlink ("${lbdir}cache/forumstop$movetoid");
         $relocurl = "forums.cgi?forum=$inforum";
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ö÷ÌâÒÑ¾­ÒÆ¶¯£º¹²ÒÆ¶¯Ö÷Ìâ <font color=$fonthighlight>$movetopicnums</font> Æª¡£</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>¾ßÌåÇé¿ö£º<ul>
-<li><a href="forums.cgi?forum=$inforum">·µ»ØÔ­ÂÛÌ³</a>
-<li><a href="forums.cgi?forum=$movetoid">·µ»ØĞÂÂÛÌ³</a>
-<li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¸»é¢˜å·²ç»ç§»åŠ¨ï¼šå…±ç§»åŠ¨ä¸»é¢˜ <font color=$fonthighlight>$movetopicnums</font> ç¯‡ã€‚</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å…·ä½“æƒ…å†µï¼š<ul>
+<li><a href="forums.cgi?forum=$inforum">è¿”å›åŸè®ºå›</a>
+<li><a href="forums.cgi?forum=$movetoid">è¿”å›æ–°è®ºå›</a>
+<li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$relocurl">
@@ -1221,7 +1217,7 @@ unlink ("${lbdir}cache/forumstop$movetoid");
         @forums = <FILE>;
         close(FILE);
 
-        $jumphtml .= "<option value=\"\">Ñ¡ÔñÒ»¸öÂÛÌ³\n</option>";
+        $jumphtml .= "<option value=\"\">é€‰æ‹©ä¸€ä¸ªè®ºå›\n</option>";
         $a=0;
         foreach $forum (@forums) {
 	    $a  = sprintf("%09d",$a);
@@ -1242,13 +1238,13 @@ unlink ("${lbdir}cache/forumstop$movetoid");
             ($categoryplace,my $a, $category, $forumname, $forumdescription, $movetoforumid, $forumgraphic, $miscad2, $misc,$forumpass,$hiddenforum,$indexforum,$teamlogo,$teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/,$sortedforums);
 	    $categoryplace  = sprintf("%01d",$categoryplace);
 
-            $child=($category =~/^childforum-[0-9]+/)?"¡¡|":"";
+            $child=($category =~/^childforum-[0-9]+/)?"ã€€|":"";
             if ($categoryplace ne $lastcategoryplace) {
-                $jumphtml .= "<option value=\"\" style=background-color:$titlecolor>©ï$category\n</option>";
-                $jumphtml .= "<option value=\"$movetoforumid\">$child¡¡|- $forumname\n</option>";
+                $jumphtml .= "<option value=\"\" style=background-color:$titlecolor>â•‹$category\n</option>";
+                $jumphtml .= "<option value=\"$movetoforumid\">$childã€€|- $forumname\n</option>";
             }
             else {
-                $jumphtml .= "<option value=\"$movetoforumid\">$child¡¡|- $forumname\n</option>";
+                $jumphtml .= "<option value=\"$movetoforumid\">$childã€€|- $forumname\n</option>";
             }
             $lastcategoryplace = $categoryplace;
         }
@@ -1256,7 +1252,7 @@ unlink ("${lbdir}cache/forumstop$movetoid");
         @intopic = $query -> param('topic');
 	$intopic = @intopic;
         $intopic = 0 if ($intopic[0] eq 'action');
-        &error("É¾³ıÖ÷Ìâ&ÇëÏÈÑ¡ÔñĞèÒªÒÆ¶¯µÄÖ÷Ìâ£¡") if ($intopic <= 0);
+        &error("åˆ é™¤ä¸»é¢˜&è¯·å…ˆé€‰æ‹©éœ€è¦ç§»åŠ¨çš„ä¸»é¢˜ï¼") if ($intopic <= 0);
 
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -1266,16 +1262,16 @@ unlink ("${lbdir}cache/forumstop$movetoid");
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="@intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [ÒÆ¶¯ $intopic ¸öÖ÷Ìâ]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ç§»åŠ¨ $intopic ä¸ªä¸»é¢˜]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-<b>ÒÆ¶¯Ñ¡Ïî</td>
+<b>ç§»åŠ¨é€‰é¡¹</td>
 <td bgcolor=$miscbackone><font color=$fontcolormisc>
-<input name="leavemessage" type="radio" value="yes"> ÒÆ¶¯²¢±£ÁôÒ»¸öÒÑ¾­Ëø¶¨µÄÖ÷ÌâÔÚÔ­ÂÛÌ³<br><input name="leavemessage" type="radio" value="no" checked> ÒÆ¶¯²¢½«´ËÖ÷Ìâ´ÓÔ­ÂÛÌ³ÖĞÉ¾³ı<br><input name="deletepost" type="checkbox" value="yes" checked> ÔÚÌù×ÓÏÂÏÔÊ¾×ªÒÆ×ÖÑù£¿</font>
+<input name="leavemessage" type="radio" value="yes"> ç§»åŠ¨å¹¶ä¿ç•™ä¸€ä¸ªå·²ç»é”å®šçš„ä¸»é¢˜åœ¨åŸè®ºå›<br><input name="leavemessage" type="radio" value="no" checked> ç§»åŠ¨å¹¶å°†æ­¤ä¸»é¢˜ä»åŸè®ºå›ä¸­åˆ é™¤<br><input name="deletepost" type="checkbox" value="yes" checked> åœ¨è´´å­ä¸‹æ˜¾ç¤ºè½¬ç§»å­—æ ·ï¼Ÿ</font>
 </td></tr>
-<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>µ±Ç°ĞÄÇé</b><br><li>½«·ÅÔÚÌù×ÓµÄÇ°Ãæ<BR></font></td>
+<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>å½“å‰å¿ƒæƒ…</b><br><li>å°†æ”¾åœ¨è´´å­çš„å‰é¢<BR></font></td>
 <td bgcolor=$miscbackone valign=top>
 ~;
 
@@ -1298,12 +1294,12 @@ unlink ("${lbdir}cache/forumstop$movetoid");
             $tempiconnum ++;
 #           $tempselect = "";
         }
-        $output .= qq~</td></tr><tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>ĞÅÏ¢£º</b><p>
-Õâ¸öÊÇ¿ÉÑ¡µÄ£¬¿ÉÒÔÌîÈëÒ»Ğ©ËµÃ÷ĞÅÏ¢¡£<p> ÒÆ¶¯ºóµÄÄ¿±êµØÖ·»á×Ô¶¯ÊäÈëÔÚÖ÷ÌâÖĞ¡£</font></td>
+        $output .= qq~</td></tr><tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>ä¿¡æ¯ï¼š</b><p>
+è¿™ä¸ªæ˜¯å¯é€‰çš„ï¼Œå¯ä»¥å¡«å…¥ä¸€äº›è¯´æ˜ä¿¡æ¯ã€‚<p> ç§»åŠ¨åçš„ç›®æ ‡åœ°å€ä¼šè‡ªåŠ¨è¾“å…¥åœ¨ä¸»é¢˜ä¸­ã€‚</font></td>
 <td bgcolor=$miscbackone><textarea cols=80 rows=9 wrap="soft" name="inpost"></textarea></td></tr>
-<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>×ªÒÆÖÁ£º</b></font></td>
+<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>è½¬ç§»è‡³ï¼š</b></font></td>
 <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><select name="movetoid">$jumphtml</select></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="Ìá ½»"></td></tr></form></table></td></tr></table>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="æ äº¤"></td></tr></form></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -1311,17 +1307,17 @@ unlink ("${lbdir}cache/forumstop$movetoid");
 }
 
 sub postdeleteonce {
-    &mischeader("µ¥ÌùÆÁ±Î");
+    &mischeader("å•è´´å±è”½");
   if ($checked eq "yes") { #1
     $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
     if (-e $filetoopen) {
        &winlock($filetoopen) if ($OS_USED eq "Nt");
-       open(FILE, "$filetoopen") or &error("µ¥ÌùÆÁ±Î&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡");
+       open(FILE, "$filetoopen") or &error("å•è´´å±è”½&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼");
        flock(FILE, 1) if ($OS_USED eq "Unix");
        @allthreads = <FILE>;
        close(FILE);
        &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    }else { unlink ("$lbdir" . "forum$inforum/$intopic.pl"); &error("µ¥ÌùÆÁ±Î&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡"); }
+    }else { unlink ("$lbdir" . "forum$inforum/$intopic.pl"); &error("å•è´´å±è”½&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼"); }
     chomp @allthreads;
     $cleartoedit = "no";
     if (($membercode eq "ad") && ($inpassword eq $password))  { $cleartoedit = "yes";}
@@ -1329,7 +1325,7 @@ sub postdeleteonce {
     if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password))  { $cleartoedit = "yes";}
 	$allthreads=@allthreads;
 	$allthreads ++;
-	&error("µ¥ÌùÆÁ±Î&´ËÌû×Ó²»´æÔÚ£¡") if($postno > $allthreads);
+	&error("å•è´´å±è”½&æ­¤å¸–å­ä¸å­˜åœ¨ï¼") if($postno > $allthreads);
 	$inpostnotemp = $postno;
 	$inpostnotemp --;
         ($postermembername1,$topictitle1,$postipaddress1,$inshowemoticons1,$inshowsignature1,$postdate1,$inpost1,$inposticon1,$water1) = split(/\t/,$allthreads[$inpostnotemp]);
@@ -1355,56 +1351,43 @@ sub postdeleteonce {
                 }
                 $postcountcheck++;
             }
-            close(FILE);
-        }
-        &winunlock($filetoopen) if ($OS_USED eq "Nt");
-$allthreads --;
-$inpostnotemp ++;
-if ($inpostnotemp eq $allthreads) {
-   my $file = "$lbdir" . "forum$inforum/$intopic.pl";
-   open (ENT, $file);
-   $in = <ENT>;
-   close (ENT);
-   chomp $in;
-   ($topicid, $topictitle, $topicdescription, $threadstate, $threadposts ,$threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $lastinposticon,$inposttemp,$addmetemp) = split(/\t/,$in);
-   
-   
-   open (ENT, ">$file");
-   print ENT "$topicid\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$lastinposticon\t´Ë»Ø¸´ÒÑ¾­±»ÆÁ±Î\t$addmetemp";
-   close (ENT);
+       otemp = $postno;
+	$inpostnotemp --;
+        ($postermembername1,$topictitle1,$postipaddress1,$inshowemoticons1,$inshowsignature1,$postdate1,$inpost1,$inposticon1,$water1) = split(/\t/,$allthreads[$inpostnotemp]);
 
-for(my $iii=0;$iii<=4;$iii++) {
-    my $jjj = $iii * $maxthreads;
-    unlink ("${lbdir}cache/plcache$inforum\_$jjj.pl");
-}
+        unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
+        if ($cleartoedit eq "yes") {
 
-}
-
-        if ($inpost ne " ") { $inpost = "<BR>ÆÁ±ÎÀíÓÉ£º$inpost"; }
-	&addadminlog("µ¥¶ÀÆÁ±ÎÌû×Ó$inpost", $intopic);
-
-        if ($refreshurl == 1) {
-	        $relocurl = "topic.cgi?forum=$inforum&topic=$intopic";
-	}
-	else {
-               	$relocurl = "forums.cgi?forum=$inforum";
-        }
-
-            $output .= qq~
-            <SCRIPT>valigntop()</SCRIPT>
-            <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
-            <tr>
+	    &sendtoposter("$inmembername","$postermembername1","","postdeleteonce","$inforum","$intopic", "$topictitle1","$inpost") if (($sendmanageinfo eq "yes")&&(lc($inmembername) ne lc($postermembername1)));
+	$inpost1 =~ s/\[POSTISDELETE=(.+?)\]//;
+	$inpost1 = qq~[POSTISDELETE=$inpost]$inpost1~;
+        $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+        &winlock($filetoopen) if ($OS_USED eq "Nt");
+        if (open(FILE, ">$filetoopen")) {
+            flock(FILE, 2) if ($OS_USED eq "Unix");
+            $postcountcheck = 0;
+            foreach $postline (@allthreads) {
+                chomp $postline;
+                if ($postcountcheck eq $inpostnotemp) {
+                    print FILE "$postermembername1\t$topictitle1\t$postipaddress1\t$inshowemoticons1\t$inshowsignature1\t$postdate1\t$inpost1\t$inposticon1\t$water1\n";
+                }
+                else {
+                    print FILE "$allthreads[$postcountcheck]\n";
+                }
+                $postcountcheck++;
+            }
+                <tr>
             <td>
             <table cellpadding=6 cellspacing=1 width=100%>
             <tr>
-            <td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>´ËÆªÌù×Ó»Ø¸´ÒÑ¾­µ¥¶À±»ÆÁ±Î</b></font></td></tr>
+            <td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æ­¤ç¯‡è´´å­å›å¤å·²ç»å•ç‹¬è¢«å±è”½</b></font></td></tr>
             <tr>
             <td bgcolor=$miscbackone><font color=$fontcolormisc>
-            ¾ßÌåÇé¿ö£º
+            å…·ä½“æƒ…å†µï¼š
             <ul>
-            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">·µ»ØÖ÷Ìâ</a>
-            <li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a>
-            <li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">è¿”å›ä¸»é¢˜</a>
+            <li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a>
+            <li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
             </ul>
             </tr>
             </td>
@@ -1413,7 +1396,7 @@ for(my $iii=0;$iii<=4;$iii++) {
              <meta http-equiv="refresh" content="3; url=$relocurl">
             ~;
             } # end if clear to edit
-            else { &error("µ¥ÌùÆÁ±Î&Äú²»ÊÇÂÛÌ³¹ÜÀíÔ±£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+            else { &error("å•è´´å±è”½&æ‚¨ä¸æ˜¯è®ºå›ç®¡ç†å‘˜ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
       } else {
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -1425,12 +1408,12 @@ for(my $iii=0;$iii<=4;$iii++) {
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
 <input type=hidden name="postno" value="$postno">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [µ¥ÌùÆÁ±Î]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÆÁ±ÎÀíÓÉ£º</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></tr></form></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [å•è´´å±è”½]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å±è”½ç†ç”±ï¼š</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></tr></form></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -1439,17 +1422,17 @@ for(my $iii=0;$iii<=4;$iii++) {
 } # end subdelete
 
 sub unpostdeleteonce {
-    &mischeader("È¡Ïûµ¥ÌùÆÁ±Î");
+    &mischeader("å–æ¶ˆå•è´´å±è”½");
   if ($checked eq "yes") { #1
     $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
     if (-e $filetoopen) {
        &winlock($filetoopen) if ($OS_USED eq "Nt");
-       open(FILE, "$filetoopen") or &error("È¡Ïûµ¥ÌùÆÁ±Î&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡");
+       open(FILE, "$filetoopen") or &error("å–æ¶ˆå•è´´å±è”½&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼");
        flock(FILE, 1) if ($OS_USED eq "Unix");
        @allthreads = <FILE>;
        close(FILE);
        &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    }else { unlink ("$lbdir" . "forum$inforum/$intopic.pl"); &error("È¡Ïûµ¥ÌùÆÁ±Î&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡"); }
+    }else { unlink ("$lbdir" . "forum$inforum/$intopic.pl"); &error("å–æ¶ˆå•è´´å±è”½&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼"); }
     chomp @allthreads;
     $cleartoedit = "no";
     if (($membercode eq "ad") && ($inpassword eq $password))  { $cleartoedit = "yes";}
@@ -1457,7 +1440,7 @@ sub unpostdeleteonce {
     if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password))  { $cleartoedit = "yes";}
 	$allthreads=@allthreads;
 	$allthreads ++;
-	&error("µ¥ÌùÆÁ±Î&´ËÌû×Ó²»´æÔÚ£¡") if($postno > $allthreads);
+	&error("å•è´´å±è”½&æ­¤å¸–å­ä¸å­˜åœ¨ï¼") if($postno > $allthreads);
 	$inpostnotemp = $postno;
 	$inpostnotemp --;
         ($postermembername1,$topictitle1,$postipaddress1,$inshowemoticons1,$inshowsignature1,$postdate1,$inpost1,$inposticon1,$water1) = split(/\t/,$allthreads[$inpostnotemp]);
@@ -1486,8 +1469,8 @@ sub unpostdeleteonce {
         }
         &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-        if ($inpost ne " ") { $inpost = "<BR>È¡ÏûÀíÓÉ£º$inpost"; }
-	&addadminlog("È¡Ïûµ¥¶ÀÆÁ±ÎÌû×Ó$inpost", $intopic);
+        if ($inpost ne " ") { $inpost = "<BR>å–æ¶ˆç†ç”±ï¼š$inpost"; }
+	&addadminlog("å–æ¶ˆå•ç‹¬å±è”½å¸–å­$inpost", $intopic);
 
         if ($refreshurl == 1) {
 	        $relocurl = "topic.cgi?forum=$inforum&topic=$intopic";
@@ -1503,14 +1486,14 @@ sub unpostdeleteonce {
             <td>
             <table cellpadding=6 cellspacing=1 width=100%>
             <tr>
-            <td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>´ËÆªÌù×Ó»Ø¸´µ¥¶ÀÆÁ±ÎÒÑ¾­±»È¡Ïû</b></font></td></tr>
+            <td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æ­¤ç¯‡è´´å­å›å¤å•ç‹¬å±è”½å·²ç»è¢«å–æ¶ˆ</b></font></td></tr>
             <tr>
             <td bgcolor=$miscbackone><font color=$fontcolormisc>
-            ¾ßÌåÇé¿ö£º
+            å…·ä½“æƒ…å†µï¼š
             <ul>
-            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">·µ»ØÖ÷Ìâ</a>
-            <li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a>
-            <li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">è¿”å›ä¸»é¢˜</a>
+            <li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a>
+            <li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
             </ul>
             </tr>
             </td>
@@ -1519,7 +1502,7 @@ sub unpostdeleteonce {
              <meta http-equiv="refresh" content="3; url=$relocurl">
             ~;
             } # end if clear to edit
-            else { &error("È¡Ïûµ¥ÌùÆÁ±Î&Äú²»ÊÇÂÛÌ³¹ÜÀíÔ±£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+            else { &error("å–æ¶ˆå•è´´å±è”½&æ‚¨ä¸æ˜¯è®ºå›ç®¡ç†å‘˜ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
       } else {
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -1531,12 +1514,12 @@ sub unpostdeleteonce {
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
 <input type=hidden name="postno" value="$postno">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [È¡Ïûµ¥ÌùÆÁ±Î]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>È¡ÏûÀíÓÉ£º</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></tr></form></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [å–æ¶ˆå•è´´å±è”½]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å–æ¶ˆç†ç”±ï¼š</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></tr></form></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;

@@ -1,43 +1,43 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-if ($inmembername eq "¿ÍÈË") { $loginmessage = "£¨Äú±ØÐëµÇÂ¼²ÅÄÜ²é¿´ÏêÇé£¬·ñÔòÖ»ÏÔÊ¾¸ÃÂÛÌ³µÄÎÞÐÂÌûÍ¼Àý£©"; }
-if ($membercode eq "ad" || $membercode eq 'smo') { $delcache = "¡¡¡¡<B>[<a href=delmaincache.cgi title=Èç¹ûÉÏ·½µÄÐÅÏ¢ÓÐ²¿·ÖÊý¾ÝÖÍºóµÄ»°£¬¿ÉÒÔÓÃ´Ë¹¦ÄÜ>Á¢¼´¸üÐÂÊ×Ò³»º´æ</a>]</B>"}
-my $leopic = qq~<a href=http://www.LeoBBS.com target=_blank><img src=$imagesurl/images/lblogo.gif width=88 height=31 border=0 title="----------------    ¡î    ---------------\n¡¡¼«¿á³¬¼¶ÂÛÌ³(LeoBBS)ÓÉÀ×°Á¿Æ¼¼ÖÆ×÷¡¡\n¡¡Õý°æ±êÊ¾£º Powered By LeoBBS.com¡¡\n¡¡¸ÐÐ»Äú²ÉÓÃÎÒÃÇµÄÂÛÌ³£¬ÈÃÎÒÃÇ×öµÄ¸üºÃ£¡¡¡\n----------------    ¡î    ---------------"></a>~ if ($noads ne "yes");
+if ($inmembername eq "å®¢äºº") { $loginmessage = "ï¼ˆæ‚¨å¿…é¡»ç™»å½•æ‰èƒ½æŸ¥çœ‹è¯¦æƒ…ï¼Œå¦åˆ™åªæ˜¾ç¤ºè¯¥è®ºå›çš„æ— æ–°å¸–å›¾ä¾‹ï¼‰"; }
+if ($membercode eq "ad" || $membercode eq 'smo') { $delcache = "ã€€ã€€<B>[<a href=delmaincache.cgi title=å¦‚æžœä¸Šæ–¹çš„ä¿¡æ¯æœ‰éƒ¨åˆ†æ•°æ®æ»žåŽçš„è¯ï¼Œå¯ä»¥ç”¨æ­¤åŠŸèƒ½>ç«‹å³æ›´æ–°é¦–é¡µç¼“å­˜</a>]</B>"}
+my $leopic = qq~<a href=http://www.LeoBBS.com target=_blank><img src=$imagesurl/images/lblogo.gif width=88 height=31 border=0 title="----------------    â˜†    ---------------\nã€€æžé…·è¶…çº§è®ºå›(LeoBBS)ç”±é›·å‚²ç§‘æŠ€åˆ¶ä½œã€€\nã€€æ­£ç‰ˆæ ‡ç¤ºï¼š Powered By LeoBBS.comã€€\nã€€æ„Ÿè°¢æ‚¨é‡‡ç”¨æˆ‘ä»¬çš„è®ºå›ï¼Œè®©æˆ‘ä»¬åšçš„æ›´å¥½ï¼ã€€\n----------------    â˜†    ---------------"></a>~ if ($noads ne "yes");
 $output .= qq~</td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><img src=$imagesurl/images/none.gif height=5><br><SCRIPT>valigntop()</SCRIPT>
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellspacing=1 cellpadding=6 width=100%>
-<tr><td width=75% bgcolor=$titlecolor $catbackpic><b>-=> LeoBBS ÂÛÌ³Í¼Àý $delcache</td>
-<td align=right noWrap bgcolor=$titlecolor width=25% $catbackpic>ËùÓÐÊ±¼ä¾ùÎª - $basetimes &nbsp;</td></tr>
+<tr><td width=75% bgcolor=$titlecolor $catbackpic><b>-=> LeoBBS è®ºå›å›¾ä¾‹ $delcache</td>
+<td align=right noWrap bgcolor=$titlecolor width=25% $catbackpic>æ‰€æœ‰æ—¶é—´å‡ä¸º - $basetimes &nbsp;</td></tr>
 <tr><td bgcolor=$forumcolortwo colspan=3>
 <table cellspacing=4 cellpadding=0 width=92% align=center>
-<tr><td colspan=6>ÂÛÌ³Í¼Àý½öµ±ÄãµÇÂ¼²¢ÇÒ·ÃÎÊºó²ÅÏÔÊ¾&nbsp;$loginmessage</font></div></td></tr>
-<tr><td><font color=$fonthighlight TITLE=ÔÊÐí×¢²á»áÔ±·¢ÑÔºÍ»Ø¸´>Õý¹æÂÛÌ³</font></td>
-<td><font color=$fonthighlight TITLE=ÔÊÐíÈÎºÎÈË·¢ÑÔºÍ»Ø¸´>¿ª·ÅÂÛÌ³</font></td>
-<td><font color=$fonthighlight TITLE=ÔÊÐíÌ³Ö÷ºÍ°æÖ÷·¢ÑÔ£¬ÆäËû×¢²áÓÃ»§Ö»ÄÜ»Ø¸´>ÆÀÂÛÂÛÌ³</font></td>
-<td><font color=$fonthighlight TITLE=ÔÊÐíÓµÓÐ·ÃÎÊÃÜÂë»òÒÑ¾­¾­¹ýÈÏÖ¤µÄ×¢²á»áÔ±·¢ÑÔ>±£ÃÜÂÛÌ³</font></td>
-<td><font color=$fonthighlight TITLE=ÔÊÐíÈÏÖ¤»áÔ±·¢ÑÔºÍ»Ø¸´>ÈÏÖ¤ÂÛÌ³</font></td>
-<td colspan=2><font color=$fonthighlight>ÌØÊâÂÛÌ³</font></td></tr>
-<tr><td><img src=$imagesurl/images/$skin/$zg_havenew> ÓÐÐÂµÄÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$kf_havenew> ÓÐÐÂµÄÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$pl_havenew> ÓÐÐÂµÄÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$bm_havenew> ÓÐÐÂµÄÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$rz_havenew> ÓÐÐÂµÄÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$jh_pic TITLE=Ö»ÔÊÐíÌ³Ö÷ºÍ°æÖ÷·¢ÑÔºÍ²Ù×÷> Ö»¶Á¾«»ªÇø</td>
+<tr><td colspan=6>è®ºå›å›¾ä¾‹ä»…å½“ä½ ç™»å½•å¹¶ä¸”è®¿é—®åŽæ‰æ˜¾ç¤º&nbsp;$loginmessage</font></div></td></tr>
+<tr><td><font color=$fonthighlight TITLE=å…è®¸æ³¨å†Œä¼šå‘˜å‘è¨€å’Œå›žå¤>æ­£è§„è®ºå›</font></td>
+<td><font color=$fonthighlight TITLE=å…è®¸ä»»ä½•äººå‘è¨€å’Œå›žå¤>å¼€æ”¾è®ºå›</font></td>
+<td><font color=$fonthighlight TITLE=å…è®¸å›ä¸»å’Œç‰ˆä¸»å‘è¨€ï¼Œå…¶ä»–æ³¨å†Œç”¨æˆ·åªèƒ½å›žå¤>è¯„è®ºè®ºå›</font></td>
+<td><font color=$fonthighlight TITLE=å…è®¸æ‹¥æœ‰è®¿é—®å¯†ç æˆ–å·²ç»ç»è¿‡è®¤è¯çš„æ³¨å†Œä¼šå‘˜å‘è¨€>ä¿å¯†è®ºå›</font></td>
+<td><font color=$fonthighlight TITLE=å…è®¸è®¤è¯ä¼šå‘˜å‘è¨€å’Œå›žå¤>è®¤è¯è®ºå›</font></td>
+<td colspan=2><font color=$fonthighlight>ç‰¹æ®Šè®ºå›</font></td></tr>
+<tr><td><img src=$imagesurl/images/$skin/$zg_havenew> æœ‰æ–°çš„å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$kf_havenew> æœ‰æ–°çš„å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$pl_havenew> æœ‰æ–°çš„å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$bm_havenew> æœ‰æ–°çš„å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$rz_havenew> æœ‰æ–°çš„å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$jh_pic TITLE=åªå…è®¸å›ä¸»å’Œç‰ˆä¸»å‘è¨€å’Œæ“ä½œ> åªè¯»ç²¾åŽåŒº</td>
 <td align=right valign=top rowspan=2>$leopic</td></tr>
-<tr><td><img src=$imagesurl/images/$skin/$zg_nonew> Ã»ÓÐÐÂÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$kf_nonew> Ã»ÓÐÐÂÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$pl_nonew> Ã»ÓÐÐÂÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$bm_nonew> Ã»ÓÐÐÂÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/$rz_nonew> Ã»ÓÐÐÂÌû×Ó</td>
-<td><img src=$imagesurl/images/$skin/shareforum.gif TITLE=ºÍ±¾ÂÛÌ³ÓÑÇéÁ´½ÓµÄÁªÃËÂÛÌ³> ÁªÃËÂÛÌ³Çø</td></tr>
+<tr><td><img src=$imagesurl/images/$skin/$zg_nonew> æ²¡æœ‰æ–°å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$kf_nonew> æ²¡æœ‰æ–°å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$pl_nonew> æ²¡æœ‰æ–°å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$bm_nonew> æ²¡æœ‰æ–°å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/$rz_nonew> æ²¡æœ‰æ–°å¸–å­</td>
+<td><img src=$imagesurl/images/$skin/shareforum.gif TITLE=å’Œæœ¬è®ºå›å‹æƒ…é“¾æŽ¥çš„è”ç›Ÿè®ºå›> è”ç›Ÿè®ºå›åŒº</td></tr>
 </table>~;
 1;

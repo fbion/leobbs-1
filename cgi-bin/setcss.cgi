@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -72,7 +72,7 @@ if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq
     var tmp_thick = \"1px\";
     var msg = \"\";
     
-    if (theName == \"\") { msg = \"Äã±ØĞëÒªĞ´Ò»¸ö CSS µÄÃû×Ö\"; }
+    if (theName == \"\") { msg = \"ä½ å¿…é¡»è¦å†™ä¸€ä¸ª CSS çš„åå­—\"; }
     if (msg != \"\") {
         alert(msg);
         return;
@@ -118,17 +118,17 @@ if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq
        var theCSS = document.css_form.CSS.value;
        var theID  = document.css_form.NAME.value;
        var Template = \"<html><head><title>testing CSS</title><style type=\\"text/css\\">\"+theCSS+\"</style></head>\\n<body bgcolor='#FFFFFF'>\\n\";
-       Template += \"<span id='\"+theID+\"'>¼«¿á³¬¼¶ÂÛÌ³ LeoBBS £¡<br>CSS Ô¤ÀÀ......</span>\";
+       Template += \"<span id='\"+theID+\"'>æé…·è¶…çº§è®ºå› LeoBBS ï¼<br>CSS é¢„è§ˆ......</span>\";
        Template += \"\\n</body></html>\";
        var newWin = window.open( '', 'PREVIEW', 'width=500,height=200,top=0,left=0,resizable=1,scrollbars=1,location=no,directories=no,status=no,menubar=no,toolbar=no');
        newWin.document.write(Template);
    }    
  </script>
-                     <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÓÃ»§ CSS ×Ô¶¯Éú³É</b>
+                     <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                    <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç”¨æˆ· CSS è‡ªåŠ¨ç”Ÿæˆ</b>
                     </td></tr>
                     <tr>
-                    <td bgcolor=#EEEEEE valign=middle align=center colspan=2><font face=ËÎÌå color=#333333>
+                    <td bgcolor=#EEEEEE valign=middle align=center colspan=2><font face=å®‹ä½“ color=#333333>
   <br><br>
  <form name='css_form'>
  <table width='95%' align='center' border='0' bgcolor='#000000' cellspacing='1' cellpadding='0'>
@@ -136,51 +136,51 @@ if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq
   <td>
    <table width='100%' align='center' border='0' bgcolor='#EFEFEF' cellspacing='0' cellpadding='4'>
    <tr>
-    <td width='40%'><b>ÒªÉú³ÉµÄ CSS µÄÃû×Ö?</b></td>
+    <td width='40%'><b>è¦ç”Ÿæˆçš„ CSS çš„åå­—?</b></td>
     <td width='60%'><input type='text' name='NAME'></td>
    </tr>
    <tr>
-    <td width='40%'><b>×ÖÌåÃû³Æ (¶à¸ö×ÖÌå¿ÉÒÔÓÃ¶ººÅ¸ô¿ª)</b></td>
+    <td width='40%'><b>å­—ä½“åç§° (å¤šä¸ªå­—ä½“å¯ä»¥ç”¨é€—å·éš”å¼€)</b></td>
     <td width='60%'><input type='text' name='FONT'></td>
    </tr>
    <tr>
-    <td width='40%'><b>×ÖÌå´óĞ¡</b></td>
-    <td width='60%'><input type='text' name='SIZE' size='5'>&nbsp;<select name='SIZE_TYPE'><option value='px'>ÏñËØ<option value='pt'>µã<option value='em'>em</select></td>
+    <td width='40%'><b>å­—ä½“å¤§å°</b></td>
+    <td width='60%'><input type='text' name='SIZE' size='5'>&nbsp;<select name='SIZE_TYPE'><option value='px'>åƒç´ <option value='pt'>ç‚¹<option value='em'>em</select></td>
    </tr>
    <tr>
-    <td width='40%'><b>×ÖÌå¿í¶È</b></td>
-    <td width='60%'><select name='WEIGHT'><option value='normal'>Õı³£<option value='bold'>´ÖÌå<option value='bolder'>¸ü´Ö</select></td>
+    <td width='40%'><b>å­—ä½“å®½åº¦</b></td>
+    <td width='60%'><select name='WEIGHT'><option value='normal'>æ­£å¸¸<option value='bold'>ç²—ä½“<option value='bolder'>æ›´ç²—</select></td>
    </tr>
    <tr>
-    <td width='40%'><b>×ÖÌåÑÕÉ«</b></td>
+    <td width='40%'><b>å­—ä½“é¢œè‰²</b></td>
     <td width='60%'><input type='text' name='COLOUR'></td>
    </tr>
    <tr>
-    <td width='40%'><b>±³¾°ÑÕÉ«</b></td>
+    <td width='40%'><b>èƒŒæ™¯é¢œè‰²</b></td>
     <td width='60%'><input type='text' name='BGCOLOUR'></td>
    </tr>
    <tr>
-    <td width='40%'><b>±ß¿ò</b></td>
-    <td width='60%'>¿í¶È<input type='text' name='BWEIGHT' size='5'>&nbsp;&nbsp;&nbsp;ÑÕÉ«<input type='text' name='BCOLOUR' size='15'></td>
+    <td width='40%'><b>è¾¹æ¡†</b></td>
+    <td width='60%'>å®½åº¦<input type='text' name='BWEIGHT' size='5'>&nbsp;&nbsp;&nbsp;é¢œè‰²<input type='text' name='BCOLOUR' size='15'></td>
    </tr>
    <tr>
-    <td width='40%'><b>ĞĞ¼ä¾à</b></td>
-    <td width='60%'><input type='text' name='SPACE' size='5'>&nbsp;<select name='SPACING'><option value='px'>ÏñËØ<option value='pt'>µã<option value='%'>%</select></td>
+    <td width='40%'><b>è¡Œé—´è·</b></td>
+    <td width='60%'><input type='text' name='SPACE' size='5'>&nbsp;<select name='SPACING'><option value='px'>åƒç´ <option value='pt'>ç‚¹<option value='%'>%</select></td>
    </tr>
    <tr>
-    <td width='40%'><b>×ÖÄ¸¼ä¾à</b></td>
-    <td width='60%'><input type='text' name='LSPACE' size='5'>&nbsp;µã</td>
+    <td width='40%'><b>å­—æ¯é—´è·</b></td>
+    <td width='60%'><input type='text' name='LSPACE' size='5'>&nbsp;ç‚¹</td>
    </tr>
    <tr>
-   <td colspan='2' align='center'><input type='button' onClick='do_css();' value='×Ô¶¯Éú³ÉÏàÓ¦µÄ CSS ´úÂë'></td>
+   <td colspan='2' align='center'><input type='button' onClick='do_css();' value='è‡ªåŠ¨ç”Ÿæˆç›¸åº”çš„ CSS ä»£ç '></td>
    </tr>
  </table>
 </td>
 </tr>
 </table>
 
-<br><br><br><center>Éú³ÉµÄ CSS ´úÂëÈçÏÂ£º<br><textarea name='CSS' rows='10' cols='70' wrap='soft'></textarea><BR><BR>
-<input type='button' onClick='preview();' value='·ç¸ñÔ¤ÀÀ'></center>
+<br><br><br><center>ç”Ÿæˆçš„ CSS ä»£ç å¦‚ä¸‹ï¼š<br><textarea name='CSS' rows='10' cols='70' wrap='soft'></textarea><BR><BR>
+<input type='button' onClick='preview();' value='é£æ ¼é¢„è§ˆ'></center>
 </form>
                 ~;
 

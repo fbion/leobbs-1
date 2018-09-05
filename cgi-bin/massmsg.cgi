@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -56,35 +56,35 @@ if (($membercode ne "ad") || ($inpassword ne $password) || (lc($inmembername) ne
 }
 
 if ($action ne "send") {
-       my $memteam1 = qq~<option value="rz1">ËùÓĞ$defrz1(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz1 ne "");
-       my $memteam2 = qq~<option value="rz2">ËùÓĞ$defrz2(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz2 ne "");
-       my $memteam3 = qq~<option value="rz3">ËùÓĞ$defrz3(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz3 ne "");
-       my $memteam4 = qq~<option value="rz4">ËùÓĞ$defrz4(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz4 ne "");
-       my $memteam5 = qq~<option value="rz5">ËùÓĞ$defrz5(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz5 ne "");
+       my $memteam1 = qq~<option value="rz1">æ‰€æœ‰$defrz1(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz1 ne "");
+       my $memteam2 = qq~<option value="rz2">æ‰€æœ‰$defrz2(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz2 ne "");
+       my $memteam3 = qq~<option value="rz3">æ‰€æœ‰$defrz3(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz3 ne "");
+       my $memteam4 = qq~<option value="rz4">æ‰€æœ‰$defrz4(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz4 ne "");
+       my $memteam5 = qq~<option value="rz5">æ‰€æœ‰$defrz5(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz5 ne "");
 
     $output .= qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-	<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ¶ÌÏûÏ¢¹ã²¥</b></td></tr><tr><td><BR>
-	<B>×¢Òâ£ºÇë¾¡Á¿²»ÒªÊ¹ÓÃ´ËÏî¹¦ÄÜ£¬´Ë¹¦ÄÜ¼°ÆäÏûºÄÏµÍ³×ÊÔ´£¬¶øÇÒ»áÊ¹ÓÃ»§·´¸Ğ¡£</b></td></tr><tr><td>
+	<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / çŸ­æ¶ˆæ¯å¹¿æ’­</b></td></tr><tr><td><BR>
+	<B>æ³¨æ„ï¼šè¯·å°½é‡ä¸è¦ä½¿ç”¨æ­¤é¡¹åŠŸèƒ½ï¼Œæ­¤åŠŸèƒ½åŠå…¶æ¶ˆè€—ç³»ç»Ÿèµ„æºï¼Œè€Œä¸”ä¼šä½¿ç”¨æˆ·åæ„Ÿã€‚</b></td></tr><tr><td>
 	<FORM METHOD="post" ACTION="$thisprog">
 	<INPUT TYPE="HIDDEN" NAME="action" VALUE="send"><BR>
-	<TABLE BORDER="0"><TR VALIGN="TOP"><TD>¶ÌÏûÏ¢±êÌâ£º </td>
+	<TABLE BORDER="0"><TR VALIGN="TOP"><TD>çŸ­æ¶ˆæ¯æ ‡é¢˜ï¼š </td>
 	<TD><INPUT TYPE="TEXT" SIZE="20" NAME="msgtitle"></TD>
-	<TR VALIGN="TOP"><TD>½ÓÊÜ·½Ñ¡Ôñ£º </td><TD>
+	<TR VALIGN="TOP"><TD>æ¥å—æ–¹é€‰æ‹©ï¼š </td><TD>
 	<select name="sendto" size="1">
-      	  <option value="online">ËùÓĞÔÚÏßÓÃ»§ </option>
-       	  <option value="all"   >ËùÓĞ×¢²áÓÃ»§ </option>
-       	  <option value="amo"   >È«²¿¸±°æÖ÷ </option>
-       	  <option value="mo"    >È«²¿°æÖ÷ </option>
-       	  <option value="cmo"   >·ÖÀàÇø°æÖ÷ </option>
-       	  <option value="smo"   >È«²¿×Ü°æÖ÷ </option>
-       	  <option value="ad"    >È«²¿Ì³Ö÷ </option>
-       	  <option value="allmo" >ËùÓĞ¹ÜÀíÔ± </option>$memteam1$memteam2$memteam3$memteam4$memteam5
-       	  <option value="rz"    >ËùÓĞÈÏÖ¤»áÔ± </option>
-       	  <option value="me"    >ËùÓĞÆÕÍ¨»áÔ± </option>
+      	  <option value="online">æ‰€æœ‰åœ¨çº¿ç”¨æˆ· </option>
+       	  <option value="all"   >æ‰€æœ‰æ³¨å†Œç”¨æˆ· </option>
+       	  <option value="amo"   >å…¨éƒ¨å‰¯ç‰ˆä¸» </option>
+       	  <option value="mo"    >å…¨éƒ¨ç‰ˆä¸» </option>
+       	  <option value="cmo"   >åˆ†ç±»åŒºç‰ˆä¸» </option>
+       	  <option value="smo"   >å…¨éƒ¨æ€»ç‰ˆä¸» </option>
+       	  <option value="ad"    >å…¨éƒ¨å›ä¸» </option>
+       	  <option value="allmo" >æ‰€æœ‰ç®¡ç†å‘˜ </option>$memteam1$memteam2$memteam3$memteam4$memteam5
+       	  <option value="rz"    >æ‰€æœ‰è®¤è¯ä¼šå‘˜ </option>
+       	  <option value="me"    >æ‰€æœ‰æ™®é€šä¼šå‘˜ </option>
        	</select>
-       	</td></tr><TR VALIGN="TOP"><TD>¶ÌÏûÏ¢ÄÚÈİ£º </td><TD>
+       	</td></tr><TR VALIGN="TOP"><TD>çŸ­æ¶ˆæ¯å†…å®¹ï¼š </td><TD>
 	<TEXTAREA NAME="message" COLS="50" ROWS="8"></textarea><BR><BR><center>
-	<INPUT TYPE="SUBMIT" NAME="Submit" VALUE="·¢ ËÍ">
+	<INPUT TYPE="SUBMIT" NAME="Submit" VALUE="å‘ é€">
 	</td></tr></table></form>
     ~;
     print $output;
@@ -94,7 +94,7 @@ if ($action ne "send") {
 else {
     if ($inmsgtitle eq "") { $blanks = "yes"; }
     if ($inmessage eq "")  { $blanks = "yes"; }
-    &error("¶ÌÏûÏ¢¹ã²¥&Çë°Ñ±êÌâºÍÄÚÈİÌîĞ´ÍêÕû¡£&msg") if ($blanks eq "yes");
+    &error("çŸ­æ¶ˆæ¯å¹¿æ’­&è¯·æŠŠæ ‡é¢˜å’Œå†…å®¹å¡«å†™å®Œæ•´ã€‚&msg") if ($blanks eq "yes");
     $currenttime = time;
     if ($insendto eq "all") {
 	open (MEMFILE, "${lbdir}data/lbmember.cgi");
@@ -133,12 +133,12 @@ else {
 	foreach (@sendmemlist1) {
 	    chomp $_;
 	    my ($membername,$no) = split(/\t/,$_);
-	    push (@sendmemlist, $_) if ($membername !~ /^¿ÍÈË/);
+	    push (@sendmemlist, $_) if ($membername !~ /^å®¢äºº/);
 	}
     }
     $totlemembers = @sendmemlist;
 
-    $inmessage = "$inmessage<BR><BR>---------------------------<BR>LeoBBS ÓÉÀ×°Á¿Æ¼¼ÈÙÓş³öÆ·<BR>Ö÷Ò³:<a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a>";
+    $inmessage = "$inmessage<BR><BR>---------------------------<BR>LeoBBS ç”±é›·å‚²ç§‘æŠ€è£èª‰å‡ºå“<BR>ä¸»é¡µ:<a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a>";
     foreach (@sendmemlist) {
 	my ($thisMember,$no) = split(/\t/,$_);
         $thisMember =~ s/ /\_/isg;
@@ -149,7 +149,7 @@ else {
 	@inboxmessages = <FILE>;
 	close (FILE);
 	open (FILE, ">$filetoopen");
-	print FILE "£ª£££¡£¦£ªÏµÍ³¶ÌÏûÏ¢¹ã²¥\tno\t$currenttime\t$inmsgtitle\t$inmessage\n";
+	print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Šç³»ç»ŸçŸ­æ¶ˆæ¯å¹¿æ’­\tno\t$currenttime\t$inmsgtitle\t$inmessage\n";
 	foreach (@inboxmessages) {
 	    chomp $_;
 	    print FILE "$_\n";
@@ -157,9 +157,9 @@ else {
 	close (FILE);
     }
     $output .= qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-	<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ¶ÌÏûÏ¢¹ã²¥</b></td></tr>
+	<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / çŸ­æ¶ˆæ¯å¹¿æ’­</b></td></tr>
 	<tr><td bgcolor=#FFFFFF valign=middle colspan=2>
-	<font color=#333333><center><b>¶ÌÏûÏ¢¹ã²¥·¢ËÍÍê³É£¬¹²·¢³ö $totlemembers ¸öÏûÏ¢£¡</b></center><br><br>
+	<font color=#333333><center><b>çŸ­æ¶ˆæ¯å¹¿æ’­å‘é€å®Œæˆï¼Œå…±å‘å‡º $totlemembers ä¸ªæ¶ˆæ¯ï¼</b></center><br><br>
     ~;
     print $output;
     print qq~</td></tr></table></body></html>~;

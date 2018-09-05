@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -71,31 +71,31 @@ if ($action eq "process") {
         
         if (-e $filetomake && -w $filetomake) {
                 print qq(
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
-                <font face=ËÎÌå color=#333333><center><b>ËùÓÐÐÅÏ¢ÒÑ¾­±»³É¹¦±£´æ¡£</b></center><br><br>
-                <b>ÏÂÁÐ¡°´ÊÓï×Ô¶¯×ª»»¡±±»±£´æ£¡</b><br><br>
+                <font face=å®‹ä½“ color=#333333><center><b>æ‰€æœ‰ä¿¡æ¯å·²ç»è¢«æˆåŠŸä¿å­˜ã€‚</b></center><br><br>
+                <b>ä¸‹åˆ—â€œè¯è¯­è‡ªåŠ¨è½¬æ¢â€è¢«ä¿å­˜ï¼</b><br><br>
                 );
                 
                 foreach (@savedwordarray) {
                     chomp $_;
                     ($bad, $good) = split(/\=/,$_);
-                    print qq(ËùÓÐ³öÏÖ <b>$bad</b> µÄµØ·½½«±» <b>$good</b> Ìæ»»¡£<br>);
+                    print qq(æ‰€æœ‰å‡ºçŽ° <b>$bad</b> çš„åœ°æ–¹å°†è¢« <b>$good</b> æ›¿æ¢ã€‚<br>);
                 }
                 print qq(
-                <br><br><br><center><a href="setbadwords.cgi">ÔÙ´ÎÔö¼Ó´ÊÓï×Ô¶¯×ª»»</a><br></center>);
+                <br><br><br><center><a href="setbadwords.cgi">å†æ¬¡å¢žåŠ è¯è¯­è‡ªåŠ¨è½¬æ¢</a><br></center>);
         }
         else {
                 print qq(
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÐÅÏ¢Ã»ÓÐ±»±£´æ£¡</b><br>ÎÄ¼þ»òÕßÄ¿Â¼²»¿ÉÐ´¡£
+                <font face=å®‹ä½“ color=#333333><b>ä¿¡æ¯æ²¡æœ‰è¢«ä¿å­˜ï¼</b><br>æ–‡ä»¶æˆ–è€…ç›®å½•ä¸å¯å†™ã€‚
                 </td></tr></table></td></tr></table>
                 );
         }
@@ -125,12 +125,12 @@ if ($action eq "process") {
                 $inmembername =~ s/\_/ /g;
 
                 print qq(
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ´ÊÓï×Ô¶¯×ª»»</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è¯è¯­è‡ªåŠ¨è½¬æ¢</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>´ÊÓï×Ô¶¯×ª»»</b>
+                <font face=å®‹ä½“ color=#333333><b>è¯è¯­è‡ªåŠ¨è½¬æ¢</b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -138,15 +138,15 @@ if ($action eq "process") {
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
-                <font face=ËÎÌå color=#000000>
-                ´ÊÓï×Ô¶¯×ª»»¿ÉÒÔ×èÖ¹Ò»Ð©²»ºÃµÄ×ÖÑÛ³öÏÖÔÚÂÛÌ³ÖÐ¡£Äã¿ÉÔÚÏÂÃæÐ´Èë´ÊÓïºÍ×ª»»ºóµÄ´ÊÓï¡£<br>
-                ÕâÑù£¬ÕâÐ©´ÊÓïÔÚ<b>·¢±íÎÄÕÂ</b>Ê±£¬»á±»×Ô¶¯×ª»»¡£<br>
-                <b>Ê¹ÓÃ·½·¨£º</b>Ê¹ÓÃ·½·¨£º</b>Ð´ÈëÒ»¸ö´ÊÓïºÍ×ª»»ºóµÄ´ÊÓï£¬²¢ÔÚÖÐ¼ä¼ÓÉÏ "=" (µÈÓÚºÅ)¡£<BR><br>
-		<b>ÌØ±ðÌáÊ¾£º</b>Èç¹ûÄã½ö½öÊÇ¹ýÂË£¬¶ø²»ÔÚºõ×ª»»ºóµÄ´ÊÓï£¬ÄÇÃ´ÇëÊ¹ÓÃ"<a href=setfilter.cgi>²»Á¼´ÊÓï¹ýÂË</a>"¹¦ÄÜ£¬ÕâÑù¿ÉÒÔÌá¸ßÐ§ÂÊ£¡<BR><BR><BR>
-                <b>×¢Òâ1£¬Çë¾¡Á¿¼õÉÙ´ÊÓï×Ô¶¯×ª»»µÄÌõÄ¿£¬¶àÊ¹ÓÃ"<a href=setfilter.cgi>²»Á¼´ÊÓï¹ýÂË</a>"¹¦ÄÜ£¡</b><br><br>
-                <b>×¢Òâ2£¬Ã¿ÐÐÖ»ÄÜÐ´Ò»¸ö£¡</b><br><br>
-                <b>×¢Òâ3£¬¾¡Á¿±ÜÃâÊ¹ÓÃ * ( ) Ö®ÀàµÄ·ûºÅ£¡</b><br><br>
-                <b>ÀýÈç£º</b>fuck=f##k<br><br>
+                <font face=å®‹ä½“ color=#000000>
+                è¯è¯­è‡ªåŠ¨è½¬æ¢å¯ä»¥é˜»æ­¢ä¸€äº›ä¸å¥½çš„å­—çœ¼å‡ºçŽ°åœ¨è®ºå›ä¸­ã€‚ä½ å¯åœ¨ä¸‹é¢å†™å…¥è¯è¯­å’Œè½¬æ¢åŽçš„è¯è¯­ã€‚<br>
+                è¿™æ ·ï¼Œè¿™äº›è¯è¯­åœ¨<b>å‘è¡¨æ–‡ç« </b>æ—¶ï¼Œä¼šè¢«è‡ªåŠ¨è½¬æ¢ã€‚<br>
+                <b>ä½¿ç”¨æ–¹æ³•ï¼š</b>ä½¿ç”¨æ–¹æ³•ï¼š</b>å†™å…¥ä¸€ä¸ªè¯è¯­å’Œè½¬æ¢åŽçš„è¯è¯­ï¼Œå¹¶åœ¨ä¸­é—´åŠ ä¸Š "=" (ç­‰äºŽå·)ã€‚<BR><br>
+		<b>ç‰¹åˆ«æç¤ºï¼š</b>å¦‚æžœä½ ä»…ä»…æ˜¯è¿‡æ»¤ï¼Œè€Œä¸åœ¨ä¹Žè½¬æ¢åŽçš„è¯è¯­ï¼Œé‚£ä¹ˆè¯·ä½¿ç”¨"<a href=setfilter.cgi>ä¸è‰¯è¯è¯­è¿‡æ»¤</a>"åŠŸèƒ½ï¼Œè¿™æ ·å¯ä»¥æé«˜æ•ˆçŽ‡ï¼<BR><BR><BR>
+                <b>æ³¨æ„1ï¼Œè¯·å°½é‡å‡å°‘è¯è¯­è‡ªåŠ¨è½¬æ¢çš„æ¡ç›®ï¼Œå¤šä½¿ç”¨"<a href=setfilter.cgi>ä¸è‰¯è¯è¯­è¿‡æ»¤</a>"åŠŸèƒ½ï¼</b><br><br>
+                <b>æ³¨æ„2ï¼Œæ¯è¡Œåªèƒ½å†™ä¸€ä¸ªï¼</b><br><br>
+                <b>æ³¨æ„3ï¼Œå°½é‡é¿å…ä½¿ç”¨ * ( ) ä¹‹ç±»çš„ç¬¦å·ï¼</b><br><br>
+                <b>ä¾‹å¦‚ï¼š</b>fuck=f##k<br><br>
                 </font></td>
                 </tr>
                 
@@ -158,7 +158,7 @@ if ($action eq "process") {
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <input type=submit name=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+                <input type=submit name=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
                 );
                 
                 }

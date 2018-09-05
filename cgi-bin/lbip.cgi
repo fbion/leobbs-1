@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -33,23 +33,23 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $query = $queryme -> param('q');
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) {
-    $inmembername = "¿ÍÈË";
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) {
+    $inmembername = "å®¢äºº";
 }
 else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬ÍµÓÃ»§Ãû²»ÍµÃÜÂëÓĞÊ²Ã´ÓÃÄØ£¿") if ($inpassword ne $password);
-    &error("ÆÕÍ¨´íÎó&ÓÃ»§Ã»ÓĞµÇÂ¼»ò×¢²á£¡") if ($userregistered eq "no");  
+    &error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œå·ç”¨æˆ·åä¸å·å¯†ç æœ‰ä»€ä¹ˆç”¨å‘¢ï¼Ÿ") if ($inpassword ne $password);
+    &error("æ™®é€šé”™è¯¯&ç”¨æˆ·æ²¡æœ‰ç™»å½•æˆ–æ³¨å†Œï¼") if ($userregistered eq "no");  
 }
 if (($membercode ne "ad")&&($membercode ne "smo")){
-    &error("ÆÕÍ¨´íÎó&Äã²»ÊÇ±¾ÂÛÌ³µÄÌ³Ö÷»ò×Ü°ßÖñ£¬ËùÒÔ²»ÄÜÊ¹ÓÃ¸Ã¹¦ÄÜ£¡") ;
+    &error("æ™®é€šé”™è¯¯&ä½ ä¸æ˜¯æœ¬è®ºå›çš„å›ä¸»æˆ–æ€»æ–‘ç«¹ï¼Œæ‰€ä»¥ä¸èƒ½ä½¿ç”¨è¯¥åŠŸèƒ½ï¼") ;
 }
 
 if (($query ne "")&&($query !~ /^[0-9\.]+$/)) {
-    &error("ÆÕÍ¨´íÎó&Çë²»ÒªºúÂÒÊ¹ÓÃ±¾¹¦ÄÜ£¡") ;
+    &error("æ™®é€šé”™è¯¯&è¯·ä¸è¦èƒ¡ä¹±ä½¿ç”¨æœ¬åŠŸèƒ½ï¼") ;
 }
-if ($query ne "") { $fromwhere = &ipwhere("$query"); $fromwhere = "£É£Ğ: $query\n<BR>À´×Ô: $fromwhere\n<BR><BR>Èç¹û¶Ô½á¹ûÓĞÒÉÎÊ£¬Çë<a href=whois.cgi?query=$query>°´´ËÊ¹ÓÃ NIC Êı¾İ¿â²éÑ¯</a>£¡"} else { $fromwhere = "Ã»ÓĞIPÊı¾İ,ÎÒ²éÊ²Ã´°¡!"; }
+if ($query ne "") { $fromwhere = &ipwhere("$query"); $fromwhere = "ï¼©ï¼°: $query\n<BR>æ¥è‡ª: $fromwhere\n<BR><BR>å¦‚æœå¯¹ç»“æœæœ‰ç–‘é—®ï¼Œè¯·<a href=whois.cgi?query=$query>æŒ‰æ­¤ä½¿ç”¨ NIC æ•°æ®åº“æŸ¥è¯¢</a>ï¼"} else { $fromwhere = "æ²¡æœ‰IPæ•°æ®,æˆ‘æŸ¥ä»€ä¹ˆå•Š!"; }
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print $fromwhere;
 exit;

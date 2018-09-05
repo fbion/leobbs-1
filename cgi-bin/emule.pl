@@ -1,18 +1,18 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 sub doemule {
   $codecount = 1 if ($codecount <= 0);
   $$post .= "<script src=$imagesurl/images/emu.js></script>" if ($codecount == 1);
 	while ($$post =~ /\[emule\](.+?)\[\/emule\]/is) {
-      my $view = "<br><table width=94% align=center cellspacing=1 cellpadding=5 bgColor=$tablebordercolor><tr bgColor=$titlecolor><td colspan=2 align=center><font color=$titlefontcolor><B>������ eMule ר�õ��������ӣ������밲װ eMule ���ܵ������</B></font></td></tr>";
+      my $view = "<br><table width=94% align=center cellspacing=1 cellpadding=5 bgColor=$tablebordercolor><tr bgColor=$titlecolor><td colspan=2 align=center><font color=$titlefontcolor><B>下面是 eMule 专用的下载链接，您必须安装 eMule 才能点击下载</B></font></td></tr>";
 	    my $post1 = $1;
 	    $post1 =~ s/<p>/<br>/isg;
 	    $post1 =~ s/<br><br>/<br>/isg;
@@ -80,7 +80,7 @@ sub doemule {
                 $total.="KB";
         }
         
-        $view.="<tr bgColor=$titlecolor><td align=left><input type=\"checkbox\" id=\"checkall_emulefile$codecount\" onclick=\"checkAll('emulefile$codecount',this.checked)\" checked=\"checked\"/> ȫѡ ���� <input type=\"button\" value=\"����ѡ�е��ļ�\" onclick=\"download('emulefile$codecount',0,1)\"> ��<input type=\"button\" value=\"����ѡ�е�����\" onclick=\"copy('emulefile$codecount')\"><div id=\"ed2kcopy_emulefile$codecount\" style=\"position:absolute;height:0px;width:0px;overflow:hidden;\"></div></td><td align=center id=\"size_emulefile$codecount\">$total</td></tr></table>";
+        $view.="<tr bgColor=$titlecolor><td align=left><input type=\"checkbox\" id=\"checkall_emulefile$codecount\" onclick=\"checkAll('emulefile$codecount',this.checked)\" checked=\"checked\"/> 全选 　　 <input type=\"button\" value=\"下载选中的文件\" onclick=\"download('emulefile$codecount',0,1)\"> 　<input type=\"button\" value=\"复制选中的链接\" onclick=\"copy('emulefile$codecount')\"><div id=\"ed2kcopy_emulefile$codecount\" style=\"position:absolute;height:0px;width:0px;overflow:hidden;\"></div></td><td align=center id=\"size_emulefile$codecount\">$total</td></tr></table>";
 
 	    $$post =~ s/\[emule\](.+?)\[\/emule\]/$view/is;
 	    $codecount ++;

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -46,23 +46,23 @@ $inmembername =~ s/\_/ /isg;
 
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-&error("ĞŞ¸ÄÃÜÂë&´íÎó£¬Ğ£Ñé³ö´í£¬Çë²»ÒªºúÂÒĞŞ¸Ä£¡") if (($inmembername eq "")||($inpassword eq ""));
+&error("ä¿®æ”¹å¯†ç &é”™è¯¯ï¼Œæ ¡éªŒå‡ºé”™ï¼Œè¯·ä¸è¦èƒ¡ä¹±ä¿®æ”¹ï¼") if (($inmembername eq "")||($inpassword eq ""));
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË") {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº") {
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
-    &error("ĞŞ¸ÄÃÜÂë&´íÎó£¬ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡");
+    &error("ä¿®æ”¹å¯†ç &é”™è¯¯ï¼Œç”¨æˆ·åä¸èƒ½ä¸ºç©ºï¼");
 }
 else {
     &getmember("$inmembername","no");
-    &error("ĞŞ¸ÄÃÜÂë&´íÎó£¬´ËÓÃ»§²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("ä¿®æ”¹å¯†ç &é”™è¯¯ï¼Œæ­¤ç”¨æˆ·ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 }
 
 opendir (DIRS, "${lbdir}$msgdir");
@@ -81,7 +81,7 @@ if (-e "${lbdir}$msgdir/$inmembernamefile.cgi") {
     close(FILE);
     chomp $x;
 } else {
-    &error("ĞŞ¸ÄÃÜÂë&³¬Ê±´íÎó£¬ÇëÔÚÈ¡»ØÃÜÂë²Ù×÷µÄÒ»ÌìÄÚÍê³ÉĞŞ¸ÄÃÜÂë¹¤×÷£¡");
+    &error("ä¿®æ”¹å¯†ç &è¶…æ—¶é”™è¯¯ï¼Œè¯·åœ¨å–å›å¯†ç æ“ä½œçš„ä¸€å¤©å†…å®Œæˆä¿®æ”¹å¯†ç å·¥ä½œï¼");
 }
 
 if ($password ne "") {
@@ -90,10 +90,10 @@ if ($password ne "") {
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$mypassword = md5_hex($password);');}
 }
 
-&error("ĞŞ¸ÄÃÜÂë&´íÎó£¬ÃÜÂëĞ£Ñé³ö´í£¬Çë²»ÒªºúÂÒĞŞ¸Ä£¡") if ($mypassword ne $inpassword);
+&error("ä¿®æ”¹å¯†ç &é”™è¯¯ï¼Œå¯†ç æ ¡éªŒå‡ºé”™ï¼Œè¯·ä¸è¦èƒ¡ä¹±ä¿®æ”¹ï¼") if ($mypassword ne $inpassword);
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&mischeader("È¡»ØÃÜÂë");
+&mischeader("å–å›å¯†ç ");
 $action        = $query -> param('action');
 $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -102,10 +102,10 @@ $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 
 if ($action eq "login") {
     $password1 = $query -> param('password1');
     $password2 = $query -> param('password2');
-    if ($password1 ne $password2) { &error("È¡»ØÃÜÂë&¶Ô²»Æğ£¬ÄãÊäÈëµÄÁ½´ÎÂÛÌ³ÃÜÂë²»ÏàÍ¬£¡"); }
-    if($password1 =~ /[^a-zA-Z0-9]/)     { &error("È¡»ØÃÜÂë&ÂÛÌ³ÃÜÂëÖ»ÔÊĞí´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ£¡£¡"); }
-    if($password1 =~ /^lEO/)     { &error("È¡»ØÃÜÂë&ÂÛÌ³ÃÜÂë²»ÔÊĞíÊÇ lEO ¿ªÍ·£¬Çë¸ü»»£¡£¡"); }
-    if(length($password1)<8)      { &error("È¡»ØÃÜÂë&ÂÛÌ³ÃÜÂëÌ«¶ÌÁË£¬Çë¸ü»»£¡ÂÛÌ³ÃÜÂë±ØĞë 8 Î»ÒÔÉÏ£¡"); }
+    if ($password1 ne $password2) { &error("å–å›å¯†ç &å¯¹ä¸èµ·ï¼Œä½ è¾“å…¥çš„ä¸¤æ¬¡è®ºå›å¯†ç ä¸ç›¸åŒï¼"); }
+    if($password1 =~ /[^a-zA-Z0-9]/)     { &error("å–å›å¯†ç &è®ºå›å¯†ç åªå…è®¸å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆï¼ï¼"); }
+    if($password1 =~ /^lEO/)     { &error("å–å›å¯†ç &è®ºå›å¯†ç ä¸å…è®¸æ˜¯ lEO å¼€å¤´ï¼Œè¯·æ›´æ¢ï¼ï¼"); }
+    if(length($password1)<8)      { &error("å–å›å¯†ç &è®ºå›å¯†ç å¤ªçŸ­äº†ï¼Œè¯·æ›´æ¢ï¼è®ºå›å¯†ç å¿…é¡» 8 ä½ä»¥ä¸Šï¼"); }
 
     if ($password1 ne "") {
         eval {$password1 = md5_hex($password1);};
@@ -132,9 +132,9 @@ if ($action eq "login") {
 	}
 	&winunlock($filetomake) if ($OS_USED eq "Nt");
     }
-    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>$inmembername£¬ÄúµÄĞÂÃÜÂëÒÑ¾­ÉúĞ§£¡</b></font></td></tr>
+    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>$inmembernameï¼Œæ‚¨çš„æ–°å¯†ç å·²ç»ç”Ÿæ•ˆï¼</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="loginout.cgi">°´´ËµÇÂ¼ÂÛÌ³</a>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="loginout.cgi">æŒ‰æ­¤ç™»å½•è®ºå›</a>
 </ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 ~;
     unlink ("${lbdir}$msgdir/$inmembernamefile.cgi");
@@ -146,12 +146,12 @@ else {
 <input type=hidden name="action" value="login">
 <input type=hidden name="username" value="$inmembername">
 <input type=hidden name="password" value="$inpassword">
-<font face="$font" color=$fontcolormisc><b>$inmembername£¬ÄúµÄÉí·İÒÑ¾­Í¨¹ıÈ·ÈÏ£¬ÇëÊäÈëÄúµÄĞÂÃÜÂë</b></font></td></tr>
-<tr><td width=40% bgcolor=$miscbackone><font color=$fontcolormisc><b>ÂÛÌ³ÃÜÂë£º (ÖÁÉÙ8Î»)</b><br>ÇëÊäÈëÂÛÌ³ÃÜÂë£¬Çø·Ö´óĞ¡Ğ´<br>Ö»ÄÜÊ¹ÓÃ´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ</font></td><td width=60% bgcolor=$miscbackone><input type=password name="password1">&nbsp;* ´ËÏî±ØĞëÌîĞ´</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÂÛÌ³ÃÜÂë£º (ÖÁÉÙ8Î»)</b><br>ÔÙÊäÒ»±é£¬ÒÔ±ãÈ·¶¨£¡</font></td><td bgcolor=$miscbackone><input type=password name="password2">&nbsp;* ´ËÏî±ØĞëÌîĞ´</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit value="È· ¶¨" name=submit></td></tr>
+<font face="$font" color=$fontcolormisc><b>$inmembernameï¼Œæ‚¨çš„èº«ä»½å·²ç»é€šè¿‡ç¡®è®¤ï¼Œè¯·è¾“å…¥æ‚¨çš„æ–°å¯†ç </b></font></td></tr>
+<tr><td width=40% bgcolor=$miscbackone><font color=$fontcolormisc><b>è®ºå›å¯†ç ï¼š (è‡³å°‘8ä½)</b><br>è¯·è¾“å…¥è®ºå›å¯†ç ï¼ŒåŒºåˆ†å¤§å°å†™<br>åªèƒ½ä½¿ç”¨å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆ</font></td><td width=60% bgcolor=$miscbackone><input type=password name="password1">&nbsp;* æ­¤é¡¹å¿…é¡»å¡«å†™</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è®ºå›å¯†ç ï¼š (è‡³å°‘8ä½)</b><br>å†è¾“ä¸€éï¼Œä»¥ä¾¿ç¡®å®šï¼</font></td><td bgcolor=$miscbackone><input type=password name="password2">&nbsp;* æ­¤é¡¹å¿…é¡»å¡«å†™</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit value="ç¡® å®š" name=submit></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR><BR>
 ~;
 }
-&output("$boardname - È¡»ØÃÜÂë",\$output);
+&output("$boardname - å–å›å¯†ç ",\$output);
 exit;

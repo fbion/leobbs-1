@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 sub superanndo {
 $superannounce=&HTML($superannounce); $superannounce =~ s/\n/<BR>/isg; $superannounce =~ s/\t/\n/isg;
@@ -110,9 +110,9 @@ document.cookie="fadedin=yes"
 </script>
 <DIV id=fadeinbox style="filter:progid:DXImageTransform.Microsoft.RandomDissolve(duration=1) progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135) ; -moz-opacity:0">
 <table border=0 width=350 cellspacing=0 cellpadding=2 bgcolor=$titleborder><tr><td width=100%><table border=0 width=100% bgcolor=$menubackground cellspacing=4 cellpadding=2>
-<tr><td width=100%><center><B><font color=$fonthighlight>* ³¬ ¼¶ ¹« ¸æ *</font></B></center><img src="" width=0 height=3><BR>
+<tr><td width=100%><center><B><font color=$fonthighlight>* è¶… çº§ å…¬ å‘Š *</font></B></center><img src="" width=0 height=3><BR>
 $superannounce<BR><BR>
-<div align=right><span style=cursor:hand onClick="hidefadebox();return false">[¹Ø±ÕÏÔÊ¾] </span></div>
+<div align=right><span style=cursor:hand onClick="hidefadebox();return false">[å…³é—­æ˜¾ç¤º] </span></div>
 </td></tr></table></td></tr></table></div>
 ~;
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -20,7 +20,7 @@ require "data/boardinfo.cgi";
 require "wap.pl";
 $lid   = $query -> param('lid');
 &waptitle;
-$show.= qq~<card  title="×îÐÂÎÄÕÂ"><p>$boardname-×îÐÂÎÄÕÂ<br/>~;
+$show.= qq~<card  title="æœ€æ–°æ–‡ç« "><p>$boardname-æœ€æ–°æ–‡ç« <br/>~;
 open(file,"${lbdir}data/recentpost.cgi");
 my @file=<file>;
 close(file);
@@ -30,5 +30,5 @@ foreach(@file[0..14]){
 	$show.= "<a href=\"wap_topic.cgi?f=$f&amp;t=$t&amp;lid=$lid\">$i,$ti</a><br/>";
 }
 $show.= '</p>';
-$show.= "<p>---------<br/><a href=\"wap_index.cgi?lid=$lid\">·µ»ØÊ×Ò³</a></p>";
+$show.= "<p>---------<br/><a href=\"wap_index.cgi?lid=$lid\">è¿”å›žé¦–é¡µ</a></p>";
 &wapfoot;

@@ -1,26 +1,26 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     $tempaccess = "forumsallowed". "$inforum";
     $testentry = $query->cookie("$tempaccess");
     if ((($testentry eq $forumpass)&&($testentry ne ""))||($allowedentry{$inforum} eq "yes")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
-    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("¸´ÖÆÌû×Ó&¶Ô²»Æğ£¬Äú²»ÔÊĞí¸´ÖÆ±£ÃÜÂÛÌ³µÄÌû×Ó£¡"); }
-    &error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜ²é¿´Ìù×ÓÄÚÈİ£¬Çë×¢²á»òµÇÂ¼ºóÔÙÊÔ") if (($guestregistered eq "off")&&($inmembername eq "¿ÍÈË"));
-    &error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜ²é¿´Ìù×ÓÄÚÈİ£¬Çë×¢²á»òµÇÂ¼ºóÔÙÊÔ") if ($waterwhenguest eq "yes" && $inmembername eq "¿ÍÈË");
+    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("å¤åˆ¶å¸–å­&å¯¹ä¸èµ·ï¼Œæ‚¨ä¸å…è®¸å¤åˆ¶ä¿å¯†è®ºå›çš„å¸–å­ï¼"); }
+    &error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½æŸ¥çœ‹è´´å­å†…å®¹ï¼Œè¯·æ³¨å†Œæˆ–ç™»å½•åå†è¯•") if (($guestregistered eq "off")&&($inmembername eq "å®¢äºº"));
+    &error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½æŸ¥çœ‹è´´å­å†…å®¹ï¼Œè¯·æ³¨å†Œæˆ–ç™»å½•åå†è¯•") if ($waterwhenguest eq "yes" && $inmembername eq "å®¢äºº");
 
     open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
     my @threads = <FILE>;
     close(FILE);
     $posttoget = $inpostno - 1;
     ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature ,$postdate, $post) = split(/\t/, $threads[$posttoget]);
-    $topictitle =~ s/^£ª£££¡£¦£ª//;
+    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	if ($addtopictime eq "yes") {
 	    my $topictime = &dispdate($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
@@ -32,7 +32,7 @@
     
      if (($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg)||($post=~/LBSALE\[(.*?)\]LBSALE/sg)) {
         unless ((lc($inmembername) eq lc($membername))||($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($inmembmod eq "yes")|| ($myrating >= $1)) {
-	    &error("¸´ÖÆÌû×Ó&¶Ô²»Æğ£¬Äú²»ÔÊĞí¸´ÖÆ±£ÃÜÌû×Ó£¡");
+	    &error("å¤åˆ¶å¸–å­&å¯¹ä¸èµ·ï¼Œæ‚¨ä¸å…è®¸å¤åˆ¶ä¿å¯†å¸–å­ï¼");
         }
         else {
 	    $post=~ s/LBHIDDEN\[(.*?)\]LBHIDDEN//isg;
@@ -44,20 +44,20 @@
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
 	if ($privateforum ne "yes") {
-     	    &whosonline("$inmembername\t$forumname\tnone\t¸´ÖÆÌû×Ó<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
+     	    &whosonline("$inmembername\t$forumname\tnone\tå¤åˆ¶å¸–å­<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
 	} else {
-	    &whosonline("$inmembername\t$forumname(ÃÜ)\tnone\t¸´ÖÆ±£ÃÜÌû×Ó\t");
+	    &whosonline("$inmembername\t$forumname(å¯†)\tnone\tå¤åˆ¶ä¿å¯†å¸–å­\t");
 	}
     }
 
     &getmember($membername, "no");
-    &error("¸´ÖÆÌû×Ó&¶Ô²»Æğ£¬Äú²»ÔÊĞí¸´ÖÆ±»ÆÁ±ÎµÄÌû×Ó£¡") if (($membercode eq "masked")&&($mymembercode ne "ad")&&($mymembercode ne 'smo')&&($inmembmod ne "yes"));
+    &error("å¤åˆ¶å¸–å­&å¯¹ä¸èµ·ï¼Œæ‚¨ä¸å…è®¸å¤åˆ¶è¢«å±è”½çš„å¸–å­ï¼") if (($membercode eq "masked")&&($mymembercode ne "ad")&&($mymembercode ne 'smo')&&($inmembmod ne "yes"));
 
     $post =~ s/\[post=(.+?)\](.+?)\[\/post\]//isg;
     $post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]//isg;
     $post =~ s/\[hide\](.+?)\[\/hide\]//isg;
-    $post =~ s/\[watermark\](.+?)\[\/watermark\]/\n\(Ë®Ó¡²¿·Ö²»ÄÜ¸´ÖÆ\)\n/isg;
-    $post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[¼ÓÃÜÁ¬½á\]/isg if ($usecurl ne "no");
+    $post =~ s/\[watermark\](.+?)\[\/watermark\]/\n\(æ°´å°éƒ¨åˆ†ä¸èƒ½å¤åˆ¶\)\n/isg;
+    $post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[åŠ å¯†è¿ç»“\]/isg if ($usecurl ne "no");
     $postdate = $postdate + ($timedifferencevalue + $timezone)*3600;
     $postdate = &dateformat("$postdate");
     $rawpost  = $post;
@@ -68,18 +68,18 @@
     $rawpost =~ s/\[DISABLELBCODE\]//isg;
     $rawpost =~ s/\[ADMINOPE=(.+?)\]//isg;
     if ($rawpost =~ /\[POSTISDELETE=(.+?)\]/) {
-    	if ($1 ne " ") { $presult = "ÆÁ±ÎÀíÓÉ£º$1"; } else { $presult = "<BR>"; }
-        $rawpost = "´ËÌû×ÓÄÚÈİÒÑ¾­±»µ¥¶ÀÆÁ±Î£¡$presult";
+    	if ($1 ne " ") { $presult = "å±è”½ç†ç”±ï¼š$1"; } else { $presult = "<BR>"; }
+        $rawpost = "æ­¤å¸–å­å†…å®¹å·²ç»è¢«å•ç‹¬å±è”½ï¼$presult";
     }
 
-    &mischeader("¸´ÖÆÌû×Ó");
+    &mischeader("å¤åˆ¶å¸–å­");
 
     $temppost = qq~-=-=-=-=-=>\n$rawpost\n-=-=-=-=-=>~;
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td>
 <table cellpadding=4 cellspacing=1 width=100%><tr><td bgcolor=$titlecolor $catbackpic colspan=2>
-<form action="$thisprog" method=post><font color=$titlefontcolor>Ö÷Ìâ£º $topictitle</td></tr>
-<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>¸´ÖÆÌû×Ó</b><p></font></td><td bgcolor=$miscbackone>&nbsp;&nbsp;<textarea cols=90 rows=12 wrap="soft" name="inpost">$temppost</textarea><BR><BR></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type="button" value="¸ßÁÁÏÔÊ¾ÎÄ×Ö" onClick="this.form.inpost.focus();this.form.inpost.select();">¡¡¡¡<input type="button" value="¸´ÖÆµ½¼ôÌù°å" name="cmdCopy" onClick="copy(this.form.inpost)"></center></td></tr></td></table></table>
+<form action="$thisprog" method=post><font color=$titlefontcolor>ä¸»é¢˜ï¼š $topictitle</td></tr>
+<tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>å¤åˆ¶å¸–å­</b><p></font></td><td bgcolor=$miscbackone>&nbsp;&nbsp;<textarea cols=90 rows=12 wrap="soft" name="inpost">$temppost</textarea><BR><BR></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type="button" value="é«˜äº®æ˜¾ç¤ºæ–‡å­—" onClick="this.form.inpost.focus();this.form.inpost.select();">ã€€ã€€<input type="button" value="å¤åˆ¶åˆ°å‰ªè´´æ¿" name="cmdCopy" onClick="copy(this.form.inpost)"></center></td></tr></td></table></table>
 <SCRIPT>valignend()</SCRIPT>
     ~;
 1;

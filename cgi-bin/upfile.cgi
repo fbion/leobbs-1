@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 #############################################################
 #
-#  ¶à¸½¼şÉÏ´« For LeoBBS (Ö÷ÎÄ¼ş)
+#  å¤šé™„ä»¶ä¸Šä¼  For LeoBBS (ä¸»æ–‡ä»¶)
 #           
-#  Ö÷Ò³µØÖ·: http://www.CGIer.com/      
-#  BY Â·Ñî(Easun Studio) 20040401
+#  ä¸»é¡µåœ°å€: http://www.CGIer.com/      
+#  BY è·¯æ¨(Easun Studio) 20040401
 #############################################################
 BEGIN {
     $startingtime=(times)[0]+(times)[1];
@@ -16,9 +16,9 @@ BEGIN {
     }
 }
 
-#   $ENV{'TMP'}="$LBPATH/lock"; #Èç¹ûÄã²»ÄÜÉÏ´«£¬ÇëÈ¥µôÇ°ÃæµÄ#
-#   $ENV{'TEMP'}="$LBPATH/lock";#Èç¹ûÄã²»ÄÜÉÏ´«£¬ÇëÈ¥µôÇ°ÃæµÄ#
-#   $ENV{'TMPDIR'}="$LBPATH/lock";#Èç¹ûÄã²»ÄÜÉÏ´«£¬ÇëÈ¥µôÇ°ÃæµÄ#
+#   $ENV{'TMP'}="$LBPATH/lock"; #å¦‚æœä½ ä¸èƒ½ä¸Šä¼ ï¼Œè¯·å»æ‰å‰é¢çš„#
+#   $ENV{'TEMP'}="$LBPATH/lock";#å¦‚æœä½ ä¸èƒ½ä¸Šä¼ ï¼Œè¯·å»æ‰å‰é¢çš„#
+#   $ENV{'TMPDIR'}="$LBPATH/lock";#å¦‚æœä½ ä¸èƒ½ä¸Šä¼ ï¼Œè¯·å»æ‰å‰é¢çš„#
 
 use LBCGI;
 $LBCGI::POST_MAX=40000000;
@@ -29,13 +29,13 @@ require "data/boardinfo.cgi";
 require "data/styles.cgi";
 
 require "bbs.lib.pl";
-require "dopost.pl"; ###×Ô¶¨ÒåµÄpl /BY Â·Ñî
+require "dopost.pl"; ###è‡ªå®šä¹‰çš„pl /BY è·¯æ¨
 
 $|++;
 $thisprog = "upfile.cgi"; 
 
 $query = new LBCGI;
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 if ($COOKIE_USED eq 1) {$cookiepath ="";}
 else {
@@ -59,37 +59,37 @@ $inforum       = $forum;
 $intopic       = $topic;
 
 if ($intopic ne "") {$tmpurl="&topic=$intopic";}
-$gourl1=qq~<meta http-equiv="refresh" content="3; url=$thisprog?action=uppic&forum=$forum$tmpurl"> [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>3 ÃëÖÓ×Ô¶¯·µ»Ø</a> ]~;
-$gourl=qq~ [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>°´´Ë·µ»Ø</a> ]~;
+$gourl1=qq~<meta http-equiv="refresh" content="3; url=$thisprog?action=uppic&forum=$forum$tmpurl"> [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>3 ç§’é’Ÿè‡ªåŠ¨è¿”å›</a> ]~;
+$gourl=qq~ [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>æŒ‰æ­¤è¿”å›</a> ]~;
 
 print header(-charset=>gb2312);
 
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 $maxupload = 300 if ($maxupload eq "");
 
-if (($intopic) && ($intopic !~ /^[0-9]+$/)) {&thisout("<b>ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò1£¡</b>") ;}
-if ($inforum ne "" && $inforum !~ /^[0-9]+$/) {&thisout("<b>ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò2£¡</b>");};
+if (($intopic) && ($intopic !~ /^[0-9]+$/)) {&thisout("<b>è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åº1ï¼</b>") ;}
+if ($inforum ne "" && $inforum !~ /^[0-9]+$/) {&thisout("<b>è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åº2ï¼</b>");};
 
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) { &thisout ("<b>¶Ô²»Æğ£¬´Ë·ÖÂÛÌ³²»´æÔÚ£¡Èç¹ûÈ·¶¨·ÖÂÛÌ³ºÅÂëÃ»´í£¬ÄÇÃ´Çë½øÈë¹ÜÀíÇøĞŞ¸´´Ë·ÖÂÛÌ³Ò»´Î£¡</b>"); }
+if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) { &thisout ("<b>å¯¹ä¸èµ·ï¼Œæ­¤åˆ†è®ºå›ä¸å­˜åœ¨ï¼å¦‚æœç¡®å®šåˆ†è®ºå›å·ç æ²¡é”™ï¼Œé‚£ä¹ˆè¯·è¿›å…¥ç®¡ç†åŒºä¿®å¤æ­¤åˆ†è®ºå›ä¸€æ¬¡ï¼</b>"); }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&thisout("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&thisout("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
-    &thisout("<b>ÇëÏÈµÇÂ½²ÅÄÜÉÏ´«ÎÄ¼ş£¡</b>")
+    &thisout("<b>è¯·å…ˆç™»é™†æ‰èƒ½ä¸Šä¼ æ–‡ä»¶ï¼</b>")
 } else {
     
     &getmember("$inmembername");
-    &thisout("<b>ÆÕÍ¨´íÎó,´ËÓÃ»§¸ù±¾²»´æÔÚ£¡</b>") if ($inpassword ne "" && $userregistered eq "no");
+    &thisout("<b>æ™®é€šé”™è¯¯,æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼</b>") if ($inpassword ne "" && $userregistered eq "no");
      if ($inpassword ne $password && $userregistered ne "no") {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &thisout("<b>ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼</b>£¡");
+        &thisout("<b>å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•</b>ï¼");
      }
 }
 
@@ -102,20 +102,20 @@ my %Mode = (
 );
 
     if ($Mode{$action}) { $Mode{$action}->(); }
-    else { &thisout("<b>ÇëÒÔÕıÈ·µÄ·½Ê½·ÃÎÊ±¾³ÌĞò3£¡</b>"); }
+    else { &thisout("<b>è¯·ä»¥æ­£ç¡®çš„æ–¹å¼è®¿é—®æœ¬ç¨‹åº3ï¼</b>"); }
 
 exit;
 
-##¸Ã¹¦ÄÜÖ»×öiframeµ÷ÓÃ£¬ºÇºÇ£º£©_BY Â·Ñî
+##è¯¥åŠŸèƒ½åªåšiframeè°ƒç”¨ï¼Œå‘µå‘µï¼šï¼‰_BY è·¯æ¨
 
-sub uppic #½çÃæ
+sub uppic #ç•Œé¢
 {
   $addtypedisp = $addtype;
   $addtypedisp =~ s/\, /\,/gi;
   $addtypedisp =~ s/ \,/\,/gi;
   $addtypedisp =~ tr/A-Z/a-z/;
   my @addtypedisp = split(/\,/, $addtypedisp);
-  $addtypedisp = "<select><option value=#>Ö§³ÖÀàĞÍ£º</option><option value=#>----------</option>";
+  $addtypedisp = "<select><option value=#>æ”¯æŒç±»å‹ï¼š</option><option value=#>----------</option>";
   foreach (@addtypedisp)
   {
      chomp $_;
@@ -129,25 +129,25 @@ $thisoutput = qq~
 <input type=hidden name="action" value="doupfile">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<input type="file" size=26 name="addme" > <input type=submit value="Á¢ ¼´ ÉÏ ´«"> ¡¡¡¡$addtypedisp~;
+<input type="file" size=26 name="addme" > <input type=submit value="ç«‹ å³ ä¸Š ä¼ "> ã€€ã€€$addtypedisp~;
 &thisout("$thisoutput");
 exit;
 }
 
-sub doupfile #ÉÏ´«
+sub doupfile #ä¸Šä¼ 
 {
-  # $addme=$query->upload('addme'); #Èç¹ûCGI.pm°æ±¾>2.47£¬ÍÆ¼öÊ¹ÓÃ
-  $addme=$query->param('addme'); #Èç¹ûCGI.pm°æ±¾<2.47£¬ÓÃËûÌæ»»ÉÏ¾ä
+  # $addme=$query->upload('addme'); #å¦‚æœCGI.pmç‰ˆæœ¬>2.47ï¼Œæ¨èä½¿ç”¨
+  $addme=$query->param('addme'); #å¦‚æœCGI.pmç‰ˆæœ¬<2.47ï¼Œç”¨ä»–æ›¿æ¢ä¸Šå¥
   $forum=$query->param('forum');
   $topic=$query->param('topic');
   $inforum       = $forum;
   $intopic       = $topic;
 
-  &moderator($inforum); #»ñµÃÈ¨ÏŞ
+  &moderator($inforum); #è·å¾—æƒé™
 
-  my $thispath=&getusrdir; #ÁÙÊ±Ä¿Â¼
+  my $thispath=&getusrdir; #ä¸´æ—¶ç›®å½•
 
-  &thisout("<b>Ä¿Ç°ÄúÎ´±»·¢²¼µÄ¸½¼şÁÙÊ±ÎÄ¼şÒÑ¾­ÓĞ$filesno¸ö£¬´ïµ½ÁËÂÛÌ³ÉèÖÃµÄ×î´óÊıÄ¿($maxaddnum)£¬<BR>Çë²»ÒªÒ»´ÎÉÏ´«Ì«¶à¸½¼ş£¬Ğ»Ğ»ÅäºÏÓëºÏ×÷!</b>$gourl") if ($thispath eq 'ERR');
+  &thisout("<b>ç›®å‰æ‚¨æœªè¢«å‘å¸ƒçš„é™„ä»¶ä¸´æ—¶æ–‡ä»¶å·²ç»æœ‰$filesnoä¸ªï¼Œè¾¾åˆ°äº†è®ºå›è®¾ç½®çš„æœ€å¤§æ•°ç›®($maxaddnum)ï¼Œ<BR>è¯·ä¸è¦ä¸€æ¬¡ä¸Šä¼ å¤ªå¤šé™„ä»¶ï¼Œè°¢è°¢é…åˆä¸åˆä½œ!</b>$gourl") if ($thispath eq 'ERR');
 
     opendir (DIRS, "${lbdir}");
     my @files = readdir(DIRS);
@@ -192,14 +192,14 @@ sub doupfile #ÉÏ´«
   if (($addme)&&(($arrowupload ne 'off')||($membercode eq 'ad')||($membercode eq 'smo')||($inmembmod eq 'yes'))) {
            $uploadreqire = 0 if ($uploadreqire < 0);
            if (($membercode ne 'ad')&&($membercode ne 'smo')&&($membercode ne 'amo')&&($membercode ne 'cmo')&&($membercode ne 'mo')&&($membercode !~ /^rz/)&&($inmembmod ne 'yes')&&(($numberofposts+$numberofreplys) < $uploadreqire)) {
-               &thisout("ÉÏ´«³ö´í£¬Äã±ØĞë·¢Ìû×ÜÊı´ïµ½ <B>$uploadreqire</B> ²ÅÄÜÔÚ±¾ÇøÉÏ´«£¡$gourl");
+               &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä½ å¿…é¡»å‘å¸–æ€»æ•°è¾¾åˆ° <B>$uploadreqire</B> æ‰èƒ½åœ¨æœ¬åŒºä¸Šä¼ ï¼$gourl");
            }
 
 
-          my ($tmpfilename) = $addme =~ m|([^/:\\]+)$|; #×¢Òâ,»ñÈ¡ÎÄ¼şÃû×ÖµÄĞÎÊ½±ä»¯
+          my ($tmpfilename) = $addme =~ m|([^/:\\]+)$|; #æ³¨æ„,è·å–æ–‡ä»¶åå­—çš„å½¢å¼å˜åŒ–
     #     $tmpfilename =~s/([^\w.-])/_/g;
     #     $tmpfilename =~s/(^[-.]+)//;
-          my @filename = split(/\./,$tmpfilename); #×¢Òâ
+          my @filename = split(/\./,$tmpfilename); #æ³¨æ„
           $up_name = $filename[0];
           $up_ext = $filename[-1];
           $up_ext = lc($up_ext);
@@ -208,14 +208,14 @@ sub doupfile #ÉÏ´«
            for (split(/\,\s*/,$addtype)){
                $checkadd=1,last if ($up_ext eq lc($_));
            }
-           &thisout("ÉÏ´«³ö´í£¬ÎªÁË°²È«£¬²»Ö§³ÖÄãËùÉÏ´«µÄ¸½¼ş£¬ÇëÖØĞÂÑ¡Ôñ£¡$gourl") if ($up_ext eq "exe"||$up_ext eq "com"||$up_ext eq "pl"||$up_ext eq "cgi"||$up_ext eq "asp"||$up_ext eq "php"||$up_ext eq "php3"||$up_ext eq "phtml"||$up_ext eq "jsp"||$up_ext eq "cfml"||$up_ext eq "dll");
-           &thisout("ÉÏ´«³ö´í£¬²»Ö§³ÖÄãËùÉÏ´«µÄ¸½¼ş»òÕßÍ¼Æ¬£¬ÇëÖØĞÂÑ¡Ôñ£¡$gourl") if ($checkadd==0);
+           &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä¸ºäº†å®‰å…¨ï¼Œä¸æ”¯æŒä½ æ‰€ä¸Šä¼ çš„é™„ä»¶ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼$gourl") if ($up_ext eq "exe"||$up_ext eq "com"||$up_ext eq "pl"||$up_ext eq "cgi"||$up_ext eq "asp"||$up_ext eq "php"||$up_ext eq "php3"||$up_ext eq "phtml"||$up_ext eq "jsp"||$up_ext eq "cfml"||$up_ext eq "dll");
+           &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä¸æ”¯æŒä½ æ‰€ä¸Šä¼ çš„é™„ä»¶æˆ–è€…å›¾ç‰‡ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼$gourl") if ($checkadd==0);
            my $filesize=0;
            my $bufferall;
 
-           my $tmpfilename=&gettmpname(${up_name}); #×¢Òâ
+           my $tmpfilename=&gettmpname(${up_name}); #æ³¨æ„
             open (FILE,">$thispath/$tmpfilename.$up_ext");
-           binmode ($addme); #×¢Òâ
+           binmode ($addme); #æ³¨æ„
            binmode (FILE);
            while (((read($addme,$buffer,4096)))&&!(($filesize>$maxupload)&&($membercode ne "ad"))) {
                if ($up_ext eq "txt"||$up_ext eq "cgi"||$up_ext eq "pl"||$up_ext eq "php3"||$up_ext eq "phtm"||$up_ext eq "phtml"||$up_ext eq "htm"||$up_ext eq "html"||$up_ext eq "asp"||$up_ext eq "php"||$up_ext eq "shtml"||$up_ext eq "phtml"||$up_ext eq "jsp"){
@@ -229,13 +229,13 @@ sub doupfile #ÉÏ´«
                $filesize=$filesize+4;
            }
            close (FILE);
-          close ($addme); #×¢Òâ
+          close ($addme); #æ³¨æ„
 
-        #############torrent·ÖÎö################
+        #############torrentåˆ†æ################
 	    if ($up_ext eq "torrent") {
 	    	if (($bufferall !~ /announce/i)||($bufferall !~ /length/i)||($bufferall !~ /info/i)||($bufferall !~ /^d/i)) {
 	    	    unlink ("$thispath/$tmpfilename.$up_ext");
-	    	    &thisout("ÉÏ´«³ö´í£¬ÄãÉÏ´«µÄÕâ¸öÎÄ¼ş²»ÊÇ .torrent ÎÄ¼ş¸ñÊ½$bufferall£¬Çë²éÊµºóÖØĞÂÉÏ´«£¡$gourl");
+	    	    &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä½ ä¸Šä¼ çš„è¿™ä¸ªæ–‡ä»¶ä¸æ˜¯ .torrent æ–‡ä»¶æ ¼å¼$bufferallï¼Œè¯·æŸ¥å®åé‡æ–°ä¸Šä¼ ï¼$gourl");
 	    	}
 	    	else {
 		    eval("use BTINFO;");
@@ -244,19 +244,19 @@ sub doupfile #ÉÏ´«
 			my (undef, $hash, $announce) = split(/\n/, $btfileinfo);
 			if ($hash eq "" || $announce eq "") {
 			    unlink ("$thispath/$tmpfilename.$up_ext");
-	    		    &thisout("ÉÏ´«³ö´í£¬ÄãÉÏ´«µÄÕâ¸öÎÄ¼ş²»ÊÇ .torrent ÎÄ¼ş¸ñÊ½£¬Çë²éÊµºóÖØĞÂÉÏ´«£¡$gourl");
+	    		    &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä½ ä¸Šä¼ çš„è¿™ä¸ªæ–‡ä»¶ä¸æ˜¯ .torrent æ–‡ä»¶æ ¼å¼ï¼Œè¯·æŸ¥å®åé‡æ–°ä¸Šä¼ ï¼$gourl");
 			}
 			my $seedinfo = output_torrent_data($hash, $announce);
                         open (FILE,">$thispath/$tmpfilename.$up_ext.btfile");
 			print FILE "$btfileinfo\|$seedinfo";
 			close(FILE);
 		    }
-		    else { &thisout("ÉÏ´«³ö´í£¬$@£¡");}
+		    else { &thisout("ä¸Šä¼ å‡ºé”™ï¼Œ$@ï¼");}
 		}
 	    }
        #######################################################################
 
-        #############ÀûÓÃ##use Image::Info qw(image_info);################
+        #############åˆ©ç”¨##use Image::Info qw(image_info);################
         if ($up_ext eq "gif"||$up_ext eq "jpg"||$up_ext eq "bmp"||$up_ext eq "jpeg"||$up_ext eq "png"||$up_ext eq "ppm"||$up_ext eq "svg"||$up_ext eq "xbm"||$up_ext eq "xpm") {
           eval("use Image::Info qw(image_info);"); 
           if ($@ eq "") 
@@ -264,7 +264,7 @@ sub doupfile #ÉÏ´«
     	    my $info = image_info("$thispath/$tmpfilename.$up_ext");
 	    if ($info->{error} eq "Unrecognized file format"){
                 unlink ("$thispath/$tmpfilename.$up_ext");
-                &thisout("ÉÏ´«³ö´í£¬ÉÏ´«ÎÄ¼ş²»ÊÇÍ¼Æ¬ÎÄ¼ş£¬ÇëÉÏ´«±ê×¼µÄÍ¼Æ¬ÎÄ¼ş£¡$gourl"); 
+                &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä¸Šä¼ æ–‡ä»¶ä¸æ˜¯å›¾ç‰‡æ–‡ä»¶ï¼Œè¯·ä¸Šä¼ æ ‡å‡†çš„å›¾ç‰‡æ–‡ä»¶ï¼$gourl"); 
             }
             undef $info;
           }
@@ -273,14 +273,14 @@ sub doupfile #ÉÏ´«
 
     if (($filesize>$maxupload)&&($membercode ne "ad")) {
         unlink ("$thispath/$tmpfilename.$up_ext");
-        &thisout("ÉÏ´«³ö´í£¬ÉÏ´«ÎÄ¼ş´óĞ¡³¬¹ı$maxupload KB£¬ÇëÖØĞÂÑ¡Ôñ£¡$gourl");
+        &thisout("ä¸Šä¼ å‡ºé”™ï¼Œä¸Šä¼ æ–‡ä»¶å¤§å°è¶…è¿‡$maxupload KBï¼Œè¯·é‡æ–°é€‰æ‹©ï¼$gourl");
     }
 
        $delurl =qq~$thisprog?action=delup&name=$tmpfilename&ext=${up_ext}&forum=$inforum~;   
-       $addit2span = qq~ <div id=${tmpfilename}_${up_ext}>¸½¼ş:$up_name.$up_ext [<span style=cursor:hand onClick=\\"jsupfile('$tmpfilename.$up_ext');FORM.inpost.focus()\\">ÔÙ´Î²åÈëÌû×Ó</span>]</div>~;
-       $thisoutput .= qq~<b>ÉÏ´«³É¹¦</b> $gourl1<SCRIPT> var p_showupfile= parent.document.getElementById("showupfile"); var s = p_showupfile.innerHTML; s+="$addit2span"; p_showupfile.innerHTML =s; var p_inpost= parent.document.FORM.inpost; var upname='[UploadFile$imgslt=$tmpfilename.$up_ext]';var o_value=p_inpost.value; o_value += upname; p_inpost.value = o_value;</SCRIPT>~;
+       $addit2span = qq~ <div id=${tmpfilename}_${up_ext}>é™„ä»¶:$up_name.$up_ext [<span style=cursor:hand onClick=\\"jsupfile('$tmpfilename.$up_ext');FORM.inpost.focus()\\">å†æ¬¡æ’å…¥å¸–å­</span>]</div>~;
+       $thisoutput .= qq~<b>ä¸Šä¼ æˆåŠŸ</b> $gourl1<SCRIPT> var p_showupfile= parent.document.getElementById("showupfile"); var s = p_showupfile.innerHTML; s+="$addit2span"; p_showupfile.innerHTML =s; var p_inpost= parent.document.FORM.inpost; var upname='[UploadFile$imgslt=$tmpfilename.$up_ext]';var o_value=p_inpost.value; o_value += upname; p_inpost.value = o_value;</SCRIPT>~;
 
-   }else {$thisoutput .= qq~<b>ÄúÃ»ÓĞÉÏ´«ÎÄ¼ş£¬ÇëÉÏ´«ÎÄ¼ş£¡$gourl</b>~;}
+   }else {$thisoutput .= qq~<b>æ‚¨æ²¡æœ‰ä¸Šä¼ æ–‡ä»¶ï¼Œè¯·ä¸Šä¼ æ–‡ä»¶ï¼$gourl</b>~;}
 
     &thisout("$thisoutput");
     exit;
@@ -289,7 +289,7 @@ sub doupfile #ÉÏ´«
 
 
 
-sub delup #É¾³ı
+sub delup #åˆ é™¤
 {
 
    # exit if (;)
@@ -308,14 +308,14 @@ sub delup #É¾³ı
 
 $js=qq~<SCRIPT>parent.showupfile.innerHTML ="";</SCRIPT>~;
 
-   $thisoutput .= qq~<b>ÄãÒÑ¾­ÉÏ´«µÄ£¬µ«»¹ÉĞÎ´·¢²¼µÄ¸½¼şÁÙÊ±ÎÄ¼şÒÑ¾­È«²¿É¾³ı</b>!$gourl1 $js~;
+   $thisoutput .= qq~<b>ä½ å·²ç»ä¸Šä¼ çš„ï¼Œä½†è¿˜å°šæœªå‘å¸ƒçš„é™„ä»¶ä¸´æ—¶æ–‡ä»¶å·²ç»å…¨éƒ¨åˆ é™¤</b>!$gourl1 $js~;
    &thisout("$thisoutput");
    exit;   
 
 }
-sub thisout { ##²»ÓÃÄ£°æµÄprintº¯Êı
+sub thisout { ##ä¸ç”¨æ¨¡ç‰ˆçš„printå‡½æ•°
 
-eval { close ($addme); }; #×¢Òâ
+eval { close ($addme); }; #æ³¨æ„
 $templatefile = "${lbdir}data/template/$skin.cgi";
 if (-e $templatefile) {
     open (TEMPLATE, "<$templatefile");

@@ -1,5 +1,5 @@
 $admin_user = '';
-$plugname = 'ÂÛÌ³ĞéÄâĞÎÏó';
+$plugname = 'è®ºå›è™šæ‹Ÿå½¢è±¡';
 $close_plug = 'close';
 $samnum = '5';
 $lognum = '25';

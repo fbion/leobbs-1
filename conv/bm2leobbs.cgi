@@ -1,13 +1,13 @@
 #!/usr/bin/perl 
 
 ##################################
-# BM200X --> LeoBBS ÓÃ»§×ÊÁÏ×ª»»Æ÷
+# BM200X --> LeoBBS ç”¨æˆ·èµ„æ–™è½¬æ¢å™¨
 ##################################
 
-$userhead= "g:/www/9438/bm2000/";       #BM2000 ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© /
-$leoBBSmember = "g:/www/9438/leobbs/";  #LeoBBS ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© /£¬×¢ÒâÉèÖÃ 777 ÊôĞÔ
+$userhead= "g:/www/9438/bm2000/";       #BM2000 ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ /
+$leoBBSmember = "g:/www/9438/leobbs/";  #LeoBBS ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ /ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§
 
-###############ÒÔÏÂ²»±ØĞŞ¸Ä################# 
+###############ä»¥ä¸‹ä¸å¿…ä¿®æ”¹################# 
 $nowtime = time;
 $ending = ".cgi";
 print ("Content-type: text/html\n\n");
@@ -33,5 +33,5 @@ for ($i=0;$i<$totaluserdata;$i++) {
     open(IBMEMBER,">$leoBBSmember$name$ending"); 
     print IBMEMBER "$UserName\t$Password\tMember\tme\t$TotalPosts\t$Email\tyes\txxx.xxx.xxx.xxx\t$URL\t$OICQnumber\t$ICQnumber\t$Location\t$DateRegistered\t$nowtime\tNot Posted\t$Signature\t\t\tnoavatar\t\t\t\t$AvatarWording\t80\t80\t\n"; 
     close(IBMEMBER); 
-    print "ÓÃ»§ $UserName ÒÑ¾­³É¹¦×ª»»³É LeoBBS ÓÃ»§ÁË£¡<BR><BR>"; 
+    print "ç”¨æˆ· $UserName å·²ç»æˆåŠŸè½¬æ¢æˆ LeoBBS ç”¨æˆ·äº†ï¼<BR><BR>"; 
 }

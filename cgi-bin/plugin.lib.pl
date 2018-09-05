@@ -1,20 +1,20 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-# ·µ»Ø -1£¬Ã»ÓĞÓÃ»§
-# ·µ»Ø 0 £¬ÓÃ»§Êı¾İÓĞÎÊÌâ£¬Ğ´ÈëÊ§°Ü
-# ·µ»Ø 1 £¬³É¹¦
+# è¿”å› -1ï¼Œæ²¡æœ‰ç”¨æˆ·
+# è¿”å› 0 ï¼Œç”¨æˆ·æ•°æ®æœ‰é—®é¢˜ï¼Œå†™å…¥å¤±è´¥
+# è¿”å› 1 ï¼ŒæˆåŠŸ
 
-sub updateuserinfo {  #ÀûÓÃ±ä»¯Á¿À´¸üĞÂÓÃ»§ĞÅÏ¢
+sub updateuserinfo {  #åˆ©ç”¨å˜åŒ–é‡æ¥æ›´æ–°ç”¨æˆ·ä¿¡æ¯
     my($nametocheck,$cposts, $creplys, $crating,$cjin1yan,$cmei1li,$cmoney,$cpostdel,$cjhcount,$conlinetime,$cjifen) = @_;
-#     ÓÃ»§Ãû£¬·¢ÌùÊı±ä»¯Á¿£¬»Ø¸´Êı±ä»¯Á¿£¬ÍşÍû±ä»¯Á¿£¬¾­Ñé±ä»¯Á¿(ÎŞÓÃ)£¬÷ÈÁ¦±ä»¯Á¿(ÎŞÓÃ)£¬½ğÇ®±ä»¯Á¿£¬Ìù×Ó±»É¾³ıÊı±ä»¯Á¿£¬¾«»ªÌù±ä»¯Á¿£¬ÔÚÏßÊ±¼ä±ä»¯Á¿£¬»ı·Ö±ä»¯Á¿
+#     ç”¨æˆ·åï¼Œå‘è´´æ•°å˜åŒ–é‡ï¼Œå›å¤æ•°å˜åŒ–é‡ï¼Œå¨æœ›å˜åŒ–é‡ï¼Œç»éªŒå˜åŒ–é‡(æ— ç”¨)ï¼Œé­…åŠ›å˜åŒ–é‡(æ— ç”¨)ï¼Œé‡‘é’±å˜åŒ–é‡ï¼Œè´´å­è¢«åˆ é™¤æ•°å˜åŒ–é‡ï¼Œç²¾åè´´å˜åŒ–é‡ï¼Œåœ¨çº¿æ—¶é—´å˜åŒ–é‡ï¼Œç§¯åˆ†å˜åŒ–é‡
 
     $cposts     = 0 if ($cposts      eq "");
     $creplys    = 0 if ($creplys     eq "");
@@ -88,10 +88,10 @@ sub updateuserinfo {  #ÀûÓÃ±ä»¯Á¿À´¸üĞÂÓÃ»§ĞÅÏ¢
     }
 }
 
-sub upinfodata {  #¸üĞÂÓÃ»§ÎÄ¼ş¿âµÄÈÎºÎ×Ö¶Î(É¢ÁĞ·½Ê½,ÓÃ»§Ãû²»ÄÜ¸üĞÂ£¬ÃÜÂë¸üĞÂºó±ä³ÉÃ÷ÎÄ)
-    my %infos = @_;                      #»ñÈ¡²ÎÊı£¬±ä³ÉÉ¢ÁĞ
-    my $nametocheck = $infos{name};      #ÓÃ»§Ãû×Ö
-    return -1 if ($nametocheck eq "");   #Ã»ÓĞÃû×Ö£¬·µ»Ø -1
+sub upinfodata {  #æ›´æ–°ç”¨æˆ·æ–‡ä»¶åº“çš„ä»»ä½•å­—æ®µ(æ•£åˆ—æ–¹å¼,ç”¨æˆ·åä¸èƒ½æ›´æ–°ï¼Œå¯†ç æ›´æ–°åå˜æˆæ˜æ–‡)
+    my %infos = @_;                      #è·å–å‚æ•°ï¼Œå˜æˆæ•£åˆ—
+    my $nametocheck = $infos{name};      #ç”¨æˆ·åå­—
+    return -1 if ($nametocheck eq "");   #æ²¡æœ‰åå­—ï¼Œè¿”å› -1
 
     $nametocheck =~ s/ /\_/g;
     $nametocheck =~ tr/A-Z/a-z/;
@@ -99,7 +99,7 @@ sub upinfodata {  #¸üĞÂÓÃ»§ÎÄ¼ş¿âµÄÈÎºÎ×Ö¶Î(É¢ÁĞ·½Ê½,ÓÃ»§Ãû²»ÄÜ¸üĞÂ£¬ÃÜÂë¸üĞÂºó±
     my $namenumber = &getnamenumber($nametocheck);
     &checkmemfile($nametocheck,$namenumber);
     my $filetoopen = "${lbdir}$memdir/$namenumber/$nametocheck.cgi";
-    if ((-e $filetoopen)&&($nametocheck !~ /^¿ÍÈË/)&&($nametocheck ne "")) {
+    if ((-e $filetoopen)&&($nametocheck !~ /^å®¢äºº/)&&($nametocheck ne "")) {
 	&winlock($filetoopen) if ($OS_USED eq "Nt");
 	open(FILE,"+<$filetoopen");
 	flock (FILE, 2) if ($OS_USED eq "Unix");
@@ -114,7 +114,7 @@ sub upinfodata {  #¸üĞÂÓÃ»§ÎÄ¼ş¿âµÄÈÎºÎ×Ö¶Î(É¢ÁĞ·½Ê½,ÓÃ»§Ãû²»ÄÜ¸üĞÂ£¬ÃÜÂë¸üĞÂºó±
 	$jhcount ||= "0";
 	$onlinetime = "3000" if ($onlinetime < 0);
 	for ('password','membertitle','membercode','numberofposts','numberofreplys','emailaddress','showemail','ipaddress','homepage','oicqnumber','icqnumber','location','interests','joineddate','lastpostdate','signature','timedifference','privateforums','useravatar','userflag','userxz','usersx','personalavatar','personalwidth','personalheight','rating','lastgone','visitno','useradd04','useradd02','mymoney','postdel','sex','education','marry','work','born','chatlevel','chattime','jhmp','jhcount','ebankdata','onlinetime','userquestion','awards','jifen','userface','soccerdata','useradd5') {
-	    ${$_} = $infos{$_} if ($infos{$_} ne ""); #»ñÈ¡±äÁ¿£º£©²»ÔÚÕâÀïÃæµÄ±äÁ¿²»ÓÚÀí»á£º£©
+	    ${$_} = $infos{$_} if ($infos{$_} ne ""); #è·å–å˜é‡ï¼šï¼‰ä¸åœ¨è¿™é‡Œé¢çš„å˜é‡ä¸äºç†ä¼šï¼šï¼‰
 	}
 	if (($membername ne "")&&($password ne "")) {
 	    seek(FILE,0,0);

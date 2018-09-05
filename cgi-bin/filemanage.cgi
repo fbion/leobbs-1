@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -46,13 +46,13 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &admintitle;
 if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
-print qq~<tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå  color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÎÄ¼ş¹ÜÀíÆ÷</b>
+print qq~<tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“  color=#FFFFFF>
+<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / æ–‡ä»¶ç®¡ç†å™¨</b>
 </td></tr>~;
 
-&user_error ("´íÎó, ÎªÁËÂÛÌ³µÄ°²È«, ´Ë¹¦ÄÜÉĞÎ´¿ª·Å, <br>Èç¹ûĞèÒª¿ª·Å, ÇëĞŞ¸Ä filemanage.cgi ÎÄ¼ş,<br> °ÑµÚ 51 ĞĞ(&user_error ¿ªÍ·µÄ)É¾³ı, È»ºóÉÏ´«¸²¸Ç¼´¿É!", "");
+&user_error ("é”™è¯¯, ä¸ºäº†è®ºå›çš„å®‰å…¨, æ­¤åŠŸèƒ½å°šæœªå¼€æ”¾, <br>å¦‚æœéœ€è¦å¼€æ”¾, è¯·ä¿®æ”¹ filemanage.cgi æ–‡ä»¶,<br> æŠŠç¬¬ 51 è¡Œ(&user_error å¼€å¤´çš„)åˆ é™¤, ç„¶åä¸Šä¼ è¦†ç›–å³å¯!", "");
 
-#ÒÔÏÂÊÇÎÄ¼şÀ©Õ¹ÃûÓëÏàÓ¦µÄÍ¼±êÎÄ¼şµÄ¹ØÁªÊı×é¡£ÈçÒª¸ü¸Ä£¬¸ñÊ½ÕÕ³­¡£
+#ä»¥ä¸‹æ˜¯æ–‡ä»¶æ‰©å±•åä¸ç›¸åº”çš„å›¾æ ‡æ–‡ä»¶çš„å…³è”æ•°ç»„ã€‚å¦‚è¦æ›´æ”¹ï¼Œæ ¼å¼ç…§æŠ„ã€‚
 %icons = (
            'ace'         => 'ace.gif',
            'class'       => 'applet.gif',
@@ -113,14 +113,14 @@ sub main {
         $action      = $query->param('action');
 
         my ($error);
-        ($working_dir, $error) = &is_valid_dir  ($working_dir); $error and &user_error ("ÎŞĞ§µÄÄ¿Â¼: '$working_dir'. Ô­Òò: $error", "$lbdir/$working_dir");
-        ($filename,    $error) = &is_valid_file ($filename);    $error and &user_error ("ÎŞĞ§µÄÎÄ¼şÃû: '$filename'. Ô­Òò: $error", "$lbdir/$working_dir");
-        ($name,        $error) = &is_valid_file ($name);        $error and &user_error ("ÎŞĞ§µÄÃû³Æ: '$name'. Ô­Òò: $error", "$lbdir/$working_dir");
-        ($newname,     $error) = &is_valid_file ($newname);     $error and &user_error ("ÎŞĞ§µÄÎÄ¼şÃû: '$newname'. Ô­Òò: $error", "$lbdir/$working_dir");
-        ($newperm,     $error) = &is_valid_perm ($newperm);     $error and &user_error ("ÎŞĞ§µÄÈ¨ÏŞ: '$newperm'. Ô­Òò: $error", "$lbdir/$working_dir");
+        ($working_dir, $error) = &is_valid_dir  ($working_dir); $error and &user_error ("æ— æ•ˆçš„ç›®å½•: '$working_dir'. åŸå› : $error", "$lbdir/$working_dir");
+        ($filename,    $error) = &is_valid_file ($filename);    $error and &user_error ("æ— æ•ˆçš„æ–‡ä»¶å: '$filename'. åŸå› : $error", "$lbdir/$working_dir");
+        ($name,        $error) = &is_valid_file ($name);        $error and &user_error ("æ— æ•ˆçš„åç§°: '$name'. åŸå› : $error", "$lbdir/$working_dir");
+        ($newname,     $error) = &is_valid_file ($newname);     $error and &user_error ("æ— æ•ˆçš„æ–‡ä»¶å: '$newname'. åŸå› : $error", "$lbdir/$working_dir");
+        ($newperm,     $error) = &is_valid_perm ($newperm);     $error and &user_error ("æ— æ•ˆçš„æƒé™: '$newperm'. åŸå› : $error", "$lbdir/$working_dir");
 
-        ($directory, $error)   = &is_valid_dir  ($directory);   $error and &user_error ("ÎŞĞ§µÄÄ¿Â¼: '$directory'. Ô­Òò: $error", "$lbdir/$working_dir");
-        ($directory, $error)   = &is_valid_file ($directory);   $error and &user_error ("ÎŞĞ§µÄÄ¿Â¼: '$directory'. Ô­Òò: $error", "$lbdir/$working_dir");
+        ($directory, $error)   = &is_valid_dir  ($directory);   $error and &user_error ("æ— æ•ˆçš„ç›®å½•: '$directory'. åŸå› : $error", "$lbdir/$working_dir");
+        ($directory, $error)   = &is_valid_file ($directory);   $error and &user_error ("æ— æ•ˆçš„ç›®å½•: '$directory'. åŸå› : $error", "$lbdir/$working_dir");
 
         my ($dir, $url);
         if ($working_dir) {
@@ -150,8 +150,8 @@ for (i=0 ; i < validString.length ; i++) {
 }           
 if (i < 1) { return false; }           
 if (isCharValid == false) {
-  if (inValidChar) { alert("ÎŞĞ§µÄÎÄ¼şÃû. ²»ÄÜº¬ÓĞ '" + inValidChar + "'.");        }
-  else             { alert("ÎŞĞ§µÄÎÄ¼şÃû. ÇëÖØĞÂÊäÈë."); }
+  if (inValidChar) { alert("æ— æ•ˆçš„æ–‡ä»¶å. ä¸èƒ½å«æœ‰ '" + inValidChar + "'.");        }
+  else             { alert("æ— æ•ˆçš„æ–‡ä»¶å. è¯·é‡æ–°è¾“å…¥."); }
   if (field)       { field.focus(); field.select(); }
     return false;
   }
@@ -173,7 +173,7 @@ function isNum(passedVal) {
 }
 
 function renameFile ( name ) {
-  var newname = window.prompt("¸ÄÃû '" + name + "' Îª: ",'')
+  var newname = window.prompt("æ”¹å '" + name + "' ä¸º: ",'')
   if (newname != null) {
     if (validateFileEntry(newname)) {
       window.location.href = "filemanage.cgi?action=rename&name=" + name + "&newname=" + newname +"&wd=$working_dir"
@@ -182,22 +182,22 @@ function renameFile ( name ) {
 }
 
 function deleteFile ( name ) {
-  if (window.confirm("ÄãÕæµÄÏëÉ¾³ıÎÄ¼ş'" + name + "'Âğ?")) {
+  if (window.confirm("ä½ çœŸçš„æƒ³åˆ é™¤æ–‡ä»¶'" + name + "'å—?")) {
     window.location.href = "filemanage.cgi?action=delete&fn=" + name + "&wd=$working_dir"
   }
 }
 
 function deleteDir ( name ) {        
-  if (window.confirm("ÄãÕæµÄÏëÉ¾³ıÄ¿Â¼'" + name + "'Âğ?")) {
+  if (window.confirm("ä½ çœŸçš„æƒ³åˆ é™¤ç›®å½•'" + name + "'å—?")) {
     window.location.href = "filemanage.cgi?action=removedir&dir=" + name + "&wd=$working_dir"
   }
 }        
 
 function changePermissions ( name ) {
-  var newperm = window.prompt("¸Ä±äÎÄ¼ş'" + name + "' µÄÈ¨ÏŞÎª: ",'')
+  var newperm = window.prompt("æ”¹å˜æ–‡ä»¶'" + name + "' çš„æƒé™ä¸º: ",'')
   if (newperm == null) {  return;  }
   if (!isNum(newperm) || (newperm == "") || (length.newperm > 2)) {
-    alert ("Ö»ĞèÒªÈı¸öÊı×Ö! ÊäÈë°Ë½øÖÆµÄÈ¨ÏŞÊı×Ö. Èç 755.")
+    alert ("åªéœ€è¦ä¸‰ä¸ªæ•°å­—! è¾“å…¥å…«è¿›åˆ¶çš„æƒé™æ•°å­—. å¦‚ 755.")
   } else {
     window.location.href = "filemanage.cgi?action=permissions&name=" + name + "&newperm=" + newperm +"&wd=$working_dir"
   }
@@ -213,14 +213,14 @@ function serverFileName() {
 
         my $nojavascript = qq~        
 <noscript>
-<table bgcolor="#FFFFFF" cellpadding=5 cellspacing=3 width=100% valign=top><tr><td><font color="red"><B>×¢Òâ:&nbsp;&nbsp; </B></font><FONT COLOR="black">ÄãµÄä¯ÀÀÆ÷Ä¿Ç° <font color="red"><b>¹Ø±ÕÁË JavaScript ¹¦ÄÜ</b></font> -- ÎÄ¼ş¹ÜÀíÆ÷ ±ØĞëÊ¹ÓÃ JavaScript.Çë½øÈëä¯ÀÀµÄ²ÎÊıÑ¡ÔñÏî, È»ºó <b>ÆôÓÃ JavaScript ¹¦ÄÜ</b>. Äã¿ÉÒÔ°´ <b>Ë¢ĞÂ</b> °´Å¥À´¼ÌĞøÊ¹ÓÃ ÎÄ¼ş¹ÜÀíÆ÷.</FONT></td></tr></table>
+<table bgcolor="#FFFFFF" cellpadding=5 cellspacing=3 width=100% valign=top><tr><td><font color="red"><B>æ³¨æ„:&nbsp;&nbsp; </B></font><FONT COLOR="black">ä½ çš„æµè§ˆå™¨ç›®å‰ <font color="red"><b>å…³é—­äº† JavaScript åŠŸèƒ½</b></font> -- æ–‡ä»¶ç®¡ç†å™¨ å¿…é¡»ä½¿ç”¨ JavaScript.è¯·è¿›å…¥æµè§ˆçš„å‚æ•°é€‰æ‹©é¡¹, ç„¶å <b>å¯ç”¨ JavaScript åŠŸèƒ½</b>. ä½ å¯ä»¥æŒ‰ <b>åˆ·æ–°</b> æŒ‰é’®æ¥ç»§ç»­ä½¿ç”¨ æ–‡ä»¶ç®¡ç†å™¨.</FONT></td></tr></table>
 </noscript>
 ~;
 
         print qq~
 <html>
 <head>
-<title>ÎÄ¼ş¹ÜÀíÆ÷</title>
+<title>æ–‡ä»¶ç®¡ç†å™¨</title>
 $javascript
 </head>
 <body bgcolor="#DDDDDD">
@@ -274,7 +274,7 @@ $javascript
                                                       };
                 do {
                       print $nojavascript;
-                      &list_files ('ÁĞ³öÎÄ¼şºÍÄ¿Â¼.', $working_dir, $url);
+                      &list_files ('åˆ—å‡ºæ–‡ä»¶å’Œç›®å½•.', $working_dir, $url);
                 };
         };
         print qq~</td></tr></table>
@@ -291,11 +291,11 @@ sub list_files {
                 <P>
                 <table bgcolor="#FFFFFF" cellpadding=5 cellspacing=3 width=100% valign=top>
                         <tr>
-                                <td><B>Ä¿Â¼¶ÔÓ¦:&nbsp;&nbsp; <a href="$url"><FONT COLOR="blue">$url</font></A></B></td>
-                                <td align="right"><a href="filemanage.cgi">·µ»Ø CGI ¸ùÄ¿Â¼</a>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;</td>
+                                <td><B>ç›®å½•å¯¹åº”:&nbsp;&nbsp; <a href="$url"><FONT COLOR="blue">$url</font></A></B></td>
+                                <td align="right"><a href="filemanage.cgi">è¿”å› CGI æ ¹ç›®å½•</a>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;</td>
                         </tr>
                         <tr>
-                                <td>ÃüÁî: <font color=red><B>$message</B></font><br></td><td><br></td>
+                                <td>å‘½ä»¤: <font color=red><B>$message</B></font><br></td><td><br></td>
                                 <td align="right"></td>
                         </tr>
                 </table>
@@ -342,7 +342,7 @@ sub list_files {
                                 $directory{$file} .= qq~     <td><font color="gray">$fileperm</font></td> \n~;
                                 $directory{$file} .= qq~     <td>$filedate</td> \n~;
                                 $directory{$file} .= qq~     <td></td>~;
-                                $directory{$file} .= qq~     <td><b><a href="$newdir"><font color=black>ÉÏÒ»¼¶</font></a></B></td>
+                                $directory{$file} .= qq~     <td><b><a href="$newdir"><font color=black>ä¸Šä¸€çº§</font></a></B></td>
                                                                                          <td><br></td></tr>
                                                                         ~;                        
                         }
@@ -355,7 +355,7 @@ sub list_files {
                                 $directory{$file} .= qq~     <td>$filedate</td> \n~;
                                 $directory{$file} .= qq~     <td></td>~;
                                 $directory{$file} .= qq~     <td>&nbsp;</td>\n~;
-                                $directory{$file} .= qq~     <td><a href="javascript:deleteDir('$file')"><font color=red>É¾³ı</font></A></td><td><a href="javascript:renameFile('$file')"><font color=purple>¸ÄÃû</font></a></td>\n~;
+                                $directory{$file} .= qq~     <td><a href="javascript:deleteDir('$file')"><font color=red>åˆ é™¤</font></A></td><td><a href="javascript:renameFile('$file')"><font color=purple>æ”¹å</font></a></td>\n~;
                                 $directory{$file} .= qq~ </tr>\n~;                                
                         }
                 }
@@ -367,9 +367,9 @@ sub list_files {
                         $text{$file} .= qq~      <td><a href="javascript:changePermissions('$file')"><font color="gray">$fileperm</font></a></td> \n~;
                         $text{$file} .= qq~      <td>$filedate</td> \n~;
                         $text{$file} .= qq~      <td><b>$filesize</font></b></td> \n~;
-                        $text{$file} .= qq~      <td><a href="filemanage.cgi?action=edit&fn=$file&wd=$working_dir"><font color=green>±à¼­</font></a></td>~;
-                        $text{$file} .= qq~      <td><a href="javascript:deleteFile('$file')"><font color=red>É¾³ı</font></a></td>
-                                                 <td><a href="javascript:renameFile('$file')"><font color=purple>¸ÄÃû</font></a></td></tr>
+                        $text{$file} .= qq~      <td><a href="filemanage.cgi?action=edit&fn=$file&wd=$working_dir"><font color=green>ç¼–è¾‘</font></a></td>~;
+                        $text{$file} .= qq~      <td><a href="javascript:deleteFile('$file')"><font color=red>åˆ é™¤</font></a></td>
+                                                 <td><a href="javascript:renameFile('$file')"><font color=purple>æ”¹å</font></a></td></tr>
                         		~;
                 }
                 else {
@@ -381,8 +381,8 @@ sub list_files {
                         $graphic{$file} .= qq~      <td><i>$filedate</font></i></td> \n~;
                         $graphic{$file} .= qq~      <td><b>$filesize</font></b></td> \n~;
                         $graphic{$file} .= qq~      <td><br></td>
-                                                    <td><a href="javascript:deleteFile('$file')"><font color=red>É¾³ı</font></a></td>
-                                                    <td><a href="javascript:renameFile('$file')"><font color=purple>¸ÄÃû</font></a></td></tr>
+                                                    <td><a href="javascript:deleteFile('$file')"><font color=red>åˆ é™¤</font></a></td>
+                                                    <td><a href="javascript:renameFile('$file')"><font color=purple>æ”¹å</font></a></td></tr>
                         		   ~;
                 }
         }
@@ -405,24 +405,24 @@ sub list_files {
                                         <form method=post action="filemanage.cgi" name="createfile">
                                                 <input type=hidden name="action" value="edit">
                                                 <input type=hidden name="wd"     value="$working_dir">
-                                                <font color="black"><B>½¨Á¢Ò»¸öĞÂÎÄµµ:</B><br>ÎÄ¼şÃû: <input type=text name="fn" onBlur="validateFileEntry(this.value, this)" >
-                                                <input type=submit value="½¨Á¢ÎÄ¼ş"></font>
+                                                <font color="black"><B>å»ºç«‹ä¸€ä¸ªæ–°æ–‡æ¡£:</B><br>æ–‡ä»¶å: <input type=text name="fn" onBlur="validateFileEntry(this.value, this)" >
+                                                <input type=submit value="å»ºç«‹æ–‡ä»¶"></font>
                                         </form>
                                 </td><td align="left" rowspan=2 valign="top" width=50%>
                                         <form method=post action="filemanage.cgi">
                                                 <input type=hidden name="action" value="makedir">
                                                 <input type=hidden name="wd"     value="$working_dir">
-                                                <font color="black"><B>½¨Á¢Ò»¸öĞÂÄ¿Â¼:</B><br>Ä¿Â¼Ãû: <input type=text name="dir" onBlur="validateFileEntry(this.value, this)" >
-                                                <input type=submit value="½¨Á¢Ä¿Â¼"></font>
+                                                <font color="black"><B>å»ºç«‹ä¸€ä¸ªæ–°ç›®å½•:</B><br>ç›®å½•å: <input type=text name="dir" onBlur="validateFileEntry(this.value, this)" >
+                                                <input type=submit value="å»ºç«‹ç›®å½•"></font>
                                         </form>
                                 </td></tr><tr><td valign="top" align="left">
                                         <form method=post action="filemanage.cgi" NAME="Upload" ENCTYPE="multipart/form-data">
                                                 <input type=hidden name="wd"     value="$working_dir">
                                                 <input type=hidden name="action" value="upload">
-                                                <font color="black"><B>ÉÏ´«Ò»¸öÎÄ¼ş:</B><br>
-                                                        ±¾µØÎÄ¼şÃû: <INPUT NAME="data" TYPE="file" onBlur="serverFileName()"><br>
-                                                        Ô¶³ÌÎÄ¼şÃû: <INPUT NAME="fn" onFocus="select()" onBlur="validateFileEntry(this.value, this)">
-                                                <input type="submit" value="ÉÏ´«"></font>
+                                                <font color="black"><B>ä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶:</B><br>
+                                                        æœ¬åœ°æ–‡ä»¶å: <INPUT NAME="data" TYPE="file" onBlur="serverFileName()"><br>
+                                                        è¿œç¨‹æ–‡ä»¶å: <INPUT NAME="fn" onFocus="select()" onBlur="validateFileEntry(this.value, this)">
+                                                <input type="submit" value="ä¸Šä¼ "></font>
                                         </form>
                                 </td></tr>
                         </table>
@@ -434,17 +434,17 @@ sub delete {
         my ($directory, $filename) = @_;
         my ($fullfile);
 
-        (!$filename) and return "É¾³ıÎÄ¼ş: Ã»ÓĞÊäÈëÎÄ¼şÃû!";
+        (!$filename) and return "åˆ é™¤æ–‡ä»¶: æ²¡æœ‰è¾“å…¥æ–‡ä»¶å!";
 
         ($directory =~ m,/$,) ? ($fullfile = "$directory$filename") : ($fullfile = "$directory/$filename");
 
         if (&exists($fullfile)) {
                 unlink ($fullfile) ?
-                        return "É¾³ıÎÄ¼ş: '$filename' ÒÑ±»É¾³ı." :
-                        return "É¾³ıÎÄ¼ş: '$filename' ²»ÄÜ±»É¾³ı. Çë¼ì²éÎÄ¼şÊôĞÔ.";
+                        return "åˆ é™¤æ–‡ä»¶: '$filename' å·²è¢«åˆ é™¤." :
+                        return "åˆ é™¤æ–‡ä»¶: '$filename' ä¸èƒ½è¢«åˆ é™¤. è¯·æ£€æŸ¥æ–‡ä»¶å±æ€§.";
         }
         else {
-                return "É¾³ıÎÄ¼ş: '$filename' ²»ÄÜ±»É¾³ı. ÕÒ²»µ½ÎÄ¼ş.";
+                return "åˆ é™¤æ–‡ä»¶: '$filename' ä¸èƒ½è¢«åˆ é™¤. æ‰¾ä¸åˆ°æ–‡ä»¶.";
         }
 }
 
@@ -452,7 +452,7 @@ sub edit {
         my ($directory, $filename, $working_dir, $url) = @_;
         my ($lines, $fullfile, $full_url);
 
-        (!$filename) and return "±à¼­ÎÄ¼ş: Ã»ÓĞÊäÈëÎÄ¼şÃû!";
+        (!$filename) and return "ç¼–è¾‘æ–‡ä»¶: æ²¡æœ‰è¾“å…¥æ–‡ä»¶å!";
 
         ($directory =~ m,/$,) ? ($fullfile = "$directory$filename") : ($fullfile = "$directory/$filename");
         $full_url   = "$url/$filename";
@@ -462,7 +462,7 @@ sub edit {
                 $lines = join ("", <DATA>);
                 $lines =~ s/<\/TEXTAREA/<\/TEXT-AREA/ig;
                 close DATA;
-                print qq!<p>±à¼­ <a href="$full_url"><B>$filename</B></A> ÖĞĞèÒªĞŞ¸ÄµÄ²¿·İ:</p>!;
+                print qq!<p>ç¼–è¾‘ <a href="$full_url"><B>$filename</B></A> ä¸­éœ€è¦ä¿®æ”¹çš„éƒ¨ä»½:</p>!;
         }
         else {
                 $lines = qq~
@@ -476,25 +476,25 @@ sub edit {
 </BODY>
 </HTML>
                 ~;
-                print "<p>ÕâÊÇÒ»¸öĞÂÎÄ¼ş. ÔÚÏÂÃæÊäÈëÄãµÄHTML´úÂë:</p>";
+                print "<p>è¿™æ˜¯ä¸€ä¸ªæ–°æ–‡ä»¶. åœ¨ä¸‹é¢è¾“å…¥ä½ çš„HTMLä»£ç :</p>";
         }
 
         print qq~
                 <p><blockquote>
-                        Íê³É±à¼­ºó, Ñ¡Ôñ "±£´æÎÄµµ" À´±£´æ <B>$filename</B> ¼°·µ»ØÖ÷²Ëµ¥
+                        å®Œæˆç¼–è¾‘å, é€‰æ‹© "ä¿å­˜æ–‡æ¡£" æ¥ä¿å­˜ <B>$filename</B> åŠè¿”å›ä¸»èœå•
                         .
                 </blockquote></p>
 
                 <form method=post action="filemanage.cgi">
                 <textarea name="data" rows=40 cols=60 wrap=virtual>$lines</textarea>
 
-                <p>Áí´æÎªÎÄ¼şÃû:
+                <p>å¦å­˜ä¸ºæ–‡ä»¶å:
                            <input type=text name="fn" value="$filename"><br>
-                                (ÊäÈëÁíÍâÒ»¸öÎÄ¼şÃû½«»á²»¸Ä±ä <B>$filename</B>
-                                µÄÄÚÈİ£¬¶øÄãÊäÈëµÄÄÚÈİ½«»á±£´æÎªÄãÊäÈëµÄÁíÍâµÄÎÄ¼şÃû. ×¢Òâ£¬Èç¹û¸ÃÁíÍâµÄÎÄ¼şÒ²´æÔÚµÄ»°, Ëü½«»á±»¸²¸Ç.)<P>
+                                (è¾“å…¥å¦å¤–ä¸€ä¸ªæ–‡ä»¶åå°†ä¼šä¸æ”¹å˜ <B>$filename</B>
+                                çš„å†…å®¹ï¼Œè€Œä½ è¾“å…¥çš„å†…å®¹å°†ä¼šä¿å­˜ä¸ºä½ è¾“å…¥çš„å¦å¤–çš„æ–‡ä»¶å. æ³¨æ„ï¼Œå¦‚æœè¯¥å¦å¤–çš„æ–‡ä»¶ä¹Ÿå­˜åœ¨çš„è¯, å®ƒå°†ä¼šè¢«è¦†ç›–.)<P>
                         <input type=hidden name="action" value="write">
                         <input type=hidden name="wd"     value="$working_dir">
-                        <input type=submit               value="±£´æÎÄµµ">
+                        <input type=submit               value="ä¿å­˜æ–‡æ¡£">
                 </form>
                 </p>                
         ~;
@@ -504,7 +504,7 @@ sub write {
         my ($directory, $filename, $data, $url) = @_;
         my ($fullfile, $new);
 
-        (!$filename) and return "±à¼­ÎÄ¼ş: Ã»ÓĞÊäÈëÎÄ¼şÃû!";        
+        (!$filename) and return "ç¼–è¾‘æ–‡ä»¶: æ²¡æœ‰è¾“å…¥æ–‡ä»¶å!";        
 
         ($directory =~ m,/$,) ? ($fullfile = "$directory$filename") : ($fullfile = "$directory/$filename");
 
@@ -519,11 +519,11 @@ sub write {
 
         if (&exists($fullfile)) {
                 ($new eq 'yes') ?
-                        return ("±à¼­ÎÄ¼ş: '$filename' ÒÑ±»½¨Á¢.") :
-                        return ("±à¼­ÎÄ¼ş: '$filename' ÒÑ±»±à¼­.");
+                        return ("ç¼–è¾‘æ–‡ä»¶: '$filename' å·²è¢«å»ºç«‹.") :
+                        return ("ç¼–è¾‘æ–‡ä»¶: '$filename' å·²è¢«ç¼–è¾‘.");
         }
         else {
-                return  ("±à¼­ÎÄ¼ş: ²»ÄÜ±£´æ '$filename'. Çë¼ì²éÈ¨ÏŞ.");
+                return  ("ç¼–è¾‘æ–‡ä»¶: ä¸èƒ½ä¿å­˜ '$filename'. è¯·æ£€æŸ¥æƒé™.");
         }
 }
 
@@ -542,33 +542,33 @@ sub upload {
 	my $buffer;
         open    (OUTFILE, ">$fullfile");
         binmode (OUTFILE);        # For those O/S that care.
-        binmode ($data); #×¢Òâ
+        binmode ($data); #æ³¨æ„
         while (read($data,$buffer,4096)) {
                 print OUTFILE $buffer;
                 $file_size += 4096;
         }
         close OUTFILE;
-        close ($data); #×¢Òâ
+        close ($data); #æ³¨æ„
         &exists($fullfile) ?
-                return (int($file_size / 1000), "ÉÏ´«ÎÄ¼ş: '$filename' ÒÑÉÏ´«.") :
-                return (int($file_size / 1000), "ÉÏ´«ÎÄ¼ş: ²»ÄÜÉÏ´« '$filename'. Çë¼ì²éÈ¨ÏŞ.");
+                return (int($file_size / 1000), "ä¸Šä¼ æ–‡ä»¶: '$filename' å·²ä¸Šä¼ .") :
+                return (int($file_size / 1000), "ä¸Šä¼ æ–‡ä»¶: ä¸èƒ½ä¸Šä¼  '$filename'. è¯·æ£€æŸ¥æƒé™.");
 }
 
 sub makedir {
         my ($root, $new) = @_;
         my ($fulldir);
 
-        (!$new) and return "½¨Á¢Ä¿Â¼: ÄãÍü¼ÇÊäÈëÄ¿Â¼ÃûÁË!";
+        (!$new) and return "å»ºç«‹ç›®å½•: ä½ å¿˜è®°è¾“å…¥ç›®å½•åäº†!";
 
         ($root =~ m,/$,) ? ($fulldir = "$root$new") : ($fulldir = "$root/$new");
 
         if (&exists($fulldir)) {
-                return "½¨Á¢Ä¿Â¼: '$new' ÒÑ¾­´æÔÚ.";
+                return "å»ºç«‹ç›®å½•: '$new' å·²ç»å­˜åœ¨.";
         }
         else {
                 mkdir ($fulldir, 0755) ?
-                        return "½¨Á¢Ä¿Â¼: '$new' Ä¿Â¼ÒÑ½¨Á¢." :
-                        return "½¨Á¢Ä¿Â¼: ²»ÄÜ½¨Á¢Ä¿Â¼. Çë¼ì²éÈ¨ÏŞ.";
+                        return "å»ºç«‹ç›®å½•: '$new' ç›®å½•å·²å»ºç«‹." :
+                        return "å»ºç«‹ç›®å½•: ä¸èƒ½å»ºç«‹ç›®å½•. è¯·æ£€æŸ¥æƒé™.";
         }
 }
 
@@ -576,50 +576,50 @@ sub removedir {
         my ($root, $new) = @_;
         my ($fulldir);
 
-        (!$new) and return "É¾³ıÄ¿Â¼: Ã»ÓĞÊäÈëÄ¿Â¼Ãû!";
+        (!$new) and return "åˆ é™¤ç›®å½•: æ²¡æœ‰è¾“å…¥ç›®å½•å!";
 
         ($root =~ m,/$,) ? ($fulldir = "$root$new") : ($fulldir = "$root/$new");
 
         if (!&exists($fulldir)) {
-                return "É¾³ıÄ¿Â¼: '$new' ²»´æÔÚ.";
+                return "åˆ é™¤ç›®å½•: '$new' ä¸å­˜åœ¨.";
         }
         else {
                 rmdir($fulldir) ?
-                        return "É¾³ıÄ¿Â¼: '$new' ÒÑ±»É¾³ı." :
-                        return "É¾³ıÄ¿Â¼: '$new' <B>²»ÄÜ</B> É¾³ı. ¼ì²éÄ¿Â¼ÊÇ·ñÎª¿Õ.";
+                        return "åˆ é™¤ç›®å½•: '$new' å·²è¢«åˆ é™¤." :
+                        return "åˆ é™¤ç›®å½•: '$new' <B>ä¸èƒ½</B> åˆ é™¤. æ£€æŸ¥ç›®å½•æ˜¯å¦ä¸ºç©º.";
         }
 }
 
 sub rename_file {
         my ($directory, $oldfile, $newfile) = @_;
 
-        (!$oldfile or !$newfile) and return "¸ÄÃû: Ô­ÎÄ¼şÃûºÍÄ¿±êÎÄ¼şÃû¶¼±ØĞëÊäÈë!";
+        (!$oldfile or !$newfile) and return "æ”¹å: åŸæ–‡ä»¶åå’Œç›®æ ‡æ–‡ä»¶åéƒ½å¿…é¡»è¾“å…¥!";
 
         my ($full_oldfile, $full_newfile);
         ($directory =~ m,/$,) ?
                 ($full_oldfile = "$directory$oldfile"  and $full_newfile = "$directory$newfile") :
                 ($full_oldfile = "$directory/$oldfile" and $full_newfile = "$directory/$newfile");
 
-        (&exists($full_oldfile)) or  return "¸ÄÃû: Ô­ÎÄ¼ş '$oldfile' ²»´æÔÚ.";
-        (&exists($full_newfile)) and return "¸ÄÃû: ĞÂÎÄ¼ş '$newfile' ÒÑ´æÔÚ.";
+        (&exists($full_oldfile)) or  return "æ”¹å: åŸæ–‡ä»¶ '$oldfile' ä¸å­˜åœ¨.";
+        (&exists($full_newfile)) and return "æ”¹å: æ–°æ–‡ä»¶ '$newfile' å·²å­˜åœ¨.";
 
         rename ($full_oldfile, $full_newfile);
-        return "¸ÄÃû: '$oldfile' ÒÑ±»¸ÄÃûÎª '$newfile'.";
+        return "æ”¹å: '$oldfile' å·²è¢«æ”¹åä¸º '$newfile'.";
 }
 
 sub change_perm {
         my ($directory, $file, $newperm) = @_;
         my ($full_filename, $octal_perm);
         
-        (!$file)    and return "¸Ä±äÈ¨ÏŞ: Ã»ÓĞÊäÈëÎÄ¼şÃû!";
-        (!$newperm) and        return "¸Ä±äÈ¨ÏŞ: Ã»ÓĞÊäÈëĞÂµÄÈ¨ÏŞ!";
+        (!$file)    and return "æ”¹å˜æƒé™: æ²¡æœ‰è¾“å…¥æ–‡ä»¶å!";
+        (!$newperm) and        return "æ”¹å˜æƒé™: æ²¡æœ‰è¾“å…¥æ–°çš„æƒé™!";
 
         $full_filename = "$directory/$file";
-        (&exists($full_filename)) or return "¸Ä±äÈ¨ÏŞ: '$file' ²»´æÔÚ.";
+        (&exists($full_filename)) or return "æ”¹å˜æƒé™: '$file' ä¸å­˜åœ¨.";
 
         $octal_perm = oct($newperm);
         chmod ($octal_perm, $full_filename);
-        return "¸Ä±äÈ¨ÏŞ: '$file' È¨ÏŞÒÑ±»¸Ä±ä.";
+        return "æ”¹å˜æƒé™: '$file' æƒé™å·²è¢«æ”¹å˜.";
 }
 
 sub print_permissions {
@@ -685,11 +685,11 @@ sub is_valid_file {
         my ($file, $okfile) = "";
         $file = shift;
 	$okfile = $file;
-        if ($file =~ m/[\/|\\]/) { return ($dir, "ÎÄ¼şÃûÖĞÓĞ·Ç·¨×Ö·û. ²»ÄÜÊ¹ÓÃ Á¬½áÏß ºÍ Ğ¡Êıµã."); }
+        if ($file =~ m/[\/|\\]/) { return ($dir, "æ–‡ä»¶åä¸­æœ‰éæ³•å­—ç¬¦. ä¸èƒ½ä½¿ç”¨ è¿ç»“çº¿ å’Œ å°æ•°ç‚¹."); }
 
-        ($file =~ m,\.\.,)   and return ($file, "²»ÔÊĞíÓĞÁ¬ĞøÁ½¸öĞ¡ÊıµãÔÚÎÄ¼şÃûÖĞ .");
-        ($file =~ m,^\.,)    and return ($file, "Ğ¡Êıµã²»ÄÜÔÚÎÄ¼şÃûµÄÍ·²¿.");
-        (length($file) > 20) and return ($file, "ÎÄ¼şÃûÌ«³¤. Çë±£³ÖÔÚ 20 ¸ö×Ö·ûÒÔÄÚ.");
+        ($file =~ m,\.\.,)   and return ($file, "ä¸å…è®¸æœ‰è¿ç»­ä¸¤ä¸ªå°æ•°ç‚¹åœ¨æ–‡ä»¶åä¸­ .");
+        ($file =~ m,^\.,)    and return ($file, "å°æ•°ç‚¹ä¸èƒ½åœ¨æ–‡ä»¶åçš„å¤´éƒ¨.");
+        (length($file) > 20) and return ($file, "æ–‡ä»¶åå¤ªé•¿. è¯·ä¿æŒåœ¨ 20 ä¸ªå­—ç¬¦ä»¥å†….");
 
         return ($okfile, "");
 }
@@ -701,39 +701,13 @@ sub is_valid_dir {
         my (@size) = split (/\//, $dir);
         $last_dir  = pop (@size);
 	$okdir = $dir;
-        if ($dir =~ m/[\/|\\]/) { return ($dir, "Ä¿Â¼ÃûÖĞÓĞ·Ç·¨×Ö·û. ²»ÄÜÊ¹ÓÃ Á¬½áÏß ºÍ Ğ¡Êıµã."); }
+        if ($dir =~ m/[\/|\\]/) { return ($dir, "ç›®å½•åä¸­æœ‰éæ³•å­—ç¬¦. ä¸èƒ½ä½¿ç”¨ è¿ç»“çº¿ å’Œ å°æ•°ç‚¹."); }
 
-        ($dir =~ m,\.\.,)   and return ($dir, "²»ÔÊĞíÓĞÁ¬ĞøÁ½¸öĞ¡ÊıµãÔÚÎÄ¼şÃûÖĞ .");
-        ($dir =~ m,^/,)                  and return ($dir, "Ä¿Â¼ÃûÇ°²»ÄÜÓĞ / ºÅ.");
-        ($dir =~ m,/$,)                  and return ($dir, "Ä¿Â¼Ãûºó²»ÄÜÓĞ / ºÅ.");
-        ($#size > 4)                     and return ($dir, "Ä¿Â¼¼¶Ì«Éî.");
-        (length($last_dir) > 25) and return ($dir, "Ä¿Â¼ÃûÌ«³¤. Çë±£³ÖÔÚ 25 ¸ö×Ö·ûÒÔÄÚ.");
+        ($dir =~ m,\.\.,)   and return ($dir, "ä¸å…è®¸æœ‰è¿ç»­ä¸¤ä¸ªå°æ•°ç‚¹åœ¨æ–‡ä»¶åä¸­ .");
+        ($dir =~ m,^/,)                  and return ($dir, "ç›®å½•åå‰ä¸èƒ½æœ‰ / å·.");
+        ($dir =~ m,/$,)                  and return ($dir, "ç›®å½•ååä¸"); }
 
-        return ($okdir, "");
-}
-
-sub is_valid_perm {
-        my ($perm) = shift;
-        (!$perm)                                             and return ($perm, "");
-        ($perm =~ /^([0-7][0-7][0-7])$/) or return ($perm, "È¨ÏŞÖµÖ»ÄÜÎªÈıÎ»Êı×Ö, 0 to 7.");        
-        return ($1, "");
-}
-
-sub user_error {
-        my ($error, $wd) = @_;
-
-        print qq~
-<html>
-<head>
-        <title>ÎÄ¼ş¹ÜÀíÆ÷</title>
-</head>
-
-<body bgcolor="#DDDDDD">
-        <center>
-             <table bgcolor="#FFFFFF" cellpadding=2 cellspacing=1 width="630" align=center valign=top>
-                        <tr><td colspan=3>
-                                <p><b>´íÎó!</b> ³öÏÖÏÂÁĞ´íÎó: </p>
-                                <p><blockquote><font color=red><b>$error</b></font></blockquote></p>
+        ($file =~ m,\.\.,)   and return ($file, "æ¶“
                                 <p>Çë°´Äãä¯ÀÀÆ÷µÄ <a href="javascript:history.go(-1)">·µ»Ø</a> ¼ü·µ»Ø²¢ĞŞÕı´íÎó.</p>
                         </td></tr>
                         <tr><td colspan=3>

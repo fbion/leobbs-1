@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -47,7 +47,7 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $action      =  $PARAM{'action'};
 $inforum     =  $PARAM{'forum'};
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inmember            = $query -> param('member');
@@ -65,7 +65,7 @@ if ($inpassword ne "") {
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -74,12 +74,12 @@ if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$cat
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) { $inmembername = "¿ÍÈË"; }
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) { $inmembername = "å®¢äºº"; }
     else {
         &getmember("$inmembername","no");
     }   
 
-&mischeader("ÂÛÌ³ĞÅÏ¢");
+&mischeader("è®ºå›ä¿¡æ¯");
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
@@ -92,12 +92,12 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                }
 ##################################################################################
 sub styleform {
-&mischeader("²é¿´ÂÛÌ³ĞÅÏ¢");
+&mischeader("æŸ¥çœ‹è®ºå›ä¿¡æ¯");
 $mgraphic0 = "none.gif" if ($mgraphic0 eq "");
 $output .= qq~<SCRIPT>valigntop()</SCRIPT>
         <table width=$tablewidth border=1 bordercolor=$tablebordercolor align=center cellpadding=5 cellspacing=0 >
-        <tr><td bgcolor=$forumcolorone $catbackpic colspan=4 align=center><B>ÓÃ »§ µÈ ¼¶</B></td><tr>
-        <tr><td bgcolor=$forumcolorone><B>¼¶±ğÃû³Æ</td><td  bgcolor=$forumcolortwo><B>»ı·ÖÊı</td><td bgcolor=$forumcolorone><B>´ú±íÍ¼Æ¬</td><tr>
+        <tr><td bgcolor=$forumcolorone $catbackpic colspan=4 align=center><B>ç”¨ æˆ· ç­‰ çº§</B></td><tr>
+        <tr><td bgcolor=$forumcolorone><B>çº§åˆ«åç§°</td><td  bgcolor=$forumcolortwo><B>ç§¯åˆ†æ•°</td><td bgcolor=$forumcolorone><B>ä»£è¡¨å›¾ç‰‡</td><tr>
 	<tr><td bgcolor=$forumcolorone>$mtitle0</td><td  bgcolor=$forumcolortwo>0</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic0></td><tr>
 	<tr><td bgcolor=$forumcolorone>$mtitle1</td><td  bgcolor=$forumcolortwo>$mpostmark1</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic1></td><tr>
 	<tr><td bgcolor=$forumcolorone>$mtitle2</td><td  bgcolor=$forumcolortwo>$mpostmark2</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic2></td><tr>
@@ -154,39 +154,39 @@ if ($mtitlemax ne "") {
 	~;
 }
 if ($motitle ne "") {
-	$output .= qq~ <tr><td bgcolor=$forumcolorone>$motitle</td><td  bgcolor=$forumcolortwo>²»ÊÜÏŞÖÆ</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$modgraphic></td><tr>
+	$output .= qq~ <tr><td bgcolor=$forumcolorone>$motitle</td><td  bgcolor=$forumcolortwo>ä¸å—é™åˆ¶</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$modgraphic></td><tr>
 ~;
 }
 if ($cmotitle ne "") {
-	$output .= qq~ <tr><td bgcolor=$forumcolorone>$cmotitle</td><td  bgcolor=$forumcolortwo>²»ÊÜÏŞÖÆ</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$cmodgraphic></td><tr>
+	$output .= qq~ <tr><td bgcolor=$forumcolorone>$cmotitle</td><td  bgcolor=$forumcolortwo>ä¸å—é™åˆ¶</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$cmodgraphic></td><tr>
 ~;
 }
 if ($smotitle ne "") {
-	$output .= qq~ <tr><td bgcolor=$forumcolorone>$smotitle</td><td  bgcolor=$forumcolortwo>²»ÊÜÏŞÖÆ</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$smodgraphic></td><tr>
+	$output .= qq~ <tr><td bgcolor=$forumcolorone>$smotitle</td><td  bgcolor=$forumcolortwo>ä¸å—é™åˆ¶</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$smodgraphic></td><tr>
 ~;
 }
 $output .= qq~
-	<tr><td bgcolor=$forumcolorone>$adtitle</td><td  bgcolor=$forumcolortwo>²»ÊÜÏŞÖÆ</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$admingraphic></td><tr>
+	<tr><td bgcolor=$forumcolorone>$adtitle</td><td  bgcolor=$forumcolortwo>ä¸å—é™åˆ¶</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$admingraphic></td><tr>
 </table><SCRIPT>valignend()</SCRIPT><br><br><SCRIPT>valigntop()</SCRIPT>
 <table width=$tablewidth border=1 bordercolor=$tablebordercolor align=center cellpadding=5 cellspacing=0 >
-        <tr><td bgcolor=$forumcolorone $catbackpic colspan=4 align=center><B>Éç Çø ĞÅ Ï¢</B></td><tr>
-        <tr><td bgcolor=$forumcolorone>Ã¿ÍÆ¼öÒ»¸öÈËÔö¼ÓµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$addtjhb</td><tr>
-        <tr><td bgcolor=$forumcolorone>Ã¿¸ö¾«»ªÌû×ÓÔö¼ÓµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$addjhhb</td><tr>
-        <tr><td bgcolor=$forumcolorone width="50%">ĞÂÓÃ»§×¢²á·ÖÅäµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$joinmoney</td><tr>
-        <tr><td bgcolor=$forumcolorone>·¢±íĞÂÖ÷ÌâÔö¼ÓµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$addmoney</td><tr>
-        <tr><td bgcolor=$forumcolorone>·¢±íĞÂ»Ø¸´Ôö¼ÓµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$replymoney</td><tr>
-        <tr><td bgcolor=$forumcolorone>Ã¿´ÎµÇÂ¼Ê±Ôö¼ÓµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$loginmoney</td><tr>
-        <tr><td bgcolor=$forumcolorone>±»É¾³ıÌù×Ó¼õÉÙµÄ»õ±Ò£º</td><td  bgcolor=$forumcolortwo>$delmoney</td><tr>
+        <tr><td bgcolor=$forumcolorone $catbackpic colspan=4 align=center><B>ç¤¾ åŒº ä¿¡ æ¯</B></td><tr>
+        <tr><td bgcolor=$forumcolorone>æ¯æ¨èä¸€ä¸ªäººå¢åŠ çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$addtjhb</td><tr>
+        <tr><td bgcolor=$forumcolorone>æ¯ä¸ªç²¾åå¸–å­å¢åŠ çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$addjhhb</td><tr>
+        <tr><td bgcolor=$forumcolorone width="50%">æ–°ç”¨æˆ·æ³¨å†Œåˆ†é…çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$joinmoney</td><tr>
+        <tr><td bgcolor=$forumcolorone>å‘è¡¨æ–°ä¸»é¢˜å¢åŠ çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$addmoney</td><tr>
+        <tr><td bgcolor=$forumcolorone>å‘è¡¨æ–°å›å¤å¢åŠ çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$replymoney</td><tr>
+        <tr><td bgcolor=$forumcolorone>æ¯æ¬¡ç™»å½•æ—¶å¢åŠ çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$loginmoney</td><tr>
+        <tr><td bgcolor=$forumcolorone>è¢«åˆ é™¤è´´å­å‡å°‘çš„è´§å¸ï¼š</td><td  bgcolor=$forumcolortwo>$delmoney</td><tr>
 
-        <tr><td bgcolor=$forumcolorone>Ã¿ÍÆ¼öÒ»¸öÈËÔö¼ÓµÄ»ı·Ö£º</td><td  bgcolor=$forumcolortwo>$addtjjf</td><tr>
-        <tr><td bgcolor=$forumcolorone>ĞÂÓÃ»§×¢²á·ÖÅäµÄ»ı·Ö£º</td><td  bgcolor=$forumcolortwo>$joinjf</td><tr>
-        <tr><td bgcolor=$forumcolorone>Ã¿·¢Ò»¸öÖ÷ÌâÕÛËãµÄ»ı·Ö£º</td><td  bgcolor=$forumcolortwo>$ttojf</td><tr>
-        <tr><td bgcolor=$forumcolorone>Ã¿·¢Ò»¸ö»Ø¸´ÕÛËãµÄ»ı·Ö£º</td><td  bgcolor=$forumcolortwo>$rtojf</td><tr>
-        <tr><td bgcolor=$forumcolorone>±»É¾³ıÒ»¸öÌù×Ó¼õÈ¥µÄ»ı·Ö£º</td><td  bgcolor=$forumcolortwo>$deltojf</td><tr>
+        <tr><td bgcolor=$forumcolorone>æ¯æ¨èä¸€ä¸ªäººå¢åŠ çš„ç§¯åˆ†ï¼š</td><td  bgcolor=$forumcolortwo>$addtjjf</td><tr>
+        <tr><td bgcolor=$forumcolorone>æ–°ç”¨æˆ·æ³¨å†Œåˆ†é…çš„ç§¯åˆ†ï¼š</td><td  bgcolor=$forumcolortwo>$joinjf</td><tr>
+        <tr><td bgcolor=$forumcolorone>æ¯å‘ä¸€ä¸ªä¸»é¢˜æŠ˜ç®—çš„ç§¯åˆ†ï¼š</td><td  bgcolor=$forumcolortwo>$ttojf</td><tr>
+        <tr><td bgcolor=$forumcolorone>æ¯å‘ä¸€ä¸ªå›å¤æŠ˜ç®—çš„ç§¯åˆ†ï¼š</td><td  bgcolor=$forumcolortwo>$rtojf</td><tr>
+        <tr><td bgcolor=$forumcolorone>è¢«åˆ é™¤ä¸€ä¸ªè´´å­å‡å»çš„ç§¯åˆ†ï¼š</td><td  bgcolor=$forumcolortwo>$deltojf</td><tr>
 </table><SCRIPT>valignend()</SCRIPT><BR><BR>
 ~;
 }
 
 $output .= qq~</body></html>~;
-&output("$boardname - ²é¿´ÂÛÌ³ĞÅÏ¢",\$output);
+&output("$boardname - æŸ¥çœ‹è®ºå›ä¿¡æ¯",\$output);
 exit;

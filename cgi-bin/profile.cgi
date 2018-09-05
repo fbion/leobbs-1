@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -19,8 +19,8 @@ BEGIN {
     }
 }
 
-#  $ENV{'TMP'}="$LBPATH/lock"; #Èç¹ûÄã²»ÄÜÉÏ´«Í¼Æ¬£¬ÇëÈ¥µôÇ°ÃæµÄ#
-#  $ENV{'TEMP'}="$LBPATH/lock";#Èç¹ûÄã²»ÄÜÉÏ´«Í¼Æ¬£¬ÇëÈ¥µôÇ°ÃæµÄ#
+#  $ENV{'TMP'}="$LBPATH/lock"; #å¦‚æœä½ ä¸èƒ½ä¸Šä¼ å›¾ç‰‡ï¼Œè¯·å»æ‰å‰é¢çš„#
+#  $ENV{'TEMP'}="$LBPATH/lock";#å¦‚æœä½ ä¸èƒ½ä¸Šä¼ å›¾ç‰‡ï¼Œè¯·å»æ‰å‰é¢çš„#
 
 use LBCGI;
 $LBCGI::POST_MAX=1000000;
@@ -38,7 +38,7 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
 else {
@@ -81,28 +81,28 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
 if (($inmembername eq "")&&($action ne "lostpass")&&($action ne "lostpassword")&&($action ne "sendpassword")){
-    $inmembername = "¿ÍÈË";
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
     if ($dispprofile eq "no") {
         print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("²é¿´»áÔ±×ÊÁÏ&¿ÍÈËÎŞÈ¨²é¿´»áÔ±×ÊÁÏ£¡")
+        &error("æŸ¥çœ‹ä¼šå‘˜èµ„æ–™&å®¢äººæ— æƒæŸ¥çœ‹ä¼šå‘˜èµ„æ–™ï¼")
     }
 } else {
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&ÓÃ»§ $inmembername ÔÚ±¾ÂÛÌ³ÖĞ²»´æÔÚ£¡") if (($userregistered eq "no")&&($action ne "lostpass")&&($action ne "lostpassword"));
-    &error("ÆÕÍ¨´íÎó&ÂÛÌ³ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password && $action eq "show");
+    &error("æ™®é€šé”™è¯¯&ç”¨æˆ· $inmembername åœ¨æœ¬è®ºå›ä¸­ä¸å­˜åœ¨ï¼") if (($userregistered eq "no")&&($action ne "lostpass")&&($action ne "lostpassword"));
+    &error("æ™®é€šé”™è¯¯&è®ºå›å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password && $action eq "show");
 }
-if ($arrawsignpic eq "on")      { $signpicstates = "ÔÊĞí";}      else {$signpicstates = "½ûÖ¹";}
-if ($arrawsignflash eq "on")    { $signflashstates = "ÔÊĞí";}    else {$signflashstates = "½ûÖ¹";}
-if ($arrawsignfontsize eq "on") { $signfontsizestates = "ÔÊĞí";} else {$signfontsizestates = "½ûÖ¹";}
-if ($arrawsignsound eq "on")    { $signsoundstates = "ÔÊĞí";}    else {$signsoundstates = "½ûÖ¹";}
+if ($arrawsignpic eq "on")      { $signpicstates = "å…è®¸";}      else {$signpicstates = "ç¦æ­¢";}
+if ($arrawsignflash eq "on")    { $signflashstates = "å…è®¸";}    else {$signflashstates = "ç¦æ­¢";}
+if ($arrawsignfontsize eq "on") { $signfontsizestates = "å…è®¸";} else {$signfontsizestates = "ç¦æ­¢";}
+if ($arrawsignsound eq "on")    { $signsoundstates = "å…è®¸";}    else {$signsoundstates = "ç¦æ­¢";}
 
-&mischeader("ÓÃ»§×ÊÁÏ");
+&mischeader("ç”¨æˆ·èµ„æ–™");
 
 $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -124,7 +124,7 @@ my %Mode = (
 if($Mode{$action}) {
     $Mode{$action}->();
 } else {
-    &error("²é¿´×ÊÁÏ&ÇëÎğ·ÇÕı³£·ÃÎÊ±¾³ÌĞò£¡");
+    &error("æŸ¥çœ‹èµ„æ–™&è¯·å‹¿éæ­£å¸¸è®¿é—®æœ¬ç¨‹åºï¼");
 }
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
@@ -152,10 +152,10 @@ sub showprofile {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t¸öÈË×ÊÁÏ\tboth\t²é¿´<b>$inmember</b>µÄ¸öÈË×ÊÁÏ\t");
+        &whosonline("$inmembername\tä¸ªäººèµ„æ–™\tboth\tæŸ¥çœ‹<b>$inmember</b>çš„ä¸ªäººèµ„æ–™\t");
     }
     &getmember("$inmember","no");
-    if ("$userregistered" eq "no") { &error("²é¿´×ÊÁÏ&Ã»ÓĞ´ËÓÃ»§Ãû£¡"); }
+    if ("$userregistered" eq "no") { &error("æŸ¥çœ‹èµ„æ–™&æ²¡æœ‰æ­¤ç”¨æˆ·åï¼"); }
     
     if ($jifen >= $mpostmarkmax) { $mtitle =  $mtitlemax;  $membergraphic = $mgraphicmax; }
     elsif ($jifen >= $mpostmark19) { $mtitle =  $mtitle19;  $membergraphic = $mgraphic19; }
@@ -177,21 +177,21 @@ sub showprofile {
     elsif ($jifen >= $mpostmark3)  { $mtitle =  $mtitle3;   $membergraphic = $mgraphic3; }
     elsif ($jifen >= $mpostmark2)  { $mtitle =  $mtitle2;   $membergraphic = $mgraphic2; }
     elsif ($jifen >= $mpostmark1)  { $mtitle =  $mtitle1;   $membergraphic = $mgraphic1; }
-    else { $mtitle = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic = $mgraphic0; }  #ÏÔÊ¾Ä¬ÈÏµÈ¼¶
+    else { $mtitle = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic = $mgraphic0; }  #æ˜¾ç¤ºé»˜è®¤ç­‰çº§
 
     $emailaddress = &encodeemail($emailaddress);
-    if ($showemail eq "no") { $emailaddress = "±£ÃÜ"; }
+    if ($showemail eq "no") { $emailaddress = "ä¿å¯†"; }
 	elsif ($showemail eq "popo") { $emailaddress = qq~<img src=$imagesurl/images/popo.gif border=0 width=16 align=absmiddle> <a href=mailto:$emailaddress>$emailaddress</a>~; }
 	elsif ($showemail eq "msn")  { $emailaddress = qq~<img src=$imagesurl/images/msn.gif border=0 width=16 align=absmiddle> <a href="mailto:$emailaddress">$emailaddress</a>~; }
 	else { $emailaddress = qq~<a href="mailto:$emailaddress">$emailaddress</a>~; }
 
-    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $qqlogo = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank><img src=$imagesurl/images/oicq.gif alt="²é¿´ OICQ:$oicqnumber µÄ×ÊÁÏ" atta="<img src=http://qqshow-user.tencent.com/$oicqnumber/10/00/>" border=0 width=16 height=16></a>~;} else { $oicqnumber = "Ã»ÓĞ"; $qqlogo ="";}
-    if ($icqnumber eq "") { $icqnumber = "Ã»ÓĞ"; $icqlogo = ""; } else { $icqlogo = qq~<a href=misc.cgi?action=icq&UIN=$icqnumber target=_blank><img src=$imagesurl/images/icq.gif alt="¸ø ICQ:$icqnumber ·¢¸öÏûÏ¢" border=0 width=16 height=16></a>~; }
-    if ((($membercode eq "ad")&&($membertitle eq "Member"))||(($membercode eq "ad")&&($membertitle eq "member")))   { $membertitle = "ÂÛÌ³Ì³Ö÷"; }
-    if ((($membercode eq "mo")&&($membertitle eq "Member"))||(($membercode eq "mo")&&($membertitle eq "member")))   { $membertitle = "ÂÛÌ³°æÖ÷";}
-    if ((($membercode eq "cmo")&&($membertitle eq "Member"))||(($membercode eq "cmo")&&($membertitle eq "member")))  { $membertitle = "·ÖÀàÇø°æÖ÷";}
-    if ((($membercode eq "smo")&&($membertitle eq "Member"))||(($membercode eq "smo")&&($membertitle eq "member"))) { $membertitle = "×Ü°æÖ÷";}
-    if ((($membercode eq "amo")&&($membertitle eq "Member"))||(($membercode eq "amo")&&($membertitle eq "member"))) { $membertitle = "ÂÛÌ³¸±°æÖ÷";}
+    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $qqlogo = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank><img src=$imagesurl/images/oicq.gif alt="æŸ¥çœ‹ OICQ:$oicqnumber çš„èµ„æ–™" atta="<img src=http://qqshow-user.tencent.com/$oicqnumber/10/00/>" border=0 width=16 height=16></a>~;} else { $oicqnumber = "æ²¡æœ‰"; $qqlogo ="";}
+    if ($icqnumber eq "") { $icqnumber = "æ²¡æœ‰"; $icqlogo = ""; } else { $icqlogo = qq~<a href=misc.cgi?action=icq&UIN=$icqnumber target=_blank><img src=$imagesurl/images/icq.gif alt="ç»™ ICQ:$icqnumber å‘ä¸ªæ¶ˆæ¯" border=0 width=16 height=16></a>~; }
+    if ((($membercode eq "ad")&&($membertitle eq "Member"))||(($membercode eq "ad")&&($membertitle eq "member")))   { $membertitle = "è®ºå›å›ä¸»"; }
+    if ((($membercode eq "mo")&&($membertitle eq "Member"))||(($membercode eq "mo")&&($membertitle eq "member")))   { $membertitle = "è®ºå›ç‰ˆä¸»";}
+    if ((($membercode eq "cmo")&&($membertitle eq "Member"))||(($membercode eq "cmo")&&($membertitle eq "member")))  { $membertitle = "åˆ†ç±»åŒºç‰ˆä¸»";}
+    if ((($membercode eq "smo")&&($membertitle eq "Member"))||(($membercode eq "smo")&&($membertitle eq "member"))) { $membertitle = "æ€»ç‰ˆä¸»";}
+    if ((($membercode eq "amo")&&($membertitle eq "Member"))||(($membercode eq "amo")&&($membertitle eq "member"))) { $membertitle = "è®ºå›å‰¯ç‰ˆä¸»";}
 
     $mtitle = $motitle  if (($membercode eq "mo")&&($motitle ne ""));
     $mtitle = $adtitle  if (($membercode eq "ad")&&($adtitle ne ""));
@@ -199,26 +199,26 @@ sub showprofile {
     $mtitle = $smotitle if (($membercode eq "smo")&&($smotitle ne ""));
     $mtitle = $amotitle if (($membercode eq "amo")&&($amotitle ne ""));
 
-    if ($membercode eq "banned") { $membertitle = "½ûÖ¹·¢ÑÔ"; }
-    if ($membertitle eq "member" || $membertitle eq "Member" || $membertitle eq "") { $membertitle = "Ã»ÓĞ"; }
-    if (($homepage eq "http://") || ($homepage eq "")) { $homepage = "Ã»ÓĞ"; } else { $homepage = qq~<a href="$homepage" target=_blank>$homepage</a>~; }
+    if ($membercode eq "banned") { $membertitle = "ç¦æ­¢å‘è¨€"; }
+    if ($membertitle eq "member" || $membertitle eq "Member" || $membertitle eq "") { $membertitle = "æ²¡æœ‰"; }
+    if (($homepage eq "http://") || ($homepage eq "")) { $homepage = "æ²¡æœ‰"; } else { $homepage = qq~<a href="$homepage" target=_blank>$homepage</a>~; }
 
     $lastgone   = $joineddate if($lastgone eq "");
     $joineddate = &longdate($joineddate + ($timedifferencevalue*3600) + ($timezone*3600));
     $lastgone   = &dateformat($lastgone + ($timedifferencevalue*3600) + ($timezone*3600));
 
     ($postdate, $posturl, $posttopic) = split(/\%%%/,$lastpostdate);
-    $posttopic =~ s/^£ª£££¡£¦£ª//;
+    $posttopic =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
-    if ($postdate ne "Ã»ÓĞ·¢±í¹ı") {
+    if ($postdate ne "æ²¡æœ‰å‘è¡¨è¿‡") {
         $postdate = &longdate($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
         $lastpostdetails = qq~<a href="$posturl">$posttopic</a> ($postdate)~;
     } else {
-	$lastpostdetails = "Ã»ÓĞ·¢±í¹ı";
+	$lastpostdetails = "æ²¡æœ‰å‘è¡¨è¿‡";
     }
     
     if ($avatars eq "on") {
-	if (($personalavatar)&&($personalwidth)&&($personalheight)) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+	if (($personalavatar)&&($personalwidth)&&($personalheight)) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 	    $personalavatar =~ s/\$imagesurl/${imagesurl}/o;
 	    if (($personalavatar =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 	        $personalavatar=uri_escape($personalavatar);
@@ -232,173 +232,173 @@ sub showprofile {
             $useravatar=uri_escape($useravatar);
 	    $useravatar = qq(<br>&nbsp; <img src="$imagesurl/avatars/$useravatar.gif" border=0 $defaultwidth $defaultheight>);
         }
-        else {$useravatar="Ã»ÓĞ"; }
+        else {$useravatar="æ²¡æœ‰"; }
     }
     
-    $xnuseravatar = "Ã»ÓĞ";
+    $xnuseravatar = "æ²¡æœ‰";
     if ($userface ne '') {
         my ($currequip,$x,$loadface)=split(/\|/,$userface);
         $xnuseravatar = qq~<SCRIPT>Face_Info("$currequip","$imagesurl");</SCRIPT>~;
     }
 
-    $interests = "Ã»ÓĞ" if ($interests eq "");
-    $location  = "Ã»ÓĞ" if ($location eq "");
+    $interests = "æ²¡æœ‰" if ($interests eq "");
+    $location  = "æ²¡æœ‰" if ($location eq "");
 
     if ($signaturehtml) {$signature = $signaturehtml ;} 
         elsif ($signatureorigin)  { if ($idmbcodestate eq 'on') { require "dosignlbcode.pl"; $signature = &signlbcode($signatureorigin); } $signature =~ s/\n/\<BR\>/isg;} 
-	else {$signature = "Ã»ÓĞ";}
+	else {$signature = "æ²¡æœ‰";}
 
     if ($sex eq "f") {
-	$sex = "ÃÀÅ® <img src=$imagesurl/images/fem.gif width=20 alt=ÃÀÅ® align=absmiddle>";
+	$sex = "ç¾å¥³ <img src=$imagesurl/images/fem.gif width=20 alt=ç¾å¥³ align=absmiddle>";
     }
     elsif ($sex eq "m") {
-	$sex = "Ë§¸ç <img src=$imagesurl/images/mal.gif width=20 alt=Ë§¸ç align=absmiddle>";
+	$sex = "å¸…å“¥ <img src=$imagesurl/images/mal.gif width=20 alt=å¸…å“¥ align=absmiddle>";
     }
-    else { $sex = "±£ÃÜ"; }
+    else { $sex = "ä¿å¯†"; }
 
     $numberofreplys = 0 if ($numberofreplys eq "");
     $postdel   = 0 if ($postdel eq "");
-    $jhmp    = "ÎŞÃÅÎŞÅÉ" if ($jhmp eq "");
+    $jhmp    = "æ— é—¨æ— æ´¾" if ($jhmp eq "");
     if ($rating !~ /^[0-9\-]+$/) {$rating = 0;}
     if ($rating eq "") {$rating =0;}
     $mymoney   = 0 if ($mymoney eq "");
-    $education = "Î´ÊäÈë" if ($education eq "");
-    $marry     = "Î´ÊäÈë" if ($marry eq "");
-    $work      = "Î´ÊäÈë" if ($work eq "");
-    $born      = "Î´ÊäÈë" if (($born eq "")||($born eq "//"));
+    $education = "æœªè¾“å…¥" if ($education eq "");
+    $marry     = "æœªè¾“å…¥" if ($marry eq "");
+    $work      = "æœªè¾“å…¥" if ($work eq "");
+    $born      = "æœªè¾“å…¥" if (($born eq "")||($born eq "//"));
     $userflag  = "blank" if ($userflag eq "");
 
-$blank="Î´ÊäÈë";
-$China="ÖĞ¹ú";
-$Angola="°²¸çÀ­";
-$Antigua="°²Ìá¹Ï";
-$Argentina="°¢¸ùÍ¢";
-$Armenia="ÑÇÃÀÄáÑÇ";
-$Australia="°Ä´óÀûÑÇ";
-$Austria="°ÂµØÀû";
-$Bahamas="°Í¹şÂí";
-$Bahrain="°ÍÁÖ";
-$Bangladesh="ÃÏ¼ÓÀ­";
-$Barbados="°Í°Í¶àË¹";
-$Belgium="±ÈÀûÊ±";
-$Bermuda="°ÙÄ½´ó";
-$Bolivia="²£ÀûÎ¬ÑÇ";
-$Brazil="°ÍÎ÷";
-$Brunei="ÎÄÀ³";
-$Canada="¼ÓÄÃ´ó";
-$Chile="ÖÇÀû";
-$Colombia="¸çÂ×±ÈÑÇ";
-$Croatia="¿ËÂŞµØÑÇ";
-$Cuba="¹Å°Í";
-$Cyprus="ÈûÆÖÂ·Ë¹";
-$Czech_Republic="½İ¿Ë";
-$Denmark="µ¤Âó";
-$Dominican_Republic="¶àÃ×Äá¼Ó";
-$Ecuador="¶ò¹Ï¶à¶û";
-$Egypt="°£¼°";
-$Estonia="°®É³ÄáÑÇ";
-$Finland="·ÒÀ¼";
-$France="·¨¹ú";
-$Germany="µÂ¹ú";
-$Great_Britain="Ó¢¹ú";
-$Greece="Ï£À°";
-$Guatemala="Î£µØÂíÀ­";
-$Honduras="ºé¶¼À­Ë¹";
-$Hungary="ĞÙÑÀÀû";
-$Iceland="±ùµº";
-$India="Ó¡¶È";
-$Indonesia="Ó¡¶ÈÄáÎ÷ÑÇ";
-$Iran="ÒÁÀÊ";
-$Iraq="ÒÁÀ­¿Ë";
-$Ireland="°®¶ûÀ¼";
-$Israel="ÒÔÉ«ÁĞ";
-$Italy="Òâ´óÀû";
-$Jamaica="ÑÀÂò¼Ó";
-$Japan="ÈÕ±¾";
-$Jordan="Ô¼µ©";
-$Kazakstan="¹şÈø¿Ë";
-$Kenya="¿ÏÄáÑÇ";
-$Kuwait="¿ÆÍşÌØ";
-$Latvia="À­ÍÑÎ¬ÑÇ";
-$Lebanon="Àè°ÍÄÛ";
-$Lithuania="Á¢ÌÕÍğ";
-$Malaysia="ÂíÀ´Î÷ÑÇ";
-$Malawi="ÂíÀ­Î¬";
-$Malta="Âí¶úËû";
-$Mauritius="Ã«ÀïÇóË¹";
-$Morocco="Ä¦Âå¸ç";
-$Mozambique="ÄªÉ£±È¿Ë";
-$Netherlands="ºÉÀ¼";
-$New_Zealand="ĞÂÎ÷À¼";
-$Nicaragua="Äá¼ÓÀ­¹Ï";
-$Nigeria="ÄáÈÕÀûÑÇ";
-$Norway="Å²Íş";
-$Pakistan="°Í»ùË¹Ì¹";
-$Panama="°ÍÄÃÂí";
-$Paraguay="°ÍÀ­¹ç";
-$Peru="ÃØÂ³";
-$Poland="²¨À¼";
-$Portugal="ÆÏÌÑÑÀ";
-$Romania="ÂŞÂíÄáÑÇ";
-$Russia="¶íÂŞË¹";
-$Saudi_Arabia="É³ÌØ°¢À­²®";
-$Singapore="ĞÂ¼ÓÆÂ";
-$Slovakia="Ë¹Âå·¥¿Ë";
-$Slovenia="Ë¹ÂåÎÄÄáÑÇ";
-$Solomon_Islands="ËùÂŞÃÅ";
-$Somalia="Ë÷ÂíÀï";
-$South_Africa="ÄÏ·Ç";
-$South_Korea="º«¹ú";
-$Spain="Î÷°àÑÀ";
-$Sri_Lanka="Ó¡¶È";
-$Surinam="ËÕÀïÄÏ";
-$Sweden="Èğµä";
-$Switzerland="ÈğÊ¿";
-$Thailand="Ì©¹ú";
-$Trinidad_Tobago="¶à°Í¸ç";
-$Turkey="ÍÁ¶úÆä";
-$Ukraine="ÎÚ¿ËÀ¼";
-$United_Arab_Emirates="°¢À­²®ÁªºÏÇõ³¤¹ú";
-$United_States="ÃÀ¹ú";
-$Uruguay="ÎÚÀ­¹ç";
-$Venezuela="Î¯ÄÚÈğÀ­";
-$Yugoslavia="ÄÏË¹À­·ò";
-$Zambia="ÔŞ±ÈÑÇ";
-$Zimbabwe="½ò°Í²¼Î¤";
-$blank="Î´ÊäÈë";
+$blank="æœªè¾“å…¥";
+$China="ä¸­å›½";
+$Angola="å®‰å“¥æ‹‰";
+$Antigua="å®‰æç“œ";
+$Argentina="é˜¿æ ¹å»·";
+$Armenia="äºšç¾å°¼äºš";
+$Australia="æ¾³å¤§åˆ©äºš";
+$Austria="å¥¥åœ°åˆ©";
+$Bahamas="å·´å“ˆé©¬";
+$Bahrain="å·´æ—";
+$Bangladesh="å­ŸåŠ æ‹‰";
+$Barbados="å·´å·´å¤šæ–¯";
+$Belgium="æ¯”åˆ©æ—¶";
+$Bermuda="ç™¾æ…•å¤§";
+$Bolivia="ç»åˆ©ç»´äºš";
+$Brazil="å·´è¥¿";
+$Brunei="æ–‡è±";
+$Canada="åŠ æ‹¿å¤§";
+$Chile="æ™ºåˆ©";
+$Colombia="å“¥ä¼¦æ¯”äºš";
+$Croatia="å…‹ç½—åœ°äºš";
+$Cuba="å¤å·´";
+$Cyprus="å¡æµ¦è·¯æ–¯";
+$Czech_Republic="æ·å…‹";
+$Denmark="ä¸¹éº¦";
+$Dominican_Republic="å¤šç±³å°¼åŠ ";
+$Ecuador="å„ç“œå¤šå°”";
+$Egypt="åŸƒåŠ";
+$Estonia="çˆ±æ²™å°¼äºš";
+$Finland="èŠ¬å…°";
+$France="æ³•å›½";
+$Germany="å¾·å›½";
+$Great_Britain="è‹±å›½";
+$Greece="å¸Œè…Š";
+$Guatemala="å±åœ°é©¬æ‹‰";
+$Honduras="æ´ªéƒ½æ‹‰æ–¯";
+$Hungary="åŒˆç‰™åˆ©";
+$Iceland="å†°å²›";
+$India="å°åº¦";
+$Indonesia="å°åº¦å°¼è¥¿äºš";
+$Iran="ä¼Šæœ—";
+$Iraq="ä¼Šæ‹‰å…‹";
+$Ireland="çˆ±å°”å…°";
+$Israel="ä»¥è‰²åˆ—";
+$Italy="æ„å¤§åˆ©";
+$Jamaica="ç‰™ä¹°åŠ ";
+$Japan="æ—¥æœ¬";
+$Jordan="çº¦æ—¦";
+$Kazakstan="å“ˆè¨å…‹";
+$Kenya="è‚¯å°¼äºš";
+$Kuwait="ç§‘å¨ç‰¹";
+$Latvia="æ‹‰è„±ç»´äºš";
+$Lebanon="é»å·´å«©";
+$Lithuania="ç«‹é™¶å®›";
+$Malaysia="é©¬æ¥è¥¿äºš";
+$Malawi="é©¬æ‹‰ç»´";
+$Malta="é©¬è€³ä»–";
+$Mauritius="æ¯›é‡Œæ±‚æ–¯";
+$Morocco="æ‘©æ´›å“¥";
+$Mozambique="è«æ¡‘æ¯”å…‹";
+$Netherlands="è·å…°";
+$New_Zealand="æ–°è¥¿å…°";
+$Nicaragua="å°¼åŠ æ‹‰ç“œ";
+$Nigeria="å°¼æ—¥åˆ©äºš";
+$Norway="æŒªå¨";
+$Pakistan="å·´åŸºæ–¯å¦";
+$Panama="å·´æ‹¿é©¬";
+$Paraguay="å·´æ‹‰åœ­";
+$Peru="ç§˜é²";
+$Poland="æ³¢å…°";
+$Portugal="è‘¡è„ç‰™";
+$Romania="ç½—é©¬å°¼äºš";
+$Russia="ä¿„ç½—æ–¯";
+$Saudi_Arabia="æ²™ç‰¹é˜¿æ‹‰ä¼¯";
+$Singapore="æ–°åŠ å¡";
+$Slovakia="æ–¯æ´›ä¼å…‹";
+$Slovenia="æ–¯æ´›æ–‡å°¼äºš";
+$Solomon_Islands="æ‰€ç½—é—¨";
+$Somalia="ç´¢é©¬é‡Œ";
+$South_Africa="å—é";
+$South_Korea="éŸ©å›½";
+$Spain="è¥¿ç­ç‰™";
+$Sri_Lanka="å°åº¦";
+$Surinam="è‹é‡Œå—";
+$Sweden="ç‘å…¸";
+$Switzerland="ç‘å£«";
+$Thailand="æ³°å›½";
+$Trinidad_Tobago="å¤šå·´å“¥";
+$Turkey="åœŸè€³å…¶";
+$Ukraine="ä¹Œå…‹å…°";
+$United_Arab_Emirates="é˜¿æ‹‰ä¼¯è”åˆé…‹é•¿å›½";
+$United_States="ç¾å›½";
+$Uruguay="ä¹Œæ‹‰åœ­";
+$Venezuela="å§”å†…ç‘æ‹‰";
+$Yugoslavia="å—æ–¯æ‹‰å¤«";
+$Zambia="èµæ¯”äºš";
+$Zimbabwe="æ´¥å·´å¸ƒéŸ¦";
+$blank="æœªè¾“å…¥";
 
     $usersx    = "blank" if ($usersx eq "");
-    if ($usersx eq "sx1")     {$showsx = "×ÓÊó <IMG src=$imagesurl/sx/sx1s.gif  alt=×ÓÊó align=absmiddle>";}
-    elsif ($usersx eq "sx2")  {$showsx = "³óÅ£ <IMG src=$imagesurl/sx/sx2s.gif  alt=³óÅ£ align=absmiddle>";}
-    elsif ($usersx eq "sx3")  {$showsx = "Òú»¢ <IMG src=$imagesurl/sx/sx3s.gif  alt=Òú»¢ align=absmiddle>";}
-    elsif ($usersx eq "sx4")  {$showsx = "Ã®ÍÃ <IMG src=$imagesurl/sx/sx4s.gif  alt=Ã®ÍÃ align=absmiddle>";}
-    elsif ($usersx eq "sx5")  {$showsx = "³½Áú <IMG src=$imagesurl/sx/sx5s.gif  alt=³½Áú align=absmiddle>";}
-    elsif ($usersx eq "sx6")  {$showsx = "ËÈÉß <IMG src=$imagesurl/sx/sx6s.gif  alt=ËÈÉß align=absmiddle>";}
-    elsif ($usersx eq "sx7")  {$showsx = "ÎçÂí <IMG src=$imagesurl/sx/sx7s.gif  alt=ÎçÂí align=absmiddle>";}
-    elsif ($usersx eq "sx8")  {$showsx = "Î´Ñò <IMG src=$imagesurl/sx/sx8s.gif  alt=Î´Ñò align=absmiddle>";}
-    elsif ($usersx eq "sx9")  {$showsx = "Éêºï <IMG src=$imagesurl/sx/sx9s.gif  alt=Éêºï align=absmiddle>";}
-    elsif ($usersx eq "sx10") {$showsx = "ÓÏ¼¦ <IMG src=$imagesurl/sx/sx10s.gif alt=ÓÏ¼¦ align=absmiddle>";}
-    elsif ($usersx eq "sx11") {$showsx = "Ğç¹· <IMG src=$imagesurl/sx/sx11s.gif alt=Ğç¹· align=absmiddle>";}
-    elsif ($usersx eq "sx12") {$showsx = "º¥Öí <IMG src=$imagesurl/sx/sx12s.gif alt=º¥Öí align=absmiddle>";}
-    else {$showsx = "Î´ÊäÈë";}
+    if ($usersx eq "sx1")     {$showsx = "å­é¼  <IMG src=$imagesurl/sx/sx1s.gif  alt=å­é¼  align=absmiddle>";}
+    elsif ($usersx eq "sx2")  {$showsx = "ä¸‘ç‰› <IMG src=$imagesurl/sx/sx2s.gif  alt=ä¸‘ç‰› align=absmiddle>";}
+    elsif ($usersx eq "sx3")  {$showsx = "å¯…è™ <IMG src=$imagesurl/sx/sx3s.gif  alt=å¯…è™ align=absmiddle>";}
+    elsif ($usersx eq "sx4")  {$showsx = "å¯å…” <IMG src=$imagesurl/sx/sx4s.gif  alt=å¯å…” align=absmiddle>";}
+    elsif ($usersx eq "sx5")  {$showsx = "è¾°é¾™ <IMG src=$imagesurl/sx/sx5s.gif  alt=è¾°é¾™ align=absmiddle>";}
+    elsif ($usersx eq "sx6")  {$showsx = "å·³è›‡ <IMG src=$imagesurl/sx/sx6s.gif  alt=å·³è›‡ align=absmiddle>";}
+    elsif ($usersx eq "sx7")  {$showsx = "åˆé©¬ <IMG src=$imagesurl/sx/sx7s.gif  alt=åˆé©¬ align=absmiddle>";}
+    elsif ($usersx eq "sx8")  {$showsx = "æœªç¾Š <IMG src=$imagesurl/sx/sx8s.gif  alt=æœªç¾Š align=absmiddle>";}
+    elsif ($usersx eq "sx9")  {$showsx = "ç”³çŒ´ <IMG src=$imagesurl/sx/sx9s.gif  alt=ç”³çŒ´ align=absmiddle>";}
+    elsif ($usersx eq "sx10") {$showsx = "é…‰é¸¡ <IMG src=$imagesurl/sx/sx10s.gif alt=é…‰é¸¡ align=absmiddle>";}
+    elsif ($usersx eq "sx11") {$showsx = "æˆŒç‹— <IMG src=$imagesurl/sx/sx11s.gif alt=æˆŒç‹— align=absmiddle>";}
+    elsif ($usersx eq "sx12") {$showsx = "äº¥çŒª <IMG src=$imagesurl/sx/sx12s.gif alt=äº¥çŒª align=absmiddle>";}
+    else {$showsx = "æœªè¾“å…¥";}
 
     $userxz    = "blank" if ($userxz eq "");
-    if ($userxz eq "z1")     {$showxz = "°×Ñò <IMG height=15 src=$imagesurl/star/z1.gif  width=15 alt=°×Ñò×ù align=absmiddle>";}
-    elsif ($userxz eq "z2")  {$showxz = "½ğÅ£ <IMG height=15 src=$imagesurl/star/z2.gif  width=15 alt=½ğÅ£×ù align=absmiddle>";}
-    elsif ($userxz eq "z3")  {$showxz = "Ë«×Ó <IMG height=15 src=$imagesurl/star/z3.gif  width=15 alt=Ë«×Ó×ù align=absmiddle>";}
-    elsif ($userxz eq "z4")  {$showxz = "¾ŞĞ· <IMG height=15 src=$imagesurl/star/z4.gif  width=15 alt=¾ŞĞ·×ù align=absmiddle>";}
-    elsif ($userxz eq "z5")  {$showxz = "Ê¨×Ó <IMG height=15 src=$imagesurl/star/z5.gif  width=15 alt=Ê¨×Ó×ù align=absmiddle>";}
-    elsif ($userxz eq "z6")  {$showxz = "´¦Å® <IMG height=15 src=$imagesurl/star/z6.gif  width=15 alt=´¦Å®×ù align=absmiddle>";}
-    elsif ($userxz eq "z7")  {$showxz = "Ìì³Ó <IMG height=15 src=$imagesurl/star/z7.gif  width=15 alt=Ìì³Ó×ù align=absmiddle>";}
-    elsif ($userxz eq "z8")  {$showxz = "ÌìĞ« <IMG height=15 src=$imagesurl/star/z8.gif  width=15 alt=ÌìĞ«×ù align=absmiddle>";}
-    elsif ($userxz eq "z9")  {$showxz = "ÉäÊÖ <IMG height=15 src=$imagesurl/star/z9.gif  width=15 alt=ÉäÊÖ×ù align=absmiddle>";}
-    elsif ($userxz eq "z10") {$showxz = "Ä§ôÉ <IMG height=15 src=$imagesurl/star/z10.gif width=15 alt=Ä§ôÉ×ù align=absmiddle>";}
-    elsif ($userxz eq "z11") {$showxz = "Ë®Æ¿ <IMG height=15 src=$imagesurl/star/z11.gif width=15 alt=Ë®Æ¿×ù align=absmiddle>";}
-    elsif ($userxz eq "z12") {$showxz = "Ë«Óã <IMG height=15 src=$imagesurl/star/z12.gif width=15 alt=Ë«Óã×ù align=absmiddle>";}
-    else {$showxz = "Î´ÊäÈë";}
+    if ($userxz eq "z1")     {$showxz = "ç™½ç¾Š <IMG height=15 src=$imagesurl/star/z1.gif  width=15 alt=ç™½ç¾Šåº§ align=absmiddle>";}
+    elsif ($userxz eq "z2")  {$showxz = "é‡‘ç‰› <IMG height=15 src=$imagesurl/star/z2.gif  width=15 alt=é‡‘ç‰›åº§ align=absmiddle>";}
+    elsif ($userxz eq "z3")  {$showxz = "åŒå­ <IMG height=15 src=$imagesurl/star/z3.gif  width=15 alt=åŒå­åº§ align=absmiddle>";}
+    elsif ($userxz eq "z4")  {$showxz = "å·¨èŸ¹ <IMG height=15 src=$imagesurl/star/z4.gif  width=15 alt=å·¨èŸ¹åº§ align=absmiddle>";}
+    elsif ($userxz eq "z5")  {$showxz = "ç‹®å­ <IMG height=15 src=$imagesurl/star/z5.gif  width=15 alt=ç‹®å­åº§ align=absmiddle>";}
+    elsif ($userxz eq "z6")  {$showxz = "å¤„å¥³ <IMG height=15 src=$imagesurl/star/z6.gif  width=15 alt=å¤„å¥³åº§ align=absmiddle>";}
+    elsif ($userxz eq "z7")  {$showxz = "å¤©ç§¤ <IMG height=15 src=$imagesurl/star/z7.gif  width=15 alt=å¤©ç§¤åº§ align=absmiddle>";}
+    elsif ($userxz eq "z8")  {$showxz = "å¤©è <IMG height=15 src=$imagesurl/star/z8.gif  width=15 alt=å¤©èåº§ align=absmiddle>";}
+    elsif ($userxz eq "z9")  {$showxz = "å°„æ‰‹ <IMG height=15 src=$imagesurl/star/z9.gif  width=15 alt=å°„æ‰‹åº§ align=absmiddle>";}
+    elsif ($userxz eq "z10") {$showxz = "é­”ç¾¯ <IMG height=15 src=$imagesurl/star/z10.gif width=15 alt=é­”ç¾¯åº§ align=absmiddle>";}
+    elsif ($userxz eq "z11") {$showxz = "æ°´ç“¶ <IMG height=15 src=$imagesurl/star/z11.gif width=15 alt=æ°´ç“¶åº§ align=absmiddle>";}
+    elsif ($userxz eq "z12") {$showxz = "åŒé±¼ <IMG height=15 src=$imagesurl/star/z12.gif width=15 alt=åŒé±¼åº§ align=absmiddle>";}
+    else {$showxz = "æœªè¾“å…¥";}
 
     $mymoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-    $moneyname ="À×°ÁÔª" if ($moneyname eq "");
+    $moneyname ="é›·å‚²å…ƒ" if ($moneyname eq "");
 
     my $onlinetimehour = int($onlinetime/3600);
     my $onlinetimemin  = int(($onlinetime%3600)/60);
@@ -419,7 +419,7 @@ $blank="Î´ÊäÈë";
     	my $soccerwinrate = 0;
 	$soccerwinrate = sprintf("%.2f", $mywin * 100 / ($mywin + $mydraw + $mylose)) if (($mywin + $mydraw + $mylose) > 0);
 	$soccerinfo = qq~  <tr>
-    <td valign=middle colSpan=5><font color=$fontcolormisc>²©²ÊÕ½¼¨£º Ê¤: <b><i>$mywin</i></b>¡¡¡¡Æ½: <b><i>$mydraw</i></b>¡¡¡¡¸º: <b><i>$mylose</i></b>¡¡¡¡Ê¤ÂÊ: <b><i>$soccerwinrate</i></b>%¡¡¡¡¡¡¡¡ÀúÊ·Í¶×¢: <b><i>$myplay</i></b> $moneyname¡¡¡¡ÀúÊ·ÊÕÒæ: <b><i>$myget</i></b> $moneyname</font></td>
+    <td valign=middle colSpan=5><font color=$fontcolormisc>åšå½©æˆ˜ç»©ï¼š èƒœ: <b><i>$mywin</i></b>ã€€ã€€å¹³: <b><i>$mydraw</i></b>ã€€ã€€è´Ÿ: <b><i>$mylose</i></b>ã€€ã€€èƒœç‡: <b><i>$soccerwinrate</i></b>%ã€€ã€€ã€€ã€€å†å²æŠ•æ³¨: <b><i>$myplay</i></b> $moneynameã€€ã€€å†å²æ”¶ç›Š: <b><i>$myget</i></b> $moneyname</font></td>
   </tr>~ if (($mywin + $mydraw + $mylose) > 0);
      }
 
@@ -429,11 +429,11 @@ $blank="Î´ÊäÈë";
 	if ($myloan) {
 	    $myloan .= " $moneyname";
 	} else {
-	    $myloan = "Ã»´û¿î";
+	    $myloan = "æ²¡è´·æ¬¾";
 	}
     } else {
-	$mysaves = "Ã»¿ª»§";
-	$myloan = "Ã»´û¿î";
+	$mysaves = "æ²¡å¼€æˆ·";
+	$myloan = "æ²¡è´·æ¬¾";
     }
     
     $inmember = uri_escape($inmember);
@@ -446,8 +446,8 @@ $blank="Î´ÊäÈë";
     $onlinetimehour = "0$onlinetimehour" if ($onlinetimehour <10);
     $onlinetimemin  = "0$onlinetimemin"  if ($onlinetimemin <10);
     $onlinetimesec  = "0$onlinetimesec"  if ($onlinetimesec <10);
-    if ($onlinetimehour >= 1000) { my $onlinetime1 = $onlinetimehour; $onlinetime = int($onlinetime1/24); $onlinetime1 = $onlinetime1 - $onlinetime * 24; $onlinetime = "$onlinetimeÌì$onlinetime1Ê±$onlinetimemin·Ö$onlinetimesecÃë"; }
-                                         else { $onlinetime = "$onlinetimehour Ê± $onlinetimemin ·Ö $onlinetimesec Ãë"; }
+    if ($onlinetimehour >= 1000) { my $onlinetime1 = $onlinetimehour; $onlinetime = int($onlinetime1/24); $onlinetime1 = $onlinetime1 - $onlinetime * 24; $onlinetime = "$onlinetimeå¤©$onlinetime1æ—¶$onlinetimeminåˆ†$onlinetimesecç§’"; }
+                                         else { $onlinetime = "$onlinetimehour æ—¶ $onlinetimemin åˆ† $onlinetimesec ç§’"; }
 
     if (-e "${lbdir}pet.cgi") {
 
@@ -463,27 +463,27 @@ $blank="Î´ÊäÈë";
 	my ($pet_name,$pet_jb,$x,$pet_sx,$pet_born,$pet_win,$pet_lose,$pet_gjl,$pet_fyl,$pet_exp,$pet_hp,$pet_sp,$x,$x,$x,$x,$x,$x,$x,$x,$pet_die,$x,$x,$pet_xz_time)=split(/\t/,$file);
 	$pet_xz_time or $pet_xz_time = $pet_born;
 	$pet_born=int((time-$pet_born)/86400)+1;
-	if(time - $pet_xz_time > 86400*3) {$pet_xz_time="ÉíÉÏÑ÷Ñ÷µÄ£¬¿ì¸øÎÒÏ´Ôè°É";} else {$pet_xz_time='ºÜÊæ·ş£¬²»ÓÃÏ´ÔèÁË';}
-	if ($pet_sp<0) {$pet_zt.='(ÎÒºÃ¾ÃÃ»³Ô¶«Î÷ÁË)';} elsif ($pet_sp<500) {$pet_zt.='(ÎÒ¿ì¶öËÀÁË)';} elsif ($pet_sp<1000) {$pet_zt.='(ÎÒºÃ¶ö°¡)';} elsif ($pet_sp<2000) {$pet_zt.='(ÎÒºÃÏë³Ô¶«Î÷)';} else {$pet_zt.='(ÎÒºÃ±¥Å¶)';}
+	if(time - $pet_xz_time > 86400*3) {$pet_xz_time="èº«ä¸Šç—’ç—’çš„ï¼Œå¿«ç»™æˆ‘æ´—æ¾¡å§";} else {$pet_xz_time='å¾ˆèˆ’æœï¼Œä¸ç”¨æ´—æ¾¡äº†';}
+	if ($pet_sp<0) {$pet_zt.='(æˆ‘å¥½ä¹…æ²¡åƒä¸œè¥¿äº†)';} elsif ($pet_sp<500) {$pet_zt.='(æˆ‘å¿«é¥¿æ­»äº†)';} elsif ($pet_sp<1000) {$pet_zt.='(æˆ‘å¥½é¥¿å•Š)';} elsif ($pet_sp<2000) {$pet_zt.='(æˆ‘å¥½æƒ³åƒä¸œè¥¿)';} else {$pet_zt.='(æˆ‘å¥½é¥±å“¦)';}
 
 	my $pet_exp1 = int(sqrt($pet_exp)/6);
 	$pet_exp1 = 110 if ($pet_exp1 > 110);
-	$pet_exp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_exp1 height=8 alt="¾­Ñé: $pet_exp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
+	$pet_exp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_exp1 height=8 alt="ç»éªŒ: $pet_exp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
 
 	my $pet_hp1 = int(sqrt($pet_hp));
 	$pet_hp1 = 110 if ($pet_hp1 > 110);
-	$pet_hp1 = qq~<img src=$imagesurl/images/vi_left.gif width=2 height=8><img src=$imagesurl/images/vi_0.gif width=$pet_hp1 height=8 alt="ÌåÁ¦: $pet_hp"><img src=$imagesurl/images/vi_right.gif width=4 height=8>~;
+	$pet_hp1 = qq~<img src=$imagesurl/images/vi_left.gif width=2 height=8><img src=$imagesurl/images/vi_0.gif width=$pet_hp1 height=8 alt="ä½“åŠ›: $pet_hp"><img src=$imagesurl/images/vi_right.gif width=4 height=8>~;
 
 	my $pet_sp1 = int(sqrt($pet_sp)/6);
 	$pet_sp1 = 110 if ($pet_sp1 > 110);
-	$pet_sp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_sp1 height=8 alt="Ê³Îï: $pet_sp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
+	$pet_sp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_sp1 height=8 alt="é£Ÿç‰©: $pet_sp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
 
 	$pet_jb1=$pet_jb;
 	$pet_jb=int($pet_jb/10);
 
-	if($pet_die eq 'die'){$pet_name.='(ÒÑ¾­ËÀÍö)'; $pet_zt=''; $pet_xz_time='ÒÑ¾­ËÀÍö...'; $pet_style = qq~ style="filter:xray"~; }
+	if($pet_die eq 'die'){$pet_name.='(å·²ç»æ­»äº¡)'; $pet_zt=''; $pet_xz_time='å·²ç»æ­»äº¡...'; $pet_style = qq~ style="filter:xray"~; }
 	my $tempmembername = uri_escape($inmembername);
-	$petinfo=qq~<tr><td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>³èÎï×ÊÁÏ£º</b></font></td><td bgcolor=$miscbacktwo valign=middle><table border="1" width="320" style="border-collapse: collapse" bordercolor="$tablebordercolor" cellPadding=2 cellSpacing=0><tr><td colspan="2" height="23" bgcolor="$miscbacktwo">&nbsp;<img src=$imagesurl/pet_maiweb/cw.gif> êÇ³Æ£º <a href=pet.cgi?action=myspet&petname=$tempmembername target=_blank><b>$pet_name</b></a> $pet_zt¡¡¡¡ÄêÁä£º $pet_born Ìì</td></tr><tr><td width="110" align=center $pet_style><img src=$imagesurl/pet_maiweb/pet/$pet_sx/$pet_sx$pet_jb.gif border=0></td><td width="*">&nbsp;Ê¤Àû $pet_win ´Î / Ê§°Ü $pet_lose ´Î<br>&nbsp;¹¥»÷Á¦ $pet_gjl µã / ·ÀÓùÁ¦ $pet_fyl µã<br>&nbsp;¾­Ñé£º $pet_exp1<br>&nbsp;ÌåÁ¦£º $pet_hp1<br>&nbsp;Ê³Îï£º $pet_sp1<BR>&nbsp;×´Ì¬£º $pet_xz_time</td></tr></table></td></tr>~;
+	$petinfo=qq~<tr><td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>å® ç‰©èµ„æ–™ï¼š</b></font></td><td bgcolor=$miscbacktwo valign=middle><table border="1" width="320" style="border-collapse: collapse" bordercolor="$tablebordercolor" cellPadding=2 cellSpacing=0><tr><td colspan="2" height="23" bgcolor="$miscbacktwo">&nbsp;<img src=$imagesurl/pet_maiweb/cw.gif> æ˜µç§°ï¼š <a href=pet.cgi?action=myspet&petname=$tempmembername target=_blank><b>$pet_name</b></a> $pet_ztã€€ã€€å¹´é¾„ï¼š $pet_born å¤©</td></tr><tr><td width="110" align=center $pet_style><img src=$imagesurl/pet_maiweb/pet/$pet_sx/$pet_sx$pet_jb.gif border=0></td><td width="*">&nbsp;èƒœåˆ© $pet_win æ¬¡ / å¤±è´¥ $pet_lose æ¬¡<br>&nbsp;æ”»å‡»åŠ› $pet_gjl ç‚¹ / é˜²å¾¡åŠ› $pet_fyl ç‚¹<br>&nbsp;ç»éªŒï¼š $pet_exp1<br>&nbsp;ä½“åŠ›ï¼š $pet_hp1<br>&nbsp;é£Ÿç‰©ï¼š $pet_sp1<BR>&nbsp;çŠ¶æ€ï¼š $pet_xz_time</td></tr></table></td></tr>~;
     } else { $petinfo='';}
 } else { $petinfo='';}
 
@@ -492,111 +492,111 @@ $blank="Î´ÊäÈë";
     $output .= qq~
 
 	    <tr>
-	    <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font color=$fontcolormisc>"<b><font color=$fonthighlight>$membername</b></font>" µÄ¸öÈË×ÊÁÏ</td></tr>
+	    <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font color=$fontcolormisc>"<b><font color=$fonthighlight>$membername</b></font>" çš„ä¸ªäººèµ„æ–™</td></tr>
   <tr>
     <td bgcolor=$miscbackone valign=middle width=150 align=center>$xnuseravatar</td>
     <td bgcolor=$miscbackone valign=middle>
 <table width="100%" border="0" cellspacing="0" cellpadding="4">
   <tr bgcolor=$miscbacktwo>
-    <td valign=middle><font color=$fontcolormisc>ÓÃ»§Ãû£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>ç”¨æˆ·åï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$membername</font></td>
-    <td valign=middle><font color=$fontcolormisc>ĞÔ±ğ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ€§åˆ«ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$sex</font></td>
-    <td valign=middle><font color=$fontcolormisc>×¢²áÊ±¼ä£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ³¨å†Œæ—¶é—´ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$joineddate</font></td>
   </tr>
   <tr>
-    <td valign=middle><font color=$fontcolormisc>³öÉúÄêÔÂ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å‡ºç”Ÿå¹´æœˆï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$born</font></td>
-    <td valign=middle><font color=$fontcolormisc>ÉúĞ¤£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>ç”Ÿè‚–ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$showsx</font></td>
-    <td valign=middle><font color=$fontcolormisc>ĞÇ×ù£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ˜Ÿåº§ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$showxz</font></td>
   </tr>
   <tr bgcolor=$miscbacktwo>
-    <td valign=middle><font color=$fontcolormisc>»éÒö×´¿ö£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å©šå§»çŠ¶å†µï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$marry</font></td>
-    <td valign=middle><font color=$fontcolormisc>Ñ§Àú£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å­¦å†ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$education</font></td>
-    <td valign=middle><font color=$fontcolormisc>Ö°Òµ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>èŒä¸šï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$work</font></td>
   </tr>
   <tr>
-    <td valign=middle><font color=$fontcolormisc>ÍşÍû£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å¨æœ›ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$rating</font></td>
-    <td valign=middle><font color=$fontcolormisc>»ı·Ö£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>ç§¯åˆ†ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$jifen</font></td>
-    <td valign=middle><font color=$fontcolormisc>¾«»ªÌû;</font></td>
-    <td valign=middle><font color=$fontcolormisc>$jhcount Æª</font></td>
+    <td valign=middle><font color=$fontcolormisc>ç²¾åå¸–;</font></td>
+    <td valign=middle><font color=$fontcolormisc>$jhcount ç¯‡</font></td>
   </tr>
   <tr bgcolor=$miscbacktwo>
-    <td valign=middle><font color=$fontcolormisc>µ±Ç°¼¶±ğ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å½“å‰çº§åˆ«ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc><a href="lookinfo.cgi?action=style" target="_blank">$mtitle</a></font></td>
-    <td valign=middle><font color=$fontcolormisc>µ±Ç°Í·ÏÎ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å½“å‰å¤´è¡”ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$membertitle</font></td>
-    <td valign=middle><font color=$fontcolormisc>½­ºşÃÅÅÉ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ±Ÿæ¹–é—¨æ´¾ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$jhmp</font></td>
   </tr>
   <tr>
-    <td valign=middle><font color=$fontcolormisc>×Ü¹²·¢±í£º</font></td>
-    <td valign=middle><font color=$fontcolormisc>$numberofposts Æª</font></td>
-    <td valign=middle><font color=$fontcolormisc>×Ü¹²»Ø¸´£º</font></td>
-    <td valign=middle><font color=$fontcolormisc>$numberofreplys Æª</font></td>
-    <td valign=middle><font color=$fontcolormisc>±»É¾³ı£º</font></td>
-    <td valign=middle><font color=$fontcolormisc>$postdel Æª</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ€»å…±å‘è¡¨ï¼š</font></td>
+    <td valign=middle><font color=$fontcolormisc>$numberofposts ç¯‡</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ€»å…±å›å¤ï¼š</font></td>
+    <td valign=middle><font color=$fontcolormisc>$numberofreplys ç¯‡</font></td>
+    <td valign=middle><font color=$fontcolormisc>è¢«åˆ é™¤ï¼š</font></td>
+    <td valign=middle><font color=$fontcolormisc>$postdel ç¯‡</font></td>
   </tr>
   <tr bgcolor=$miscbacktwo>
-    <td valign=middle><font color=$fontcolormisc>ÓÊ¼şµØÖ·£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>é‚®ä»¶åœ°å€ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$emailaddress</font></td>
-    <td valign=middle><font color=$fontcolormisc>QQ ºÅÂë£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>QQ å·ç ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$qqlogo $oicqnumber</font></td>
-    <td valign=middle><font color=$fontcolormisc>ICQ ºÅÂë£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>ICQ å·ç ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$icqlogo $icqnumber</font></td>
   </tr>
   <tr>
-    <td valign=middle><font color=$fontcolormisc>¹ú¼Ò£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å›½å®¶ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$$userflag <img src=$imagesurl/flags/$userflag.gif alt="$$userflag" width=21 height=14></font></td>
-    <td valign=middle><font color=$fontcolormisc>À´×Ô£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>æ¥è‡ªï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$location</font></td>
-    <td valign=middle><font color=$fontcolormisc>Ö÷Ò³µØÖ·£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>ä¸»é¡µåœ°å€ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$homepage</font></td>
   </tr>
   <tr bgcolor=$miscbacktwo>
-    <td valign=middle><font color=$fontcolormisc>ÏÖ½ğ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>ç°é‡‘ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$mymoney $moneyname</font></td>
-    <td valign=middle><font color=$fontcolormisc>´æ¿î£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>å­˜æ¬¾ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$mysaves</font></td>
-    <td valign=middle><font color=$fontcolormisc>´û¿î£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>è´·æ¬¾ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$myloan</font></td>
   </tr>
   <tr>
-    <td valign=middle><font color=$fontcolormisc>ÔÚÏßÊ±¼ä£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>åœ¨çº¿æ—¶é—´ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$onlinetime</font></td>
-    <td valign=middle><font color=$fontcolormisc>·ÃÎÊ´ÎÊı£º</font></td>
-    <td valign=middle><font color=$fontcolormisc>$visitno ´Î</font></td>
-    <td valign=middle><font color=$fontcolormisc>×îºó·ÃÎÊ£º</font></td>
+    <td valign=middle><font color=$fontcolormisc>è®¿é—®æ¬¡æ•°ï¼š</font></td>
+    <td valign=middle><font color=$fontcolormisc>$visitno æ¬¡</font></td>
+    <td valign=middle><font color=$fontcolormisc>æœ€åè®¿é—®ï¼š</font></td>
     <td valign=middle><font color=$fontcolormisc>$lastgone</font></td>
   </tr>
 $soccerinfo
   <tr bgcolor=$miscbacktwo align=center>
-    <td valign=middle colspan=2><span onClick="openScript('friendlist.cgi?action=adduser&adduser=$inmember', 420, 320)" style="cursor: hand">°Ñ$membername¼ÓÎªÎÒµÄºÃÓÑ</span></td>
-    <td valign=middle colspan=2><span onClick="openScript('messanger.cgi?action=new&touser=$inmember&actionto=msg', 600, 400)" style="cursor: hand">·¢ËÍÒ»¸ö¶ÌÏûÏ¢¸ø$membername</span></td>
-    <td valign=middle colspan=2><a href=search.cgi?action=startsearch&TYPE_OF_SEARCH=username_search&NAME_SEARCH=topictitle_search&FORUMS_TO_SEARCH=all&SEARCH_STRING=$inmember target=_blank>²éÕÒ$membername·¢±íµÄËùÓĞÌû×Ó</a></td>
+    <td valign=middle colspan=2><span onClick="openScript('friendlist.cgi?action=adduser&adduser=$inmember', 420, 320)" style="cursor: hand">æŠŠ$membernameåŠ ä¸ºæˆ‘çš„å¥½å‹</span></td>
+    <td valign=middle colspan=2><span onClick="openScript('messanger.cgi?action=new&touser=$inmember&actionto=msg', 600, 400)" style="cursor: hand">å‘é€ä¸€ä¸ªçŸ­æ¶ˆæ¯ç»™$membername</span></td>
+    <td valign=middle colspan=2><a href=search.cgi?action=startsearch&TYPE_OF_SEARCH=username_search&NAME_SEARCH=topictitle_search&FORUMS_TO_SEARCH=all&SEARCH_STRING=$inmember target=_blank>æŸ¥æ‰¾$membernameå‘è¡¨çš„æ‰€æœ‰å¸–å­</a></td>
   </tr>
 </table>
 </td>
   </tr>
 	    <tr>
-	    <td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>×îºó·¢±í£º</b></font></td>
+	    <td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>æœ€åå‘è¡¨ï¼š</b></font></td>
 	    <td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc>$lastpostdetails</font></td></tr>
 	    <tr>
-	    <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc><b>×ÔÎÒ¼ò½é£º</b></font></td>
+	    <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc><b>è‡ªæˆ‘ç®€ä»‹ï¼š</b></font></td>
 	    <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc>$interests</font></td></tr>
 	    <tr>
-	    <td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>Ç©Ãû£º</b></font></td>
+	    <td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>ç­¾åï¼š</b></font></td>
 	    <td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc>$signature</font></td></tr>
 	    <tr>
-	    <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc><b>¸öĞÔÍ¼Æ¬£º</b></font></td>
+	    <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc><b>ä¸ªæ€§å›¾ç‰‡ï¼š</b></font></td>
 	    <td bgcolor=$miscbackone valign=middle><br>$useravatar</td></tr>
 		$petinfo
 	    </table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR>

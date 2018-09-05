@@ -1,38 +1,38 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $maxpoststr = "" if ($maxpoststr eq 0);
 $maxpoststr = 100 if (($maxpoststr < 100)&&($maxpoststr ne ""));
-    if ($startnewthreads eq "no")        { $startthreads = "ÔÚ´ËÂÛÌ³ÖĞĞÂµÄÖ÷ÌâºÍÌû×Ó»Ø¸´Ö»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷·¢±í£¡"; }
-    elsif ($startnewthreads eq "follow") { $startthreads = "ÔÚ´ËÂÛÌ³ÖĞĞÂµÄÖ÷ÌâÖ»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷·¢±í£¡ÆÕÍ¨»áÔ±Ö»¿ÉÒÔ¸úÌû£¡"; }
-    elsif ($startnewthreads eq "all")    { $startthreads = "ÈÎºÎÈË¾ù¿ÉÒÔ·¢±íºÍ»Ø¸´Ö÷Ìâ£¬Î´×¢²áÓÃ»§·¢ÌûÃÜÂëÇëÁô¿Õ£¡"; }
-    elsif ($startnewthreads eq "cert")   { $startthreads = "ÔÚ´ËÂÛÌ³ÖĞĞÂµÄÖ÷ÌâÖ»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷¡¢ÈÏÖ¤µÄ»áÔ±·¢±í£¡"; }
-    else { $startthreads = "ËùÓĞ×¢²á»áÔ±¾ù¿ÉÒÔ·¢±íºÍ»Ø¸´Ö÷Ìâ£¡"; }
+    if ($startnewthreads eq "no")        { $startthreads = "åœ¨æ­¤è®ºå›ä¸­æ–°çš„ä¸»é¢˜å’Œå¸–å­å›å¤åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»å‘è¡¨ï¼"; }
+    elsif ($startnewthreads eq "follow") { $startthreads = "åœ¨æ­¤è®ºå›ä¸­æ–°çš„ä¸»é¢˜åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»å‘è¡¨ï¼æ™®é€šä¼šå‘˜åªå¯ä»¥è·Ÿå¸–ï¼"; }
+    elsif ($startnewthreads eq "all")    { $startthreads = "ä»»ä½•äººå‡å¯ä»¥å‘è¡¨å’Œå›å¤ä¸»é¢˜ï¼Œæœªæ³¨å†Œç”¨æˆ·å‘å¸–å¯†ç è¯·ç•™ç©ºï¼"; }
+    elsif ($startnewthreads eq "cert")   { $startthreads = "åœ¨æ­¤è®ºå›ä¸­æ–°çš„ä¸»é¢˜åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»ã€è®¤è¯çš„ä¼šå‘˜å‘è¡¨ï¼"; }
+    else { $startthreads = "æ‰€æœ‰æ³¨å†Œä¼šå‘˜å‡å¯ä»¥å‘è¡¨å’Œå›å¤ä¸»é¢˜ï¼"; }
 
     if ($emailfunctions eq "on") {
 	if ($innotify eq "yes") { $requestnotify = " checked"; } else { $requestnotify = ""; }
-	$requestnotify = qq~&nbsp;<input type=checkbox name="notify" value="yes"$requestnotify>ÓĞ»Ø¸´Ê±Ê¹ÓÃÓÊ¼şÍ¨ÖªÄú£¿<br>~;
+	$requestnotify = qq~&nbsp;<input type=checkbox name="notify" value="yes"$requestnotify>æœ‰å›å¤æ—¶ä½¿ç”¨é‚®ä»¶é€šçŸ¥æ‚¨ï¼Ÿ<br>~;
     }
     if ($emoticons eq "on") {
-       $emoticonslink = qq~<li><span style=cursor:hand onClick="javascript:openScript('$miscprog?action=showsmilies',300,350)">ÔÊĞí<B>Ê¹ÓÃ</B>±íÇé×Ö·û×ª»»</span>~;
-       $emoticonsbutton =qq~&nbsp;<input type=checkbox name="inshowemoticons" value="yes" checked>ÄúÊÇ·ñÏ£Íû<b>Ê¹ÓÃ</b>±íÇé×Ö·û×ª»»£¿<br>~;
+       $emoticonslink = qq~<li><span style=cursor:hand onClick="javascript:openScript('$miscprog?action=showsmilies',300,350)">å…è®¸<B>ä½¿ç”¨</B>è¡¨æƒ…å­—ç¬¦è½¬æ¢</span>~;
+       $emoticonsbutton =qq~&nbsp;<input type=checkbox name="inshowemoticons" value="yes" checked>æ‚¨æ˜¯å¦å¸Œæœ›<b>ä½¿ç”¨</b>è¡¨æƒ…å­—ç¬¦è½¬æ¢ï¼Ÿ<br>~;
     }
-    $maxpoststr = "(Ìû×ÓÖĞ×î¶à°üº¬ <B>$maxpoststr</B> ¸ö×Ö·û)" if ($maxpoststr ne "");
+    $maxpoststr = "(å¸–å­ä¸­æœ€å¤šåŒ…å« <B>$maxpoststr</B> ä¸ªå­—ç¬¦)" if ($maxpoststr ne "");
 if ($canchgfont ne "no") {
-    $fontpost = qq~&nbsp;<input type=checkbox name="inshowchgfont" value="yes">Ê¹ÓÃ×ÖÌå×ª»»£¿<br>~;
+    $fontpost = qq~&nbsp;<input type=checkbox name="inshowchgfont" value="yes">ä½¿ç”¨å­—ä½“è½¬æ¢ï¼Ÿ<br>~;
 } else {
     undef $fontpost;
 }
 
 if ($idmbcodestate eq "on") {
-    $idmbcodestates = qq~&nbsp;<input type=checkbox name="uselbcode" value="yes" checked>Ê¹ÓÃ LeoBBS ±êÇ©£¿<BR>~;
+    $idmbcodestates = qq~&nbsp;<input type=checkbox name="uselbcode" value="yes" checked>ä½¿ç”¨ LeoBBS æ ‡ç­¾ï¼Ÿ<BR>~;
 } else {
     $idmbcodestates = "";
 }
@@ -51,15 +51,15 @@ function DoTitle(addTitle) { var revisedTitle;var currentTitle = document.FORM.i
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor colspan=2 $catbackpic>&nbsp;<font color=$titlefontcolor><b>¿ìËÙ·¢±íĞÂÖ÷Ìâ</b></font> -- $startthreads</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <B><u><font color=$fonthighlight>$inmembername</font></u></B> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbacktwo width=220>&nbsp;<font color=$fontcolormisc><b>ÊäÈëÓÃ»§ÃûºÍÃÜÂë:</b></font></td><td bgcolor=$miscbacktwo>¡¡<font color=$fontcolormisc><b>ÓÃ»§Ãû</b>: <input type=text name=membername> <span onclick="javascript:location.href='register.cgi?forum=$inforum'" style=cursor:hand>Ã»ÓĞ×¢²á£¿</span>¡¡<b>ÃÜÂë:</b> <input type=password name=password> <a href=profile.cgi?action=lostpass style=cursor:help>Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone>&nbsp;<font color=$fontcolormisc><b>Ö÷Ìâ±êÌâ</b></font>¡¡
+<tr><td bgcolor=$titlecolor colspan=2 $catbackpic>&nbsp;<font color=$titlefontcolor><b>å¿«é€Ÿå‘è¡¨æ–°ä¸»é¢˜</b></font> -- $startthreads</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <B><u><font color=$fonthighlight>$inmembername</font></u></B> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbacktwo width=220>&nbsp;<font color=$fontcolormisc><b>è¾“å…¥ç”¨æˆ·åå’Œå¯†ç :</b></font></td><td bgcolor=$miscbacktwo>ã€€<font color=$fontcolormisc><b>ç”¨æˆ·å</b>: <input type=text name=membername> <span onclick="javascript:location.href='register.cgi?forum=$inforum'" style=cursor:hand>æ²¡æœ‰æ³¨å†Œï¼Ÿ</span>ã€€<b>å¯†ç :</b> <input type=password name=password> <a href=profile.cgi?action=lostpass style=cursor:help>å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone>&nbsp;<font color=$fontcolormisc><b>ä¸»é¢˜æ ‡é¢˜</b></font>ã€€
 <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
-<OPTION selected value="">Ñ¡Ôñ»°Ìâ</OPTION> <OPTION value=[Ô­´´]>[Ô­´´]</OPTION><OPTION value=[×ªÌû]>[×ªÌû]</OPTION><OPTION value=[¹àË®]>[¹àË®]</OPTION><OPTION value=[ÌÖÂÛ]>[ÌÖÂÛ]</OPTION><OPTION value=[ÇóÖú]>[ÇóÖú]</OPTION><OPTION value=[ÍÆ¼ö]>[ÍÆ¼ö]</OPTION><OPTION value=[¹«¸æ]>[¹«¸æ]</OPTION><OPTION value=[×¢Òâ]>[×¢Òâ]</OPTION><OPTION value=[ÌùÍ¼]>[ÌùÍ¼]</OPTION><OPTION value=[½¨Òé]>[½¨Òé]</OPTION><OPTION value=[ÏÂÔØ]>[ÏÂÔØ]</OPTION><OPTION value=[·ÖÏí]>[·ÖÏí]</OPTION>
+<OPTION selected value="">é€‰æ‹©è¯é¢˜</OPTION> <OPTION value=[åŸåˆ›]>[åŸåˆ›]</OPTION><OPTION value=[è½¬å¸–]>[è½¬å¸–]</OPTION><OPTION value=[çŒæ°´]>[çŒæ°´]</OPTION><OPTION value=[è®¨è®º]>[è®¨è®º]</OPTION><OPTION value=[æ±‚åŠ©]>[æ±‚åŠ©]</OPTION><OPTION value=[æ¨è]>[æ¨è]</OPTION><OPTION value=[å…¬å‘Š]>[å…¬å‘Š]</OPTION><OPTION value=[æ³¨æ„]>[æ³¨æ„]</OPTION><OPTION value=[è´´å›¾]>[è´´å›¾]</OPTION><OPTION value=[å»ºè®®]>[å»ºè®®]</OPTION><OPTION value=[ä¸‹è½½]>[ä¸‹è½½]</OPTION><OPTION value=[åˆ†äº«]>[åˆ†äº«]</OPTION>
 </SELECT></td>
-<td bgcolor=$miscbackone>¡¡<input type=text size=60 maxlength=80 name="intopictitle" value="$intopictitle">¡¡²»µÃ³¬¹ı 40 ¸öºº×Ö</td></tr>
-<td bgcolor=$miscbacktwo valign=top>&nbsp;<font color=$fontcolormisc><b>Ñ¡Ïî</b>¡¡~;
+<td bgcolor=$miscbackone>ã€€<input type=text size=60 maxlength=80 name="intopictitle" value="$intopictitle">ã€€ä¸å¾—è¶…è¿‡ 40 ä¸ªæ±‰å­—</td></tr>
+<td bgcolor=$miscbacktwo valign=top>&nbsp;<font color=$fontcolormisc><b>é€‰é¡¹</b>ã€€~;
 
 if ($magicface ne 'off') {
 $output .= qq~
@@ -72,23 +72,23 @@ function enable(btn){btn.filters.gray.enabled=0;}
 function disable(btn){btn.filters.gray.enabled=1;}
 </script>
 
-<IMG onclick=magicfaceopen() align=absmiddle height=22 alt=²åÈëÄ§·¨±íÇé src=$imagesurl/btg/magicface.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
+<IMG onclick=magicfaceopen() align=absmiddle height=22 alt=æ’å…¥é­”æ³•è¡¨æƒ… src=$imagesurl/btg/magicface.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
 ~;
 }
 
 $output .= qq~
 <br>$maxpoststr<BR>$idmbcodestates
-&nbsp;<input type=checkbox name="inshowsignature" value="yes" checked>ÏÔÊ¾Ç©Ãû£¿<br>
+&nbsp;<input type=checkbox name="inshowsignature" value="yes" checked>æ˜¾ç¤ºç­¾åï¼Ÿ<br>
 $requestnotify$emoticonsbutton$fontpost</center>
-<td bgcolor=$miscbacktwo>¡¡<TEXTAREA cols=80 name=inpost rows=9 wrap="soft" onkeydown=ctlent()>$inpost</TEXTAREA><br></td></tr>~;
+<td bgcolor=$miscbacktwo>ã€€<TEXTAREA cols=80 name=inpost rows=9 wrap="soft" onkeydown=ctlent()>$inpost</TEXTAREA><br></td></tr>~;
 
     if (($arrowupload ne "off")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
     $uploadreqire = "" if ($uploadreqire <= 0);
-    $uploadreqire = "<BR>·¢ÌûÊıÒª´óÓÚ <B>$uploadreqire</B> Æª(ÈÏÖ¤ÓÃ»§²»ÏŞ)" if ($uploadreqire ne "");
+    $uploadreqire = "<BR>å‘å¸–æ•°è¦å¤§äº <B>$uploadreqire</B> ç¯‡(è®¤è¯ç”¨æˆ·ä¸é™)" if ($uploadreqire ne "");
 	$output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
-        $output .= qq~<tr><td bgcolor=$miscbackone><b>ÉÏ´«¸½¼ş»òÍ¼Æ¬</b> (×î´óÈİÁ¿ <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>Ä¿Ç°¸½¼ş:(Èç²»ĞèÒªÄ³¸ö¸½¼ş£¬Ö»ĞèÉ¾³ıÄÚÈİÖĞµÄÏàÓ¦ [UploadFile$imgslt ...] ±êÇ©¼´¿É)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=É¾³ıËùÓĞÎ´±»·¢²¼µÄ¸½¼şÁÙÊ±ÎÄ¼ş OnClick="return confirm('È·¶¨É¾³ıËùÓĞÎ´±»·¢²¼µÄ¸½¼şÁÙÊ±ÎÄ¼şÃ´£¿');">É¾³ı</a>] </font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
+        $output .= qq~<tr><td bgcolor=$miscbackone><b>ä¸Šä¼ é™„ä»¶æˆ–å›¾ç‰‡</b> (æœ€å¤§å®¹é‡ <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>ç›®å‰é™„ä»¶:(å¦‚ä¸éœ€è¦æŸä¸ªé™„ä»¶ï¼Œåªéœ€åˆ é™¤å†…å®¹ä¸­çš„ç›¸åº” [UploadFile$imgslt ...] æ ‡ç­¾å³å¯)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=åˆ é™¤æ‰€æœ‰æœªè¢«å‘å¸ƒçš„é™„ä»¶ä¸´æ—¶æ–‡ä»¶ OnClick="return confirm('ç¡®å®šåˆ é™¤æ‰€æœ‰æœªè¢«å‘å¸ƒçš„é™„ä»¶ä¸´æ—¶æ–‡ä»¶ä¹ˆï¼Ÿ');">åˆ é™¤</a>] </font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
     }
-    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=Submit value="·¢ ±í ĞÂ Ö÷ Ìâ" name=Submit onClick="return clckcntr();">¡¡¡¡<input type=button value='Ô¤ ÀÀ ÄÚ Èİ' name=Button onclick=gopreview()>¡¡¡¡<input type="reset" name="Clear" value="Çå ³ı"></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT></form>
+    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=Submit value="å‘ è¡¨ æ–° ä¸» é¢˜" name=Submit onClick="return clckcntr();">ã€€ã€€<input type=button value='é¢„ è§ˆ å†… å®¹' name=Button onclick=gopreview()>ã€€ã€€<input type="reset" name="Clear" value="æ¸… é™¤"></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT></form>
 <form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$inforum"></form>
 <script>
 function gopreview(){

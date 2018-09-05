@@ -1,44 +1,44 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     require "cleanolddata.pl";
     &cleanolddata2;
-    $helpurl = &helpfiles("ÒÅÍüÃÜÂë");
+    $helpurl = &helpfiles("é—å¿˜å¯†ç ");
     $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
-    if ("$userregistered" eq "no") {&error("ĞŞ¸Ä×ÊÁÏ&Ã»ÓĞ´ËÓÃ»§Ãû£¡"); }
-    if ("$inpassword" ne "$password") {&error("ĞŞ¸Ä×ÊÁÏ&ÂÛÌ³ÃÜÂë´íÎó£¡ÇëÖØĞÂµÇÂ¼ºóĞŞ¸Ä£¡"); }
+    if ("$userregistered" eq "no") {&error("ä¿®æ”¹èµ„æ–™&æ²¡æœ‰æ­¤ç”¨æˆ·åï¼"); }
+    if ("$inpassword" ne "$password") {&error("ä¿®æ”¹èµ„æ–™&è®ºå›å¯†ç é”™è¯¯ï¼è¯·é‡æ–°ç™»å½•åä¿®æ”¹ï¼"); }
     if (("$passwordverification" eq "yes") && ("$emailfunctions" ne "off")) {
-	$newpassneeded = "<br><B>Èç¹ûÄúĞŞ¸ÄÁËÓÊ¼şµØÖ·£¬Ò»¸öĞÂµÄÂÛÌ³ÃÜÂë½«Í¨¹ıÓÊ¼ş·¢¸øÄú¡£</B>";
+	$newpassneeded = "<br><B>å¦‚æœæ‚¨ä¿®æ”¹äº†é‚®ä»¶åœ°å€ï¼Œä¸€ä¸ªæ–°çš„è®ºå›å¯†ç å°†é€šè¿‡é‚®ä»¶å‘ç»™æ‚¨ã€‚</B>";
 	undef $newpasswordaddon;
     }
     $newpasswordaddon = qq~
-<tr><td bgcolor=$miscbackone width=40%><font color=$fontcolormisc><b>ÂÛÌ³ÃÜÂë£º</b> ÇëÊäÈëĞŞ¸ÄÂÛÌ³ÃÜÂë£¬Çø·Ö´óĞ¡Ğ´<br>Ö»ÄÜÊ¹ÓÃ´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ,²»µÃÉÙÓÚ£¸Î»</td>
-<td bgcolor=$miscbackone width=60%><input type=password name="newpassword1" maxlength=20>¡¡$helpurl</td>
+<tr><td bgcolor=$miscbackone width=40%><font color=$fontcolormisc><b>è®ºå›å¯†ç ï¼š</b> è¯·è¾“å…¥ä¿®æ”¹è®ºå›å¯†ç ï¼ŒåŒºåˆ†å¤§å°å†™<br>åªèƒ½ä½¿ç”¨å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆ,ä¸å¾—å°‘äºï¼˜ä½</td>
+<td bgcolor=$miscbackone width=60%><input type=password name="newpassword1" maxlength=20>ã€€$helpurl</td>
 </tr><tr>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>ÂÛÌ³ÃÜÂë£º (ÖÁÉÙ8Î»)</b><br>ÔÙÊäÒ»±é£¬ÒÔ±ãÈ·¶¨£¡</td>
-<td bgcolor=$miscbackone><input type=password name="newpassword2" maxlength=20>¡¡$helpurl</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>è®ºå›å¯†ç ï¼š (è‡³å°‘8ä½)</b><br>å†è¾“ä¸€éï¼Œä»¥ä¾¿ç¡®å®šï¼</td>
+<td bgcolor=$miscbackone><input type=password name="newpassword2" maxlength=20>ã€€$helpurl</td>
 </tr><tr>
 <td bgcolor=$miscbacktwo valign=middle colspan=2 align=center>
-<font color=$fonthighlight><b>Èç¹ûÄã²»ÏëĞŞ¸ÄÂÛÌ³ÃÜÂë£¬Çë±£³ÖÉÏÃæ¿Õ°×£¡</b></font></td></tr>
+<font color=$fonthighlight><b>å¦‚æœä½ ä¸æƒ³ä¿®æ”¹è®ºå›å¯†ç ï¼Œè¯·ä¿æŒä¸Šé¢ç©ºç™½ï¼</b></font></td></tr>
 ~;
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t¸öÈË×ÊÁÏ\tnone\tĞŞ¸Ä<b>$inmembername</b>µÄ¸öÈË×ÊÁÏ\t");
+        &whosonline("$inmembername\tä¸ªäººèµ„æ–™\tnone\tä¿®æ”¹<b>$inmembername</b>çš„ä¸ªäººèµ„æ–™\t");
     }
 
     if ($avatars eq "on") {
         if ($arrowavaupload eq "on") {
-            $avaupload = qq~<br>ÉÏ´«Í·Ïñ£º <input type="file" size=20 name="addme">¡¡ÉÏ´«×Ô¶¨ÒåÍ·Ïñ¡£<br>~;
+            $avaupload = qq~<br>ä¸Šä¼ å¤´åƒï¼š <input type="file" size=20 name="addme">ã€€ä¸Šä¼ è‡ªå®šä¹‰å¤´åƒã€‚<br>~;
         }
         else { undef $avaupload; }
 
@@ -47,7 +47,7 @@
     close (FILE);
     chomp @images;
 
-    $selecthtml .= qq~<option value="noavatar" selected>²»ÒªÍ·Ïñ</option>\n~;
+    $selecthtml .= qq~<option value="noavatar" selected>ä¸è¦å¤´åƒ</option>\n~;
     $currentface = "noavatar";
     foreach (@images) {
 	$totleavator=@images -1;
@@ -71,20 +71,20 @@
 function showimage(){document.images.useravatars.src="$imagesurl/avatars/"+document.creator.useravatar.options[document.creator.useravatar.selectedIndex].value+".gif";}
 </script>
 <tr>
-<td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>¸öĞÔÍ¼Æ¬£º</b><br>Äú¿ÉÒÔÑ¡ÔñÒ»¸ö¸öĞÔÍ¼Æ¬£¬µ±Äã·¢±íÊ±½«ÏÔÊ¾ÔÚÄúµÄÃû×ÖÏÂ·½¡£<BR>Èç¹ûÄãÌîĞ´ÁËÏÂÃæµÄ×Ô¶¨ÒåÍ·Ïñ²¿·Ö£¬ÄÇÃ´ÄãµÄÍ·ÏñÒÔ×Ô¶¨ÒåµÄÎª×¼¡£·ñÔò£¬ÇëÄãÁô¿Õ×Ô¶¨ÒåÍ·ÏñµÄËùÓĞÀ¸Ä¿£¡<BR>
-<br><b>¹ØÓÚ×Ô¶¨ÒåÍ·Ïñ</b>£º<br>ÄãÒ²¿ÉÒÔÔÚÕâÀï¸ø³öÄã×Ô¶¨ÒåÍ·ÏñµÄ URL µØÖ·£¬Í·ÏñµÄ¸ß¶ÈºÍ¿í¶È(ÏñËØ)¡£ Èç¹û²»ÏëÒª×Ô¶¨ÒåÍ·Ïñ£¬Çë½«ÏàÓ¦À¸Ä¿È«²¿Áô¿Õ£¡<BR>Èç¹û²»ÌîĞ´Í·ÏñµÄ¸ß¶ÈºÍ¿í¶È£¬ÔòÏµÍ³½«×Ô¶¯ÅĞ¶Ï²¢ÌîÈë¡£<BR><BR>
-<br><b>Èç¹ûÄã²»ÏëÒªÈÎºÎµÄÍ·Ïñ£¬ÄÇÃ´ÇëÊ×ÏÈÔÚ²Ëµ¥ÉÏÑ¡¡°noavatar¡±£¬È»ºóÁô¿ÕËùÓĞ×Ô¶¨ÒåÍ·ÏñµÄ²¿·Ö£¡</b><BR><br>
-<BR>ÄúÒ²¿ÉÒÔÓÃĞéÄâĞÎÏó¹¦ÄÜÀ´´òÔì·á¸»¶à²ÊµÄ¸öÈËĞÎÏó£¬<a href=face.cgi><font color=$fonthighlight>Çë°´´Ë½øÈë</font></a>¡£<BR>
+<td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>ä¸ªæ€§å›¾ç‰‡ï¼š</b><br>æ‚¨å¯ä»¥é€‰æ‹©ä¸€ä¸ªä¸ªæ€§å›¾ç‰‡ï¼Œå½“ä½ å‘è¡¨æ—¶å°†æ˜¾ç¤ºåœ¨æ‚¨çš„åå­—ä¸‹æ–¹ã€‚<BR>å¦‚æœä½ å¡«å†™äº†ä¸‹é¢çš„è‡ªå®šä¹‰å¤´åƒéƒ¨åˆ†ï¼Œé‚£ä¹ˆä½ çš„å¤´åƒä»¥è‡ªå®šä¹‰çš„ä¸ºå‡†ã€‚å¦åˆ™ï¼Œè¯·ä½ ç•™ç©ºè‡ªå®šä¹‰å¤´åƒçš„æ‰€æœ‰æ ç›®ï¼<BR>
+<br><b>å…³äºè‡ªå®šä¹‰å¤´åƒ</b>ï¼š<br>ä½ ä¹Ÿå¯ä»¥åœ¨è¿™é‡Œç»™å‡ºä½ è‡ªå®šä¹‰å¤´åƒçš„ URL åœ°å€ï¼Œå¤´åƒçš„é«˜åº¦å’Œå®½åº¦(åƒç´ )ã€‚ å¦‚æœä¸æƒ³è¦è‡ªå®šä¹‰å¤´åƒï¼Œè¯·å°†ç›¸åº”æ ç›®å…¨éƒ¨ç•™ç©ºï¼<BR>å¦‚æœä¸å¡«å†™å¤´åƒçš„é«˜åº¦å’Œå®½åº¦ï¼Œåˆ™ç³»ç»Ÿå°†è‡ªåŠ¨åˆ¤æ–­å¹¶å¡«å…¥ã€‚<BR><BR>
+<br><b>å¦‚æœä½ ä¸æƒ³è¦ä»»ä½•çš„å¤´åƒï¼Œé‚£ä¹ˆè¯·é¦–å…ˆåœ¨èœå•ä¸Šé€‰â€œnoavatarâ€ï¼Œç„¶åç•™ç©ºæ‰€æœ‰è‡ªå®šä¹‰å¤´åƒçš„éƒ¨åˆ†ï¼</b><BR><br>
+<BR>æ‚¨ä¹Ÿå¯ä»¥ç”¨è™šæ‹Ÿå½¢è±¡åŠŸèƒ½æ¥æ‰“é€ ä¸°å¯Œå¤šå½©çš„ä¸ªäººå½¢è±¡ï¼Œ<a href=face.cgi><font color=$fonthighlight>è¯·æŒ‰æ­¤è¿›å…¥</font></a>ã€‚<BR>
 </td>
-<td bgcolor=$miscbackone valign=top>×ÜÍ·Ïñ¸öÊı£º $totleavator ¸ö¡£¡¡<a href=viewavatars.cgi target=_blank><B>°´´Ë²é¿´</B></a>ËùÓĞÍ·ÏñÃû³ÆÁĞ±í¡£<BR>
+<td bgcolor=$miscbackone valign=top>æ€»å¤´åƒä¸ªæ•°ï¼š $totleavator ä¸ªã€‚ã€€<a href=viewavatars.cgi target=_blank><B>æŒ‰æ­¤æŸ¥çœ‹</B></a>æ‰€æœ‰å¤´åƒåç§°åˆ—è¡¨ã€‚<BR>
 <select name="useravatar" size=1 onChange="showimage()">
 $selecthtml
 </select>
 <img src=$imagesurl/avatars/$currentface.gif name="useravatars" width=32 height=32 hspace=15><br><br><br>
 $avaupload
-<br>Í¼ÏñÎ»ÖÃ£º <input type="text" name="newpersonalavatar" size="26" value="$personalavatar">¡¡ÊäÈëÍêÕûµÄ URL Â·¾¶¡£<br>
-<br>Í¼Ïñ¿í¶È£º <input type="text" name="newpersonalwidth" size="2" maxlength=3 value="$personalwidth">¡¡±ØĞëÊÇ 20 -- $maxposticonwidth Ö®¼äµÄÒ»¸öÕûÊı¡£<br>
-<br>Í¼Ïñ¸ß¶È£º <input type="text" name="newpersonalheight" size="2" maxlength=3 value="$personalheight">¡¡±ØĞëÊÇ 20 -- $maxposticonheight Ö®¼äµÄÒ»¸öÕûÊı¡£<br></td>
+<br>å›¾åƒä½ç½®ï¼š <input type="text" name="newpersonalavatar" size="26" value="$personalavatar">ã€€è¾“å…¥å®Œæ•´çš„ URL è·¯å¾„ã€‚<br>
+<br>å›¾åƒå®½åº¦ï¼š <input type="text" name="newpersonalwidth" size="2" maxlength=3 value="$personalwidth">ã€€å¿…é¡»æ˜¯ 20 -- $maxposticonwidth ä¹‹é—´çš„ä¸€ä¸ªæ•´æ•°ã€‚<br>
+<br>å›¾åƒé«˜åº¦ï¼š <input type="text" name="newpersonalheight" size="2" maxlength=3 value="$personalheight">ã€€å¿…é¡»æ˜¯ 20 -- $maxposticonheight ä¹‹é—´çš„ä¸€ä¸ªæ•´æ•°ã€‚<br></td>
 </td></tr>
 ~;
     }
@@ -93,106 +93,106 @@ $avaupload
 <script language="javascript">
 function showflag(){document.images.userflags.src="$imagesurl/flags/"+document.creator.userflag.options[document.creator.userflag.selectedIndex].value+".gif";}
 </script>
-<tr><td bgcolor=$miscbackone valign=top><font face="$font" color=$fontcolormisc><b>ËùÔÚ¹ú¼Ò:</b><br>ÇëÑ¡ÔñÄãËùÔÚµÄ¹ú¼Ò¡£</td>
+<tr><td bgcolor=$miscbackone valign=top><font face="$font" color=$fontcolormisc><b>æ‰€åœ¨å›½å®¶:</b><br>è¯·é€‰æ‹©ä½ æ‰€åœ¨çš„å›½å®¶ã€‚</td>
 <td bgcolor=$miscbackone>
 <select name="userflag" size=1 onChange="showflag()">
-<option value="blank">±£ÃÜ</option>
-<option value="China">ÖĞ¹ú</option>
-<option value="Angola">°²¸çÀ­</option>
-<option value="Antigua">°²Ìá¹Ï</option>
-<option value="Argentina">°¢¸ùÍ¢</option>
-<option value="Armenia">ÑÇÃÀÄáÑÇ</option>
-<option value="Australia">°Ä´óÀûÑÇ</option>
-<option value="Austria">°ÂµØÀû</option>
-<option value="Bahamas">°Í¹şÂí</option>
-<option value="Bahrain">°ÍÁÖ</option>
-<option value="Bangladesh">ÃÏ¼ÓÀ­</option>
-<option value="Barbados">°Í°Í¶àË¹</option>
-<option value="Belgium">±ÈÀûÊ±</option>
-<option value="Bermuda">°ÙÄ½´ó</option>
-<option value="Bolivia">²£ÀûÎ¬ÑÇ</option>
-<option value="Brazil">°ÍÎ÷</option>
-<option value="Brunei">ÎÄÀ³</option>
-<option value="Canada">¼ÓÄÃ´ó</option>
-<option value="Chile">ÖÇÀû</option>
-<option value="Colombia">¸çÂ×±ÈÑÇ</option>
-<option value="Croatia">¿ËÂŞµØÑÇ</option>
-<option value="Cuba">¹Å°Í</option>
-<option value="Cyprus">ÈûÆÖÂ·Ë¹</option>
-<option value="Czech_Republic">½İ¿Ë</option>
-<option value="Denmark">µ¤Âó</option>
-<option value="Dominican_Republic">¶àÃ×Äá¼Ó</option>
-<option value="Ecuador">¶ò¹Ï¶à¶û</option>
-<option value="Egypt">°£¼°</option>
-<option value="Estonia">°®É³ÄáÑÇ</option>
-<option value="Finland">·ÒÀ¼</option>
-<option value="France">·¨¹ú</option>
-<option value="Germany">µÂ¹ú</option>
-<option value="Great_Britain">Ó¢¹ú</option>
-<option value="Greece">Ï£À°</option>
-<option value="Guatemala">Î£µØÂíÀ­</option>
-<option value="Honduras">ºé¶¼À­Ë¹</option>
-<option value="Hungary">ĞÙÑÀÀû</option>
-<option value="Iceland">±ùµº</option>
-<option value="India">Ó¡¶È</option>
-<option value="Indonesia">Ó¡¶ÈÄáÎ÷ÑÇ</option>
-<option value="Iran">ÒÁÀÊ</option>
-<option value="Iraq">ÒÁÀ­¿Ë</option>
-<option value="Ireland">°®¶ûÀ¼</option>
-<option value="Israel">ÒÔÉ«ÁĞ</option>
-<option value="Italy">Òâ´óÀû</option>
-<option value="Jamaica">ÑÀÂò¼Ó</option>
-<option value="Japan">ÈÕ±¾</option>
-<option value="Jordan">Ô¼µ©</option>
-<option value="Kazakstan">¹şÈø¿Ë</option>
-<option value="Kenya">¿ÏÄáÑÇ</option>
-<option value="Kuwait">¿ÆÍşÌØ</option>
-<option value="Latvia">À­ÍÑÎ¬ÑÇ</option>
-<option value="Lebanon">Àè°ÍÄÛ</option>
-<option value="Lithuania">Á¢ÌÕÍğ</option>
-<option value="Malaysia">ÂíÀ´Î÷ÑÇ</option>
-<option value="Malawi">ÂíÀ­Î¬</option>
-<option value="Malta">Âí¶úËû</option>
-<option value="Mauritius">Ã«ÀïÇóË¹</option>
-<option value="Morocco">Ä¦Âå¸ç</option>
-<option value="Mozambique">ÄªÉ£±È¿Ë</option>
-<option value="Netherlands">ºÉÀ¼</option>
-<option value="New_Zealand">ĞÂÎ÷À¼</option>
-<option value="Nicaragua">Äá¼ÓÀ­¹Ï</option>
-<option value="Nigeria">ÄáÈÕÀûÑÇ</option>
-<option value="Norway">Å²Íş</option>
-<option value="Pakistan">°Í»ùË¹Ì¹</option>
-<option value="Panama">°ÍÄÃÂí</option>
-<option value="Paraguay">°ÍÀ­¹ç</option>
-<option value="Peru">ÃØÂ³</option>
-<option value="Poland">²¨À¼</option>
-<option value="Portugal">ÆÏÌÑÑÀ</option>
-<option value="Romania">ÂŞÂíÄáÑÇ</option>
-<option value="Russia">¶íÂŞË¹</option>
-<option value="Saudi_Arabia">É³ÌØ°¢À­²®</option>
-<option value="Singapore">ĞÂ¼ÓÆÂ</option>
-<option value="Slovakia">Ë¹Âå·¥¿Ë</option>
-<option value="Slovenia">Ë¹ÂåÎÄÄáÑÇ</option>
-<option value="Solomon_Islands">ËùÂŞÃÅ</option>
-<option value="Somalia">Ë÷ÂíÀï</option>
-<option value="South_Africa">ÄÏ·Ç</option>
-<option value="South_Korea">º«¹ú</option>
-<option value="Spain">Î÷°àÑÀ</option>
-<option value="Sri_Lanka">Ó¡¶È</option>
-<option value="Surinam">ËÕÀïÄÏ</option>
-<option value="Sweden">Èğµä</option>
-<option value="Switzerland">ÈğÊ¿</option>
-<option value="Thailand">Ì©¹ú</option>
-<option value="Trinidad_Tobago">¶à°Í¸ç</option>
-<option value="Turkey">ÍÁ¶úÆä</option>
-<option value="Ukraine">ÎÚ¿ËÀ¼</option>
-<option value="United_Arab_Emirates">°¢À­²®ÁªºÏÇõ³¤¹ú</option>
-<option value="United_States">ÃÀ¹ú</option>
-<option value="Uruguay">ÎÚÀ­¹ç</option>
-<option value="Venezuela">Î¯ÄÚÈğÀ­</option>
-<option value="Yugoslavia">ÄÏË¹À­·ò</option>
-<option value="Zambia">ÔŞ±ÈÑÇ</option>
-<option value="Zimbabwe">½ò°Í²¼Î¤</option>
+<option value="blank">ä¿å¯†</option>
+<option value="China">ä¸­å›½</option>
+<option value="Angola">å®‰å“¥æ‹‰</option>
+<option value="Antigua">å®‰æç“œ</option>
+<option value="Argentina">é˜¿æ ¹å»·</option>
+<option value="Armenia">äºšç¾å°¼äºš</option>
+<option value="Australia">æ¾³å¤§åˆ©äºš</option>
+<option value="Austria">å¥¥åœ°åˆ©</option>
+<option value="Bahamas">å·´å“ˆé©¬</option>
+<option value="Bahrain">å·´æ—</option>
+<option value="Bangladesh">å­ŸåŠ æ‹‰</option>
+<option value="Barbados">å·´å·´å¤šæ–¯</option>
+<option value="Belgium">æ¯”åˆ©æ—¶</option>
+<option value="Bermuda">ç™¾æ…•å¤§</option>
+<option value="Bolivia">ç»åˆ©ç»´äºš</option>
+<option value="Brazil">å·´è¥¿</option>
+<option value="Brunei">æ–‡è±</option>
+<option value="Canada">åŠ æ‹¿å¤§</option>
+<option value="Chile">æ™ºåˆ©</option>
+<option value="Colombia">å“¥ä¼¦æ¯”äºš</option>
+<option value="Croatia">å…‹ç½—åœ°äºš</option>
+<option value="Cuba">å¤å·´</option>
+<option value="Cyprus">å¡æµ¦è·¯æ–¯</option>
+<option value="Czech_Republic">æ·å…‹</option>
+<option value="Denmark">ä¸¹éº¦</option>
+<option value="Dominican_Republic">å¤šç±³å°¼åŠ </option>
+<option value="Ecuador">å„ç“œå¤šå°”</option>
+<option value="Egypt">åŸƒåŠ</option>
+<option value="Estonia">çˆ±æ²™å°¼äºš</option>
+<option value="Finland">èŠ¬å…°</option>
+<option value="France">æ³•å›½</option>
+<option value="Germany">å¾·å›½</option>
+<option value="Great_Britain">è‹±å›½</option>
+<option value="Greece">å¸Œè…Š</option>
+<option value="Guatemala">å±åœ°é©¬æ‹‰</option>
+<option value="Honduras">æ´ªéƒ½æ‹‰æ–¯</option>
+<option value="Hungary">åŒˆç‰™åˆ©</option>
+<option value="Iceland">å†°å²›</option>
+<option value="India">å°åº¦</option>
+<option value="Indonesia">å°åº¦å°¼è¥¿äºš</option>
+<option value="Iran">ä¼Šæœ—</option>
+<option value="Iraq">ä¼Šæ‹‰å…‹</option>
+<option value="Ireland">çˆ±å°”å…°</option>
+<option value="Israel">ä»¥è‰²åˆ—</option>
+<option value="Italy">æ„å¤§åˆ©</option>
+<option value="Jamaica">ç‰™ä¹°åŠ </option>
+<option value="Japan">æ—¥æœ¬</option>
+<option value="Jordan">çº¦æ—¦</option>
+<option value="Kazakstan">å“ˆè¨å…‹</option>
+<option value="Kenya">è‚¯å°¼äºš</option>
+<option value="Kuwait">ç§‘å¨ç‰¹</option>
+<option value="Latvia">æ‹‰è„±ç»´äºš</option>
+<option value="Lebanon">é»å·´å«©</option>
+<option value="Lithuania">ç«‹é™¶å®›</option>
+<option value="Malaysia">é©¬æ¥è¥¿äºš</option>
+<option value="Malawi">é©¬æ‹‰ç»´</option>
+<option value="Malta">é©¬è€³ä»–</option>
+<option value="Mauritius">æ¯›é‡Œæ±‚æ–¯</option>
+<option value="Morocco">æ‘©æ´›å“¥</option>
+<option value="Mozambique">è«æ¡‘æ¯”å…‹</option>
+<option value="Netherlands">è·å…°</option>
+<option value="New_Zealand">æ–°è¥¿å…°</option>
+<option value="Nicaragua">å°¼åŠ æ‹‰ç“œ</option>
+<option value="Nigeria">å°¼æ—¥åˆ©äºš</option>
+<option value="Norway">æŒªå¨</option>
+<option value="Pakistan">å·´åŸºæ–¯å¦</option>
+<option value="Panama">å·´æ‹¿é©¬</option>
+<option value="Paraguay">å·´æ‹‰åœ­</option>
+<option value="Peru">ç§˜é²</option>
+<option value="Poland">æ³¢å…°</option>
+<option value="Portugal">è‘¡è„ç‰™</option>
+<option value="Romania">ç½—é©¬å°¼äºš</option>
+<option value="Russia">ä¿„ç½—æ–¯</option>
+<option value="Saudi_Arabia">æ²™ç‰¹é˜¿æ‹‰ä¼¯</option>
+<option value="Singapore">æ–°åŠ å¡</option>
+<option value="Slovakia">æ–¯æ´›ä¼å…‹</option>
+<option value="Slovenia">æ–¯æ´›æ–‡å°¼äºš</option>
+<option value="Solomon_Islands">æ‰€ç½—é—¨</option>
+<option value="Somalia">ç´¢é©¬é‡Œ</option>
+<option value="South_Africa">å—é</option>
+<option value="South_Korea">éŸ©å›½</option>
+<option value="Spain">è¥¿ç­ç‰™</option>
+<option value="Sri_Lanka">å°åº¦</option>
+<option value="Surinam">è‹é‡Œå—</option>
+<option value="Sweden">ç‘å…¸</option>
+<option value="Switzerland">ç‘å£«</option>
+<option value="Thailand">æ³°å›½</option>
+<option value="Trinidad_Tobago">å¤šå·´å“¥</option>
+<option value="Turkey">åœŸè€³å…¶</option>
+<option value="Ukraine">ä¹Œå…‹å…°</option>
+<option value="United_Arab_Emirates">é˜¿æ‹‰ä¼¯è”åˆé…‹é•¿å›½</option>
+<option value="United_States">ç¾å›½</option>
+<option value="Uruguay">ä¹Œæ‹‰åœ­</option>
+<option value="Venezuela">å§”å†…ç‘æ‹‰</option>
+<option value="Yugoslavia">å—æ–¯æ‹‰å¤«</option>
+<option value="Zambia">èµæ¯”äºš</option>
+<option value="Zimbabwe">æ´¥å·´å¸ƒéŸ¦</option>
 </select>
 <img src="$imagesurl/flags/$userflag.gif" name="userflags" border=0 height=14 width=21>
 </td></tr>
@@ -201,14 +201,14 @@ function showflag(){document.images.userflags.src="$imagesurl/flags/"+document.c
 
     my ($getpassq, $getpassa) =split(/\|/,$userquestion); 
     $getpassFORM =qq~ 
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâ£º</b>ÓÃÓÚÈ¡µÃÍü¼ÇÁËµÄÂÛÌ³ÃÜÂë<br>×î´ó 20 ¸ö×Ö·û£¨10¸öºº×Ö£©</td> 
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>è®ºå›å¯†ç æç¤ºé—®é¢˜ï¼š</b>ç”¨äºå–å¾—å¿˜è®°äº†çš„è®ºå›å¯†ç <br>æœ€å¤§ 20 ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰</td> 
 <td bgcolor=$miscbackone><input type=text name="getpassq" value="$getpassq" size=20 maxlength=20></td> 
 </tr> 
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ÂÛÌ³ÃÜÂëÌáÊ¾´ğ°¸£º</b>ÅäºÏÉÏÀ¸Ê¹ÓÃ<br>×î´ó 20 ¸ö×Ö·û£¨10¸öºº×Ö£©</td> 
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>è®ºå›å¯†ç æç¤ºç­”æ¡ˆï¼š</b>é…åˆä¸Šæ ä½¿ç”¨<br>æœ€å¤§ 20 ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰</td> 
 <td bgcolor=$miscbackone><input type=text name="getpassa" value="$getpassa" size=20 maxlength=20></td> 
 </tr><tr> 
 <td bgcolor=$miscbacktwo valign=middle colspan=2 align=center> 
-<font color=$fonthighlight><b>ÂÛÌ³ÃÜÂëÌáÊ¾ÎÊÌâºÍ´ğ°¸ÊÇ²»ÄÜ¹»ĞŞ¸ÄµÄ£¬Çë½÷É÷ÊäÈë£¡</b></font></td></tr>~ if(($userquestion eq "")||($userquestion eq "|"));
+<font color=$fonthighlight><b>è®ºå›å¯†ç æç¤ºé—®é¢˜å’Œç­”æ¡ˆæ˜¯ä¸èƒ½å¤Ÿä¿®æ”¹çš„ï¼Œè¯·è°¨æ…è¾“å…¥ï¼</b></font></td></tr>~ if(($userquestion eq "")||($userquestion eq "|"));
 
     $signature=$signatureorigin if ($signatureorigin);
     $signature="" if (($signatureorigin eq "")&&($signaturehtml eq ""));
@@ -224,13 +224,13 @@ function showflag(){document.images.userflags.src="$imagesurl/flags/"+document.c
     $interests =~ s/<p>/\n/isg;
     $interests =~ s/\n+/\n/isg;
 
-    $tempoutput = "<select name=\"newshowemail\">\n<option value=\"yes\">ÊÇ\n<option value=\"msn\">MSN\n<option value=\"popo\">ÍøÒ×ÅİÅİ\n<option value=\"no\">·ñ\n</select>\n";
+    $tempoutput = "<select name=\"newshowemail\">\n<option value=\"yes\">æ˜¯\n<option value=\"msn\">MSN\n<option value=\"popo\">ç½‘æ˜“æ³¡æ³¡\n<option value=\"no\">å¦\n</select>\n";
     $tempoutput =~ s/value=\"$showemail\"/value=\"$showemail\" selected/;
 
     $output .= qq~
 <script>
 function chk(){
-if(!document.creator.oldpassword.value){alert('ÎªÁË°²È«£¬ÇëÊäÈëÄ¿Ç°ÂÛÌ³µÄÃÜÂë¡£');document.creator.oldpassword.focus();return false;}
+if(!document.creator.oldpassword.value){alert('ä¸ºäº†å®‰å…¨ï¼Œè¯·è¾“å…¥ç›®å‰è®ºå›çš„å¯†ç ã€‚');document.creator.oldpassword.focus();return false;}
 }
 </script>
 <tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center>
@@ -238,17 +238,17 @@ if(!document.creator.oldpassword.value){alert('ÎªÁË°²È«£¬ÇëÊäÈëÄ¿Ç°ÂÛÌ³µÄÃÜÂë¡£'
 <input type=hidden name="action" value="process">
 <input type=hidden name="oldsex" value="$sex">
 <input type=hidden name="membername" value="$inmembername">
-<font color=$fontcolormisc>ĞŞ¸Ä <font color=$fonthighlight><b>$inmembername</b></font> µÄ¸öÈË×ÊÁÏ</td></tr>
-<tr><td bgcolor=$miscbacktwo width=40%><font color=$fonthighlight><b>Ä¿Ç°ÂÛÌ³ÃÜÂë£º</b> <U>ÎªÁË°²È«£¬ÇëÏÈÊäÈëÄúÄ¿Ç°µÄÂÛÌ³ÃÜÂë</U></td>
-<td bgcolor=$miscbacktwo width=60%><input type=password name="oldpassword" maxlength=20>¡¡<font color=$fonthighlight>*</td>
+<font color=$fontcolormisc>ä¿®æ”¹ <font color=$fonthighlight><b>$inmembername</b></font> çš„ä¸ªäººèµ„æ–™</td></tr>
+<tr><td bgcolor=$miscbacktwo width=40%><font color=$fonthighlight><b>ç›®å‰è®ºå›å¯†ç ï¼š</b> <U>ä¸ºäº†å®‰å…¨ï¼Œè¯·å…ˆè¾“å…¥æ‚¨ç›®å‰çš„è®ºå›å¯†ç </U></td>
+<td bgcolor=$miscbacktwo width=60%><input type=password name="oldpassword" maxlength=20>ã€€<font color=$fonthighlight>*</td>
 </tr>
 <tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center></td></tr>
 $newpasswordaddon$getpassFORM
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ÓÊ¼şµØÖ·£º</b><br>ÇëÊäÈëÓĞĞ§µÄÓÊ¼şµØÖ·£¬Õâ½«±£Ö¤ÄúÔÚÂÛÌ³ÖĞµÄË½ÈË×ÊÁÏ¡£$newpassneeded</td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>é‚®ä»¶åœ°å€ï¼š</b><br>è¯·è¾“å…¥æœ‰æ•ˆçš„é‚®ä»¶åœ°å€ï¼Œè¿™å°†ä¿è¯æ‚¨åœ¨è®ºå›ä¸­çš„ç§äººèµ„æ–™ã€‚$newpassneeded</td>
 <td bgcolor=$miscbackone><input type=text name="newemailaddress" value="$emailaddress"></td>
 </tr><tr>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>ÏÔÊ¾ÓÊ¼şµØÖ·</b><br>
-ÄúÊÇ·ñÏ£ÍûÔÚÄú·¢±íÎÄÕÂÖ®ºóÏÔÊ¾ÄúµÄÓÊ¼ş£¿</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>æ˜¾ç¤ºé‚®ä»¶åœ°å€</b><br>
+æ‚¨æ˜¯å¦å¸Œæœ›åœ¨æ‚¨å‘è¡¨æ–‡ç« ä¹‹åæ˜¾ç¤ºæ‚¨çš„é‚®ä»¶ï¼Ÿ</td>
 <td bgcolor=$miscbackone><font color=$fontcolormisc>$tempoutput</font></td>
 </tr>
 ~;
@@ -256,14 +256,14 @@ $newpasswordaddon$getpassFORM
     $membertitle = "" if ($membertitle =~ m/^member$/i);
     if (($editusertitleself eq "post") && ($jifen >= $needpoststitle)) { $editusertitleself = "on"; }
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>¸öÈËÍ·ÏÎ£º</b><BR>×î´ó 20 ¸ö×Ö·û£¨10¸öºº×Ö£©</td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ä¸ªäººå¤´è¡”ï¼š</b><BR>æœ€å¤§ 20 ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰</td>
 <td bgcolor=$miscbackone><input type=text name="newmembertitle" value="$membertitle" size=14 maxlength=20></td>
 </tr>
 ~ if ($editusertitleself eq "on");
 
     if (($editjhmpself eq "post") && (($numberofposts + $numberofreplys) >= $needpostsjhmp)) { $editjhmpself = "on"; }
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>½­ºşÃÅÅÉ£º</b><BR>×î´ó 20 ¸ö×Ö·û£¨10¸öºº×Ö£©</td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>æ±Ÿæ¹–é—¨æ´¾ï¼š</b><BR>æœ€å¤§ 20 ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰</td>
 <td bgcolor=$miscbackone><input type=text name="newjhmp" value="$jhmp" size=14 maxlength=20></td>
 </tr>
 ~ if ($editjhmpself eq "on");
@@ -287,52 +287,52 @@ $newpasswordaddon$getpassFORM
 	$JUMP=~s/(.+?)\t[1|0]\t(.*?)\t\n/
 	my $temp=$1;
 	my $temp1=$2;
-	$temp=qq(<option value="$temp_c">$temp¡¡¡¡[´´Ê¼ÈË£º$temp1]<\/option>);
+	$temp=qq(<option value="$temp_c">$tempã€€ã€€[åˆ›å§‹äººï¼š$temp1]<\/option>);
 	$temp_c++;
 	$temp;
 	/ge;
-	$JUMP=qq(<option value="1000">ÎŞÃÅÎŞÅÉ</option>$JUMP);
+	$JUMP=qq(<option value="1000">æ— é—¨æ— æ´¾</option>$JUMP);
 	my $jhmp_c=quotemeta($jhmp);
-	$JUMP=~s/<option value="([0-9]+)">$jhmp_c¡¡¡¡\[(.+?)\]<\/option>/<option value="$1" selected>$jhmp¡¡¡¡\[$2\]<\/option>/;
+	$JUMP=~s/<option value="([0-9]+)">$jhmp_cã€€ã€€\[(.+?)\]<\/option>/<option value="$1" selected>$jhmpã€€ã€€\[$2\]<\/option>/;
 	$output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>½­ºşÃÅÅÉ£º</b><BR>ÇëÑ¡ÔñÒ»¸öÄúÏ²»¶µÄÃÅÅÉ</td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>æ±Ÿæ¹–é—¨æ´¾ï¼š</b><BR>è¯·é€‰æ‹©ä¸€ä¸ªæ‚¨å–œæ¬¢çš„é—¨æ´¾</td>
 <td bgcolor=$miscbackone><select name="newjhmp">$JUMP</select></td>
 </tr>
 ~;
     }
 
-    $tempoutput = "<select name=\"newsex\" size=\"1\"><option value=\"no\">±£ÃÜ </option><option value=\"m\">Ë§¸ç </option><option value=\"f\">ÃÀÅ® </option></select>\n";
+    $tempoutput = "<select name=\"newsex\" size=\"1\"><option value=\"no\">ä¿å¯† </option><option value=\"m\">å¸…å“¥ </option><option value=\"f\">ç¾å¥³ </option></select>\n";
     $tempoutput =~ s/value=\"$sex\"/value=\"$sex\" selected/;
 
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ĞÔ±ğ£º</b></td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>æ€§åˆ«ï¼š</b></td>
 <td bgcolor=$miscbackone><font color=$fontcolormisc>$tempoutput</font></td>
 </tr>
 ~;
 
-    $tempoutput = "<select name=\"neweducation\" size=\"1\"><option value=\"±£ÃÜ\">±£ÃÜ </option><option value=\"Ğ¡Ñ§\">Ğ¡Ñ§ </option><option value=\"³õÖĞ\">³õÖĞ </option><option value=\"¸ßÖĞ\">¸ßÖĞ</option><option value=\"ÖĞ×¨\">ÖĞ×¨</option><option value=\"´ó×¨\">´ó×¨</option><option value=\"±¾¿Æ\">±¾¿Æ</option><option value=\"Ë¶Ê¿\">Ë¶Ê¿</option><option value=\"²©Ê¿\">²©Ê¿</option><option value=\"²©Ê¿ºó\">²©Ê¿ºó</option></select>\n";
+    $tempoutput = "<select name=\"neweducation\" size=\"1\"><option value=\"ä¿å¯†\">ä¿å¯† </option><option value=\"å°å­¦\">å°å­¦ </option><option value=\"åˆä¸­\">åˆä¸­ </option><option value=\"é«˜ä¸­\">é«˜ä¸­</option><option value=\"ä¸­ä¸“\">ä¸­ä¸“</option><option value=\"å¤§ä¸“\">å¤§ä¸“</option><option value=\"æœ¬ç§‘\">æœ¬ç§‘</option><option value=\"ç¡•å£«\">ç¡•å£«</option><option value=\"åšå£«\">åšå£«</option><option value=\"åšå£«å\">åšå£«å</option></select>\n";
     $tempoutput =~ s/value=\"$education\"/value=\"$education\" selected/;
 
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>×î¸ßÑ§Àú£º</b></td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>æœ€é«˜å­¦å†ï¼š</b></td>
 <td bgcolor=$miscbackone><font color=$fontcolormisc>$tempoutput</font></td>
 </tr>
 ~;
 
-    $tempoutput = "<select name=\"newmarry\" size=\"1\"><option value=\"±£ÃÜ\">±£ÃÜ </option><option value=\"Î´»é\">Î´»é </option><option value=\"ÒÑ»é\">ÒÑ»é </option><option value=\"Àë»é\">Àë»é </option><option value=\"É¥Å¼\">É¥Å¼ </option></select>\n";
+    $tempoutput = "<select name=\"newmarry\" size=\"1\"><option value=\"ä¿å¯†\">ä¿å¯† </option><option value=\"æœªå©š\">æœªå©š </option><option value=\"å·²å©š\">å·²å©š </option><option value=\"ç¦»å©š\">ç¦»å©š </option><option value=\"ä¸§å¶\">ä¸§å¶ </option></select>\n";
     $tempoutput =~ s/value=\"$marry\"/value=\"$marry\" selected/;
 
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>»éÒö×´¿ö£º</b></td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>å©šå§»çŠ¶å†µï¼š</b></td>
 <td bgcolor=$miscbackone><font color=$fontcolormisc>$tempoutput</font></td>
 </tr>
 ~;
 
-    $tempoutput = "<select name=\"newwork\" size=\"1\"><option value=\"±£ÃÜ\">±£ÃÜ </option><option value=\"¼ÆËã»úÒµ\">¼ÆËã»úÒµ </option><option value=\"½ğÈÚÒµ\">½ğÈÚÒµ </option><option value=\"ÉÌÒµ\">ÉÌÒµ </option><option value=\"·şÎñĞĞÒµ\">·şÎñĞĞÒµ </option><option value=\"½ÌÓıÒµ\">½ÌÓıÒµ </option><option value=\"Ñ§Éú\">Ñ§Éú </option><option value=\"¹¤³ÌÊ¦\">¹¤³ÌÊ¦ </option><option value=\"Ö÷¹Ü£¬¾­Àí\">Ö÷¹Ü£¬¾­Àí </option><option value=\"Õş¸®²¿ÃÅ\">Õş¸®²¿ÃÅ </option><option value=\"ÖÆÔìÒµ\">ÖÆÔìÒµ </option><option value=\"ÏúÊÛ/¹ã¸æ/ÊĞ³¡\">ÏúÊÛ/¹ã¸æ/ÊĞ³¡ </option><option value=\"Ê§ÒµÖĞ\">Ê§ÒµÖĞ </option></select>\n";
+    $tempoutput = "<select name=\"newwork\" size=\"1\"><option value=\"ä¿å¯†\">ä¿å¯† </option><option value=\"è®¡ç®—æœºä¸š\">è®¡ç®—æœºä¸š </option><option value=\"é‡‘èä¸š\">é‡‘èä¸š </option><option value=\"å•†ä¸š\">å•†ä¸š </option><option value=\"æœåŠ¡è¡Œä¸š\">æœåŠ¡è¡Œä¸š </option><option value=\"æ•™è‚²ä¸š\">æ•™è‚²ä¸š </option><option value=\"å­¦ç”Ÿ\">å­¦ç”Ÿ </option><option value=\"å·¥ç¨‹å¸ˆ\">å·¥ç¨‹å¸ˆ </option><option value=\"ä¸»ç®¡ï¼Œç»ç†\">ä¸»ç®¡ï¼Œç»ç† </option><option value=\"æ”¿åºœéƒ¨é—¨\">æ”¿åºœéƒ¨é—¨ </option><option value=\"åˆ¶é€ ä¸š\">åˆ¶é€ ä¸š </option><option value=\"é”€å”®/å¹¿å‘Š/å¸‚åœº\">é”€å”®/å¹¿å‘Š/å¸‚åœº </option><option value=\"å¤±ä¸šä¸­\">å¤±ä¸šä¸­ </option></select>\n";
     $tempoutput =~ s/value=\"$work\"/value=\"$work\" selected/;
 
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>Ö°Òµ×´¿ö£º</b></td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>èŒä¸šçŠ¶å†µï¼š</b></td>
 <td bgcolor=$miscbackone><font color=$fontcolormisc>$tempoutput</font></td>
 </tr>
 ~;
@@ -345,52 +345,52 @@ $newpasswordaddon$getpassFORM
     $tempoutput2 =~ s/value=\"$day\"/value=\"$day\" selected/;
 
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ÉúÈÕ£º</b>Èç²»ÏëÌîĞ´£¬ÇëÈ«²¿Áô¿Õ¡£´ËÏî¿ÉÑ¡</td>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><input type="text" name="newyear" size=4 maxlength=4 value="$year">Äê$tempoutput1ÔÂ$tempoutput2ÈÕ</font></td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ç”Ÿæ—¥ï¼š</b>å¦‚ä¸æƒ³å¡«å†™ï¼Œè¯·å…¨éƒ¨ç•™ç©ºã€‚æ­¤é¡¹å¯é€‰</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><input type="text" name="newyear" size=4 maxlength=4 value="$year">å¹´$tempoutput1æœˆ$tempoutput2æ—¥</font></td>
 </tr>
 ~;
 
     if ($usersx eq "") {$usersx = "blank"};
 
-    $tempoutput="<SELECT name=\"usersx\" onchange=showsx() size=\"1\"> <OPTION value=blank>±£ÃÜ</OPTION> <OPTION value=\"sx1\">×ÓÊó</OPTION> <OPTION value=\"sx2\">³óÅ£</OPTION> <OPTION value=\"sx3\">Òú»¢</OPTION> <OPTION value=\"sx4\">Ã®ÍÃ</OPTION> <OPTION value=\"sx5\">³½Áú</OPTION> <OPTION value=\"sx6\">ËÈÉß</OPTION> <OPTION value=\"sx7\">ÎçÂí</OPTION> <OPTION value=\"sx8\">Î´Ñò</OPTION> <OPTION value=\"sx9\">Éêºï</OPTION> <OPTION value=\"sx10\">ÓÏ¼¦</OPTION> <OPTION value=\"sx11\">Ğç¹·</OPTION> <OPTION value=\"sx12\">º¥Öí</OPTION></SELECT>\n";
+    $tempoutput="<SELECT name=\"usersx\" onchange=showsx() size=\"1\"> <OPTION value=blank>ä¿å¯†</OPTION> <OPTION value=\"sx1\">å­é¼ </OPTION> <OPTION value=\"sx2\">ä¸‘ç‰›</OPTION> <OPTION value=\"sx3\">å¯…è™</OPTION> <OPTION value=\"sx4\">å¯å…”</OPTION> <OPTION value=\"sx5\">è¾°é¾™</OPTION> <OPTION value=\"sx6\">å·³è›‡</OPTION> <OPTION value=\"sx7\">åˆé©¬</OPTION> <OPTION value=\"sx8\">æœªç¾Š</OPTION> <OPTION value=\"sx9\">ç”³çŒ´</OPTION> <OPTION value=\"sx10\">é…‰é¸¡</OPTION> <OPTION value=\"sx11\">æˆŒç‹—</OPTION> <OPTION value=\"sx12\">äº¥çŒª</OPTION></SELECT>\n";
     $tempoutput =~ s/value=\"$usersx\"/value=\"$usersx\" selected/;
 
     $output.=qq~
 <SCRIPT language=javascript>
 function showsx(){document.images.usersxs.src="$imagesurl/sx/"+document.creator.usersx.options[document.creator.usersx.selectedIndex].value+".gif";}
 </SCRIPT>
-<tr><td bgcolor=$miscbackone vAlign=top><font color=$fontcolormisc><b>ËùÊôÉúĞ¤£º</b>ÇëÑ¡ÔñÄãËùÊôµÄÉúĞ¤¡£</td>
+<tr><td bgcolor=$miscbackone vAlign=top><font color=$fontcolormisc><b>æ‰€å±ç”Ÿè‚–ï¼š</b>è¯·é€‰æ‹©ä½ æ‰€å±çš„ç”Ÿè‚–ã€‚</td>
 <td bgcolor=$miscbackone>$tempoutput<IMG border=0 name=usersxs src=$imagesurl/sx/$usersx.gif align=absmiddle>
 </TD></TR>
 ~;
     if ($userxz eq "") {$userxz = "blank"};
-    $tempoutput="<SELECT name=\"userxz\" onchange=showxz() size=\"1\"> <OPTION value=blank>±£ÃÜ</OPTION> <OPTION value=\"z1\">°×Ñò×ù(3ÔÂ21--4ÔÂ19ÈÕ)</OPTION> <OPTION value=\"z2\">½ğÅ£×ù(4ÔÂ20--5ÔÂ20ÈÕ)</OPTION> <OPTION value=\"z3\">Ë«×Ó×ù(5ÔÂ21--6ÔÂ21ÈÕ)</OPTION> <OPTION value=\"z4\">¾ŞĞ·×ù(6ÔÂ22--7ÔÂ22ÈÕ)</OPTION> <OPTION value=\"z5\">Ê¨×Ó×ù(7ÔÂ23--8ÔÂ22ÈÕ)</OPTION> <OPTION value=\"z6\">´¦Å®×ù(8ÔÂ23--9ÔÂ22ÈÕ)</OPTION> <OPTION value=\"z7\">Ìì³Ó×ù(9ÔÂ23--10ÔÂ23ÈÕ)</OPTION> <OPTION value=\"z8\">ÌìĞ«×ù(10ÔÂ24--11ÔÂ21ÈÕ)</OPTION> <OPTION value=\"z9\">ÉäÊÖ×ù(11ÔÂ22--12ÔÂ21ÈÕ)</OPTION> <OPTION value=\"z10\">Ä§ôÉ×ù(12ÔÂ22--1ÔÂ19ÈÕ)</OPTION> <OPTION value=\"z11\">Ë®Æ¿×ù(1ÔÂ20--2ÔÂ18ÈÕ)</OPTION> <OPTION value=\"z12\">Ë«Óã×ù(2ÔÂ19--3ÔÂ20ÈÕ)</OPTION></SELECT>\n";
+    $tempoutput="<SELECT name=\"userxz\" onchange=showxz() size=\"1\"> <OPTION value=blank>ä¿å¯†</OPTION> <OPTION value=\"z1\">ç™½ç¾Šåº§(3æœˆ21--4æœˆ19æ—¥)</OPTION> <OPTION value=\"z2\">é‡‘ç‰›åº§(4æœˆ20--5æœˆ20æ—¥)</OPTION> <OPTION value=\"z3\">åŒå­åº§(5æœˆ21--6æœˆ21æ—¥)</OPTION> <OPTION value=\"z4\">å·¨èŸ¹åº§(6æœˆ22--7æœˆ22æ—¥)</OPTION> <OPTION value=\"z5\">ç‹®å­åº§(7æœˆ23--8æœˆ22æ—¥)</OPTION> <OPTION value=\"z6\">å¤„å¥³åº§(8æœˆ23--9æœˆ22æ—¥)</OPTION> <OPTION value=\"z7\">å¤©ç§¤åº§(9æœˆ23--10æœˆ23æ—¥)</OPTION> <OPTION value=\"z8\">å¤©èåº§(10æœˆ24--11æœˆ21æ—¥)</OPTION> <OPTION value=\"z9\">å°„æ‰‹åº§(11æœˆ22--12æœˆ21æ—¥)</OPTION> <OPTION value=\"z10\">é­”ç¾¯åº§(12æœˆ22--1æœˆ19æ—¥)</OPTION> <OPTION value=\"z11\">æ°´ç“¶åº§(1æœˆ20--2æœˆ18æ—¥)</OPTION> <OPTION value=\"z12\">åŒé±¼åº§(2æœˆ19--3æœˆ20æ—¥)</OPTION></SELECT>\n";
     $tempoutput =~ s/value=\"$userxz\"/value=\"$userxz\" selected/;
     $output.=qq~
 <SCRIPT language=javascript>
 function showxz(){document.images.userxzs.src="$imagesurl/star/"+document.creator.userxz.options[document.creator.userxz.selectedIndex].value+".gif";}
 </SCRIPT>
-<tr><td bgcolor=$miscbackone vAlign=top><font color=$fontcolormisc><b>ËùÊôĞÇ×ù£º</b>ÇëÑ¡ÔñÄãËùÊôµÄĞÇ×ù¡£<br>Èç¹ûÄãÕıÈ·ÊäÈëÁËÉúÈÕµÄ»°£¬ÄÇÃ´´ËÏîÎŞĞ§£¡</td>
+<tr><td bgcolor=$miscbackone vAlign=top><font color=$fontcolormisc><b>æ‰€å±æ˜Ÿåº§ï¼š</b>è¯·é€‰æ‹©ä½ æ‰€å±çš„æ˜Ÿåº§ã€‚<br>å¦‚æœä½ æ­£ç¡®è¾“å…¥äº†ç”Ÿæ—¥çš„è¯ï¼Œé‚£ä¹ˆæ­¤é¡¹æ— æ•ˆï¼</td>
 <td bgcolor=$miscbackone>$tempoutput<IMG border=0 height=15 name=userxzs src=$imagesurl/star/$userxz.gif width=15 align=absmiddle>
 </TD></TR>
 ~;
 
     $output .= qq~
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>Ö÷Ò³µØÖ·£º</b><br>Èç¹ûÄúÓĞÖ÷Ò³£¬ÇëÊäÈëÖ÷Ò³µØÖ·¡£´ËÏî¿ÉÑ¡</td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>ä¸»é¡µåœ°å€ï¼š</b><br>å¦‚æœæ‚¨æœ‰ä¸»é¡µï¼Œè¯·è¾“å…¥ä¸»é¡µåœ°å€ã€‚æ­¤é¡¹å¯é€‰</td>
 <td bgcolor=$miscbackone><input type=text name="newhomepage" value="$homepage"></td>
 </tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>OICQ ºÅ£º</b><br>Èç¹ûÄúÓĞ OICQ£¬ÇëÊäÈëºÅÂë¡£´ËÏî¿ÉÑ¡</td>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>OICQ å·ï¼š</b><br>å¦‚æœæ‚¨æœ‰ OICQï¼Œè¯·è¾“å…¥å·ç ã€‚æ­¤é¡¹å¯é€‰</td>
 <td bgcolor=$miscbackone><input type=text name="newoicqnumber" value="$oicqnumber"></td>
 </tr><tr>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>ICQ ºÅ£º</b><br>Èç¹ûÄúÓĞ ICQ£¬ÇëÊäÈëºÅÂë¡£´ËÏî¿ÉÑ¡</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>ICQ å·ï¼š</b><br>å¦‚æœæ‚¨æœ‰ ICQï¼Œè¯·è¾“å…¥å·ç ã€‚æ­¤é¡¹å¯é€‰</td>
 <td bgcolor=$miscbackone><input type=text name="newicqnumber" value="$icqnumber"></td>
 </tr>$flaghtml<tr>
 <script src=$imagesurl/images/comefrom.js></script>
 <body onload="init()">
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>À´×Ô£º</b><br>ÇëÊäÈëÄúËùÔÚµÄµØ·½¡£´ËÏî¿ÉÑ¡</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>æ¥è‡ªï¼š</b><br>è¯·è¾“å…¥æ‚¨æ‰€åœ¨çš„åœ°æ–¹ã€‚æ­¤é¡¹å¯é€‰</td>
 <td bgcolor=$miscbackone>
-Ê¡·İ <select name="province" onChange = "select()"></select>¡¡³ÇÊĞ <select name="city" onChange = "select()"></select><br>
-ÎÒÔÚ <input type=text name="newlocation" value="$location" maxlength=12 size=20 style="font-weight: bold">¡¡²»ÄÜ³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©</td>
+çœä»½ <select name="province" onChange = "select()"></select>ã€€åŸå¸‚ <select name="city" onChange = "select()"></select><br>
+æˆ‘åœ¨ <input type=text name="newlocation" value="$location" maxlength=12 size=20 style="font-weight: bold">ã€€ä¸èƒ½è¶…è¿‡12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰</td>
 </tr><tr>
 ~;
 
@@ -399,21 +399,21 @@ function showxz(){document.images.userxzs.src="$imagesurl/star/"+document.creato
     $tempoutput =~ s/value=\"$timedifference\"/value=\"$timedifference\" selected/;
 
     $output .= qq~
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>Ê±²î£º</b><br>
-·şÎñÆ÷ËùÔÚÊ±Çø£º$basetimes<br>Èç¹ûÄúËùÔÚµÄÎ»ÖÃºÍ·şÎñÆ÷ÓĞÊ±²î£¬ÇëÊäÈë¡£<br>ÒÔºóÄú¿´µ½ËùÓĞµÄÊ±¼ä½«°´ÕÕÄúËùÔÚµÄµØÇøÊ±¼äÏÔÊ¾¡£</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>æ—¶å·®ï¼š</b><br>
+æœåŠ¡å™¨æ‰€åœ¨æ—¶åŒºï¼š$basetimes<br>å¦‚æœæ‚¨æ‰€åœ¨çš„ä½ç½®å’ŒæœåŠ¡å™¨æœ‰æ—¶å·®ï¼Œè¯·è¾“å…¥ã€‚<br>ä»¥åæ‚¨çœ‹åˆ°æ‰€æœ‰çš„æ—¶é—´å°†æŒ‰ç…§æ‚¨æ‰€åœ¨çš„åœ°åŒºæ—¶é—´æ˜¾ç¤ºã€‚</td>
 <td bgcolor=$miscbackone>$tempoutput</td>
 </tr><tr>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>×ÔÎÒ¼ò½é£º </b><BR>²»ÄÜ³¬¹ı <B>$maxinsline</B> ĞĞ£¬Ò²²»ÄÜ³¬¹ı <B>$maxinslegth</B> ¸ö×Ö·û<br><br>Äú¿ÉÒÔÊäÈëÄúµÄ¸öÈË¼ò½é¡£´ËÏî¿ÉÑ¡</td>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>è‡ªæˆ‘ç®€ä»‹ï¼š </b><BR>ä¸èƒ½è¶…è¿‡ <B>$maxinsline</B> è¡Œï¼Œä¹Ÿä¸èƒ½è¶…è¿‡ <B>$maxinslegth</B> ä¸ªå­—ç¬¦<br><br>æ‚¨å¯ä»¥è¾“å…¥æ‚¨çš„ä¸ªäººç®€ä»‹ã€‚æ­¤é¡¹å¯é€‰</td>
 <td bgcolor=$miscbackone><textarea name="newinterests" cols="60" rows="5">$interests</textarea></td>
 </tr><tr>
-<td bgcolor=$miscbackone><font color=$fontcolormisc><b>Ç©Ãû£º</b><br>²»ÄÜ³¬¹ı <B>$maxsignline</B> ĞĞ£¬Ò²²»ÄÜ³¬¹ı <B>$maxsignlegth</B> ¸ö×Ö·û
-<br><br>²»ÄÜÊ¹ÓÃ HTML ±êÇ©<br>¿ÉÒÔÊ¹ÓÃ <a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS ±êÇ©</a><BR>
-<li>ÌùÍ¼±êÇ©¡¡: <b>$signpicstates</b><li>Flash ±êÇ©: <b>$signflashstates</b><li>ÒôÀÖ±êÇ©¡¡: <b>$signsoundstates</b><li>ÎÄ×Ö´óĞ¡¡¡: <b>$signfontsizestates</b>
+<td bgcolor=$miscbackone><font color=$fontcolormisc><b>ç­¾åï¼š</b><br>ä¸èƒ½è¶…è¿‡ <B>$maxsignline</B> è¡Œï¼Œä¹Ÿä¸èƒ½è¶…è¿‡ <B>$maxsignlegth</B> ä¸ªå­—ç¬¦
+<br><br>ä¸èƒ½ä½¿ç”¨ HTML æ ‡ç­¾<br>å¯ä»¥ä½¿ç”¨ <a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS æ ‡ç­¾</a><BR>
+<li>è´´å›¾æ ‡ç­¾ã€€: <b>$signpicstates</b><li>Flash æ ‡ç­¾: <b>$signflashstates</b><li>éŸ³ä¹æ ‡ç­¾ã€€: <b>$signsoundstates</b><li>æ–‡å­—å¤§å°ã€€: <b>$signfontsizestates</b>
 </td>
 <td bgcolor=$miscbackone><textarea name="newsignature" cols="60" rows="8">$signature</textarea></td>
 </tr>
 $avatarhtml
-<tr><td colspan=2 bgcolor=$miscbacktwo align=center><input type=submit value="Ìá ½»" name=submit></td>
+<tr><td colspan=2 bgcolor=$miscbacktwo align=center><input type=submit value="æ äº¤" name=submit></td>
 </form></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;

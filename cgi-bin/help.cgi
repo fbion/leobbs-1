@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -39,7 +39,7 @@ $inadminmodpass         = $query -> param("adminmodpass");
 $inadminmodname         = $query -> param("adminmodname");
 $inadminmodpass         = &cleaninput($inadminmodpass);
 $inadminmodname         = &cleaninput($inadminmodname);
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inadminmodname =~ m/\//)||($inadminmodname =~ m/\\/)||($inadminmodname =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inadminmodname =~ m/\//)||($inadminmodname =~ m/\\/)||($inadminmodname =~ m/\.\./));
 $inadminmodname =~ s/\///g;
 $inadminmodname =~ s/\.\.//g;
 $inadminmodname =~ s/\\//g;
@@ -51,7 +51,7 @@ if ($inadminmodpass ne "") {
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -72,7 +72,7 @@ $cleanadminname = $inadmin;
 $cleanadminname =~ s/\_/ /g;
 $cleannewname = $innew;
 $cleannewname =~ s/\_/ /g;
-if (($number) && ($number !~ /^[0-9]+$/)) { &error("ÆÕÍ¨´íÎó&Çë²»ÒªĞŞ¸ÄÉú³ÉµÄ URL£¡"); }
+if (($number) && ($number !~ /^[0-9]+$/)) { &error("æ™®é€šé”™è¯¯&è¯·ä¸è¦ä¿®æ”¹ç”Ÿæˆçš„ URLï¼"); }
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -80,8 +80,8 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if (! $inadminmodname) { $inadminmodname = $inmembername; }
 if (! $inadminmodpass) { $inadminmodpass = $inpassword; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 }
 else {
 	&getmember("$inmembername","no");
@@ -89,9 +89,9 @@ else {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 }
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     if ($inhelpon) {
@@ -102,13 +102,13 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                 <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameµÄ°ïÖúÎÄ¼ş</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameçš„å¸®åŠ©æ–‡ä»¶</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
-                       <br><center>$inmembername£¬Ï£ÍûÏÂÃæµÄ°ïÖú¶ÔÄúÓĞÓÃ</center><br><br>
+                       <br><center>$inmembernameï¼Œå¸Œæœ›ä¸‹é¢çš„å¸®åŠ©å¯¹æ‚¨æœ‰ç”¨</center><br><br>
                        <font face="$font" color=$fontcolormisc>
-                       <b>¹ØÓÚ$cleanhelpnameµÄ°ïÖú£º</b><p>
+                       <b>å…³äº$cleanhelpnameçš„å¸®åŠ©ï¼š</b><p>
 	~;
         $filetoopen = "$lbdir" . "help/$inhelpon.dat";
         $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
@@ -127,13 +127,13 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                 <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameµÄ°ïÖúÎÄ¼ş</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameçš„å¸®åŠ©æ–‡ä»¶</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
                        <br>
                        <font face="$font" color=$fontcolormisc>
-                       <b>¹ØÓÚ$cleannewnameµÄ°ïÖú£º</b><p>
+                       <b>å…³äº$cleannewnameçš„å¸®åŠ©ï¼š</b><p>
 	~;
         $filetoopen = "$lbdir" . "help/$cleannewname.pl";
         $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
@@ -148,8 +148,8 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
             &getmember("$inadminmodname","no");
 
-            unless ($membercode eq "ad" ||($membercode eq 'smo')|| $membercode eq "cmo" || $membercode eq "amo" || $membercode eq "mo") { &messangererror("²é¿´°ïÖú&ÄúÃ»ÓĞÈ¨ÏŞ²é¿´´ËÎÄ¼ş£¡"); }
-            if ($inadminmodpass ne $password) { &messangererror("²é¿´°ïÖú&ÄúµÄÃÜÂë´íÎó£¡"); }
+            unless ($membercode eq "ad" ||($membercode eq 'smo')|| $membercode eq "cmo" || $membercode eq "amo" || $membercode eq "mo") { &messangererror("æŸ¥çœ‹å¸®åŠ©&æ‚¨æ²¡æœ‰æƒé™æŸ¥çœ‹æ­¤æ–‡ä»¶ï¼"); }
+            if ($inadminmodpass ne $password) { &messangererror("æŸ¥çœ‹å¸®åŠ©&æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
             $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -158,13 +158,13 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                 <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameµÄ°ïÖúÎÄ¼ş</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameçš„å¸®åŠ©æ–‡ä»¶</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
-                      <br><center>$inadminmodname£¬Ï£ÍûÏÂÃæµÄ°ïÖú¶ÔÄúÓĞÓÃ</center><br><br>
+                      <br><center>$inadminmodnameï¼Œå¸Œæœ›ä¸‹é¢çš„å¸®åŠ©å¯¹æ‚¨æœ‰ç”¨</center><br><br>
                       <font face="$font" color=$fontcolormisc>
-                      <b>¡¡¡¡Ì³Ö÷/°æÖ÷°ïÖúÎÄ¼ş</b><p>
+                      <b>ã€€ã€€å›ä¸»/ç‰ˆä¸»å¸®åŠ©æ–‡ä»¶</b><p>
              ~;
             $dirtoopen = "$lbdir" . "help";
             opendir (DIR, "$dirtoopen");
@@ -180,13 +180,13 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                 $cleanname = $filename;
                 $cleanname =~ s/\_/ /g;
                 $cleannamefile = uri_escape($cleanname);
-                $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;¹ØÓÚ<a href="$thisprog?admin=$cleannamefile" target="_self"><b>$cleanname</b></a>µÄ°ïÖú<p>~;
+                $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;å…³äº<a href="$thisprog?admin=$cleannamefile" target="_self"><b>$cleanname</b></a>çš„å¸®åŠ©<p>~;
             }
 	}
         elsif ($inadmin) {
 	    &getmember("$inmembername","no");
-            unless ($membercode eq "ad" || $membercode eq 'smo'|| $membercode eq 'cmo'|| $membercode eq 'amo'|| $membercode eq "mo") { &messangererror("²é¿´°ïÖú&ÄúÃ»ÓĞÈ¨ÏŞ²é¿´´ËÎÄ¼ş£¡"); }
-            if ($inpassword ne $password) { &messangererror("²é¿´°ïÖú&ÄúµÄÃÜÂë´íÎó£¡"); }
+            unless ($membercode eq "ad" || $membercode eq 'smo'|| $membercode eq 'cmo'|| $membercode eq 'amo'|| $membercode eq "mo") { &messangererror("æŸ¥çœ‹å¸®åŠ©&æ‚¨æ²¡æœ‰æƒé™æŸ¥çœ‹æ­¤æ–‡ä»¶ï¼"); }
+            if ($inpassword ne $password) { &messangererror("æŸ¥çœ‹å¸®åŠ©&æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 	    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
 		<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -194,13 +194,13 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                   <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameµÄ°ïÖúÎÄ¼ş</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameçš„å¸®åŠ©æ–‡ä»¶</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
-                      <br><center>$inmembername£¬Ï£ÍûÏÂÃæµÄ°ïÖú¶ÔÄúÓĞÓÃ</center><br><br>
+                      <br><center>$inmembernameï¼Œå¸Œæœ›ä¸‹é¢çš„å¸®åŠ©å¯¹æ‚¨æœ‰ç”¨</center><br><br>
                       <font face="$font" color=$fontcolormisc>
-                      <b>¹ØÓÚ$cleanadminnameµÄ°ïÖú</b><p>
+                      <b>å…³äº$cleanadminnameçš„å¸®åŠ©</b><p>
             ~;
 
 	    $filetoopen = "$lbdir" . "help/$inadmin.cgi";
@@ -221,11 +221,11 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                 <td>
                     <table cellpadding=3 cellspacing=1 width=100%>
                         <tr>
-                            <td bgcolor=$miscbacktwo align=center colspan=2 $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameµÄ°ïÖúÎÄ¼ş</b></td>
+                            <td bgcolor=$miscbacktwo align=center colspan=2 $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardnameçš„å¸®åŠ©æ–‡ä»¶</b></td>
                         </tr>
                         <tr>
                             <td bgcolor=$miscbackone align=center><br><center><font face="$font" color=$fontcolormisc>
-                            <b>&nbsp;&nbsp;&nbsp;&nbsp;³£¹æ°ïÖúÎÄ¼ş</b></td>
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;å¸¸è§„å¸®åŠ©æ–‡ä»¶</b></td>
                         </tr>
                         <tr>
                             <td bgcolor=$miscbackone valign=top align=left><font face="$font" color=$fontcolormisc>
@@ -247,44 +247,44 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                 $cleanname = $filename;
                 $cleanname =~ s/\_/ /g;
                 $cleannamefile = uri_escape($cleanname);
-                $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;¹ØÓÚ<a href="$thisprog?helpon=$cleannamefile" target="_self"><b>$cleanname</b></a>µÄ°ïÖú<p>~;
+                $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;å…³äº<a href="$thisprog?helpon=$cleannamefile" target="_self"><b>$cleanname</b></a>çš„å¸®åŠ©<p>~;
             }
 	    $output .= qq~</td>~;
 	}
 
 $output .= qq~</tr><tr><td bgcolor=$miscbackone valign=middle align=center colspan=2><font face="$font" color=$fontcolormisc>~;
-    if ($passwordverification eq "yes") { $passwordverification = "ÊÇ±ØĞèµÄ"; }
-    else { $passwordverification = "²»ÊÇ±ØĞèµÄ"; }
+    if ($passwordverification eq "yes") { $passwordverification = "æ˜¯å¿…éœ€çš„"; }
+    else { $passwordverification = "ä¸æ˜¯å¿…éœ€çš„"; }
 
-    if ($emailfunctions ne "on") { $emailfunctions = "¹Ø±Õ"; }
+    if ($emailfunctions ne "on") { $emailfunctions = "å…³é—­"; }
 
     if ($emoticons eq "on") {
-	$emoticons = "Ê¹ÓÃ";
-        $emoticonslink = qq~| ²é¿´<a href=javascript:openScript('misc.cgi?action=showsmilies',300,350)>±íÇé×ª»»</a>~;
+	$emoticons = "ä½¿ç”¨";
+        $emoticonslink = qq~| æŸ¥çœ‹<a href=javascript:openScript('misc.cgi?action=showsmilies',300,350)>è¡¨æƒ…è½¬æ¢</a>~;
     }
-    else { $emoticons = "Ã»ÓĞÊ¹ÓÃ"; }
-    $output .= qq~<p><br><br>²é¿´<a href=\"$thisprog\" target=\"_self\">ËùÓĞµÄ°ïÖúÎÄ¼ş</a> $emoticonslink | ²é¿´ <a href=\"javascript:openScript('misc.cgi?action=lbcode',300,350)\">LeoBBS ±êÇ©</a> | ²é¿´ <a href=\"javascript:openScript('lookemotes.cgi?action=style',300,350)\">EMOTE ±êÇ©</a><BR><BR>~;
+    else { $emoticons = "æ²¡æœ‰ä½¿ç”¨"; }
+    $output .= qq~<p><br><br>æŸ¥çœ‹<a href=\"$thisprog\" target=\"_self\">æ‰€æœ‰çš„å¸®åŠ©æ–‡ä»¶</a> $emoticonslink | æŸ¥çœ‹ <a href=\"javascript:openScript('misc.cgi?action=lbcode',300,350)\">LeoBBS æ ‡ç­¾</a> | æŸ¥çœ‹ <a href=\"javascript:openScript('lookemotes.cgi?action=style',300,350)\">EMOTE æ ‡ç­¾</a><BR><BR>~;
 
     $output .= qq~
     </td></tr>
     <tr>
-    <td bgcolor=$miscbacktwo align=center colspan=2><font face="$font" color=$fontcolormisc><b>ÂÛÌ³³£¹æĞÅÏ¢</b><br><br>
-    ±íÇé×Ô¶¯×ª»»£º<b>$emoticons</b><br>ÓÊ¼şµØÖ·È·ÈÏ£º<b>$passwordverification</b><br>ÂÛÌ³ÓÊ¼ş¹¦ÄÜ£º<b>$emailfunctions</b><br><br>
+    <td bgcolor=$miscbacktwo align=center colspan=2><font face="$font" color=$fontcolormisc><b>è®ºå›å¸¸è§„ä¿¡æ¯</b><br><br>
+    è¡¨æƒ…è‡ªåŠ¨è½¬æ¢ï¼š<b>$emoticons</b><br>é‚®ä»¶åœ°å€ç¡®è®¤ï¼š<b>$passwordverification</b><br>è®ºå›é‚®ä»¶åŠŸèƒ½ï¼š<b>$emailfunctions</b><br><br>
     </td>
     </tr>
     <tr>
-    <td bgcolor=$miscbackone align=center colspan=2><font face="$font" color=$fontcolormisc><b>µÇÂ¼·ÃÎÊÌ³Ö÷/°æÖ÷µÄ°ïÖú</b><br>
+    <td bgcolor=$miscbackone align=center colspan=2><font face="$font" color=$fontcolormisc><b>ç™»å½•è®¿é—®å›ä¸»/ç‰ˆä¸»çš„å¸®åŠ©</b><br>
 
     <form action="$thisprog" method="post">
     <input type=hidden name="action" value="login">
     <font face="$font" color=$fontcolormisc>
-    ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£<BR>
-    ÓÃ»§Ãû£º&nbsp; <input type=text name="adminmodname"> &nbsp;
-    ÃÜ¡¡Âë£º&nbsp; <input type=password name="adminmodpass"> &nbsp; <input type=submit value="µÇ Â¼"></td></tr></form>
+    æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚<BR>
+    ç”¨æˆ·åï¼š&nbsp; <input type=text name="adminmodname"> &nbsp;
+    å¯†ã€€ç ï¼š&nbsp; <input type=password name="adminmodpass"> &nbsp; <input type=submit value="ç™» å½•"></td></tr></form>
     </table></td></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
 
-    &output("$boardname - °ïÖú",\$output,"msg");
+    &output("$boardname - å¸®åŠ©",\$output,"msg");
 
 sub messangererror {
     my $errorinfo = shift;
@@ -295,23 +295,23 @@ sub messangererror {
         <td>
         <table cellpadding=6 cellspacing=1 width=100%>
         <tr>
-            <td bgcolor=$miscbacktwo valign=middle align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>´íÎó£º$where</b></font></td></tr>
+            <td bgcolor=$miscbacktwo valign=middle align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>é”™è¯¯ï¼š$where</b></font></td></tr>
             <tr>
                 <td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-                <b>¹ØÓÚ$where´íÎóµÄÏêÏ¸Ô­Òò£º</b>
+                <b>å…³äº$whereé”™è¯¯çš„è¯¦ç»†åŸå› ï¼š</b>
                 <ul>
                 <li><b>$errormsg</b>
                 </ul>
-                <b>²úÉú$where´íÎóµÄ¿ÉÄÜÔ­Òò£º£º</b>
+                <b>äº§ç”Ÿ$whereé”™è¯¯çš„å¯èƒ½åŸå› ï¼šï¼š</b>
                 <ul>
-                <li>ÃÜÂë´íÎó<li>ÓÃ»§Ãû´íÎó
+                <li>å¯†ç é”™è¯¯<li>ç”¨æˆ·åé”™è¯¯
                 </ul>
                 </tr>
                 </td></tr>
                 <tr>
-                <td bgcolor=$miscbacktwo valign=middle align=center><font face="$font" color=$fontcolormisc> <a href="javascript:history.go(-1)"> << ·µ»ØÉÏÒ»Ò³</a>
+                <td bgcolor=$miscbacktwo valign=middle align=center><font face="$font" color=$fontcolormisc> <a href="javascript:history.go(-1)"> << è¿”å›ä¸Šä¸€é¡µ</a>
                 </td></tr>
                 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
-    &output("$boardname - °ïÖú",\$output,"msg");
+    &output("$boardname - å¸®åŠ©",\$output,"msg");
 }

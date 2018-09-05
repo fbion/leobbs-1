@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -38,9 +38,9 @@ $inpassword = $query->cookie("apasswordcookie") if (!$inpassword);
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" )
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" )
 {
-	&error("ÆÕÍ¨´íÎó&ÄãÏÖÔÚµÄÉí·İÊÇ·Ã¿Í£¬±ØĞëµÇÂ¼ÒÔºó²ÅÄÜ²é¿´¸öÈËÖ÷Ìâ£¡");
+	&error("æ™®é€šé”™è¯¯&ä½ ç°åœ¨çš„èº«ä»½æ˜¯è®¿å®¢ï¼Œå¿…é¡»ç™»å½•ä»¥åæ‰èƒ½æŸ¥çœ‹ä¸ªäººä¸»é¢˜ï¼");
 }
 else
 {
@@ -49,14 +49,14 @@ else
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 }
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -70,17 +70,17 @@ if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$cat
 $action = $query->param("action");
 if ($action eq "post")
 {
-	$title = "ÎÒ±»»Ø¸´µÄÖ÷Ìâ";
+	$title = "æˆ‘è¢«å›å¤çš„ä¸»é¢˜";
 	&getmytopic("post");
 }
 elsif ($action eq "reply")
 {
-	$title = "ÎÒ²ÎÓëµÄÖ÷Ìâ";
+	$title = "æˆ‘å‚ä¸çš„ä¸»é¢˜";
 	&getmytopic("reply");
 }
 else
 {
-	$title = "ÂÛÌ³×îĞÂÌû";
+	$title = "è®ºå›æœ€æ–°å¸–";
 	&getmytopic("all");
 }
 
@@ -90,7 +90,7 @@ $output = qq~<p>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>$mytopics</font></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - Ö÷Ìâ¹Ø×¢",\$output,"msg");
+&output("$boardname - ä¸»é¢˜å…³æ³¨",\$output,"msg");
 exit;
 
 sub getmytopic
@@ -121,7 +121,7 @@ sub getmytopic
 		{
 			chomp($_);
 			my ($tempinforum, $tempintopic, $temptopictitle, $tempcurrenttime, $tempposticon, $tempmembername) = split(/\t/, $_);
-	                $temptopictitle =~ s/^£ª£££¡£¦£ª//;
+	                $temptopictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
             		next if (($tempinforum !~ /^[0-9]+$/)||($tempintopic !~ /^[0-9]+$/));
 			if (($tempposticon eq "") || ($tempposticon !~ /^[0-9]+\.gif$/i)) {
 				$tempposticon = int(myrand(23));
@@ -138,7 +138,7 @@ sub getmytopic
 	    $temptopictitle =~ s/\&quot;/\"/g;
 #	    $topictitle =~ s/\&lt;/</g;
 #	    $topictitle =~ s/\&gt;/>/g;
-	    $temptopictitle =~ s/ \&nbsp;/¡¡/g;
+	    $temptopictitle =~ s/ \&nbsp;/ã€€/g;
 
 				$addmspace ="";
 			if (length($temptopictitle) > 45)
@@ -161,21 +161,21 @@ sub getmytopic
 			$tempcurrenttime = &dateformatshort($tempcurrenttime + $timezone * 3600 + $timedifferencevalue * 3600);
 			if ($mode eq "all")
 			{
-				$mytopics .= qq~<img src=$imagesurl/posticons/$tempposticon border=0> <a href=$boardurl/topic.cgi?forum=$tempinforum&topic=$tempintopic target=_blank title="Ìû×Ó·¢±íÊ±¼ä: $tempcurrenttime">$temptopictitle</a>$addmspace [<a href=profile.cgi?action=show&member=~ . uri_escape($tempmembername) . qq~ title="µã»÷²é¿´$tempmembernameµÄ×ÊÁÏ" target=_blank>$tempmembername</a>]<br>~;
+				$mytopics .= qq~<img src=$imagesurl/posticons/$tempposticon border=0> <a href=$boardurl/topic.cgi?forum=$tempinforum&topic=$tempintopic target=_blank title="å¸–å­å‘è¡¨æ—¶é—´: $tempcurrenttime">$temptopictitle</a>$addmspace [<a href=profile.cgi?action=show&member=~ . uri_escape($tempmembername) . qq~ title="ç‚¹å‡»æŸ¥çœ‹$tempmembernameçš„èµ„æ–™" target=_blank>$tempmembername</a>]<br>~;
 			}
 			elsif ($mode eq "post")
 			{
-				$mytopics .= qq~<img src=$imagesurl/posticons/$tempposticon border=0> <a href=$boardurl/topic.cgi?forum=$tempinforum&topic=$tempintopic target=_blank title="×îºó»Ø¸´Ê±¼ä: $tempcurrenttime">$temptopictitle</a>$addmspace<br>~;
+				$mytopics .= qq~<img src=$imagesurl/posticons/$tempposticon border=0> <a href=$boardurl/topic.cgi?forum=$tempinforum&topic=$tempintopic target=_blank title="æœ€åå›å¤æ—¶é—´: $tempcurrenttime">$temptopictitle</a>$addmspace<br>~;
 			}
 			else
 			{
-				$mytopics .= qq~<img src=$imagesurl/posticons/$tempposticon border=0> <a href=$boardurl/topic.cgi?forum=$tempinforum&topic=$tempintopic target=_blank title="×îºó²ÎÓëÊ±¼ä: $tempcurrenttime">$temptopictitle</a>$addmspace<br>~;
+				$mytopics .= qq~<img src=$imagesurl/posticons/$tempposticon border=0> <a href=$boardurl/topic.cgi?forum=$tempinforum&topic=$tempintopic target=_blank title="æœ€åå‚ä¸æ—¶é—´: $tempcurrenttime">$temptopictitle</a>$addmspace<br>~;
 			}
 		}
 	}
 	else
 	{
-		$mytopics = "¡¡ÔİÊ±Ã»ÓĞ¼ÇÂ¼";
+		$mytopics = "ã€€æš‚æ—¶æ²¡æœ‰è®°å½•";
 	}
 	return;
 }

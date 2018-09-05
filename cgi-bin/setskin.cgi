@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / юв╟а╪╚©АЁ╛╪╤бшлЁ  #
+#  LEO SuperCool BBS / LeoBBS X / И⌡╥Е┌╡Ф·│И┘╥Х╤┘Г╨╖Х╝╨Е²⌡  #
 #####################################################
-# ╩Ысзи╫с╔(╨Щ)║╒╩╗нчх╠жфвВ╣д LB5000 XP 2.30 цБ╥я╟Ф  #
-#   пб╟ФЁлпРжфвВ & ╟Фх╗кЫсп: юв╟а©ф╪╪ (C)(R)2004    #
+# Е÷╨Д╨▌Е╠╠И╧╟(ГЁ┼)Ц─│Х┼╠Ф≈═Г╪╨Е┬╤Д╫°Г └ LB5000 XP 2.30 Е┘█Х╢╧Г┴┬  #
+#   Ф√╟Г┴┬Г╗▀Е╨▐Е┬╤Д╫° & Г┴┬Ф²┐Ф┴─Ф°┴: И⌡╥Е┌╡Г╖▒Ф┼─ (C)(R)2004    #
 #####################################################
-#      жВрЁ╣ьж╥ё╨ http://www.LeoBBS.com/            #
-#      бшлЁ╣ьж╥ё╨ http://bbs.LeoBBS.com/            #
+#      Д╦╩И║╣Е°╟Е²─О╪  http://www.LeoBBS.com/            #
+#      Х╝╨Е²⌡Е°╟Е²─О╪  http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -78,12 +78,12 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         
         if (-e $filetomake && -w $filetomake) {
                 print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=кнлЕ  color=#FFFFFF>
-                <b>╩╤с╜ю╢╣╫бшлЁ╧эюМжппд / бшлЁ╡Е╪ЧиХ╤╗</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=Е╝▀Д╫⌠  color=#FFFFFF>
+                <b>Ф╛╒Х©▌Ф²╔Е┬╟Х╝╨Е²⌡Г╝║Г░├Д╦╜Е©┐ / Х╝╨Е²⌡Ф▐▓Д╩╤Х╝╬Е╝ </b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle colspan=2>
-                <font face=кнлЕ color=#333333 ><center><b>кЫсп╣дпео╒ря╬╜╠ё╢Ф</b><br><br>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><center><b>Ф┴─Ф°┴Г └Д©║Ф│╞Е╥╡Г╩▐Д©²Е╜≤</b><br><br>
                 </center>~;
                 $printme =~ s/\n/\<br>/g;
                 $printme =~ s/\"//g;
@@ -99,12 +99,12 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
 
                 else {
                     print qq~
-                    <tr><td bgcolor=#2159C9" colspan=2><font face=кнлЕ  color=#FFFFFF>
-                    <b>╩╤с╜ю╢╣╫ LeoBBS бшлЁ╧эюМжппд</b>
+                    <tr><td bgcolor=#2159C9" colspan=2><font face=Е╝▀Д╫⌠  color=#FFFFFF>
+                    <b>Ф╛╒Х©▌Ф²╔Е┬╟ LeoBBS Х╝╨Е²⌡Г╝║Г░├Д╦╜Е©┐</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                    <font color=#333333><b>кЫсп╣дпео╒ц╩сп╠ё╢Ф</b><br>спнд╪Ч╩Рд©б╪н╙╡╩©ип╢ё╛гКиХжцйТпт 777 ё║
+                    <font color=#333333><b>Ф┴─Ф°┴Г └Д©║Ф│╞Ф╡║Ф°┴Д©²Е╜≤</b><br>Ф°┴Ф√┤Д╩╤Ф┬√Г⌡╝Е╫∙Д╦╨Д╦█Е▐╞Е├≥О╪▄Х╞╥Х╝╬Г╫╝Е╠·Ф─╖ 777 О╪│
                     </td></tr></table></td></tr></table>
                     ~;
                     }
@@ -114,12 +114,12 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                 $inmembername =~ s/\_/ /g;
                 
                                print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=кнлЕ  color=#FFFFFF>
-                <b>╩╤с╜ю╢╣╫бшлЁ╧эюМжппд / бшлЁ╡Е╪ЧиХ╤╗</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=Е╝▀Д╫⌠  color=#FFFFFF>
+                <b>Ф╛╒Х©▌Ф²╔Е┬╟Х╝╨Е²⌡Г╝║Г░├Д╦╜Е©┐ / Х╝╨Е²⌡Ф▐▓Д╩╤Х╝╬Е╝ </b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪ЧиХ╤╗</b>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤Х╝╬Е╝ </b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -127,48 +127,48 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
             
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=кнлЕ color=#990000 ><b><center>LeoBBS бшлЁ╧эюМжппдбшлЁ╡Е╪ЧиХ╤╗</center></b><br>
-                <font face=кнлЕ color=#333333 >дЦ©ирттЖ╪с╨ми╬ЁЩ╧эюМжппд╣дбшлЁ╡Е╪Чё╛╥╫╠ЦбшлЁиЩ╪╤ё║
+                <font face=Е╝▀Д╫⌠ color=#990000 ><b><center>LeoBBS Х╝╨Е²⌡Г╝║Г░├Д╦╜Е©┐Х╝╨Е²⌡Ф▐▓Д╩╤Х╝╬Е╝ </center></b><br>
+                <font face=Е╝▀Д╫⌠ color=#333333 >Д╫═Е▐╞Д╩╔Е╒·Е┼═Е▓▄Е┬═И≥╓Г╝║Г░├Д╦╜Е©┐Г └Х╝╨Е²⌡Ф▐▓Д╩╤О╪▄Ф√╧Д╬©Х╝╨Е²⌡Е█┤Г╨╖О╪│
                 </td></tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 1 </a></b><br>бшлЁ╡Е╪Ч 1 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 1 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 1 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin1name" value="$skin1name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 1 URL</b><br>бшлЁ╡Е╪Ч1╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 1 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤1Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin1url" value="$skin1url"></td>
                 </tr>
 
 		<tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 2 </a></b><br>бшлЁ╡Е╪Ч 2 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 2 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 2 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin2name" value="$skin2name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 2 URL</b><br>бшлЁ╡Е╪Ч2╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 2 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤2Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin2url" value="$skin2url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 3 </a></b><br>бшлЁ╡Е╪Ч 3 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 3 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 3 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin3name" value="$skin3name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 3 URL</b><br>бшлЁ╡Е╪Ч3╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 3 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤3Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin3url" value="$skin3url"></td>
                 </tr>
@@ -176,105 +176,105 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 4 </a></b><br>бшлЁ╡Е╪Ч 4 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 4 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 4 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin4name" value="$skin4name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 4 URL</b><br>бшлЁ╡Е╪Ч4╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 4 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤4Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin4url" value="$skin4url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 5 </a></b><br>бшлЁ╡Е╪Ч 5 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 5 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 5 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin5name" value="$skin5name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 5 URL</b><br>бшлЁ╡Е╪Ч5╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 5 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤5Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin5url" value="$skin5url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 6 </a></b><br>бшлЁ╡Е╪Ч 6 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 6 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 6 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin6name" value="$skin6name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 6 URL</b><br>бшлЁ╡Е╪Ч6╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 6 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤6Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin6url" value="$skin6url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 7 </a></b><br>бшлЁ╡Е╪Ч 7 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 7 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 7 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin7name" value="$skin7name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 7 URL</b><br>бшлЁ╡Е╪Ч7╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 7 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤7Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin7url" value="$skin7url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 8 </a></b><br>бшлЁ╡Е╪Ч 8 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 8 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 8 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin8name" value="$skin8name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 8 URL</b><br>бшлЁ╡Е╪Ч8╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 8 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤8Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin8url" value="$skin8url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 9 </a></b><br>бшлЁ╡Е╪Ч 9 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 9 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 9 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin9name" value="$skin9name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 9 URL</b><br>бшлЁ╡Е╪Ч9╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 9 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤9Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin9url" value="$skin9url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 10 </a></b><br>бшлЁ╡Е╪Ч 10 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 10 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 10 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin10name" value="$skin10name"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 10 URL</b><br>бшлЁ╡Е╪Ч10╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 10 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤10Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="skin10url" value="$skin10url"></td>
                 </tr>      
                                
                <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit value="лА╫╩"></form></td></tr></table></td></tr></table>
+                <input type=submit value="Ф▐░Д╨╓"></form></td></tr></table></td></tr></table>
                
                ~;
 

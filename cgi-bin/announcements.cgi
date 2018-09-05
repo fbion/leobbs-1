@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -51,12 +51,12 @@ if ($inpassword ne "") {
 $inannouncementtitle    = $announcementtitle;
 $inannouncementpost     = $announcementpost;
 $inforum		= $forum;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -65,16 +65,16 @@ if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) { $inmembername = "¿ÍÈË"; }
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) { $inmembername = "å®¢äºº"; }
   else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 
@@ -93,14 +93,14 @@ if ($inforum ne "") {
 	$forums = <FILE>;
 	close(FILE);
 	(undef, undef, undef, $tempforumname, undef) = split(/\t/,$forums);
-	$addlink  = qq~ ¡ú <a href=forums.cgi?forum=$tempforumno>$tempforumname</a>~;
+	$addlink  = qq~ â†’ <a href=forums.cgi?forum=$tempforumno>$tempforumname</a>~;
     }
     $forumdescription = &HTML("$forumdescription");
     $forumdescription =~ s/<BR>//isg;
     $forumdescription =~ s/<P>//isg;
         $output .= qq~
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink ¡ú <a href=forums.cgi?forum=$inforum>$forumname</a> ¡ú ä¯ÀÀÂÛÌ³¹«¸æ</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink â†’ <a href=forums.cgi?forum=$inforum>$forumname</a> â†’ æµè§ˆè®ºå›å…¬å‘Š</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -109,8 +109,8 @@ if ($inforum ne "") {
 ~;
 } else {
         $output .= qq~
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´µ½±¾Õ¾ËùÓĞ¹«¸æ</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="announcements.cgi">ÂÛÌ³¹«¸æ</a> ¡ú ²é¿´ÂÛÌ³¹«¸æ<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹åˆ°æœ¬ç«™æ‰€æœ‰å…¬å‘Š</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="announcements.cgi">è®ºå›å…¬å‘Š</a> â†’ æŸ¥çœ‹è®ºå›å…¬å‘Š<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -121,7 +121,7 @@ if ($inforum ne "") {
 
 if ($action eq "delete") {
     if ($checked eq "yes") {
-	if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("Ê¹ÓÃ¹«¸æ&Äú²»ÊÇ¹ÜÀíÔ±£¡"); }
+	if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("ä½¿ç”¨å…¬å‘Š&æ‚¨ä¸æ˜¯ç®¡ç†å‘˜ï¼"); }
 
 	$filetoopen = "$lbdir" . "data/news$inforum.cgi";
         open(FILE, "$filetoopen");
@@ -141,7 +141,7 @@ if ($action eq "delete") {
 	}
         close(FILE);
 	&winunlock($filetoopen) if ($OS_USED eq "Nt");
-        &doend("ÂÛÌ³¹«¸æÒÑ¾­±»É¾³ı");
+        &doend("è®ºå›å…¬å‘Šå·²ç»è¢«åˆ é™¤");
 	exit;
     }
     else {
@@ -152,32 +152,32 @@ elsif ($action eq "add") {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-	&whosonline("$inmembername\t¹«¸æÀ¸\tnone\tÌí¼Ó¹«¸æ\t");
+	&whosonline("$inmembername\tå…¬å‘Šæ \tnone\tæ·»åŠ å…¬å‘Š\t");
     }
-    if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("Ê¹ÓÃ¹«¸æ&Äú²»ÊÇ¹ÜÀíÔ±£¡"); }
+    if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("ä½¿ç”¨å…¬å‘Š&æ‚¨ä¸æ˜¯ç®¡ç†å‘˜ï¼"); }
     $output .= qq~<tr><td bgcolor=$titlecolor colspan=2 align=center $catbackpic>
 <form action="$thisprog" method=post>
 <input type=hidden name="action" value="addannouncement">
 <input type=hidden name="forum" value="$inforum">
-<font face="$font" color=$fontcolormisc><b>·¢±íÂÛÌ³¹«¸æ</b></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬Èç¹ûÒªÒÔÆäËûÓÃ»§Éí·İ·¢±í£¬ÇëÔÚÏÂÃæÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Èç¹û²»Ïë¸Ä±äÓÃ»§Éí·İ£¬ÇëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÂÛÌ³¹«¸æ±êÌâ</b></font></td>
+<font face="$font" color=$fontcolormisc><b>å‘è¡¨è®ºå›å…¬å‘Š</b></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œå¦‚æœè¦ä»¥å…¶ä»–ç”¨æˆ·èº«ä»½å‘è¡¨ï¼Œè¯·åœ¨ä¸‹é¢è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚å¦‚æœä¸æƒ³æ”¹å˜ç”¨æˆ·èº«ä»½ï¼Œè¯·ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>è®ºå›å…¬å‘Šæ ‡é¢˜</b></font></td>
 <td bgcolor=$miscbackone valign=middle><input type=text name="announcementtitle" size=60 maxlength=100></td></tr>
 <tr>
-<td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÂÛÌ³¹«¸æÄÚÈİ</b><br>ÇëÊäÈëÄúµÄÂÛÌ³¹«¸æÄÚÈİ¡£<p>Èç¹ûÊ¹ÓÃÁË±íÇé×Ö·û×ª»»£¬LeoBBS ½«×Ô¶¯ÔÚ¹«¸æÖĞ×ª»»±íÇé×Ö·û¡£</font></td>
+<td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>è®ºå›å…¬å‘Šå†…å®¹</b><br>è¯·è¾“å…¥æ‚¨çš„è®ºå›å…¬å‘Šå†…å®¹ã€‚<p>å¦‚æœä½¿ç”¨äº†è¡¨æƒ…å­—ç¬¦è½¬æ¢ï¼ŒLeoBBS å°†è‡ªåŠ¨åœ¨å…¬å‘Šä¸­è½¬æ¢è¡¨æƒ…å­—ç¬¦ã€‚</font></td>
 <td bgcolor=$miscbackone valign=middle><textarea cols=60 rows=10 name="announcementpost"></textarea></td></tr>
 <tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center>
-<input type=Submit  value="Ìá ½»" name=Submit onClick="return clckcntr();"> &nbsp; <input type="reset" name="Clear">
+<input type=Submit  value="æ äº¤" name=Submit onClick="return clckcntr();"> &nbsp; <input type="reset" name="Clear">
 </td></form></tr>
 ~;
 }
 elsif ($action eq "addannouncement") {
     $currenttime = time;
-    if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("Ê¹ÓÃ¹«¸æ&Äú²»ÊÇ¹ÜÀíÔ±£¡"); }
-    if ($inannouncementpost eq "")  { &error("Ê¹ÓÃ¹«¸æ&ÇëÊäÈëÂÛÌ³¹«¸æÄÚÈİ£¡"); }
-    if ($inannouncementtitle eq "") { &error("Ê¹ÓÃ¹«¸æ&ÇëÊäÈëÂÛÌ³¹«¸æ±êÌâ£¡"); }
+    if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("ä½¿ç”¨å…¬å‘Š&æ‚¨ä¸æ˜¯ç®¡ç†å‘˜ï¼"); }
+    if ($inannouncementpost eq "")  { &error("ä½¿ç”¨å…¬å‘Š&è¯·è¾“å…¥è®ºå›å…¬å‘Šå†…å®¹ï¼"); }
+    if ($inannouncementtitle eq "") { &error("ä½¿ç”¨å…¬å‘Š&è¯·è¾“å…¥è®ºå›å…¬å‘Šæ ‡é¢˜ï¼"); }
 
     $filetoopen = "$lbdir" . "data/news$inforum.cgi";
     open(FILE, "$filetoopen");
@@ -195,16 +195,16 @@ elsif ($action eq "addannouncement") {
     }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    &doend("ÂÛÌ³¹«¸æÒÑ¾­·¢±í¡£");
+    &doend("è®ºå›å…¬å‘Šå·²ç»å‘è¡¨ã€‚");
     exit;
 }
 elsif ($action eq "edit") {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t¹«¸æÀ¸\tnone\t±à¼­¹«¸æ\t");
+        &whosonline("$inmembername\tå…¬å‘Šæ \tnone\tç¼–è¾‘å…¬å‘Š\t");
     }
-    if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("Ê¹ÓÃ¹«¸æ&Äú²»ÊÇ¹ÜÀíÔ±£¡"); }
+    if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("ä½¿ç”¨å…¬å‘Š&æ‚¨ä¸æ˜¯ç®¡ç†å‘˜ï¼"); }
 
     $filetoopen = "$lbdir" . "data/news$inforum.cgi";
     open(FILE, "$filetoopen");
@@ -219,7 +219,7 @@ elsif ($action eq "edit") {
         }
         $count++;
     }
-    &error("Ê¹ÓÃ¹«¸æ&¸Ã¹«¸æ²»´æÔÚ£¡") if ($announcementtitle eq "");
+    &error("ä½¿ç”¨å…¬å‘Š&è¯¥å…¬å‘Šä¸å­˜åœ¨ï¼") if ($announcementtitle eq "");
     $announcementpost =~ s/\<p\>/\n\n/g;
     $announcementpost =~ s/\<br\>/\n/g;
     $output .= qq~<tr><td bgcolor=$titlecolor colspan=2 align=center $catbackpic>
@@ -227,24 +227,24 @@ elsif ($action eq "edit") {
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="action" value="doedit">
 <input type=hidden name="number" value="$number">
-<font face="$font" color=$fontcolormisc><b>±à¼­ÂÛÌ³¹«¸æ</b></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬Èç¹ûÒªÒÔÆäËûÓÃ»§Éí·İ·¢±í£¬ÇëÔÚÏÂÃæÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Èç¹û²»Ïë¸Ä±äÓÃ»§Éí·İ£¬ÇëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÂÛÌ³¹«¸æ±êÌâ</b></font></td>
+<font face="$font" color=$fontcolormisc><b>ç¼–è¾‘è®ºå›å…¬å‘Š</b></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œå¦‚æœè¦ä»¥å…¶ä»–ç”¨æˆ·èº«ä»½å‘è¡¨ï¼Œè¯·åœ¨ä¸‹é¢è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚å¦‚æœä¸æƒ³æ”¹å˜ç”¨æˆ·èº«ä»½ï¼Œè¯·ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>è®ºå›å…¬å‘Šæ ‡é¢˜</b></font></td>
 <td bgcolor=$miscbackone valign=middle><input type=text name="announcementtitle" value="$announcementtitle"size=60 maxlength=100></td></tr>
-<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>ÂÛÌ³¹«¸æÄÚÈİ</b><br>ÇëÊäÈëÄúµÄÂÛÌ³¹«¸æÄÚÈİ¡£<p>Èç¹ûÊ¹ÓÃÁË±íÇé×Ö·û×ª»»£¬LeoBBS ½«×Ô¶¯ÔÚ¹«¸æÖĞ×ª»»±íÇé×Ö·û¡£</font></td>
+<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>è®ºå›å…¬å‘Šå†…å®¹</b><br>è¯·è¾“å…¥æ‚¨çš„è®ºå›å…¬å‘Šå†…å®¹ã€‚<p>å¦‚æœä½¿ç”¨äº†è¡¨æƒ…å­—ç¬¦è½¬æ¢ï¼ŒLeoBBS å°†è‡ªåŠ¨åœ¨å…¬å‘Šä¸­è½¬æ¢è¡¨æƒ…å­—ç¬¦ã€‚</font></td>
 <td bgcolor=$miscbackone valign=middle><textarea cols=60 rows=10 name="announcementpost">$announcementpost</textarea></td></tr>
 <tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center>
-<input type=Submit  value="Ìá ½»" name=Submit onClick="return clckcntr();"> &nbsp; <input type="reset" name="Clear">
+<input type=Submit  value="æ äº¤" name=Submit onClick="return clckcntr();"> &nbsp; <input type="reset" name="Clear">
 </td></form></tr>
 ~;
 }
 elsif ($action eq "doedit") {
     $currenttime = time;
-    if (($membercode ne "ad") &&($membercode ne 'smo')&& ($inmembmod ne "yes")) { &error("Ê¹ÓÃ¹«¸æ&Äú²»ÊÇ¹ÜÀíÔ±£¡"); }
-    if ($inannouncementpost eq "") { &error("Ê¹ÓÃ¹«¸æ&ÇëÊäÈëÂÛÌ³¹«¸æÄÚÈİ£¡"); }
-    if ($inannouncementtitle eq "") { &error("Ê¹ÓÃ¹«¸æ&ÇëÊäÈëÂÛÌ³¹«¸æ±êÌâ£¡"); }
+    if (($membercode ne "ad") &&($membercode ne 'smo')&& ($inmembmod ne "yes")) { &error("ä½¿ç”¨å…¬å‘Š&æ‚¨ä¸æ˜¯ç®¡ç†å‘˜ï¼"); }
+    if ($inannouncementpost eq "") { &error("ä½¿ç”¨å…¬å‘Š&è¯·è¾“å…¥è®ºå›å…¬å‘Šå†…å®¹ï¼"); }
+    if ($inannouncementtitle eq "") { &error("ä½¿ç”¨å…¬å‘Š&è¯·è¾“å…¥è®ºå›å…¬å‘Šæ ‡é¢˜ï¼"); }
     $filetoopen = "$lbdir" . "data/news$inforum.cgi";
     open(FILE, "$filetoopen") ;
     @announcements = <FILE>;
@@ -266,14 +266,14 @@ elsif ($action eq "doedit") {
     }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    &doend("ÂÛÌ³¹«¸æÒÑ¾­±»±à¼­²¢·¢±íÁË");
+    &doend("è®ºå›å…¬å‘Šå·²ç»è¢«ç¼–è¾‘å¹¶å‘è¡¨äº†");
     exit;
 }
 else {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-	&whosonline("$inmembername\t¹«¸æÀ¸\tboth\t²é¿´¹«¸æ\t");
+	&whosonline("$inmembername\tå…¬å‘Šæ \tboth\tæŸ¥çœ‹å…¬å‘Š\t");
     }
     $filetoopen = "$lbdir" . "data/news$inforum.cgi";
     open(FILE, "$filetoopen");
@@ -283,7 +283,7 @@ else {
     $totals = @announcements;
     if ($totals eq "0") {
         $dateposted = time;
-        @announcements[0] = "µ±Ç°Ã»ÓĞÈÎºÎ¹«¸æ\t$dateposted\tÇëµã»÷Ìí¼ÓÍ¼±êÀ´·¢²¼Ò»¸ö¹«¸æ(±ØĞëÊÇ¹ÜÀíÔ±)¡£<br>µ±Äã·¢²¼Ò»´Î¹«¸æºó£¬±¾¹«¸æ¾Í»á×Ô¶¯ÏûÊ§£¬ÎŞĞèÄãÊÖ¶¯É¾³ı£¡";
+        @announcements[0] = "å½“å‰æ²¡æœ‰ä»»ä½•å…¬å‘Š\t$dateposted\tè¯·ç‚¹å‡»æ·»åŠ å›¾æ ‡æ¥å‘å¸ƒä¸€ä¸ªå…¬å‘Š(å¿…é¡»æ˜¯ç®¡ç†å‘˜)ã€‚<br>å½“ä½ å‘å¸ƒä¸€æ¬¡å…¬å‘Šåï¼Œæœ¬å…¬å‘Šå°±ä¼šè‡ªåŠ¨æ¶ˆå¤±ï¼Œæ— éœ€ä½ æ‰‹åŠ¨åˆ é™¤ï¼";
     }
     foreach (@announcements) {
 	($title, $dateposted, $post, $nameposted) = split(/\t/, $_);
@@ -295,7 +295,7 @@ else {
         &doemoticons(\$post);
 	&smilecode(\$post);
 
-        if ($post !~/<blockquote><font face=ËÎÌå>´úÂë/isg){
+        if ($post !~/<blockquote><font face=å®‹ä½“>ä»£ç /isg){
             $post =~ s/&quot\;/\"/g;
             $post =~ s/\&amp\;/\&/g;
         }
@@ -319,19 +319,19 @@ else {
         if (($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
 	    $output .= qq~<tr><td bgcolor=$postbackcolor align=left>$admindelete &nbsp; $adminedit &nbsp; $adminadd</td></tr>~;
         }
-	$nameposted = "±¾Õ¾µÄÄ¬ÈÏ¹«¸æ" if (!$nameposted);
+	$nameposted = "æœ¬ç«™çš„é»˜è®¤å…¬å‘Š" if (!$nameposted);
 	$output .= qq~<tr><td bgcolor="$postbackcolor" valign=top style="LEFT: 0px; WIDTH: 100%; WORD-WRAP: break-word"><font face="$font" color=$postfontcolor>
 $post</td></tr><tr><td bgcolor="$postbackcolor" valign=middle>
 <table width=100% border="0" cellpadding="0" cellspacing="0">
-<tr><td align=left>&nbsp;&nbsp;&nbsp;<font face="$font" color=$postfontcolor><b>·¢²¼ÈË</b>£º $nameposted</font>
-</td><td align=right><font face="$font" color=$postfontcolor><b>·¢²¼Ê±¼ä</b>£º $dateposted</font>&nbsp;&nbsp;&nbsp;
+<tr><td align=left>&nbsp;&nbsp;&nbsp;<font face="$font" color=$postfontcolor><b>å‘å¸ƒäºº</b>ï¼š $nameposted</font>
+</td><td align=right><font face="$font" color=$postfontcolor><b>å‘å¸ƒæ—¶é—´</b>ï¼š $dateposted</font>&nbsp;&nbsp;&nbsp;
 </tr></table></td></font></tr>
 ~;
         $postcountcheck++;
     }
 }
 $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
-&output("$boardname - ¹«¸æ",\$output);
+&output("$boardname - å…¬å‘Š",\$output);
 exit;
 
 sub login {
@@ -339,7 +339,7 @@ sub login {
     ($postto, $therest) = split(/\?/,$url);
     @pairs = split(/\&/,$therest);
 
-     if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("Ê¹ÓÃ¹«¸æ&Äú²»ÊÇ¹ÜÀíÔ±£¡"); }
+     if (($membercode ne "ad")&&($membercode ne 'smo') && ($inmembmod ne "yes")) { &error("ä½¿ç”¨å…¬å‘Š&æ‚¨ä¸æ˜¯ç®¡ç†å‘˜ï¼"); }
    foreach (@pairs) {
         ($name, $value)=split(/\=/,$_);
         $hiddenvars .= qq~<input type=hidden name="$name" value="$value">\n~;
@@ -348,11 +348,11 @@ sub login {
     $output .= qq~<form action="$postto" method="post">
 <tr><td bgcolor=$titlecolor valign=middle colspan=2 align=center $catbackpic>
 $hiddenvars
-<font face="$font" color=$fontcolormisc><b>µÇÂ¼Ç°ÇëÊäÈë¹ÜÀíÔ±µÄÏêÏ¸ĞÅÏ¢</b><br>Çë×¢Òâ£¬Ö»ÓĞ¹ÜÀíÔ±²Å¿ÉÒÔÔö¼Ó¡¢É¾³ı¡¢ĞŞ¸ÄÂÛÌ³¹«¸æ£¡</font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬Èç¹ûÒªÒÔÆäËûÓÃ»§Éí·İ·¢±í£¬ÇëÔÚÏÂÃæÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Èç¹û²»Ïë¸Ä±äÓÃ»§Éí·İ£¬ÇëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center><input type=submit name="submit" value="È·¶¨É¾³ı"></td></form></tr></table></td></tr></table>
+<font face="$font" color=$fontcolormisc><b>ç™»å½•å‰è¯·è¾“å…¥ç®¡ç†å‘˜çš„è¯¦ç»†ä¿¡æ¯</b><br>è¯·æ³¨æ„ï¼Œåªæœ‰ç®¡ç†å‘˜æ‰å¯ä»¥å¢åŠ ã€åˆ é™¤ã€ä¿®æ”¹è®ºå›å…¬å‘Šï¼</font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œå¦‚æœè¦ä»¥å…¶ä»–ç”¨æˆ·èº«ä»½å‘è¡¨ï¼Œè¯·åœ¨ä¸‹é¢è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚å¦‚æœä¸æƒ³æ”¹å˜ç”¨æˆ·èº«ä»½ï¼Œè¯·ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center><input type=submit name="submit" value="ç¡®å®šåˆ é™¤"></td></form></tr></table></td></tr></table>
 ~;
 }
 
@@ -360,17 +360,17 @@ sub doend {
     my $action_taken = shift;
     $relocurl = "$thisprog?forum=$inforum";
     $output .= qq~<tr>
-<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>ÂÛÌ³¹«¸æ</b></font></td></tr>
+<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>è®ºå›å…¬å‘Š</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»ØÂÛÌ³£¬Çëµã»÷ÏÂÃæµÄÁ´½ÓÖ±½Ó·µ»Ø¡£
-<ul><li><b>$action_taken</b><li><a href="$relocurl">·µ»ØÂÛÌ³¹«¸æ</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›è®ºå›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ç›´æ¥è¿”å›ã€‚
+<ul><li><b>$action_taken</b><li><a href="$relocurl">è¿”å›è®ºå›å…¬å‘Š</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$relocurl">
 ~;
 &writeannounce;
-    &output("$boardname - ¹«¸æ",\$output);
+    &output("$boardname - å…¬å‘Š",\$output);
     exit;
 }
 
@@ -384,12 +384,12 @@ sub writeannounce {
         close(FILE);
     }
     $totalannouncements = @announcementdata;
-    if ($totalannouncements eq 0) { $dateposted = $currenttime; $title = "µ±Ç°Ã»ÓĞ¹«¸æ"; $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=×ÜÂÛÌ³ÔİÊ±ÎŞ¹«¸æ£¡ width=18>~; }
-                             else { ($title, $dateposted, my $trash) = split(/\t/, $announcementdata[0]); $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt="×ÜÂÛÌ³¹«¸æ£¡¹² $totalannouncements Ìõ£¡" width=18>~; }
+    if ($totalannouncements eq 0) { $dateposted = $currenttime; $title = "å½“å‰æ²¡æœ‰å…¬å‘Š"; $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=æ€»è®ºå›æš‚æ—¶æ— å…¬å‘Šï¼ width=18>~; }
+                             else { ($title, $dateposted, my $trash) = split(/\t/, $announcementdata[0]); $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt="æ€»è®ºå›å…¬å‘Šï¼å…± $totalannouncements æ¡ï¼" width=18>~; }
     $dateposted = $dateposted + $timeadd;
     $dateposted = &longdate("$dateposted");
     if ($announcemove eq "on") {
-        if ($title ne "µ±Ç°Ã»ÓĞ¹«¸æ") {
+        if ($title ne "å½“å‰æ²¡æœ‰å…¬å‘Š") {
             $title = "";
             $newstitleid = "";
             foreach (@announcementdata) {
@@ -399,15 +399,15 @@ sub writeannounce {
                 $dateposted = $dateposted + $timeadd;
                 $dateposted = &longdate("$dateposted");
                 $newstitleid++;
-                $title .= qq~¡¡<font color=\$forumfontcolor><B>$newstitleid. <a href=announcements.cgi#title$newstitleid target=_blank><font color=\$fonthighlight>$newstitle</font></a></B>¡¡[$dateposted]</font> ¡¡¡¡~;
+                $title .= qq~ã€€<font color=\$forumfontcolor><B>$newstitleid. <a href=announcements.cgi#title$newstitleid target=_blank><font color=\$fonthighlight>$newstitle</font></a></B>ã€€[$dateposted]</font> ã€€ã€€~;
             }
         }
-        else { $title = "<a href=announcements.cgi target=_blank><B>$title</B></a>¡¡[$dateposted]"; }
+        else { $title = "<a href=announcements.cgi target=_blank><B>$title</B></a>ã€€[$dateposted]"; }
         $announcedisp=qq~<marquee scrollamount=3 onmouseover=this.stop(); onmouseout=this.start();>$title</marquee>~;
     }
     else {
         $titletemp = &lbhz($title,25); 
-        $announcedisp=qq~&nbsp;<a href=announcements.cgi target=_blank title="$title"><b><font color=\$fonthighlight>$titletemp</font></b></a>¡¡[$dateposted]~;
+        $announcedisp=qq~&nbsp;<a href=announcements.cgi target=_blank title="$title"><b><font color=\$fonthighlight>$titletemp</font></b></a>ã€€[$dateposted]~;
     }
     undef $titletemp; undef $title; undef $newstitleid;
     open (FILE, ">${lbdir}data/announce.pl");
@@ -427,12 +427,12 @@ sub writeannounce {
         close(FILE);
     }
     $totalannouncements = @announcementdata;
-    if ($totalannouncements eq 0) { $dateposted = $currenttime; $title = "µ±Ç°Ã»ÓĞ¹«¸æ"; $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=·ÖÂÛÌ³ÔİÊ±ÎŞ¹«¸æ£¡ width=18>~; }
-                             else { ($title, $dateposted, my $trash) = split(/\t/, $announcementdata[0]); $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt="·ÖÂÛÌ³¹«¸æ£¡¹² $totalannouncements Ìõ£¡" width=18>~; }
+    if ($totalannouncements eq 0) { $dateposted = $currenttime; $title = "å½“å‰æ²¡æœ‰å…¬å‘Š"; $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=åˆ†è®ºå›æš‚æ—¶æ— å…¬å‘Šï¼ width=18>~; }
+                             else { ($title, $dateposted, my $trash) = split(/\t/, $announcementdata[0]); $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt="åˆ†è®ºå›å…¬å‘Šï¼å…± $totalannouncements æ¡ï¼" width=18>~; }
     $dateposted = $dateposted + $timeadd;
     $dateposted = &longdate("$dateposted");
     if ($announcemove eq "on") {
-        if ($title ne "µ±Ç°Ã»ÓĞ¹«¸æ") {
+        if ($title ne "å½“å‰æ²¡æœ‰å…¬å‘Š") {
             $title = "";
             $newstitleid = "";
             foreach (@announcementdata) {
@@ -442,15 +442,15 @@ sub writeannounce {
                 $dateposted = $dateposted + $timeadd;
                 $dateposted = &longdate("$dateposted");
                 $newstitleid++;
-                $title .= qq~¡¡<font color=\$forumfontcolor><B>$newstitleid. <a href=announcements.cgi?forum=$inforum#title$newstitleid target=_blank><font color=\$fonthighlight>$newstitle</font></a></B>¡¡[$dateposted]</font> ¡¡¡¡~;
+                $title .= qq~ã€€<font color=\$forumfontcolor><B>$newstitleid. <a href=announcements.cgi?forum=$inforum#title$newstitleid target=_blank><font color=\$fonthighlight>$newstitle</font></a></B>ã€€[$dateposted]</font> ã€€ã€€~;
             }
         }
-        else { $title = "<a href=announcements.cgi?forum=$inforum target=_blank><B>$title</B></a>¡¡[$dateposted]"; }
+        else { $title = "<a href=announcements.cgi?forum=$inforum target=_blank><B>$title</B></a>ã€€[$dateposted]"; }
         $announcedisp=qq~<marquee scrollamount=3 onmouseover=this.stop(); onmouseout=this.start();>$title</marquee>~;
     }
     else {
         $titletemp = &lbhz($title,38); 
-        $announcedisp=qq~&nbsp;<a href=announcements.cgi?forum=$inforum target=_blank title="$title"><b>$titletemp</b></a>¡¡[$dateposted]~;
+        $announcedisp=qq~&nbsp;<a href=announcements.cgi?forum=$inforum target=_blank title="$title"><b>$titletemp</b></a>ã€€[$dateposted]~;
     }
     undef $titletemp; undef $title; undef $newstitleid;
     open (FILE, ">${lbdir}data/announce$inforum.pl");

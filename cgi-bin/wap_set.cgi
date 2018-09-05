@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# �ֻ���̳WAP��
+# 手机论坛WAP版
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -21,10 +21,10 @@ require "wap.pl";
 $check = $query -> param('check');
 $lid = $query -> param('lid');
 &waptitle;
-$show.= qq~<card  title="$boardname-��½">~;
+$show.= qq~<card  title="$boardname-登陆">~;
 if($check eq '1'){
 	&check($lid);
-	if($inmembername ne ''&&$inmembername ne '����'){
+	if($inmembername ne ''&&$inmembername ne '客人'){
 	$pre = $query -> param('pre');
 	$mastnum = $query -> param('mastnum');
 	$mastnum2 = $query -> param('mastnum2');
@@ -37,49 +37,49 @@ if($check eq '1'){
 		open(file,">${lbdir}wap/$lid");
     print file "$inmembername,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
     close(file);
-    $show.= qq~<p>�ɹ��������ã�</p><p><a href='wap.cgi?lid=$lid'>������ҳ</a></p>~;
+    $show.= qq~<p>成功更改设置！</p><p><a href='wap.cgi?lid=$lid'>返回首页</a></p>~;
 	}else{
-		$show.=qq~<p>���ݺ���ʧ�ܣ������µ�½</p><p><a href='wap_login.cgi'>��½</a></p>~;
+		$show.=qq~<p>身份核认失败！请重新登陆</p><p><a href='wap_login.cgi'>登陆</a></p>~;
 	}
 	&wapfoot;
 }
 &check($lid);
-$show.=  qq~<p>�������� <br/>\n</p><p>
-	�б�����ʾ��<select name="pre" value="$pre">
-		<option value="5">5ƪ</option>
-		<option value="10">10ƪ</option>
-	<option value="20">20ƪ</option>
-	<option value="30">30ƪ</option></select>
+$show.=  qq~<p>个性设置 <br/>\n</p><p>
+	列表项显示：<select name="pre" value="$pre">
+		<option value="5">5篇</option>
+		<option value="10">10篇</option>
+	<option value="20">20篇</option>
+	<option value="30">30篇</option></select>
 	</p>
 	<p>
-	���ӻظ�ÿҳ��ʾ��<select name="topicpre" value="$topicpre">
-		<option value="1">1ƪ</option>
-		<option value="3">3ƪ</option>
-	<option value="10">10ƪ</option>
-	<option value="15">15ƪ</option></select>
+	帖子回复每页显示：<select name="topicpre" value="$topicpre">
+		<option value="1">1篇</option>
+		<option value="3">3篇</option>
+	<option value="10">10篇</option>
+	<option value="15">15篇</option></select>
 	</p>
 	<p>
-	��̳��ҳ��ʾ�����У�<select name="pre_index" value="$pre_index">
-		<option value="10">10ƪ</option>
-		<option value="16">16ƪ</option>
-	<option value="25">25ƪ</option></select>
+	论坛首页显示多少行：<select name="pre_index" value="$pre_index">
+		<option value="10">10篇</option>
+		<option value="16">16篇</option>
+	<option value="25">25篇</option></select>
 	</p>
 	<p>
-	������ʾ���֣�<select name="mastnum" value="$mastnum">
-		<option value="50">50��</option>
-		<option value="100">100��</option>
-	<option value="125">125��</option>
-	<option value="500">500��</option></select>
+	帖子显示文字：<select name="mastnum" value="$mastnum">
+		<option value="50">50字</option>
+		<option value="100">100字</option>
+	<option value="125">125字</option>
+	<option value="500">500字</option></select>
 	</p>
 	<p>
-	����������ʾ���֣�<select name="mastnum2" value="$mastnum2">
-		<option value="340">340��</option>
-		<option value="500">500��</option>
-	<option value="1000">1000��</option>
-	<option value="2000">2000��</option></select>
+	独立帖子显示文字：<select name="mastnum2" value="$mastnum2">
+		<option value="340">340字</option>
+		<option value="500">500字</option>
+	<option value="1000">1000字</option>
+	<option value="2000">2000字</option></select>
 	</p>
 	<p>
-<anchor>[����]<go href="wap_set.cgi" method="post">
+<anchor>[设置]<go href="wap_set.cgi" method="post">
 <postfield name="pre" value="\$(pre)"/>
 <postfield name="topicpre" value="\$(topicpre)"/>
 <postfield name="pre_index" value="\$(pre_index)"/>

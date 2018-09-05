@@ -1,49 +1,49 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
-$membercode{"¿ÍÈË"}  = "no";
-$membertitle{"¿ÍÈË"} ="¡¡¡¡ -* Î´×¢²á *-";
-$rating{"¿ÍÈË"}      = "Î´Öª";
-$membergraphic{"¿ÍÈË"} = "";
-$useravatar{"¿ÍÈË"} = "<BR>";
-$posterfontcolor{"¿ÍÈË"} = "$posternamecolor";
-$mtitle{"¿ÍÈË"} = "Î´Öª";
-$joineddate{"¿ÍÈË"} = "Î´Öª";
-$location{"¿ÍÈË"} = "Î´Öª";
-$numberofposts{"¿ÍÈË"} = 0;
-$sex{"¿ÍÈË"} = "";
-$jhmp{"¿ÍÈË"} = "";
-$mymoney{"¿ÍÈË"} = "Î´Öª";
-$jifen{"¿ÍÈË"} = "Î´Öª";
-$mysaves{"¿ÍÈË"} = "Î´Öª";
-$myloan{"¿ÍÈË"} = "Î´Öª";
-$rateuser{"¿ÍÈË"} = "";
-$userflag{"¿ÍÈË"} = "";
-$pvmsggraphic{"¿ÍÈË"} = "";
-$profilegraphic{"¿ÍÈË"} = "";
-$friendgraphic{"¿ÍÈË"} = "";
-$emailgraphic{"¿ÍÈË"} = "";
-$homepagegraphic{"¿ÍÈË"} = "";
-$oicqgraphic{"¿ÍÈË"} = "";
-$icqgraphic{"¿ÍÈË"} = "";
-$searchgraphic{"¿ÍÈË"} = "";
-$showxz{"¿ÍÈË"} = "";
-$showsx{"¿ÍÈË"} = "";
-$onlinetimehour{"¿ÍÈË"} = 0;
-$onlinetimemin{"¿ÍÈË"} = 0;
-$onlinetimesec{"¿ÍÈË"} = 0;
-$jhcount{"¿ÍÈË"} = 0;
-$posterfontcolor{"¿ÍÈË"} = "$posternamecolor";
-$membernameimg{"¿ÍÈË"} = "";
-$glowing{"¿ÍÈË"} = $memglow;
-$signature{"¿ÍÈË"} = "";
-$vheight{"¿ÍÈË"} = 140;
-$showawards{"¿ÍÈË"} = "";
+$membercode{"å®¢äºº"}  = "no";
+$membertitle{"å®¢äºº"} ="ã€€ã€€ -* æœªæ³¨å†Œ *-";
+$rating{"å®¢äºº"}      = "æœªçŸ¥";
+$membergraphic{"å®¢äºº"} = "";
+$useravatar{"å®¢äºº"} = "<BR>";
+$posterfontcolor{"å®¢äºº"} = "$posternamecolor";
+$mtitle{"å®¢äºº"} = "æœªçŸ¥";
+$joineddate{"å®¢äºº"} = "æœªçŸ¥";
+$location{"å®¢äºº"} = "æœªçŸ¥";
+$numberofposts{"å®¢äºº"} = 0;
+$sex{"å®¢äºº"} = "";
+$jhmp{"å®¢äºº"} = "";
+$mymoney{"å®¢äºº"} = "æœªçŸ¥";
+$jifen{"å®¢äºº"} = "æœªçŸ¥";
+$mysaves{"å®¢äºº"} = "æœªçŸ¥";
+$myloan{"å®¢äºº"} = "æœªçŸ¥";
+$rateuser{"å®¢äºº"} = "";
+$userflag{"å®¢äºº"} = "";
+$pvmsggraphic{"å®¢äºº"} = "";
+$profilegraphic{"å®¢äºº"} = "";
+$friendgraphic{"å®¢äºº"} = "";
+$emailgraphic{"å®¢äºº"} = "";
+$homepagegraphic{"å®¢äºº"} = "";
+$oicqgraphic{"å®¢äºº"} = "";
+$icqgraphic{"å®¢äºº"} = "";
+$searchgraphic{"å®¢äºº"} = "";
+$showxz{"å®¢äºº"} = "";
+$showsx{"å®¢äºº"} = "";
+$onlinetimehour{"å®¢äºº"} = 0;
+$onlinetimemin{"å®¢äºº"} = 0;
+$onlinetimesec{"å®¢äºº"} = 0;
+$jhcount{"å®¢äºº"} = 0;
+$posterfontcolor{"å®¢äºº"} = "$posternamecolor";
+$membernameimg{"å®¢äºº"} = "";
+$glowing{"å®¢äºº"} = $memglow;
+$signature{"å®¢äºº"} = "";
+$vheight{"å®¢äºº"} = 140;
+$showawards{"å®¢äºº"} = "";
 1;

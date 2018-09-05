@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -67,15 +67,15 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 if (($membercode eq "ad" || ($membercode eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$inmembername,/i) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername)))
 {
 	my %Mode = (
-		'setinfo' => \&setinfo,     #Éè¶¨ÒøĞĞ¸÷ÏîÒµÎñÖ¸±ê
-		'setok' => \&setok,         #±£´æÉè¶¨
-		'editmem' => \&editmem,     #±à¼­Ò»¸öÓÃ»§µÄ´æ´û¿î
-		'editok' => \&editok,       #±£´æ±à¼­Öµ
-		'empty' => \&empty,         #Çå¿ÕÒøĞĞ½»Ò×ÈÕÖ¾
-		'deletelog' => \&deletelog, #É¾³ıÖ¸¶¨ÈÕÖ¾
-		'repair' => \&repair,       #ĞŞ¸´ÒøĞĞÏÔÊ¾×ÜÁ¿
-		'viewloan' => \&viewloan,   #²é¿´´û¿îÇåµ¥
-		'bonus' => \&bonus,         #¸ø»áÔ±·¢ºì°ü
+		'setinfo' => \&setinfo,     #è®¾å®šé“¶è¡Œå„é¡¹ä¸šåŠ¡æŒ‡æ ‡
+		'setok' => \&setok,         #ä¿å­˜è®¾å®š
+		'editmem' => \&editmem,     #ç¼–è¾‘ä¸€ä¸ªç”¨æˆ·çš„å­˜è´·æ¬¾
+		'editok' => \&editok,       #ä¿å­˜ç¼–è¾‘å€¼
+		'empty' => \&empty,         #æ¸…ç©ºé“¶è¡Œäº¤æ˜“æ—¥å¿—
+		'deletelog' => \&deletelog, #åˆ é™¤æŒ‡å®šæ—¥å¿—
+		'repair' => \&repair,       #ä¿®å¤é“¶è¡Œæ˜¾ç¤ºæ€»é‡
+		'viewloan' => \&viewloan,   #æŸ¥çœ‹è´·æ¬¾æ¸…å•
+		'bonus' => \&bonus,         #ç»™ä¼šå‘˜å‘çº¢åŒ…
 		'bonusok' => \&bonusok
 		);
 
@@ -97,7 +97,7 @@ else
 	$ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
 	$trueipaddress = $ENV{'HTTP_CLIENT_IP'};
 	$ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
-	&logaction($inmembername, "<b>´Ó $ipaddress ÒÔÃÜÂë $inpasswordtemp µÇÂ¼ĞĞ³¤°ì¹«ÊÒÊ§°Ü¡£</b>") if ($inmembername && $inpassword);	
+	&logaction($inmembername, "<b>ä» $ipaddress ä»¥å¯†ç  $inpasswordtemp ç™»å½•è¡Œé•¿åŠå…¬å®¤å¤±è´¥ã€‚</b>") if ($inmembername && $inpassword);	
 	&ebankadminlogin;
 }
 
@@ -112,16 +112,16 @@ sub viewloan
 	
 	$output = qq~<table width=100% cellpadding=6 cellspacing=0>
 <tr>
-	<td bgcolor=#2159C9 colspan=4><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td>
+	<td bgcolor=#2159C9 colspan=4><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td>
 </tr>
 <tr>
-	<td bgcolor=#cccccc colspan=4>¡¡<a href=$thisprog>·µ »Ø</a>  >> ²é¿´´û¿îÇåµ¥£º</td>
+	<td bgcolor=#cccccc colspan=4>ã€€<a href=$thisprog>è¿” å›</a>  >> æŸ¥çœ‹è´·æ¬¾æ¸…å•ï¼š</td>
 </tr>
 <tr>
-	<td bgcolor=#eeeeee align=center width=20%>´û¿îÈË</td>
-	<td bgcolor=#eeeeee align=center width=40%>´û¿îÈÕÆÚ</td>
-	<td bgcolor=#eeeeee align=center width=20%>´û¿îÊı¶î</td>
-	<td bgcolor=#eeeeee align=center width=20%>µÖÑºÍşÍû</td>
+	<td bgcolor=#eeeeee align=center width=20%>è´·æ¬¾äºº</td>
+	<td bgcolor=#eeeeee align=center width=40%>è´·æ¬¾æ—¥æœŸ</td>
+	<td bgcolor=#eeeeee align=center width=20%>è´·æ¬¾æ•°é¢</td>
+	<td bgcolor=#eeeeee align=center width=20%>æŠµæŠ¼å¨æœ›</td>
 </tr>~;
 
 	foreach (@loaninfo)
@@ -164,9 +164,9 @@ sub bonusok
 	{
 		${$_} = &cleaninput($query->param($_));
 	}
-	&seterror("ºì°ü¶ÔÏó¸½¼ÓÒªÇóÊäÈëÓĞÎó£¡") if ($bonusday =~ /[^0-9]/ || $bonuspost =~ /[^0-9]/);
-	&seterror("Ã»ÓĞÊäÈëºì°üµÄÊı¶î»òÕßÊäÈëÓĞÎó£¡") if ($bonusnum !~ /^[0-9]+$/);
-	&seterror("±ØĞëÊäÈë·¢ºì°üµÄÀíÓÉ£¡") if ($bonusreason eq "");
+	&seterror("çº¢åŒ…å¯¹è±¡é™„åŠ è¦æ±‚è¾“å…¥æœ‰è¯¯ï¼") if ($bonusday =~ /[^0-9]/ || $bonuspost =~ /[^0-9]/);
+	&seterror("æ²¡æœ‰è¾“å…¥çº¢åŒ…çš„æ•°é¢æˆ–è€…è¾“å…¥æœ‰è¯¯ï¼") if ($bonusnum !~ /^[0-9]+$/);
+	&seterror("å¿…é¡»è¾“å…¥å‘çº¢åŒ…çš„ç†ç”±ï¼") if ($bonusreason eq "");
 
 	opendir(DIR, "$lbdir$memdir/old");
 	my @memberfiles = readdir(DIR);
@@ -208,14 +208,14 @@ sub bonusok
 
 		$lastfile = $memberfiles[$i];
 		$lastfile =~ s/\.cgi$//isg;
-		&bankmessage($lastfile, "<font color=red>ºì°üÍ¨Öª</font>", "¡¡¡¡$inmembername ÒÔ$bonusreasonµÄÀíÓÉ£¬¸øÄú·¢ÁË $bonusnum $moneynameµÄºì°ü£¬Çë²éÊÕÄúµÄÏÖ½ğ¡£");
+		&bankmessage($lastfile, "<font color=red>çº¢åŒ…é€šçŸ¥</font>", "ã€€ã€€$inmembername ä»¥$bonusreasonçš„ç†ç”±ï¼Œç»™æ‚¨å‘äº† $bonusnum $moneynameçš„çº¢åŒ…ï¼Œè¯·æŸ¥æ”¶æ‚¨çš„ç°é‡‘ã€‚");
 		$lastfile = "";
 	}
 	&winunlock($lastfile) if (($OS_USED eq "Unix" || $OS_USED eq "Nt") && $lastfile ne "");
 
 	if ($i < @memberfiles - 1)
 	{
-		#¼ÌĞøÏÂÒ»²½
+		#ç»§ç»­ä¸‹ä¸€æ­¥
 		$step++;
 		$output = qq~<form name=MAINFORM action=$thisprog?step=$step method=POST>
 <input type=hidden name=action value=bonusok>
@@ -230,19 +230,19 @@ sub bonusok
 <script language="JavaScript">
 setTimeout("MAINFORM.submit()", 1000);
 </script>
-¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯Ç°½ø£¬Çë<a href="javascript: MAINFORM.submit()">µã»÷¼ÌĞø</a>~;
+ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‰è¿›ï¼Œè¯·<a href="javascript: MAINFORM.submit()">ç‚¹å‡»ç»§ç»­</a>~;
 	}
 	else
 	{
-		$bonustarget = $bonustarget eq "all" ? "ËùÓĞ×¢²á»áÔ±" : "ËùÓĞÒøĞĞ¿Í»§";
-		$bonusday = "×¢²á $bonusday ÌìÒÔÉÏ" if ($bonusday ne "");
-		$bonuspost = "·¢Ìû $bonuspost ÆªÒÔÉÏ" if ($bonuspost ne "");
-		$bonusday = $bonusday ne "" && $bonuspost ne "" ? "$bonusdayÇÒ$bonuspostµÄ" : $bonusday ne "" || $bonuspost ne "" ? "$bonusday$bonuspostµÄ" : "";
-		&logaction($inmembername, "<font color=red>ÒÔ$bonusreasonµÄÀíÓÉ¸ø$bonusday$bonustarget·¢ÁË×Ü¹² $bonusmem ¸ö $bonusnum $moneyname µÄºì°ü¡£");
+		$bonustarget = $bonustarget eq "all" ? "æ‰€æœ‰æ³¨å†Œä¼šå‘˜" : "æ‰€æœ‰é“¶è¡Œå®¢æˆ·";
+		$bonusday = "æ³¨å†Œ $bonusday å¤©ä»¥ä¸Š" if ($bonusday ne "");
+		$bonuspost = "å‘å¸– $bonuspost ç¯‡ä»¥ä¸Š" if ($bonuspost ne "");
+		$bonusday = $bonusday ne "" && $bonuspost ne "" ? "$bonusdayä¸”$bonuspostçš„" : $bonusday ne "" || $bonuspost ne "" ? "$bonusday$bonuspostçš„" : "";
+		&logaction($inmembername, "<font color=red>ä»¥$bonusreasonçš„ç†ç”±ç»™$bonusday$bonustargetå‘äº†æ€»å…± $bonusmem ä¸ª $bonusnum $moneyname çš„çº¢åŒ…ã€‚");
 		$output = qq~
 <table width=100% cellpadding=6 cellspacing=0>
-<tr><td bgcolor=#2159C9><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / À×°ÁÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td></tr>
-<tr><td align=center><br><b><font color=red>¸ø$bonusday$bonustargetµÄºì°ü·¢·ÅÍê³É£¬×Ü¹²·¢³öºì°ü $bonusmem ¸ö!</font></b></td></tr>
+<tr><td bgcolor=#2159C9><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é›·å‚²é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td></tr>
+<tr><td align=center><br><b><font color=red>ç»™$bonusday$bonustargetçš„çº¢åŒ…å‘æ”¾å®Œæˆï¼Œæ€»å…±å‘å‡ºçº¢åŒ… $bonusmem ä¸ª!</font></b></td></tr>
 </table>~;
 	}
 	return;
@@ -264,7 +264,7 @@ sub repair
 	}
 	else
 	{
-		#¶ÁÈ¡ÒÑÓĞÅÅĞò½á¹û
+		#è¯»å–å·²æœ‰æ’åºç»“æœ
 		open(FILE, $lbdir . "ebankdata/order.cgi");
 		my @orderdata = <FILE>;
 		close(FILE);
@@ -315,7 +315,7 @@ sub repair
 		}
 	}
 	&updateallsave($stepusers, $stepsaves);
-	#½«±¾´ÎÅÅĞòºÍÒÑÓĞÅÅĞò½á¹û×ÛºÏ
+	#å°†æœ¬æ¬¡æ’åºå’Œå·²æœ‰æ’åºç»“æœç»¼åˆ
 	my @orderusers = sort {$ordersaves{$a}<=>$ordersaves{$b}} keys(%ordersaves);
 	open(FILE, ">" . $lbdir . "ebankdata/order.cgi");
 	for ($k = 1; $k <= $bankmaxdisplay * 2; $k++)
@@ -328,13 +328,13 @@ sub repair
 
 	if ($i < @memberfiles - 1)
 	{
-		#¼ÌĞøÏÂÒ»²½
+		#ç»§ç»­ä¸‹ä¸€æ­¥
 		$step++;
-		$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog?action=repair&step=$step"><br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯Ç°½ø£¬Çë<a href=$thisprog>µã»÷¼ÌĞø</a>~;
+		$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog?action=repair&step=$step"><br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‰è¿›ï¼Œè¯·<a href=$thisprog>ç‚¹å‡»ç»§ç»­</a>~;
 	}
 	else
 	{
-		#´û¿î¼ÇÂ¼±ØĞëÅÅĞò´æ·Å
+		#è´·æ¬¾è®°å½•å¿…é¡»æ’åºå­˜æ”¾
 		my $filetomake = $lbdir . "ebankdata/allloan.cgi";
 		open(FILE, $filetomake);
 		my @loaninfo = <FILE>;
@@ -362,8 +362,8 @@ sub repair
 		&setbankonoff("on");
 		$output = qq~
 <table width=100% cellpadding=6 cellspacing=0>
-<tr><td bgcolor=#2159C9><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / À×°ÁÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td></tr>
-<tr><td align=center><br><b>×ÜÁ¿ÏÔÊ¾ĞŞ¸´Íê³É!</b></td></tr>
+<tr><td bgcolor=#2159C9><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é›·å‚²é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td></tr>
+<tr><td align=center><br><b>æ€»é‡æ˜¾ç¤ºä¿®å¤å®Œæˆ!</b></td></tr>
 </table>~;
 	}
 
@@ -383,7 +383,7 @@ sub showlog
 	close(FILE);
 
 	if ($key ne "")
-	{#Ñ¡³öÖ¸¶¨¼ÍÂ¼
+	{#é€‰å‡ºæŒ‡å®šçºªå½•
 		if ($type eq "name")
 		{
 			$key =~ s/ /\_/sg;
@@ -425,12 +425,12 @@ sub showlog
 	my $showpage = "";
 	if ($allpages > 1)
 	{
-		$showpage .= qq~¼ÇÂ¼¹² <b>$allpages</b> Ò³ ~;
+		$showpage .= qq~è®°å½•å…± <b>$allpages</b> é¡µ ~;
 		$i = $page - 1;
-		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ÉÏÒ»Ò³"><<</span> ~ if ($i > 0);
+		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ä¸Šä¸€é¡µ"><<</span> ~ if ($i > 0);
 		$showpage .= "[ ";
 		$i = $page - 3;
-		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">¡û</span> ~ if ($i > 0);
+		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">â†</span> ~ if ($i > 0);
 		$i++;
 		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">$i</span> ~ if ($i > 0);
 		$i++;
@@ -442,56 +442,56 @@ sub showlog
 		$i++;
 		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">$i</span> ~ if ($i <= $allpages);
 		$i++;
-		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">¡ú</span> ~ if ($i <= $allpages);
+		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();">â†’</span> ~ if ($i <= $allpages);
 		$showpage .= "] ";
 		$i = $page + 1;
-		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ÏÂÒ»Ò³">>></span> ~ if ($i <= $allpages);
-		$showpage .= "¡¡Ö±½ÓÌø×ªµ½µÚ <input type=text name=page size=2 value=$page style='text-align: right' OnMouseOver='this.focus();' OnFocus='this.select();'> Ò³ <input type=submit value='Go'>";
+		$showpage .= qq~<span style="cursor:hand" OnClick="MAINFORM.page.value=$i; MAINFORM.submit();" title="ä¸‹ä¸€é¡µ">>></span> ~ if ($i <= $allpages);
+		$showpage .= "ã€€ç›´æ¥è·³è½¬åˆ°ç¬¬ <input type=text name=page size=2 value=$page style='text-align: right' OnMouseOver='this.focus();' OnFocus='this.select();'> é¡µ <input type=submit value='Go'>";
 	}
 	else
 	{
-		$showpage = "¼ÇÂ¼Ö»ÓĞ <b>1</b> Ò³";
+		$showpage = "è®°å½•åªæœ‰ <b>1</b> é¡µ";
 	}
 
 	$output = qq~
 <script language="JavaScript">
 function goempty()
 {
-	if (clearday = prompt("ÇëÊäÈëÒªÇå¿Õ¶àÉÙÌìÒÔÇ°µÄÈÕÖ¾£º", "30"))
+	if (clearday = prompt("è¯·è¾“å…¥è¦æ¸…ç©ºå¤šå°‘å¤©ä»¥å‰çš„æ—¥å¿—ï¼š", "30"))
 		location.href = "$thisprog?action=empty&day=" + clearday;
 }
 </script>
 <table width=100% cellpadding=6 cellspacing=0>
 <tr>
-	<td bgcolor=#2159C9 colspan=4><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / À×°ÁÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td>
+	<td bgcolor=#2159C9 colspan=4><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é›·å‚²é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td>
 </tr>
 <form name=EDIT action=$thisprog method=POST>
 <input type=hidden name=action value="editmem">
 <tr>
-	<td bgcolor=#cccccc width=20%>¡¡<a href=$thisprog?action=setinfo>Éè¶¨ÒøĞĞÒµÎñ</a></td>
-	<td bgcolor=#cccccc width=20%><a href=$thisprog?action=repair OnClick="return confirm('Õâ½«ÔİÊ±×Ô¶¯¹Ø±ÕÒøĞĞ£¬²Ù×÷Íê³É»á×Ô¶¯ÖØĞÂ¿ª·Å¡£\\nÒ»°ãÎŞĞè½øĞĞ´Ë²Ù×÷£¬ÊÇ·ñ¼ÌĞø£¿');">ÖØĞÂ¼ÆËãÍ³¼ÆºÍÅÅÃû</a></td>
-	<td bgcolor=#cccccc width=20%><a href=$thisprog?action=bonus><font color=red>¸øËùÓĞ¿Í»§·¢ºì°ü</font></a></td>
-	<td bgcolor=#cccccc width=45% align=right>¿ìËÙ±à¼­»áÔ±ÕÊ»§£º <input type=text size=10 name=memid value=ÓÃ»§Ãû OnMouseOver="this.focus();" OnFocus="this.select();">¡¡<input type=submit value=±à¼­></td>
+	<td bgcolor=#cccccc width=20%>ã€€<a href=$thisprog?action=setinfo>è®¾å®šé“¶è¡Œä¸šåŠ¡</a></td>
+	<td bgcolor=#cccccc width=20%><a href=$thisprog?action=repair OnClick="return confirm('è¿™å°†æš‚æ—¶è‡ªåŠ¨å…³é—­é“¶è¡Œï¼Œæ“ä½œå®Œæˆä¼šè‡ªåŠ¨é‡æ–°å¼€æ”¾ã€‚\\nä¸€èˆ¬æ— éœ€è¿›è¡Œæ­¤æ“ä½œï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ');">é‡æ–°è®¡ç®—ç»Ÿè®¡å’Œæ’å</a></td>
+	<td bgcolor=#cccccc width=20%><a href=$thisprog?action=bonus><font color=red>ç»™æ‰€æœ‰å®¢æˆ·å‘çº¢åŒ…</font></a></td>
+	<td bgcolor=#cccccc width=45% align=right>å¿«é€Ÿç¼–è¾‘ä¼šå‘˜å¸æˆ·ï¼š <input type=text size=10 name=memid value=ç”¨æˆ·å OnMouseOver="this.focus();" OnFocus="this.select();">ã€€<input type=submit value=ç¼–è¾‘></td>
 </tr>
 </form>
 <form name=MAINFORM action=$thisprog method=POST>
 <tr>
-	<td align=left bgcolor=#ffffff>¡¡<a href=$thisprog?action=viewloan><font color=#ff7700>´û¿îÇåµ¥</font></a></td> 
+	<td align=left bgcolor=#ffffff>ã€€<a href=$thisprog?action=viewloan><font color=#ff7700>è´·æ¬¾æ¸…å•</font></a></td> 
 	<td align=center colspan=3 bgcolor=#ffffff>$showpage</td>
 </tr>
 <tr>
-	<td bgcolor=#eeeeee>¡¡<b>²éÕÒÈÕÖ¾</b></td>
-	<td bgcolor=#eeeeee><select name=type><option value="name">ËÑË÷Ö¸¶¨»áÔ±</option><option value="time">ËÑË÷ÌØ¶¨ÈÕÆÚ</option><option value="key">ËÑË÷²Ù×÷ÄÚÈİ</option></select></td>
-	<td bgcolor=#eeeeee align=right colspan=2><input name=key value="$key" type=text size=20 OnMouseOver="this.focus();" OnFocus="this.select();">¡¡<input type=submit value=²éÕÒ>¡¡¡¡<a href="javascript:goempty()">Çå¿Õ¹ıÆÚ½»Ò×¼ÇÂ¼</a>¡¡</td>	
+	<td bgcolor=#eeeeee>ã€€<b>æŸ¥æ‰¾æ—¥å¿—</b></td>
+	<td bgcolor=#eeeeee><select name=type><option value="name">æœç´¢æŒ‡å®šä¼šå‘˜</option><option value="time">æœç´¢ç‰¹å®šæ—¥æœŸ</option><option value="key">æœç´¢æ“ä½œå†…å®¹</option></select></td>
+	<td bgcolor=#eeeeee align=right colspan=2><input name=key value="$key" type=text size=20 OnMouseOver="this.focus();" OnFocus="this.select();">ã€€<input type=submit value=æŸ¥æ‰¾>ã€€ã€€<a href="javascript:goempty()">æ¸…ç©ºè¿‡æœŸäº¤æ˜“è®°å½•</a>ã€€</td>	
 </tr>
 </form>
 <form name=DELETE action=$thisprog method=POST>
 <input type=hidden name=action value=deletelog>
 <tr>
-	<td bgcolor=#ffffff>¡¡<b>ÓªÒµ×´¿ö</b></td>~;
+	<td bgcolor=#ffffff>ã€€<b>è¥ä¸šçŠ¶å†µ</b></td>~;
 	if ($key ne "")
 	{
-		$output .= qq~<td bgcolor=#ffffff colspan=3><table width=98%><td><i><font color=#0000ee>°´ÈÕÆÚËÑË÷£¬ÊäÈëÈÕÆÚµÄ¸ñÊ½±ØĞëÊÇ 2002/09/29 ÕâÑùµÄĞÎÊ½£¡</font></i></td><td align=right><a href="$thisprog">·µ»ØÈ«²¿ÈÕÖ¾ÏÔÊ¾</a></td></table></td>~;
+		$output .= qq~<td bgcolor=#ffffff colspan=3><table width=98%><td><i><font color=#0000ee>æŒ‰æ—¥æœŸæœç´¢ï¼Œè¾“å…¥æ—¥æœŸçš„æ ¼å¼å¿…é¡»æ˜¯ 2002/09/29 è¿™æ ·çš„å½¢å¼ï¼</font></i></td><td align=right><a href="$thisprog">è¿”å›å…¨éƒ¨æ—¥å¿—æ˜¾ç¤º</a></td></table></td>~;
 	}
 	else
 	{
@@ -499,7 +499,7 @@ function goempty()
 function CheckAll() {for (var i = 0; i < DELETE.dellogid.length; i++) {DELETE.dellogid[i].checked = true;}}
 function FanAll() {for (var i = 0; i < DELETE.dellogid.length; i++) {DELETE.dellogid[i].checked = !DELETE.dellogid[i].checked;}}
 </script>
-<td bgcolor=#ffffff colspan=3><table width=98%><td><i><font color=#0000ee>°´ÈÕÆÚËÑË÷£¬ÊäÈëÈÕÆÚµÄ¸ñÊ½±ØĞëÊÇ 2002/09/29 ÕâÑùµÄĞÎÊ½£¡</font></i></td><td align=right><input type=button OnClick="CheckAll();" value="È«Ñ¡"> <input type=button OnClick="FanAll();" value="·´Ñ¡">¡¡<a href="JavaScript:DELETE.submit();" OnClick="return confirm('Õâ½«É¾³ıÄãÑ¡¶¨µÄ½»Ò×ÈÕÖ¾£¬ÊÇ·ñ¼ÌĞø£¿');">É¾³ıÑ¡¶¨µÄ¼ÍÂ¼</a></td></table></td>~;
+<td bgcolor=#ffffff colspan=3><table width=98%><td><i><font color=#0000ee>æŒ‰æ—¥æœŸæœç´¢ï¼Œè¾“å…¥æ—¥æœŸçš„æ ¼å¼å¿…é¡»æ˜¯ 2002/09/29 è¿™æ ·çš„å½¢å¼ï¼</font></i></td><td align=right><input type=button OnClick="CheckAll();" value="å…¨é€‰"> <input type=button OnClick="FanAll();" value="åé€‰">ã€€<a href="JavaScript:DELETE.submit();" OnClick="return confirm('è¿™å°†åˆ é™¤ä½ é€‰å®šçš„äº¤æ˜“æ—¥å¿—ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ');">åˆ é™¤é€‰å®šçš„çºªå½•</a></td></table></td>~;
 	}
 	$output .= qq~</tr>~;
 
@@ -510,9 +510,9 @@ function FanAll() {for (var i = 0; i < DELETE.dellogid.length; i++) {DELETE.dell
 		chomp($ebanklogs[$i]);
 		($logcustomer, $logtime, $logevent) = split(/\t/, $ebanklogs[$i]);
 		$logtime = &dateformatshort($logtime + $timezone * 3600 + $timedifferencevalue * 3600);
-		$logcustomer = qq~<a href=profile.cgi?action=show&member=~ . uri_escape($logcustomer) . qq~ target=_blank>$logcustomer</a>~ unless ($logcustomer =~ /ÒøĞĞ×Ô¶¯´¦Àí³ÌĞò/);
+		$logcustomer = qq~<a href=profile.cgi?action=show&member=~ . uri_escape($logcustomer) . qq~ target=_blank>$logcustomer</a>~ unless ($logcustomer =~ /é“¶è¡Œè‡ªåŠ¨å¤„ç†ç¨‹åº/);
 		$output .= qq~<tr>
-	<td bgcolor=#ffffff>¡¡$logcustomer</td>
+	<td bgcolor=#ffffff>ã€€$logcustomer</td>
 	<td bgcolor=#ffffff>$logtime</td>~;
 		if ($key ne "")
 		{
@@ -530,12 +530,12 @@ function FanAll() {for (var i = 0; i < DELETE.dellogid.length; i++) {DELETE.dell
 <form action=$thisprog method=POST>
 <input type=hidden name=action value="search">
 <tr>
-	<td bgcolor=#eeeeee>¡¡<b>²éÕÒÈÕÖ¾</b></td>
-	<td bgcolor=#eeeeee><select name=type><option value="name">ËÑË÷Ö¸¶¨»áÔ±</option><option value="time">ËÑË÷ÌØ¶¨ÈÕÆÚ</option><option value="key">ËÑË÷²Ù×÷ÄÚÈİ</option></select></td>
-	<td bgcolor=#eeeeee align=right colspan=2><input name=key value="$key" type=text size=20 OnMouseOver="this.focus();" OnFocus="this.select();">¡¡<input type=submit value=²éÕÒ>¡¡¡¡<a href="javascript:goempty()">Çå¿Õ¹ıÆÚ½»Ò×¼ÇÂ¼</a>¡¡</td>	
+	<td bgcolor=#eeeeee>ã€€<b>æŸ¥æ‰¾æ—¥å¿—</b></td>
+	<td bgcolor=#eeeeee><select name=type><option value="name">æœç´¢æŒ‡å®šä¼šå‘˜</option><option value="time">æœç´¢ç‰¹å®šæ—¥æœŸ</option><option value="key">æœç´¢æ“ä½œå†…å®¹</option></select></td>
+	<td bgcolor=#eeeeee align=right colspan=2><input name=key value="$key" type=text size=20 OnMouseOver="this.focus();" OnFocus="this.select();">ã€€<input type=submit value=æŸ¥æ‰¾>ã€€ã€€<a href="javascript:goempty()">æ¸…ç©ºè¿‡æœŸäº¤æ˜“è®°å½•</a>ã€€</td>	
 </tr>
 <tr>
-	<td align=left bgcolor=#ffffff>¡¡<a href=$thisprog?action=viewloan><font color=#ff7700>´û¿îÇåµ¥</font></a></td> 
+	<td align=left bgcolor=#ffffff>ã€€<a href=$thisprog?action=viewloan><font color=#ff7700>è´·æ¬¾æ¸…å•</font></a></td> 
 	<td align=center colspan=3 bgcolor=#ffffff>$showpage</td>
 </tr>
 </form>
@@ -550,30 +550,30 @@ sub bonus
 	$output = qq~<form action=$thisprog method=POST><input type=hidden name=action value="bonusok">
 <table width=100% cellpadding=6 cellspacing=0>
 <tr>
-	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td>
+	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td>
 </tr>
 <tr>
-	<td bgcolor=#cccccc colspan=2>¡¡<a href=$thisprog>·µ »Ø</a>  >> <font color=red>¸ø¿Í»§·¢ºì°ü£º</font></td>
+	<td bgcolor=#cccccc colspan=2>ã€€<a href=$thisprog>è¿” å›</a>  >> <font color=red>ç»™å®¢æˆ·å‘çº¢åŒ…ï¼š</font></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff width=35%>¡¡ºì°ü¶ÔÏó£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=radio name=bonustarget value="user" checked>¡¡ËùÓĞÒøĞĞ¿Í»§(³ıÕËºÅ±»¶³½á)¡¡<input type=radio name=bonustarget value="all">¡¡ËùÓĞ×¢²á»áÔ±(³ı½ûÑÔºÍÆÁ±Î)</td>
+	<td bgcolor=#ffffff width=35%>ã€€çº¢åŒ…å¯¹è±¡ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=radio name=bonustarget value="user" checked>ã€€æ‰€æœ‰é“¶è¡Œå®¢æˆ·(é™¤è´¦å·è¢«å†»ç»“)ã€€<input type=radio name=bonustarget value="all">ã€€æ‰€æœ‰æ³¨å†Œä¼šå‘˜(é™¤ç¦è¨€å’Œå±è”½)</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡¶ÔÏó¸½¼ÓÒªÇó£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡×¢²á <input type=text size=3 name=bonusday> ÌìÒÔÉÏ ²¢ÇÒ·¢Ìù <input type=text size=4 name=bonuspost> ÒÔÉÏ¡¡(²»ĞèÒªµÄÇëÁô¿Õ)</td>
+	<td bgcolor=#ffffff>ã€€å¯¹è±¡é™„åŠ è¦æ±‚ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€æ³¨å†Œ <input type=text size=3 name=bonusday> å¤©ä»¥ä¸Š å¹¶ä¸”å‘è´´ <input type=text size=4 name=bonuspost> ä»¥ä¸Šã€€(ä¸éœ€è¦çš„è¯·ç•™ç©º)</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ºì°üÊı¶î£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=12 name=bonusnum> $moneyname</td>
+	<td bgcolor=#ffffff>ã€€çº¢åŒ…æ•°é¢ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=12 name=bonusnum> $moneyname</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ºì°üÀíÓÉ£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=50 name=bonusreason></td>
+	<td bgcolor=#ffffff>ã€€çº¢åŒ…ç†ç”±ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=50 name=bonusreason></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff align=center><input type=submit value=·¢¡¡³ö></td>
-	<td bgcolor=#ffffff align=center><input type=reset value=ÖØ¡¡À´></td>
+	<td bgcolor=#ffffff align=center><input type=submit value=å‘ã€€å‡º></td>
+	<td bgcolor=#ffffff align=center><input type=reset value=é‡ã€€æ¥></td>
 </tr>
 </table></form>~;
 	return;	
@@ -602,7 +602,7 @@ sub deletelog
 	unless ($delnum)
 	{
 		&winunlock($filetoopen) if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));
-		&seterror("ÇëÑ¡ÔñÒªÉ¾³ıµÄÒøĞĞ¼ÇÂ¼ÒÔºóÔÙ²Ù×÷£¡");
+		&seterror("è¯·é€‰æ‹©è¦åˆ é™¤çš„é“¶è¡Œè®°å½•ä»¥åå†æ“ä½œï¼");
 	}
 	open(FILE, ">$filetoopen");
 	flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -611,11 +611,11 @@ sub deletelog
 		chomp;
 		print FILE $_ . "\n" if ($_);
 	}
-	print FILE "$inmembername\t$currenttime\t<b>É¾³ıÁË $delnum ÌõÒøĞĞ½»Ò×ÈÕÖ¾¡£</b>\n";
+	print FILE "$inmembername\t$currenttime\t<b>åˆ é™¤äº† $delnum æ¡é“¶è¡Œäº¤æ˜“æ—¥å¿—ã€‚</b>\n";
 	close(FILE);
 	&winunlock($filetoopen) if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));
 	
-	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>¡¡³É¹¦µØÉ¾³ıÁË $delnum ÌõÒøĞĞ½»Ò×ÈÕÖ¾¡£<br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çë<a href=$thisprog>µã»÷ÕâÀï</a>~;
+	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>ã€€æˆåŠŸåœ°åˆ é™¤äº† $delnum æ¡é“¶è¡Œäº¤æ˜“æ—¥å¿—ã€‚<br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·<a href=$thisprog>ç‚¹å‡»è¿™é‡Œ</a>~;
 	return;	
 }
 
@@ -629,86 +629,86 @@ sub setinfo
 	$output = qq~<form action=$thisprog method=POST><input type=hidden name=action value="setok">
 <table width=100% cellpadding=6 cellspacing=0>
 <tr>
-	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td>
+	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td>
 </tr>
 <tr>
-	<td bgcolor=#cccccc colspan=2>¡¡<a href=$thisprog>·µ »Ø</a>  >> Éè¶¨ÒøĞĞÒµÎñ²ÎÊı£º</td>
+	<td bgcolor=#cccccc colspan=2>ã€€<a href=$thisprog>è¿” å›</a>  >> è®¾å®šé“¶è¡Œä¸šåŠ¡å‚æ•°ï¼š</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff width=35%>¡¡ÒøĞĞ×´Ì¬£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=radio name=bankopen value="on">¡¡Õı³£¿ª·Å¡¡<input type=radio name=bankopen value="off">¡¡ÔİÊ±¹Ø±Õ</td>
+	<td bgcolor=#ffffff width=35%>ã€€é“¶è¡ŒçŠ¶æ€ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=radio name=bankopen value="on">ã€€æ­£å¸¸å¼€æ”¾ã€€<input type=radio name=bankopen value="off">ã€€æš‚æ—¶å…³é—­</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ÒøĞĞÃû³Æ£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=20 name=bankname value="$bankname"></td>
+	<td bgcolor=#ffffff>ã€€é“¶è¡Œåç§°ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=20 name=bankname value="$bankname"></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ĞĞ³¤Ãû³Æ£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=20 name=bankmanager value="$bankmanager">¡¡ÓÃÓ¢ÎÄ¶ººÅ¼ä¸ô¶àÎ»ĞĞ³¤</td>
+	<td bgcolor=#ffffff>ã€€è¡Œé•¿åç§°ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=20 name=bankmanager value="$bankmanager">ã€€ç”¨è‹±æ–‡é€—å·é—´éš”å¤šä½è¡Œé•¿</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ÒøĞĞ»¶Ó­ÌáÊ¾£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=60 name=bankmessage value="$bankmessage"></td>
+	<td bgcolor=#ffffff>ã€€é“¶è¡Œæ¬¢è¿æç¤ºï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=60 name=bankmessage value="$bankmessage"></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡´æ¿îÈÕÀûÂÊ£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=4 name=banksaverate value="$banksave100rate"> %¡¡<i>Ä¬ÈÏÎª 0.88%</i></td>
+	<td bgcolor=#ffffff>ã€€å­˜æ¬¾æ—¥åˆ©ç‡ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=4 name=banksaverate value="$banksave100rate"> %ã€€<i>é»˜è®¤ä¸º 0.88%</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡×ªÕÊ»ã¿î¹¦ÄÜ×îµÍĞèÒªÍşÍûÖµ£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=6 name=banktransneed value="$banktransneed"></td>
+	<td bgcolor=#ffffff>ã€€è½¬å¸æ±‡æ¬¾åŠŸèƒ½æœ€ä½éœ€è¦å¨æœ›å€¼ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=6 name=banktransneed value="$banktransneed"></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡×ªÕÊÊÖĞø·ÑÂÊ£º</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=6 name=banktransrate value="$banktrans100rate"> %¡¡<i>Ä¬ÈÏÎª 10%</i></td>
+	<td bgcolor=#ffffff>ã€€è½¬å¸æ‰‹ç»­è´¹ç‡ï¼š</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=6 name=banktransrate value="$banktrans100rate"> %ã€€<i>é»˜è®¤ä¸º 10%</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡»ã¿îÊÖĞø·ÑÂÊ£º</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=6 name=bankpostrate value="$bankpost100rate"> %¡¡<i>Ä¬ÈÏÎª 20%</i></td>
+	<td bgcolor=#ffffff>ã€€æ±‡æ¬¾æ‰‹ç»­è´¹ç‡ï¼š</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=6 name=bankpostrate value="$bankpost100rate"> %ã€€<i>é»˜è®¤ä¸º 20%</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ÊÇ·ñ¿ª·Å´û¿î¹¦ÄÜ£º</td>
-	<td bgcolor=#ffffff>¡¡<input type=radio name=bankallowloan value="yes">¡¡¿ª·Å¡¡¡¡¡¡<input type=radio name=bankallowloan value="no">¡¡¹Ø±Õ</td>
+	<td bgcolor=#ffffff>ã€€æ˜¯å¦å¼€æ”¾è´·æ¬¾åŠŸèƒ½ï¼š</td>
+	<td bgcolor=#ffffff>ã€€<input type=radio name=bankallowloan value="yes">ã€€å¼€æ”¾ã€€ã€€ã€€<input type=radio name=bankallowloan value="no">ã€€å…³é—­</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡´û¿î×î³¤³¥»¹ÆÚÏŞ£º</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=2 name=bankloanmaxdays value="$bankloanmaxdays"> Ìì¡¡<i>Ä¬ÈÏÎª 7</i></td>
+	<td bgcolor=#ffffff>ã€€è´·æ¬¾æœ€é•¿å¿è¿˜æœŸé™ï¼š</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=2 name=bankloanmaxdays value="$bankloanmaxdays"> å¤©ã€€<i>é»˜è®¤ä¸º 7</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡´û¿îÈÕÀûÂÊ£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=4 name=bankloanrate value="$bankloan100rate"> %¡¡<i>Ä¬ÈÏÎª 1.88%</i></td>
+	<td bgcolor=#ffffff>ã€€è´·æ¬¾æ—¥åˆ©ç‡ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=4 name=bankloanrate value="$bankloan100rate"> %ã€€<i>é»˜è®¤ä¸º 1.88%</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡Ã¿µãÍşÍû×î¸ßµÖÑº´û¿îÊı¶î£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=6 name=bankrateloan value="$bankrateloan"> $moneyname</td>
+	<td bgcolor=#ffffff>ã€€æ¯ç‚¹å¨æœ›æœ€é«˜æŠµæŠ¼è´·æ¬¾æ•°é¢ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=6 name=bankrateloan value="$bankrateloan"> $moneyname</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡µ¥±Ê½»Ò××î¸ßÏŞ¶î£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type size=10 name=bankmaxdeal value="$bankmaxdeal"> $moneyname¡¡<i>Ä¬ÈÏÎª 500000</i></td>
+	<td bgcolor=#ffffff>ã€€å•ç¬”äº¤æ˜“æœ€é«˜é™é¢ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type size=10 name=bankmaxdeal value="$bankmaxdeal"> $moneynameã€€<i>é»˜è®¤ä¸º 500000</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡µ¥±Ê½»Ò××îµÍÏŞ¶î£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type size=10 name=bankmindeal value="$bankmindeal"> $moneyname¡¡<i>Ä¬ÈÏÎª 10</i></td>
+	<td bgcolor=#ffffff>ã€€å•ç¬”äº¤æ˜“æœ€ä½é™é¢ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type size=10 name=bankmindeal value="$bankmindeal"> $moneynameã€€<i>é»˜è®¤ä¸º 10</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡Ê×Ò³ÏÔÊ¾µÄÓÃ»§ÅÅÃûÊı£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type size=4 name=bankmaxdisplay value="$bankmaxdisplay">¡¡<i>Ä¬ÈÏÎª 10 £¬²»ÄÜ³¬¹ı 20</i></td>
+	<td bgcolor=#ffffff>ã€€é¦–é¡µæ˜¾ç¤ºçš„ç”¨æˆ·æ’åæ•°ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type size=4 name=bankmaxdisplay value="$bankmaxdisplay">ã€€<i>é»˜è®¤ä¸º 10 ï¼Œä¸èƒ½è¶…è¿‡ 20</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡24Ğ¡Ê±ÄÚ×î´ó½»Ò×´ÎÊı£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type size=4 name=bankmaxdaydo value="$bankmaxdaydo">¡¡<i>Ä¬ÈÏÎª 5 £¬²»ÄÜ³¬¹ı 10£¬¶ÔÌ³Ö÷ÎŞĞ§</i></td>
+	<td bgcolor=#ffffff>ã€€24å°æ—¶å†…æœ€å¤§äº¤æ˜“æ¬¡æ•°ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type size=4 name=bankmaxdaydo value="$bankmaxdaydo">ã€€<i>é»˜è®¤ä¸º 5 ï¼Œä¸èƒ½è¶…è¿‡ 10ï¼Œå¯¹å›ä¸»æ— æ•ˆ</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡¸öÈË´æÕÛ×î¶à¼ÇÂ¼ÌõÊı£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type size=4 name=banklogpriviate value="$banklogpriviate">¡¡<i>Ä¬ÈÏÎª 6 £¬²»ÄÜ³¬¹ı 20</i></td>
+	<td bgcolor=#ffffff>ã€€ä¸ªäººå­˜æŠ˜æœ€å¤šè®°å½•æ¡æ•°ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type size=4 name=banklogpriviate value="$banklogpriviate">ã€€<i>é»˜è®¤ä¸º 6 ï¼Œä¸èƒ½è¶…è¿‡ 20</i></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ÔÊĞí¹ÜÀíÒøĞĞ»áÔ±£º</td>
-	<td bgcolor=#ffffff>¡¡<select name=bankadminallow><option value="allad">ËùÓĞÌ³Ö÷¡¢ĞĞ³¤</option><option value="all">ËùÓĞ×Ü°æÖ÷ºÍÌ³Ö÷¡¢ĞĞ³¤</option></select></td>
+	<td bgcolor=#ffffff>ã€€å…è®¸ç®¡ç†é“¶è¡Œä¼šå‘˜ï¼š</td>
+	<td bgcolor=#ffffff>ã€€<select name=bankadminallow><option value="allad">æ‰€æœ‰å›ä¸»ã€è¡Œé•¿</option><option value="all">æ‰€æœ‰æ€»ç‰ˆä¸»å’Œå›ä¸»ã€è¡Œé•¿</option></select></td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff align=center><input type=submit value=Ìá¡¡½»></td>
-	<td bgcolor=#ffffff align=center><input type=reset value=ÖØ¡¡ÖÃ></td>
+	<td bgcolor=#ffffff align=center><input type=submit value=æã€€äº¤></td>
+	<td bgcolor=#ffffff align=center><input type=reset value=é‡ã€€ç½®></td>
 </tr>
 </table></form>~;
 
@@ -723,82 +723,42 @@ sub setinfo
 sub editmem
 {
 	my $memid = $query->param('memid');
-	&seterror("Ã»ÓĞÊäÈë±à¼­µÄÕÊ»§Ãû£¡") if ($memid eq "");
-	&seterror("ÕÊ»§Ãûº¬ÓĞ·Ç·¨×Ö·û£¡") if (($memid =~ m/\//) || ($memid =~ m/\\/) || ($memid =~ m/\.\./));
+	&seterror("æ²¡æœ‰è¾“å…¥ç¼–è¾‘çš„å¸æˆ·åï¼") if ($memid eq "");
+	&seterror("å¸æˆ·åå«æœ‰éæ³•å­—ç¬¦ï¼") if (($memid =~ m/\//) || ($memid =~ m/\\/) || ($memid =~ m/\.\./));
 	&getmember($memid, "no");
-	&seterror("ÓÃ»§ $memid ²»´æÔÚ£¡") if ($userregistered eq "no");
+	&seterror("ç”¨æˆ· $memid ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 	($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
-	&seterror("ÓÃ»§ $memid Ã»ÓĞÔÚ±¾ĞĞ¿ª»§£¡") unless ($mystatus);
+	&seterror("ç”¨æˆ· $memid æ²¡æœ‰åœ¨æœ¬è¡Œå¼€æˆ·ï¼") unless ($mystatus);
 
 	my $loanoutput;
 	if ($myloan)
 	{
-		$loanoutput = qq~ÓÃ»§´Ó±¾ĞĞ´û¿î $myloan $moneyname¡¡¡¡<input type=checkbox name=clearloan value="yes">¡¡Çå³ıÓÃ»§µÄ´û¿î¼ÇÂ¼£¿~;
+		$loanoutput = qq~ç”¨æˆ·ä»æœ¬è¡Œè´·æ¬¾ $myloan $moneynameã€€ã€€<input type=checkbox name=clearloan value="yes">ã€€æ¸…é™¤ç”¨æˆ·çš„è´·æ¬¾è®°å½•ï¼Ÿ~;
 	}
 	else
 	{
-		$loanoutput = qq~ÓÃ»§ÔÚ±¾ĞĞÃ»ÓĞ´û¿î~;
+		$loanoutput = qq~ç”¨æˆ·åœ¨æœ¬è¡Œæ²¡æœ‰è´·æ¬¾~;
 	}
 
 	$output = qq~<form action=$thisprog method=POST><input type=hidden name=action value="editok"><input type=hidden name=memid value="$memid">
 <table width=100% cellpadding=6 cellspacing=0>
 <tr>
-	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / À×°ÁÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></td>
+	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é›·å‚²é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></td>
 </tr>
 <tr>
-	<td bgcolor=#cccccc colspan=2>¡¡<a href=$thisprog>·µ »Ø</a>  >> ±à¼­ $memid µÄ´æ´û¿î×ÊÁÏ£º</td>
+	<td bgcolor=#cccccc colspan=2>ã€€<a href=$thisprog>è¿” å›</a>  >> ç¼–è¾‘ $memid çš„å­˜è´·æ¬¾èµ„æ–™ï¼š</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff width=40%>¡¡ÓÃ»§´æ¿îÊı¶î£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text size=15 name=newsavenums value="$mysaves"> $moneyname</td>
+	<td bgcolor=#ffffff width=40%>ã€€ç”¨æˆ·å­˜æ¬¾æ•°é¢ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=text size=15 name=newsavenums value="$mysaves"> $moneyname</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ÓÃ»§´û¿îÊı¶î£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡$loanoutput</td>
+	<td bgcolor=#ffffff>ã€€ç”¨æˆ·è´·æ¬¾æ•°é¢ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€$loanoutput</td>
 </tr>
 <tr>
-	<td bgcolor=#ffffff>¡¡ĞŞ¸ÄÈ¡¿îÃÜÂë£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input type=text name=getpass size=15> (Áô¿ÕÔò²»ĞŞ¸Ä)</td>
-</tr>
-<tr>
-	<td bgcolor=#ffffff>¡¡ÓÃ»§ÕË»§×´Ì¬£º¡¡</td>
-	<td bgcolor=#ffffff>¡¡<input name=accountstats type=radio value="on"> Õı³£Ê¹ÓÃ¡¡¡¡<input name=accountstats value="off" type=radio> ÔİÊ±¶³½á</td>
-</tr>
-<tr>
-	<td bgcolor=#ffffff align=center><input type=submit value=ĞŞ¡¡¸Ä></td>
-	<td bgcolor=#ffffff align=center><input type=reset value=ÖØ¡¡ÖÃ></td>
-</tr>
-</table></form>~;
-
-	if ($mystatus == 1)
-	{
-		$output =~ s/value="on"/value="on" checked/g;
-	}
-	else
-	{
-		$output =~ s/value="off"/value="on" checked/g;
-	}
-
-	return;
-}
-
-sub setok
-{
-	my $newbankopen = $query->param('bankopen');
-	my $newbankname = $query->param('bankname');
-	my $newbankmanager = $query->param('bankmanager');
-	my $newbankmessage = $query->param('bankmessage');
-	my $newbanksaverate = $query->param('banksaverate');
-	my $newbanktransneed = $query->param('banktransneed');
-	my $newbanktransrate = $query->param('banktransrate');
-	my $newbankpostrate = $query->param('bankpostrate');
-	my $newbankallowloan = $query->param('bankallowloan');
-	my $newbankloanmaxdays = $query->param('bankloanmaxdays');
-	my $newbankloanrate = $query->param('bankloanrate');
-	my $newbankrateloan = $query->param('bankrateloan');
-	my $newbankmaxdeal = $query->param('bankmaxdeal');
-	my $newbankmindeal = $query->param('bankmindeal');
-	my $newbankmaxdisplay = $query->param('bankmaxdisplay');
+	<td bgcolor=#ffffff>ã€€ä¿®æ”¹å–æ¬¾å¯†ç ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input type=isplay = $query->param('bankmaxdisplay');
 	my $newbankmaxdaydo = $query->param('bankmaxdaydo');
 	my $newbanklogpriviate = $query->param('banklogpriviate');
 	my $newbankadminallow = $query->param('bankadminallow');

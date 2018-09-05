@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     $links = &HTML("$links");
@@ -14,7 +14,7 @@
 <SCRIPT>valigntop()</SCRIPT>
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellspacing=1 cellpadding=6 width=100%>
-<tr><td bgcolor=$titlecolor colspan=7 $catbackpic><font color=$titlefontcolor><B>-=> Ê×Ò³Á¬½Ó</td></tr>
+<tr><td bgcolor=$titlecolor colspan=7 $catbackpic><font color=$titlefontcolor><B>-=> é¦–é¡µè¿žæŽ¥</td></tr>
 <tr><td bgcolor=$forumcolortwo colspan=7 width=*><font color=$titlefontcolor>
 <font color=$forumfontcolor>$links</td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>

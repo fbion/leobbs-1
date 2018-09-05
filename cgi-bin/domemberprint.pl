@@ -1,16 +1,16 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 	   if (($onlinedatanumber >= $arrowonlinemax)&&($arrowonlinemax > 0)&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")) {
        	      print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-              print "<BR>·şÎñÆ÷Ã¦£¬ÒÑ¾­³¬³öÂÛÌ³ÔÊĞíµÄ×î´óÔÚÏßÈËÊı¡£<BR><BR>Ä¿Ç°ÂÛÌ³ÔÚÏß $onlinedatanumber ÈË£¬×î´óÔÊĞíÍ¬Ê±ÔÚÏß $arrowonlinemax ÈË¡£";
+              print "<BR>æœåŠ¡å™¨å¿™ï¼Œå·²ç»è¶…å‡ºè®ºå›å…è®¸çš„æœ€å¤§åœ¨çº¿äººæ•°ã€‚<BR><BR>ç›®å‰è®ºå›åœ¨çº¿ $onlinedatanumber äººï¼Œæœ€å¤§å…è®¸åŒæ—¶åœ¨çº¿ $arrowonlinemax äººã€‚";
               exit;
            }
 	   use testinfo qw(ipwhere osinfo browseinfo);
@@ -21,7 +21,7 @@
            my $fromwhere = &ipwhere("$trueipaddress");
            my $tempdata = "$tempusername\t$currenttime\t$currenttime\t$where\t$ipall\t$osinfo\t$browseinfo\t$where2\t$fromwhere\t$membercode\t$hidden\t$sex\t" ;
            $fromwhere1 = $fromwhere;
-           if ($tempusername !~ /^¿ÍÈË/) { require "douplogintime.pl"; &uplogintime("$tempusername","T"); }
+           if ($tempusername !~ /^å®¢äºº/) { require "douplogintime.pl"; &uplogintime("$tempusername","T"); }
            $tempdata =~ s/[\a\f\n\e\0\r]//isg;
            push(@onlinedata,$tempdata);
 1;

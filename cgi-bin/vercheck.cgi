@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -55,75 +55,75 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
 	$out=&lbagent("www.leobbs.com","download/reg.cgi","ver=$versionnumbertemp&url=$boardurl");
 
         ($lastver, $finishfunc, $downtime, $nowdownloadver, $nowfunc,     $downloadtimes, $formtime, $gburl, $bigurl, $engurl, $temp ) = split(/\t/,$out);
-        #×îĞÂ°æ±¾  ×îĞÂ¹¦ÄÜ  ¹À¼ÆÌá¹©Ê±¼ä  Ä¿Ç°¿ÉÒÔÏÂÔØ°æ±¾  ÒÑ¾­Íê³É¹¦ÄÜ  ÏÂÔØ´ÎÊı        ¿ªÊ¼Ê±¼ä   
+        #æœ€æ–°ç‰ˆæœ¬  æœ€æ–°åŠŸèƒ½  ä¼°è®¡æä¾›æ—¶é—´  ç›®å‰å¯ä»¥ä¸‹è½½ç‰ˆæœ¬  å·²ç»å®ŒæˆåŠŸèƒ½  ä¸‹è½½æ¬¡æ•°        å¼€å§‹æ—¶é—´   
 
 ($gburl1,$gburl1show,$gburl2,$gburl2show,$gburl3,$gburl3show,$gburl4,$gburl4show,$gburl5,$gburl5show) = split(/\|/,$gburl);
 $gbdownloadinfo = "";
 if ($gburl1 ne "") {
-    if ($gburl1show eq "") { $gburl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $gbdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb1 onClick='return gbconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$gburl1show</B></a>~;
+    if ($gburl1show eq "") { $gburl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $gbdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb1 onClick='return gbconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$gburl1show</B></a>~;
 }
 if ($gburl2 ne "") {
-    if ($gburl2show eq "") { $gburl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $gbdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb2 onClick='return gbconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$gburl2show</B></a>~;
+    if ($gburl2show eq "") { $gburl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $gbdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb2 onClick='return gbconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$gburl2show</B></a>~;
 }
 if ($gburl3 ne "") {
-    if ($gburl3show eq "") { $gburl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $gbdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb3 onClick='return gbconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$gburl3show</B></a>~;
+    if ($gburl3show eq "") { $gburl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $gbdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb3 onClick='return gbconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$gburl3show</B></a>~;
 }
 if ($gburl4 ne "") {
-    if ($gburl4show eq "") { $gburl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $gbdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb4 onClick='return gbconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$gburl4show</B></a>~;
+    if ($gburl4show eq "") { $gburl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $gbdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb4 onClick='return gbconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$gburl4show</B></a>~;
 }
 if ($gburl5 ne "") {
-    if ($gburl5show eq "") { $gburl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $gbdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb5 onClick='return gbconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$gburl5show</B></a>~;
+    if ($gburl5show eq "") { $gburl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $gbdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb5 onClick='return gbconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$gburl5show</B></a>~;
 }
 
 ($bigurl1,$bigurl1show,$bigurl2,$bigurl2show,$bigurl3,$bigurl3show,$bigurl4,$bigurl4show,$bigurl5,$bigurl5show) = split(/\|/,$bigurl);
 $bigdownloadinfo = "";
 if ($bigurl1 ne "") {
-    if ($bigurl1show eq "") { $bigurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $bigdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big1 onClick='return bigconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$bigurl1show</B></a>~;
+    if ($bigurl1show eq "") { $bigurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $bigdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big1 onClick='return bigconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$bigurl1show</B></a>~;
 }
 if ($bigurl2 ne "") {
-    if ($bigurl2show eq "") { $bigurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $bigdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big2 onClick='return bigconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$bigurl2show</B></a>~;
+    if ($bigurl2show eq "") { $bigurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $bigdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big2 onClick='return bigconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$bigurl2show</B></a>~;
 }
 if ($bigurl3 ne "") {
-    if ($bigurl3show eq "") { $bigurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $bigdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big3 onClick='return bigconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$bigurl3show</B></a>~;
+    if ($bigurl3show eq "") { $bigurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $bigdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big3 onClick='return bigconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$bigurl3show</B></a>~;
 }
 if ($bigurl4 ne "") {
-    if ($bigurl4show eq "") { $bigurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $bigdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big4 onClick='return bigconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$bigurl4show</B></a>~;
+    if ($bigurl4show eq "") { $bigurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $bigdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big4 onClick='return bigconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$bigurl4show</B></a>~;
 }
 if ($bigurl5 ne "") {
-    if ($bigurl5show eq "") { $bigurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $bigdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big5 onClick='return bigconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$bigurl5show</B></a>~;
+    if ($bigurl5show eq "") { $bigurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $bigdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big5 onClick='return bigconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$bigurl5show</B></a>~;
 }
 
 ($engurl1,$engurl1show,$engurl2,$engurl2show,$engurl3,$engurl3show,$engurl4,$engurl4show,$engurl5,$engurl5show) = split(/\|/,$engurl);
 $engdownloadinfo = "";
 if ($engurl1 ne "") {
-    if ($engurl1show eq "") { $engurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $engdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng1 onClick='return engconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$engurl1show</B></a>~;
+    if ($engurl1show eq "") { $engurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $engdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng1 onClick='return engconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$engurl1show</B></a>~;
 }
 if ($engurl2 ne "") {
-    if ($engurl2show eq "") { $engurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $engdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng2 onClick='return engconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$engurl2show</B></a>~;
+    if ($engurl2show eq "") { $engurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $engdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng2 onClick='return engconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$engurl2show</B></a>~;
 }
 if ($engurl3 ne "") {
-    if ($engurl3show eq "") { $engurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $engdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng3 onClick='return engconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$engurl3show</B></a>~;
+    if ($engurl3show eq "") { $engurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $engdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng3 onClick='return engconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$engurl3show</B></a>~;
 }
 if ($engurl4 ne "") {
-    if ($engurl4show eq "") { $engurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $engdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng4 onClick='return engconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$engurl4show</B></a>~;
+    if ($engurl4show eq "") { $engurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $engdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng4 onClick='return engconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$engurl4show</B></a>~;
 }
 if ($engurl5 ne "") {
-    if ($engurl5show eq "") { $engurl1show = "°´ÕâÀï½øĞĞÏÂÔØ"; }
-    $engdownloadinfo .= qq~¡¡<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng5 onClick='return engconfirm();' title="°´ÕâÀï½øĞĞÏÂÔØ"><B>$engurl5show</B></a>~;
+    if ($engurl5show eq "") { $engurl1show = "æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"; }
+    $engdownloadinfo .= qq~ã€€<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng5 onClick='return engconfirm();' title="æŒ‰è¿™é‡Œè¿›è¡Œä¸‹è½½"><B>$engurl5show</B></a>~;
 }
 
 #$lastver="<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build040101";
@@ -139,11 +139,11 @@ if ($engurl5 ne "") {
 	
 	if ($lastver eq "-1") {
 	    print qq~
-              <tr><td bgcolor=#2159C9" colspan=2><font face=ËÎÌå  color=#FFFFFF>
-              <b>»¶Ó­À´µ½ LeoBBS ÂÛÌ³¹ÜÀíÖĞĞÄ/²é¿´ÂÛÌ³°æ±¾¸üĞÂ</b>
+              <tr><td bgcolor=#2159C9" colspan=2><font face=å®‹ä½“  color=#FFFFFF>
+              <b>æ¬¢è¿æ¥åˆ° LeoBBS è®ºå›ç®¡ç†ä¸­å¿ƒ/æŸ¥çœ‹è®ºå›ç‰ˆæœ¬æ›´æ–°</b>
               </td></tr>
               <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-              <font color=#333333><b>$finishfunc</b><BR><BR>ÇëÖ±½Ó·ÃÎÊ <a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a> ²é¿´¸üĞÂÇé¿ö°É £¡
+              <font color=#333333><b>$finishfunc</b><BR><BR>è¯·ç›´æ¥è®¿é—® <a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a> æŸ¥çœ‹æ›´æ–°æƒ…å†µå§ ï¼
               </td></tr></table></td></tr></table>
             ~;
             exit;
@@ -151,8 +151,8 @@ if ($engurl5 ne "") {
 
 	if (($lastver ne "")&&($formtime ne "")&&($downtime ne "")) {
 	    print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå  color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ²é¿´ÂÛÌ³°æ±¾¸üĞÂ</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“  color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / æŸ¥çœ‹è®ºå›ç‰ˆæœ¬æ›´æ–°</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle colspan=2><br><br>
@@ -173,51 +173,51 @@ if ($engurl5 ne "") {
 
                 my $gengxin="";
                 if ($myver >= $newver) {
-                    print qq~<font face=ËÎÌå color=#333333><center><b>ÄúÏÖÔÚÊ¹ÓÃµÄÊÇ×îĞÂ°æ±¾£¬¸ĞĞ»ÄúÊ¹ÓÃÀ×°Á¼«¿á³¬¼¶ÂÛÌ³ £¡</b><br><br><br>~;
-                    $gengxin="ÄúÎŞĞèÉı¼¶";
+                    print qq~<font face=å®‹ä½“ color=#333333><center><b>æ‚¨ç°åœ¨ä½¿ç”¨çš„æ˜¯æœ€æ–°ç‰ˆæœ¬ï¼Œæ„Ÿè°¢æ‚¨ä½¿ç”¨é›·å‚²æé…·è¶…çº§è®ºå› ï¼</b><br><br><br>~;
+                    $gengxin="æ‚¨æ— éœ€å‡çº§";
                 } else {
-		    print qq~<font face=ËÎÌå color=#333333><center><b>µ±Ç° $nowdownloadver ÒÑ¾­Ìá¹©ÏÂÔØ£¬Èç¹ûÄúĞèÒªÉı¼¶£¬Çë²Î¿´ÏÂÃæµÄÁ¬½Ó £¡</b><br><br><br>~;
-                    $gengxin="ÄúĞèÒªÉı¼¶";
+		    print qq~<font face=å®‹ä½“ color=#333333><center><b>å½“å‰ $nowdownloadver å·²ç»æä¾›ä¸‹è½½ï¼Œå¦‚æœæ‚¨éœ€è¦å‡çº§ï¼Œè¯·å‚çœ‹ä¸‹é¢çš„è¿æ¥ ï¼</b><br><br><br>~;
+                    $gengxin="æ‚¨éœ€è¦å‡çº§";
                }
-#               if ($big5url eq "") { $big5url = "Ã»ÓĞ"; } else { $big5url = qq~<a href=$big5url>$big5url</a>~; }
-#               if ($engurl  eq "") { $engurl = "Ã»ÓĞ";  } else { $engurl  = qq~<a href=$engurl>$engurl</a>~;   }
+#               if ($big5url eq "") { $big5url = "æ²¡æœ‰"; } else { $big5url = qq~<a href=$big5url>$big5url</a>~; }
+#               if ($engurl  eq "") { $engurl = "æ²¡æœ‰";  } else { $engurl  = qq~<a href=$engurl>$engurl</a>~;   }
 
                print qq~
-               <table width=75%><tr><td>µ±Ç°×îĞÂ°æ±¾: $lastver  [ Äãµ±Ç°Ê¹ÓÃ°æ±¾: $versionnumber]<br><hr>
-               <img src=$imagesurl/icon/txt.gif width=16 height=16 border=0> <font color=blue>ÒÑÍê³É¹¦ÄÜ:</font> £¨¹À¼ÆÌá¹©ÏÂÔØÊ±¼ä: <B>$downtime</b> £©<br><br>
+               <table width=75%><tr><td>å½“å‰æœ€æ–°ç‰ˆæœ¬: $lastver  [ ä½ å½“å‰ä½¿ç”¨ç‰ˆæœ¬: $versionnumber]<br><hr>
+               <img src=$imagesurl/icon/txt.gif width=16 height=16 border=0> <font color=blue>å·²å®ŒæˆåŠŸèƒ½:</font> ï¼ˆä¼°è®¡æä¾›ä¸‹è½½æ—¶é—´: <B>$downtime</b> ï¼‰<br><br>
                $finishfunc<br>
                <hr>
                </td></tr>
-               <tr><td><br><br>µ±Ç°¿ÉÌá¹©ÏÂÔØµÄ×îĞÂ°æ±¾: <B>$nowdownloadver</b>¡¡ [<font color=red><B>$gengxin</B></font>]<br><hr>
-               <img src=$imagesurl/icon/txt.gif width=16 height=16 border=0> <font color=red>ĞÂÔö¹¦ÄÜÁĞ±í:</font><br><br>
+               <tr><td><br><br>å½“å‰å¯æä¾›ä¸‹è½½çš„æœ€æ–°ç‰ˆæœ¬: <B>$nowdownloadver</b>ã€€ [<font color=red><B>$gengxin</B></font>]<br><hr>
+               <img src=$imagesurl/icon/txt.gif width=16 height=16 border=0> <font color=red>æ–°å¢åŠŸèƒ½åˆ—è¡¨:</font><br><br>
                $nowfunc<br><br><br>
                <hr>
-               <img src=$imagesurl/icon/txt.gif width=16 height=16 border=0> <b>ÏÂÔØµØÖ·:<br>
+               <img src=$imagesurl/icon/txt.gif width=16 height=16 border=0> <b>ä¸‹è½½åœ°å€:<br>
                ~;
                if ($gbdownloadinfo ne "") {
-                   print qq~<B>[¼òÌå°æ±¾]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>$gbdownloadinfo<br>~;
+                   print qq~<B>[ç®€ä½“ç‰ˆæœ¬]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>$gbdownloadinfo<br>~;
                } else {
-                   print qq~<B>[¼òÌå°æ±¾]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>¡¡ÔİÊ±²»Ìá¹©<br>~;
+                   print qq~<B>[ç®€ä½“ç‰ˆæœ¬]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>ã€€æš‚æ—¶ä¸æä¾›<br>~;
                }
                if ($bigdownloadinfo ne "") {
-               	   print qq~<B>[·±Ìå°æ±¾]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>$bigdownloadinfo<br>~;
+               	   print qq~<B>[ç¹ä½“ç‰ˆæœ¬]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>$bigdownloadinfo<br>~;
                } else {
-               	   print qq~<B>[·±Ìå°æ±¾]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>¡¡ÔİÊ±²»Ìá¹©<br>~;
+               	   print qq~<B>[ç¹ä½“ç‰ˆæœ¬]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>ã€€æš‚æ—¶ä¸æä¾›<br>~;
                }
                if ($engdownloadinfo ne "") {
-               	   print qq~<B>[Ó¢ÎÄ°æ±¾]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>$engdownloadinfo<br>~;
+               	   print qq~<B>[è‹±æ–‡ç‰ˆæœ¬]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>$engdownloadinfo<br>~;
                } else {
-               	   print qq~<B>[Ó¢ÎÄ°æ±¾]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>¡¡ÔİÊ±²»Ìá¹©<br>~;
+               	   print qq~<B>[è‹±æ–‡ç‰ˆæœ¬]</B> <img src=$imagesurl/icon/zip.gif width=16 height=16 border=0>ã€€æš‚æ—¶ä¸æä¾›<br>~;
                }
                print qq~
                <hr><br>
-               <b>×Ô $formtime ÒÔÀ´£¬ÒÑ¾­ÓĞ <b><font color=blue>$downloadtimes</font></b> ¸öÍøÕ¾°²×°ÁË±¾ÂÛÌ³£¡</b>
+               <b>è‡ª $formtime ä»¥æ¥ï¼Œå·²ç»æœ‰ <b><font color=blue>$downloadtimes</font></b> ä¸ªç½‘ç«™å®‰è£…äº†æœ¬è®ºå›ï¼</b>
                <hr>
                </td></tr></table>
                ~;
 	    } else {
                 print qq~
-                <font face=ËÎÌå color=#333333><center><b>Äã·Ç·¨ĞŞ¸Ä°æ±¾ºÅ£¬Çë¼°Ê±¸Ä»ØÁ¬½ÓºÍ°æ±¾±êÊ¾£¬Ğ»Ğ»ºÏ×÷£¡</b><br><br>
+                <font face=å®‹ä½“ color=#333333><center><b>ä½ éæ³•ä¿®æ”¹ç‰ˆæœ¬å·ï¼Œè¯·åŠæ—¶æ”¹å›è¿æ¥å’Œç‰ˆæœ¬æ ‡ç¤ºï¼Œè°¢è°¢åˆä½œï¼</b><br><br>
                 ~;
 	    }
             print qq~
@@ -227,11 +227,11 @@ if ($engurl5 ne "") {
 	}
 	else {
 	    print qq~
-              <tr><td bgcolor=#2159C9" colspan=2><font face=ËÎÌå  color=#FFFFFF>
-              <b>»¶Ó­À´µ½ LeoBBS ÂÛÌ³¹ÜÀíÖĞĞÄ/²é¿´ÂÛÌ³°æ±¾¸üĞÂ</b>
+              <tr><td bgcolor=#2159C9" colspan=2><font face=å®‹ä½“  color=#FFFFFF>
+              <b>æ¬¢è¿æ¥åˆ° LeoBBS è®ºå›ç®¡ç†ä¸­å¿ƒ/æŸ¥çœ‹è®ºå›ç‰ˆæœ¬æ›´æ–°</b>
               </td></tr>
               <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-              <font color=#333333><b>ÎŞ·¨»ñÈ¡°æ±¾ĞÅÏ¢</b><br>Socket Ä£¿é²»ÄÜÕı³£Ê¹ÓÃ£¬¿ÉÄÜÊÇ·şÎñÆ÷µÄ·À»ğÇ½²»ÔÊĞí£¬»òÕß LeoBBS ·şÎñÆ÷ÔÚµ÷Õû¡£<BR>Çë·ÃÎÊ <a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a> ²é¿´¸üĞÂÇé¿ö°É £¡
+              <font color=#333333><b>æ— æ³•è·å–ç‰ˆæœ¬ä¿¡æ¯</b><br>Socket æ¨¡å—ä¸èƒ½æ­£å¸¸ä½¿ç”¨ï¼Œå¯èƒ½æ˜¯æœåŠ¡å™¨çš„é˜²ç«å¢™ä¸å…è®¸ï¼Œæˆ–è€… LeoBBS æœåŠ¡å™¨åœ¨è°ƒæ•´ã€‚<BR>è¯·è®¿é—® <a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a> æŸ¥çœ‹æ›´æ–°æƒ…å†µå§ ï¼
               </td></tr></table></td></tr></table>
             ~;
 	}
@@ -241,12 +241,12 @@ if ($engurl5 ne "") {
         $versionnumbertemp =~ s/\<(.+?)\>//isg;
         if ($versionnumbertemp =~/LeoBBS/g) {
             print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå  color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÂÛÌ³°æ±¾¼ì²é</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“  color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç‰ˆæœ¬æ£€æŸ¥</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333 ><b>ÂÛÌ³°æ±¾¼ì²é</b>
+                <font face=å®‹ä½“ color=#333333 ><b>è®ºå›ç‰ˆæœ¬æ£€æŸ¥</b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -254,25 +254,25 @@ if ($engurl5 ne "") {
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
                 
-                <font face=ËÎÌå color=#990000 ><b><center>LeoBBS ÂÛÌ³¹ÜÀíÖĞĞÄ / ÂÛÌ³°æ±¾¼ì²é</center></b><br>
-                <font face=ËÎÌå color=#333333 >Äã¿ÉÒÔ²é¿´µ±Ç° LeoBBS Õ¾µãÂÛÌ³µÄ°æ±¾Çé¿ö£¬<br>ÖªµÀµ±Ç°×îĞÂ°æ±¾ºÍÊÇ·ñÔö¼ÓÁËÓĞÓÃµÄ¹¦ÄÜ£¬ÊÇ·ñÊÊºÏÄãÉı¼¶£¡<br><br>
-                ±¾³ÌĞòÃ»ÓĞÎ£º¦ĞÔ£¬¶øÇÒÎÒÃÇÌØÒâÃ»ÓĞ²ÉÓÃ¼ÓÃÜ·½Ê½´«ËÍ£¬<br>½ö½öÊÇÎªÁËÈÃ´ó¼Ò»ñµÃ×îĞÂ°æ±¾µÄÇé¿ö£¬Ğ»Ğ»Äã²ÉÓÃÀ×°Á³¬¼¶ÂÛÌ³£¡
+                <font face=å®‹ä½“ color=#990000 ><b><center>LeoBBS è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç‰ˆæœ¬æ£€æŸ¥</center></b><br>
+                <font face=å®‹ä½“ color=#333333 >ä½ å¯ä»¥æŸ¥çœ‹å½“å‰ LeoBBS ç«™ç‚¹è®ºå›çš„ç‰ˆæœ¬æƒ…å†µï¼Œ<br>çŸ¥é“å½“å‰æœ€æ–°ç‰ˆæœ¬å’Œæ˜¯å¦å¢åŠ äº†æœ‰ç”¨çš„åŠŸèƒ½ï¼Œæ˜¯å¦é€‚åˆä½ å‡çº§ï¼<br><br>
+                æœ¬ç¨‹åºæ²¡æœ‰å±å®³æ€§ï¼Œè€Œä¸”æˆ‘ä»¬ç‰¹æ„æ²¡æœ‰é‡‡ç”¨åŠ å¯†æ–¹å¼ä¼ é€ï¼Œ<br>ä»…ä»…æ˜¯ä¸ºäº†è®©å¤§å®¶è·å¾—æœ€æ–°ç‰ˆæœ¬çš„æƒ…å†µï¼Œè°¢è°¢ä½ é‡‡ç”¨é›·å‚²è¶…çº§è®ºå›ï¼
                 
                 </td>
                 </tr>
                               
                <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit value="¼ì²é°æ±¾¸üĞÂÇé¿ö"></form></td></tr></table></td></tr></table>
+                <input type=submit value="æ£€æŸ¥ç‰ˆæœ¬æ›´æ–°æƒ…å†µ"></form></td></tr></table></td></tr></table>
                ~;
 	} else {
             print qq~
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå  color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÂÛÌ³°æ±¾¼ì²é</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“  color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›ç‰ˆæœ¬æ£€æŸ¥</b>
                 </td></tr>
                     <tr>
                     <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333 ><center><b>Äã·Ç·¨ĞŞ¸Ä°æ±¾ºÅ£¬Çë¼°Ê±¸Ä»ØÁ¬½ÓºÍ°æ±¾±êÊ¾£¬Ğ»Ğ»ºÏ×÷£¡</b><br><br>
+                <font face=å®‹ä½“ color=#333333 ><center><b>ä½ éæ³•ä¿®æ”¹ç‰ˆæœ¬å·ï¼Œè¯·åŠæ—¶æ”¹å›è¿æ¥å’Œç‰ˆæœ¬æ ‡ç¤ºï¼Œè°¢è°¢åˆä½œï¼</b><br><br>
                     </td></tr></table></td></tr></table>
                 ~;
        }

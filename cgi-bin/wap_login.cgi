@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -21,18 +21,18 @@ require "wap.pl";
 $check = $query -> param('check');
 $lid = $query -> param('lid');
 &waptitle;
-$show.= qq~<card  title="$boardname-µÇÂ½">~;
+$show.= qq~<card  title="$boardname-ç™»é™†">~;
 if($check eq 'loginout'){
 	unlink "${lbdir}wap/$lid";
-	$show.= qq~<p>³É¹¦×¢Ïú$inmembername£¬Äú¹ýÈ¥µÄÊéÇ©½«²»ÄÜÔÙÖ±½ÓÃâµÇÂ½</p><p><a href='wap.cgi'>·µ»ØÊ×Ò³</a></p>~;&wapfoot;
+	$show.= qq~<p>æˆåŠŸæ³¨é”€$inmembernameï¼Œæ‚¨è¿‡åŽ»çš„ä¹¦ç­¾å°†ä¸èƒ½å†ç›´æŽ¥å…ç™»é™†</p><p><a href='wap.cgi'>è¿”å›žé¦–é¡µ</a></p>~;&wapfoot;
 }
 my $xh2 = $ENV{'REMOTE_ADDR'};
-$show.=  qq~<p><b>µÇÂ¼$boardname</b> <br/>ÄúµÄÊÖ»úIP£º$xh2<br/>Èç¹ûÄúÔÚÊÖ»úÉÏÎÞ·¨ÊäÈëID½øÐÐµÇÂ½£¬Çë¼Ç×¡ÉÏÃæIP£¬½øÈëÂÛÌ³£¨loginwap.cgi£©Éú³ÉÃâµÇÂ½Url¡£<br/>\n</p><p>ÕËºÅ£º<input type="text" name="n1" value="$a1"/><br/>\n</p><p>ÃÜÂë£º<input type='password' name="p" value="$b1"/><br/>\n</p><p>
-<anchor>[µÇÂ¼]<go href="wap_index.cgi" method="post">
+$show.=  qq~<p><b>ç™»å½•$boardname</b> <br/>æ‚¨çš„æ‰‹æœºIPï¼š$xh2<br/>å¦‚æžœæ‚¨åœ¨æ‰‹æœºä¸Šæ— æ³•è¾“å…¥IDè¿›è¡Œç™»é™†ï¼Œè¯·è®°ä½ä¸Šé¢IPï¼Œè¿›å…¥è®ºå›ï¼ˆloginwap.cgiï¼‰ç”Ÿæˆå…ç™»é™†Urlã€‚<br/>\n</p><p>è´¦å·ï¼š<input type="text" name="n1" value="$a1"/><br/>\n</p><p>å¯†ç ï¼š<input type='password' name="p" value="$b1"/><br/>\n</p><p>
+<anchor>[ç™»å½•]<go href="wap_index.cgi" method="post">
 <postfield name="n1" value="\$(n1)"/>
 <postfield name="p" value="\$(p)"/>
 </go>
-</anchor> <a href="wap_index.cgi">[¿ÍÈË]</a> <a href="wap_reg.cgi">[×¢²á]</a>~;
+</anchor> <a href="wap_index.cgi">[å®¢äºº]</a> <a href="wap_reg.cgi">[æ³¨å†Œ]</a>~;
 $show.=  qq~
 </p>~;
 &wapfoot;

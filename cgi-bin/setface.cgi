@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -43,10 +43,10 @@ else {
     $cookiepath =~ s/\/$//;
 }
 
-#&ipbanned; #·âÉ±Ò»Ğ© ip
+#&ipbanned; #å°æ€ä¸€äº› ip
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 
 $inmembername = $query->cookie("amembernamecookie");
@@ -54,20 +54,20 @@ $inpassword   = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    &error("²»ÄÜ½øÈë $plugname &ÄãÄ¿Ç°µÄÉí·İÊÇ·Ã¿Í£¬ÇëÏÈµÇÂ½!");
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    &error("ä¸èƒ½è¿›å…¥ $plugname &ä½ ç›®å‰çš„èº«ä»½æ˜¯è®¿å®¢ï¼Œè¯·å…ˆç™»é™†!");
     exit;
 } else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 
@@ -82,37 +82,37 @@ $admin_user =~ tr/A-Z/a-z/;
 
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-&error("$plugname ºóÌ¨¹ÜÀí&Ö»ÓĞÂÛÌ³Ì³Ö÷Óë²å¼ş¹ÜÀíÔ±²ÅÄÜ½øÈë´ËÇø£¡") if (($membercode ne "ad")&&($admin_user ne "$tempmembername"));
+&error("$plugname åå°ç®¡ç†&åªæœ‰è®ºå›å›ä¸»ä¸æ’ä»¶ç®¡ç†å‘˜æ‰èƒ½è¿›å…¥æ­¤åŒºï¼") if (($membercode ne "ad")&&($admin_user ne "$tempmembername"));
 
 print $query->header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 $output .= qq~
 <BODY>
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ¹ºÂò¡¢×°±¸¡¢ÔùËÍ¡¢ÉèÖÃºÍ¹ÜÀíÄãµÄĞéÄâĞÎÏó</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href=face.cgi>$plugname</a> <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>ºóÌ¨¹ÜÀí</a>]<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥è´­ä¹°ã€è£…å¤‡ã€èµ é€ã€è®¾ç½®å’Œç®¡ç†ä½ çš„è™šæ‹Ÿå½¢è±¡</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href=face.cgi>$plugname</a> <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>åå°ç®¡ç†</a>]<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td>
 <table cellpadding=2 cellspacing=1 border=0 width=100%>
 <tr><td height=30 bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor>
-&nbsp;<B><a href=$thisprog?action=set>»ù±¾ÉèÖÃ</a> | <a href=$thisprog?action=sortm>Àà±ğ¹ÜÀí</a> | <a href=$thisprog?action=add_sp>Ôö¼Óµ¥Ò»ÉÌÆ·</a> | <a href=$thisprog?action=edit>ÉÌÆ·¹ÜÀí</a> | <a href=$thisprog?action=view>²é¿´ÓÃ»§ĞÅÏ¢</a></b></td></table>~;
+&nbsp;<B><a href=$thisprog?action=set>åŸºæœ¬è®¾ç½®</a> | <a href=$thisprog?action=sortm>ç±»åˆ«ç®¡ç†</a> | <a href=$thisprog?action=add_sp>å¢åŠ å•ä¸€å•†å“</a> | <a href=$thisprog?action=edit>å•†å“ç®¡ç†</a> | <a href=$thisprog?action=view>æŸ¥çœ‹ç”¨æˆ·ä¿¡æ¯</a></b></td></table>~;
 
 
 $action = $query -> param('action');
 
 my %Mode = (
-	'set'=> \&bset,			# »ù±¾ÉèÖÃ
+	'set'=> \&bset,			# åŸºæœ¬è®¾ç½®
 	'sortm'=> \&sort_manage,
-	'edit_sort'=> \&edit_sort,	# ±à¼­Àà±ğĞÅÏ¢
-	'putjs'=> \&putjs,		# Êä³öÀà±ğJSÎÄ¼ş
-	'edit_cate'=> \&edit_cate,	# ±à¼­·ÖÀà
-	'del_cate'=> \&del_cate,	# É¾³ı·ÖÀà
-	'add_cate'=> \&add_cate,	# Ôö¼Ó·ÖÀà
-	'upmenujs'=> \&upmenujs,	# Êä³ö·ÖÀà²Ëµ¥ÑùÊ½
-	'add_sp'=> \&add_sp,		# Ôö¼Óµ¥Ò»ÉÌÆ·
-	'view'=> \&view_user,		# ²é¿´ÓÃ»§ĞÅÏ¢
-	'edit'=> \&edit_sp,		# ±à¼­ÓëÉ¾³ıÉÌÆ·ĞÅÏ¢
+	'edit_sort'=> \&edit_sort,	# ç¼–è¾‘ç±»åˆ«ä¿¡æ¯
+	'putjs'=> \&putjs,		# è¾“å‡ºç±»åˆ«JSæ–‡ä»¶
+	'edit_cate'=> \&edit_cate,	# ç¼–è¾‘åˆ†ç±»
+	'del_cate'=> \&del_cate,	# åˆ é™¤åˆ†ç±»
+	'add_cate'=> \&add_cate,	# å¢åŠ åˆ†ç±»
+	'upmenujs'=> \&upmenujs,	# è¾“å‡ºåˆ†ç±»èœå•æ ·å¼
+	'add_sp'=> \&add_sp,		# å¢åŠ å•ä¸€å•†å“
+	'view'=> \&view_user,		# æŸ¥çœ‹ç”¨æˆ·ä¿¡æ¯
+	'edit'=> \&edit_sp,		# ç¼–è¾‘ä¸åˆ é™¤å•†å“ä¿¡æ¯
 );
 
 if ($Mode{$action})
@@ -124,33 +124,33 @@ else
 sub main
 {
     $output .= qq~<table cellpadding=6 cellspacing=1 width=100%>
-    <tr align=middle bgcolor=$miscbacktwo><td>²å ¼ş ºó Ì¨ ¹Ü Àí Ëµ Ã÷</td></tr>
+    <tr align=middle bgcolor=$miscbacktwo><td>æ’ ä»¶ å å° ç®¡ ç† è¯´ æ˜</td></tr>
     <tr align=middle bgcolor=$forumcolortwo><td align="left" valign="top">
-¡¡¡¡<B>»¶Ó­ÄúÊ¹ÓÃÀ×°Á³¬¼¶ÂÛÌ³ĞéÄâĞÎÏóºóÌ¨¹ÜÀíÏµÍ³£¡ </B><P>
-¡¡¡¡»ù±¾ÉèÖÃ¡¡¡¡¡¡- ÉèÖÃ²å¼şµÄ»ù±¾²ÎÊı¡¢Ö»ÓĞÌ³Ö÷²ÅÄÜ½øÈë´ËÇø£»<P>
-¡¡¡¡Àà±ğ¹ÜÀí¡¡¡¡¡¡- Ôö¼Ó¡¢±à¼­¡¢É¾³ı·ÖÀàºÍÌ××°Àà±ğ£¬Êä³öJavaScript´úÂëµÈ£»<P>
-¡¡¡¡Ôö¼Óµ¥Ò»ÉÌÆ·¡¡- Ôö¼ÓÆÕÍ¨ÉÌÆ·ĞÅÏ¢£»<P>
-¡¡¡¡ÉÌÆ·¹ÜÀí¡¡¡¡¡¡- ±à¼­¡¢É¾³ıÉÌÆ·ĞÅÏ¢£»<P>
-¡¡¡¡²é¿´ÓÃ»§ĞÅÏ¢¡¡- ²é¿´ÓÃ»§µ±Ç°µÄ×°±¸Çé¿ö¡£<P>
-¡¡¡¡³ÌĞò°æÈ¨ËùÓĞ£º <a href=http://www.lzeweb.com/ target=_blank>ÈıÔªÉçÇø</a>¡¡¡¡³ÌĞò±àÖÆ£º°¢Ç¿(CPower)
+ã€€ã€€<B>æ¬¢è¿æ‚¨ä½¿ç”¨é›·å‚²è¶…çº§è®ºå›è™šæ‹Ÿå½¢è±¡åå°ç®¡ç†ç³»ç»Ÿï¼ </B><P>
+ã€€ã€€åŸºæœ¬è®¾ç½®ã€€ã€€ã€€- è®¾ç½®æ’ä»¶çš„åŸºæœ¬å‚æ•°ã€åªæœ‰å›ä¸»æ‰èƒ½è¿›å…¥æ­¤åŒºï¼›<P>
+ã€€ã€€ç±»åˆ«ç®¡ç†ã€€ã€€ã€€- å¢åŠ ã€ç¼–è¾‘ã€åˆ é™¤åˆ†ç±»å’Œå¥—è£…ç±»åˆ«ï¼Œè¾“å‡ºJavaScriptä»£ç ç­‰ï¼›<P>
+ã€€ã€€å¢åŠ å•ä¸€å•†å“ã€€- å¢åŠ æ™®é€šå•†å“ä¿¡æ¯ï¼›<P>
+ã€€ã€€å•†å“ç®¡ç†ã€€ã€€ã€€- ç¼–è¾‘ã€åˆ é™¤å•†å“ä¿¡æ¯ï¼›<P>
+ã€€ã€€æŸ¥çœ‹ç”¨æˆ·ä¿¡æ¯ã€€- æŸ¥çœ‹ç”¨æˆ·å½“å‰çš„è£…å¤‡æƒ…å†µã€‚<P>
+ã€€ã€€ç¨‹åºç‰ˆæƒæ‰€æœ‰ï¼š <a href=http://www.lzeweb.com/ target=_blank>ä¸‰å…ƒç¤¾åŒº</a>ã€€ã€€ç¨‹åºç¼–åˆ¶ï¼šé˜¿å¼º(CPower)
     </td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 
 
-sub bset	# »ù±¾ÉèÖÃ
+sub bset	# åŸºæœ¬è®¾ç½®
 {
-    &error("»ù±¾ÉèÖÃ&´ËÑ¡ÏîÖ»ÓĞ±¾ÂÛÌ³Ì³Ö÷²ÅÄÜÊ¹ÓÃ£¡") if ($membercode ne "ad");
+    &error("åŸºæœ¬è®¾ç½®&æ­¤é€‰é¡¹åªæœ‰æœ¬è®ºå›å›ä¸»æ‰èƒ½ä½¿ç”¨ï¼") if ($membercode ne "ad");
     my $checked	= $query -> param('checked');
     if ($checked eq "yes")
     {
-	my $new1 = $query -> param('plugname');	# ²å¼şÃû³Æ
-	my $new2 = $query -> param('close_plug');	# ²å¼ş×´Ì¬
-	my $newau = $query -> param('admin_user');	# ²å¼ş¹ÜÀíÔ±
-	my $new3 = $query -> param('samnum');	# ÏàÍ¬×°±¸ÔÊĞíµÄÊıÁ¿
-	my $new4 = $query -> param('lognum');	# ÏµÍ³¼ÇÂ¼ÌõÊı
-	my $new6 = $query -> param('show_pagen');	# Ã¿Ò³ÏÔÊ¾ÉÌÆ·Êı
-	my $new7 = $query -> param('row_num');	# Ã¿ĞĞÏÔÊ¾ÉÌÆ·Êı
-	my $new8 = $query -> param('c_width');	# Ã¿¼şÉÌÆ·µÄ±í¸ñ¿í¶È
+	my $new1 = $query -> param('plugname');	# æ’ä»¶åç§°
+	my $new2 = $query -> param('close_plug');	# æ’ä»¶çŠ¶æ€
+	my $newau = $query -> param('admin_user');	# æ’ä»¶ç®¡ç†å‘˜
+	my $new3 = $query -> param('samnum');	# ç›¸åŒè£…å¤‡å…è®¸çš„æ•°é‡
+	my $new4 = $query -> param('lognum');	# ç³»ç»Ÿè®°å½•æ¡æ•°
+	my $new6 = $query -> param('show_pagen');	# æ¯é¡µæ˜¾ç¤ºå•†å“æ•°
+	my $new7 = $query -> param('row_num');	# æ¯è¡Œæ˜¾ç¤ºå•†å“æ•°
+	my $new8 = $query -> param('c_width');	# æ¯ä»¶å•†å“çš„è¡¨æ ¼å®½åº¦
 
 	my $filetomake = $lbdir . "face/config.pl";
 	&winlock($filetomake) if ($OS_USED eq "Nt");
@@ -172,13 +172,13 @@ sub bset	# »ù±¾ÉèÖÃ
 	$output .= qq~
 
 <table cellPadding=6 cellSpacing=1 border=0 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>ĞŞ¸Ä³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>ä¿®æ”¹æˆåŠŸ</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=set">~;
     }
     else
     {
-	$tempoutput = "<select name=\"close_plug\">\n<option value=\"open\">Õı³£¿ª·Å\n<option value=\"close\">ÔİÊ±¹Ø±Õ\n</select>\n";
+	$tempoutput = "<select name=\"close_plug\">\n<option value=\"open\">æ­£å¸¸å¼€æ”¾\n<option value=\"close\">æš‚æ—¶å…³é—­\n</select>\n";
 	$tempoutput =~ s/value=\"$close_plug\"/value=\"$close_plug\" selected/;
 
 	$output .= qq~
@@ -188,33 +188,33 @@ sub bset	# »ù±¾ÉèÖÃ
 <input type=hidden name=action value="set">
 <input type=hidden name=checked value="yes">
 <tr bgcolor=$miscbacktwo>
-<td colspan=4 align=center><font color=$fontcolormisc><b>[ ²Î Êı Éè ÖÃ ]</b></font></td>
+<td colspan=4 align=center><font color=$fontcolormisc><b>[ å‚ æ•° è®¾ ç½® ]</b></font></td>
 </tr>
 <tr bgcolor=$miscbackone>
-<td><font color=$fontcolormisc>²å¼şÃû³Æ</font></td><td><input type=text size=15 name="plugname" value=$plugname></td>
-<td><font color=$fontcolormisc>²å¼ş×´Ì¬</font></td><td>$tempoutput</td>
+<td><font color=$fontcolormisc>æ’ä»¶åç§°</font></td><td><input type=text size=15 name="plugname" value=$plugname></td>
+<td><font color=$fontcolormisc>æ’ä»¶çŠ¶æ€</font></td><td>$tempoutput</td>
 </tr>
 <tr bgcolor=$miscbackone>
-<td><font color=$fontcolormisc>²å¼ş¹ÜÀíÔ±</font></td><td><input type=text size=15 name="admin_user" value=$admin_user></td>
-<td><font color=$fontcolormisc>ÏàÍ¬×°±¸ÔÊĞíµÄÊıÁ¿</font></td><td><input type=text size=10 name="samnum" value=$samnum></td>
+<td><font color=$fontcolormisc>æ’ä»¶ç®¡ç†å‘˜</font></td><td><input type=text size=15 name="admin_user" value=$admin_user></td>
+<td><font color=$fontcolormisc>ç›¸åŒè£…å¤‡å…è®¸çš„æ•°é‡</font></td><td><input type=text size=10 name="samnum" value=$samnum></td>
 </tr>
 <tr bgcolor=$miscbacktwo>
-<td><font color=$fontcolormisc>ÏµÍ³¼ÇÂ¼ÌõÊı</font></td><td><input type=text size=10 name="lognum" value=$lognum></td>
-<td><font color=$fontcolormisc>Ã¿Ò³ÏÔÊ¾ÉÌÆ·Êı</font></td><td><input type=text size=3 name="show_pagen" value=$show_pagen></td>
+<td><font color=$fontcolormisc>ç³»ç»Ÿè®°å½•æ¡æ•°</font></td><td><input type=text size=10 name="lognum" value=$lognum></td>
+<td><font color=$fontcolormisc>æ¯é¡µæ˜¾ç¤ºå•†å“æ•°</font></td><td><input type=text size=3 name="show_pagen" value=$show_pagen></td>
 </tr>
 <tr bgcolor=$miscbacktwo>
-<td><font color=$fontcolormisc>Ã¿ĞĞÏÔÊ¾ÉÌÆ·Êı</font></td><td><input type=text size=2 name="row_num" value=$row_num></td>
-<td><font color=$fontcolormisc>Ã¿¼şÉÌÆ·µÄ±í¸ñ¿í¶È</font></td><td><input type=text size=5 name="c_width" value=$c_width></td>
+<td><font color=$fontcolormisc>æ¯è¡Œæ˜¾ç¤ºå•†å“æ•°</font></td><td><input type=text size=2 name="row_num" value=$row_num></td>
+<td><font color=$fontcolormisc>æ¯ä»¶å•†å“çš„è¡¨æ ¼å®½åº¦</font></td><td><input type=text size=5 name="c_width" value=$c_width></td>
 </tr>
 
-<tr bgcolor=$miscbacktwo><td colspan=4 align=center><input type=submit name=submit value="È· ¶¨">¡¡¡¡<input type=reset value=ÖØ¡¡ÖÃ></td></form></tr>
+<tr bgcolor=$miscbacktwo><td colspan=4 align=center><input type=submit name=submit value="ç¡® å®š">ã€€ã€€<input type=reset value=é‡ã€€ç½®></td></form></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
 }
 
 sub sort_manage
 {
-    my $filetoopen = "$lbdir" . "face/category.pl";	# ´ó·ÖÀà
+    my $filetoopen = "$lbdir" . "face/category.pl";	# å¤§åˆ†ç±»
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -222,7 +222,7 @@ sub sort_manage
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    $filetoopen = "$lbdir" . "face/class.cgi";		# Ğ¡·ÖÀà
+    $filetoopen = "$lbdir" . "face/class.cgi";		# å°åˆ†ç±»
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -233,30 +233,30 @@ sub sort_manage
     $output .= qq~
 <script>
 function OUTJS()
-{if(!confirm("ÊÇ·ñÈ·¶¨Êä³ö JS ²Ëµ¥ÎÄ¼ş£¿"))return false;}
+{if(!confirm("æ˜¯å¦ç¡®å®šè¾“å‡º JS èœå•æ–‡ä»¶ï¼Ÿ"))return false;}
 function DEL()
-{if(!confirm("$membername£¬±¾²Ù×÷²»¿É»Ö¸´£¬ÄúÊÇ·ñÈ·ÈÏÉ¾³ı£¿"))return false;}
+{if(!confirm("$membernameï¼Œæœ¬æ“ä½œä¸å¯æ¢å¤ï¼Œæ‚¨æ˜¯å¦ç¡®è®¤åˆ é™¤ï¼Ÿ"))return false;}
 </script>
 <table cellPadding=6 cellSpacing=1 width=100%>
 <form action=$thisprog method=POST>
 <input type=hidden name=action value="set">
 <input type=hidden name=checked value="yes">
 <tr bgcolor=$miscbacktwo>
-<td colspan=5 align=center><font color=$fontcolormisc><b>[ Àà ±ğ ¹Ü Àí ]</b></font></td>
+<td colspan=5 align=center><font color=$fontcolormisc><b>[ ç±» åˆ« ç®¡ ç† ]</b></font></td>
 </tr>
 
 <tr bgcolor=$miscbackone>
-<td colspan=5>[<a href="$thisprog?action=add_cate">Ôö¼ÓĞÂµÄ·ÖÀà</a>] - [<a href="$thisprog?action=upmenujs" onclick="return OUTJS();">Êä³ö·ÖÀà²Ëµ¥ÑùÊ½</a>]</td>
+<td colspan=5>[<a href="$thisprog?action=add_cate">å¢åŠ æ–°çš„åˆ†ç±»</a>] - [<a href="$thisprog?action=upmenujs" onclick="return OUTJS();">è¾“å‡ºåˆ†ç±»èœå•æ ·å¼</a>]</td>
 </tr>~;
 
     foreach (@cate)
     {
 	chop($_);
 	($cate_id,$cate_state,$cate_name,$cate_info) = split(/\t/,$_);
-	$cate_state = $cate_state eq 1 ? '<font color=blue>ÆôÓÃ</font>' : '<font color=red>¹Ø±Õ</font>';
+	$cate_state = $cate_state eq 1 ? '<font color=blue>å¯ç”¨</font>' : '<font color=red>å…³é—­</font>';
         $output .=qq~
-	<tr bgcolor=#EEEEEE><td colspan=5 height=30>·ÖÀàÃû³Æ£º$cate_name¡¡$cate_state [<a href="$thisprog?action=edit_cate&id=$cate_id">±à¼­´Ë·ÖÀà</a>]  [<a href="$thisprog?action=del_cate&id=$cate_id" onclick="return DEL();">É¾³ı´Ë·ÖÀà</a>]</td></tr>
-	<tr bgcolor=$miscbacktwo align=center><td width=120>Àà±ğÃû³Æ</td><td width=80></td><td width=80></td><td width=50>Àà±ğ×´Ì¬</td><td width=320>Àà±ğÃèÊö</td></tr>~;
+	<tr bgcolor=#EEEEEE><td colspan=5 height=30>åˆ†ç±»åç§°ï¼š$cate_nameã€€$cate_state [<a href="$thisprog?action=edit_cate&id=$cate_id">ç¼–è¾‘æ­¤åˆ†ç±»</a>]  [<a href="$thisprog?action=del_cate&id=$cate_id" onclick="return DEL();">åˆ é™¤æ­¤åˆ†ç±»</a>]</td></tr>
+	<tr bgcolor=$miscbacktwo align=center><td width=120>ç±»åˆ«åç§°</td><td width=80></td><td width=80></td><td width=50>ç±»åˆ«çŠ¶æ€</td><td width=320>ç±»åˆ«æè¿°</td></tr>~;
 	
 	foreach (@sort)
 	{
@@ -265,15 +265,15 @@ function DEL()
 
 	    if($cate_id eq $cateid)
 	    {
-		$status = $sort_status eq 1 ? '<font color=blue>¿ª·Å</font>' : '<font color=red>¹Ø±Õ</font>';
-		$jsinfo = $sort_status eq 1 ? "<a href=$thisprog?action=putjs&id=$sort_id>Êä³öJSÎÄ¼ş</a>" : "";
+		$status = $sort_status eq 1 ? '<font color=blue>å¼€æ”¾</font>' : '<font color=red>å…³é—­</font>';
+		$jsinfo = $sort_status eq 1 ? "<a href=$thisprog?action=putjs&id=$sort_id>è¾“å‡ºJSæ–‡ä»¶</a>" : "";
 
-	        $output .=qq~<tr bgcolor=$miscbackone><td>$sortname</td><td align=center>$jsinfo</td><td align=center><a href="$thisprog?action=edit_sort&id=$sort_id">±à¼­</a>$msort</td><td width=50 align=center>$status</td><td>$sortinfo</td></tr>~;
+	        $output .=qq~<tr bgcolor=$miscbackone><td>$sortname</td><td align=center>$jsinfo</td><td align=center><a href="$thisprog?action=edit_sort&id=$sort_id">ç¼–è¾‘</a>$msort</td><td width=50 align=center>$status</td><td>$sortinfo</td></tr>~;
 	    }
         }
    }
 
-   $output .=qq~<tr bgcolor=#EEEEEE><td colspan=5 height=30>·ÖÀàÃû³Æ£ºÔİÎŞ</td></tr><tr bgcolor=$miscbacktwo align=center><td width=120>Àà±ğÃû³Æ</td><td width=80></td><td width=80></td><td width=50>Àà±ğ×´Ì¬</td><td width=320>Àà±ğÃèÊö</td></tr>~;
+   $output .=qq~<tr bgcolor=#EEEEEE><td colspan=5 height=30>åˆ†ç±»åç§°ï¼šæš‚æ— </td></tr><tr bgcolor=$miscbacktwo align=center><td width=120>ç±»åˆ«åç§°</td><td width=80></td><td width=80></td><td width=50>ç±»åˆ«çŠ¶æ€</td><td width=320>ç±»åˆ«æè¿°</td></tr>~;
 
     foreach (@sort)
     {
@@ -282,7 +282,7 @@ function DEL()
 
         if($cateid eq '')
 	{
-            $output .=qq~<tr bgcolor=$miscbackone><td>$sortname</td><td align=center></td><td align=center><a href="$thisprog?action=edit_sort&id=$sort_id">±à¼­</a>$msort</td><td width=50 align=center><font color=red>¹Ø±Õ</font></td><td>$sortinfo</td></tr>~;
+            $output .=qq~<tr bgcolor=$miscbackone><td>$sortname</td><td align=center></td><td align=center><a href="$thisprog?action=edit_sort&id=$sort_id">ç¼–è¾‘</a>$msort</td><td width=50 align=center><font color=red>å…³é—­</font></td><td>$sortinfo</td></tr>~;
 	}
     }
     $output .=qq~</table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
@@ -298,8 +298,8 @@ sub edit_sort
 	$new_name	= $query -> param('sort_name');
 	$new_status	= $query -> param('sort_status');
 	$new_explain	= $query -> param('sort_explain');
-	&error("±à¼­Àà±ğ&ÉÌÆ·Àà±ğÃû×Ö²»ÄÜ¿Õ£¡£¡") if($new_name eq '');
-	&error("±à¼­Àà±ğ&ÉÌÆ·Àà±ğÃèÊö²»ÄÜ¿Õ£¡£¡") if($new_explain eq '');
+	&error("ç¼–è¾‘ç±»åˆ«&å•†å“ç±»åˆ«åå­—ä¸èƒ½ç©ºï¼ï¼") if($new_name eq '');
+	&error("ç¼–è¾‘ç±»åˆ«&å•†å“ç±»åˆ«æè¿°ä¸èƒ½ç©ºï¼ï¼") if($new_explain eq '');
 
         my $filetoopen = "$lbdir" . "face/class.cgi";
 	open(FILE,"$filetoopen");
@@ -311,7 +311,7 @@ sub edit_sort
 	{
 	    ($cateid,$old_id,$old_status,$old_name,$old_info)=split(/\t/,@sort[$i]);
 
-	    if($old_id eq $id)	# Èç¹ûÕÒµ½·ûºÏµÄÌõ¼ş£¬ÔòĞ´ÈëĞÂµÄÊı¾İ
+	    if($old_id eq $id)	# å¦‚æœæ‰¾åˆ°ç¬¦åˆçš„æ¡ä»¶ï¼Œåˆ™å†™å…¥æ–°çš„æ•°æ®
 	    {
 		print FILE "$new_cname\t$old_id\t$new_status\t$new_name\t$new_explain\n";
 	    }
@@ -321,7 +321,7 @@ sub edit_sort
 	close(FILE);
 	$output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>±à ¼­ ³É ¹¦</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>ç¼– è¾‘ æˆ åŠŸ</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="1; url=$thisprog?action=sortm">~;
     }
@@ -340,7 +340,7 @@ sub edit_sort
 	    last if($sort_id eq $id);
 	}
 
-	$filetoopen = "$lbdir" . "face/category.pl";	# ´ó·ÖÀà
+	$filetoopen = "$lbdir" . "face/category.pl";	# å¤§åˆ†ç±»
 	&winlock($filetoopen) if ($OS_USED eq "Nt");
 	open(FILE, "$filetoopen");
 	flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -355,7 +355,7 @@ sub edit_sort
 	}
 
 	$temps =~ s/value=\"$cateid\"/value=\"$cateid\" selected/;
-	$tempoutput = "<input type=radio name=sort_status value=\"1\"> ÆôÓÃ¡¡<input type=radio name=sort_status value=\"0\"> ¹Ø±Õ";
+	$tempoutput = "<input type=radio name=sort_status value=\"1\"> å¯ç”¨ã€€<input type=radio name=sort_status value=\"0\"> å…³é—­";
 	$tempoutput =~ s/value=\"$sort_status\"/value=\"$sort_status\" checked/;
 
 	$output .= qq~
@@ -365,21 +365,21 @@ sub edit_sort
 	<input type=hidden name="edit" value="y">
 	<input type=hidden name="id" value="$id">
 	<tr bgcolor=$miscbacktwo>
-	<td colspan=2 align=center><font color=$fontcolormisc><b>[ ĞŞ ¸Ä Àà ±ğ ]</b></font></td>
+	<td colspan=2 align=center><font color=$fontcolormisc><b>[ ä¿® æ”¹ ç±» åˆ« ]</b></font></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>·ÖÀàÃû³Æ</td><td><select name=catename size=1">$temps</select></td>
+	<td>åˆ†ç±»åç§°</td><td><select name=catename size=1">$temps</select></td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>Àà±ğÃû³Æ</td><td><input type=text size=15 name="sort_name" maxlength=15 value="$sort_name"></td>
+	<td>ç±»åˆ«åç§°</td><td><input type=text size=15 name="sort_name" maxlength=15 value="$sort_name"></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>Àà±ğ×´Ì¬</td><td>$tempoutput</td>
+	<td>ç±»åˆ«çŠ¶æ€</td><td>$tempoutput</td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>Àà±ğÃèÊö</td><td><input type=text size=40 name="sort_explain" value="$sort_info"></td>
+	<td>ç±»åˆ«æè¿°</td><td><input type=text size=40 name="sort_explain" value="$sort_info"></td>
 	</tr>
-	<tr bgcolor=$miscbackone><td align=center colspan=2><input type=submit value="Ìá ½»"></td></tr></form>
+	<tr bgcolor=$miscbackone><td align=center colspan=2><input type=submit value="æ äº¤"></td></tr></form>
 	</table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
 }
@@ -387,7 +387,7 @@ sub edit_sort
 sub putjs
 {
     my $id = $query -> param('id');
-    my $filetoopen = "$lbdir" . "face/wpdata/$id.pl";	# ´ó·ÖÀà
+    my $filetoopen = "$lbdir" . "face/wpdata/$id.pl";	# å¤§åˆ†ç±»
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -403,19 +403,19 @@ sub putjs
 	($x6,$x) = split(/\./,$x6);
 	($x7,$x) = split(/\./,$x7);
 	$outinfo .= qq~'$x1|$x2|$x3|$x5|$x6|$x7',~;
-	#ÉÌÆ·ID,ÉÌÆ·Ãû³Æ,ÉÌÆ·¼Û¸ñ,ÊÊÓÃÈËÈº,ÉÌÆ·´óÍ¼,ÉÌÆ·Ğ¡Í¼
+	#å•†å“ID,å•†å“åç§°,å•†å“ä»·æ ¼,é€‚ç”¨äººç¾¤,å•†å“å¤§å›¾,å•†å“å°å›¾
     }
     chop($outinfo);
 
     open(FILE, ">${imagesdir}/face/js/$id.js");
-    print FILE qq~//À×°Á³¬¼¶ÂÛÌ³ĞéÄâĞÎÏó ÉÌÆ·ĞÅÏ¢ ID:$id
+    print FILE qq~//é›·å‚²è¶…çº§è®ºå›è™šæ‹Ÿå½¢è±¡ å•†å“ä¿¡æ¯ ID:$id
 var SPNUM = $spdata;
 var SPINFO = new Array($outinfo);~;
     close(FILE);
 
     $output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>JavaScript ÎÄ¼ş±£´æ³É¹¦£¡</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>JavaScript æ–‡ä»¶ä¿å­˜æˆåŠŸï¼</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=sortm">~;
 }
@@ -429,8 +429,8 @@ sub edit_cate
 	$new_name	= $query -> param('cate_name');
 	$new_state	= $query -> param('cate_status');
 	$new_explain	= $query -> param('cate_explain');
-	&error("±à¼­·ÖÀà&·ÖÀàÃû×Ö²»ÄÜ¿Õ£¡£¡") if($new_name eq '');
-	&error("±à¼­·ÖÀà&·ÖÀàÃèÊö²»ÄÜ¿Õ£¡£¡") if($new_explain eq '');
+	&error("ç¼–è¾‘åˆ†ç±»&åˆ†ç±»åå­—ä¸èƒ½ç©ºï¼ï¼") if($new_name eq '');
+	&error("ç¼–è¾‘åˆ†ç±»&åˆ†ç±»æè¿°ä¸èƒ½ç©ºï¼ï¼") if($new_explain eq '');
 
 	$/="";
 	my $filetoopen = "$lbdir" . "face/category.pl";
@@ -446,7 +446,7 @@ sub edit_cate
 
 	$output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>±à ¼­ ·Ö Àà ³É ¹¦</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>ç¼– è¾‘ åˆ† ç±» æˆ åŠŸ</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="1; url=$thisprog?action=sortm">~;
     }
@@ -465,9 +465,9 @@ sub edit_cate
 	    ($cate_id,$cate_state,$cate_name,$cate_info) = split(/\t/,$_);
 	    last if($cate_id eq $id);
 	}
-	&error("±à¼­·ÖÀà&±à¼­·ÖÀàµÄID²»´æÔÚ£¡£¡") if ($cate_id ne $id);
+	&error("ç¼–è¾‘åˆ†ç±»&ç¼–è¾‘åˆ†ç±»çš„IDä¸å­˜åœ¨ï¼ï¼") if ($cate_id ne $id);
 
-	$tempoutput = "<input type=radio name=cate_status value=\"1\"> ÆôÓÃ¡¡<input type=radio name=cate_status value=\"0\"> ¹Ø±Õ";
+	$tempoutput = "<input type=radio name=cate_status value=\"1\"> å¯ç”¨ã€€<input type=radio name=cate_status value=\"0\"> å…³é—­";
 	$tempoutput =~ s/value=\"$cate_state\"/value=\"$cate_state\" checked/;
 
 	$output .= qq~
@@ -477,18 +477,18 @@ sub edit_cate
 	<input type=hidden name="edit" value="y">
 	<input type=hidden name="id" value="$id">
 	<tr bgcolor=$miscbacktwo>
-	<td colspan=2 align=center><font color=$fontcolormisc><b>[ ±à ¼­ ·Ö Àà ]</b></font></td>
+	<td colspan=2 align=center><font color=$fontcolormisc><b>[ ç¼– è¾‘ åˆ† ç±» ]</b></font></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>·ÖÀàÃû³Æ</td><td><input type=text size=15 name="cate_name" maxlength=15 value="$cate_name"></td>
+	<td>åˆ†ç±»åç§°</td><td><input type=text size=15 name="cate_name" maxlength=15 value="$cate_name"></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>·ÖÀà×´Ì¬</td><td>$tempoutput</td>
+	<td>åˆ†ç±»çŠ¶æ€</td><td>$tempoutput</td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>·ÖÀàÃèÊö</td><td><input type=text size=40 name="cate_explain" value="$cate_info"></td>
+	<td>åˆ†ç±»æè¿°</td><td><input type=text size=40 name="cate_explain" value="$cate_info"></td>
 	</tr>
-	<tr bgcolor=$miscbackone><td align=center colspan=2><input type=submit value="Ìá ½»"></td></tr></form>
+	<tr bgcolor=$miscbackone><td align=center colspan=2><input type=submit value="æ äº¤"></td></tr></form>
 	</table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
 }
@@ -504,7 +504,7 @@ sub del_cate
     close(FILE);
     $/="\n";
 
-    if($cate =~ s/$id\t(.*)\n//)	# ÕÒµ½Ö¸¶¨µÄID
+    if($cate =~ s/$id\t(.*)\n//)	# æ‰¾åˆ°æŒ‡å®šçš„ID
     {
 	open(FILE,">$filetoopen");
 	print FILE $cate;
@@ -533,7 +533,7 @@ sub del_cate
 
     $output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>É¾ ³ı ·Ö Àà ³É ¹¦</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>åˆ  é™¤ åˆ† ç±» æˆ åŠŸ</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="1; url=$thisprog?action=sortm">~;
 }
@@ -550,23 +550,23 @@ sub add_cate
 	<input type=hidden name="action" value="add_cate">
 	<input type=hidden name="add" value="y">
 	<tr bgcolor=$miscbacktwo>
-	<td colspan=2 align=center><font color=$fontcolormisc><b>[ Ôö ¼Ó ´ó ·Ö Àà ]</b></font></td>
+	<td colspan=2 align=center><font color=$fontcolormisc><b>[ å¢ åŠ  å¤§ åˆ† ç±» ]</b></font></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>·ÖÀàÃû³Æ</td><td><input type=text size=15 name="cate_name" maxlength=15></td>
+	<td>åˆ†ç±»åç§°</td><td><input type=text size=15 name="cate_name" maxlength=15></td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>·ÖÀàÃèÊö</td><td><input type=text size=40 name="cate_explain"></td>
+	<td>åˆ†ç±»æè¿°</td><td><input type=text size=40 name="cate_explain"></td>
 	</tr>
-	<tr bgcolor=$miscbackone><td align=center colspan=2><input type=submit value="Ìá ½»"></td></tr></form>
+	<tr bgcolor=$miscbackone><td align=center colspan=2><input type=submit value="æ äº¤"></td></tr></form>
 	</table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
     else
     {
 	$cate_name	= $query -> param('cate_name');
 	$cate_explain	= $query -> param('cate_explain');
-	&error("Ôö¼Ó·ÖÀà&·ÖÀàÃû×Ö²»ÄÜ¿Õ£¡£¡") if($cate_name eq '');
-	&error("Ôö¼Ó·ÖÀà&·ÖÀàÃèÊö²»ÄÜ¿Õ£¡£¡") if($cate_explain eq '');
+	&error("å¢åŠ åˆ†ç±»&åˆ†ç±»åå­—ä¸èƒ½ç©ºï¼ï¼") if($cate_name eq '');
+	&error("å¢åŠ åˆ†ç±»&åˆ†ç±»æè¿°ä¸èƒ½ç©ºï¼ï¼") if($cate_explain eq '');
 
 	my $filetoopen = "$lbdir" . "face/category.pl";
 	if (( -e "$filetoopen"))
@@ -578,7 +578,7 @@ sub add_cate
 	    foreach(@cate)
 	    {
 		($cate_num,$x,$old_name,$x)=split(/\t/,$_);
-		&error("·ÖÀàÃû³ÆÖØ¸´&ÒÑ¾­´æÔÚÏàÍ¬µÄ·ÖÀàÃû³Æ£¡") if($cate_name eq $old_name);
+		&error("åˆ†ç±»åç§°é‡å¤&å·²ç»å­˜åœ¨ç›¸åŒçš„åˆ†ç±»åç§°ï¼") if($cate_name eq $old_name);
 	    }
 	}
 	else
@@ -593,14 +593,14 @@ sub add_cate
 
 	$output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>Ôö ¼Ó ³É ¹¦</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>å¢ åŠ  æˆ åŠŸ</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><meta http-equiv="refresh" content="1; url=$thisprog?action=sortm">~;
     }
 }
 
 sub upmenujs
 {
-    my $filetoopen = "$lbdir" . "face/category.pl";	# ´ó·ÖÀà
+    my $filetoopen = "$lbdir" . "face/category.pl";	# å¤§åˆ†ç±»
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -608,7 +608,7 @@ sub upmenujs
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    $filetoopen = "$lbdir" . "face/class.cgi";		# Ğ¡·ÖÀà
+    $filetoopen = "$lbdir" . "face/class.cgi";		# å°åˆ†ç±»
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -633,13 +633,13 @@ if($cate_state eq '1')
 	    }
 	}
 
-	$outjs .= qq~//$cate_name\nvar MENU$cate_id = "$menucon"\n\n~;	# ÏÂÀ­²Ëµ¥Ñ¡Ïî
-	$smenun .= qq~<td><span style='width=80;cursor: hand;' onMouseOver='ShowMenu(MENU$cate_id,80)' title='$cate_info'>$cate_name</span></td>~;	# ×Ó²Ëµ¥Ãû
+	$outjs .= qq~//$cate_name\nvar MENU$cate_id = "$menucon"\n\n~;	# ä¸‹æ‹‰èœå•é€‰é¡¹
+	$smenun .= qq~<td><span style='width=80;cursor: hand;' onMouseOver='ShowMenu(MENU$cate_id,80)' title='$cate_info'>$cate_name</span></td>~;	# å­èœå•å
 }
     }
 
     open(FILE, ">${imagesdir}/face/js/catemenu.js");
-    print FILE qq~//3FACE ÉÌÆ··ÖÀàÏÂÀ­²Ëµ¥´úÂë
+    print FILE qq~//3FACE å•†å“åˆ†ç±»ä¸‹æ‹‰èœå•ä»£ç 
  var h;
  var w;
  var l;
@@ -713,7 +713,7 @@ function displayMenu()
 close(FILE);
     $output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>·ÖÀà²Ëµ¥ JavaScript ÎÄ¼ş¸üĞÂ³É¹¦£¡</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>åˆ†ç±»èœå• JavaScript æ–‡ä»¶æ›´æ–°æˆåŠŸï¼</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=sortm">~;
 }
@@ -724,7 +724,7 @@ sub add_sp
     my $add		= $query -> param('add');
     if($add ne 'y')
     {
-	$filetoopen = "$lbdir" . "face/class.cgi";	# ÉÌÆ·Àà±ğ
+	$filetoopen = "$lbdir" . "face/class.cgi";	# å•†å“ç±»åˆ«
 	open(FILE,"$filetoopen");
 	my @sort=<FILE>;
 	close(FILE);
@@ -738,7 +738,7 @@ sub add_sp
 
 	if($id ne '')
         {
-	     &error("ÕâÀïÖ»ÄÜÔö¼Óµ¥Ò»µÄÉÌÆ·&µ¥Ò»ÉÌÆ·ºÍÌ××°ÉÌÆ·µÄÔö¼ÓÊÇ²»Ò»ÑùµÄ£¡") if($id eq 't');
+	     &error("è¿™é‡Œåªèƒ½å¢åŠ å•ä¸€çš„å•†å“&å•ä¸€å•†å“å’Œå¥—è£…å•†å“çš„å¢åŠ æ˜¯ä¸ä¸€æ ·çš„ï¼") if($id eq 't');
 	     opendir (DIR, "${imagesdir}face/$id");
 	     @thd = readdir(DIR);
 	     closedir (DIR);
@@ -758,10 +758,10 @@ sub add_sp
 	<input type=hidden name="action" value="add_sp">
 	<input type=hidden name="add" value="y">
 	<tr bgcolor=$miscbacktwo>
-	<td colspan=4 align=center><font color=$fontcolormisc><b>[ Ôö ¼Ó µ¥ Ò» ÉÌ Æ· ]</b></font></td>
+	<td colspan=4 align=center><font color=$fontcolormisc><b>[ å¢ åŠ  å• ä¸€ å•† å“ ]</b></font></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>ÉÌÆ··ÖÀà</td><td><SCRIPT language=javascript>
+	<td>å•†å“åˆ†ç±»</td><td><SCRIPT language=javascript>
 function select_class(){
 window.open("$thisprog?action=add_sp&id="+document.FORM.file_name.options[document.FORM.file_name.selectedIndex].value,"_self");
 }
@@ -773,34 +773,34 @@ document.FORM.sx_graphic.value=FORM.sximage.value;
 document.sxdemo.src = "$imagesurl/face/$id/"+FORM.sximage.value;}
 </SCRIPT>
   <select name=file_name size=1" onchange=select_class()>
-  <option value=blank>== Ñ¡Ôñ·ÖÀà ==</option>
+  <option value=blank>== é€‰æ‹©åˆ†ç±» ==</option>
   $temps
   </select></td><td rowspan="5" height=226 width=240><IMG border=1 name=bbsimg src="$imagesurl/face/blank.gif" align="absmiddle"> <IMG name=sxdemo src="$imagesurl/face/blank.gif" border=1 width=84 hegiht=84></td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>ÉÌÆ·Ãû³Æ</td><td><input type=text size=20 name="m_name" maxlength=20></td>
+	<td>å•†å“åç§°</td><td><input type=text size=20 name="m_name" maxlength=20></td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>ÉÌÆ·¼Û¸ñ</td><td><input type=text size=10 name="m_money"> $moneyname</td>
+	<td>å•†å“ä»·æ ¼</td><td><input type=text size=10 name="m_money"> $moneyname</td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>ÉÌÆ·ÃèÊö</td><td><input type=text size=40 name="m_description"></td>
+	<td>å•†å“æè¿°</td><td><input type=text size=40 name="m_description"></td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>ÊÊºÏÈËÈº</td><td><input type="radio" name="fit_herd" value="m">ÄĞ <input type="radio" name="fit_herd" value="f">Å® <input type="radio" name="fit_herd" value="t"> Í¨ÓÃ</td>
+	<td>é€‚åˆäººç¾¤</td><td><input type="radio" name="fit_herd" value="m">ç”· <input type="radio" name="fit_herd" value="f">å¥³ <input type="radio" name="fit_herd" value="t"> é€šç”¨</td>
 	</tr>
 	<tr bgcolor=$miscbackone>
-	<td>ÉÌÆ·Í¼Æ¬µØÖ·</td><td><input type=text size=40 name="m_graphic"></td><td><select name="image" onChange=select()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+	<td>å•†å“å›¾ç‰‡åœ°å€</td><td><input type=text size=40 name="m_graphic"></td><td><select name="image" onChange=select()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
 	</tr>
 	<tr bgcolor=$miscbacktwo>
-	<td>ÉÌÆ·ËõĞ¡Í¼Æ¬µØÖ·</td><td><input type=text size=40 name="sx_graphic"></td><td><select name="sximage" onChange=select1()><option value="blank.gif">Ñ¡ÔñÍ¼Æ¬$myimages</select></td>
+	<td>å•†å“ç¼©å°å›¾ç‰‡åœ°å€</td><td><input type=text size=40 name="sx_graphic"></td><td><select name="sximage" onChange=select1()><option value="blank.gif">é€‰æ‹©å›¾ç‰‡$myimages</select></td>
 	</tr>
 
-	<tr bgcolor=$miscbackone><td align=center colspan=3><input type=submit value="Ìá ½»"></td></tr></form>
+	<tr bgcolor=$miscbackone><td align=center colspan=3><input type=submit value="æ äº¤"></td></tr></form>
 	</table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 
 #	<tr bgcolor=$miscbackone>
-#	<td>ÉÌÆ·ÄÍ¾Ã¶È</td><td><input type=text size=5 name="m_wear"> µã</td>
+#	<td>å•†å“è€ä¹…åº¦</td><td><input type=text size=5 name="m_wear"> ç‚¹</td>
 #	</tr>
     }
     else
@@ -814,14 +814,14 @@ document.sxdemo.src = "$imagesurl/face/$id/"+FORM.sximage.value;}
 	$sp_graphic	= $query -> param('m_graphic');
 	$sp_sxgraphic	= $query -> param('sx_graphic');
 
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÉÌÆ·Ãû×Ö²»ÄÜ¿Õ£¡£¡") if ($sp_name eq "");
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÇëÑ¡ÔñÉÌÆ·µÄÀà±ğ£¡£¡") if ($file_name eq "blank");
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÉÌÆ·¼Û¸ñ²»ÄÜ¿Õ£¡£¡") if ($sp_money eq "");
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÉÌÆ·ÃèÊö²»ÄÜ¿Õ£¡£¡") if ($sp_description eq "");
-#	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÉÌÆ·ÄÍ¾Ã¶È²»ÄÜ¿Õ£¡£¡") if ($sp_wear eq "");
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÉÌÆ·Í¼Æ¬²»ÄÜ¿Õ£¡£¡") if ($sp_graphic eq "");
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÉÌÆ·ËõĞ¡Í¼Æ¬²»ÄÜ¿Õ£¡£¡") if ($sp_sxgraphic eq "");
-	&error("Ôö¼Óµ¥Ò»ÉÌÆ·&ÇëÑ¡ÔñÉÌÆ·µÄÊÊºÏÈËÈº£¡£¡") if ($sp_fitherd eq "");
+	&error("å¢åŠ å•ä¸€å•†å“&å•†å“åå­—ä¸èƒ½ç©ºï¼ï¼") if ($sp_name eq "");
+	&error("å¢åŠ å•ä¸€å•†å“&è¯·é€‰æ‹©å•†å“çš„ç±»åˆ«ï¼ï¼") if ($file_name eq "blank");
+	&error("å¢åŠ å•ä¸€å•†å“&å•†å“ä»·æ ¼ä¸èƒ½ç©ºï¼ï¼") if ($sp_money eq "");
+	&error("å¢åŠ å•ä¸€å•†å“&å•†å“æè¿°ä¸èƒ½ç©ºï¼ï¼") if ($sp_description eq "");
+#	&error("å¢åŠ å•ä¸€å•†å“&å•†å“è€ä¹…åº¦ä¸èƒ½ç©ºï¼ï¼") if ($sp_wear eq "");
+	&error("å¢åŠ å•ä¸€å•†å“&å•†å“å›¾ç‰‡ä¸èƒ½ç©ºï¼ï¼") if ($sp_graphic eq "");
+	&error("å¢åŠ å•ä¸€å•†å“&å•†å“ç¼©å°å›¾ç‰‡ä¸èƒ½ç©ºï¼ï¼") if ($sp_sxgraphic eq "");
+	&error("å¢åŠ å•ä¸€å•†å“&è¯·é€‰æ‹©å•†å“çš„é€‚åˆäººç¾¤ï¼ï¼") if ($sp_fitherd eq "");
 
 	$currenttime = time();
 
@@ -831,7 +831,7 @@ document.sxdemo.src = "$imagesurl/face/$id/"+FORM.sximage.value;}
 	close(FILE);
 	$output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>ÉÌ Æ· Ôö ¼Ó ³É ¹¦£¡</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>å•† å“ å¢ åŠ  æˆ åŠŸï¼</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=add_sp">~;
     }
@@ -855,64 +855,20 @@ sub view_user
     if($id ne "")
     {
 	&readface("$id",1);
-	$loadface = "Ã»ÉèÖÃ" if($loadface eq "");
-	$loadface = "ĞéÄâĞÎÏó×öÎªÂÛÌ³Í·Ïñ" if($loadface eq "y");
-	$loadface = "ÂÛÌ³ÆÕÍ¨ĞÎÏó(²é¿´¸öÈË×ÊÁÏÊ±ºòÏÔÊ¾)" if($loadface eq "n");
+	$loadface = "æ²¡è®¾ç½®" if($loadface eq "");
+	$loadface = "è™šæ‹Ÿå½¢è±¡åšä¸ºè®ºå›å¤´åƒ" if($loadface eq "y");
+	$loadface = "è®ºå›æ™®é€šå½¢è±¡(æŸ¥çœ‹ä¸ªäººèµ„æ–™æ—¶å€™æ˜¾ç¤º)" if($loadface eq "n");
     }
 
-    $output .=qq~<SCRIPT language=javascript>
-function select_user(){
-window.open("$thisprog?action=view&id="+document.FORM.file_name.options[document.FORM.file_name.selectedIndex].value,"_self");
-}</SCRIPT>
+    $output .=qq~<SCRIPT language=jacurrenttime = time();
+
+	my $filetoopen = "$lbdir" . "face/wpdata/$file_name.pl";
+	open(FILE, ">>$filetoopen");
+	print FILE "$currenttime\t$sp_name\t$sp_money\t$sp_description\t$sp_wear\t$sp_fitherd\t$sp_graphic\t$sp_sxgraphic\t\t\n";
+	close(FILE);
+	$output .= qq~
 <table cellPadding=6 cellSpacing=1 width=100%>
-<form action="$thisprog" method="post" name=FORM>
-<tr bgcolor=$miscbacktwo>
-<td colspan=3 align=center><font color=$fontcolormisc><b>[ ²é ¿´ ÓÃ »§ ĞÅ Ï¢ - ×Ü¹²ÓĞ£º$membernum Ãû ]</b></font></td>
-</tr>
-<tr bgcolor=$miscbackone>
-<td rowspan="8" width=150><DIV id="SHOW" style='padding:0;position:relative;top:0;left:0;width:140;height:226'></div></td>
-<td width=550></td>
-<td rowspan="8" width=150><select name=file_name size=16 onchange=select_user()>$userinfo</select></td></tr>~;
-
-if($id ne '')
-{
-    for($i=1;$i<26;$i++)
-    {
-	@tempsp=split(/\_/,@buy_sp[$i]);
-	next if(@tempsp eq "");
-	for($j=0;$j<@tempsp;$j++)
-	{
-	    ($info1,$info2)=split(/\,/,@tempsp[$j]);
-
-	    $/="";
-	    my $filetoopen = "$lbdir" . "face/wpdata/$i.pl";
-	    open(FILE,"$filetoopen");
-	    my $sort=<FILE>;
-	    close(FILE);
-	    $/="\n";
-
-	    if($sort !~ /$info1\t(.*)/)	# ÕÒ²»µ½Ö¸¶¨µÄÉÌÆ·ID
-	    {
-		$ladesign = $info2 eq 'Y' ? 1 : 0 ;
-		$outinfo .=qq~'$info1|$info2||||$i|$j',~;
-		$outinfo1 .=qq~'$ladesign',~;
-		$outinfo2 .=qq~'$i',~;	
-	    }
-	    else
- 	    {
-	        my ($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
-		$ladesign = $info2 eq 'Y' ? 1 : 0 ;
-		$outinfo .=qq~'$sp_name|$info2|$sp_fitherd|$sp_graphic|$sp_sxgraphic|$sp_suitid|$j',~;
-		$outinfo1 .=qq~'$ladesign',~;
-		$outinfo2 .=qq~'$i',~;
-		$outmoney += $sp_money;
-	    }
-	}
-    }
-
-    chop($outinfo);
-    chop($outinfo1);
-    chop($outinfo2);
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>outinfo2);
 $outmoney = 0 if ($outmoney eq "");
 $output .=qq~
 <SCRIPT LANGUAGE="JavaScript">

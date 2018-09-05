@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -32,7 +32,7 @@ $query = new LBCGI;
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -43,38 +43,38 @@ $output = qq~<p>
   <table cellpadding="5" style="border-collapse: collapse" width=$tablewidth cellspacing="0" bordercolor=$tablebordercolor border=1 align=center>
     <tr>
       <td width="100%" colspan="3" bgcolor=$titlecolor $catbackpic>
-      <p align="center"><font color="#333333"><b>»¶Ó­Ôö¼Ó <u>$boardname</u> ÁªÃË´úÂë</b></font></td>
+      <p align="center"><font color="#333333"><b>æ¬¢è¿å¢åŠ  <u>$boardname</u> è”ç›Ÿä»£ç </b></font></td>
     </tr>
     <tr>
-      <td width="28%" bgcolor=$forumcolorone><b>ÂÛÌ³Ãû³Æ£º</b></td>
+      <td width="28%" bgcolor=$forumcolorone><b>è®ºå›åç§°ï¼š</b></td>
       <td width="72%" colspan="2" bgcolor=$forumcolortwo>$boardname</td>
     </tr>
     <tr>
-      <td width="28%" bgcolor=$forumcolorone><b>ÂÛÌ³µØÖ·£º</b></td>
+      <td width="28%" bgcolor=$forumcolorone><b>è®ºå›åœ°å€ï¼š</b></td>
       <td width="72%" colspan="2" bgcolor=$forumcolortwo>
       <a href="$boardurl/leobbs.cgi" target=_blank>
       $boardurl/leobbs.cgi</a></td>
     </tr>
     <tr>
-      <td width="28%" bgcolor=$forumcolorone><b>ÂÛÌ³Í¼±ê£º</b></td>
+      <td width="28%" bgcolor=$forumcolorone><b>è®ºå›å›¾æ ‡ï¼š</b></td>
       <td width="72%" colspan="2" bgcolor=$forumcolortwo>
 ~;
 if ($boardlogos ne "http://" && $boardlogos ne "") {$output .=qq~<a href="$boardlogos" target=_blank>$boardlogos</a>~;}
-else {$output .=qq~Ã»ÓĞ~;}
+else {$output .=qq~æ²¡æœ‰~;}
       $output.= qq~
       </td>
     </tr>
     <tr>
-      <td width="28%" bgcolor=$forumcolorone><b>ÂÛÌ³ËµÃ÷£º</b></td>
+      <td width="28%" bgcolor=$forumcolorone><b>è®ºå›è¯´æ˜ï¼š</b></td>
       <td width="72%" colspan="2" bgcolor=$forumcolortwo>$boarddescription</td>
     </tr>
     <tr>
-      <td width="28%" bgcolor=$forumcolorone><b>ÁªÃËÑİÊ¾£º</b></td>
+      <td width="28%" bgcolor=$forumcolorone><b>è”ç›Ÿæ¼”ç¤ºï¼š</b></td>
       <td width="100" bgcolor=$forumcolortwo>
       <p align="center">
 ~;
 if ($boardlogos ne "http://" && $boardlogos ne "") {$output .=qq~<a href="$boardurl/leobbs.cgi" target=_blank><img src="$boardlogos" align="left" width="88" height="31" border="0"></a>~;}
-else {$output .=qq~ÔİÈ±Í¼±ê~;}
+else {$output .=qq~æš‚ç¼ºå›¾æ ‡~;}
       $output.= qq~
       </td>
       <td width="*" bgcolor=$forumcolortwo>
@@ -85,9 +85,9 @@ else {$output .=qq~ÔİÈ±Í¼±ê~;}
     <tr>
       <td width="100%" colspan="3" bgcolor=$catback $catbackpic>
       <p align="center">
-<input type=submit name="winclose" value="¹Ø ±Õ" onclick=window.close();></td>
+<input type=submit name="winclose" value="å…³ é—­" onclick=window.close();></td>
     </tr>
   </table><SCRIPT>valignend()</SCRIPT>
 ~;
-    &output("$boardname - ²é¿´ÁªÃËÂÛÌ³´úÂë",\$output,"msg");
+    &output("$boardname - æŸ¥çœ‹è”ç›Ÿè®ºå›ä»£ç ",\$output,"msg");
 exit;

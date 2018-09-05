@@ -1,23 +1,23 @@
 #!/usr/bin/perl
 ###################################################################################
-#	LeoBBS ������ʾ ver 1.5 a (tinha �޸İ�)
+#	LeoBBS 公告显示 ver 1.5 a (tinha 修改版)
 ###################################################################################
-#	ʹ�ð취�� getanc2.cgi?show=��ʾ�Ĺ�����Ŀ&maxlength=���ⳤ��&forum=����̳���
-#	����������ҳ���ʵ�λ�ü����������
+#	使用办法： getanc2.cgi?show=显示的公告数目&maxlength=标题长度&forum=分论坛编号
+#	例：在您首页的适当位置加入以下语句
 #	<script src="getanc2.cgi?show=5&maxlength=20&forum=1"></script>
-#	�����Ϳ�������ҳ��ʾ��� 1 �ŷ���̳������ 5 �򹫸棬-����� 20 ��Ԫ��
-#	������ʾ����̳���棬���԰� &forum=����̳��� ʡȥ��
-#	��������������ʡ�ԣ�Ԥ����ʾ���й��棬������ʾ������Ԫ��
+#	这样就可以在网页显示编号 1 号分论坛的最新 5 则公告，-则标显 20 字元。
+#	如想显示主论坛公告，可以把 &forum=分论坛编号 省去。
+#	所有叁数均可以省略，预设显示所有公告，标题显示所有字元。
 ###################################################################################
 
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-#  ����ɽӥ��������ȱ������ LB5000 XP 2.30 ��Ѱ�   #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+#  基于山鹰糊、花无缺制作的 LB5000 XP 2.30 免费版   #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBoard.com/          #
-#      ��̳��ַ�� http://www.LeoBBS.com/            #
+#      主页地址： http://www.LeoBoard.com/          #
+#      论坛地址： http://www.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -32,7 +32,7 @@ BEGIN {
 
 #unless ($ENV{'HTTP_REFERER'} =~ /$ENV{'HTTP_HOST'}/) {
 #print "Content-Type:text/html\n\n";
-#print "document.write('<font color=red> �Բ��𣬲���\��\�Ǳ���̳�������ã�</font>');";
+#print "document.write('<font color=red> 对不起，不允\许\非本论坛主机调用！</font>');";
 #exit;
 #}
 use LBCGI;
@@ -46,10 +46,10 @@ require "bbs.lib.pl";
 $|++;
 $query = new LBCGI;
 $show = $query -> param('show');
-$show = 999 if ($show eq "");	# Ԥ����ʾ���й���
+$show = 999 if ($show eq "");	# 预设显示所有公告
 $maxlength = $query -> param('maxlength');
 $maxlength = &stripMETA("$maxlength");
-$maxlength = 999999999 if ($maxlength eq "");	 # Ԥ�������ʾ������Ԫ
+$maxlength = 999999999 if ($maxlength eq "");	 # 预设标题显示所有字元
 $forum = $query -> param('forum');
 
 print header(-charset=>gb2312);
@@ -87,13 +87,13 @@ if (-e "$filetoopen") {
 		else { $showforum = "";}
 
 		$str.= qq~
-		<tr align=left><td><font style="font-size:12pt;font-family:����"><a href=$boardurl/announcements.cgi$showforum#title$newstitleid target=_blank>$title</a></font></td></tr>
-		<tr align=right valign=top><td><font style="font-size:9pt;����">$nameposted ������ $dateposted</font></td></tr><tr><td>  </td></tr>
+		<tr align=left><td><font style="font-size:12pt;font-family:宋体"><a href=$boardurl/announcements.cgi$showforum#title$newstitleid target=_blank>$title</a></font></td></tr>
+		<tr align=right valign=top><td><font style="font-size:9pt;宋体">$nameposted 公布于 $dateposted</font></td></tr><tr><td>  </td></tr>
 		~;
 		}
 	}
 else {
-$str = "Ŀǰû�й��棡";
+$str = "目前没有公告！";
 }
 $str=~s /\n//isg;
 print "document.write('<table width=100% border=0 cellspacing=0 cellpadding=0>$str</table>')\n";

@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $onloadinfopl = 1;
@@ -21,7 +21,7 @@ sub getmemberinfo {
     my $namenumber = &getnamenumber($membername);
     &checkmemfile($membername,$namenumber);
     my $filetoopen = "${lbdir}$memdir/$namenumber/$membername.cgi";
-    if ((-e $filetoopen)&&($membername !~ /^¿ÍÈË/)&&($membername ne "")) {
+    if ((-e $filetoopen)&&($membername !~ /^å®¢äºº/)&&($membername ne "")) {
     	unlink ("${lbdir}cache/meminfo/$membername.pl") if ((-M "${lbdir}cache/meminfo/$membername.pl") *86400 > 60*5);
         open(FILE3,"$filetoopen");
         my $filedata = <FILE3>;
@@ -32,7 +32,7 @@ sub getmemberinfo {
 #	($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber ,$location ,$interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount,$ebankdata,$onlinetime,$userquestion,$awards,$jifen,$userface,$soccerdata,$useradd5) = split(/\t/,$filedata);
 
 	$membername{$membername} = $tempmname if ($membername{$membername} eq "");
-        $lastgone{$membername} = $joineddate{$membername} if($lastgone{$membername} eq "");# ×îºó·ÃÎÊÊ±¼ä
+        $lastgone{$membername} = $joineddate{$membername} if($lastgone{$membername} eq "");# æœ€åè®¿é—®æ—¶é—´
 	$lastgone{$membername} = &dateformat($lastgone{$membername} + $addtimes);
 	$showemail = "no" if ($dispmememail eq "no");
 	$membercode{$membername} ||= "me";
@@ -44,9 +44,9 @@ sub getmemberinfo {
 	$numberofposts ||= "0";
 	$numberofreplys ||= "0";
 	$postdel ||= "0";
-        $location{$membername} = "±£ÃÜ" if ($location{$membername} eq "");
+        $location{$membername} = "ä¿å¯†" if ($location{$membername} eq "");
 
-    if ($joineddate{$membername}) { $joineddate{$membername} = &dateformat($joineddate{$membername}+$addtimes); } else { $joineddate{$membername} = "Î´Öª"; }
+    if ($joineddate{$membername}) { $joineddate{$membername} = &dateformat($joineddate{$membername}+$addtimes); } else { $joineddate{$membername} = "æœªçŸ¥"; }
 
     $jifen{$membername} = $numberofposts * $ttojf + $numberofreplys * $rtojf - $postdel * $deltojf if ($jifen{$membername} eq "");
 
@@ -73,13 +73,13 @@ sub getmemberinfo {
     elsif ($jifen{$membername} >= $mpostmark3)  { $mtitle{$membername} =  $mtitle3;   $membergraphic{$membername} = $mgraphic3; }
     elsif ($jifen{$membername} >= $mpostmark2)  { $mtitle{$membername} =  $mtitle2;   $membergraphic{$membername} = $mgraphic2; }
     elsif ($jifen{$membername} >= $mpostmark1)  { $mtitle{$membername} =  $mtitle1;   $membergraphic{$membername} = $mgraphic1; }
-    else { $mtitle{$membername} = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic{$membername} = $mgraphic0; }  #ÏÔÊ¾Ä¬ÈÏµÈ¼¶
+    else { $mtitle{$membername} = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic{$membername} = $mgraphic0; }  #æ˜¾ç¤ºé»˜è®¤ç­‰çº§
     $membergraphic{$membername} = "<img src=$imagesurl/images/$membergraphic{$membername} border=0>";
 
-    $numberofposts{$membername} = qq~<font title='·¢±íÊı£º$numberofposts\n»Ø¸´Êı£º$numberofreplys\n±»É¾Êı£º$postdel'>$numberofposts{$membername}</font>~;
+    $numberofposts{$membername} = qq~<font title='å‘è¡¨æ•°ï¼š$numberofposts\nå›å¤æ•°ï¼š$numberofreplys\nè¢«åˆ æ•°ï¼š$postdel'>$numberofposts{$membername}</font>~;
 
     if ($avatars eq "on") {
-	if (($personalavatar)&&($personalwidth)&&($personalheight)) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+	if (($personalavatar)&&($personalwidth)&&($personalheight)) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 	    $personalavatar =~ s/\$imagesurl/${imagesurl}/o;
 	    if (($personalavatar =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 		$personalavatar=uri_escape($personalavatar);
@@ -102,7 +102,7 @@ sub getmemberinfo {
         else {
             if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) {
 	        $vheight{$membername} = 310;
-            	$useravatar{$membername} = qq~&nbsp;<img src=http://qqshow-user.tencent.com/$oicqnumber/11/00/ title="QQ ĞãĞÎÏó" border=0 width=70 height=113>~;
+            	$useravatar{$membername} = qq~&nbsp;<img src=http://qqshow-user.tencent.com/$oicqnumber/11/00/ title="QQ ç§€å½¢è±¡" border=0 width=70 height=113>~;
             }
             else { $useravatar{$membername} = "<BR>";  $vheight{$membername} = 190;}
         }
@@ -112,80 +112,80 @@ sub getmemberinfo {
         }
     }
 
-    $sxall = "×ÓÊó³óÅ£Òú»¢Ã®ÍÃ³½ÁúËÈÉßÎçÂíÎ´ÑòÉêºïÓÏ¼¦Ğç¹·º¥Öí";
-    $xzall = "°×Ñò½ğÅ£Ë«×Ó¾ŞĞ·Ê¨×Ó´¦Å®Ìì³ÓÌìĞ«ÉäÊÖÄ§ôÉË®Æ¿Ë«Óã";
+    $sxall = "å­é¼ ä¸‘ç‰›å¯…è™å¯å…”è¾°é¾™å·³è›‡åˆé©¬æœªç¾Šç”³çŒ´é…‰é¸¡æˆŒç‹—äº¥çŒª";
+    $xzall = "ç™½ç¾Šé‡‘ç‰›åŒå­å·¨èŸ¹ç‹®å­å¤„å¥³å¤©ç§¤å¤©èå°„æ‰‹é­”ç¾¯æ°´ç“¶åŒé±¼";
 
     my $tempmembername = uri_escape($membername);
-    $pvmsggraphic{$membername}   = qq~<span style=cursor:hand onClick="javascript:openScript('messanger.cgi?action=new&touser=$tempmembername&actionto=msg',600,400)" title="·¢ËÍÒ»¸ö¶ÌÏûÏ¢¸ø$membername{$membername}"><img src=$imagesurl/images/message.gif border=0 width=16 align=absmiddle>ÏûÏ¢</span>¡¡~;
-    $searchgraphic{$membername}  = qq~<a href="search.cgi?action=startsearch&TYPE_OF_SEARCH=username_search&NAME_SEARCH=topictitle_search&FORUMS_TO_SEARCH=$inforum&SEARCH_STRING=$tempmembername" target=_blank title="ËÑË÷$membername{$membername}ÔÚ±¾·ÖÂÛÌ³µÄÈ«²¿Ìù×Ó"><img src=$imagesurl/images/find.gif border=0 width=16 align=absmiddle>ËÑË÷</a>¡¡~;
-    $profilegraphic{$membername} = qq~<a href=profile.cgi?action=show&member=$tempmembername title="²é¿´$membername{$membername}µÄ¸öÈË×ÊÁÏ" target=_blank><img src=$imagesurl/images/profile.gif border=0 width=16 align=absmiddle>²é¿´</a>¡¡~;
-    $friendgraphic{$membername}  = qq~<span style=cursor:hand onClick="javascript:openScript('friendlist.cgi?action=adduser&adduser=$tempmembername',420,320)" title="¼Ó$membername{$membername}ÎªÎÒµÄºÃÓÑ"><img src=$imagesurl/images/friend.gif border=0 width=16 align=absmiddle>ºÃÓÑ</span>¡¡~;
+    $pvmsggraphic{$membername}   = qq~<span style=cursor:hand onClick="javascript:openScript('messanger.cgi?action=new&touser=$tempmembername&actionto=msg',600,400)" title="å‘é€ä¸€ä¸ªçŸ­æ¶ˆæ¯ç»™$membername{$membername}"><img src=$imagesurl/images/message.gif border=0 width=16 align=absmiddle>æ¶ˆæ¯</span>ã€€~;
+    $searchgraphic{$membername}  = qq~<a href="search.cgi?action=startsearch&TYPE_OF_SEARCH=username_search&NAME_SEARCH=topictitle_search&FORUMS_TO_SEARCH=$inforum&SEARCH_STRING=$tempmembername" target=_blank title="æœç´¢$membername{$membername}åœ¨æœ¬åˆ†è®ºå›çš„å…¨éƒ¨è´´å­"><img src=$imagesurl/images/find.gif border=0 width=16 align=absmiddle>æœç´¢</a>ã€€~;
+    $profilegraphic{$membername} = qq~<a href=profile.cgi?action=show&member=$tempmembername title="æŸ¥çœ‹$membername{$membername}çš„ä¸ªäººèµ„æ–™" target=_blank><img src=$imagesurl/images/profile.gif border=0 width=16 align=absmiddle>æŸ¥çœ‹</a>ã€€~;
+    $friendgraphic{$membername}  = qq~<span style=cursor:hand onClick="javascript:openScript('friendlist.cgi?action=adduser&adduser=$tempmembername',420,320)" title="åŠ $membername{$membername}ä¸ºæˆ‘çš„å¥½å‹"><img src=$imagesurl/images/friend.gif border=0 width=16 align=absmiddle>å¥½å‹</span>ã€€~;
     $emailaddress = &encodeemail($emailaddress);
-    if ($showemail eq "yes")       { $emailgraphic{$membername} = "<a href=mailto:$emailaddress title=µç×ÓÓÊ¼şµØÖ·><img src=$imagesurl/images/email.gif border=0 width=16 align=absmiddle></a>¡¡"; }
-      elsif ($showemail eq "msn")  { $emailgraphic{$membername} = "<a href=mailto:$emailaddress title=\"MSN µØÖ·\"><img src=$imagesurl/images/msn.gif border=0 width=16 align=absmiddle></a>¡¡"; }
-      elsif ($showemail eq "popo") { $emailgraphic{$membername} = "<a href=mailto:$emailaddress title=ÍøÒ×ÅİÅİ><img src=$imagesurl/images/popo.gif border=0 width=16 align=absmiddle></a>¡¡"; }
+    if ($showemail eq "yes")       { $emailgraphic{$membername} = "<a href=mailto:$emailaddress title=ç”µå­é‚®ä»¶åœ°å€><img src=$imagesurl/images/email.gif border=0 width=16 align=absmiddle></a>ã€€"; }
+      elsif ($showemail eq "msn")  { $emailgraphic{$membername} = "<a href=mailto:$emailaddress title=\"MSN åœ°å€\"><img src=$imagesurl/images/msn.gif border=0 width=16 align=absmiddle></a>ã€€"; }
+      elsif ($showemail eq "popo") { $emailgraphic{$membername} = "<a href=mailto:$emailaddress title=ç½‘æ˜“æ³¡æ³¡><img src=$imagesurl/images/popo.gif border=0 width=16 align=absmiddle></a>ã€€"; }
                               else { $emailgraphic{$membername} = ""; }
     $homepage =~ s/http\:\/\///sg;
 
-    if ($homepage) { $homepagegraphic{$membername} = qq~<a href=http://$homepage target=_blank title="·ÃÎÊ $membername{$membername} µÄÖ÷Ò³"><img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle></a>¡¡~; }
+    if ($homepage) { $homepagegraphic{$membername} = qq~<a href=http://$homepage target=_blank title="è®¿é—® $membername{$membername} çš„ä¸»é¡µ"><img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle></a>ã€€~; }
               else { $homepagegraphic{$membername} = ""; }
-#    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $oicqgraphic{$membername} = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank title="²é¿´ QQ:$oicqnumberµÄ×ÊÁÏ" atta="<img src=http://qqshow-user.tencent.com/$oicqnumber/10/00/>"><img src=$imagesurl/images/oicq.gif border=0 width=16 align=absmiddle> </a>&nbsp;~; } else { $oicqgraphic=""; }
-    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $oicqgraphic{$membername} = qq~<a target=blank href=http://wpa.qq.com/msgrd?V=1&Uin=$oicqnumber&Site=$boardname&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:$oicqnumber:4 alt="·¢ËÍ¼´Ê±ÏûÏ¢¸ø$membername" width=16></a> ~; } else { $oicqgraphic=""; }
-    if (($icqnumber) && ($icqnumber =~ /[0-9]/)) { $icqgraphic{$membername} = qq~<span style="cursor:hand" onClick="javascript:openScript('misc.cgi?action=icq&UIN=$icqnumber',450,300)" title="¸ø ICQ:$icqnumber ·¢¸öÏûÏ¢"><img src=$imagesurl/images/icq.gif border=0 width=16 align=absmiddle></span>¡¡~; } else { $icqgraphic=""; }
+#    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $oicqgraphic{$membername} = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank title="æŸ¥çœ‹ QQ:$oicqnumberçš„èµ„æ–™" atta="<img src=http://qqshow-user.tencent.com/$oicqnumber/10/00/>"><img src=$imagesurl/images/oicq.gif border=0 width=16 align=absmiddle> </a>&nbsp;~; } else { $oicqgraphic=""; }
+    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $oicqgraphic{$membername} = qq~<a target=blank href=http://wpa.qq.com/msgrd?V=1&Uin=$oicqnumber&Site=$boardname&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:$oicqnumber:4 alt="å‘é€å³æ—¶æ¶ˆæ¯ç»™$membername" width=16></a> ~; } else { $oicqgraphic=""; }
+    if (($icqnumber) && ($icqnumber =~ /[0-9]/)) { $icqgraphic{$membername} = qq~<span style="cursor:hand" onClick="javascript:openScript('misc.cgi?action=icq&UIN=$icqnumber',450,300)" title="ç»™ ICQ:$icqnumber å‘ä¸ªæ¶ˆæ¯"><img src=$imagesurl/images/icq.gif border=0 width=16 align=absmiddle></span>ã€€~; } else { $icqgraphic=""; }
 
         if ($membercode{$membername} eq "ad") {
             $posterfontcolor{$membername} = "$adminnamecolor";
             $glowing{$membername} = $adminglow;
-            $membernameimg{$membername} = "<img src=$imagesurl/images/teamad.gif alt=´ËÈËÎªÌ³Ö÷ width=16 align=absmiddle>";
+            $membernameimg{$membername} = "<img src=$imagesurl/images/teamad.gif alt=æ­¤äººä¸ºå›ä¸» width=16 align=absmiddle>";
             $membergraphic{$membername} = "<img src=$imagesurl/images/$admingraphic width=100 border=0>" if ($admingraphic ne "");
             $mtitle{$membername} = $adtitle if ($adtitle ne "");
-            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "ÂÛÌ³Ì³Ö÷"; }
+            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "è®ºå›å›ä¸»"; }
         }
         elsif ($membercode{$membername} eq "mo") {
             $posterfontcolor{$membername} = "$teamnamecolor";
             $glowing{$membername} = $teamglow;
-            $membernameimg{$membername} = "<img src=$imagesurl/images/teammo.gif alt=´ËÈËÎª°æÖ÷ width=16 align=absmiddle>";
+            $membernameimg{$membername} = "<img src=$imagesurl/images/teammo.gif alt=æ­¤äººä¸ºç‰ˆä¸» width=16 align=absmiddle>";
             $membergraphic{$membername} = "<img src=$imagesurl/images/$modgraphic width=100 border=0>" if ($modgraphic ne "");
 	    $mtitle{$membername} = $motitle if ($motitle ne "");
-            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "ÂÛÌ³°æÖ÷"; }
+            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "è®ºå›ç‰ˆä¸»"; }
         }
         elsif ($membercode{$membername} eq "cmo") {
             $posterfontcolor{$membername} = "$cmonamecolor";
             $glowing{$membername} = $cmoglow;
-            $membernameimg{$membername} = "<img src=$imagesurl/images/teamcmo.gif alt=´ËÈËÎª·ÖÀàÇø°æÖ÷ width=16 align=absmiddle>";
+            $membernameimg{$membername} = "<img src=$imagesurl/images/teamcmo.gif alt=æ­¤äººä¸ºåˆ†ç±»åŒºç‰ˆä¸» width=16 align=absmiddle>";
             $membergraphic{$membername} = "<img src=$imagesurl/images/$cmodgraphic width=100 border=0>" if ($cmodgraphic ne "");
 	    $mtitle{$membername} = $cmotitle if ($cmotitle ne "");
-            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "·ÖÀàÇø°æÖ÷"; }
+            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "åˆ†ç±»åŒºç‰ˆä¸»"; }
         }
         elsif ($membercode{$membername} eq "amo") {
             $posterfontcolor{$membername} = "$amonamecolor";
             $glowing{$membername} = $amoglow;
-            $membernameimg{$membername} = "<img src=$imagesurl/images/teamamo.gif alt=´ËÈËÎªÂÛÌ³¸±°æÖ÷ width=16 align=absmiddle>";
+            $membernameimg{$membername} = "<img src=$imagesurl/images/teamamo.gif alt=æ­¤äººä¸ºè®ºå›å‰¯ç‰ˆä¸» width=16 align=absmiddle>";
             $membergraphic{$membername} = "<img src=$imagesurl/images/$amodgraphic width=100 border=0>" if ($amodgraphic ne "");
 	    $mtitle{$membername} = $amotitle if ($amotitle ne "");
-            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "ÂÛÌ³¸±°æÖ÷"; }
+            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "è®ºå›å‰¯ç‰ˆä¸»"; }
         }
         elsif ($membercode{$membername} eq "smo") {
             $posterfontcolor{$membername} = "$smonamecolor";
             $glowing{$membername} = $smoglow;
-            $membernameimg{$membername} = "<img src=$imagesurl/images/teamsmo.gif alt=´ËÈËÎª×Ü°æÖ÷ width=16 align=absmiddle>";
+            $membernameimg{$membername} = "<img src=$imagesurl/images/teamsmo.gif alt=æ­¤äººä¸ºæ€»ç‰ˆä¸» width=16 align=absmiddle>";
             $membergraphic{$membername} = "<img src=$imagesurl/images/$smodgraphic width=100 border=0>" if ($smodgraphic ne "");
 	    $mtitle{$membername} = $smotitle if ($smotitle ne "");
-            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "×Ü°æÖ÷"; }
+            if (($membertitle{$membername} eq "Member")||($membertitle{$membername} eq "member")) { $membertitle{$membername} = "æ€»ç‰ˆä¸»"; }
         }
 	elsif ($membercode{$membername} =~ /^rz/) {
             $posterfontcolor{$membername} = $rznamecolor;
             $glowing{$membername} = $rzglow;
             my $teampic  = $membercode{$membername} eq "rz1" && $defrz1 ne "" && $defrzpic1 ne "" ? $defrzpic1 : $membercode{$membername} eq "rz2" && $defrz2 ne "" && $defrzpic2 ne "" ? $defrzpic2 : $membercode{$membername} eq "rz3" && $defrz3 ne "" && $defrzpic3 ne "" ? $defrzpic3 : $membercode{$membername} eq "rz4" && $defrz4 ne "" && $defrzpic4 ne "" ? $defrzpic4 : $membercode{$membername} eq "rz5" && $defrz5 ne "" && $defrzpic5 ne "" ? $defrzpic5 : "teamrz.gif";
-            my $teamname = $membercode{$membername} eq "rz1" && $defrz1 ne "" ? $defrz1 : $membercode{$membername} eq "rz2" && $defrz2 ne "" ? $defrz2 : $membercode{$membername} eq "rz3" && $defrz3 ne "" ? $defrz3 : $membercode{$membername} eq "rz4" && $defrz4 ne "" ? $defrz4 : $membercode{$membername} eq "rz5" && $defrz5 ne "" ? $defrz5 : "ÈÏÖ¤ÓÃ»§";
-            $membernameimg{$membername} = qq~<img src=$imagesurl/images/$teampic alt="´ËÈËÎª$teamname" width=16 align=absmiddle>~;
+            my $teamname = $membercode{$membername} eq "rz1" && $defrz1 ne "" ? $defrz1 : $membercode{$membername} eq "rz2" && $defrz2 ne "" ? $defrz2 : $membercode{$membername} eq "rz3" && $defrz3 ne "" ? $defrz3 : $membercode{$membername} eq "rz4" && $defrz4 ne "" ? $defrz4 : $membercode{$membername} eq "rz5" && $defrz5 ne "" ? $defrz5 : "è®¤è¯ç”¨æˆ·";
+            $membernameimg{$membername} = qq~<img src=$imagesurl/images/$teampic alt="æ­¤äººä¸º$teamname" width=16 align=absmiddle>~;
         }
         elsif ($membercode{$membername} eq "banned") {
             $posterfontcolor{$membername} = "$posternamecolor";
             $glowing{$membername} = $banglow;
             $membergraphic{$membername} = "";
     	    $jhmp{$membername}= "";
-            $membertitle{$membername} = "&nbsp;<b>ÒÑ±»½ûÖ¹·¢ÑÔ</b><BR>";
+            $membertitle{$membername} = "&nbsp;<b>å·²è¢«ç¦æ­¢å‘è¨€</b><BR>";
             $membernameimg{$membername} ="";
         }
         elsif ($membercode{$membername} eq "masked") {
@@ -193,20 +193,20 @@ sub getmemberinfo {
             $glowing{$membername} = $banglow;
             $membergraphic{$membername} = "";
     	    $jhmp{$membername}= "";
-            $membertitle{$membername} = "&nbsp;<b>·¢ÑÔÒÑ±»ÆÁ±Î</b><BR>";
+            $membertitle{$membername} = "&nbsp;<b>å‘è¨€å·²è¢«å±è”½</b><BR>";
             $membernameimg{$membername} ="";
         }
         else { $posterfontcolor{$membername} = "$posternamecolor"; $membernameimg{$membername} =""; $glowing{$membername} = $memglow; }
 
     if ($membertitle{$membername} eq "member" || $membertitle{$membername} eq "Member" || $membertitle{$membername} eq "") { $membertitle{$membername} =""; }
-    else {$membertitle{$membername}="&nbsp;Í·ÏÎ: $membertitle{$membername}<br>" if (($membercode{$membername} ne "banned")&&($membercode{$membername} ne "masked"));}
+    else {$membertitle{$membername}="&nbsp;å¤´è¡”: $membertitle{$membername}<br>" if (($membercode{$membername} ne "banned")&&($membercode{$membername} ne "masked"));}
 
     $membertitle{$membername} =~ s/&lt;/</g; $membertitle{$membername} =~ s/&gt;/>/g; $membertitle{$membername} =~ s/&quot;/"/g;
 
     if (($rating{$membername} !~ /^[0-9\-]+$/)||($rating{$membername} eq "")) { $rating{$membername} = 0; }
     if ($rating{$membername} > 0 ) { $rating{$membername} = "+$rating{$membername}"; }
 
-    if ($jhmp{$membername} eq "ÎŞÃÅÎŞÅÉ" || $jhmp{$membername} eq "") { $jhmp{$membername}="<BR>"; } else { $jhmp{$membername}="&nbsp;ÃÅÅÉ: $jhmp{$membername}<br>"; }
+    if ($jhmp{$membername} eq "æ— é—¨æ— æ´¾" || $jhmp{$membername} eq "") { $jhmp{$membername}="<BR>"; } else { $jhmp{$membername}="&nbsp;é—¨æ´¾: $jhmp{$membername}<br>"; }
 
     my $tempuseradd3 = $awards{$membername};
     $tempuseradd3=~s/://isg;
@@ -236,7 +236,7 @@ sub getmemberinfo {
 	if ($tuseradd4 ne "") {$showaward4="<IMG height=15 src=$imagesurl/awards/$tempawardpic4 alt=$tempawardname4,$tempawardinfo4 align=absmiddle>"}
 	if ($tuseradd5 ne "") {$showaward5="<IMG height=15 src=$imagesurl/awards/$tempawardpic5 alt=$tempawardname5,$tempawardinfo5 align=absmiddle>"}
 	if ($tuseradd6 ne "") {$showaward6="<IMG height=15 src=$imagesurl/awards/$tempawardpic6 alt=$tempawardname6,$tempawardinfo6 align=absmiddle>"}
-	$showawards{$membername} = "&nbsp;<font color=$postfontcolortwo>Ñ«ÕÂ:</font> $showaward1 $showaward2 $showaward3 $showaward4 $showaward5 $showaward6<br>";
+	$showawards{$membername} = "&nbsp;<font color=$postfontcolortwo>å‹‹ç« :</font> $showaward1 $showaward2 $showaward3 $showaward4 $showaward5 $showaward6<br>";
 	$vheight{$membername} = $vheight{$membername} + 15;
     } else {
 	$showawards{$membername}="";
@@ -247,7 +247,7 @@ sub getmemberinfo {
     $mymoney{$membername} = "$mymoney{$membername} $moneyname";
 
     $userflag{$membername} = "blank" if ($userflag{$membername} eq "");
-    $userflag{$membername} = qq~¡¡<img src=$imagesurl/flags/$userflag{$membername}.gif height=14 alt=$userflag{$membername} align=absmiddle>~;
+    $userflag{$membername} = qq~ã€€<img src=$imagesurl/flags/$userflag{$membername}.gif height=14 alt=$userflag{$membername} align=absmiddle>~;
 
     if ($usersx !~ /^sx/i) { $showsx{$membername} = ""; }
     else {
@@ -259,11 +259,11 @@ sub getmemberinfo {
     else {
     	$userxz =~ s/z//i;
     	$showxz{$membername} = substr($xzall,($userxz-1)*4,4);
-    	$showxz{$membername} = "<IMG src=$imagesurl/star/z$userxz.gif height=15 alt=$showxz{$membername}×ù align=absmiddle>";
+    	$showxz{$membername} = "<IMG src=$imagesurl/star/z$userxz.gif height=15 alt=$showxz{$membername}åº§ align=absmiddle>";
     }
 
-    if ($sex eq "m") { $seximages{$membername} = "<img src=$imagesurl/images/mal.gif width=20 alt=Ë§¸ç align=absmiddle>"; }
-    elsif ($sex eq "f") { $seximages{$membername} = "<img src=$imagesurl/images/fem.gif width=20 alt=ÃÀÅ® align=absmiddle>";}
+    if ($sex eq "m") { $seximages{$membername} = "<img src=$imagesurl/images/mal.gif width=20 alt=å¸…å“¥ align=absmiddle>"; }
+    elsif ($sex eq "f") { $seximages{$membername} = "<img src=$imagesurl/images/fem.gif width=20 alt=ç¾å¥³ align=absmiddle>";}
     else { $seximages{$membername} = ""; }
 
     $onlinetimehour{$membername} = int($onlinetime/3600);
@@ -275,8 +275,8 @@ sub getmemberinfo {
 
     ($mystatus, $mysaves{$membername}, $mysavetime, $myloan{$membername}, $myloantime, $myloanrating, $bankadd1, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
     unless ($mystatus eq "1" || $mystatus eq "-1" || $ebankdata eq "") {
-	$mysaves{$membername} = "Ã»¿ª»§";
-	$myloan{$membername} = "Ã»´û¿î";
+	$mysaves{$membername} = "æ²¡å¼€æˆ·";
+	$myloan{$membername} = "æ²¡è´·æ¬¾";
     }
     else {
         if ($mystatus) {
@@ -284,11 +284,11 @@ sub getmemberinfo {
 	    if ($myloan{$membername}) {
 	        $myloan{$membername} .= " $moneyname";
 	    } else {
-	        $myloan{$membername} = "Ã»´û¿î";
+	        $myloan{$membername} = "æ²¡è´·æ¬¾";
 	    }
         } else {
-	    $mysaves{$membername} = "Ã»¿ª»§";
-	    $myloan{$membername} = "Ã»´û¿î";
+	    $mysaves{$membername} = "æ²¡å¼€æˆ·";
+	    $myloan{$membername} = "æ²¡è´·æ¬¾";
         }
     }
     $mysaves{$membername} = "<font title=$mysaves>>9999999999999" if ($mysaves{$membername} > 9999999999999 );
@@ -308,7 +308,7 @@ sub getmemberinfo {
 	$soccerwinrate = sprintf("%.2f", $mywin * 100 / ($mywin + $mydraw + $mylose)) if (($mywin + $mydraw + $mylose) > 0);
 	$soccerinfo{$membername} = "";
 	if (($mywin + $mydraw + $mylose) > 0) {
-	    $soccerinfo{$membername} = "<span title='Ê¤ÂÊ: $soccerwinrate%\nÀúÊ·Í¶×¢: $myplay $moneyname\nÀúÊ·ÊÕÒæ: $myget $moneyname'><b>$mywin</b> Ê¤ <b>$mydraw</b> Æ½ <b>$mylose</b> ¸º</span>";
+	    $soccerinfo{$membername} = "<span title='èƒœç‡: $soccerwinrate%\nå†å²æŠ•æ³¨: $myplay $moneyname\nå†å²æ”¶ç›Š: $myget $moneyname'><b>$mywin</b> èƒœ <b>$mydraw</b> å¹³ <b>$mylose</b> è´Ÿ</span>";
 	    $vheight{$membername} = $vheight{$membername} + 15;
 	}
 
@@ -381,27 +381,27 @@ if (-e "${lbdir}pet.cgi") {
 	my ($pet_name,$pet_jb,$x,$pet_sx,$pet_born,$pet_win,$pet_lose,$pet_gjl,$pet_fyl,$pet_exp,$pet_hp,$pet_sp,$x,$x,$x,$x,$x,$x,$x,$x,$pet_die,$x,$x,$pet_xz_time)=split(/\t/,$file);
 	$pet_xz_time or $pet_xz_time = $pet_born;
 	$pet_born=int((time-$pet_born)/86400)+1;
-	if(time - $pet_xz_time > 86400*3) {$pet_xz_time="ÉíÉÏÑ÷Ñ÷µÄ£¬¿ì¸øÎÒÏ´Ôè°É";} else {$pet_xz_time='ºÜÊæ·ş£¬²»ÓÃÏ´ÔèÁË';}
-	if ($pet_sp<0) {$pet_zt.='(ÎÒºÃ¾ÃÃ»³Ô¶«Î÷ÁË)';} elsif ($pet_sp<500) {$pet_zt.='(ÎÒ¿ì¶öËÀÁË)';} elsif ($pet_sp<1000) {$pet_zt.='(ÎÒºÃ¶ö°¡)';} elsif ($pet_sp<2000) {$pet_zt.='(ÎÒºÃÏë³Ô¶«Î÷)';} else {$pet_zt.='(ÎÒºÃ±¥Å¶)';}
+	if(time - $pet_xz_time > 86400*3) {$pet_xz_time="èº«ä¸Šç—’ç—’çš„ï¼Œå¿«ç»™æˆ‘æ´—æ¾¡å§";} else {$pet_xz_time='å¾ˆèˆ’æœï¼Œä¸ç”¨æ´—æ¾¡äº†';}
+	if ($pet_sp<0) {$pet_zt.='(æˆ‘å¥½ä¹…æ²¡åƒä¸œè¥¿äº†)';} elsif ($pet_sp<500) {$pet_zt.='(æˆ‘å¿«é¥¿æ­»äº†)';} elsif ($pet_sp<1000) {$pet_zt.='(æˆ‘å¥½é¥¿å•Š)';} elsif ($pet_sp<2000) {$pet_zt.='(æˆ‘å¥½æƒ³åƒä¸œè¥¿)';} else {$pet_zt.='(æˆ‘å¥½é¥±å“¦)';}
 
 	my $pet_exp1 = int(sqrt($pet_exp)/6);
 	$pet_exp1 = 110 if ($pet_exp1 > 110);
-	$pet_exp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_exp1 height=8 alt="¾­Ñé: $pet_exp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
+	$pet_exp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_exp1 height=8 alt="ç»éªŒ: $pet_exp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
 
 	my $pet_hp1 = int(sqrt($pet_hp));
 	$pet_hp1 = 110 if ($pet_hp1 > 110);
-	$pet_hp1 = qq~<img src=$imagesurl/images/vi_left.gif width=2 height=8><img src=$imagesurl/images/vi_0.gif width=$pet_hp1 height=8 alt="ÌåÁ¦: $pet_hp"><img src=$imagesurl/images/vi_right.gif width=4 height=8>~;
+	$pet_hp1 = qq~<img src=$imagesurl/images/vi_left.gif width=2 height=8><img src=$imagesurl/images/vi_0.gif width=$pet_hp1 height=8 alt="ä½“åŠ›: $pet_hp"><img src=$imagesurl/images/vi_right.gif width=4 height=8>~;
 
 	my $pet_sp1 = int(sqrt($pet_sp)/6);
 	$pet_sp1 = 110 if ($pet_sp1 > 110);
-	$pet_sp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_sp1 height=8 alt="Ê³Îï: $pet_sp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
+	$pet_sp1 = qq~<img src=$imagesurl/images/jy_left.gif width=2 height=8><img src=$imagesurl/images/jy_0.gif width=$pet_sp1 height=8 alt="é£Ÿç‰©: $pet_sp"><img src=$imagesurl/images/jy_right.gif width=4 height=8>~;
 
 	$pet_jb1=$pet_jb;
 	$pet_jb=int($pet_jb/10);
 
-	if($pet_die eq 'die'){$pet_name.='(ÒÑ¾­ËÀÍö)'; $pet_zt=''; $pet_xz_time='ÒÑ¾­ËÀÍö...'; $pet_style = qq~ style="filter:xray"~; }
+	if($pet_die eq 'die'){$pet_name.='(å·²ç»æ­»äº¡)'; $pet_zt=''; $pet_xz_time='å·²ç»æ­»äº¡...'; $pet_style = qq~ style="filter:xray"~; }
 
-	$pet{$membername}=qq~<br><table border="1" width="320" style="border-collapse: collapse" bordercolor="$tablebordercolor" cellPadding=2 cellSpacing=0 align=right><tr><td colspan="2" height="23" bgcolor="$miscbacktwo">&nbsp;<img src=$imagesurl/pet_maiweb/cw.gif> êÇ³Æ£º <a href=pet.cgi?action=myspet&petname=$tempmembername target=_blank><b>$pet_name</b></a> $pet_zt¡¡¡¡ÄêÁä£º $pet_born Ìì</td></tr><tr><td width="110" align=center $pet_style><img src=$imagesurl/pet_maiweb/pet/$pet_sx/$pet_sx$pet_jb.gif border=0></td><td width="*">&nbsp;Ê¤Àû $pet_win ´Î / Ê§°Ü $pet_lose ´Î<br>&nbsp;¹¥»÷Á¦ $pet_gjl µã / ·ÀÓùÁ¦ $pet_fyl µã<br>&nbsp;¾­Ñé£º $pet_exp1<br>&nbsp;ÌåÁ¦£º $pet_hp1<br>&nbsp;Ê³Îï£º $pet_sp1<BR>&nbsp;×´Ì¬£º $pet_xz_time</td></tr></table>~;
+	$pet{$membername}=qq~<br><table border="1" width="320" style="border-collapse: collapse" bordercolor="$tablebordercolor" cellPadding=2 cellSpacing=0 align=right><tr><td colspan="2" height="23" bgcolor="$miscbacktwo">&nbsp;<img src=$imagesurl/pet_maiweb/cw.gif> æ˜µç§°ï¼š <a href=pet.cgi?action=myspet&petname=$tempmembername target=_blank><b>$pet_name</b></a> $pet_ztã€€ã€€å¹´é¾„ï¼š $pet_born å¤©</td></tr><tr><td width="110" align=center $pet_style><img src=$imagesurl/pet_maiweb/pet/$pet_sx/$pet_sx$pet_jb.gif border=0></td><td width="*">&nbsp;èƒœåˆ© $pet_win æ¬¡ / å¤±è´¥ $pet_lose æ¬¡<br>&nbsp;æ”»å‡»åŠ› $pet_gjl ç‚¹ / é˜²å¾¡åŠ› $pet_fyl ç‚¹<br>&nbsp;ç»éªŒï¼š $pet_exp1<br>&nbsp;ä½“åŠ›ï¼š $pet_hp1<br>&nbsp;é£Ÿç‰©ï¼š $pet_sp1<BR>&nbsp;çŠ¶æ€ï¼š $pet_xz_time</td></tr></table>~;
     } else { $pet{$membername}='';}
   } else { $pet{$membername}='';}
 } else { $pet{$membername}='';}
@@ -443,25 +443,16 @@ if (-e "${lbdir}pet.cgi") {
 \$membertitle{"$membername"}     = qq~$membertitle~;
 \$useravatar{"$membername"}      = qq~$useravatar~;
 \$mtitle{"$membername"}          = qq~$mtitle~;
-\$location{"$membername"}        = qq~$location~;
-\$jhmp{"$membername"}            = qq~$jhmp~;
-\$signature{"$membername"}       = qq~$signature~;
-\$vheight{"$membername"}         = qq~$vheight{$membername}~;
-\$soccerinfo{"$membername"}      = qq~$soccerinfo{$membername}~;
+\$location{"$membername"}        = qq~$locat$membername"}      = qq~$showawards{$membername}~;
+\$lastgone{"$membername"}        = qq~$lastgone{$membername}~;
 
-\$pet{"$membername"}             = qq~$pet{$membername}~;
-
-1;
-);
-	close(FILE);
-    }
-
-  }
-  else {
-    	$membername=~s/\(¿Í\)/ \(¿ÍÈË\)/isg;
-	$membername{"¿ÍÈË"}  = $membername;
-	$membername = "¿ÍÈË";
-	require "guestinfo.pl" if ($membercode{"¿ÍÈË"} eq "");
+\$homepagegraphic{"$membername"} = qq~$homepagegraphic~;
+\$membernameimg{"$membername"}   = qq~$membernameimg~;
+\$membertitle{"$membername"}     = qq~$membertitle~;
+\$useravatar{"$membername"}      = qq~$useravatar~;
+\$mtitle{"$membername"}          = qq~$mtitle~;
+\$location{"$membername"}        = qq~$locatername = "å®¢äºº";
+	require "guestinfo.pl" if ($membercode{"å®¢äºº"} eq "");
     }
 }
 1;

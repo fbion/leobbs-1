@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -36,7 +36,7 @@ $query = new LBCGI;
 $inforum = $query->param("oldforum");
 $intopic = $query->param("oldtopic");
 $inpostno = $query->param("oldpostno");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9]+$/ || $intopic !~ /^[0-9]+$/ || $inpostno !~ /^[0-9]+$/);
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9]+$/ || $intopic !~ /^[0-9]+$/ || $inpostno !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inmembername = $query->param ("inmembername");
@@ -53,19 +53,19 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË")
+if ($inmembername eq "" || $inmembername eq "å®¢äºº")
 {
-	&error("ÓÃ»§Í¶Æ±&Ã»ÓĞ¸Ã×¢²áÓÃ»§»òÕßÄúÔÚÍ¶Æ±Ç°Ã»ÓĞµÇÂ¼£¡");
+	&error("ç”¨æˆ·æŠ•ç¥¨&æ²¡æœ‰è¯¥æ³¨å†Œç”¨æˆ·æˆ–è€…æ‚¨åœ¨æŠ•ç¥¨å‰æ²¡æœ‰ç™»å½•ï¼");
 }
 else
 {
 	&getmember($inmembername,"no");
-	&error("ÓÃ»§Í¶Æ±&Ã»ÓĞ¸Ã×¢²áÓÃ»§£¡") if ($userregistered eq "no");
-	&error("ÓÃ»§Í¶Æ±&´íÎóµÄ¹ÜÀíÔ±ÃÜÂë£¡") if ($inpassword ne $password);
+	&error("ç”¨æˆ·æŠ•ç¥¨&æ²¡æœ‰è¯¥æ³¨å†Œç”¨æˆ·ï¼") if ($userregistered eq "no");
+	&error("ç”¨æˆ·æŠ•ç¥¨&é”™è¯¯çš„ç®¡ç†å‘˜å¯†ç ï¼") if ($inpassword ne $password);
 }
 
 $editmembername = $query->param("membername");
@@ -73,7 +73,7 @@ $editmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,
 
 $action = $query->param("action");
 
-&error("ÂÛÌ³Í¶Æ±&Ö÷Ìâ²»´æÔÚ£¡") unless (-e "${lbdir}forum$inforum/$intopic.pl");
+&error("è®ºå›æŠ•ç¥¨&ä¸»é¢˜ä¸å­˜åœ¨ï¼") unless (-e "${lbdir}forum$inforum/$intopic.pl");
 
 $action = "login" if ($action ne "logmein" && $action ne "process");
 &getoneforum($inforum);
@@ -82,8 +82,8 @@ $action = "login" if ($action ne "logmein" && $action ne "process");
 
 $output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ¶ÔÓÃ»§½øĞĞÍ¶Æ±£¬¼õÉÙ»òÔö¼ÓËûÃÇµÄÍşÍû»ò»ı·Ö£¬ÉõÖÁ¿ÉÒÔ½ûÖ¹ËûÃÇ·¢ÑÔ£¡</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="forums.cgi?forum=$inforum">$forumname</a> ¡ú ¸øÓÃ»§Í¶Æ±<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥å¯¹ç”¨æˆ·è¿›è¡ŒæŠ•ç¥¨ï¼Œå‡å°‘æˆ–å¢åŠ ä»–ä»¬çš„å¨æœ›æˆ–ç§¯åˆ†ï¼Œç”šè‡³å¯ä»¥ç¦æ­¢ä»–ä»¬å‘è¨€ï¼</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="forums.cgi?forum=$inforum">$forumname</a> â†’ ç»™ç”¨æˆ·æŠ•ç¥¨<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -98,8 +98,8 @@ if ($action eq "login")
 <input type=hidden name=oldtopic value="$intopic">
 <input type=hidden name=oldpostno value="$inpostno">
 <input type=hidden name=membername value="$editmembername">
-<tr><td bgcolor=$titlecolor $catbackpic colSpan=2 align=center><font color=$fontcolormisc><b>ÇëÊ×ÏÈµÇÂ¼È»ºó¶Ô $editmembername ½øĞĞÍ¶Æ±(½ö¶ÔÌ³Ö÷ºÍ°æÖ÷¿ª·Å)</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colSpan=2 align=center><input type=submit name=submit value="µÇÂ¼Í¶Æ±"></td></form></tr>
+<tr><td bgcolor=$titlecolor $catbackpic colSpan=2 align=center><font color=$fontcolormisc><b>è¯·é¦–å…ˆç™»å½•ç„¶åå¯¹ $editmembername è¿›è¡ŒæŠ•ç¥¨(ä»…å¯¹å›ä¸»å’Œç‰ˆä¸»å¼€æ”¾)</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colSpan=2 align=center><input type=submit name=submit value="ç™»å½•æŠ•ç¥¨"></td></form></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 
@@ -107,12 +107,12 @@ elsif ($action eq "logmein")
 {
         $inmembmod = "no" if ($membercode eq "amo");
         $mymembercode = $membercode;
-	&error("ÓÃ»§Í¶Æ±&½ö½ö±¾°æ¹ÜÀíÔ±²ÅÄÜÔÚ±¾°æÍ¶Æ±") unless ($membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes");
-	&error("ÓÃ»§Í¶Æ±&²»ÄÜ¶Ô×Ô¼ºÍ¶Æ±") if ($inmembername eq $editmembername);
+	&error("ç”¨æˆ·æŠ•ç¥¨&ä»…ä»…æœ¬ç‰ˆç®¡ç†å‘˜æ‰èƒ½åœ¨æœ¬ç‰ˆæŠ•ç¥¨") unless ($membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes");
+	&error("ç”¨æˆ·æŠ•ç¥¨&ä¸èƒ½å¯¹è‡ªå·±æŠ•ç¥¨") if ($inmembername eq $editmembername);
 	&getmember($editmembername);
-	&error("ÓÃ»§Í¶Æ±&Ã»ÓĞ¸Ã×¢²áÓÃ»§") if ($userregistered eq "no");
-	&error("ÓÃ»§Í¶Æ±&Ì³Ö÷²»ÄÜ±»Í¶Æ±") if ($membercode eq "ad");
-	&error("ÓÃ»§Í¶Æ±&Ö»ÓĞÌ³Ö÷²ÅÄÜ¸ø°æÖ÷ÃÇÍ¶Æ±£¡") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
+	&error("ç”¨æˆ·æŠ•ç¥¨&æ²¡æœ‰è¯¥æ³¨å†Œç”¨æˆ·") if ($userregistered eq "no");
+	&error("ç”¨æˆ·æŠ•ç¥¨&å›ä¸»ä¸èƒ½è¢«æŠ•ç¥¨") if ($membercode eq "ad");
+	&error("ç”¨æˆ·æŠ•ç¥¨&åªæœ‰å›ä¸»æ‰èƒ½ç»™ç‰ˆä¸»ä»¬æŠ•ç¥¨ï¼") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
 
 	my $threadtomake = "${lbdir}forum$inforum/$intopic.thd.cgi";
 	$inpostno--;
@@ -124,10 +124,10 @@ elsif ($action eq "logmein")
 		if ($inpostno < @threads && $inpostno >= 0)
 		{
 			(my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$inpostno]);
-			&error("ÓÃ»§Í¶Æ±&´ËÌû×Ó²¢²»ÊÇ$editmembername·¢±í£¡") if (lc($membername) ne  lc($editmembername));
-		} else { &error("ÓÃ»§Í¶Æ±&¶ÔÓ¦µÄÌû×Ó²»´æÔÚ£¡!"); }
+			&error("ç”¨æˆ·æŠ•ç¥¨&æ­¤å¸–å­å¹¶ä¸æ˜¯$editmembernameå‘è¡¨ï¼") if (lc($membername) ne  lc($editmembername));
+		} else { &error("ç”¨æˆ·æŠ•ç¥¨&å¯¹åº”çš„å¸–å­ä¸å­˜åœ¨ï¼!"); }
 	}
-	else { &error("ÓÃ»§Í¶Æ±&¶ÔÓ¦µÄÌû×Ó²»´æÔÚ£¡"); }
+	else { &error("ç”¨æˆ·æŠ•ç¥¨&å¯¹åº”çš„å¸–å­ä¸å­˜åœ¨ï¼"); }
 	$inpostno++;
 	
 	$rating = 0 if ($rating eq "");
@@ -138,14 +138,14 @@ elsif ($action eq "logmein")
 	$rating = -6 if ($rating < -6);
 	$rating = $maxweiwang if ($rating > $maxweiwang);
 
-	if ($rating == $maxweiwang) {$pwout = qq~<input type=radio name=pw value="warn" >¾¯¸æÓÃ»§(ÍşÍû¼õ 1)~;}
-	elsif ($rating == -5) {$pwout = qq~<input type=radio name=pw value="praise" >ÔŞÑïÓÃ»§(ÍşÍû¼Ó 1)¡¡¡¡<input type=radio name=pw value="warn">½ûÖ¹ÓÃ»§·¢ÑÔ(ÍşÍû¼õÎª -6)¡¡¡¡<input type=radio name=pw value="worstm">ÆÁ±Î´ËÓÃ»§Ìù×Ó(ÍşÍû¼õÎª -6)~;}
-	elsif ($rating == -6) {$pwout = qq~<input type=radio name=pw value="praise" >»Ö¸´ÓÃ»§(ÍşÍû»Ö¸´³É -5)~;}
-	else {$pwout = qq~<input type=radio name=pw value="praise" >ÔŞÑïÓÃ»§(ÍşÍû¼Ó 1)¡¡¡¡<input type=radio name=pw value="warn">¾¯¸æÓÃ»§(ÍşÍû¼õ 1)¡¡¡¡<input type=radio name=pw value="reset">ÇåÁã(ÍşÍûÎª 0)¡¡¡¡<input type=radio name=pw value="worst">½ûÖ¹·¢ÑÔ(ÍşÍû¼õÎª -6)¡¡¡¡<input type=radio name=pw value="worstm">ÆÁ±Î´ËÓÃ»§Ìù×Ó(ÍşÍû¼õÎª -6)~;}
+	if ($rating == $maxweiwang) {$pwout = qq~<input type=radio name=pw value="warn" >è­¦å‘Šç”¨æˆ·(å¨æœ›å‡ 1)~;}
+	elsif ($rating == -5) {$pwout = qq~<input type=radio name=pw value="praise" >èµæ‰¬ç”¨æˆ·(å¨æœ›åŠ  1)ã€€ã€€<input type=radio name=pw value="warn">ç¦æ­¢ç”¨æˆ·å‘è¨€(å¨æœ›å‡ä¸º -6)ã€€ã€€<input type=radio name=pw value="worstm">å±è”½æ­¤ç”¨æˆ·è´´å­(å¨æœ›å‡ä¸º -6)~;}
+	elsif ($rating == -6) {$pwout = qq~<input type=radio name=pw value="praise" >æ¢å¤ç”¨æˆ·(å¨æœ›æ¢å¤æˆ -5)~;}
+	else {$pwout = qq~<input type=radio name=pw value="praise" >èµæ‰¬ç”¨æˆ·(å¨æœ›åŠ  1)ã€€ã€€<input type=radio name=pw value="warn">è­¦å‘Šç”¨æˆ·(å¨æœ›å‡ 1)ã€€ã€€<input type=radio name=pw value="reset">æ¸…é›¶(å¨æœ›ä¸º 0)ã€€ã€€<input type=radio name=pw value="worst">ç¦æ­¢å‘è¨€(å¨æœ›å‡ä¸º -6)ã€€ã€€<input type=radio name=pw value="worstm">å±è”½æ­¤ç”¨æˆ·è´´å­(å¨æœ›å‡ä¸º -6)~;}
                 $max1jf = 50 if ($max1jf eq "");
 
 	$output .= qq~
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>$editmembername Ä¿Ç°µÄÍşÍûÊÇ: $rating£¬ÓµÓĞµÄ»ı·ÖÎª: $jifen</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>$editmembername ç›®å‰çš„å¨æœ›æ˜¯: $ratingï¼Œæ‹¥æœ‰çš„ç§¯åˆ†ä¸º: $jifen</b></font></td></tr>
 <tr><td bgcolor=$miscbackone align=center>
 <form action=$thisprog method=POST>
 <input type=hidden name=action value=process>
@@ -153,17 +153,17 @@ elsif ($action eq "logmein")
 <input type=hidden name=oldforum value="$inforum">
 <input type=hidden name=oldtopic value="$intopic">
 <input type=hidden name=oldpostno value="$inpostno">
-<b>* »ı ·Ö ´¦ Àí *</b><BR>
-<input type=radio name=pw value="jfzj" checked> ½±Àø/³Í·£ÂÛÌ³»ı·Ö <input type=text name=numschange size=3 maxsize=3> ·Ö (±ØĞë¿ØÖÆÔÚ -$max1jf µ½ $max1jf Ö®¼ä)<BR><BR>
-<b>* Íş Íû ´¦ Àí *</b><BR>
+<b>* ç§¯ åˆ† å¤„ ç† *</b><BR>
+<input type=radio name=pw value="jfzj" checked> å¥–åŠ±/æƒ©ç½šè®ºå›ç§¯åˆ† <input type=text name=numschange size=3 maxsize=3> åˆ† (å¿…é¡»æ§åˆ¶åœ¨ -$max1jf åˆ° $max1jf ä¹‹é—´)<BR><BR>
+<b>* å¨ æœ› å¤„ ç† *</b><BR>
 $pwout
 <BR><BR><BR>
 </td></tr>
-<tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>Í¶Æ±Ô­Òò:<br><textarea size=20 name=reason cols=40 rows=5></textarea></td></tr>
-<tr><td bgcolor=$miscbackone align=center>Ê¹ÓÃÂÛÌ³¶ÌÏûÏ¢Í¨ÖªÓÃ»§: <input type=radio name=msgnotify value="yes" checked>ÊÇ¡¡¡¡<input type=radio name=msgnotify value="no">·ñ</td>~;
-	$output .= qq~<tr><td bgcolor=$miscbackone align=center>Ê¹ÓÃÓÊ¼şÍ¨ÖªÓÃ»§: <input type=radio name=notify value="yes">ÊÇ¡¡¡¡<input type=radio name=notify value="no" checked>·ñ</td>~ if ($emailfunctions eq "on");
+<tr><td bgcolor=$miscbackone align=center><font color=$fontcolormisc>æŠ•ç¥¨åŸå› :<br><textarea size=20 name=reason cols=40 rows=5></textarea></td></tr>
+<tr><td bgcolor=$miscbackone align=center>ä½¿ç”¨è®ºå›çŸ­æ¶ˆæ¯é€šçŸ¥ç”¨æˆ·: <input type=radio name=msgnotify value="yes" checked>æ˜¯ã€€ã€€<input type=radio name=msgnotify value="no">å¦</td>~;
+	$output .= qq~<tr><td bgcolor=$miscbackone align=center>ä½¿ç”¨é‚®ä»¶é€šçŸ¥ç”¨æˆ·: <input type=radio name=notify value="yes">æ˜¯ã€€ã€€<input type=radio name=notify value="no" checked>å¦</td>~ if ($emailfunctions eq "on");
 	$output .= qq~
-<tr><td bgcolor=$miscbacktwo align=center><input type=submit value="È·ÈÏ" name=submit></td></form></tr>
+<tr><td bgcolor=$miscbacktwo align=center><input type=submit value="ç¡®è®¤" name=submit></td></form></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 
@@ -171,61 +171,61 @@ elsif ($action eq "process")
 {
         $inmembmod = "no" if ($membercode eq "amo");
         $mymembercode = $membercode;
-	&error("ÓÃ»§Í¶Æ±&½ö½ö±¾°æ¹ÜÀíÔ±²ÅÄÜÔÚ±¾°æÍ¶Æ±") unless ($membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes");
-	&error("ÓÃ»§Í¶Æ±&²»ÄÜ¶Ô×Ô¼ºÍ¶Æ±") if ($inmembername eq $editmembername);
+	&error("ç”¨æˆ·æŠ•ç¥¨&ä»…ä»…æœ¬ç‰ˆç®¡ç†å‘˜æ‰èƒ½åœ¨æœ¬ç‰ˆæŠ•ç¥¨") unless ($membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes");
+	&error("ç”¨æˆ·æŠ•ç¥¨&ä¸èƒ½å¯¹è‡ªå·±æŠ•ç¥¨") if ($inmembername eq $editmembername);
 	&getmember($editmembername);
-	&error("ÓÃ»§Í¶Æ±&Ã»ÓĞ¸Ã×¢²áÓÃ»§") if ($userregistered eq "no");
-	&error("ÓÃ»§Í¶Æ±&Ì³Ö÷²»ÄÜ±»Í¶Æ±") if ($membercode eq "ad");
-	&error("ÓÃ»§Í¶Æ±&Ö»ÓĞÌ³Ö÷²ÅÄÜ¸ø°æÖ÷ÃÇÍ¶Æ±£¡") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
+	&error("ç”¨æˆ·æŠ•ç¥¨&æ²¡æœ‰è¯¥æ³¨å†Œç”¨æˆ·") if ($userregistered eq "no");
+	&error("ç”¨æˆ·æŠ•ç¥¨&å›ä¸»ä¸èƒ½è¢«æŠ•ç¥¨") if ($membercode eq "ad");
+	&error("ç”¨æˆ·æŠ•ç¥¨&åªæœ‰å›ä¸»æ‰èƒ½ç»™ç‰ˆä¸»ä»¬æŠ•ç¥¨ï¼") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
 	my $thistime = time;
 
 	my $pw = $query->param("pw");
 	my $reason = $query->param("reason");
 	my $notify = $query->param("notify");
 	my $msgnotify = $query->param("msgnotify");
-	&error("ÓÃ»§Í¶Æ±&Í¶Æ±±ØĞëËµÃ÷ÀíÓÉ£¡") if ($reason eq "");
+	&error("ç”¨æˆ·æŠ•ç¥¨&æŠ•ç¥¨å¿…é¡»è¯´æ˜ç†ç”±ï¼") if ($reason eq "");
 	$reason = &cleaninput($reason);
 	$reason =~ s/\|//isg;
 
 	my $oldrating = $rating;
 	if ($pw eq "praise")
 	{
-		$pwmail = $pwmailing = "Ôö¼ÓÍşÍû";
+		$pwmail = $pwmailing = "å¢åŠ å¨æœ›";
 		$rating++;
-		$ratingname = "ÍşÍûÓÉ $oldrating Ôö¼ÓÖÁ $rating";
+		$ratingname = "å¨æœ›ç”± $oldrating å¢åŠ è‡³ $rating";
 	}
 	elsif ($pw eq "warn")
 	{
-		$pwmail = $pwmailing = "¼õÉÙÍşÍû";
+		$pwmail = $pwmailing = "å‡å°‘å¨æœ›";
 		$rating--;
-		$ratingname = "ÍşÍûÓÉ $oldrating ¼õÉÙÖÁ $rating";
+		$ratingname = "å¨æœ›ç”± $oldrating å‡å°‘è‡³ $rating";
 	}
 	elsif ($pw eq "reset")
 	{
-		$pwmail = "µ÷ÕûÍşÍûÎª 0";
-		$pwmailing = "µ÷ÕûÍşÍû";
+		$pwmail = "è°ƒæ•´å¨æœ›ä¸º 0";
+		$pwmailing = "è°ƒæ•´å¨æœ›";
 		$rating = 0;
-		$ratingname = "ÍşÍûÓÉ $oldrating µ÷ÕûÖÁ $rating";
+		$ratingname = "å¨æœ›ç”± $oldrating è°ƒæ•´è‡³ $rating";
 	}
 	elsif ($pw eq "worst" || $pw eq "worstm")
 	{
-		$pwmail = "¼õµÍÍşÍûµ½×îµÍ";
-		$pwmailing = "¼õµÍÍşÍû";
+		$pwmail = "å‡ä½å¨æœ›åˆ°æœ€ä½";
+		$pwmailing = "å‡ä½å¨æœ›";
 		$rating = -6;
-		$ratingname = "ÍşÍûÓÉ $oldrating ¼õÉÙÖÁ $rating";
+		$ratingname = "å¨æœ›ç”± $oldrating å‡å°‘è‡³ $rating";
 	}
         elsif ($pw eq 'jfzj') {
 		$numschange = $query->param("numschange");
                 $max1jf = 50 if ($max1jf eq "");
-		&error("ÓÃ»§Í¶Æ±&½±³Í»õ±Ò»òÕß»ı·ÖÊıÁ¿ÊäÈë´íÎó£¡") unless ($numschange =~ /^[0-9\-]+$/);
-		&error("ÓÃ»§Í¶Æ±&Ò»´Î½±³Í»ı·ÖÊıÁ¿²»µÃ³¬¹ı $max1jf ·Ö£¡£¡") if (abs($numschange) > $max1jf);
-		$oldrating = "»ı·Ö $jifen";
-		$jiangcheng = $numschange >= 0 ?  "½±Àø" : "³Í·£";
-		$pwmail = "$jiangcheng»ı·Ö $numschange·Ö";
-		$pwmailing = "$jiangcheng»ı·Ö";
+		&error("ç”¨æˆ·æŠ•ç¥¨&å¥–æƒ©è´§å¸æˆ–è€…ç§¯åˆ†æ•°é‡è¾“å…¥é”™è¯¯ï¼") unless ($numschange =~ /^[0-9\-]+$/);
+		&error("ç”¨æˆ·æŠ•ç¥¨&ä¸€æ¬¡å¥–æƒ©ç§¯åˆ†æ•°é‡ä¸å¾—è¶…è¿‡ $max1jf åˆ†ï¼ï¼") if (abs($numschange) > $max1jf);
+		$oldrating = "ç§¯åˆ† $jifen";
+		$jiangcheng = $numschange >= 0 ?  "å¥–åŠ±" : "æƒ©ç½š";
+		$pwmail = "$jiangchengç§¯åˆ† $numschangeåˆ†";
+		$pwmailing = "$jiangchengç§¯åˆ†";
 		$jifen += $numschange;
 		$numschange = abs($numschange);
-		$ratingname = "$jiangcheng»ı·Ö $numschange";
+		$ratingname = "$jiangchengç§¯åˆ† $numschange";
 	}
 
 	$rating = 0 if ($rating eq "");
@@ -247,7 +247,7 @@ elsif ($action eq "process")
 		if ($inpostno < @threads && $inpostno >= 0)
 		{
 			(my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$inpostno]);
-			&error("ÓÃ»§Í¶Æ±&´ËÌû×Ó²¢²»ÊÇ$editmembername·¢±í£¡") if (lc($membername) ne  lc($editmembername));
+			&error("ç”¨æˆ·æŠ•ç¥¨&æ­¤å¸–å­å¹¶ä¸æ˜¯$editmembernameå‘è¡¨ï¼") if (lc($membername) ne  lc($editmembername));
 			$post = "[ADMINOPE=$inmembername|$editmembername|$ratingname|$reason|$thistime]$post";
 			$threads[$inpostno] = "$membername\t$topictitle\t$postipaddresstemp\t$showemoticons\t$showsignature\t$postdate\t$post\t$posticon";
 			open(FILE, ">$threadtomake");
@@ -259,10 +259,10 @@ elsif ($action eq "process")
 				print FILE "$_\n";
 			}
 			close(FILE);
-		} else { &winunlock($threadtomake) if ($OS_USED eq "Nt" || $OS_USED eq "Unix"); &error("ÓÃ»§Í¶Æ±&¶ÔÓ¦µÄÌû×Ó²»´æÔÚ!£¡"); }
+		} else { &winunlock($threadtomake) if ($OS_USED eq "Nt" || $OS_USED eq "Unix"); &error("ç”¨æˆ·æŠ•ç¥¨&å¯¹åº”çš„å¸–å­ä¸å­˜åœ¨!ï¼"); }
 		&winunlock($threadtomake) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	}
-	else { &error("ÓÃ»§Í¶Æ±&¶ÔÓ¦µÄÌû×Ó²»´æÔÚ£¡"); }
+	else { &error("ç”¨æˆ·æŠ•ç¥¨&å¯¹åº”çš„å¸–å­ä¸å­˜åœ¨ï¼"); }
 
 	my $memfilename = $editmembername;
 	$memfilename =~ s/ /\_/sg;
@@ -354,44 +354,44 @@ elsif ($action eq "process")
 	print FILE0 "$editmembername\t$inmembername\t$ratingname\t$thistime\t$inforum\t$intopic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$reason\t\n";
 	close(FILE0);
 	
-	&addadminlog("¶ÔÓÃ»§ $editmembername ²Ù×÷£º $ratingname£¬ÀíÓÉ£º$reason", $intopic);
+	&addadminlog("å¯¹ç”¨æˆ· $editmembername æ“ä½œï¼š $ratingnameï¼Œç†ç”±ï¼š$reason", $intopic);
 
 	if ($notify eq "yes" && $emailfunctions eq "on") {
 		eval("use MAILPROG qw(sendmail);");
-		my $membertitleout = $newmembercode eq "banned" ? "±»½ûÖ¹" : "ÆÕÍ¨»áÔ±";
-		my $subject = "ÄãÒÑ¾­±» $inmembername $pwmail !";
+		my $membertitleout = $newmembercode eq "banned" ? "è¢«ç¦æ­¢" : "æ™®é€šä¼šå‘˜";
+		my $subject = "ä½ å·²ç»è¢« $inmembername $pwmail !";
 		my $message = "<br>$homename<br>";
 		$message .= "<a href=$boardurl/leobbs.cgi target=_blank>$boardurl/leobbs.cgi</a><br>";
 		$message .= "<a href=$boardurl/topic.cgi?forum=$inforum&topic=$intopic target=_blank>$boardurl/topic.cgi?forum=$inforum&topic=$intopic</a><br><br><br>";
-		$message .= "ÄãÒÑ¾­±» $inmembername $pwmail !<br><br><br>";
-		$message .= "ÄÚÈİ£º$ratingname<br>";
-		$message .= "ÄãÏÖÔÚµÄ×´Ì¬ÊÇ: $membertitleout<br>";
-		$message .= "Äã±» $pwmailing µÄÔ­ÒòÊÇ:<br>";
+		$message .= "ä½ å·²ç»è¢« $inmembername $pwmail !<br><br><br>";
+		$message .= "å†…å®¹ï¼š$ratingname<br>";
+		$message .= "ä½ ç°åœ¨çš„çŠ¶æ€æ˜¯: $membertitleout<br>";
+		$message .= "ä½ è¢« $pwmailing çš„åŸå› æ˜¯:<br>";
 		$message .= "$reason<br><br>";
-		$message .= "¼ÙÈçÄãÈÏÎªÓĞ´í, Çë·¢ĞÅ¸ø<br>";
-		$message .= "Ì³Ö÷: $adminemail_in ½âÊÍÔ­Òò£¡<br>";
+		$message .= "å‡å¦‚ä½ è®¤ä¸ºæœ‰é”™, è¯·å‘ä¿¡ç»™<br>";
+		$message .= "å›ä¸»: $adminemail_in è§£é‡ŠåŸå› ï¼<br>";
 		&sendmail($adminemail_out, $adminemail_out, $emailaddress, $subject, $message);
 	}
 	if ($msgnotify eq "yes") {
-	    $topictitle =~ s/^£ª£££¡£¦£ª//;
-	    &shortmessage($inmembername, $editmembername, "ÄãÒÑ¾­±»$pwmail!", "¡¡¡¡ÄãÒÑ¾­±» $inmembername $pwmailing! ¡¡ÄÚÈİ£º$ratingname¡£<br>¡¡¡¡Ïà¹ØµÄÖ÷ÌâÊÇ: \[url=topic.cgi?forum=$inforum&topic=$intopic\]°´´Ë½øÈë\[\/url\]£¬²Ù×÷Ô­ÒòÊÇ: $reason¡£");
+	    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+	    &shortmessage($inmembername, $editmembername, "ä½ å·²ç»è¢«$pwmail!", "ã€€ã€€ä½ å·²ç»è¢« $inmembername $pwmailing! ã€€å†…å®¹ï¼š$ratingnameã€‚<br>ã€€ã€€ç›¸å…³çš„ä¸»é¢˜æ˜¯: \[url=topic.cgi?forum=$inforum&topic=$intopic\]æŒ‰æ­¤è¿›å…¥\[\/url\]ï¼Œæ“ä½œåŸå› æ˜¯: $reasonã€‚");
 	}
 	$output .= qq~
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>$editmembername ÒÑ¾­³É¹¦±»$pwmail</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>¾ßÌåÇé¿ö:<br><ul>
-<li><a href=topic.cgi?forum=$inforum&topic=$intopic>·µ»Øµ±Ç°Ö÷Ìâ </a>$pages
-<li><a href=forums.cgi?forum=$inforum>·µ»Øµ±Ç°ÂÛÌ³</a>
-<li><a href=leobbs.cgi>·µ»ØÂÛÌ³Ê×Ò³</a>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>$editmembername å·²ç»æˆåŠŸè¢«$pwmail</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å…·ä½“æƒ…å†µ:<br><ul>
+<li><a href=topic.cgi?forum=$inforum&topic=$intopic>è¿”å›å½“å‰ä¸»é¢˜ </a>$pages
+<li><a href=forums.cgi?forum=$inforum>è¿”å›å½“å‰è®ºå›</a>
+<li><a href=leobbs.cgi>è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&output("$boardname - ÓÃ»§Í¶Æ±",\$output);
+&output("$boardname - ç”¨æˆ·æŠ•ç¥¨",\$output);
 exit;
 
-sub shortmessage #¸øÓÃ»§·¢¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£º·¢ËÍÈË¡¢ÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
+sub shortmessage #ç»™ç”¨æˆ·å‘çŸ­æ¶ˆæ¯ï¼ˆè°ƒç”¨å‚æ•°ï¼šå‘é€äººã€æ”¶å–äººã€ä¸»é¢˜ã€å†…å®¹ï¼‰
 {
 	my ($sendername, $receivemember, $topic, $content) = @_;
 	$currenttime = time;
@@ -406,7 +406,7 @@ sub shortmessage #¸øÓÃ»§·¢¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£º·¢ËÍÈË¡¢ÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
 	}
 	open(FILE, ">$filetomake");
 	flock(FILE, 2) if ($OS_USED eq "Unix");
-	print FILE "£ª£££¡£¦£ª$sendername\tno\t$currenttime\t$topic\t$content\n";
+	print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$sendername\tno\t$currenttime\t$topic\t$content\n";
 	foreach (@filedata)
 	{
 		chomp;

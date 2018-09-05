@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -45,13 +45,13 @@ for ('forum','topic','membername','password','inpost','id') {
 $num = $id;
 $inforum       = $forum;
 $intopic       = $topic;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡") if ($inforum !~ /^[0-9]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic) && ($intopic !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼") if ($inforum !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $inmembername  = $membername;
@@ -76,26 +76,26 @@ if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-&ipbanned; #·âÉ±Ò»Ğ© ip
-if (($num) && ($num !~ /^[0-9]+$/)) { &error("ÆÕÍ¨&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡£¡"); }
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) { &error ("·¢±íĞÂÖ÷Ìâ&¶Ô²»Æğ£¬Õâ¸öÂÛÌ³²»´æÔÚ£¡Èç¹ûÈ·¶¨·ÖÂÛÌ³ºÅÂëÃ»´í£¬ÄÇÃ´Çë½øÈë¹ÜÀíÇøĞŞ¸´ÂÛÌ³Ò»´Î£¡"); }
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+&ipbanned; #å°æ€ä¸€äº› ip
+if (($num) && ($num !~ /^[0-9]+$/)) { &error("æ™®é€š&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼ï¼"); }
+if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) { &error ("å‘è¡¨æ–°ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œè¿™ä¸ªè®ºå›ä¸å­˜åœ¨ï¼å¦‚æœç¡®å®šåˆ†è®ºå›å·ç æ²¡é”™ï¼Œé‚£ä¹ˆè¯·è¿›å…¥ç®¡ç†åŒºä¿®å¤è®ºå›ä¸€æ¬¡ï¼"); }
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
 } else {
     &getmember("$inmembername");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($inpassword ne "" && $userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($inpassword ne "" && $userregistered eq "no");
      if ($inpassword ne $password && $userregistered ne "no") {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 &doonoff;
 $mymembercode=$membercode;
-if ($inpost eq"")  { &error("Ìí¼Ó»Ø¸´&ÇëÊäÈëÒªĞøĞ´µÄÄÚÈİ£¡"); }
-if (($membercode eq "banned")||($membercode eq "masked"))      { &error("Ìí¼Ó»Ø¸´&Äú±»½ûÖ¹·¢ÑÔ»òÕß·¢ÑÔ±»ÆÁ±Î£¬ÇëÁªÏµ¹ÜÀíÔ±½â¾ö£¡"); }
+if ($inpost eq"")  { &error("æ·»åŠ å›å¤&è¯·è¾“å…¥è¦ç»­å†™çš„å†…å®¹ï¼"); }
+if (($membercode eq "banned")||($membercode eq "masked"))      { &error("æ·»åŠ å›å¤&æ‚¨è¢«ç¦æ­¢å‘è¨€æˆ–è€…å‘è¨€è¢«å±è”½ï¼Œè¯·è”ç³»ç®¡ç†å‘˜è§£å†³ï¼"); }
 $myrating=$rating;
 $myrating="-6" if !($myrating);
 $maxpoststr = "" if ($maxpoststr eq 0);
@@ -103,17 +103,17 @@ $maxpoststr = 100 if (($maxpoststr < 100)&&($maxpoststr ne ""));
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &moderator("$inforum");
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 	my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
@@ -124,14 +124,14 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
     my ($postermembername, $topictitle, $postipaddress, $showemoticons, $showsignature ,$postdate, $post, $posticon, $water) = split(/\t/, $threads[$num-1]);
-    if(lc($postermembername) ne lc($inmembername)){&error("·¢Éú´íÎó&ÎÄÕÂ×÷Õß²»ÊÇÄã£¬Äã²»ÄÜÔÚ´Ë»ù´¡ÉÏĞøĞ´");}
+    if(lc($postermembername) ne lc($inmembername)){&error("å‘ç”Ÿé”™è¯¯&æ–‡ç« ä½œè€…ä¸æ˜¯ä½ ï¼Œä½ ä¸èƒ½åœ¨æ­¤åŸºç¡€ä¸Šç»­å†™");}
     
-    &error("·¢Éú´íÎó&¶Ô²»Æğ£¬±¾ÂÛÌ³²»ÔÊĞí·¢±í»ò»Ø¸´³¬¹ı <B>$maxpoststr</B> ¸ö×Ö·ûµÄÎÄÕÂ£¡") if (((length($inpost) + length($post)) > $maxpoststr)&&($maxpoststr ne "")&&($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
+    &error("å‘ç”Ÿé”™è¯¯&å¯¹ä¸èµ·ï¼Œæœ¬è®ºå›ä¸å…è®¸å‘è¡¨æˆ–å›å¤è¶…è¿‡ <B>$maxpoststr</B> ä¸ªå­—ç¬¦çš„æ–‡ç« ï¼") if (((length($inpost) + length($post)) > $maxpoststr)&&($maxpoststr ne "")&&($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
     
     my $time1=time;
     $time1 = &longdateandtime($time1);
 
-    $addnewpost ="[br][br]\[color=$fonthighlight\]\[b\]-=-=-=- ÒÔÏÂÄÚÈİÓÉ \[i\]$postermembername\[\/i\] ÔÚ \[i\]$time1\[\/i\] Ê±Ìí¼Ó -=-=-=-\[\/b\]\[\/color\]<br>".$inpost;
+    $addnewpost ="[br][br]\[color=$fonthighlight\]\[b\]-=-=-=- ä»¥ä¸‹å†…å®¹ç”± \[i\]$postermembername\[\/i\] åœ¨ \[i\]$time1\[\/i\] æ—¶æ·»åŠ  -=-=-=-\[\/b\]\[\/color\]<br>".$inpost;
 
     if ($post=~m/\[ALIPAYE\]/) {
         my ($no,$alipayid,$warename,$oldpost,$wareprice,$wareurl,$postage_mail,$postage_express,$postage_ems) = split(/\[ALIPAYE\]/,$post);
@@ -158,7 +158,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    &mischeader("ĞøĞ´Ìù×Ó");
+    &mischeader("ç»­å†™è´´å­");
     $gopage = int(($num-1)/$maxtopics)*$maxtopics;
     if ($refreshurl == 1) { 
     	$relocurl = "topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$num"; 
@@ -167,10 +167,10 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
     $output .= qq~<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ĞøĞ´³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ç»­å†™æˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$num">·µ»ØÖ÷Ìâ</a><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$num">è¿”å›ä¸»é¢˜</a><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul>
 </tr></td></table></td></tr></table>
 <meta http-equiv="refresh" content="3; url=$relocurl">
 	~;
-&output("$boardname - ÔÚ$forumnameÄÚĞøĞ´Ìû×Ó",\$output);
+&output("$boardname - åœ¨$forumnameå†…ç»­å†™å¸–å­",\$output);

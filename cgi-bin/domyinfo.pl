@@ -1,15 +1,15 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     if ($avatars eq "on") {
-	if (($personalavatar)&&($personalwidth)&&($personalheight)) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+	if (($personalavatar)&&($personalwidth)&&($personalheight)) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 	    $personalavatar =~ s/\$imagesurl/${imagesurl}/o;
 	    if (($personalavatar =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 		$personalavatar=uri_escape($personalavatar);
@@ -17,19 +17,19 @@
 	    }
 	    else {
 	        $personalavatar=uri_escape($personalavatar);
-		$useravatar = qq(<br><a href=profile.cgi?action=modify title=±à¼­ÄúµÄ¸öÈË×ÊÁÏ><img src=$personalavatar width=$personalwidth height=$personalheight border=1></a>);
+		$useravatar = qq(<br><a href=profile.cgi?action=modify title=ç¼–è¾‘æ‚¨çš„ä¸ªäººèµ„æ–™><img src=$personalavatar width=$personalwidth height=$personalheight border=1></a>);
 	    }
 	}
         elsif (($useravatar ne "noavatar") && ($useravatar)) {
             $useravatar=uri_escape($useravatar);
-	    $useravatar = qq(<br><a href=profile.cgi?action=modify title=±à¼­ÄúµÄ¸öÈË×ÊÁÏ><img src=$imagesurl/avatars/$useravatar.gif border=1></a>);
+	    $useravatar = qq(<br><a href=profile.cgi?action=modify title=ç¼–è¾‘æ‚¨çš„ä¸ªäººèµ„æ–™><img src=$imagesurl/avatars/$useravatar.gif border=1></a>);
         }
 	elsif (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) {
-	    $useravatar = qq~<a href=profile.cgi?action=modify title="ÄúµÄ QQ ĞãĞÎÏó"><img src=http://qqshow-user.tencent.com/$oicqnumber/11/00/ width=70 height=113 border=1></a>~;
+	    $useravatar = qq~<a href=profile.cgi?action=modify title="æ‚¨çš„ QQ ç§€å½¢è±¡"><img src=http://qqshow-user.tencent.com/$oicqnumber/11/00/ width=70 height=113 border=1></a>~;
 	}
-        else { $useravatar=qq(<br><a href=profile.cgi?action=modify title=±à¼­ÄúµÄ¸öÈË×ÊÁÏ><img src=$imagesurl/avatars/noavatar.gif border=1></a>); }
+        else { $useravatar=qq(<br><a href=profile.cgi?action=modify title=ç¼–è¾‘æ‚¨çš„ä¸ªäººèµ„æ–™><img src=$imagesurl/avatars/noavatar.gif border=1></a>); }
     }
-    else { $useravatar=qq(<br><a href=profile.cgi?action=modify title=±à¼­ÄúµÄ¸öÈË×ÊÁÏ><img src=$imagesurl/avatars/noavatar.gif border=1></a>); }
+    else { $useravatar=qq(<br><a href=profile.cgi?action=modify title=ç¼–è¾‘æ‚¨çš„ä¸ªäººèµ„æ–™><img src=$imagesurl/avatars/noavatar.gif border=1></a>); }
 
     open (MSGOUT, "${lbdir}$msgdir/out/${memberfilename}_out.cgi");
     sysread(MSGOUT, my $totalmessagesout,(stat(MSGOUT))[7]);
@@ -44,12 +44,12 @@
     $mymoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 
     $mymoney = "<font title=$mymoney>>999999999</font>" if ($mymoney > 999999999 );
-    $moneyname ="À×°ÁÔª" if ($moneyname eq "");
+    $moneyname ="é›·å‚²å…ƒ" if ($moneyname eq "");
 
     my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $bankadd1, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
     unless ($mystatus eq "1" || $mystatus eq "-1" || $ebankdata eq "") {
-	$mysaves = "<B>Ã»¿ª»§</B>";
-	$myloan = "<B>Ã»´û¿î</B>";
+	$mysaves = "<B>æ²¡å¼€æˆ·</B>";
+	$myloan = "<B>æ²¡è´·æ¬¾</B>";
     }
     else {
         if ($mystatus) {
@@ -57,15 +57,15 @@
 	    if ($myloan) {
 	        $myloan = "<B>$myloan</B> $moneyname";
 	    } else {
-	        $myloan = "<B>Ã»´û¿î</B>";
+	        $myloan = "<B>æ²¡è´·æ¬¾</B>";
 	    }
         } else {
-	    $mysaves = "<B>Ã»¿ª»§</B>";
-	    $myloan = "<B>Ã»´û¿î</B>";
+	    $mysaves = "<B>æ²¡å¼€æˆ·</B>";
+	    $myloan = "<B>æ²¡è´·æ¬¾</B>";
         }
     }
 
-    $modscard_link = qq~\n :: [ <span style=cursor:hand onClick="javascript:openScript('modscard.cgi',420,320)"><font color=$fonthighlight><B>°æÖ÷Ç©µ½</B></font></span> ]~ if($membercode eq "ad" || $membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo");
+    $modscard_link = qq~\n :: [ <span style=cursor:hand onClick="javascript:openScript('modscard.cgi',420,320)"><font color=$fonthighlight><B>ç‰ˆä¸»ç­¾åˆ°</B></font></span> ]~ if($membercode eq "ad" || $membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo");
 
     $mysaves = "<font title=$mysaves>>999999999</font>" if ($mysaves > 999999999 );
     $myloan = "<font title=$myloan>>999999999</font>" if ($myloan > 999999999 );
@@ -75,31 +75,31 @@
     $lasttimes = &dateformat($lasttimes);
 
     my $inmembernames = uri_escape($inmembername);
-    if (($maxmsgno eq "")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "amo")||($membercode eq "mo")) { $maxmsgno = qq~<B>Ã»ÓĞÏŞÖÆ</B>~; } else { $maxmsgno = qq~<font color=$fonthighlight><B>$maxmsgno</B></font> Ìõ~; }
-    my $myoutput = qq~<tr><td bgcolor=\$titlecolor colspan=4 \$catbackpic><font color=\$titlefontcolor><B>-=>  ¸öÈË×´Ì¬</B>  [ À´×Ô£º$trueipaddress£¬$fromwhere1 ¡£ÏµÍ³£º$osinfo£¬$browseinfo¡£×îºó·ÃÎÊÊ±¼ä£º$lasttimes ]</td></tr>
+    if (($maxmsgno eq "")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "amo")||($membercode eq "mo")) { $maxmsgno = qq~<B>æ²¡æœ‰é™åˆ¶</B>~; } else { $maxmsgno = qq~<font color=$fonthighlight><B>$maxmsgno</B></font> æ¡~; }
+    my $myoutput = qq~<tr><td bgcolor=\$titlecolor colspan=4 \$catbackpic><font color=\$titlefontcolor><B>-=>  ä¸ªäººçŠ¶æ€</B>  [ æ¥è‡ªï¼š$trueipaddressï¼Œ$fromwhere1 ã€‚ç³»ç»Ÿï¼š$osinfoï¼Œ$browseinfoã€‚æœ€åè®¿é—®æ—¶é—´ï¼š$lasttimes ]</td></tr>
 <tr><td bgcolor=\$forumcolorone align=center width=18>$inboximg</td>
 <td bgcolor=\$forumcolortwo width=130 align=center>$useravatar</td>
 <td bgcolor=\$forumcolortwo width=*><img src=$imagesurl/images/none.gif width=340 height=1><BR>
 <table cellpadding=6 cellspacing=0 width=100%>
 <tr><td nowarp>
-<font color=\$fontcolormisc>* <B>ÎÒµÄ²Æ²ú</B></font><BR><img src=$imagesurl/images/none.gif height=6><BR>
-ÏÖ½ğ: <B>$mymoney</B> $moneyname<BR>
-´æ¿î: $mysaves<BR>
-´û¿î: $myloan
+<font color=\$fontcolormisc>* <B>æˆ‘çš„è´¢äº§</B></font><BR><img src=$imagesurl/images/none.gif height=6><BR>
+ç°é‡‘: <B>$mymoney</B> $moneyname<BR>
+å­˜æ¬¾: $mysaves<BR>
+è´·æ¬¾: $myloan
 </td>
 <td nowarp>
-<font color=\$fontcolormisc>* <B>ÎÒµÄ¶ÌÏûÏ¢</B></font><BR><img src=$imagesurl/images/none.gif height=6><BR>
-[<a href=messanger.cgi?action=inbox target=_blank>ÊÕ¼şÏä</a>]: <B>totalmessageshtc</B><BR>
-[<a href=messanger.cgi?action=outbox target=_blank>·¢¼şÏä</a>]: <B>$totalmessagesout</B><BR>
-ÌõÊıÏŞÖÆ: $maxmsgno<BR>
+<font color=\$fontcolormisc>* <B>æˆ‘çš„çŸ­æ¶ˆæ¯</B></font><BR><img src=$imagesurl/images/none.gif height=6><BR>
+[<a href=messanger.cgi?action=inbox target=_blank>æ”¶ä»¶ç®±</a>]: <B>totalmessageshtc</B><BR>
+[<a href=messanger.cgi?action=outbox target=_blank>å‘ä»¶ç®±</a>]: <B>$totalmessagesout</B><BR>
+æ¡æ•°é™åˆ¶: $maxmsgno<BR>
 </td>
 <td nowarp>
-<font color=\$fontcolormisc>* <B>ÎÒµÄÎÄÕÂ</B></font><BR><img src=$imagesurl/images/none.gif height=6><BR>
-·¢±íÊı: <B>$numberofposts</B><BR>
-»Ø¸´Êı: <B>$numberofreplys</B><BR>
-±»É¾Êı: <B>$postdel</B><BR>
+<font color=\$fontcolormisc>* <B>æˆ‘çš„æ–‡ç« </B></font><BR><img src=$imagesurl/images/none.gif height=6><BR>
+å‘è¡¨æ•°: <B>$numberofposts</B><BR>
+å›å¤æ•°: <B>$numberofreplys</B><BR>
+è¢«åˆ æ•°: <B>$postdel</B><BR>
 </td></tr></table><img src=$imagesurl/images/none.gif height=9><BR><center>
-[ <a href=fav.cgi?action=show&member=$inmembernames>ÎÒµÄÊÕ²Ø¼Ğ</a> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=post',420,320)">ÎÒ±»»Ø¸´µÄÖ÷Ìâ</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=reply',420,320)">ÎÒ²ÎÓëµÄÖ÷Ìâ</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=new',420,320)">ÂÛÌ³×îĞÂÌû</span> ]$modscard_link</center>
+[ <a href=fav.cgi?action=show&member=$inmembernames>æˆ‘çš„æ”¶è—å¤¹</a> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=post',420,320)">æˆ‘è¢«å›å¤çš„ä¸»é¢˜</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=reply',420,320)">æˆ‘å‚ä¸çš„ä¸»é¢˜</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=new',420,320)">è®ºå›æœ€æ–°å¸–</span> ]$modscard_link</center>
 </td>~;
 if ($forumcached eq "yes") {
     open (FILE, ">${lbdir}cache/myinfo/$memberfilename.pl");

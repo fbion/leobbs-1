@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -67,22 +67,20 @@ $ftplockfile = "${lbdir}lock/$cleanmembername\_ftpiii.lck";
 $currenttime = time;
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË")
-{#¼ì²éÓÃ»§Éí·İ
-	&error("ÆÕÍ¨´íÎó&·Ã¿Í²»ÄÜ²é¿´FTP ÁªÃË,ÇëÏÈµÇÂ¼£¡");
+if ($inmembername eq "" || $inmembername eq "å®¢äºº")
+{#æ£€æŸ¥ç”¨æˆ·èº«ä»½
+	&error("æ™®é€šé”™è¯¯&è®¿å®¢ä¸èƒ½æŸ¥çœ‹FTP è”ç›Ÿ,è¯·å…ˆç™»å½•ï¼");
 }
 else
 {
 	&getmember($inmembername, 'no');
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
-	&error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password);
-	&error("È¨ÏŞ´íÎó&±»ÆÁ±ÎÎÄÕÂ»ò½ûÑÔµÄÓÃ‘ô²»ÔÊĞí·ÃÎÊ FTP ÁªÃË£¡") if ($membercode eq "banned" || $membercode eq "masked");
-
-	#±ÜÃâ¶ñÒâÓÃ»§Í¬Ê±Ìá½»¶à¸ö½»Ò×ÇëÇóÔì³ÉµÄ¸ºÕ®¹ºÂòµÈÏÖÏó
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password);
+	&error("æƒé™é”™è¯¯&è¢«å±è”½æ–‡ç« æˆ–ç¦è¨€çš„ç”¨ÈÏÖÏó
 	if (-e $ftplockfile)
 	{
 		&myerror("Ë¢ĞÂ´íÎó&Çë²»ÒªË¢ĞÂFTPÁªÃËÌ«¿ì£¡") if ($currenttime < (stat($ftplockfile))[9] + 3);

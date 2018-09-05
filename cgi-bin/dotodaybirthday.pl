@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 my $lockfile = "$lbdir" . "lock/birthday.lck";
@@ -36,7 +36,7 @@ if (!(-e $lockfile)) {
                	close (FILE);
 	        $inboxmessages =~ s/\r//isg;
                	open (FILE, ">${lbdir}$msgdir/in/${usersfilename}_msg.cgi");
-               	print FILE "£ª£££¡£¦£ªÈ«Ìå¹ÜÀíÈËÔ±\tno\t$currenttime\t¡¶$boardname¡·×£ÄúÉúÈÕ¿ìÀÖ£¡\t½ñÌìÊÇÄú $unowy ËêÉúÈÕ,¡¶$boardname¡·×£ÄúÉúÈÕ¿ìÀÖ£¡\n$inboxmessages";
+               	print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Šå…¨ä½“ç®¡ç†äººå‘˜\tno\t$currenttime\tã€Š$boardnameã€‹ç¥æ‚¨ç”Ÿæ—¥å¿«ä¹ï¼\tä»Šå¤©æ˜¯æ‚¨ $unowy å²ç”Ÿæ—¥,ã€Š$boardnameã€‹ç¥æ‚¨ç”Ÿæ—¥å¿«ä¹ï¼\n$inboxmessages";
                 close (FILE);
             }
     	}
@@ -47,7 +47,7 @@ if (!(-e $lockfile)) {
       	next if ($_ eq "");
 	(my $users,my $usersfilename,my $unowy) = split(/\t/,$_);
 	next if ($users eq "");
-	$birthdayuser .= qq~<span style=cursor:hand onClick=javascript:O9('~ . uri_escape($usersfilename) . qq~') title=×£$unowyËêÉúÈÕ¿ìÀÖ£¡>$users</span>, ~;
+	$birthdayuser .= qq~<span style=cursor:hand onClick=javascript:O9('~ . uri_escape($usersfilename) . qq~') title=ç¥$unowyå²ç”Ÿæ—¥å¿«ä¹ï¼>$users</span>, ~;
     }
     chop $birthdayuser;
     chop $birthdayuser;

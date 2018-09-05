@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -44,20 +44,20 @@ $inpassword   = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    &error("²»ÄÜ½øÈë $plugname &ÄãÄ¿Ç°µÄÉí·İÊÇ·Ã¿Í£¬ÇëÏÈµÇÂ½!");
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    &error("ä¸èƒ½è¿›å…¥ $plugname &ä½ ç›®å‰çš„èº«ä»½æ˜¯è®¿å®¢ï¼Œè¯·å…ˆç™»é™†!");
     exit;
 } else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 
@@ -67,13 +67,13 @@ $tempmembername =~ tr/A-Z/a-z/;
 $admin_user =~ s/ /\_/g;
 $admin_user =~ tr/A-Z/a-z/;
 
-&error("$plugname ±à¼­¹ÜÀí&Ö»ÓĞÂÛÌ³Ì³Ö÷Óë²å¼ş¹ÜÀíÔ±²ÅÄÜ½øÈë´ËÇø£¡") if (($membercode ne "ad")&&($admin_user ne "$tempmembername"));
+&error("$plugname ç¼–è¾‘ç®¡ç†&åªæœ‰è®ºå›å›ä¸»ä¸æ’ä»¶ç®¡ç†å‘˜æ‰èƒ½è¿›å…¥æ­¤åŒºï¼") if (($membercode ne "ad")&&($admin_user ne "$tempmembername"));
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <html>
 <head>
-<title>$plugname - ±à¼­¹ÜÀí</title>
+<title>$plugname - ç¼–è¾‘ç®¡ç†</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <style>
 A:visited{TEXT-DECORATION: none}
@@ -81,9 +81,9 @@ A:active{TEXT-DECORATION: none}
 A:hover{TEXT-DECORATION: underline overline}
 A:link{text-decoration: none;}
 .t{LINE-HEIGHT: 1.4}
-TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt} 
+TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt} 
 INPUT{BORDER-TOP-WIDTH: 1px; PADDING-RIGHT: 1px; PADDING-LEFT: 1px; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 9pt; BORDER-LEFT-COLOR: #cccccc; BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: #cccccc; PADDING-BOTTOM: 1px; BORDER-TOP-COLOR: #cccccc; PADDING-TOP: 1px; HEIGHT: 18px; BORDER-RIGHT-WIDTH: 1px; BORDER-RIGHT-COLOR: #cccccc}
-textarea, select {border-width: 1; border-color: #000000; background-color: #efefef; font-family: ËÎÌå; font-size: 9pt; font-style: bold;}
+textarea, select {border-width: 1; border-color: #000000; background-color: #efefef; font-family: å®‹ä½“; font-size: 9pt; font-style: bold;}
 </style>
 </head>
 <body bgcolor="#ffffff" topmargin=0 leftmargin=0>
@@ -94,12 +94,12 @@ my %Mode = ('edit_sp' => \&edit_sp,'editok' => \&editok,'del_sp' => \&del_sp);
 
 if ($Mode{$action})
 {$Mode{$action} -> ();}
-else{&error("$plugname&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡");}
+else{&error("$plugname&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼");}
 
 sub edit_sp
 {
-    $num       = $query -> param('num');	# ÉÌÆ·Àà±ğÎÄ¼ş
-    $id        = $query -> param('id');		# ÉÌÆ·µÄIDºÅ
+    $num       = $query -> param('num');	# å•†å“ç±»åˆ«æ–‡ä»¶
+    $id        = $query -> param('id');		# å•†å“çš„IDå·
 $num =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 
@@ -112,18 +112,18 @@ $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]/
 
     $numid = $num;
 
-    &errorout("1","ÕÒ²»µ½Ö¸¶¨µÄÉÌÆ·£¡") if($sort !~ /$id\t(.*)/);	# ÕÒµ½Ö¸¶¨µÄÉÌÆ·ID
+    &errorout("1","æ‰¾ä¸åˆ°æŒ‡å®šçš„å•†å“ï¼") if($sort !~ /$id\t(.*)/);	# æ‰¾åˆ°æŒ‡å®šçš„å•†å“ID
 
     ($sp_name,$sp_money,$sp_description,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$x,$x)=split(/\t/,$1);
 
-    print qq~<tr><td bgcolor="#333333" height="20"><font color=#FFFFFF><b>ĞéÄâĞÎÏó¹ÜÀí / ±à¼­ÉÌÆ·</b></td></tr></table>~;
+    print qq~<tr><td bgcolor="#333333" height="20"><font color=#FFFFFF><b>è™šæ‹Ÿå½¢è±¡ç®¡ç† / ç¼–è¾‘å•†å“</b></td></tr></table>~;
 
     if($sp_suit eq 'Y')
     {
 	@taoinfo=split(/\_/,$sp_suitid);
 	$numid = @taoinfo[0];
     }
-    $tempoutput = "<input type=radio name=newfit value=\"m\"> ÄĞ <input type=radio name=newfit value=\"f\"> Å® <input type=radio name=newfit value=\"t\"> Í¨ÓÃ";
+    $tempoutput = "<input type=radio name=newfit value=\"m\"> ç”· <input type=radio name=newfit value=\"f\"> å¥³ <input type=radio name=newfit value=\"t\"> é€šç”¨";
     $tempoutput =~ s/value=\"$sp_fitherd\"/value=\"$sp_fitherd\" checked/;
 
     opendir (DIR, "${imagesdir}face/$numid");
@@ -152,52 +152,52 @@ document.xtdemo.src = "$imagesurl/face/$numid/"+FORM.image2.value;}
 <input type=hidden name="action" value="editok">
 <input type=hidden name="class" value="$num">
 <input type=hidden name="id" value="$id">
-  <TR bgColor=#eeeeee align=center><TD width=84>Ğ¡Í¼</TD><TD width=140>´óÍ¼</TD><TD>ÉÌÆ·×ÊÁÏ</TD></TR>
+  <TR bgColor=#eeeeee align=center><TD width=84>å°å›¾</TD><TD width=140>å¤§å›¾</TD><TD>å•†å“èµ„æ–™</TD></TR>
   <TR bgColor=#eeeeee>
     <TD rowSpan=9><img border=0 name=xtdemo src=$imagesurl/face/$numid/$sp_sxgraphic width=84 hegiht=84></TD>
     <TD rowSpan=9><img border=0 name=dtdemo src=$imagesurl/face/$numid/$sp_graphic width=140 hegiht=226></TD>
-    <TD height=20>ÉÌÆ·Ãû³Æ£º<input type=text size=20 name=newname value="$sp_name"></TD>
+    <TD height=20>å•†å“åç§°ï¼š<input type=text size=20 name=newname value="$sp_name"></TD>
   </TR>
-  <TR><TD bgColor=#eeeeee height=20>ÉÌÆ·ÃèÊö£º<input type=text size=20 name=newdescription value="$sp_description"></TD></TR>
-  <TR><TD bgColor=#eeeeee height=20>ÉÌÆ·µ¥¼Û£º<input type=text size=20 name=newmoney value="$sp_money"></TD></TR>
-  <TR><TD bgColor=#eeeeee height=20>ÊÊÓÃÈËÈº£º$tempoutput</TD></TR>
-  <TR><TD bgColor=#eeeeee height=20>ÉÌÆ·Í¼Æ¬£º<input type=text size=10 name=newgraphic value="$sp_graphic">
-<select name="image" onChange=select()><option value="$sp_graphic">Ñ¡ÔñÍ¼Æ¬$myimages</select></TD></TR>
-  <TR><TD bgColor=#eeeeee height=20>ÉÌÆ·Ğ¡Í¼£º<input type=text size=10 name=newsxgraphic value="$sp_sxgraphic">
-<select name="image2" onChange=select1()><option value="$sp_sxgraphic">Ñ¡ÔñÍ¼Æ¬$myimages</select></TD></TR>
-  <TR><TD bgColor=#eeeeee height=20 align=center><input type=submit value="ÎÒ Òª ĞŞ ¸Ä"> <input type=reset value=ÖØ¡¡ÖÃ></TD></TR>
+  <TR><TD bgColor=#eeeeee height=20>å•†å“æè¿°ï¼š<input type=text size=20 name=newdescription value="$sp_description"></TD></TR>
+  <TR><TD bgColor=#eeeeee height=20>å•†å“å•ä»·ï¼š<input type=text size=20 name=newmoney value="$sp_money"></TD></TR>
+  <TR><TD bgColor=#eeeeee height=20>é€‚ç”¨äººç¾¤ï¼š$tempoutput</TD></TR>
+  <TR><TD bgColor=#eeeeee height=20>å•†å“å›¾ç‰‡ï¼š<input type=text size=10 name=newgraphic value="$sp_graphic">
+<select name="image" onChange=select()><option value="$sp_graphic">é€‰æ‹©å›¾ç‰‡$myimages</select></TD></TR>
+  <TR><TD bgColor=#eeeeee height=20>å•†å“å°å›¾ï¼š<input type=text size=10 name=newsxgraphic value="$sp_sxgraphic">
+<select name="image2" onChange=select1()><option value="$sp_sxgraphic">é€‰æ‹©å›¾ç‰‡$myimages</select></TD></TR>
+  <TR><TD bgColor=#eeeeee height=20 align=center><input type=submit value="æˆ‘ è¦ ä¿® æ”¹"> <input type=reset value=é‡ã€€ç½®></TD></TR>
 </form>
 </TABLE>~;
-#  <TR><TD bgColor=#eeeeee height=20>ÉÌÆ·ÊÙÃü£º<input type=text size=20 name=newwear value="$sp_wear"></TD></TR>
+#  <TR><TD bgColor=#eeeeee height=20>å•†å“å¯¿å‘½ï¼š<input type=text size=20 name=newwear value="$sp_wear"></TD></TR>
 }
 
 sub editok{
-    $class	= $query -> param('class');		# ÉÌÆ·Àà±ğºÅ
-    $id		= $query -> param('id');		# ÉÌÆ·IDºÅ
+    $class	= $query -> param('class');		# å•†å“ç±»åˆ«å·
+    $id		= $query -> param('id');		# å•†å“IDå·
 $class =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 
-    $newname	= $query -> param('newname');			# ÉÌÆ·Ãû³Æ
-    $newmoney	= $query -> param('newmoney');			# ÉÌÆ·¼Û¸ñ
-    $newdescription	= $query -> param('newdescription');	# ÉÌÆ·ÃèÊö
+    $newname	= $query -> param('newname');			# å•†å“åç§°
+    $newmoney	= $query -> param('newmoney');			# å•†å“ä»·æ ¼
+    $newdescription	= $query -> param('newdescription');	# å•†å“æè¿°
     $newdescription	= &unHTML("$newdescription");
-    $newwear	= $query -> param('newwear');			# ÉÌÆ·ÊÙÃü
+    $newwear	= $query -> param('newwear');			# å•†å“å¯¿å‘½
     $newwear	= &unHTML("$newwear");
-    $newfit	= $query -> param('newfit');			# ÊÊºÏÈËÈº
-    $newgraphic	= $query -> param('newgraphic');		# ÉÌÆ·´óÍ¼
+    $newfit	= $query -> param('newfit');			# é€‚åˆäººç¾¤
+    $newgraphic	= $query -> param('newgraphic');		# å•†å“å¤§å›¾
     $newgraphic	= &unHTML("$newgraphic");
-    $newsxgraphic	= $query -> param('newsxgraphic');	# ÉÌÆ·Ğ¡Í¼
+    $newsxgraphic	= $query -> param('newsxgraphic');	# å•†å“å°å›¾
     $newsxgraphic	= &unHTML("$newsxgraphic");
 
-    &errorout("0","ÉÌÆ·µÄÃû³Æ²»ÄÜÎª¿Õ£¡") if ($newname eq '');
-    &errorout("0","ÉÌÆ·µÄ¼Û¸ñ²»ÄÜÎª¿Õ£¡") if ($newmoney eq '');
-    &errorout("0","ÉÌÆ·¼Û¸ñÖĞº¬ÓĞ·Ç·¨×Ö·û»ò²»ÊÇÕûÊı£¡") unless ($newmoney=~ /^[0-9]+$/);
-    &errorout("0","ÇëÕıÈ·ÊäÈëÉÌÆ·µ¥¼Û£¡¼Û¸ñ²»ÄÜÎª¸ºÊı£¡") if($newmoney < 0);
-    &errorout("0","ÉÌÆ·ÃèÊö²»ÄÜÎª¿Õ£¡") if ($newdescription eq '');
-#    &errorout("0","ÉÌÆ·ÄÍ¾Ã×ÖÖĞº¬ÓĞ·Ç·¨×Ö·û»ò²»ÊÇÕûÊı£¡") unless ($newwear=~ /^[0-9]+$/);
-#    &errorout("0","ÇëÕıÈ·ÊäÈëÉÌÆ·µÄÄÍ¾Ã¶È£¡²»ÄÜÎªÁã»ò¸ºÊı£¡") if($newwear <= 0);
-    &errorout("0","ÉÌÆ·µÄÍ¼Æ¬µØÖ·²»ÄÜÎª¿Õ£¡") if ($newgraphic eq '');
-    &errorout("0","ÉÌÆ·µÄÍ¼Æ¬µØÖ·²»ÄÜÎª¿Õ£¡") if ($newsxgraphic eq '');
+    &errorout("0","å•†å“çš„åç§°ä¸èƒ½ä¸ºç©ºï¼") if ($newname eq '');
+    &errorout("0","å•†å“çš„ä»·æ ¼ä¸èƒ½ä¸ºç©ºï¼") if ($newmoney eq '');
+    &errorout("0","å•†å“ä»·æ ¼ä¸­å«æœ‰éæ³•å­—ç¬¦æˆ–ä¸æ˜¯æ•´æ•°ï¼") unless ($newmoney=~ /^[0-9]+$/);
+    &errorout("0","è¯·æ­£ç¡®è¾“å…¥å•†å“å•ä»·ï¼ä»·æ ¼ä¸èƒ½ä¸ºè´Ÿæ•°ï¼") if($newmoney < 0);
+    &errorout("0","å•†å“æè¿°ä¸èƒ½ä¸ºç©ºï¼") if ($newdescription eq '');
+#    &errorout("0","å•†å“è€ä¹…å­—ä¸­å«æœ‰éæ³•å­—ç¬¦æˆ–ä¸æ˜¯æ•´æ•°ï¼") unless ($newwear=~ /^[0-9]+$/);
+#    &errorout("0","è¯·æ­£ç¡®è¾“å…¥å•†å“çš„è€ä¹…åº¦ï¼ä¸èƒ½ä¸ºé›¶æˆ–è´Ÿæ•°ï¼") if($newwear <= 0);
+    &errorout("0","å•†å“çš„å›¾ç‰‡åœ°å€ä¸èƒ½ä¸ºç©ºï¼") if ($newgraphic eq '');
+    &errorout("0","å•†å“çš„å›¾ç‰‡åœ°å€ä¸èƒ½ä¸ºç©ºï¼") if ($newsxgraphic eq '');
 
     $/="";
     my $filetoopen = "$lbdir" . "face/wpdata/$class.pl";
@@ -206,7 +206,7 @@ $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]/
     close(FILE);
     $/="\n";
 
-    if($sort =~ /$id\t(.*)/)	# ÕÒµ½Ö¸¶¨µÄÉÌÆ·ID
+    if($sort =~ /$id\t(.*)/)	# æ‰¾åˆ°æŒ‡å®šçš„å•†å“ID
     {
 	$sort =~ s/$1/$newname\t$newmoney\t$newdescription\t$newwear\t$newfit\t$newgraphic\t$newsxgraphic\t\t/;
 	open(FILE,">$filetoopen");
@@ -218,7 +218,7 @@ print qq~
 <script>opener.location.reload();</script>
 <tr>
 <td bgcolor=#EEEEEE align=center>
-<font color=#990000 size=1><b>ĞŞ¸Ä³É¹¦£¡3Ãëºó·µ»Ø£¡</b></font>
+<font color=#990000 size=1><b>ä¿®æ”¹æˆåŠŸï¼3ç§’åè¿”å›ï¼</b></font>
 </td>
 </tr></table><meta http-equiv="refresh" content="3; url=$thisprog?action=edit_sp&num=$class&id=$id">~;
 exit;
@@ -226,8 +226,8 @@ exit;
 
 sub del_sp
 {
-    $num        = $query -> param('num');	# ÉÌÆ·Àà±ğÎÄ¼ş
-    $id        = $query -> param('id');		# ÉÌÆ·µÄIDºÅ
+    $num        = $query -> param('num');	# å•†å“ç±»åˆ«æ–‡ä»¶
+    $id        = $query -> param('id');		# å•†å“çš„IDå·
 $num =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 
@@ -238,7 +238,7 @@ $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]/
     close(FILE);
     $/="\n";
 
-    if($sort =~ s/$id\t(.*)\n//)	# ÕÒµ½Ö¸¶¨µÄÉÌÆ·ID
+    if($sort =~ s/$id\t(.*)\n//)	# æ‰¾åˆ°æŒ‡å®šçš„å•†å“ID
     {
 	open(FILE,">$filetoopen");
 	print FILE $sort;
@@ -246,11 +246,11 @@ $id =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]/
     }
     else
     {
-	&errorout("1","Õâ¼şÉÌÆ·ÒÑ¾­²»´æÔÚ£¡");
+	&errorout("1","è¿™ä»¶å•†å“å·²ç»ä¸å­˜åœ¨ï¼");
     }
 
     print qq~<script>opener.location.reload();setTimeout("self.close()",3000);</script>
-<tr><td bgcolor=#EEEEEE align=center><font color=#990000 size=1><b>É¾³ı³É¹¦£¡3Ãëºó±¾´°¿Ú×Ô¶¯¹Ø±Õ£¡</b></font></td></tr>
+<tr><td bgcolor=#EEEEEE align=center><font color=#990000 size=1><b>åˆ é™¤æˆåŠŸï¼3ç§’åæœ¬çª—å£è‡ªåŠ¨å…³é—­ï¼</b></font></td></tr>
 </table>~;
     exit;
 }

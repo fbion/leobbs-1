@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -36,7 +36,7 @@ $query = new LBCGI;
 &ipbanned;
 
 $inforum = $query->param("forum");
-&error("´ò¿ªÂÛÌ³&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9]+$/);
+&error("æ‰“å¼€è®ºå›&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9]+$/);
 require "data/style${inforum}.cgi" if (-e "${lbdir}data/style${inforum}.cgi");
 
 $inmembername = $query->param("membername");
@@ -52,29 +52,29 @@ $inpassword = $query->cookie("apasswordcookie") unless ($inpassword);
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if (!$inmembername || $inmembername eq "¿ÍÈË")
+if (!$inmembername || $inmembername eq "å®¢äºº")
 {
-	$inmembername = "¿ÍÈË";
+	$inmembername = "å®¢äºº";
 }
 else
 {
 	&getmember($inmembername, "no");
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
-	&error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password);
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password);
 }
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
 if (($viewadminlog ne "")&&($viewadminlog ne "0")) {
     if (($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")){
-        if (($membercode eq "masked")||($membercode eq "banned")) {&error("°æÎñÈÕÖ¾&°æÎñÈÕÖ¾¹¦ÄÜÖ»ÔÊĞíÆÕÍ¨»áÔ±Ê¹ÓÃ"); }
-        if (($viewadminlog eq 1)&&($inmembername eq "¿ÍÈË")) {&error("°æÎñÈÕÖ¾&°æÎñÈÕÖ¾¹¦ÄÜÖ»ÔÊĞí×¢²á»áÔ±Ê¹ÓÃ£¬Çë×¢²á£¡"); }
-        if ($viewadminlog eq 2) {if ($membercode !~ /^rz/) {&error("°æÎñÈÕÖ¾&°æÎñÈÕÖ¾¹¦ÄÜÖ»ÔÊĞíÈÏÖ¤»áÔ±»òÒÔÉÏ¼¶±ğÊ¹ÓÃ£¡");}}
-        if ($viewadminlog eq 3) {&error("°æÎñÈÕÖ¾&°æÎñÈÕÖ¾¹¦ÄÜÖ»ÔÊĞí°æÖ÷»òÒÔÉÏ¼¶±ğÊ¹ÓÃ£¡");}
+        if (($membercode eq "masked")||($membercode eq "banned")) {&error("ç‰ˆåŠ¡æ—¥å¿—&ç‰ˆåŠ¡æ—¥å¿—åŠŸèƒ½åªå…è®¸æ™®é€šä¼šå‘˜ä½¿ç”¨"); }
+        if (($viewadminlog eq 1)&&($inmembername eq "å®¢äºº")) {&error("ç‰ˆåŠ¡æ—¥å¿—&ç‰ˆåŠ¡æ—¥å¿—åŠŸèƒ½åªå…è®¸æ³¨å†Œä¼šå‘˜ä½¿ç”¨ï¼Œè¯·æ³¨å†Œï¼"); }
+        if ($viewadminlog eq 2) {if ($membercode !~ /^rz/) {&error("ç‰ˆåŠ¡æ—¥å¿—&ç‰ˆåŠ¡æ—¥å¿—åŠŸèƒ½åªå…è®¸è®¤è¯ä¼šå‘˜æˆ–ä»¥ä¸Šçº§åˆ«ä½¿ç”¨ï¼");}}
+        if ($viewadminlog eq 3) {&error("ç‰ˆåŠ¡æ—¥å¿—&ç‰ˆåŠ¡æ—¥å¿—åŠŸèƒ½åªå…è®¸ç‰ˆä¸»æˆ–ä»¥ä¸Šçº§åˆ«ä½¿ç”¨ï¼");}
     }
 }
 
@@ -93,7 +93,7 @@ if ($action eq 'delete' && $membercode eq 'ad')
 	flock(FILE, 1) if ($OS_USED eq "Unix");
 	my @alllogs = <FILE>;
 	close(FILE);
-	push(@alllogs, "$inmembername\t$logtime\t\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\tÇå¿Õ°æÎñÈÕÖ¾\n");
+	push(@alllogs, "$inmembername\t$logtime\t\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\tæ¸…ç©ºç‰ˆåŠ¡æ—¥å¿—\n");
 	my $start = $#alllogs - 50;
 	$start = 0 if ($start < 0);
 	my $alllog = join('', @alllogs[$start .. $#alllogs]);
@@ -114,19 +114,19 @@ if ($action eq 'delete' && $membercode eq 'ad')
 &getoneforum($inforum);
 $testentry = $query->cookie("forumsallowed$inforum");
 $allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes" ? "yes" : "no";
-&error("½øÈëÂÛÌ³&¶Ô²»Æğ£¬ÄúÃ»ÓĞÈ¨ÏŞ½øÈë¸ÃË½ÓĞÂÛÌ³£¡") if ($privateforum eq "yes" && $allowed ne "yes");
-&error("½øÈëÂÛÌ³&ÄãÒ»°ã»áÔ±²»ÔÊĞí½øÈë´ËÂÛÌ³£¡") if ($startnewthreads eq "cert" && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode !~ /^rz/) || $inmembername eq "¿ÍÈË") && $userincert eq "no");
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰æƒé™è¿›å…¥è¯¥ç§æœ‰è®ºå›ï¼") if ($privateforum eq "yes" && $allowed ne "yes");
+&error("è¿›å…¥è®ºå›&ä½ ä¸€èˆ¬ä¼šå‘˜ä¸å…è®¸è¿›å…¥æ­¤è®ºå›ï¼") if ($startnewthreads eq "cert" && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode !~ /^rz/) || $inmembername eq "å®¢äºº") && $userincert eq "no");
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
@@ -136,11 +136,11 @@ unless (-e "${filetoopens}.lck")
 {
 	if ($privateforum ne "yes")
 	{
-		&whosonline("$inmembername\t$forumname\tboth\t²é¿´°æÎñÈÕÖ¾");
+		&whosonline("$inmembername\t$forumname\tboth\tæŸ¥çœ‹ç‰ˆåŠ¡æ—¥å¿—");
 	}
 	else
 	{
-		&whosonline("$inmembername\t$forumname(ÃÜ)\tboth\t²é¿´°æÎñÈÕÖ¾");
+		&whosonline("$inmembername\t$forumname(å¯†)\tboth\tæŸ¥çœ‹ç‰ˆåŠ¡æ—¥å¿—");
 	}
 }
 
@@ -148,7 +148,7 @@ $type = $query->param("type");
 $type = &stripMETA($type);
 $key = $query->param("key");
 $key = &stripMETA($key);
-&mischeader("²é¿´°æÎñÈÕÖ¾");
+&mischeader("æŸ¥çœ‹ç‰ˆåŠ¡æ—¥å¿—");
 
 $filetoopen = "${lbdir}/boarddata/adminlog$inforum.cgi";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -161,12 +161,12 @@ close(FILE);
 @alllogs = $type eq "name" ? grep(/^$key\t/i, @alllogs) : grep(/$key[^\t]*$/i, @alllogs) if ($key ne "");
 $allitems = @alllogs;
 &splitpage("forum=$inforum&type=$type&key=$key");
-$adminoption = qq~¡¡<a href=$thisprog?action=delete&forum=$inforum onClick="return confirm('ÊÇ·ñÕæµÄÒªÇå¿Õ±¾°æµÄ°æÎñÈÕÖ¾£¨×îºó50Ìõ½«±»±£Áô£©£¿')"><img src=$imagesurl/images/del.gif border=0 title="Çå¿Õ±¾°æµÄ°æÎñÈÕÖ¾"></a>~ if ($membercode eq 'ad');
+$adminoption = qq~ã€€<a href=$thisprog?action=delete&forum=$inforum onClick="return confirm('æ˜¯å¦çœŸçš„è¦æ¸…ç©ºæœ¬ç‰ˆçš„ç‰ˆåŠ¡æ—¥å¿—ï¼ˆæœ€å50æ¡å°†è¢«ä¿ç•™ï¼‰ï¼Ÿ')"><img src=$imagesurl/images/del.gif border=0 title="æ¸…ç©ºæœ¬ç‰ˆçš„ç‰ˆåŠ¡æ—¥å¿—"></a>~ if ($membercode eq 'ad');
 
 $output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr style="color: $titlefontcolor; font-weight: bold; background-color: $titlecolor" align=center><td width=80 bgcolor=$titlecolor $catbackpic>²Ù×÷Õß</td><td bgcolor=$titlecolor $catbackpic>²Ù×÷Ê±¼ä</td><td bgcolor=$titlecolor $catbackpic>²Ù×÷ÄÚÈİ</td><td bgcolor=$titlecolor $catbackpic>Ïà¹ØÖ÷Ìâ</td><td width=100 bgcolor=$titlecolor $catbackpic>À´×Ô IP</td></tr>~;
+<tr style="color: $titlefontcolor; font-weight: bold; background-color: $titlecolor" align=center><td width=80 bgcolor=$titlecolor $catbackpic>æ“ä½œè€…</td><td bgcolor=$titlecolor $catbackpic>æ“ä½œæ—¶é—´</td><td bgcolor=$titlecolor $catbackpic>æ“ä½œå†…å®¹</td><td bgcolor=$titlecolor $catbackpic>ç›¸å…³ä¸»é¢˜</td><td width=100 bgcolor=$titlecolor $catbackpic>æ¥è‡ª IP</td></tr>~;
 
 $addtimes = $timedifferencevalue * 3600 + $timezone * 3600;
 for ($i = $startnum; $i >= $endnum; $i--)
@@ -178,27 +178,27 @@ for ($i = $startnum; $i >= $endnum; $i--)
 	my $encodename = &uri_escape($logname);
 	$logname = "<a href=profile.cgi?action=show&member=$encodename target=_blank>$logname</a>";
 	$logtime = &dateformatshort($logtime + $addtimes);
-	$logtopic = $logtopic eq "" ? "²»´æÔÚ" : &gettopic($logtopic);
+	$logtopic = $logtopic eq "" ? "ä¸å­˜åœ¨" : &gettopic($logtopic);
 	if ($membercode eq "ad") {
-	    if ($logproxy ne "no") { $logproxy = qq~<BR><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$logproxy',420,320)" title="LB WHOISĞÅÏ¢">$logproxy</span>~; } else { $logproxy = ""; }
-	    $logip = qq~<span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$logip',420,320)" title="LB WHOISĞÅÏ¢">$logip</span>$logproxy~;
-	} else {  $logip = "±£ÃÜ"; }
+	    if ($logproxy ne "no") { $logproxy = qq~<BR><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$logproxy',420,320)" title="LB WHOISä¿¡æ¯">$logproxy</span>~; } else { $logproxy = ""; }
+	    $logip = qq~<span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$logip',420,320)" title="LB WHOISä¿¡æ¯">$logip</span>$logproxy~;
+	} else {  $logip = "ä¿å¯†"; }
 	$output .= "\n<tr bgColor=$forumcolortwo align=center><td>$logname</td><td>$logtime</td><td>$log</td><td>$logtopic</td><td>$logip</td></tr>";
 }
 
-$select = qq~<select name=type><option value="name">°´²Ù×÷Õß</option><option value="log">°´²Ù×÷ÄÚÈİ</option></select>~;
+$select = qq~<select name=type><option value="name">æŒ‰æ“ä½œè€…</option><option value="log">æŒ‰æ“ä½œå†…å®¹</option></select>~;
 $select =~ s/value=\"$type\"/value=\"$type\" selected/o;
 $output .= qq~
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth align=center><form action=$thisprog>
 <tr><td height=4><input type=hidden name=forum value="$inforum"></td></tr>
-<tr><td>$pages$adminoption</td><td align=right>$select <input name=key type=text size=16 value="$key"> <input type=submit value="²é ÕÒ"></td></tr>
+<tr><td>$pages$adminoption</td><td align=right>$select <input name=key type=text size=16 value="$key"> <input type=submit value="æŸ¥ æ‰¾"></td></tr>
 </table></form>~;
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&output("$boardname - °æÎñÈÕÖ¾²é¿´",\$output);
+&output("$boardname - ç‰ˆåŠ¡æ—¥å¿—æŸ¥çœ‹",\$output);
 exit;
 
 sub gettopic
@@ -211,18 +211,18 @@ sub gettopic
 		close(FILE);
 		chomp($line);
 		(undef, my $title, undef) = split(/\t/, $line);
-		$title =~ s/^£ª£££¡£¦£ª//;
-		$title = "Î´Öª" if ($title eq "");
+		$title =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+		$title = "æœªçŸ¥" if ($title eq "");
 		return "<a href=topic.cgi?forum=$inforum&topic=$intopic target=_blank>$title</a>";
 	}
 	else
 	{
-		return "ÒÑ±»É¾³ı";
+		return "å·²è¢«åˆ é™¤";
 	}
 }
 
 sub splitpage
-{#»ñµÃ·ÖÒ³
+{#è·å¾—åˆ†é¡µ
 	my $addstring = shift;
 	my $instart = $query->param("start");
 	$instart = 0 if ($instart !~ /^[0-9]+$/);
@@ -239,15 +239,15 @@ sub splitpage
 
 		my $currentpage = int($instart / 40) + 1;
 		my $endstart = ($numberofpages - 1) * 40;
-		my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?start=0&$addstring title="Ê× Ò³" ><font face=webdings>9</font></a>~;
-		my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?start=$endstart&$addstring title="Î² Ò³" ><font face=webdings>:</font></a>~;
+		my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?start=0&$addstring title="é¦– é¡µ" ><font face=webdings>9</font></a>~;
+		my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?start=$endstart&$addstring title="å°¾ é¡µ" ><font face=webdings>:</font></a>~;
 
 		my $uppage = $currentpage - 1;
 		my $nextpage = $currentpage + 1;
 		my $upstart = $instart - 40;
 		my $nextstart = $instart + 40;
-		my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?start=$upstart&$addstring title="µÚ$uppageÒ³"><font face=webdings>7</font></a>~;
-		my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?start=$nextstart&$addstring title="µÚ$nextpageÒ³"><font face=webdings>8</font></a>~;
+		my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?start=$upstart&$addstring title="ç¬¬$uppageé¡µ"><font face=webdings>7</font></a>~;
+		my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?start=$nextstart&$addstring title="ç¬¬$nextpageé¡µ"><font face=webdings>8</font></a>~;
 
 		my $tempstep = $currentpage / 7;
 		my $currentstep = int($tempstep);
@@ -256,8 +256,8 @@ sub splitpage
 		my $nextsteppage = $currentstep * 7 + 1;
 		my $upstepstart = ($upsteppage - 1) * 40;
 		my $nextstepstart = ($nextsteppage - 1) * 40;
-		my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?start=$upstepstart&$addstring class=hb title="µÚ$upsteppageÒ³">¡û</a> ~;
-		my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?start=$nextstepstart&$addstring class=hb title="µÚ$nextsteppageÒ³">¡ú</a> ~;
+		my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?start=$upstepstart&$addstring class=hb title="ç¬¬$upsteppageé¡µ">â†</a> ~;
+		my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?start=$nextstepstart&$addstring class=hb title="ç¬¬$nextsteppageé¡µ">â†’</a> ~;
 
 		$pages = "";
 		my $currentstart = $upstepstart + 40;
@@ -267,13 +267,13 @@ sub splitpage
 			$pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?start=$currentstart&$addstring class=hb>$i</a> ~;
 			$currentstart += 40;
 		}
-		$pages = "<font color=$menufontcolor><b>¹² <font color=$fonthighlight>$numberofpages</font> Ò³</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font>";
+		$pages = "<font color=$menufontcolor><b>å…± <font color=$fonthighlight>$numberofpages</font> é¡µ</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font>";
 	}
 	else
 	{
 		$startnum = $allitems - 1;
 		$endnum = 0;
-		$pages = "<font color=$menufontcolor>Ö»ÓĞÒ»Ò³</font>";
+		$pages = "<font color=$menufontcolor>åªæœ‰ä¸€é¡µ</font>";
 	}
 	return;
 }

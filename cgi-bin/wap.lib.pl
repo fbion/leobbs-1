@@ -1,5 +1,5 @@
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -20,14 +20,14 @@ sub dofilter {
     else { $wordfilter = "";}
     my $tempinfilter = $infiltermessage;
     if ($wordfilter) { $tempinfilter =~ s/$wordfilter/ *** /isg; }
-    if ($tempinfilter ne $infiltermessage) { &error("ÓĞÎÊÌâ&ÄãËùĞ´µÄÄÚÈİÖĞÒ²Ğí°üº¬ÁËÒ»Ğ©±¾ÂÛÌ³²»ÔÊĞí·¢²¼µÄÑÔÂÛ£¬Çë×ĞÏ¸¼ì²éºó£¬ÖØĞÂ·¢²¼£¬Ğ»Ğ»£¡"); }
+    if ($tempinfilter ne $infiltermessage) { &error("æœ‰é—®é¢˜&ä½ æ‰€å†™çš„å†…å®¹ä¸­ä¹Ÿè®¸åŒ…å«äº†ä¸€äº›æœ¬è®ºå›ä¸å…è®¸å‘å¸ƒçš„è¨€è®ºï¼Œè¯·ä»”ç»†æ£€æŸ¥åï¼Œé‡æ–°å‘å¸ƒï¼Œè°¢è°¢ï¼"); }
     $tempinfilter =~ s/\&nbsp\;//ig;
     $tempinfilter =~ s/\<.+?\>//ig;
     $tempinfilter =~ s/\[.+?\]//g;
-    $tempinfilter =~ s/ |¡¡|\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\]//g;
+    $tempinfilter =~ s/ |ã€€|\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\]//g;
     my $tempinfilter1 = $tempinfilter;
     if ($wordfilter) { $tempinfilter1 =~ s/$wordfilter/ *** /isg; }
-    if ($tempinfilter1 ne $tempinfilter) { &error("ÓĞÎÊÌâ&ÄãËùĞ´µÄÄÚÈİÖĞÒ²Ğí°üº¬ÁËÒ»Ğ©±¾ÂÛÌ³²»ÔÊĞí·¢²¼µÄÑÔÂÛ£¬Çë×ĞÏ¸¼ì²éºó£¬ÖØĞÂ·¢²¼£¬Ğ»Ğ»£¡£¡"); }
+    if ($tempinfilter1 ne $tempinfilter) { &error("æœ‰é—®é¢˜&ä½ æ‰€å†™çš„å†…å®¹ä¸­ä¹Ÿè®¸åŒ…å«äº†ä¸€äº›æœ¬è®ºå›ä¸å…è®¸å‘å¸ƒçš„è¨€è®ºï¼Œè¯·ä»”ç»†æ£€æŸ¥åï¼Œé‡æ–°å‘å¸ƒï¼Œè°¢è°¢ï¼ï¼"); }
     if (open (FILE, "${lbdir}data/badwords.cgi")) {
 	$badwords = <FILE>;
 	close (FILE);
@@ -59,7 +59,7 @@ sub getoneforum {
     }
     $forummodnamestemp = ",$forummoderator,";
     my $tempinmembername = ",$inmembername,";
-    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,È«Ìå°æÖ÷,/ || $forummodnamestemp =~ /,È«Ìå°ßÖñ,/)) ? "yes" : "no";
+    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,å…¨ä½“ç‰ˆä¸»,/ || $forummodnamestemp =~ /,å…¨ä½“æ–‘ç«¹,/)) ? "yes" : "no";
     return;
 }
 
@@ -71,7 +71,7 @@ sub moderator {
         if ($@) { unlink ("${lbdir}cache/forums$inforum.pl"); require "domoderator.pl"; }
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
 
-        if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,È«Ìå°æÖ÷,/ || $forummodnamestemp =~ /,È«Ìå°ßÖñ,/))) { $inmembmod = "yes"; } else { $inmembmod = "no"; }
+        if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,å…¨ä½“ç‰ˆä¸»,/ || $forummodnamestemp =~ /,å…¨ä½“æ–‘ç«¹,/))) { $inmembmod = "yes"; } else { $inmembmod = "no"; }
         unlink("${lbdir}cache/forums$inforum.pl") if ((-M "${lbdir}cache/forums$inforum.pl") *86400 > 600);
     } else {
     	require "domoderator.pl";
@@ -123,14 +123,14 @@ sub getmember {
     my $filetoopen = "${lbdir}$memdir/$namenumber/$nametocheck.cgi";
 
     if ($readtype eq "check") {
-	if ((-e $filetoopen)&&($nametocheck !~ /^¿ÍÈË/)&&($nametocheck ne "")) {
+	if ((-e $filetoopen)&&($nametocheck !~ /^å®¢äºº/)&&($nametocheck ne "")) {
 	    return 1;
 	} else {
 	    return 0;
 	}
     }
 
-    if ((-e $filetoopen)&&($nametocheck !~ /^¿ÍÈË/)&&($nametocheck ne "")) {
+    if ((-e $filetoopen)&&($nametocheck !~ /^å®¢äºº/)&&($nametocheck ne "")) {
 	&winlock($filetoopen) if (($OS_USED eq "Nt") && ($readtype ne "no"));
         open(FILE3,"$filetoopen");
         flock(FILE3, 1) if (($OS_USED eq "Unix") && ($readtype ne "no"));
@@ -170,7 +170,7 @@ sub getmember {
     else { $userregistered = "no"; $membercode =""; return 0;}
 }
 
-sub doonoff { #$mainoff Ö÷£¬$mainonoff¡¡·ÖÂÛÌ³
+sub doonoff { #$mainoff ä¸»ï¼Œ$mainonoffã€€åˆ†è®ºå›
     return if ($membercode eq "ad");
     if (($mainoff == 2)&&($mainonoff ne 2)) {
 	$mainoff = 1;

@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
         my $filetoopen = "${lbdir}data/allforums.cgi";
@@ -23,7 +23,7 @@
         $forummoderator =~ s/^\,//ig;
         my @forummodnames = split(/\,/, $forummoderator);
     
-        #¸¸ÂÛÌ³°ßÖñ¼Ì³Ğ
+        #çˆ¶è®ºå›æ–‘ç«¹ç»§æ‰¿
         if ($category =~ /childforum-[0-9]+/) {
                 my $tempforumno = $category;
                 $tempforumno =~ s/childforum-//;
@@ -37,7 +37,7 @@
                 @forummodnames1 = split(/\,/, $fmod);
         }
 
-        #·ÖÇø°æÖ÷»ñµÃ
+        #åˆ†åŒºç‰ˆä¸»è·å¾—
         if (open(CATEFILE, "${lbdir}boarddata/catemod${categoryplace}.cgi")) {
                 $catemods = <CATEFILE>;
                 close(CATEFILE);
@@ -55,28 +55,28 @@
         my $modnumber1 = @forummodnames1;
 
         $modoutput = qq~<SCRIPT>function surfto(list) { var myindex1 = list.selectedIndex; var newwindow = list.options[myindex1].value; if (newwindow != "") { var msgwindow = window.open("profile.cgi?action=show&member="+newwindow,"",""); }}</SCRIPT>
-<img src=$imagesurl/images/team2.gif width=19 align=absmiddle><select OnChange="surfto(this);"><option style="color: $fonthighlight">±¾°æ¹ÜÀíÔ±ÁĞ±í</option>~ if ($modnumber > 0 || $modnumber1 > 0 || $cmodnumber > 0);
+<img src=$imagesurl/images/team2.gif width=19 align=absmiddle><select OnChange="surfto(this);"><option style="color: $fonthighlight">æœ¬ç‰ˆç®¡ç†å‘˜åˆ—è¡¨</option>~ if ($modnumber > 0 || $modnumber1 > 0 || $cmodnumber > 0);
         if ($cmodnumber > 0) {
-            $modoutput .= qq~<option style="background-color: $titlecolor">±¾·ÖÀàÇø°æÖ÷£º</option>~;
+            $modoutput .= qq~<option style="background-color: $titlecolor">æœ¬åˆ†ç±»åŒºç‰ˆä¸»ï¼š</option>~;
             foreach (@catemodnames) {
                 &getmodout($_);
             }
         }
         if ($modnumber > 0) {
-            $modoutput .= qq~<option style="background-color: $titlecolor">±¾ÂÛÌ³°æÖ÷£º</option>~;
+            $modoutput .= qq~<option style="background-color: $titlecolor">æœ¬è®ºå›ç‰ˆä¸»ï¼š</option>~;
             foreach (@forummodnames) {
                 &getmodout($_);
             }
         }
         if ($modnumber1 > 0) {
-            $modoutput .= qq~<option style="background-color: $titlecolor">¸¸ÂÛÌ³°æÖ÷£º</option>~;
+            $modoutput .= qq~<option style="background-color: $titlecolor">çˆ¶è®ºå›ç‰ˆä¸»ï¼š</option>~;
             foreach (@forummodnames1) {
                 &getmodout($_);
             }
         }
         $modoutput .= "</select>\n" if ($modnumber > 0 || $modnumber1 > 0 || $cmodnumber > 0);
         $forummodnamestemp = ",$forummoderator,$fmod,$catemods,";
-        $inmembmod = "yes" if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,È«Ìå°æÖ÷,/ || $forummodnamestemp =~ /,È«Ìå°ßÖñ,/)));
+        $inmembmod = "yes" if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,å…¨ä½“ç‰ˆä¸»,/ || $forummodnamestemp =~ /,å…¨ä½“æ–‘ç«¹,/)));
 
         my @childforum1=grep(/^[0-9]+\tchildforum-$inforum\t/,@forums);
 	    for ($i=0;$i<=$#childforum1;$i++) {
@@ -97,28 +97,28 @@
 
     		($lastposttime,$threadnumber,$topictitle)=split(/\%\%\%/,$lastposttime);
     		if ($topictitle) {
-      		    $topictitle =~ s/^£ª£££¡£¦£ª//;
+      		    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
       		    my $topictitletemp = $topictitle;
 		    $topictitletemp =~ s/\&lt;/</g;
 		      $topictitletemp =~ s/\&gt;/>/g;
 		      $topictitletemp =~ s/\&amp;/\&/g;
 		      $topictitletemp =~ s/\&nbsp;/ /g;
-		      $topictitletemp =~ s/  /¡¡/g;
+		      $topictitletemp =~ s/  /ã€€/g;
 		      $topictitletemp =~ s/\&quot;/\\\"/g;
 		      $topictitletemp = &lbhz($topictitle,18);
 		#     $topictitletemp =~ s/\&/\&amp;/g;
 		      $topictitletemp =~ s/</\&lt;/g;
 		      $topictitletemp =~ s/>/\&gt;/g;
-		      $topictitle = qq~&nbsp;Ö÷Ìâ£º <a href=topic.cgi?forum=$forumid&topic=$threadnumber&replynum=last TITLE="$topictitle">$topictitletemp</a><BR>~;
+		      $topictitle = qq~&nbsp;ä¸»é¢˜ï¼š <a href=topic.cgi?forum=$forumid&topic=$threadnumber&replynum=last TITLE="$topictitle">$topictitletemp</a><BR>~;
 		      $lastposttime  = $lastposttime + $timeadd;
 		      $lastposterfilename = $lastposter;
 		      $lastposterfilename =~ y/ /_/;
 		      $lastposterfilename =~ tr/A-Z/a-z/;
-		      if ($lastposter=~/\(¿Í\)/) {
-		          $lastposter=~s/\(¿Í\)//isg;
-		          $lastposter  = qq~<font title="´ËÎªÎ´×¢²áÓÃ»§">&nbsp;×îºó·¢±í£º $lastposter</font>¡¡<img src="$imagesurl/images/lastpost.gif" width=11>~;
+		      if ($lastposter=~/\(å®¢\)/) {
+		          $lastposter=~s/\(å®¢\)//isg;
+		          $lastposter  = qq~<font title="æ­¤ä¸ºæœªæ³¨å†Œç”¨æˆ·">&nbsp;æœ€åå‘è¡¨ï¼š $lastposter</font>ã€€<img src="$imagesurl/images/lastpost.gif" width=11>~;
 		      }
-		      else { $lastposter  = qq~&nbsp;×îºó·¢±í£º <span style="cursor:hand" onClick="javascript:O9('~ . uri_escape($lastposterfilename) . qq~')">$lastposter</span>¡¡<img src="$imagesurl/images/lastpost.gif" width=11>~; }
+		      else { $lastposter  = qq~&nbsp;æœ€åå‘è¡¨ï¼š <span style="cursor:hand" onClick="javascript:O9('~ . uri_escape($lastposterfilename) . qq~')">$lastposter</span>ã€€<img src="$imagesurl/images/lastpost.gif" width=11>~; }
 		    }
 
 		    $lastposttime="$lastposttime%%%$threadnumber%%%$topictitle";
@@ -147,22 +147,22 @@
 			    if (($adminstyle eq 1)||($modnumber <= 3 && $adminstyle eq 3)) {
 		  	        last if ($modprintnum > 3 );
 		                if ($modprintnum != $modnumber) {
-                		    if(($_ =~m/¹ÜÀíÔ±/isg)||($_ =~m/³ÏÆ¸ÖĞ/isg)||($_ =~m/ÔİÊ±¿ÕÈ±/isg)||($_ =~m/°æÖ÷/isg)||($_ =~m/°ßÖñ/isg)||($_ =~m/Ì³Ö÷/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font><BR>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span><BR>~; }
+                		    if(($_ =~m/ç®¡ç†å‘˜/isg)||($_ =~m/è¯šè˜ä¸­/isg)||($_ =~m/æš‚æ—¶ç©ºç¼º/isg)||($_ =~m/ç‰ˆä¸»/isg)||($_ =~m/æ–‘ç«¹/isg)||($_ =~m/å›ä¸»/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font><BR>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span><BR>~; }
 		                } else {
-				    if(($_ =~m/¹ÜÀíÔ±/isg)||($_ =~m/³ÏÆ¸ÖĞ/isg)||($_ =~m/ÔİÊ±¿ÕÈ±/isg)||($_ =~m/°æÖ÷/isg)||($_ =~m/°ßÖñ/isg)||($_ =~m/Ì³Ö÷/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span>~; }
+				    if(($_ =~m/ç®¡ç†å‘˜/isg)||($_ =~m/è¯šè˜ä¸­/isg)||($_ =~m/æš‚æ—¶ç©ºç¼º/isg)||($_ =~m/ç‰ˆä¸»/isg)||($_ =~m/æ–‘ç«¹/isg)||($_ =~m/å›ä¸»/isg)){ $modout .= qq~<font color=$fontcolormisc2>$_</font>~; } else { $modout .= qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($modname) . qq~')">$_</span>~; }
 			        }
 			        $modprintnum++;
 			    } else {
-				if(($_ =~m/¹ÜÀíÔ±/isg)||($_ =~m/³ÏÆ¸ÖĞ/isg)||($_ =~m/ÔİÊ±¿ÕÈ±/isg)||($_ =~m/°æÖ÷/isg)||($_ =~m/°ßÖñ/isg)||($_ =~m/Ì³Ö÷/isg)){ $modout .= qq~<option>~ . &lbhz($_, 10) . qq~</option>~; } else { $modout .= qq~<option value="~ . &uri_escape($modname) . qq~">~ . &lbhz($_, 10) . "</option>"; }
+				if(($_ =~m/ç®¡ç†å‘˜/isg)||($_ =~m/è¯šè˜ä¸­/isg)||($_ =~m/æš‚æ—¶ç©ºç¼º/isg)||($_ =~m/ç‰ˆä¸»/isg)||($_ =~m/æ–‘ç«¹/isg)||($_ =~m/å›ä¸»/isg)){ $modout .= qq~<option>~ . &lbhz($_, 10) . qq~</option>~; } else { $modout .= qq~<option value="~ . &uri_escape($modname) . qq~">~ . &lbhz($_, 10) . "</option>"; }
 			    }
 			}
 		    }
 	    	    if (($adminstyle eq 1)||($modnumber <= 3 && $adminstyle eq 3)) {
 	    	    	$modout .= qq~<font color=$fontcolormisc2>More...~ if ($modnumber > 3 );
-		        $modout  ="<font color=$fontcolormisc>ÔİÊ±¿ÕÈ±<BR>³ÏÆ¸ÖĞ" if ($modout eq "");
+		        $modout  ="<font color=$fontcolormisc>æš‚æ—¶ç©ºç¼º<BR>è¯šè˜ä¸­" if ($modout eq "");
 		    } else {
-		    	$modout  = "<option>ÔİÊ±¿ÕÈ±</option><option>³ÏÆ¸ÖĞ</option>" if ($modout eq "");
-		        $modout = qq~<select onChange="surfto(this)"><option style="background-color: $forumcolorone">°æÖ÷ÁĞ±í</option><option>----------</option>$modout</select>~;
+		    	$modout  = "<option>æš‚æ—¶ç©ºç¼º</option><option>è¯šè˜ä¸­</option>" if ($modout eq "");
+		        $modout = qq~<select onChange="surfto(this)"><option style="background-color: $forumcolorone">ç‰ˆä¸»åˆ—è¡¨</option><option>----------</option>$modout</select>~;
 		    }
 		    $childforum[$i] = qq~$forumname\t$forumdescription\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$hiddenforum\t$forumid\t$modout\t$team\t$miscad4\t$todayforumpost\t~;
 	    }
@@ -202,8 +202,8 @@ sub getmodout {
         return if ($modname eq "");
         my $cleanedmodname = $modname;
         $cleanedmodname =~ s/ /\_/g;
-#        $inmembmod = "yes" if (lc($inmembername) eq lc($modname) || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($modname eq "È«Ìå°æÖ÷" || $modname eq "È«Ìå°ßÖñ")));
-        if ($modname =~ m/¹ÜÀíÔ±/isg || m/³ÏÆ¸ÖĞ/isg || m/ÔİÊ±¿ÕÈ±/isg || m/°æÖ÷/isg || m/°ßÖñ/isg || m/Ì³Ö÷/isg) {
+#        $inmembmod = "yes" if (lc($inmembername) eq lc($modname) || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($modname eq "å…¨ä½“ç‰ˆä¸»" || $modname eq "å…¨ä½“æ–‘ç«¹")));
+        if ($modname =~ m/ç®¡ç†å‘˜/isg || m/è¯šè˜ä¸­/isg || m/æš‚æ—¶ç©ºç¼º/isg || m/ç‰ˆä¸»/isg || m/æ–‘ç«¹/isg || m/å›ä¸»/isg) {
                 $modoutput .= qq~<option>$modname</option>~;
         } else {
                 $modoutput .= qq~<option value="~ . uri_escape($cleanedmodname) . qq~">$modname</option>~;

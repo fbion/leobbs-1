@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -67,7 +67,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
             
             print qq~
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Email Èº·¢</b>
+            <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / Email ç¾¤å‘</b>
             </td></tr>
             ~;
 
@@ -92,13 +92,13 @@ sub mailoptions {
 
 $output= qq~
  <tr>
- <br><br><td bgcolor=#eeeeee colspan=2 align=center><font color=#333333><b>¹¦ÄÜ²Ëµ¥</b><BR>ÎªÁË²»´òÈÅÓÃ»§£¬ÔÚ·Ç±ØÒªÇé¿öÏÂ£¬¾¡Á¿²»ÒªÊ¹ÓÃ´Ë¹¦ÄÜ</font>  </td>
+ <br><br><td bgcolor=#eeeeee colspan=2 align=center><font color=#333333><b>åŠŸèƒ½èœå•</b><BR>ä¸ºäº†ä¸æ‰“æ‰°ç”¨æˆ·ï¼Œåœ¨éå¿…è¦æƒ…å†µä¸‹ï¼Œå°½é‡ä¸è¦ä½¿ç”¨æ­¤åŠŸèƒ½</font>  </td>
  </tr>
  <tr  bgcolor="#ffffff"> 
  <td align="center"><BR><SELECT name=action style="WIDTH: 250px">
- <OPTION selected value="compose">±à¼­²¢·¢ËÍÓÊ¼ş</OPTION>
- <OPTION value="view">ÒÑÍË³öÓÊ¼şÓÃ»§ÁĞ±í</OPTION>
- <OPTION value="footer">²é¿´£¯±à¼­Ò³½Å</OPTION>
+ <OPTION selected value="compose">ç¼–è¾‘å¹¶å‘é€é‚®ä»¶</OPTION>
+ <OPTION value="view">å·²é€€å‡ºé‚®ä»¶ç”¨æˆ·åˆ—è¡¨</OPTION>
+ <OPTION value="footer">æŸ¥çœ‹ï¼ç¼–è¾‘é¡µè„š</OPTION>
  </SELECT>
  <BR>
  <BR>
@@ -106,7 +106,7 @@ $output= qq~
  </tr>
  <tr> 
  <td colspan="2" width="100%" bgcolor=#eeeeee align=center>
- <input type="submit" name="Button" value="È· ¶¨">
+ <input type="submit" name="Button" value="ç¡® å®š">
  </td>
  </tr>
 ~;
@@ -118,11 +118,11 @@ sub composemail {
 
 $output = qq~
  <tr>
- <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>±à¼­Òª·¢ËÍµÄÓÊ¼ş</td>
+ <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>ç¼–è¾‘è¦å‘é€çš„é‚®ä»¶</td>
  </tr>
  <tr bgcolor="#FFFFFF" valign=top> 
  <td>
- <b>Ö÷Ìâ£º</b>
+ <b>ä¸»é¢˜ï¼š</b>
  </td>
  <td>
  <input type="text" name="subjekt">
@@ -130,7 +130,7 @@ $output = qq~
  </tr>
  <tr bgcolor="#FFFFFF" valign=top> 
  <td width="40%">
- <b>ÄÚÈİ£º</b>
+ <b>å†…å®¹ï¼š</b>
  </td>
  <td width="60%">
  <textarea size=20 name="text" cols="60" rows="10"></textarea>
@@ -140,12 +140,12 @@ $output = qq~
  <tr> 
  <td colspan="2" align="center" width="100%" bgcolor=#EEEEEE>
  <SELECT name="sendto" style="HEIGHT: 22px; WIDTH: 148px"> 
- <OPTION selected value="members">ËùÓĞ×¢²áÓÃ»§</OPTION>
- <OPTION value="moderators">ÂÛÌ³ËùÓĞ°æÖ÷</OPTION>
+ <OPTION selected value="members">æ‰€æœ‰æ³¨å†Œç”¨æˆ·</OPTION>
+ <OPTION value="moderators">è®ºå›æ‰€æœ‰ç‰ˆä¸»</OPTION>
  </SELECT>
  &nbsp;
  <input type=hidden name="action" value="send">
- <input type="submit" name="Button" value="È· ¶¨">¡¡<input type="reset" name="Button" value="ÖØ ÖÃ">
+ <input type="submit" name="Button" value="ç¡® å®š">ã€€<input type="reset" name="Button" value="é‡ ç½®">
  </td>
  </tr>
 ~;
@@ -159,13 +159,13 @@ if (($message eq "") || ($subjekt eq "")) {
 
  $output = qq~
   <tr>
-  <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>³ö´í¡£¡£¡£</td>
+  <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>å‡ºé”™ã€‚ã€‚ã€‚</td>
   </tr>
   <tr>
   <td width="100%" align="center">
   <br><br>
-  <font color="#FF0000">ÇëÊäÈëÖ÷ÌâºÍÓÊ¼şÄÚÈİ</font><br>
-  <a href="$thisprog?action=compose">°´´Ë·µ»Ø</a>
+  <font color="#FF0000">è¯·è¾“å…¥ä¸»é¢˜å’Œé‚®ä»¶å†…å®¹</font><br>
+  <a href="$thisprog?action=compose">æŒ‰æ­¤è¿”å›</a>
   </tr>
   <tr>
   ~;
@@ -205,16 +205,16 @@ sub mailsent {
 
 $output = qq~
  <tr>
- <br><br><td bgcolor=#eeeeee colspan=2><font color=#333333><b>Èº·¢ Email</b></font>  </td>
+ <br><br><td bgcolor=#eeeeee colspan=2><font color=#333333><b>ç¾¤å‘ Email</b></font>  </td>
  </tr>
  <tr  bgcolor="#ffffff">
  <Td align="center">
- ÓÊ¼şÒÑ¾­·¢ËÍ¸øÁË $membercount ¸öÓÃ»§ÁË¡£
+ é‚®ä»¶å·²ç»å‘é€ç»™äº† $membercount ä¸ªç”¨æˆ·äº†ã€‚
  </td>
  </tr>
  <tr>
  <td colspan="2" width="100%" bgcolor=#eeeeee>
- <input type="submit" name="Button" value="·µ »Ø">
+ <input type="submit" name="Button" value="è¿” å›">
  </td>
  </tr>
  ~;
@@ -358,7 +358,7 @@ foreach $member (@cgi) {
 }
 
 sub gosend {
-$mymessage = "$message\n<br><br>\n$footer\n<br><br>\nÈç¹ûÒÔºó²»ÏëÊÕµ½ÀàËÆµÄĞÅ¼ş£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£º<br>\n$boardurl/remmail.cgi?member=$memberdaten[0]<br>\n.\n";
+$mymessage = "$message\n<br><br>\n$footer\n<br><br>\nå¦‚æœä»¥åä¸æƒ³æ”¶åˆ°ç±»ä¼¼çš„ä¿¡ä»¶ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼š<br>\n$boardurl/remmail.cgi?member=$memberdaten[0]<br>\n.\n";
 &sendmail($adminemail_out, $adminemail_in, $mail, $subjekt, $mymessage);
 }
 
@@ -381,7 +381,7 @@ foreach $member (@members) {
 
 $output = qq~
  <tr>
- <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>ÒÑÍË³öÓÊ¼şÓÃ»§ÁĞ±í</td>
+ <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>å·²é€€å‡ºé‚®ä»¶ç”¨æˆ·åˆ—è¡¨</td>
  </tr>
  <tr bgcolor="#FFFFFF">
  <td align="center">
@@ -394,7 +394,7 @@ $output = qq~
  <td align="center" width="100%" bgcolor=#EEEEEE>
  &nbsp;
  <input type="hidden" name="action" value="Update">
- <input type="submit" value="±£ ´æ">
+ <input type="submit" value="ä¿ å­˜">
  </td>
  </tr>
 ~;
@@ -422,19 +422,19 @@ close (FILE);
 
 $output = qq~
  <tr>
- <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>ÒÑÍË³öÓÊ¼şÓÃ»§ÁĞ±í</td>
+ <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>å·²é€€å‡ºé‚®ä»¶ç”¨æˆ·åˆ—è¡¨</td>
  </tr>
  <tr bgcolor="#FFFFFF">
  <td align="center">
  <center>
- ËùÓĞÊı¾İÒÑ¾­±£´æ
+ æ‰€æœ‰æ•°æ®å·²ç»ä¿å­˜
  </center>
  </td>
  </tr>
  <tr>
  <td align="center" width="100%" bgcolor=#EEEEEE>
  &nbsp;
- <input type="submit" name="Button" value="·µ »Ø">
+ <input type="submit" name="Button" value="è¿” å›">
  </td>
  </tr>
 ~;
@@ -458,7 +458,7 @@ foreach $line (@footer) {
 
 $output = qq~
  <tr>
- <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>±à¼­Ò³½Å</td>
+ <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>ç¼–è¾‘é¡µè„š</td>
  </tr>
  <tr bgcolor="#FFFFFF">
  <td align="center">
@@ -471,7 +471,7 @@ $output = qq~
  <td align="center" width="100%" bgcolor=#EEEEEE>
  &nbsp;
  <input type="hidden" name="action" value="Save">
- <input type="submit" value="±£ ´æ">
+ <input type="submit" value="ä¿ å­˜">
  </td>
  </tr>
 ~;
@@ -499,19 +499,19 @@ close (FILE);
 
 $output = qq~
  <tr>
- <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>¸üĞÂÒ³½ÅÍê³É</td>
+ <br><br><td bgcolor=#EEEEEE align="center" colspan=2><font color=#333333><b>æ›´æ–°é¡µè„šå®Œæˆ</td>
  </tr>
  <tr bgcolor="#FFFFFF">
  <td align="center">
  <center>
- ĞÅÏ¢ÒÑ¾­±£´æ
+ ä¿¡æ¯å·²ç»ä¿å­˜
  </center>
  </td>
  </tr>
  <tr>
  <td align="center" width="100%" bgcolor=#EEEEEE>
  &nbsp;
- <input type="submit" name="Button" value="·µ »Ø">
+ <input type="submit" name="Button" value="è¿” å›">
  </td>
  </tr>
 ~;

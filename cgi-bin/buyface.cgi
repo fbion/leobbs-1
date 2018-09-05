@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -48,20 +48,20 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $action = $query->param('action');
 
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    &error("²»ÄÜ½øÈë $plugname &ÄãÄ¿Ç°µÄÉí·İÊÇ·Ã¿Í£¬ÇëÏÈµÇÂ½!");
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    &error("ä¸èƒ½è¿›å…¥ $plugname &ä½ ç›®å‰çš„èº«ä»½æ˜¯è®¿å®¢ï¼Œè¯·å…ˆç™»é™†!");
     exit;
 } else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 
@@ -87,7 +87,7 @@ A:visited{TEXT-DECORATION: none}
 A:active{TEXT-DECORATION: none}
 A:hover{TEXT-DECORATION: underline overline}
 A:link{text-decoration: none;}
-TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt} 
+TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt} 
 .S1{LINE-HEIGHT: 1.2}
 </style>
 </head>
@@ -99,12 +99,12 @@ if ($Mode{$action})
 {
 $Mode{$action} -> ();
 }
-else{&error("$plugname&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡");}
+else{&error("$plugname&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼");}
 
 sub buy_sp
 {
     $cartLength = $query->cookie("cartLength");
-    &errorout("¹ºÎïÉÌÆ·&µ±Ç°µÄ¹ºÎï´üÎª¿Õ£¡&1") if(($cartLength eq '')||($cartLength eq '0'));
+    &errorout("è´­ç‰©å•†å“&å½“å‰çš„è´­ç‰©è¢‹ä¸ºç©ºï¼&1") if(($cartLength eq '')||($cartLength eq '0'));
 
     for ($i = 0; $i < $cartLength; $i++)
     {
@@ -113,22 +113,22 @@ sub buy_sp
 ###
 	$/="";
 	my $filetoopen = "$lbdir" . "face/wpdata/$sort_id.pl";
-	&errorout("¹ºÎïÉÌÆ·&ÉÌÆ·Àà±ğµÄÎÄ¼ş²»´æÔÚ£¡&1") if (!( -e "$filetoopen")); # Èç¹û²»´æÔÚÎÄ¼ş
+	&errorout("è´­ç‰©å•†å“&å•†å“ç±»åˆ«çš„æ–‡ä»¶ä¸å­˜åœ¨ï¼&1") if (!( -e "$filetoopen")); # å¦‚æœä¸å­˜åœ¨æ–‡ä»¶
 	open(FILE,"$filetoopen");
 	my $sort=<FILE>;
 	close(FILE);
 	$/="\n";
 
-	&errorout("¹ºÎïÉÌÆ·&·Ç³£±§Ç¸£¬$name ÉÌÆ·ÔÚÊı¾İ¿âÖĞ²»´æÔÚ£¡&1") if($sort !~ /$id\t(.*)/); # ÕÒµ½Ö¸¶¨µÄÉÌÆ·ID
+	&errorout("è´­ç‰©å•†å“&éå¸¸æŠ±æ­‰ï¼Œ$name å•†å“åœ¨æ•°æ®åº“ä¸­ä¸å­˜åœ¨ï¼&1") if($sort !~ /$id\t(.*)/); # æ‰¾åˆ°æŒ‡å®šçš„å•†å“ID
         ($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
 
 ###
 	for($j=0;$j<$buy_num;$j++)
 	{
-	    $array1{$sort_id} .= "$id,N\_";	# ±£´æ¸ñÊ½
+	    $array1{$sort_id} .= "$id,N\_";	# ä¿å­˜æ ¼å¼
 	}
-	$array2{$sort_id} += "$buy_num";					# ¹ØÁªÊı×é¸ñÊ½£ºÀà±ğºÅ¡¢ÊıÁ¿
-	$array3{$id} = "1\t$sp_name\t$buy_num\t$sp_money\t$currenttime\t\t\n";	# ¼ÇÂ¼¸öÈË¹ºÂòĞÅÏ¢
+	$array2{$sort_id} += "$buy_num";					# å…³è”æ•°ç»„æ ¼å¼ï¼šç±»åˆ«å·ã€æ•°é‡
+	$array3{$id} = "1\t$sp_name\t$buy_num\t$sp_money\t$currenttime\t\t\n";	# è®°å½•ä¸ªäººè´­ä¹°ä¿¡æ¯
     }
 
     @array2 = keys(%array2);
@@ -139,11 +139,11 @@ sub buy_sp
 	@tempnum = split(/\_/,@buy_sp[$aaaa]);
 	$tempnum = @tempnum;
 	$temp = $tempnum + $array2{$aaaa};
-	&errorout("¹ºÎïÉÌÆ·&·Ç³£±§Ç¸£¬ÏàÍ¬µÄÉÌÆ·ÊıÁ¿³¬³ö¹æ¶¨Öµ£º$samnum ¼ş(º¬ÒÑ¹ºÂòµÄ)£¡&1") if($temp > $samnum);
+	&errorout("è´­ç‰©å•†å“&éå¸¸æŠ±æ­‰ï¼Œç›¸åŒçš„å•†å“æ•°é‡è¶…å‡ºè§„å®šå€¼ï¼š$samnum ä»¶(å«å·²è´­ä¹°çš„)ï¼&1") if($temp > $samnum);
     }
 
-    $TotalCost = $query->cookie("totalCost");	# »ñÈ¡×Ü¼Û¸ñ
-    &errorout("¹ºÎïÉÌÆ·&·Ç³£±§Ç¸£¬ÄúµÄÏÖ½ğ²»¹»Ö§¸¶¹ºÎï´üµÄÉÌÆ·£¡&1") if ($mymoney < $TotalCost);
+    $TotalCost = $query->cookie("totalCost");	# è·å–æ€»ä»·æ ¼
+    &errorout("è´­ç‰©å•†å“&éå¸¸æŠ±æ­‰ï¼Œæ‚¨çš„ç°é‡‘ä¸å¤Ÿæ”¯ä»˜è´­ç‰©è¢‹çš„å•†å“ï¼&1") if ($mymoney < $TotalCost);
 
     @array1 = keys(%array1);
 
@@ -162,7 +162,7 @@ sub buy_sp
 
     &upplugdata("$tempmembername","$currequip|$newdata|$loadface","-$TotalCost");
 
-##### Í³¼ÆÊ¹ÓÃÊı
+##### ç»Ÿè®¡ä½¿ç”¨æ•°
     $filetoopen = "$lbdir" . "face/totaluser.cgi";
     open(FILE,"$filetoopen");
     my $totaluser=<FILE>;
@@ -208,18 +208,18 @@ function delAlls()
   setCookie('cartLength', cartLength);
 }
 delAlls();
-alert("ÉÌÆ·¹ºÂò³É¹¦£¬Çëµ½ ÎÒµÄÒÂ¹ñ ×°±¸£¡");
+alert("å•†å“è´­ä¹°æˆåŠŸï¼Œè¯·åˆ° æˆ‘çš„è¡£æŸœ è£…å¤‡ï¼");
 self.close();
 </SCRIPT>~;
 }
 
 sub savesp
 {
-    &errorout("±£´æÊ§°Ü&ÄãµÄĞéÄâĞÎÏóÊı¾İ²»´æÔÚ£¬±£´æÊ§°Ü&1£¡") if ($userface eq '');
+    &errorout("ä¿å­˜å¤±è´¥&ä½ çš„è™šæ‹Ÿå½¢è±¡æ•°æ®ä¸å­˜åœ¨ï¼Œä¿å­˜å¤±è´¥&1ï¼") if ($userface eq '');
 
-    my $spsort1	= $query->cookie("_SortArray");	# ·ÖÀàºÅ
-    my $spid1	= $query->cookie("_SPIDArray");	# ÉÌÆ·IDºÅ
-    my $spstate1= $query->cookie("_StateArray");# ÉÌÆ·×´Ì¬
+    my $spsort1	= $query->cookie("_SortArray");	# åˆ†ç±»å·
+    my $spid1	= $query->cookie("_SPIDArray");	# å•†å“IDå·
+    my $spstate1= $query->cookie("_StateArray");# å•†å“çŠ¶æ€
     my @SPSort = split(/\,/,$spsort1);
     my @SPID = split(/\,/,$spid1);
     my @SPState = split(/\,/,$spstate1);
@@ -292,8 +292,8 @@ sub savesp
     chop($spstate2);
     chop($outinfo);
 
-    &errorout("±£´æÊ§°Ü&Çë²»ÒªÂÒÀ´&1£¡") if(($spsort1 ne $spsort2) || ($spid1 ne $spid2));
-    &errorout("±£´æÊ§°Ü&ÏµÍ³·¢ÏÖÄúµÄ×°±¸×´Ì¬Ã»ÓĞ¸Ä±ä£¬²¢²»ĞèÒª±£´æ£¡&1") if($spstate1 eq $spstate2);
+    &errorout("ä¿å­˜å¤±è´¥&è¯·ä¸è¦ä¹±æ¥&1ï¼") if(($spsort1 ne $spsort2) || ($spid1 ne $spid2));
+    &errorout("ä¿å­˜å¤±è´¥&ç³»ç»Ÿå‘ç°æ‚¨çš„è£…å¤‡çŠ¶æ€æ²¡æœ‰æ”¹å˜ï¼Œå¹¶ä¸éœ€è¦ä¿å­˜ï¼&1") if($spstate1 eq $spstate2);
 
     $newequip = join('-',@currequip);
     &upplugdata("$tempmembername","$newequip|$outinfo|$loadface","");
@@ -304,14 +304,14 @@ document.cookie = "_SortArray=" + "" +"; path=$cookiepath/";
 document.cookie = "_SPIDArray=" + "" +"; path=$cookiepath/";
 document.cookie = "_StateArray=" + "" +"; path=$cookiepath/";
 opener.location.reload();
-alert("µ±Ç°ĞÎÏó±£´æ³É¹¦£¡");
+alert("å½“å‰å½¢è±¡ä¿å­˜æˆåŠŸï¼");
 self.close();
 </SCRIPT>~;
     exit;
 }
 
 sub bag
-{ # ¹ºÎï´ü
+{ # è´­ç‰©è¢‹
     print qq~
 <SCRIPT>
 function openCart() 
@@ -335,12 +335,12 @@ function subItemQuantity(num, typeid)
 	infoArray[2] = num;
 
 	var i = checkExistItem(infoArray, cartLength);
-	if(i != -1) //ÕÒµ½ÁËitem[i]
+	if(i != -1) //æ‰¾åˆ°äº†item[i]
 	{
 	    infoArray = getItemsInfo(i); 
 	    var count = infoArray[3];
 	    count --;
-	    if(count == 0) //itemÊıÁ¿¼õµ½ÁË0
+	    if(count == 0) //itemæ•°é‡å‡åˆ°äº†0
 	    {
 		delItem(i);
 		return;
@@ -389,7 +389,7 @@ function delAll()
   }
   cartLength = 0;
   setCookie('cartLength', cartLength);
-  alert("¹ºÎï´üÒÑ¾­Çå¿Õ£¡");
+  alert("è´­ç‰©è¢‹å·²ç»æ¸…ç©ºï¼");
   self.close();
 }
 
@@ -417,7 +417,7 @@ function displayCart()
   var infoArray = new Array;
   if ((cartLength == "") || (cartLength == 0))
   {
-    alert("Ä¿Ç°¹ºÎï´üÎª¿Õ£¡");
+    alert("ç›®å‰è´­ç‰©è¢‹ä¸ºç©ºï¼");
     self.close();
     return;
   }
@@ -427,7 +427,7 @@ function displayCart()
 
 	if(infoArray == -1)
 	{
-		alert("È¡¹ºÎï³µĞÅÏ¢³ö´í£¬ÏÖÔÚ×Ô¶¯Çå¿Õ¹ºÎï³µÒ»´Î!");
+		alert("å–è´­ç‰©è½¦ä¿¡æ¯å‡ºé”™ï¼Œç°åœ¨è‡ªåŠ¨æ¸…ç©ºè´­ç‰©è½¦ä¸€æ¬¡!");
 		delAll();
 		return;
 	}
@@ -447,18 +447,18 @@ function displayCart()
 	s = s + ''+ name + '';
 	s = s + '</td>';
 	s = s + '<td width=80>';
-        s = s + '' + quantity + '¡¡<img src="$imagesurl/face/images/del.gif" style=cursor:hand alt = "¼õÉÙ" width=11 height=11'; 
+        s = s + '' + quantity + 'ã€€<img src="$imagesurl/face/images/del.gif" style=cursor:hand alt = "å‡å°‘" width=11 height=11'; 
 	s = s + ' onClick="subItemQuantity(';
 	s = s + "'" + num + "','" + typeid + "');";
 	s = s + '"> ';
-        s = s + '<img src="$imagesurl/face/images/add.gif" alt="Ôö¼Ó" width="11" height="11" style=cursor:hand onClick="addItemQuantity(';
+        s = s + '<img src="$imagesurl/face/images/add.gif" alt="å¢åŠ " width="11" height="11" style=cursor:hand onClick="addItemQuantity(';
 	s = s + "'" + name + "','" + typeid + "'," + num + "," + price + ");";
 	s = s + '"></td>';
         s = s + '<td width=60 align=right>';
 	s = s + price ; 
 	s = s + '</td>';
- 	s = s + '<td width="40" align=center><img src="$imagesurl/face/images/delt.gif" style=cursor:hand width="24" height="11" alt="É¾³ı" onclick="var truth =confirm(';
-	s = s + "'È·¶¨ÒªÉ¾³ıÂğ£¿'); if (truth)  delItem(" + i + ");";
+ 	s = s + '<td width="40" align=center><img src="$imagesurl/face/images/delt.gif" style=cursor:hand width="24" height="11" alt="åˆ é™¤" onclick="var truth =confirm(';
+	s = s + "'ç¡®å®šè¦åˆ é™¤å—ï¼Ÿ'); if (truth)  delItem(" + i + ");";
 	s = s + '" > </td>'; 
 	s = s + '</tr>';
   }
@@ -481,35 +481,35 @@ function displayTotal()
 function jz()
 {
 totalCost = getCookie('totalCost');
-  if (confirm('×Ü¼Æ£º'+totalCost+' $moneyname £¬ÄúÊÇ·ñÈ·ÈÏ¹ºÂò£¿'))
+  if (confirm('æ€»è®¡ï¼š'+totalCost+' $moneyname ï¼Œæ‚¨æ˜¯å¦ç¡®è®¤è´­ä¹°ï¼Ÿ'))
 	window.location='buyface.cgi?action=buy';
 }
 </SCRIPT>
 
 <table cellspacing=1 cellpadding=5 width=100% bgcolor=$tablebordercolor border=0>
-<tr bgcolor=$miscbacktwo align=left><td><font color=$titlefont size=2><B>ÎÒµÄ¹ºÎï´ü</B></font></td></tr>
+<tr bgcolor=$miscbacktwo align=left><td><font color=$titlefont size=2><B>æˆ‘çš„è´­ç‰©è¢‹</B></font></td></tr>
 </table>
 <BR>
 <table cellspacing=1 cellpadding=5 width=100% bgcolor=$tablebordercolor border=0>
 <tr bgcolor=$miscbacktwo align=center>
-   <td width=60>ÉÌÆ·ID</td>
-   <td width=260>ÉÌÆ·Ãû³Æ</td>
-   <td width=80>¶©¹ºÊıÁ¿</td>
-   <td width=60>ÉÌÆ·µ¥¼Û</td>
+   <td width=60>å•†å“ID</td>
+   <td width=260>å•†å“åç§°</td>
+   <td width=80>è®¢è´­æ•°é‡</td>
+   <td width=60>å•†å“å•ä»·</td>
    <td width=40>&nbsp;</td>
 </tr>
 <SCRIPT>displayCart();</SCRIPT>
 <tr bgcolor=$miscbacktwo>
    <td width=60></td>
    <td width=260></td>
-   <td width=80 align=right>×Ü¼Æ£º</td>
+   <td width=80 align=right>æ€»è®¡ï¼š</td>
    <td width=60 align=right><SCRIPT>displayTotal();</SCRIPT></td>
    <td width=40>&nbsp;</td>
 </tr>
 <tr bgcolor=$miscbackone>
    <td width=60></td>
    <td width=260></td>
-   <td width=80 align=right>Äúµ±Ç°ÏÖ½ğ£º</td>
+   <td width=80 align=right>æ‚¨å½“å‰ç°é‡‘ï¼š</td>
    <td width=60 align=right>$mymoney</td>
    <td width=40>$moneyname</td>
 </tr>
@@ -519,7 +519,7 @@ totalCost = getCookie('totalCost');
 <tr><td>&nbsp;</td></tr>
 <tr> 
 <td align="center">
-<a href="javascript:jz();">ÎÒÒª½áÕÊ</a> <a href="#" onclick="if (confirm('È·¶¨ÒªÈ«²¿É¾³ıÂğ£¿')) delAll(); else return false; ">Çå¿Õ¹ºÎï´ü</a> <a href="javascript:window.close();">¼ÌĞø¹ºÎï</a>
+<a href="javascript:jz();">æˆ‘è¦ç»“å¸</a> <a href="#" onclick="if (confirm('ç¡®å®šè¦å…¨éƒ¨åˆ é™¤å—ï¼Ÿ')) delAll(); else return false; ">æ¸…ç©ºè´­ç‰©è¢‹</a> <a href="javascript:window.close();">ç»§ç»­è´­ç‰©</a>
 </td>
 </tr>
 </table>~;
@@ -528,14 +528,14 @@ exit;
 
 sub delsp
 {
-    $class	= $query -> param('class');	# ÉÌÆ·Àà±ğºÅ
-    $id		= $query -> param('id');	# ÉÌÆ·IDºÅ
+    $class	= $query -> param('class');	# å•†å“ç±»åˆ«å·
+    $id		= $query -> param('id');	# å•†å“IDå·
 
-    @tempsp = split(/\_/, @buy_sp[$class]);	# ½«ÉÌÆ·Í¼Æ¬·Ö¿ª£¬Ê¹Ö®ÓëÉÌÆ·ÊıÁ¿¶ÔÓ¦
+    @tempsp = split(/\_/, @buy_sp[$class]);	# å°†å•†å“å›¾ç‰‡åˆ†å¼€ï¼Œä½¿ä¹‹ä¸å•†å“æ•°é‡å¯¹åº”
 
     ($info1,$info2)=split(/\,/,@tempsp[$id]);
-    &errorout("¶ªÆúÊ§°Ü&ÄãÊÇ·ñÒÑ¾­¶ªÆúÁË¸ÃÉÌÆ·£¿&1") if(@tempsp[$id] eq '');
-    &errorout("¶ªÆúÊ§°Ü&¸ÃÉÌÆ·ÕıÔÚ×°±¸ÖĞ£¬²»ÄÜ½øĞĞ¶ªÆú²Ù×÷£¡&1") if($info2 eq 'Y');
+    &errorout("ä¸¢å¼ƒå¤±è´¥&ä½ æ˜¯å¦å·²ç»ä¸¢å¼ƒäº†è¯¥å•†å“ï¼Ÿ&1") if(@tempsp[$id] eq '');
+    &errorout("ä¸¢å¼ƒå¤±è´¥&è¯¥å•†å“æ­£åœ¨è£…å¤‡ä¸­ï¼Œä¸èƒ½è¿›è¡Œä¸¢å¼ƒæ“ä½œï¼&1") if($info2 eq 'Y');
 
 
     for($i=0;$i<@tempsp;$i++)
@@ -557,7 +557,7 @@ print qq~
 <SCRIPT LANGUAGE="JavaScript">
 document.cookie = "tempequip=" + "$currequip" +"; path=$cookiepath/";
 opener.location.reload();
-alert("ÉÌÆ·¶ªÆú³É¹¦£¡");
+alert("å•†å“ä¸¢å¼ƒæˆåŠŸï¼");
 self.close();
 </SCRIPT>
 ~;
@@ -566,15 +566,15 @@ self.close();
 
 sub zengsp
 {
-    $class      = $query -> param('class');		# ÉÌÆ·Àà±ğÎÄ¼ş
-    $id	        = $query -> param('id');		# ÉÌÆ·µÄIDºÅ
+    $class      = $query -> param('class');		# å•†å“ç±»åˆ«æ–‡ä»¶
+    $id	        = $query -> param('id');		# å•†å“çš„IDå·
 
-    @tempsp = split(/\_/, @buy_sp[$class]);		# ½«ÉÌÆ·Í¼Æ¬·Ö¿ª£¬Ê¹Ö®ÓëÉÌÆ·ÊıÁ¿¶ÔÓ¦
+    @tempsp = split(/\_/, @buy_sp[$class]);		# å°†å•†å“å›¾ç‰‡åˆ†å¼€ï¼Œä½¿ä¹‹ä¸å•†å“æ•°é‡å¯¹åº”
 
     ($info1,$info2)=split(/\,/,@tempsp[$id]);
 
-    &errorout("ÔùËÍÉÌÆ·&½¨Á¢Ò³Ãæ³ö´í£¬Ö¸¶¨µÄÉÌÆ·ºÅÓĞÎó&1£¡") if(@tempsp[$id] eq '');
-    &errorout("ÔùËÍÉÌÆ·&¸ÃÉÌÆ·×°±¸ÖĞ£¬±ØĞëĞ¶ÏÂ²ÅÄÜÔùËÍ£¬Èç¹ûÉÌÆ·\\nÒÑ¾­Ğ¶ÏÂ£¬ÄúÊÇ·ñÍü¼Çµã»÷ '±£´æµ±Ç°ĞÎÏó' ÁË£¿&1") if($info2 eq 'Y');
+    &errorout("èµ é€å•†å“&å»ºç«‹é¡µé¢å‡ºé”™ï¼ŒæŒ‡å®šçš„å•†å“å·æœ‰è¯¯&1ï¼") if(@tempsp[$id] eq '');
+    &errorout("èµ é€å•†å“&è¯¥å•†å“è£…å¤‡ä¸­ï¼Œå¿…é¡»å¸ä¸‹æ‰èƒ½èµ é€ï¼Œå¦‚æœå•†å“\\nå·²ç»å¸ä¸‹ï¼Œæ‚¨æ˜¯å¦å¿˜è®°ç‚¹å‡» 'ä¿å­˜å½“å‰å½¢è±¡' äº†ï¼Ÿ&1") if($info2 eq 'Y');
 
 ###
     $/="";
@@ -584,20 +584,20 @@ sub zengsp
     close(FILE);
     $/="\n";
 
-    if($sort =~ /$info1\t(.*)/)	# ÕÒµ½Ö¸¶¨µÄÉÌÆ·ID
+    if($sort =~ /$info1\t(.*)/)	# æ‰¾åˆ°æŒ‡å®šçš„å•†å“ID
     {
 	($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
-	&errorout("ÔùËÍÉÌÆ·&Ğ¡Æø¹í£¬Ãâ·ÑÉÌÆ·²»ÄÜÔùËÍ¸øÅóÓÑµÄ£¡&1") if($sp_money eq '0');
-	$fitherd = "ÄĞ" if($sp_fitherd eq 'm');
-	$fitherd = "Å®" if($sp_fitherd eq 'f');
-	$fitherd = "Í¨ÓÃ" if($sp_fitherd eq 't');
+	&errorout("èµ é€å•†å“&å°æ°”é¬¼ï¼Œå…è´¹å•†å“ä¸èƒ½èµ é€ç»™æœ‹å‹çš„ï¼&1") if($sp_money eq '0');
+	$fitherd = "ç”·" if($sp_fitherd eq 'm');
+	$fitherd = "å¥³" if($sp_fitherd eq 'f');
+	$fitherd = "é€šç”¨" if($sp_fitherd eq 't');
     }
     else
     {
-	&errorout("ÔùËÍÉÌÆ·&½¨Á¢Ò³Ãæ³ö´í£¬´ËÉÌÆ·ÒÑ¾­²»´æÔÚ£¬Çë¶ªÆú´ËÉÌÆ·£¡&1");
+	&errorout("èµ é€å•†å“&å»ºç«‹é¡µé¢å‡ºé”™ï¼Œæ­¤å•†å“å·²ç»ä¸å­˜åœ¨ï¼Œè¯·ä¸¢å¼ƒæ­¤å•†å“ï¼&1");
     }
 ###
-## ºÃÓÑÁĞ±í ###
+## å¥½å‹åˆ—è¡¨ ###
     if (open(FILE, "${lbdir}memfriend/$tempmembername.cgi"))
     {
 	$/="";
@@ -607,32 +607,32 @@ sub zengsp
 	@currentlist = split (/\n/, $currentlist);
     }
 
-    my $friendlist = qq~<select name=friends onchange="myfriend();"><option style=background-color:$miscbacktwo>ºÃÓÑÁĞ±í</option>~;
+    my $friendlist = qq~<select name=friends onchange="myfriend();"><option style=background-color:$miscbacktwo>å¥½å‹åˆ—è¡¨</option>~;
 
     foreach (@currentlist)
     {
 	chomp;
-	s/^£ª£££¡£¦£ª//isg;
+	s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 	$friendlist .= qq~<option value="$_">$_</option>~;
     }
-## ½áÊø ##
+## ç»“æŸ ##
 
     print qq~<SCRIPT>
 function checkzeng()
 {
    if(document.Zeng.zengname.value == "")
    {
-	alert("¶Ô·½µÄÃû×Ö²»ÄÜÎª¿Õ£¡");
+	alert("å¯¹æ–¹çš„åå­—ä¸èƒ½ä¸ºç©ºï¼");
 	document.Zeng.zengname.focus();
 	return false;
    }
    if(document.Zeng.zengly.value == "")
    {
-	alert("ÁôÑÔ²»ÄÜÎª¿Õ£¡");
+	alert("ç•™è¨€ä¸èƒ½ä¸ºç©ºï¼");
 	document.Zeng.zengly.focus();
 	return false;
    }
-   if(!confirm("ÔùËÍĞÅÏ¢£º$sp_name Ò¼¼ş£»ÄúÊÇ·ñÈ·ÈÏÔùËÍ¸ø " + document.Zeng.zengname.value + "£¿"))return false;
+   if(!confirm("èµ é€ä¿¡æ¯ï¼š$sp_name å£¹ä»¶ï¼›æ‚¨æ˜¯å¦ç¡®è®¤èµ é€ç»™ " + document.Zeng.zengname.value + "ï¼Ÿ"))return false;
 }
 function myfriend()
 {
@@ -641,7 +641,7 @@ function myfriend()
 }
 </SCRIPT>
 <table width=100% border=0 cellspacing=1 cellpadding=5 bgcolor=$tablebordercolor>
-<tr><td bgcolor=$miscbacktwo height=20><font color=$titlefont size=2><B>ÔùËÍÉÌÆ·</B></font></td></tr>
+<tr><td bgcolor=$miscbacktwo height=20><font color=$titlefont size=2><B>èµ é€å•†å“</B></font></td></tr>
 </table>
 <table width=100% border=0 cellspacing=0 cellpadding=4>
 <form action="$thisprog" method="post" name=Zeng>
@@ -649,22 +649,22 @@ function myfriend()
 <input type=hidden name="class" value="$class">
 <input type=hidden name="id" value="$id">
 <TR align=center bgColor=$miscbackone>
-  <TD width=40%>ÉÌÆ·Ãû³Æ</TD><TD width=30%>ÊÊÓÃÈËÈº</TD><TD width=30%>ÉÌÆ·¼Û¸ñ</TD>
+  <TD width=40%>å•†å“åç§°</TD><TD width=30%>é€‚ç”¨äººç¾¤</TD><TD width=30%>å•†å“ä»·æ ¼</TD>
 </TR>
 <TR align=center bgcolor=$miscbacktwo>
   <TD>$sp_name</TD><TD>$fitherd</TD><TD>$sp_money</TD>
 </TR>
 <TR align=center bgColor=$miscbackone> 
-  <TD colspan=3> ¡¡</TD>
+  <TD colspan=3> ã€€</TD>
 </TR>
 <TR bgColor=$miscbacktwo> 
-  <TD align=center>ÔùËÍ¸ø</TD><TD colspan=2><input type=text size=12 name="zengname"> $friendlist</TD>
+  <TD align=center>èµ é€ç»™</TD><TD colspan=2><input type=text size=12 name="zengname"> $friendlist</TD>
 </TR>
 <TR bgColor=$miscbacktwo> 
-  <TD align=center>ÁôÑÔ</TD><TD colspan=2><input type=text size=30 name="zengly"></TD>
+  <TD align=center>ç•™è¨€</TD><TD colspan=2><input type=text size=30 name="zengly"></TD>
 </TR>
 <TR align=center bgColor=$miscbackone>
-  <TD colspan=3><input type=submit value="È· ¶¨" onClick="return checkzeng();">
+  <TD colspan=3><input type=submit value="ç¡® å®š" onClick="return checkzeng();">
   </TD>
 </TR>
 </form>
@@ -673,11 +673,11 @@ function myfriend()
 
 sub zengok
 {
-    $class	= $query -> param('class');	# ÉÌÆ·Àà±ğºÅ
-    $id		= $query -> param('id');	# ÉÌÆ·IDºÅ
-    $zengname	= $query -> param('zengname');	# ÔùËÍÈËÃû³Æ
+    $class	= $query -> param('class');	# å•†å“ç±»åˆ«å·
+    $id		= $query -> param('id');	# å•†å“IDå·
+    $zengname	= $query -> param('zengname');	# èµ é€äººåç§°
     $zengname	= &cleanarea("$zengname");
-    $zengly	= $query -> param('zengly');	# ¸øÔùËÍÈËÁôÑÔ
+    $zengly	= $query -> param('zengly');	# ç»™èµ é€äººç•™è¨€
     $zengly	= &cleanarea("$zengly");
 
     $zengname = &unHTML("$zengname");
@@ -688,11 +688,11 @@ sub zengok
     my $namenumber = &getnamenumber($zengname);
     &checkmemfile($zengname,$namenumber);
     my $filetoopen = "${lbdir}$memdir/$namenumber/$zengname.cgi";
-    &errorout("ÔùËÍÉÌÆ·&·Ç³£±§Ç¸£¬ÉçÇøÖĞ²»´æÔÚ´ËÓÃ»§Ãû£¡&0") unless(-e $filetoopen);
-    &errorout("ÔùËÍÉÌÆ·&ÄãÍ·ÄÔ»¹ÇåĞÑÂğ£¿ÔõÃ´ÄÜ¸ø×Ô¼ºÔùËÍ£¿£¡£¡&0") if($tempmembername eq $zengname);
+    &errorout("èµ é€å•†å“&éå¸¸æŠ±æ­‰ï¼Œç¤¾åŒºä¸­ä¸å­˜åœ¨æ­¤ç”¨æˆ·åï¼&0") unless(-e $filetoopen);
+    &errorout("èµ é€å•†å“&ä½ å¤´è„‘è¿˜æ¸…é†’å—ï¼Ÿæ€ä¹ˆèƒ½ç»™è‡ªå·±èµ é€ï¼Ÿï¼ï¼&0") if($tempmembername eq $zengname);
 
-    @tempsp = split(/\_/, @buy_sp[$class]);			# ½«ÉÌÆ·Í¼Æ¬·Ö¿ª£¬Ê¹Ö®ÓëÉÌÆ·ÊıÁ¿¶ÔÓ¦
-    &errorout("ÔùËÍÉÌÆ·&·Ç³£±§Ç¸£¬ÄãµÄÔùËÍÉÌÆ·Ñ¡Ôñ´íÎó£¡&1") if(@tempsp[$id] eq '');
+    @tempsp = split(/\_/, @buy_sp[$class]);			# å°†å•†å“å›¾ç‰‡åˆ†å¼€ï¼Œä½¿ä¹‹ä¸å•†å“æ•°é‡å¯¹åº”
+    &errorout("èµ é€å•†å“&éå¸¸æŠ±æ­‰ï¼Œä½ çš„èµ é€å•†å“é€‰æ‹©é”™è¯¯ï¼&1") if(@tempsp[$id] eq '');
     ($info1,$info2)=split(/\,/,@tempsp[$id]);
 
 ###
@@ -703,13 +703,13 @@ sub zengok
     close(FILE);
     $/="\n";
 
-    if($sort =~ /$info1\t(.*)/)	# ÕÒµ½Ö¸¶¨µÄÉÌÆ·ID
+    if($sort =~ /$info1\t(.*)/)	# æ‰¾åˆ°æŒ‡å®šçš„å•†å“ID
     {
 	($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
     }
     else
     {
-	&errorout("ÔùËÍÉÌÆ·&½¨Á¢Ò³Ãæ³ö´í£¬´ËÉÌÆ·ÒÑ¾­²»´æÔÚ£¬Çë¶ªÆú´ËÉÌÆ·£¡&1");
+	&errorout("èµ é€å•†å“&å»ºç«‹é¡µé¢å‡ºé”™ï¼Œæ­¤å•†å“å·²ç»ä¸å­˜åœ¨ï¼Œè¯·ä¸¢å¼ƒæ­¤å•†å“ï¼&1");
     }
 ###
 
@@ -729,7 +729,7 @@ sub zengok
     &upplugdata("$tempmembername","$currequip|$newdata|$loadface","");
 #####
 
-    my $filetoopen = "$lbdir" . "face/log/$tempmembername.pl";	# Ğ´ÈëÓÃ»§¼ÇÂ¼ÎÄ¼ş£ºÀàĞÍÎª 1
+    my $filetoopen = "$lbdir" . "face/log/$tempmembername.pl";	# å†™å…¥ç”¨æˆ·è®°å½•æ–‡ä»¶ï¼šç±»å‹ä¸º 1
     open(FILE,"$filetoopen");
     my @mylog=<FILE>;
     close(FILE);
@@ -744,7 +744,7 @@ sub zengok
     close(FILE);
 ######
 
-    my $filetoopen = "$lbdir" . "face/log/$zengname.pl";	# Ğ´ÈëÓÃ»§¼ÇÂ¼ÎÄ¼ş£ºÀàĞÍÎª 1
+    my $filetoopen = "$lbdir" . "face/log/$zengname.pl";	# å†™å…¥ç”¨æˆ·è®°å½•æ–‡ä»¶ï¼šç±»å‹ä¸º 1
     open(FILE,"$filetoopen");
     my @mylog=<FILE>;
     open(FILE, ">$filetoopen");
@@ -756,8 +756,8 @@ sub zengok
     }
     close(FILE);
 
-    my $mcon = qq~ÄãµÄÅóÓÑ <font color=blue>$tempmembername</font> ¸øÄãËÍÁËÒ»¼şÉÌÆ·£º $sp_name £¬²¢Ïë¶ÔÄãËµ£º <font color=blue>$zengly</font><BR><BR><a href=face.cgi?action=mybureau target=_blank>²é¿´ÄúµÄĞéÄâĞÎÏó</a>~;
-    &write_messages("$tempmembername","$zengname","ĞéÄâĞÎÏóÔùËÍÑ¶Ï¢","$mcon");
+    my $mcon = qq~ä½ çš„æœ‹å‹ <font color=blue>$tempmembername</font> ç»™ä½ é€äº†ä¸€ä»¶å•†å“ï¼š $sp_name ï¼Œå¹¶æƒ³å¯¹ä½ è¯´ï¼š <font color=blue>$zengly</font><BR><BR><a href=face.cgi?action=mybureau target=_blank>æŸ¥çœ‹æ‚¨çš„è™šæ‹Ÿå½¢è±¡</a>~;
+    &write_messages("$tempmembername","$zengname","è™šæ‹Ÿå½¢è±¡èµ é€è®¯æ¯","$mcon");
 
 ######
 
@@ -773,6 +773,6 @@ sub zengok
     chop($newdata);
 
     &upplugdata("$zengname","$currequip|$newdata|$loadface","");
-    print qq~<SCRIPT>opener.location.reload();setTimeout("self.close()",100);alert("ÉÌÆ·ÔùËÍ³É¹¦£¡");</SCRIPT>~;
+    print qq~<SCRIPT>opener.location.reload();setTimeout("self.close()",100);alert("å•†å“èµ é€æˆåŠŸï¼");</SCRIPT>~;
     exit;
 }

@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 opendir (DIR, "${lbdir}data/skin"); 
@@ -14,7 +14,7 @@ closedir (DIR);
 my @skinselectdata = grep(/\.(cgi)$/i,@dirdata);
 map(s/\.cgi$//is, @skinselectdata);
 $skincount = @skinselectdata;
-my $userskin = qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin=leobbs"><font color=#000000>Ä¬ÈÏ·ç¸ñ</font></a>&nbsp;</div>~;
+my $userskin = qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin=leobbs"><font color=#000000>é»˜è®¤é£æ ¼</font></a>&nbsp;</div>~;
 for (my $i=0;$i<$skincount;$i++) {
     eval{ require "${lbdir}data/skin/$skinselectdata[$i].cgi"; };
     next if ($@);
@@ -33,7 +33,7 @@ url = url.replace (/:/g, "%3A");
 url = url.replace (/\\\\?/g, "%3F");
 url = url.replace (/=/g, "%3D");
 linkset[3]='$userskin'</script>~;
-$skinselect = qq~<img src=\$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[3])" onMouseout="delayhidemenu()">ÂÛÌ³·ç¸ñ&nbsp;</span>~;
+$skinselect = qq~<img src=\$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[3])" onMouseout="delayhidemenu()">è®ºå›é£æ ¼&nbsp;</span>~;
 open(FILE, ">${lbdir}data/skinselect.pl");
 print FILE qq(\$userskins = qq~$userskins~;\n);
 print FILE qq(\$skinselect = qq~$skinselect~;\n);

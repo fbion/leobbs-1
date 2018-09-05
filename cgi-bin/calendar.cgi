@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -47,14 +47,14 @@ $set_year = int($set_year);
 $set_month = int($set_month);
 $set_day = int($set_day);
 if($set_year+$set_month > 0){
-	&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless($set_year > 1900 && $set_month  > 0 && $set_month < 13);
+	&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless($set_year > 1900 && $set_month  > 0 && $set_month < 13);
 	$set_month-=1;
 }
-@WEEK = ('ĞÇÆÚÈÕ','ĞÇÆÚÒ»','ĞÇÆÚ¶ş','ĞÇÆÚÈı','ĞÇÆÚËÄ','ĞÇÆÚÎå','ĞÇÆÚÁù');
+@WEEK = ('æ˜ŸæœŸæ—¥','æ˜ŸæœŸä¸€','æ˜ŸæœŸäºŒ','æ˜ŸæœŸä¸‰','æ˜ŸæœŸå››','æ˜ŸæœŸäº”','æ˜ŸæœŸå…­');
 @YEAR_A = (31,28,31,30,31,30,31,31,30,31,30,31);
 @YEAR_B = (31,29,31,30,31,30,31,31,30,31,30,31);
 if($set_day > 0){
-	&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if(($set_year%4 == 0 && $set_day > $YEAR_B[$set_month])||($set_year%4 != 0 && $set_day > $YEAR_A[$set_month]));
+	&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if(($set_year%4 == 0 && $set_day > $YEAR_B[$set_month])||($set_year%4 != 0 && $set_day > $YEAR_A[$set_month]));
 }else{
 	$set_day = 1;
 }
@@ -63,27 +63,27 @@ $edit_event = (($set_year+$set_month > 0)&&($set_day > 0));
 
 $YEAR_COUNT = 10;
 
-$output = '';#³õÊ¼»¯Êä³ö
+$output = '';#åˆå§‹åŒ–è¾“å‡º
 
 
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie"); }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-	$inmembername = "¿ÍÈË";
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+	$inmembername = "å®¢äºº";
 	$userregistered = "no";
-	&error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜÊ¹ÓÃ´Ë¹¦ÄÜ£¬Çë×¢²áµÇÂ¼ºóÔÙ·ÃÎÊ£¬Ğ»Ğ»£¡")
+	&error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½ä½¿ç”¨æ­¤åŠŸèƒ½ï¼Œè¯·æ³¨å†Œç™»å½•åå†è®¿é—®ï¼Œè°¢è°¢ï¼")
 } else {
 	&getmember("$inmembername","no");
-	&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($inpassword ne "" && $userregistered eq "no");
-	&error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password);
+	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($inpassword ne "" && $userregistered eq "no");
+	&error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password);
 	$inmembername = $membername;
 }
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 mkdir("${lbdir}calendar",0777) unless (-e "${lbdir}calendar");
 chmod(0777,"${lbdir}calendar");
@@ -102,9 +102,9 @@ $set_year = $year;
 $set_month = $mon+1;
 $set_day = $mday;
 
-$year_display = sprintf('%04dÄê',$set_year);
-$month_display = sprintf('%02dÔÂ',$set_month);
-$date_display = sprintf('%04dÄê%02dÔÂ%02dÈÕ',$set_year,$set_month,$set_day);
+$year_display = sprintf('%04då¹´',$set_year);
+$month_display = sprintf('%02dæœˆ',$set_month);
+$date_display = sprintf('%04då¹´%02dæœˆ%02dæ—¥',$set_year,$set_month,$set_day);
 
 
 $month_end_day = ($year%4 == 0)?$YEAR_B[$mon]:$YEAR_A[$mon];
@@ -113,13 +113,7 @@ $month_end = $local_time + (86400*($month_end_day-$mday));
 my ($no,$no,$no,$no,$no,$no,$start_week,$no,$no) = localtime($month_start);
 my ($no,$no,$no,$no,$no,$no,$end_week,$no,$no) = localtime($month_end);
 
-#¿Éßx“ñµÄÁĞ±í _S
-	#Äê
-$YEAR_LIST = '';
-for($y=$now_year-$YEAR_COUNT;$y<$now_year+$YEAR_COUNT;$y++){
-	$YEAR_LIST .= sprintf('<option value="%04d">%04dÄê</option>',$y,$y);
-}
-$YEAR_LIST =~s/value="$set_year"/value="$set_year" selected/;
+#å¯/value="$set_year" selected/;
 	#ÔÂ
 $MONTH_LIST = '';
 for($m=1;$m<=12;$m++){

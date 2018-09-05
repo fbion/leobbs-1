@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -27,7 +27,7 @@ $|++;
 &waptitle;
 $lid = $query -> param('lid');
 &check($lid);
-&getmember("$inmembername")if($inmembername ne ''||$inmembername ne '¿ÍÈË');        
+&getmember("$inmembername")if($inmembername ne ''||$inmembername ne 'å®¢äºº');        
 $id = $query->param('forum');
 $inforum = $id;
 &getoneforum($inforum);
@@ -38,30 +38,30 @@ $mymembercode = $membercode;
 	$tempaccess = "forumsallowed" . $inforum;
 	$testentry = $query->cookie($tempaccess);
 	$allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
-&errorout("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9]+$/ && $inforum ne 'leobbs.cgi');
+&errorout("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9]+$/ && $inforum ne 'leobbs.cgi');
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
-&errorout("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡")if($yxz ne '' && $yxz!~/,$membercode,/);
+&errorout("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼")if($yxz ne '' && $yxz!~/,$membercode,/);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
-&errorout("½øÈë»áÔ±ÂÛÌ³²é¿´Ìû×ÓÄÚÈİ&ÄúÊÇ¿ÍÈËÃ»ÓĞÈ¨ÏŞ½øÈë!") if ($inmembername eq "¿ÍÈË" && $regaccess eq "on" && &checksearchbot);
-&errorout("½øÈëË½ÓĞÂÛÌ³&¶Ô²»Æğ£¬ÄúÃ»ÓĞÈ¨ÏŞ½øÈë¸ÃË½ÓĞÂÛÌ³£¡") if ($privateforum eq "yes" && $allowed ne "yes");
-if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "¿ÍÈË"))&&($userincert eq "no")) { &errorout("½øÈëÂÛÌ³&ÄãÒ»°ã»áÔ±²»ÔÊĞí½øÈë´ËÂÛÌ³£¡"); }
+&errorout("è¿›å…¥ä¼šå‘˜è®ºå›æŸ¥çœ‹å¸–å­å†…å®¹&æ‚¨æ˜¯å®¢äººæ²¡æœ‰æƒé™è¿›å…¥!") if ($inmembername eq "å®¢äºº" && $regaccess eq "on" && &checksearchbot);
+&errorout("è¿›å…¥ç§æœ‰è®ºå›&å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰æƒé™è¿›å…¥è¯¥ç§æœ‰è®ºå›ï¼") if ($privateforum eq "yes" && $allowed ne "yes");
+if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "å®¢äºº"))&&($userincert eq "no")) { &errorout("è¿›å…¥è®ºå›&ä½ ä¸€èˆ¬ä¼šå‘˜ä¸å…è®¸è¿›å…¥æ­¤è®ºå›ï¼"); }
 $paGe = $query->param('paGe');
 
 if ($allowusers ne ''){
-    &errorout('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &errorout('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
         if ($enterminmony > 0 || $enterminjf > 0 ) {
 require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-&errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-&errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+&errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+&errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
    }
 }
 my $r = &msg($inmembername,$password2);		
-$show.= "<p>$r<a href=\"wap_po.cgi?lid=$lid&amp;f=$inforum\">·¢Ìû</a> <a href=\"wap_index.cgi?lid=$lid\">·µ»Ø</a></p>";
+$show.= "<p>$r<a href=\"wap_po.cgi?lid=$lid&amp;f=$inforum\">å‘å¸–</a> <a href=\"wap_index.cgi?lid=$lid\">è¿”å›</a></p>";
 open(file,"${lbdir}boarddata/listno$id.cgi");
 		my	@allfav=<file>;
 			close(file);
@@ -87,9 +87,9 @@ open(file,"${lbdir}boarddata/listno$id.cgi");
 			my $c=<file2>;
 			close(file2);
 		  my ($top, $title,$no, $threadstate, $threadposts, $threadviews, $startedby) = split (/\t/,$c);
-		  $title=~s/£ª£££¡£¦£ª//isg;
+		  $title=~s/ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 $show.= qq~<p><a href="wap_topic.cgi?f=$id&amp;t=$top&amp;lid=$lid&amp;pa=$paGe">$k,$title</a>($threadposts/$threadviews, $startedby)</p>\n~;
 			}	
 			
-$show.= qq~<p>[$paGe/$yemaÒ³]<br/>$newpage</p><p>Ìøµ½ <input type="text" size="4" maxlength="4" name="tz" format="*N"/> <a href="wap_forum.cgi?forum=$id&amp;paGe=\$(tz)&amp;lid=$lid">Ò³</a><br/><a href="wap_index.cgi?lid=$lid">·µ»ØÊ×Ò³</a></p>~;
+$show.= qq~<p>[$paGe/$yemaé¡µ]<br/>$newpage</p><p>è·³åˆ° <input type="text" size="4" maxlength="4" name="tz" format="*N"/> <a href="wap_forum.cgi?forum=$id&amp;paGe=\$(tz)&amp;lid=$lid">é¡µ</a><br/><a href="wap_index.cgi?lid=$lid">è¿”å›é¦–é¡µ</a></p>~;
 &wapfoot;

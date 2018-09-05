@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -36,7 +36,7 @@ $intopic = $query->param('topic');
 
 if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '' && $pvtdown ne "no"){
     print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    print qq~<script>alert('Çë²»ÒªµÁÁ´$boardnameµÄÁ¬½Ó');location.href='topic.cgi?forum=$inforum&topic=$intopic';</script>~;exit;
+    print qq~<script>alert('è¯·ä¸è¦ç›—é“¾$boardnameçš„è¿æ¥');location.href='topic.cgi?forum=$inforum&topic=$intopic';</script>~;exit;
 }
 
 $inpostno = $query->param('postno');
@@ -52,13 +52,13 @@ $filename =~ s/\///sg;
 $filename =~ s/\\//sg;
 $filename = substr($filename,0,32) if (length($filename)>32);
 
-&error('´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡') if ($inpostno !~ /^\d+$/ && $inpostno ne "");
-&error('´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡£¡') if ($inforum !~ /^\d+$/ || $intopic !~ /^\d+$/ || $fileext eq '');
+&error('æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼') if ($inpostno !~ /^\d+$/ && $inpostno ne "");
+&error('æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼ï¼') if ($inforum !~ /^\d+$/ || $intopic !~ /^\d+$/ || $fileext eq '');
 require "data/style$inforum.cgi" if (-e "${lbdir}data/style$inforum.cgi");
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $inpostno--;
@@ -68,7 +68,7 @@ $inpassword = $query->cookie("apasswordcookie") unless ($inpassword);
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if (!$inmembername || $inmembername eq "¿ÍÈË")
+if (!$inmembername || $inmembername eq "å®¢äºº")
 {
 	if ($regaccess eq 'on' || $privateforum eq 'yes')
 	{
@@ -76,45 +76,45 @@ if (!$inmembername || $inmembername eq "¿ÍÈË")
 		print qq~<script language="JavaScript">document.location = "loginout.cgi?forum=$inforum";</script>~;
 		exit;
 	}
-	$inmembername = '¿ÍÈË';
+	$inmembername = 'å®¢äºº';
 	$rating = -6;
-        &error("ÆÕÍ¨´íÎó&¿ÍÈË²»ÄÜ²é¿´¸½¼ş£¬Çë×¢²á»òµÇÂ¼ºóÔÙÊÔ") if ($guestregistered eq "off" && $pvtdown ne "no");
+        &error("æ™®é€šé”™è¯¯&å®¢äººä¸èƒ½æŸ¥çœ‹é™„ä»¶ï¼Œè¯·æ³¨å†Œæˆ–ç™»å½•åå†è¯•") if ($guestregistered eq "off" && $pvtdown ne "no");
 }
 else
 {
 	&getmember($inmembername, 'no');
-	&error('ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡') if ($userregistered eq 'no');
-	&error('ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡') if ($inpassword ne $password);
+	&error('æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼') if ($userregistered eq 'no');
+	&error('æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼') if ($inpassword ne $password);
 }
 
 &getoneforum($inforum);
 $testentry = $query->cookie("forumsallowed$inforum");
 $allowed = $allowedentry{$inforum} eq 'yes' || ($testentry eq $forumpass && $testentry ne '') || $membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes' ? 'yes' : 'no';
-&error("½øÈëË½ÓĞÂÛÌ³&¶Ô²»Æğ£¬ÄúÃ»ÓĞÈ¨ÏŞ½øÈë¸ÃË½ÓĞÂÛÌ³£¡") if ($privateforum eq 'yes' && $allowed ne 'yes' && $pvtdown ne "no");
-&error("½øÈëÂÛÌ³&ÄãÒ»°ã»áÔ±²»ÔÊĞí½øÈë´ËÂÛÌ³£¡") if ($startnewthreads eq 'cert' && (($membercode ne 'ad' && $membercode ne 'smo' && $membercode ne 'cmo' && $membercode ne 'mo' && $membercode !~ /^rz/) || $inmembername eq '¿ÍÈË') && $userincert eq 'no' && $pvtdown ne "no");
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥ç§æœ‰è®ºå›&å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰æƒé™è¿›å…¥è¯¥ç§æœ‰è®ºå›ï¼") if ($privateforum eq 'yes' && $allowed ne 'yes' && $pvtdown ne "no");
+&error("è¿›å…¥è®ºå›&ä½ ä¸€èˆ¬ä¼šå‘˜ä¸å…è®¸è¿›å…¥æ­¤è®ºå›ï¼") if ($startnewthreads eq 'cert' && (($membercode ne 'ad' && $membercode ne 'smo' && $membercode ne 'cmo' && $membercode ne 'mo' && $membercode !~ /^rz/) || $inmembername eq 'å®¢äºº') && $userincert eq 'no' && $pvtdown ne "no");
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad' && $pvtdown ne "no");
+    &error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad' && $pvtdown ne "no");
 }
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+	&error("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
 if ($filename eq "") {
      $file = $inpostno > 0 ? "$inforum\_$intopic\_$inpostno\.$fileext" : "$inforum\_$intopic\.$fileext";
-     &error("´ò¿ªÎÄ¼ş&´ËÎÄ¼ş²»´æÔÚ£¡") unless (-e "$imagesdir$usrdir/$inforum/$file");
+     &error("æ‰“å¼€æ–‡ä»¶&æ­¤æ–‡ä»¶ä¸å­˜åœ¨ï¼") unless (-e "$imagesdir$usrdir/$inforum/$file");
      $filename = $file;
      $newformat = 0;
 } else {
      $tmptopic = $intopic%100;
      $file = "$tmptopic/$filename\.$fileext";
-     &error("´ò¿ªÎÄ¼ş&´ËÎÄ¼ş²»´æÔÚ£¡") unless (-e "$imagesdir$usrdir/$inforum/$file");
+     &error("æ‰“å¼€æ–‡ä»¶&æ­¤æ–‡ä»¶ä¸å­˜åœ¨ï¼") unless (-e "$imagesdir$usrdir/$inforum/$file");
      $filename = "$filename\.$fileext";
      $newformat = 1;
 }
@@ -145,10 +145,10 @@ if ($hidejf eq "yes"  && $pvtdown ne "no") {
     if ($post1 =~ /(\[hide\])(.+?)(\[\/hide\])/is) {
       if ($viewhide ne "1") {
       	    if ($newformat eq 0) {
-	        &error("ÆÕÍ¨´íÎó&ÓÉÓÚÄãÃ»ÓĞ»Ø¸´¹ıÕâ¸öÖ÷Ìâ£¬ËùÒÔÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡");
+	        &error("æ™®é€šé”™è¯¯&ç”±äºä½ æ²¡æœ‰å›å¤è¿‡è¿™ä¸ªä¸»é¢˜ï¼Œæ‰€ä»¥ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼");
 	    } else {
 		while ($post1 =~ /(\[hide\])(.+?)(\[\/hide\])/is) {
-		    &error("ÆÕÍ¨´íÎó&ÓÉÓÚÄãÃ»ÓĞ»Ø¸´¹ıÕâ¸öÖ÷Ìâ£¬ËùÒÔÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡") if ($2 =~ /$filename/);
+		    &error("æ™®é€šé”™è¯¯&ç”±äºä½ æ²¡æœ‰å›å¤è¿‡è¿™ä¸ªä¸»é¢˜ï¼Œæ‰€ä»¥ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼") if ($2 =~ /$filename/);
 		    $post1 =~ s/(\[hide\])(.+?)(\[\/hide\])//is;
 	    }
 	}
@@ -161,10 +161,10 @@ if ($postjf eq "yes" && $pvtdown ne "no") {
 	$viewusepost=$1;
         unless (($StartCheck >= $viewusepost)||($membercode eq "ad")||($membercode eq "smo")||($inmembmod eq "yes")||($poster eq $inmembername)){
       	    if ($newformat eq 0) {
-	        &error("ÆÕÍ¨´íÎó&ÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡ĞèÒª·¢Ìù´ïµ½$viewusepost£¬¶øÄãÖ»ÓĞ$StartCheck¡£");
+	        &error("æ™®é€šé”™è¯¯&ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼éœ€è¦å‘è´´è¾¾åˆ°$viewusepostï¼Œè€Œä½ åªæœ‰$StartCheckã€‚");
 	    } else {
 		while ($post1 =~ /\[post=(.+?)\](.+?)\[\/post\]/is) {
-		    &error("ÆÕÍ¨´íÎó&ÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡ĞèÒª·¢Ìù´ïµ½$viewusepost£¬¶øÄãÖ»ÓĞ$StartCheck¡£") if ($2 =~ /$filename/);
+		    &error("æ™®é€šé”™è¯¯&ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼éœ€è¦å‘è´´è¾¾åˆ°$viewusepostï¼Œè€Œä½ åªæœ‰$StartCheckã€‚") if ($2 =~ /$filename/);
 		    $post1 =~ s/\[post=(.+?)\](.+?)\[\/post\]//is;
 		}
 	    }
@@ -177,10 +177,10 @@ if ($jfmark eq "yes" && $pvtdown ne "no") {
 	$jfpost=$1;
         unless (($jfpost <= $jifen)||($membercode eq "ad")||($membercode eq "smo")||($inmembmod eq "yes")||($poster eq $inmembername)){
       	    if ($newformat eq 0) {
-	        &error("ÆÕÍ¨´íÎó&ÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡»ı·Ö±ØĞë´ïµ½ $jfpost£¬¶øÄãÖ»ÓĞ$jifen¡£");
+	        &error("æ™®é€šé”™è¯¯&ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼ç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpostï¼Œè€Œä½ åªæœ‰$jifenã€‚");
 	    } else {
 		while ($post1 =~ /\[jf=(.+?)\](.+?)\[\/jf\]/is) {
-		    &error("ÆÕÍ¨´íÎó&ÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡»ı·Ö±ØĞë´ïµ½ $jfpost£¬¶øÄãÖ»ÓĞ$jifen¡£") if ($2 =~ /$filename/);
+		    &error("æ™®é€šé”™è¯¯&ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼ç§¯åˆ†å¿…é¡»è¾¾åˆ° $jfpostï¼Œè€Œä½ åªæœ‰$jifenã€‚") if ($2 =~ /$filename/);
 		    $post1 =~ s/\[jf=(.+?)\](.+?)\[\/jf\]//is;
 		}
 	    }
@@ -191,7 +191,7 @@ if ($jfmark eq "yes" && $pvtdown ne "no") {
 if ($wwjf ne "no" && $pvtdown ne "no") {
     if ($post1=~/LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
         unless (($inmembername eq $poster)||($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")|| ($rating >= $1) ) {
-            &error("ÆÕÍ¨´íÎó&ÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡ĞèÒªÍşÍû$1£¬¶øÄãÖ»ÓĞ$rating¡£")
+            &error("æ™®é€šé”™è¯¯&ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼éœ€è¦å¨æœ›$1ï¼Œè€Œä½ åªæœ‰$ratingã€‚")
 	}
     }
 }
@@ -213,7 +213,7 @@ if ($wwjf ne "no" && $pvtdown ne "no") {
 		$isbuyer="yes" if ($allbuyer =~ /\t$inmembername\t/i);
             }
             unless (($inmembername eq $poster)||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")||($isbuyer eq "yes")) {
-                &error("ÆÕÍ¨´íÎó&ÒòÎªÄãÃ»ÓĞ¹ºÂò£¬ËùÒÔÄãÎŞÈ¨ÏÂÔØÕâ¸ö¼ÓÃÜ¸½¼ş£¡");
+                &error("æ™®é€šé”™è¯¯&å› ä¸ºä½ æ²¡æœ‰è´­ä¹°ï¼Œæ‰€ä»¥ä½ æ— æƒä¸‹è½½è¿™ä¸ªåŠ å¯†é™„ä»¶ï¼");
 	    }
 	}
     }
@@ -231,9 +231,9 @@ $file = "$imagesdir$usrdir/$inforum/$file";
     if ($picwater eq "yes") {
     	$picwaterman = 1 if ($picwaterman eq "");
 
-        if    ($picwaterman eq "0") { $picwater = "no" if ($inmembername ne '¿ÍÈË'); }
-        elsif ($picwaterman eq "1") { $picwater = "no" if ($inmembername ne '¿ÍÈË' && $membercode ne "me"); }
-        elsif ($picwaterman eq "2") { $picwater = "no" if ($inmembername ne '¿ÍÈË' && $membercode ne "me" && $membercode !~ /^rz/);  }
+        if    ($picwaterman eq "0") { $picwater = "no" if ($inmembername ne 'å®¢äºº'); }
+        elsif ($picwaterman eq "1") { $picwater = "no" if ($inmembername ne 'å®¢äºº' && $membercode ne "me"); }
+        elsif ($picwaterman eq "2") { $picwater = "no" if ($inmembername ne 'å®¢äºº' && $membercode ne "me" && $membercode !~ /^rz/);  }
         elsif ($picwaterman eq "3") { $picwater = "no" if ($membercode eq "ad" || $membercode eq "smo"); }
         elsif ($picwaterman eq "4") { $picwater = "no" if ($membercode eq "ad"); }
     }
@@ -288,26 +288,26 @@ if ($waterpic eq "") {
 	my $txt1 = $image->colorAllocate(255,255,255);
 	my $txt2 = $image->colorAllocate(0,0,0);
 	
-	if ($imheight > 40 && $imwidth > 200) {  # Ğ¡ÓÚ 200*40 µÄÍ¼Æ¬²»¼ÓË®Ó¡
-	    if ($picwaterplace1 eq "yes") { # ×óÉÏ½Ç
+	if ($imheight > 40 && $imwidth > 200) {  # å°äº 200*40 çš„å›¾ç‰‡ä¸åŠ æ°´å°
+	    if ($picwaterplace1 eq "yes") { # å·¦ä¸Šè§’
 	        $image->string($font, 10, 11, $watername, $txt2);
 	        $image->string($font, 11, 11, $watername, $txt2);
 	        $image->string($font, 9, 10, $watername, $txt1);
 	        $image->string($font, 10, 10, $watername, $txt1);
 	    }
-	    if ($picwaterplace2 eq "yes") { # ×óÏÂ½Ç
+	    if ($picwaterplace2 eq "yes") { # å·¦ä¸‹è§’
 	        $image->string($font, 10, $imheight - 20 + 1, $watername, $txt2);
 	        $image->string($font, 11, $imheight - 20 + 1, $watername, $txt2);
 	        $image->string($font, 9, $imheight - 20, $watername, $txt1);
 	        $image->string($font, 10, $imheight - 20, $watername, $txt1);
 	    }
-	    if ($picwaterplace3 eq "yes") { # ÓÒÉÏ½Ç
+	    if ($picwaterplace3 eq "yes") { # å³ä¸Šè§’
 	        $image->string($font, $imwidth - $fontwidth - 9 + 1, 11, $watername, $txt2);
 	        $image->string($font, $imwidth - $fontwidth - 10 + 1, 11, $watername, $txt2);
 	        $image->string($font, $imwidth - $fontwidth - 9, 10, $watername, $txt1);
 	        $image->string($font, $imwidth - $fontwidth - 10, 10, $watername, $txt1);
 	    }
-	    if ($picwaterplace4 eq "yes") { # ÓÒÏÂ½Ç
+	    if ($picwaterplace4 eq "yes") { # å³ä¸‹è§’
 	        $image->string($font, $imwidth - $fontwidth - 9 + 1, $imheight - 20 + 1, $watername, $txt2);
 	        $image->string($font, $imwidth - $fontwidth - 10 + 1, $imheight - 20 + 1, $watername, $txt2);
 	        $image->string($font, $imwidth - $fontwidth - 9, $imheight - 20, $watername, $txt1);
@@ -320,13 +320,13 @@ eval { $image1 = GD::Image->newFromPng("${imagesdir}myimages/$waterpic", 1); };
 $image1 = GD::Image->newFromPng("${imagesdir}myimages/$waterpic") if ($@);
 
 
-my ($width,$height) = $image1->getBounds ();# µÃµ½Ë®Ó¡logoÍ¼³ß´ç
-$image1->transparent ($image1->colorAllocate (0,0,0));# µÃ³öºÚÉ«ÒÔ¼°ÉèlogoµÄºÚÉ«ÎªÍ¸Ã÷
+my ($width,$height) = $image1->getBounds ();# å¾—åˆ°æ°´å°logoå›¾å°ºå¯¸
+$image1->transparent ($image1->colorAllocate (0,0,0));# å¾—å‡ºé»‘è‰²ä»¥åŠè®¾logoçš„é»‘è‰²ä¸ºé€æ˜
 
-my ($imwidth, $imheight) = $image->getBounds ();# µÃµ½Ö÷Í¼µÄ³ß´ç
+my ($imwidth, $imheight) = $image->getBounds ();# å¾—åˆ°ä¸»å›¾çš„å°ºå¯¸
 my ($zwidth, $zheight);
 
-# Èç¹ûÖ÷Í¼¿í´óÓÚlogo¿í2±¶£¬¸ß´óÓÚlogo¸ß2±¶£¬Ôò¼ÓË®Ó¡
+# å¦‚æœä¸»å›¾å®½å¤§äºlogoå®½2å€ï¼Œé«˜å¤§äºlogoé«˜2å€ï¼Œåˆ™åŠ æ°´å°
 if (((int ($imwidth / 2)) > $width) && ((int ($imheight / 2)) > $height))
 {
    if ($picwaterplace1 eq 'yes' || $picwaterplace3 eq 'yes')

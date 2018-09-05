@@ -1,8 +1,8 @@
 # EbankMX For LB5000XP is Powered By 94Cool.Net BigJim
 $bankopen = "on";
-$bankname = "À×°Á³¬¼¶ÂÛÌ³ÒøĞĞ";
-$bankmanager = "ËùÓĞÌ³Ö÷";
-$bankmessage = "À×°Á³¬¼¶ÂÛÌ³ÒøĞĞ¸ĞĞ»ÄúµÄ»İ¹Ë£¡±¾ĞĞ²ÆÁ¦ĞÛºñ£¬¾öÎŞµ¹±ÕÖ®ÓÇ£¬¾´Çë·ÅĞÄ¡£";
+$bankname = "é›·å‚²è¶…çº§è®ºå›é“¶è¡Œ";
+$bankmanager = "æ‰€æœ‰å›ä¸»";
+$bankmessage = "é›·å‚²è¶…çº§è®ºå›é“¶è¡Œæ„Ÿè°¢æ‚¨çš„æƒ é¡¾ï¼æœ¬è¡Œè´¢åŠ›é›„åšï¼Œå†³æ— å€’é—­ä¹‹å¿§ï¼Œæ•¬è¯·æ”¾å¿ƒã€‚";
 $banksaverate = 0.0088;
 $bankrateuse = "meili";
 $banktransneed = 1000;

@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -73,13 +73,13 @@ if ($action eq "process") {#1
 
             print qq~
                 <tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Í³¼ÆÂÛÌ³Õ¼ÓÃ¿Õ¼ä</b>
+		<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç»Ÿè®¡è®ºå›å ç”¨ç©ºé—´</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle colspan=2>
 		<br><br><br>
 		<table width=85% align=center cellspacing=0 cellpadding=0 border=0>
-		<tr><td><B><font color=blue>cgi-bin Õ¼ÓÃ¿Õ¼ä£º</B></td><td><b><font color=blue>&nbsp;$tsize $lbsd</b></td><td><b><font color=blue>($osize ×Ö½Ú)</b></td></tr>
+		<tr><td><B><font color=blue>cgi-bin å ç”¨ç©ºé—´ï¼š</B></td><td><b><font color=blue>&nbsp;$tsize $lbsd</b></td><td><b><font color=blue>($osize å­—èŠ‚)</b></td></tr>
 		~;
 				$tsize = 0;
 		find(\&countsize,"${lbdir}$memdir");
@@ -101,7 +101,7 @@ if ($action eq "process") {#1
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÓÃ»§¿âÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- ç”¨æˆ·åº“å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 				$tsize = 0;
 
 		find(\&countsize,"${lbdir}data");
@@ -123,7 +123,7 @@ if ($action eq "process") {#1
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- Êı¾İÎÄ¼şÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- æ•°æ®æ–‡ä»¶å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 				$tsize = 0;
 		find(\&countsize,"${lbdir}help");
                 $lbsd = 'Bytes';
@@ -144,7 +144,7 @@ if ($action eq "process") {#1
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- °ïÖúÎÄ¼şÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- å¸®åŠ©æ–‡ä»¶å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 				$tsize = 0;
 
 opendir (DIRS, "$lbdir");
@@ -173,7 +173,7 @@ $memfavdir = $memfavdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÓÃ»§¸öÈËÊÕ²ØÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- ç”¨æˆ·ä¸ªäººæ”¶è—å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 				$tsize = 0;
 		find(\&countsize,"${lbdir}boarddata");
                 $lbsd = 'Bytes';
@@ -194,7 +194,7 @@ $memfavdir = $memfavdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÂÛÌ³ÖØÒªÊı¾İÄ¿Â¼Õ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- è®ºå›é‡è¦æ•°æ®ç›®å½•å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 				$tsize = 0;
 		find(\&countsize,"${lbdir}lock");
                 $lbsd = 'Bytes';
@@ -215,7 +215,7 @@ $memfavdir = $memfavdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÂÛÌ³Ëø¶¨ÎÄ¼şÄ¿Â¼Õ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- è®ºå›é”å®šæ–‡ä»¶ç›®å½•å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 				$tsize = 0;
 
 		find(\&countsize,"${lbdir}memfriend");
@@ -237,7 +237,7 @@ $memfavdir = $memfavdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÓÃ»§ºÃÓÑÁĞ±íÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- ç”¨æˆ·å¥½å‹åˆ—è¡¨å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 
 		$tsize = 0;
 		find(\&countsize,"${lbdir}$msgdir");
@@ -259,7 +259,7 @@ $memfavdir = $memfavdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÓÃ»§¶ÌÏûÏ¢Õ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- ç”¨æˆ·çŸ­æ¶ˆæ¯å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 
 		$tsize = 0;
 
@@ -289,7 +289,7 @@ $searchdir = $searchdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ËÑË÷¼ÇÂ¼Õ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- æœç´¢è®°å½•å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 
 		open(FILE,"<${lbdir}data/allforums.cgi");
 		@forumslist = <FILE>;
@@ -342,7 +342,7 @@ $searchdir = $searchdir[0];
 	                while(($temp,$cforumname)=each %$hashname){
 	                	($no,$cforumname,$cshowsize,$cosize) = split(/\t/,$forumsizes{$temp});
 				$tsize += $cosize;
-	                	$output{$tforumno} .= "<tr><td>|¡¡|¡¡|¡¡|- $cforumname</td><td>$cshowsize</td><td><font color=blue>($cosize ×Ö½Ú)</td></tr>\n";
+	                	$output{$tforumno} .= "<tr><td>|ã€€|ã€€|ã€€|- $cforumname</td><td>$cshowsize</td><td><font color=blue>($cosize å­—èŠ‚)</td></tr>\n";
 	                }
 			}
 			@forumids = keys %$pointer;
@@ -369,9 +369,7 @@ $searchdir = $searchdir[0];
 	                $tsize = sprintf("%6.2f",$tsize);
 	                $tsize =~ s/\s//g;
 
-	                $output .= "<tr><td>|£ |- <font color=blue>$typename</td><td><font color=blue>&nbsp;$tsize $lbsd</td><td><font color=blue>($osize ×Ö½Ú)</td></tr>\n";
-	                foreach(@forumsizes{@forumids}) {
-	                	($tforumno,$forumname,$showsize,$osize) = split(/\t/);
+	                $output .= "<tr><td>|           	($tforumno,$forumname,$showsize,$osize) = split(/\t/);
 	                	$output .= "<tr><td>|£ |£ |- $forumname</td><td>$showsize</td><Td>($osize ×Ö½Ú)</td><tr>\n$output{$tforumno}";
 	                }
 	        }

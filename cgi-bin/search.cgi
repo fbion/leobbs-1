@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -44,10 +44,10 @@ for ('TYPE_OF_SEARCH','NAME_SEARCH','POST_SEARCH','FORUMS_TO_SEARCH','action', '
     ${$_} = $tp;
 }
 
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($forum) && ($forum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($forum) && ($forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($CUR_TIME) && ($CUR_TIME !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($CUR_TIME) && ($CUR_TIME !~ /^[0-9]+$/));
 $SEARCH_STRING =~ s/^system //g;
 $SEARCH_STRING = &stripMETA($SEARCH_STRING);
 
@@ -57,9 +57,9 @@ if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie");   }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")) {
-    $inmembername = "¿ÍÈË";
-    $filename = "¿ÍÈË$ipaddress";
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")) {
+    $inmembername = "å®¢äºº";
+    $filename = "å®¢äºº$ipaddress";
     $filename =~ s/\.//g;
 }
 else {
@@ -68,14 +68,14 @@ else {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-    if ($userregistered eq "no") { &error("ÂÛÌ³ËÑË÷&Äã»¹Ã»×¢²áÄØ£¡"); }
+    if ($userregistered eq "no") { &error("è®ºå›æœç´¢&ä½ è¿˜æ²¡æ³¨å†Œå‘¢ï¼"); }
     $filename = $inmembername;
 }
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
@@ -86,16 +86,16 @@ closedir (DIRS);
 my @searchdir = grep(/^search/i, @files);
 $searchdir = $searchdir[0];
 
-if ($searchopen eq "99") {&error("ËÑË÷&ËÑË÷¹¦ÄÜÒÑ¾­±»¹Ø±Õ£¡");}
+if ($searchopen eq "99") {&error("æœç´¢&æœç´¢åŠŸèƒ½å·²ç»è¢«å…³é—­ï¼");}
 
 if (($searchopen ne "")&&($searchopen ne "0")) {
     if (($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")){
-        if (($membercode eq "masked")||($membercode eq "banned")) {&error("ËÑË÷&ËÑË÷¹¦ÄÜÖ»ÔÊĞíÆÕÍ¨»áÔ±Ê¹ÓÃ"); }
-        if (($searchopen eq 1)&&($inmembername eq "¿ÍÈË")) {&error("ËÑË÷&ËÑË÷¹¦ÄÜÖ»ÔÊĞí×¢²á»áÔ±Ê¹ÓÃ£¬Çë×¢²á£¡"); }
-        if ($searchopen eq 2) {if ($membercode !~ /^rz/) {&error("ËÑË÷&ËÑË÷¹¦ÄÜÖ»ÔÊĞíÈÏÖ¤»áÔ±»òÒÔÉÏ¼¶±ğÊ¹ÓÃ£¡");}}
-        if ($searchopen eq 3) {&error("ËÑË÷&ËÑË÷¹¦ÄÜÖ»ÔÊĞí°æÖ÷»òÒÔÉÏ¼¶±ğÊ¹ÓÃ£¡");}
+        if (($membercode eq "masked")||($membercode eq "banned")) {&error("æœç´¢&æœç´¢åŠŸèƒ½åªå…è®¸æ™®é€šä¼šå‘˜ä½¿ç”¨"); }
+        if (($searchopen eq 1)&&($inmembername eq "å®¢äºº")) {&error("æœç´¢&æœç´¢åŠŸèƒ½åªå…è®¸æ³¨å†Œä¼šå‘˜ä½¿ç”¨ï¼Œè¯·æ³¨å†Œï¼"); }
+        if ($searchopen eq 2) {if ($membercode !~ /^rz/) {&error("æœç´¢&æœç´¢åŠŸèƒ½åªå…è®¸è®¤è¯ä¼šå‘˜æˆ–ä»¥ä¸Šçº§åˆ«ä½¿ç”¨ï¼");}}
+        if ($searchopen eq 3) {&error("æœç´¢&æœç´¢åŠŸèƒ½åªå…è®¸ç‰ˆä¸»æˆ–ä»¥ä¸Šçº§åˆ«ä½¿ç”¨ï¼");}
     }
-    if (($searchopen eq 4)&&($membercode ne "ad")) {&error("ËÑË÷&ËÑË÷¹¦ÄÜÄ¿Ç°Ö»ÔÊĞíÌ³Ö÷Ê¹ÓÃ£¡");}
+    if (($searchopen eq 4)&&($membercode ne "ad")) {&error("æœç´¢&æœç´¢åŠŸèƒ½ç›®å‰åªå…è®¸å›ä¸»ä½¿ç”¨ï¼");}
 }
 
 $filename =~ y/ /_/;
@@ -105,7 +105,7 @@ $searchfilename = "$lbdir" . "$searchdir/$filename\_sch.cgi";
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&mischeader("Ìù×ÓËÑË÷");
+&mischeader("è´´å­æœç´¢");
 
 $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -115,11 +115,11 @@ $output .= qq~<p>
 ~;
 
 if ($action eq "") {
-    &ipbanned; #·âÉ±Ò»Ğ© ip
+    &ipbanned; #å°æ€ä¸€äº› ip
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-	&whosonline("$inmembername\tËÑË÷\tboth\tËÑË÷·ûºÏÒªÇóµÄÌù×Ó\t");
+	&whosonline("$inmembername\tæœç´¢\tboth\tæœç´¢ç¬¦åˆè¦æ±‚çš„è´´å­\t");
     }
     opendir(DIR, "${lbdir}$searchdir");
     my @dirdata = readdir(DIR);
@@ -133,30 +133,30 @@ if ($action eq "") {
 }
 
 if ($action eq "saveresults") {
-    if ($inmembername eq "¿ÍÈË") { &error("±£´æËÑË÷½á¹û&¿ÍÈË²»ÄÜ±£´æËÑË÷½á¹û£¡"); }
+    if ($inmembername eq "å®¢äºº") { &error("ä¿å­˜æœç´¢ç»“æœ&å®¢äººä¸èƒ½ä¿å­˜æœç´¢ç»“æœï¼"); }
     $filename = $inmembername;
     $filename =~ y/ /_/;
     $filename =~ tr/A-Z/a-z/;
     copy ("${lbdir}$searchdir/$filename\_sch.cgi","${lbdir}$searchdir/$filename\_sav.cgi");
-    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ËÑË÷½á¹û±£´æ³É¹¦</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>¾ßÌåÇé¿ö£º
-<ul><li><a href="$boardurl/$thisprog?action=display">·µ»Øµ±Ç°ËÑË÷½á¹û</a>
-<li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a>
-<li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æœç´¢ç»“æœä¿å­˜æˆåŠŸ</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å…·ä½“æƒ…å†µï¼š
+<ul><li><a href="$boardurl/$thisprog?action=display">è¿”å›å½“å‰æœç´¢ç»“æœ</a>
+<li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a>
+<li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=display">
 ~;
-    &output("$boardname - Ìù×ÓËÑË÷",\$output);
+    &output("$boardname - è´´å­æœç´¢",\$output);
 }
 
 elsif ($action eq "loadresults") {
-    if ($inmembername eq "¿ÍÈË") { &error("µ÷ÈëËÑË÷½á¹û&¿ÍÈËÎŞ·¨µ÷ÈëËÑË÷½á¹û£¡"); }
+    if ($inmembername eq "å®¢äºº") { &error("è°ƒå…¥æœç´¢ç»“æœ&å®¢äººæ— æ³•è°ƒå…¥æœç´¢ç»“æœï¼"); }
     $filename = $inmembername;
     $filename =~ y/ /_/;
     $filename =~ tr/A-Z/a-z/;
     $savefilename = "${lbdir}$searchdir/$filename\_sav.cgi";
-    open (READ, "$savefilename") or &error("µ÷ÈëËÑË÷½á¹û&Äã»¹Ã»ÓĞ±£´æ¹ıËÑË÷½á¹û£¡");
+    open (READ, "$savefilename") or &error("è°ƒå…¥æœç´¢ç»“æœ&ä½ è¿˜æ²¡æœ‰ä¿å­˜è¿‡æœç´¢ç»“æœï¼");
     copy ("${lbdir}$searchdir/$filename\_sav.cgi","${lbdir}$searchdir/$filename\_sch.cgi") if (!-e "${lbdir}$searchdir/$filename_sch.cgi");
     $output.=qq~<meta http-equiv="refresh" content="0; url=$thisprog?action=display">~;
 }
@@ -182,9 +182,9 @@ elsif ($action eq "startsearch") {
     }else{
     @FORUMS_TO_SEARCH = $query->param("FORUMS_TO_SEARCH");
     $FORUMS_TO_SEARCH = @FORUMS_TO_SEARCH;
-    &error("ËÑË÷&ÇëÖÁÉÙÑ¡ÔñÒ»¸öÒªËÑË÷µÄÂÛÌ³£¡") if ($FORUMS_TO_SEARCH <= 0);
+    &error("æœç´¢&è¯·è‡³å°‘é€‰æ‹©ä¸€ä¸ªè¦æœç´¢çš„è®ºå›ï¼") if ($FORUMS_TO_SEARCH <= 0);
     }
-    &error("ËÑË÷&ÇëÖÁÉÙÊäÈëÒ»¸ö¹Ø¼ü×Ö£¡") if ($SEARCH_STRING eq "");
+    &error("æœç´¢&è¯·è‡³å°‘è¾“å…¥ä¸€ä¸ªå…³é”®å­—ï¼") if ($SEARCH_STRING eq "");
     if ($TYPE_OF_SEARCH eq "username_search") {
         $REFINE_SEARCH = "$NAME_SEARCH";
     }
@@ -216,12 +216,12 @@ elsif ($action eq "startsearch") {
     $relocurl = "$thisprog?action=continue";
         
     $output .= qq~<tr>
-<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>ËÑË÷ÖĞ....</b></font></td></tr>
+<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>æœç´¢ä¸­....</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-ÇëµÈ´ı³ÌĞòÍê³ÉËÑË÷¡£<br>
-<b>µ±Ç°ËÑË÷Çé¿ö£º</b>
+è¯·ç­‰å¾…ç¨‹åºå®Œæˆæœç´¢ã€‚<br>
+<b>å½“å‰æœç´¢æƒ…å†µï¼š</b>
 <ul>
-<li>ËÑË÷Çé¿ö....
+<li>æœç´¢æƒ…å†µ....
 </ul>
 </tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
@@ -296,7 +296,7 @@ elsif ($action eq "continue") {
 	foreach $topic (@topics) { # start topic foreach
             chomp $topic;
             ($topicid, $topictitle, $startedby,$startedpostdate) = split(/\t/,$topic);
-	    $topictitle =~ s/^£ª£££¡£¦£ª//;
+	    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 if($DAY_TO_SEARCH ne "any"){
 if($TIME_TO_SEARCH eq "b"){
 next if(time-$startedpostdate < (86400*$DAY_TO_SEARCH));
@@ -309,7 +309,7 @@ next if(time-$startedpostdate > (86400*$DAY_TO_SEARCH));
                 if ($REFINE_SEARCH eq "both_search" || $REFINE_SEARCH eq "topictitle_search") {
                     foreach (@KEYWORDS) {
                         if (($topictitle =~ m|$_|gi)  and ("$lida" ne "$topicid")) {
-                            $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$startedpostdate\tÕÒµ½¹Ø¼ü×Ö£º <B>$_</B>");
+                            $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$startedpostdate\tæ‰¾åˆ°å…³é”®å­—ï¼š <B>$_</B>");
                             push (@founditems, $founditem);
                             $lida = $topicid;
                         }
@@ -326,7 +326,7 @@ next if(time-$startedpostdate > (86400*$DAY_TO_SEARCH));
                         ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post, $posticon,$topicvalue,$water) = split(/\t/,$_);
                         foreach (@KEYWORDS) {
                             if (($post =~ m|$_|gi) and ("$lida" ne "$topicid")) {
-                                $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$postdate\tÕÒµ½ <B>$_</B> ´¦");
+                                $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$postdate\tæ‰¾åˆ° <B>$_</B> å¤„");
                                 push (@founditems, $founditem);
                                 $lida = $topicid;
                             }
@@ -338,7 +338,7 @@ next if(time-$startedpostdate > (86400*$DAY_TO_SEARCH));
                 if ($REFINE_SEARCH eq "both_search" || $REFINE_SEARCH eq "topictitle_search") {
                     foreach (@KEYWORDS) {
                         if (($startedby =~ m|$_|gi) and ("$lidc" ne "$topicid")) {
-                            $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$startedpostdate\tÖ÷Ìâ×÷Õß£º <B>$_</B>");
+                            $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$startedpostdate\tä¸»é¢˜ä½œè€…ï¼š <B>$_</B>");
                             push (@founditems, $founditem);
                             $lidc = $topicid;
                         }
@@ -357,7 +357,7 @@ next if(time-$startedpostdate > (86400*$DAY_TO_SEARCH));
                         ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post, $posticon,$topicvalue,$water) = split(/\t/,$_);
                         foreach (@KEYWORDS) {
                             if (($membername =~ m|$_|gi) and ($lidc != $topicid)) { # s 'if' n1
-                                $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$postdate\t»Ø¸´ÈË£º <B>$membername</B>");
+                                $founditem = ("$forumid\t$topicid\t$topictitle\t$topicdescription\t$forumname\t$postdate\tå›å¤äººï¼š <B>$membername</B>");
                                 push (@founditems, $founditem);
                                 $lidc = $topicid;
                             }
@@ -390,20 +390,20 @@ next if(time-$startedpostdate > (86400*$DAY_TO_SEARCH));
         $relocurl = "$thisprog?action=display";
     }
 
-    if (!$matches_in_forum) { $matches_in_forum = "´¦ÀíÖĞ..."; }
-                       else { $matches_in_forums = " ´Î" if ($matches_in_forum); }
+    if (!$matches_in_forum) { $matches_in_forum = "å¤„ç†ä¸­..."; }
+                       else { $matches_in_forums = " æ¬¡" if ($matches_in_forum); }
 
-    $matches_so_far   = "´¦ÀíÖĞ..." if (!$matches_so_far);
-    $forumname        = "´¦ÀíÖĞ..." if (!$forumname);
+    $matches_so_far   = "å¤„ç†ä¸­..." if (!$matches_so_far);
+    $forumname        = "å¤„ç†ä¸­..." if (!$forumname);
 
-    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>ËÑË÷ÖĞ....</b></font></td></tr>
+    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>æœç´¢ä¸­....</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
-ÇëµÈ´ı£¬³ÌĞòÕıÔÚËÑË÷ÖĞ¡£<br><b>µ±Ç°ËÑË÷Çé¿ö£º</b>
-<ul><li>ÏêÏ¸Çé¿ö....<BR>
-<li>ËÑË÷ÂÛÌ³£º <b>$forumname</b>
-<li>ËÑË÷½á¹û£º <b>$matches_so_far</b>
-<li>Æ¥Åä·ûºÏ£º <b>$matches_in_forum</b>$matches_in_forums
-</ul><center><a href=$thisprog?action=display><b>>> Í£ Ö¹ ËÑ Ë÷ <<</b></a></center>
+è¯·ç­‰å¾…ï¼Œç¨‹åºæ­£åœ¨æœç´¢ä¸­ã€‚<br><b>å½“å‰æœç´¢æƒ…å†µï¼š</b>
+<ul><li>è¯¦ç»†æƒ…å†µ....<BR>
+<li>æœç´¢è®ºå›ï¼š <b>$forumname</b>
+<li>æœç´¢ç»“æœï¼š <b>$matches_so_far</b>
+<li>åŒ¹é…ç¬¦åˆï¼š <b>$matches_in_forum</b>$matches_in_forums
+</ul><center><a href=$thisprog?action=display><b>>> åœ æ­¢ æœ ç´¢ <<</b></a></center>
 </tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="1; url=$relocurl">
@@ -439,15 +439,15 @@ else {
     	chomp $_;
         (my $categoryplace,my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forumpass, my $hiddenforum, my $indexforum,my $teamlogo,my $teamurl,my $fgwidth,my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/,$_);
         $categoryplace  = sprintf("%01d",$categoryplace);
-            $child=($category =~/^childforum-[0-9]+/)?"¡¡|":"";
-            if ($hiddenforum eq "yes"){ $hidden="(Òşº¬)"; }else{ $hidden=""; } 
+            $child=($category =~/^childforum-[0-9]+/)?"ã€€|":"";
+            if ($hiddenforum eq "yes"){ $hidden="(éšå«)"; }else{ $hidden=""; } 
             if ($categoryplace ne $lastcategoryplace) {
-                $jumphtml .= "<option value=\"\" style=background-color:$titlecolor>©ï$category\n</option>";
+                $jumphtml .= "<option value=\"\" style=background-color:$titlecolor>â•‹$category\n</option>";
                 $jumphtml2 .= qq(<input type="radio" name="CAT_TO_SEARCH" value="cat$categoryplace">$category<BR>);
-                $jumphtml .= "<option value=\"$forumid\">$child¡¡|- $forumname$hidden\n</option>" if ($hidden eq "" || $membercode eq "ad");
+                $jumphtml .= "<option value=\"$forumid\">$childã€€|- $forumname$hidden\n</option>" if ($hidden eq "" || $membercode eq "ad");
             }
             else {
-                $jumphtml .= "<option value=\"$forumid\">$child¡¡|- $forumname$hidden\n</option>" if ($hidden eq "" || $membercode eq "ad");
+                $jumphtml .= "<option value=\"$forumid\">$childã€€|- $forumname$hidden\n</option>" if ($hidden eq "" || $membercode eq "ad");
             }
         $lastcategoryplace = $categoryplace;
     }
@@ -459,66 +459,66 @@ else {
 <input type=hidden name="action" value="startsearch">
 <input type=hidden name="CUR_TIME" value="$currenttime">
 <input type=hidden name="JH_SEARCH" value="no">
-<font face="$font" color=$fontcolormisc>$ssboom<b>ÇëÊäÈëÒªËÑË÷µÄ¹Ø¼ü×Ö</b></font></td></tr>
+<font face="$font" color=$fontcolormisc>$ssboom<b>è¯·è¾“å…¥è¦æœç´¢çš„å…³é”®å­—</b></font></td></tr>
 <tr><td bgcolor=$miscbackone width colspan=2 align="center" valign="middle"><font face="$font" color=$fontcolormisc>
-(¶à¸ö¹Ø¼ü×ÖÖ®¼äÊ¹ÓÃ¶ººÅ ',' ·Ö¸ô£¬¹Ø¼ü×ÖÖĞ²»ÒªÊ¹ÓÃ # \$ < > ( ) { } & ; | * ? ÕâĞ©ÌØÊâ·ûºÅ)</font><br><br>
+(å¤šä¸ªå…³é”®å­—ä¹‹é—´ä½¿ç”¨é€—å· ',' åˆ†éš”ï¼Œå…³é”®å­—ä¸­ä¸è¦ä½¿ç”¨ # \$ < > ( ) { } & ; | * ? è¿™äº›ç‰¹æ®Šç¬¦å·)</font><br><br>
 <input type=text size=40 name="SEARCH_STRING"></td></tr>
-<tr><td bgcolor="$miscbacktwo" valign=middle colspan=2 align=center><font face="$font" color=$fontcolormisc><b>ËÑË÷Ñ¡Ïî</b></font></td></tr>
+<tr><td bgcolor="$miscbacktwo" valign=middle colspan=2 align=center><font face="$font" color=$fontcolormisc><b>æœç´¢é€‰é¡¹</b></font></td></tr>
 <tr><td bgcolor="$miscbackone" align="right" valign="middle"><font face="$font" color=$fontcolormisc>
-<b>×÷ÕßËÑË÷</b></font>&nbsp;<input name="TYPE_OF_SEARCH" type="radio" class=1 value="username_search"></td>
+<b>ä½œè€…æœç´¢</b></font>&nbsp;<input name="TYPE_OF_SEARCH" type="radio" class=1 value="username_search"></td>
 <td bgcolor="$miscbackone" align="left" valign="middle">
 <select name="NAME_SEARCH">
-<option value="topictitle_search">ËÑË÷Ö÷Ìâ×÷Õß
+<option value="topictitle_search">æœç´¢ä¸»é¢˜ä½œè€…
 ~;
 $output .= qq~
-<option value="post_search">ËÑË÷»Ø¸´×÷Õß
-<option value="both_search">Á½Õß¶¼ËÑË÷
+<option value="post_search">æœç´¢å›å¤ä½œè€…
+<option value="both_search">ä¸¤è€…éƒ½æœç´¢
 ~ if ($searchall ne "no" || $membercode eq "ad");
 $output .= qq~
 </select>
 </td></tr>
 <tr><td bgcolor="$miscbackone" align="right" valign="middle"><font face="$font" color=$fontcolormisc>
-<b>¹Ø¼ü×ÖËÑË÷</b></font>&nbsp;<input name="TYPE_OF_SEARCH" type="radio" class=1 value="keyword_search" checked></td>
+<b>å…³é”®å­—æœç´¢</b></font>&nbsp;<input name="TYPE_OF_SEARCH" type="radio" class=1 value="keyword_search" checked></td>
 <td bgcolor="$miscbackone" align="left" valign="middle">
 <select name="POST_SEARCH">
-<option value="topictitle_search">ÔÚÖ÷ÌâÖĞËÑË÷¹Ø¼ü×Ö
+<option value="topictitle_search">åœ¨ä¸»é¢˜ä¸­æœç´¢å…³é”®å­—
 ~;
 $output .= qq~
-<option value="post_search">ÔÚÌù×ÓÄÚÈİÖĞËÑË÷¹Ø¼ü×Ö
-<option value="both_search">ÔÚÖ÷ÌâºÍÌù×ÓÄÚÈİÖĞËÑË÷¹Ø¼ü×Ö
+<option value="post_search">åœ¨è´´å­å†…å®¹ä¸­æœç´¢å…³é”®å­—
+<option value="both_search">åœ¨ä¸»é¢˜å’Œè´´å­å†…å®¹ä¸­æœç´¢å…³é”®å­—
 ~ if ($searchall ne "no" || $membercode eq "ad");
 $output .= qq~
 </select>
 </td></tr>
 <tr><td bgcolor="$miscbackone" align="right" valign="middle"><font face="$font" color=$fontcolormisc>
-<b>ËÑÑ°ÈÕÆÚ</b></font></td>
-<td bgcolor="$miscbackone" align="left" valign="middle">×Ô
-<select name="SEARCH_DAY"><option value="any" selected>ÈÎºÎÈÕÆÚ<option value="1">  1 Ìì<option value ="7"> 1 ÖÜ<option value = "14"> 2 ÖÜ<option value="30"> 1 ¸öÔÂ<option value="90"> 3 ¸öÔÂ<option value="180"> 6 ¸öÔÂ<option value="365"> 1 Äê</select>
-<select name="SEARCH_TIME"><option value="b" selected>Ö®Ç°<option value="f">Ö®ºó</select>
+<b>æœå¯»æ—¥æœŸ</b></font></td>
+<td bgcolor="$miscbackone" align="left" valign="middle">è‡ª
+<select name="SEARCH_DAY"><option value="any" selected>ä»»ä½•æ—¥æœŸ<option value="1">  1 å¤©<option value ="7"> 1 å‘¨<option value = "14"> 2 å‘¨<option value="30"> 1 ä¸ªæœˆ<option value="90"> 3 ä¸ªæœˆ<option value="180"> 6 ä¸ªæœˆ<option value="365"> 1 å¹´</select>
+<select name="SEARCH_TIME"><option value="b" selected>ä¹‹å‰<option value="f">ä¹‹å</select>
 </td></tr>
 <tr><td bgcolor="$miscbackone" align="right" valign="middle"><font face="$font" color=$fontcolormisc>
-<b>ÇëÑ¡ÔñÒªËÑË÷µÄÂÛÌ³»ò·ÖÀà</b></font></td>
+<b>è¯·é€‰æ‹©è¦æœç´¢çš„è®ºå›æˆ–åˆ†ç±»</b></font></td>
 <td bgcolor="$miscbackone" align="left" valign="middle">
-<input type="radio" name="CAT_TO_SEARCH" value="all"$Seleced[0]>ËùÓĞÂÛÌ³<BR>$jumphtml2
+<input type="radio" name="CAT_TO_SEARCH" value="all"$Seleced[0]>æ‰€æœ‰è®ºå›<BR>$jumphtml2
 </td></tr>
 <tr><td bgcolor="$miscbackone" align="right" valign="middle"><font face="$font" color=$fontcolormisc>
-<input type="radio" name="CAT_TO_SEARCH" value="select"$Seleced[1] checked><b>×ÔÑ¡ÂÛÌ³</b><br>°´ Ctrl ¼ü¶àÑ¡,·ÖÀàÎŞĞ§</font></td>
+<input type="radio" name="CAT_TO_SEARCH" value="select"$Seleced[1] checked><b>è‡ªé€‰è®ºå›</b><br>æŒ‰ Ctrl é”®å¤šé€‰,åˆ†ç±»æ— æ•ˆ</font></td>
 <td bgcolor="$miscbackone" align="left" valign="middle">
 <select name="FORUMS_TO_SEARCH" size="6" width=100% multiple>$jumphtml</select>
 </td></tr>
 <tr>
 <td bgcolor="$miscbacktwo" valign=middle colspan=2 align=center><BR>
-<input type=submit value="¿ªÊ¼ËÑË÷">¡¡¡¡<input value="µ÷ÈëËÑË÷½á¹û" type=button onclick="javascript:location.href='$boardurl/$thisprog?action=loadresults'">
+<input type=submit value="å¼€å§‹æœç´¢">ã€€ã€€<input value="è°ƒå…¥æœç´¢ç»“æœ" type=button onclick="javascript:location.href='$boardurl/$thisprog?action=loadresults'">
 </td></form></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
 }
 
-&output("$boardname - Ìù×ÓËÑË÷",\$output);
+&output("$boardname - è´´å­æœç´¢",\$output);
 exit;
 
 sub displayresults {
-    open (READ, "$searchfilename") or &error("ËÑË÷½á¹û&¶Ô²»Æğ£¬ËÑË÷½á¹ûÖ»ÄÜ±£´æ 30 ·ÖÖÓ£¬ÇëÖØĞÂËÑË÷£¡");
+    open (READ, "$searchfilename") or &error("æœç´¢ç»“æœ&å¯¹ä¸èµ·ï¼Œæœç´¢ç»“æœåªèƒ½ä¿å­˜ 30 åˆ†é’Ÿï¼Œè¯·é‡æ–°æœç´¢ï¼");
     @completed_search = <READ>;
     close (READ);
 
@@ -537,37 +537,37 @@ sub displayresults {
     chomp $completed_search[4];
     ($FORUMS_TO_SEARCH,$JH_SEARCH)=split(/\,/,$completed_search[4]);
    
-    $TYPE_OF_SEARCH = "¹Ø¼ü×Ö"    if ($TYPE_OF_SEARCH eq "keyword_search");
-    $TYPE_OF_SEARCH = "×÷Õß"      if ($TYPE_OF_SEARCH eq "username_search");
+    $TYPE_OF_SEARCH = "å…³é”®å­—"    if ($TYPE_OF_SEARCH eq "keyword_search");
+    $TYPE_OF_SEARCH = "ä½œè€…"      if ($TYPE_OF_SEARCH eq "username_search");
 
-    $REFINE_SEARCH = "Ö÷Ìâ"       if ($REFINE_SEARCH eq "topictitle_search");
-    $REFINE_SEARCH = "Ìù×ÓÄÚÈİ"   if ($REFINE_SEARCH eq "post_search");
-    $REFINE_SEARCH = "Ö÷ÌâºÍ»Ø¸´" if ($REFINE_SEARCH eq "both_search");
+    $REFINE_SEARCH = "ä¸»é¢˜"       if ($REFINE_SEARCH eq "topictitle_search");
+    $REFINE_SEARCH = "è´´å­å†…å®¹"   if ($REFINE_SEARCH eq "post_search");
+    $REFINE_SEARCH = "ä¸»é¢˜å’Œå›å¤" if ($REFINE_SEARCH eq "both_search");
 
-    $TYPE_SEARCH = "ËùÓĞÌû×Ó"     if ($JH_SEARCH eq "no");
-    $TYPE_SEARCH = "¾«»ªÌû×Ó"     if ($JH_SEARCH eq "jinghua");
-    $TYPE_SEARCH = "»ØÊÕÌû×Ó"     if ($JH_SEARCH eq "recycle");
-    $TYPE_SEARCH = "Í¶Æ±Ìû×Ó"     if ($JH_SEARCH eq "poll");
-    $TYPE_SEARCH = "Ëø¶¨Ìû×Ó"     if ($JH_SEARCH eq "lock");
-    $TYPE_SEARCH = "ÈÈÃÅÌû×Ó"     if ($JH_SEARCH eq "hot");
-    $TYPE_SEARCH = "ÖÃ¶¥Ìû×Ó"     if ($JH_SEARCH eq "top");
+    $TYPE_SEARCH = "æ‰€æœ‰å¸–å­"     if ($JH_SEARCH eq "no");
+    $TYPE_SEARCH = "ç²¾åå¸–å­"     if ($JH_SEARCH eq "jinghua");
+    $TYPE_SEARCH = "å›æ”¶å¸–å­"     if ($JH_SEARCH eq "recycle");
+    $TYPE_SEARCH = "æŠ•ç¥¨å¸–å­"     if ($JH_SEARCH eq "poll");
+    $TYPE_SEARCH = "é”å®šå¸–å­"     if ($JH_SEARCH eq "lock");
+    $TYPE_SEARCH = "çƒ­é—¨å¸–å­"     if ($JH_SEARCH eq "hot");
+    $TYPE_SEARCH = "ç½®é¡¶å¸–å­"     if ($JH_SEARCH eq "top");
 
     if ($total_results > 0) {
-	$result_line = qq(Ê¹ÓÃ<b>$TYPE_OF_SEARCH</b>ËÑË÷·½Ê½£¬ÔÚ<b>$REFINE_SEARCH</b>ÖĞËÑË÷µ½ <b>$total_results</b> ¸öÏàÆ¥ÅäµÄÌù×Ó);
+	$result_line = qq(ä½¿ç”¨<b>$TYPE_OF_SEARCH</b>æœç´¢æ–¹å¼ï¼Œåœ¨<b>$REFINE_SEARCH</b>ä¸­æœç´¢åˆ° <b>$total_results</b> ä¸ªç›¸åŒ¹é…çš„è´´å­);
     }
     else {
-        $result_line = qq(¶Ô²»Æğ£¬Ê¹ÓÃ<b>$TYPE_OF_SEARCH</b>ËÑË÷·½Ê½£¬ÔÚ<b>$REFINE_SEARCH</b>ÖĞ<b>Ã»ÓĞ</b>ËÑË÷µ½ÈÎºÎÏàÆ¥ÅäµÄÌù×Ó);
+        $result_line = qq(å¯¹ä¸èµ·ï¼Œä½¿ç”¨<b>$TYPE_OF_SEARCH</b>æœç´¢æ–¹å¼ï¼Œåœ¨<b>$REFINE_SEARCH</b>ä¸­<b>æ²¡æœ‰</b>æœç´¢åˆ°ä»»ä½•ç›¸åŒ¹é…çš„è´´å­);
     }	                  
 
     $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=3 align=center>
 <font face="$font" color=$fontcolormisc>$result_line</font>
 </td></tr>
 <tr><td bgcolor=$miscbackone valign=middle align=center>
-<font face="$font" color=$fontcolormisc><b>Ö÷Ìâ</b></font></td>
+<font face="$font" color=$fontcolormisc><b>ä¸»é¢˜</b></font></td>
 <td bgcolor=$miscbackone valign=middle align=center>
-<font face="$font" color=$fontcolormisc><b>·¢±íÊ±¼ä¡¢Î»ÖÃ</b></font></td>
+<font face="$font" color=$fontcolormisc><b>å‘è¡¨æ—¶é—´ã€ä½ç½®</b></font></td>
 <td bgcolor=$miscbackone valign=middle align=center>
-<font face="$font" color=$fontcolormisc><b>¹Ø¼ü×ÖÆ¥ÅäËµÃ÷</b></font></font>
+<font face="$font" color=$fontcolormisc><b>å…³é”®å­—åŒ¹é…è¯´æ˜</b></font></font>
 </td></tr>
 ~;
 
@@ -588,7 +588,7 @@ sub displayresults {
     else {
         $showmore = "no";
         $startarray = 0;
-        $pages = qq~<font face="$font" color=$menufontcolor>ËÑË÷½á¹ûÖ»ÓĞÒ»Ò³</font>~;
+        $pages = qq~<font face="$font" color=$menufontcolor>æœç´¢ç»“æœåªæœ‰ä¸€é¡µ</font>~;
         $endarray = $numberofitems - 1;
     }
 
@@ -605,24 +605,24 @@ sub displayresults {
 		$pagestart = $pagestart + $maxthreads;
 	    } #e3
 	} #e2
-        $pages = qq~<font face="$font" color=$menufontcolor><b>ËÑË÷½á¹ûº¬ÓĞ¶àÒ³</b> [ $pages ]~;
+        $pages = qq~<font face="$font" color=$menufontcolor><b>æœç´¢ç»“æœå«æœ‰å¤šé¡µ</b> [ $pages ]~;
     } #1
     
     $timeadd = $timedifferencevalue*3600 + $timezone*3600;
     foreach (@TRUE_RESULTS[$startarray .. $endarray]) { # start foreach loop
         ($forumid, $topicid, $topictitle, $topicdescription, $forumname, $postdate, $string_returned) = split(/\t/,$_);
-        $topictitle =~ s/^£ª£££¡£¦£ª//;
+        $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
         $postdate = $postdate + $timeadd;
         $longdate = &longdate("$postdate");
         $topicdescription = qq(&nbsp;-=> $topicdescription) if $topicdescription;
 
 	$inforum = $forumid;
     if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
-	$admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>¾«</font></a>|<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>¹Ì</font></a>|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>Ìá</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>Ëø</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>½â</font></a>|<a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>É¾</font></a>|<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>ÒÆ</font></a>|</font>&nbsp;</DIV>~;
+	$admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>ç²¾</font></a>|<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>å›º</font></a>|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>æ</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>é”</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>è§£</font></a>|<a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>åˆ </font></a>|<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>ç§»</font></a>|</font>&nbsp;</DIV>~;
     }
-    elsif ((lc($inmembername) eq lc($startedby)) && ($inpassword eq $password) && ($inmembername !~ /^¿ÍÈË/)) {
+    elsif ((lc($inmembername) eq lc($startedby)) && ($inpassword eq $password) && ($inmembername !~ /^å®¢äºº/)) {
 	if ($arrowuserdel eq "on") {
-	    $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>| <a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>Ëø¶¨´ËÌù£¬²»ÔÊĞí±ğÈË»Ø¸´</font></a> | <a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>É¾³ı´ËÌù</font></a> |</font>&nbsp;&nbsp;</DIV>~;
+	    $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>| <a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>é”å®šæ­¤è´´ï¼Œä¸å…è®¸åˆ«äººå›å¤</font></a> | <a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>åˆ é™¤æ­¤è´´</font></a> |</font>&nbsp;&nbsp;</DIV>~;
 	}
 	else { undef $admini; }
     }
@@ -632,7 +632,7 @@ sub displayresults {
 <font face="$font" color=$fontcolormisc><B><a href="topic.cgi?forum=$forumid&topic=$topicid" target=_blank>$topictitle</a></B><br>
 $topicdescription$admini</td>
 <td bgcolor=$miscbackone valign=middle>
-<font face="$font" color=$fontcolormisc>Ëù´¦ÂÛÌ³£º <a href="forums.cgi?forum=$forumid">$forumname</a><BR>·¢±íÊ±¼ä£º $longdate</font></td>
+<font face="$font" color=$fontcolormisc>æ‰€å¤„è®ºå›ï¼š <a href="forums.cgi?forum=$forumid">$forumname</a><BR>å‘è¡¨æ—¶é—´ï¼š $longdate</font></td>
 <td bgcolor=$miscbackone valign=middle align=center>
 <font face="$font" color=$fontcolormisc>$string_returned</font></td></tr>
 );
@@ -643,13 +643,13 @@ $topicdescription$admini</td>
 <font face="$font" color=$fontcolormisc>$pages</font></td>
 <td bgcolor="$miscbacktwo" valign=middle colspan=1 align=center>
 <font face="$font" color=$fontcolormisc>
-<img src=$imagesurl/images/icon.gif align=absmiddle border=0> <a href="$thisprog"><b>ÔÙ´ÎËÑË÷ </b></a>
+<img src=$imagesurl/images/icon.gif align=absmiddle border=0> <a href="$thisprog"><b>å†æ¬¡æœç´¢ </b></a>
 </font><br><font face="$font" color=$fontcolormisc>
-<img src=$imagesurl/images/saveas.gif align=absmiddle> <a href="$thisprog?action=saveresults"><b>±£´æËÑË÷½á¹û </b></a>
+<img src=$imagesurl/images/saveas.gif align=absmiddle> <a href="$thisprog?action=saveresults"><b>ä¿å­˜æœç´¢ç»“æœ </b></a>
 </font></td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 );
-    &output("$boardname - ËÑË÷½á¹û",\$output);
+    &output("$boardname - æœç´¢ç»“æœ",\$output);
 
 }
 exit;

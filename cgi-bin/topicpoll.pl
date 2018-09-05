@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $maxpollitem = 5  if ($maxpollitem < 5 );
@@ -31,7 +31,7 @@ if ($#temppoll >= 1) {
     $maxpolllength = $maxpolllength*7+10;
     $maxpolllength = 150 if ($maxpolllength < 150);
     $maxpolllength = 510 if ($maxpolllength > 510);
-    if ($showsignature =~/^yes[0-9]+$/) { $showsignature=~s/^yes//; $maxcanpoll=qq~×î¶à¿ÉÍ¶ $showsignature Ïî<br>~; }
+    if ($showsignature =~/^yes[0-9]+$/) { $showsignature=~s/^yes//; $maxcanpoll=qq~æœ€å¤šå¯æŠ• $showsignature é¡¹<br>~; }
     $pollform =qq~<script>
 function submitonce(theform){
 if (document.all||document.getElementById){
@@ -44,7 +44,7 @@ tempobj.disabled=true
 <form action=poll.cgi method=post onSubmit="submitonce(this)">
 <input type=hidden name=action value=poll><input type=hidden name=forum value=$inforum><input type=hidden name=threadname value=$intopic>
 <table cellpadding=1 cellspacing=0 width=$maxpolllength bgcolor=$tablebordercolor><tr><td nowrap><table width=100% cellpadding=4 cellspacing=0 bgcolor="$postbackcolor">
-<tr><td nowrap>$pollinput<tr><td align=center nowrap><HR size=1 width=85%>$maxcanpoll<input type=submit name=results value='²Î¼ÓÍ¶Æ±'>
+<tr><td nowrap>$pollinput<tr><td align=center nowrap><HR size=1 width=85%>$maxcanpoll<input type=submit name=results value='å‚åŠ æŠ•ç¥¨'>
 </td></form></tr></table></td></tr></table>
 ~;
 
@@ -73,7 +73,7 @@ tempobj.disabled=true
 	    $_=~s/[\a\f\n\e\0\r]//isg;
 	    next if ($_ eq "");
 	    my ($tmpinmembername,$tmpmyChoice)=split(/\t/, $_);
-	    $tmpinmembername =~ s/^£ª£¡£££¦£ª//isg;
+	    $tmpinmembername =~ s/^ï¼Šï¼ï¼ƒï¼†ï¼Š//isg;
 	    for ($i=1;$i<=$j;$i++) {
 		if ($i == $tmpmyChoice) {
 		    $thispoll[$i]++;
@@ -85,19 +85,19 @@ tempobj.disabled=true
 	    $showpoll="true" if (lc($tmpinmembername) eq lc($inmembername));
 	}
 
-	if (($showsignature eq 'yes')||($showsignature =~/[0-9]+$/)) { $poll .= qq~ <tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr><tr><td colspan=$adminviewcolspan>Ä¿Ç°×Ü¹²ÓĞ <font color=$fonthighlight><B>$size</B></font> ÕÅÍ¶Æ±£¬½á¹ûÈçÏÂ£º<HR size=1 width=100%><BR></td></tr>~; }
-	    else { $poll .= qq~ <tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr><tr><td colspan=$adminviewcolspan>Ä¿Ç°¹²ÓĞ <font color=$fonthighlight><B>$size</B></font> ÈË²Î¼ÓÍ¶Æ±£¬½á¹ûÈçÏÂ£º<HR size=1 width=100%><BR></td></tr>~; }
+	if (($showsignature eq 'yes')||($showsignature =~/[0-9]+$/)) { $poll .= qq~ <tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr><tr><td colspan=$adminviewcolspan>ç›®å‰æ€»å…±æœ‰ <font color=$fonthighlight><B>$size</B></font> å¼ æŠ•ç¥¨ï¼Œç»“æœå¦‚ä¸‹ï¼š<HR size=1 width=100%><BR></td></tr>~; }
+	    else { $poll .= qq~ <tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr><tr><td colspan=$adminviewcolspan>ç›®å‰å…±æœ‰ <font color=$fonthighlight><B>$size</B></font> äººå‚åŠ æŠ•ç¥¨ï¼Œç»“æœå¦‚ä¸‹ï¼š<HR size=1 width=100%><BR></td></tr>~; }
     	for ($i=1;$i<=$j;$i++) {
     	    if ($poll[$i] ne ""){
     	        my $mypoll=int(($thispoll[$i]/$size)*1000)/10;
     		my $width=int(($mypoll/100)*160);
     		if ($adminview == 1) {
-    		    $adminviewpoll = qq~</td><td nowarp><select><option>Í¶Æ±ÈËÃûµ¥¡¡</option><option>----------</option>~;
+    		    $adminviewpoll = qq~</td><td nowarp><select><option>æŠ•ç¥¨äººåå•ã€€</option><option>----------</option>~;
     		    @pollmanname = split(/\t/, $pollname[$i]);
     		    $pollmanname = @pollmanname;
     		    foreach (@pollmanname) { $adminviewpoll .= qq~<option value="$_">$_ </option>~; }
     		    $adminviewpoll .= qq~</select>~;
-	    	    $adminviewpoll = "</td><td nowarp>[Ã»ÓĞÈËÍ¶Æ±]" if ($pollmanname eq 0);
+	    	    $adminviewpoll = "</td><td nowarp>[æ²¡æœ‰äººæŠ•ç¥¨]" if ($pollmanname eq 0);
     		} else { $adminviewpoll=""; }
     		my $ii = $i;
     		$ii = $ii - 40 if ($ii > 40);
@@ -105,30 +105,30 @@ tempobj.disabled=true
     		$ii = $ii - 20 if ($ii > 20);
     		$ii = $ii - 10 if ($ii > 10);
 		if(($thispoll[$i] >= $TheHigest)&&($usehigest eq 'yes')){$XA =qq~<font color="$higestcolor" size="$higestsize"><b>~;$XB =qq~</b></font>~;}else{$XA=$XB="";}
-    		$poll.=qq~<tr><td nowarp>$XA$poll[$i]$XB¡¡¡¡¡¡&nbsp;¡¡¡¡¡¡</td><td nowarp> <img src=$imagesurl/images/bar$ii.gif width=$width height=10> <b>$thispoll[$i]</b> Æ±Êı $mypoll%¡¡$adminviewpoll</td></tr>\n~;
+    		$poll.=qq~<tr><td nowarp>$XA$poll[$i]$XBã€€ã€€ã€€&nbsp;ã€€ã€€ã€€</td><td nowarp> <img src=$imagesurl/images/bar$ii.gif width=$width height=10> <b>$thispoll[$i]</b> ç¥¨æ•° $mypoll%ã€€$adminviewpoll</td></tr>\n~;
     	    }
 	}
     }
     else {
-	$poll .= qq~ <tr><td colspan=2><HR size=1 width=100%></td></tr><tr><td colspan=2>Ã»ÓĞÈË²Î¼Ó´ËÍ¶Æ±£¬Ñ¡ÏîÁĞ±íÈçÏÂ£º<HR size=1 width=100%><BR></td></tr>~;
+	$poll .= qq~ <tr><td colspan=2><HR size=1 width=100%></td></tr><tr><td colspan=2>æ²¡æœ‰äººå‚åŠ æ­¤æŠ•ç¥¨ï¼Œé€‰é¡¹åˆ—è¡¨å¦‚ä¸‹ï¼š<HR size=1 width=100%><BR></td></tr>~;
     	for ($i=1;$i<=$j;$i++) { $poll .= qq~<tr><td colspan=2>$poll[$i] </td></tr>~; }
 	$pollnull = "true";
     }
     $poll .= "</td></tr><tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr></table>";
 
-    if (($threadstate eq "pollclosed")||($showpoll eq "true")||($inmembername eq "¿ÍÈË")) {
-	my $poll1 = "<font color=$fonthighlight>¿ÍÈË²»ÄÜÍ¶Æ±£¬Çë×¢²á£¡</font>" if ($inmembername eq "¿ÍÈË");
-	$poll1 = "<font color=$fonthighlight>Ğ»Ğ»£¬ÄãÒÑ¾­Í¶¹ıÆ±ÁË£¡</font>" if ($showpoll eq "true");
-	$poll1 = "<font color=$fonthighlight>¶Ô²»Æğ£¬´ËÍ¶Æ±ÒÑ¾­¹Ø±Õ£¡</font>" if ($threadstate eq "pollclosed");
-	$poll  = "<br><br><font color=$fonthighlight>¶Ô²»Æğ£¬Äã±ØĞèÏÈÍ¶Æ±²Å¿É¿´½á¹û£¡</font><br>" if (($PollHidden eq "yes")&&($inmembername eq "¿ÍÈË"));
+    if (($threadstate eq "pollclosed")||($showpoll eq "true")||($inmembername eq "å®¢äºº")) {
+	my $poll1 = "<font color=$fonthighlight>å®¢äººä¸èƒ½æŠ•ç¥¨ï¼Œè¯·æ³¨å†Œï¼</font>" if ($inmembername eq "å®¢äºº");
+	$poll1 = "<font color=$fonthighlight>è°¢è°¢ï¼Œä½ å·²ç»æŠ•è¿‡ç¥¨äº†ï¼</font>" if ($showpoll eq "true");
+	$poll1 = "<font color=$fonthighlight>å¯¹ä¸èµ·ï¼Œæ­¤æŠ•ç¥¨å·²ç»å…³é—­ï¼</font>" if ($threadstate eq "pollclosed");
+	$poll  = "<br><br><font color=$fonthighlight>å¯¹ä¸èµ·ï¼Œä½ å¿…éœ€å…ˆæŠ•ç¥¨æ‰å¯çœ‹ç»“æœï¼</font><br>" if (($PollHidden eq "yes")&&($inmembername eq "å®¢äºº"));
 	$poll  = "$poll$poll1";
     } else {
 	if (($PollHidden eq "yes")&&($membername{$membername} ne $inmembername)&&($mymembercode ne "ad")&&($mymembercode ne 'smo')&&($myinmembmod ne "yes")) {
-	    $poll = "<br><font color=$fonthighlight>¶Ô²»Æğ£¬Äã±ØĞèÏÈÍ¶Æ±²Å¿É¿´½á¹û£¡</font>";
-	} elsif ($pollnull eq "true") { $poll = "<BR><font color=$fonthighlight>Ä¿Ç°ÔİÊ±Ã»ÓĞÈËÍ¶Æ±£¡</font>"; }
+	    $poll = "<br><font color=$fonthighlight>å¯¹ä¸èµ·ï¼Œä½ å¿…éœ€å…ˆæŠ•ç¥¨æ‰å¯çœ‹ç»“æœï¼</font>";
+	} elsif ($pollnull eq "true") { $poll = "<BR><font color=$fonthighlight>ç›®å‰æš‚æ—¶æ²¡æœ‰äººæŠ•ç¥¨ï¼</font>"; }
 	$poll = "$pollform$poll";
     }
-    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($usereditpost ne "no")&&(lc($inmembername) eq lc($membername{$membername})))) { $editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$inforum&topic=$intopic title=±à¼­Õâ¸öÍ¶Æ±><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>±à¼­</a>¡¡~ } else { $editgraphic =""; }
+    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($usereditpost ne "no")&&(lc($inmembername) eq lc($membername{$membername})))) { $editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$inforum&topic=$intopic title=ç¼–è¾‘è¿™ä¸ªæŠ•ç¥¨><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>ç¼–è¾‘</a>ã€€~ } else { $editgraphic =""; }
         $delgraphic  = "";
         $posticon    = "";
     }

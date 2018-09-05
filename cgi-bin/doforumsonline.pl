@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 unlink ("${lbdir}cache/forumonline.pl") if ((-M "${lbdir}cache/forumonline.pl") *86400 >= 180);
@@ -15,8 +15,8 @@ unlink ("${lbdir}cache/forumonline.pl") if ((-M "${lbdir}cache/forumonline.pl") 
 	(my $savedusername, my $no, $no, my $savedwhere, $no, $no, $no, $no, $no, $no, my $hiddened) = split(/\t/, $_);
 	(my $lookfor, $no) = split(/\(/,$savedusername);
   	next if ($lookfor =~ m/[\(\)\*]/);
-	$savedwhere=~ s/\(ÃÜ\)$//isg;
-	    if ($savedusername=~ /^¿ÍÈË/) {
+	$savedwhere=~ s/\(å¯†\)$//isg;
+	    if ($savedusername=~ /^å®¢äºº/) {
        	        $onlinehashguest{"$savedwhere"} ++;
 	    } 
 	    else {
@@ -25,7 +25,7 @@ unlink ("${lbdir}cache/forumonline.pl") if ((-M "${lbdir}cache/forumonline.pl") 
        	        }
        	        else {
                     $onlinehashmember{"$savedwhere"} ++;
-                    if ($onlinehashmember{"$savedwhere"} eq 1) { $onlinehashoutput{"$savedwhere"} .= qq~$savedusername~; } else { $onlinehashoutput{"$savedwhere"} .= qq~£¬$savedusername~; }
+                    if ($onlinehashmember{"$savedwhere"} eq 1) { $onlinehashoutput{"$savedwhere"} .= qq~$savedusername~; } else { $onlinehashoutput{"$savedwhere"} .= qq~ï¼Œ$savedusername~; }
        	        }
 	    }
     }
@@ -39,12 +39,12 @@ unlink ("${lbdir}cache/forumonline.pl") if ((-M "${lbdir}cache/forumonline.pl") 
 	$onlinehashguest{"$fname"}  = 0 if ($onlinehashguest{"$fname"}  eq "");
 	$onlinehashmember{"$fname"} = 0 if ($onlinehashmember{"$fname"} eq "");
         my $totleonline =$onlinehashguest{"$fname"}+$onlinehashmember{"$fname"};
-	$onlinehashoutput{"$fname"} = qq~\|\| --= »áÔ±ÁĞ±í£¨¹² $onlinehashmember{"$fname"} ÈË£© =--\|$onlinehashoutput{"$fname"}\|~ if ($onlinehashmember{"$fname"} > 0);
+	$onlinehashoutput{"$fname"} = qq~\|\| --= ä¼šå‘˜åˆ—è¡¨ï¼ˆå…± $onlinehashmember{"$fname"} äººï¼‰ =--\|$onlinehashoutput{"$fname"}\|~ if ($onlinehashmember{"$fname"} > 0);
         if ($onlinehashguest{"$fname"} > 0) {
-	    $guestadd = qq~£¨ÆäÖĞ $onlinehashguest{"$fname"} ¸ö¿ÍÈË£©~;
+	    $guestadd = qq~ï¼ˆå…¶ä¸­ $onlinehashguest{"$fname"} ä¸ªå®¢äººï¼‰~;
         }
         else { undef $guestadd; }
-	$titleinfos{"$fname\n"} = qq~ TITLE="Ä¿Ç°¹²ÓĞ $totleonline ÈËÔÚ´ËÂÛÌ³ÉÏ$guestadd£¡$onlinehashoutput{"$fname"}"~;
+	$titleinfos{"$fname\n"} = qq~ TITLE="ç›®å‰å…±æœ‰ $totleonline äººåœ¨æ­¤è®ºå›ä¸Š$guestaddï¼$onlinehashoutput{"$fname"}"~;
 	$outfileinfo .= qq~$fname\n$titleinfos{"$fname\n"}\n~;
 	$titleinfos{"$fname\n"} =~ s/\|/\n/isg;
     }

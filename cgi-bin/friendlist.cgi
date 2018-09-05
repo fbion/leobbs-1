@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -52,14 +52,14 @@ if (! $inpassword)   { $inpassword   = cookie("apasswordcookie");   }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
     $userregistered = "no";
-    errorbl("ÇëµÇÂ¼ºóÔÙÊ¹ÓÃ±¾¹¦ÄÜ£¡");
+    errorbl("è¯·ç™»å½•åå†ä½¿ç”¨æœ¬åŠŸèƒ½ï¼");
 } else {
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($inpassword ne "" && $userregistered eq "no");
-    &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password && $userregistered ne "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($inpassword ne "" && $userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password && $userregistered ne "no");
     &action;
 }
 
@@ -70,7 +70,7 @@ else { &list; }
 }
 
 sub adduser {
-errorbl("×Ô¼ºÌí¼Ó×Ô¼ºÎªºÃÓÑ×öÊ²Ã´£¿") if ($adduser eq $inmembername);
+errorbl("è‡ªå·±æ·»åŠ è‡ªå·±ä¸ºå¥½å‹åšä»€ä¹ˆï¼Ÿ") if ($adduser eq $inmembername);
 &getmember($adduser,"no");
 if ($userregistered ne "no") {
 
@@ -87,7 +87,7 @@ if (-e $filetomake) {
 	close (FILE);
 }
 
-unless (grep(/^£ª£££¡£¦£ª$adduser$/, @currentlist)) {
+unless (grep(/^ï¼Šï¼ƒï¼ï¼†ï¼Š$adduser$/, @currentlist)) {
 push (@currentlist, $adduser);
 }
 
@@ -95,15 +95,15 @@ if (open(FILE, ">$filetomake")) {
 flock(FILE, 2) if ($OS_USED eq "Unix");
 foreach $user (@currentlist) {
 	chomp($user);
-	$user =~ s/^£ª£££¡£¦£ª//isg;
-	print FILE "£ª£££¡£¦£ª$user\n";
+	$user =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
+	print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$user\n";
 }
 close(FILE);
 }
 
 &list;
 } else {
-errorbl("Ã»ÓĞ¸Ã×¢²áÓÃ»§£¡");
+errorbl("æ²¡æœ‰è¯¥æ³¨å†Œç”¨æˆ·ï¼");
 }
 } ### end adduser
 
@@ -121,16 +121,16 @@ if (-e $filetomake) {
 	@currentlist = <FILE>;
 	close (FILE);
 } else {
-	errorbl("ÄãµÄºÃÓÑÁĞ±íÎª¿Õ£¡");
+	errorbl("ä½ çš„å¥½å‹åˆ—è¡¨ä¸ºç©ºï¼");
 }
 
 if (open(FILE, ">$filetomake")) {
 flock(FILE, 2) if ($OS_USED eq "Unix");
 foreach $user (@currentlist) {
 	chomp($user);
-	$user =~ s/^£ª£££¡£¦£ª//isg;
+	$user =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 	unless ($user eq $deluser) {
-	print FILE "£ª£££¡£¦£ª$user\n";
+	print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$user\n";
 	}
 }
 close(FILE);
@@ -156,28 +156,28 @@ function openScript(url, width, height) {
 		A:link 	  {	text-decoration: none;}
 
 		.t     {	LINE-HEIGHT: 1.4					}
-		BODY   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;
+		BODY   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;
 			SCROLLBAR-HIGHLIGHT-COLOR: buttonface;
  			SCROLLBAR-SHADOW-COLOR: buttonface;
  			SCROLLBAR-3DLIGHT-COLOR: buttonhighlight;
  			SCROLLBAR-TRACK-COLOR: #eeeeee;
  			SCROLLBAR-DARKSHADOW-COLOR: buttonshadow	}
-		TD	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		SELECT	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;	}
-		INPUT	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt; height:22px;	}
-		TEXTAREA{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;	}
-		DIV	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		FORM	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		OPTION	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		P	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		TD	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		BR	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
+		TD	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		SELECT	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;	}
+		INPUT	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt; height:22px;	}
+		TEXTAREA{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;	}
+		DIV	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		FORM	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		OPTION	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		P	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		TD	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		BR	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
 
 </style>
-<title>$inmembername - ºÃÓÑÁĞ±í</title>
+<title>$inmembername - å¥½å‹åˆ—è¡¨</title>
 </head>
 <body bgcolor="#D1D9E2"  alink="#333333" vlink="#333333" link="#333333" >
-<center>$inmembername µÄºÃÓÑÁĞ±í</center><br>
+<center>$inmembername çš„å¥½å‹åˆ—è¡¨</center><br>
 <table width=97% align=center cellspacing=0 cellpadding=1 bgcolor=#333333>
 		<tr><td>
 <table width=100% cellspacing=0 cellpadding=4>
@@ -202,24 +202,24 @@ $colspans = "5";
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-    &whosonline("$inmembername\tºÃÓÑÁĞ±í\tnone\t²é¿´ºÃÓÑÁĞ±í\t");
+    &whosonline("$inmembername\tå¥½å‹åˆ—è¡¨\tnone\tæŸ¥çœ‹å¥½å‹åˆ—è¡¨\t");
 }
 
 $output .= qq~
 <tr>
-<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>ĞÕÃû</b></center></font></td>
-<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>¶ÌÏûÏ¢</b></center></font></td>
+<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>å§“å</b></center></font></td>
+<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>çŸ­æ¶ˆæ¯</b></center></font></td>
 <td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>Email</b></center></font></td>
 <td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>ICQ</b></center></font></td>
 <td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>OICQ</b></center></font></td>
-<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>Ö÷Ò³</b></center></font></td>
-<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>É¾³ı?</b></center></font></td>
+<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>ä¸»é¡µ</b></center></font></td>
+<td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>åˆ é™¤?</b></center></font></td>
 </tr>
 ~;
 $pmnamenumber = 0;
 foreach $user (@currentlist) {
     chomp $user;
-	$user =~ s/^£ª£££¡£¦£ª//isg;
+	$user =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 #    &getmember($user);
     &getmember("$user","no");
     $memname = $membername;
@@ -236,9 +236,9 @@ $pmnamenumber++;
 	if ($homepage) { $homepage = qq~<a href="http://$homepage" target="_blank"><img src="$imagesurl/images/homepage.gif" border=0></a>~; } else { $homepage = "N/A"; }
 	$emailaddress = &encodeemail($emailaddress);
 	if ($showemail eq "no"||$emailstatus eq "no"||$emailaddress eq ""||$showemail eq "msn"){
-	    $emailaddress = "Î´ÊäÈë" if ($$emailaddress eq "");
-	    $emailaddress = "±£ÃÜ" if ($emailstatus eq "no");
-	    $emailaddress = "±£ÃÜ" if ($showemail eq "no");
+	    $emailaddress = "æœªè¾“å…¥" if ($$emailaddress eq "");
+	    $emailaddress = "ä¿å¯†" if ($emailstatus eq "no");
+	    $emailaddress = "ä¿å¯†" if ($showemail eq "no");
 	    $emailaddress = "<a href=mailto:$emailaddress><img border=0 src=$imagesurl/images/msn.gif></a>" if ($showemail eq "msn");
 	}
 	else {$emailaddress = "<a href=mailto:$emailaddress><img border=0 src=$imagesurl/images/email.gif></a>" }
@@ -247,8 +247,8 @@ $pmnamenumber++;
 	if ($oicqnumber) { $oicqnumber = qq~<a href="javascript:openScript('http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber',450,200)"><img src="$imagesurl/images/oicq.gif" border=0></a>~; } else { $oicqnumber = "N/A"; }
 
     my $membernametemp = "\_$membername\_";
-    if ($onlineuserlist =~ /$membernametemp/i) { $onlineinfo = "¸ÃÓÃ»§Ä¿Ç°ÔÚÏß";$onlinepic="online1.gif"; } else { $onlineinfo = "¸ÃÓÃ»§Ä¿Ç°²»ÔÚÏß";$onlinepic="offline1.gif"; }
-    if (($mymembercode eq "ad")&&($onlineuserlisthidden =~ /$membernametemp/i)) { $onlineinfo = "¸ÃÓÃ»§Ä¿Ç°´¦ÓÚÒşÉí×´Ì¬";$onlinepic="onlinehidden.gif"; }
+    if ($onlineuserlist =~ /$membernametemp/i) { $onlineinfo = "è¯¥ç”¨æˆ·ç›®å‰åœ¨çº¿";$onlinepic="online1.gif"; } else { $onlineinfo = "è¯¥ç”¨æˆ·ç›®å‰ä¸åœ¨çº¿";$onlinepic="offline1.gif"; }
+    if (($mymembercode eq "ad")&&($onlineuserlisthidden =~ /$membernametemp/i)) { $onlineinfo = "è¯¥ç”¨æˆ·ç›®å‰å¤„äºéšèº«çŠ¶æ€";$onlinepic="onlinehidden.gif"; }
     $online = qq~<IMG SRC=$imagesurl/images/$onlinepic width=15 alt=$onlineinfo align=absmiddle>~;
 
 	$output .=qq~
@@ -259,19 +259,19 @@ $pmnamenumber++;
 	<td bgcolor=$miscbackone><center>$icqnumber</center></td>
 	<td bgcolor=$miscbackone><center>$oicqnumber</center></td>
 	<td bgcolor=$miscbackone><center>$homepage</center></td>
-	<td bgcolor=$miscbackone><center><form action=friendlist.cgi method=post name=pm$pmnamenumber><input type=hidden name=action value=deluser><input type=hidden name=deluser value=$duser><a href="javascript:document.pm$pmnamenumber.submit()">É¾³ı</a></center></td></form></tr>
+	<td bgcolor=$miscbackone><center><form action=friendlist.cgi method=post name=pm$pmnamenumber><input type=hidden name=action value=deluser><input type=hidden name=deluser value=$duser><a href="javascript:document.pm$pmnamenumber.submit()">åˆ é™¤</a></center></td></form></tr>
 	~;
     }
     else {
 	$output .=qq~
 	<tr>
-	<td bgcolor=$miscbackone>$user (Î´×¢²á)</td>
+	<td bgcolor=$miscbackone>$user (æœªæ³¨å†Œ)</td>
 	<td bgcolor=$miscbackone></td>
 	<td bgcolor=$miscbackone></td>
 	<td bgcolor=$miscbackone></td>
 	<td bgcolor=$miscbackone></td>
 	<td bgcolor=$miscbackone></td>
-	<td bgcolor=$miscbackone><center><form action=friendlist.cgi method=post name=pm$pmnamenumber><input type=hidden name=action value=deluser><input type=hidden name=deluser value=$duser><a href="javascript:document.pm$pmnamenumber.submit()">É¾³ı</a></center></td></form></tr>
+	<td bgcolor=$miscbackone><center><form action=friendlist.cgi method=post name=pm$pmnamenumber><input type=hidden name=action value=deluser><input type=hidden name=deluser value=$duser><a href="javascript:document.pm$pmnamenumber.submit()">åˆ é™¤</a></center></td></form></tr>
 	~;
 
     }
@@ -279,8 +279,8 @@ $pmnamenumber++;
 
 $output .= qq~
 <tr>
-<form action=friendlist.cgi method=post name=adduser><input type=hidden name=action value=adduser><td bgcolor=$miscbackone><font  color=black >ºÃÓÑĞÕÃû:</td><td colspan=$colspans bgcolor=$miscbackone><input type=text size=20 name=adduser></td><td bgcolor=$miscbackone><center><a href="javascript:document.adduser.submit()">Ôö¼Ó</a></center></td></form>
-<tr><td bgcolor=$miscbackone colspan=$colspant><center><font  color=black >ÊäÈëÄãÒªÏëÔö¼ÓµÄºÃÓÑĞÕÃû£¬µã»÷Ôö¼ÓÈ·ÈÏ²Ù×÷£¡<br><br><a href=javascript:top.close();>[¹Ø±Õ´°¿Ú]</a></center></td></tr>
+<form action=friendlist.cgi method=post name=adduser><input type=hidden name=action value=adduser><td bgcolor=$miscbackone><font  color=black >å¥½å‹å§“å:</td><td colspan=$colspans bgcolor=$miscbackone><input type=text size=20 name=adduser></td><td bgcolor=$miscbackone><center><a href="javascript:document.adduser.submit()">å¢åŠ </a></center></td></form>
+<tr><td bgcolor=$miscbackone colspan=$colspant><center><font  color=black >è¾“å…¥ä½ è¦æƒ³å¢åŠ çš„å¥½å‹å§“åï¼Œç‚¹å‡»å¢åŠ ç¡®è®¤æ“ä½œï¼<br><br><a href=javascript:top.close();>[å…³é—­çª—å£]</a></center></td></tr>
 </table></td></tr>
 	    </table>
 </body>
@@ -296,7 +296,7 @@ $errormsg = shift;
 $output = qq~
 <html>
 <head>
-<title>$inmembername - ºÃÓÑÁĞ±í >> ´íÎó</title>
+<title>$inmembername - å¥½å‹åˆ—è¡¨ >> é”™è¯¯</title>
 <meta http-equiv="refresh" content="30;URL=friendlist.cgi">
 <style>
 		A:visited {	TEXT-DECORATION: none	}
@@ -305,35 +305,35 @@ $output = qq~
 		A:link 	  {	text-decoration: none;}
 
 		.t     {	LINE-HEIGHT: 1.4					}
-		BODY   {	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;
+		BODY   {	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;
 			SCROLLBAR-HIGHLIGHT-COLOR: buttonface;
  			SCROLLBAR-SHADOW-COLOR: buttonface;
  			SCROLLBAR-3DLIGHT-COLOR: buttonhighlight;
  			SCROLLBAR-TRACK-COLOR: #eeeeee;
  			SCROLLBAR-DARKSHADOW-COLOR: buttonshadow	}
-		TD	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		SELECT	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;	}
-		INPUT	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt; height:22px;	}
-		TEXTAREA{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;	}
-		DIV	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		FORM	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		OPTION	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		P	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		TD	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
-		BR	{	FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt	}
+		TD	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		SELECT	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;	}
+		INPUT	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt; height:22px;	}
+		TEXTAREA{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;	}
+		DIV	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		FORM	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		OPTION	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		P	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		TD	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
+		BR	{	FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt	}
 
 </style>
 </head>
 <body bgcolor="#D1D9E2"  alink="#333333" vlink="#333333" link="#333333">
 <br>
-<center>ºÃÓÑÁĞ±í´íÎó</center><br><br>
+<center>å¥½å‹åˆ—è¡¨é”™è¯¯</center><br><br>
 <font color=red>
 <center>
 <b>$errormsg</b>
 </center>
 </font>
 <br><br>
-<center><font color=$fontcolormisc> << <a href="javascript:history.go(-1)">·µ»ØÉÏÒ»Ò³</a></center>
+<center><font color=$fontcolormisc> << <a href="javascript:history.go(-1)">è¿”å›ä¸Šä¸€é¡µ</a></center>
 
 </body>
 </html>

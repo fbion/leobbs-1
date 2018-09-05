@@ -1,19 +1,19 @@
 #!/usr/bin/perl
 ###############################################################################################################################################
-# LeoBBS ·ÖÂÛÌ³ĞÂÌù×Ó ver 2.0
-# Ê¹ÓÃ°ì·¨£º news.cgi?forum=·ÖÂÛÌ³ºÅ1,·ÖÂÛÌ³ºÅ2,·ÖÂÛÌ³ºÅ3,·ÖÂÛÌ³ºÅ4&max=ÏÔÊ¾¼¸ÌõÌù×Ó&maxlength=±êÌâ³¤¶È&display=1&link=ÑÕÉ«16½øÖÆ´úÂë&vlink=ÑÕÉ«16½øÖÆ´úÂë&alink=ÑÕÉ«16½øÖÆ´úÂë
-# <span id="show1">ÕıÔÚ¶ÁÈ¡Êı¾İ£¬ÇëÉÔºò...</span>
-# <span id="show2">ÕıÔÚ¶ÁÈ¡Êı¾İ£¬ÇëÉÔºò...</span>
+# LeoBBS åˆ†è®ºå›æ–°è´´å­ ver 2.0
+# ä½¿ç”¨åŠæ³•ï¼š news.cgi?forum=åˆ†è®ºå›å·1,åˆ†è®ºå›å·2,åˆ†è®ºå›å·3,åˆ†è®ºå›å·4&max=æ˜¾ç¤ºå‡ æ¡è´´å­&maxlength=æ ‡é¢˜é•¿åº¦&display=1&link=é¢œè‰²16è¿›åˆ¶ä»£ç &vlink=é¢œè‰²16è¿›åˆ¶ä»£ç &alink=é¢œè‰²16è¿›åˆ¶ä»£ç 
+# <span id="show1">æ­£åœ¨è¯»å–æ•°æ®ï¼Œè¯·ç¨å€™...</span>
+# <span id="show2">æ­£åœ¨è¯»å–æ•°æ®ï¼Œè¯·ç¨å€™...</span>
 ###############################################################################################################################################
 
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-#  »ùÓÚÉ½Ó¥ºı¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ   #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+#  åŸºäºå±±é¹°ç³Šã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ   #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBoard.com/          #
-#      ÂÛÌ³µØÖ·£º http://www.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBoard.com/          #
+#      è®ºå›åœ°å€ï¼š http://www.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -28,7 +28,7 @@ BEGIN {
 
 #unless ($ENV{'HTTP_REFERER'} =~ /$ENV{'HTTP_HOST'}/) {
 #print "Content-Type:text/html\n\n";
-#print "document.write('<font color=red>¡¡¶Ô²»Æğ£¬²»ÔÊĞí·Ç±¾ÂÛÌ³Ö÷»úµ÷ÓÃ£¡</font>');";
+#print "document.write('<font color=red>ã€€å¯¹ä¸èµ·ï¼Œä¸å…è®¸éæœ¬è®ºå›ä¸»æœºè°ƒç”¨ï¼</font>');";
 #exit;
 #}
 use LBCGI;
@@ -44,7 +44,7 @@ $|++;
 $query = new LBCGI;
 $number        = $query -> param('forum');
 $number        = &stripMETA("$number");
-#$number    = 1  if ($number eq "");     # Ä¬ÈÏ²é¿´µÚÒ»¸öÂÛÌ³
+#$number    = 1  if ($number eq "");     # é»˜è®¤æŸ¥çœ‹ç¬¬ä¸€ä¸ªè®ºå›
 
 @number = split(/\,/,$number);
 
@@ -63,10 +63,10 @@ $vlink         = &stripMETA("$vlink");
 $mode       = $query -> param('mode');
 $mode       = &stripMETA("$mode");
 $mode = "" if (($mode ne "topic")&&($mode ne "view"));
-$mode      = "topic" if ($mode eq "");  # Ä¬ÈÏÌû×Ó·½Ê½²é¿´
-$display   = 1  if ($display eq "");    # Ä¬ÈÏÏÔÊ¾Ìù×ÓÊ±¼ä
-$max	   = 10 if ($max eq "");        # Ä¬ÈÏÏÔÊ¾ 10 ¸öÌû×Ó
-$maxlengths= 30 if ($maxlengths eq "");  # Ä¬ÈÏ±êÌâ×î¶à 30 ¸ö×Ö·û
+$mode      = "topic" if ($mode eq "");  # é»˜è®¤å¸–å­æ–¹å¼æŸ¥çœ‹
+$display   = 1  if ($display eq "");    # é»˜è®¤æ˜¾ç¤ºè´´å­æ—¶é—´
+$max	   = 10 if ($max eq "");        # é»˜è®¤æ˜¾ç¤º 10 ä¸ªå¸–å­
+$maxlengths= 30 if ($maxlengths eq "");  # é»˜è®¤æ ‡é¢˜æœ€å¤š 30 ä¸ªå­—ç¬¦
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 print header(-charset=>gb2312);
@@ -97,7 +97,7 @@ foreach $number (@number) {
 
             next if ($topicid !~ /^[0-9]+$/);
             $lastpostdate = &longdate($lastpostdate + $addtime);
- 	    $topictitle =~ s/^£ª£££¡£¦£ª//;
+ 	    $topictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
  	    
             if (($posticon1 eq "")||($posticon1 !~ /^[0-9]+$/)) {
 		$posticon1 = int(myrand(23));
@@ -111,8 +111,8 @@ foreach $number (@number) {
 #	    $topictitle =~ s/\&lt;/</g;
 #	    $topictitle =~ s/\&gt;/>/g;
 	    $topictitle =~ s/\"/\&quot;/g;
-	    $topictitle =~ s/ \&nbsp;/¡¡/g;
-	    $topictitle =~ s/  /¡¡/g;
+	    $topictitle =~ s/ \&nbsp;/ã€€/g;
+	    $topictitle =~ s/  /ã€€/g;
 	    if  ($display eq 1) {
 	        $disptime= " $lastpostdate";
 	    }
@@ -129,7 +129,7 @@ foreach $number (@number) {
 		$topictitletemp =~ s/>/\&gt;/g;
 		$topictitletemp =~ s/ /\&nbsp;/g;
 	        $topictitletemp = $topictitletemp ."&nbsp;" if (length($topictitletemp) < $maxlength);
-	        $str.="<img src=$imagesurl/posticons/$posticon1 $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$number&topic=$topicid target=_blank><span TITLE=\\\\\\\"Ö÷Ìâ£º $topictitle\\\\\\\">$topictitletemp</span></a>$disptime<br>";
+	        $str.="<img src=$imagesurl/posticons/$posticon1 $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$number&topic=$topicid target=_blank><span TITLE=\\\\\\\"ä¸»é¢˜ï¼š $topictitle\\\\\\\">$topictitletemp</span></a>$disptime<br>";
 	    }
 	    else {
 	        $topicspace=$maxlength-length($topictitle);
@@ -144,7 +144,7 @@ foreach $number (@number) {
         $allstr .= qq~document.write('<span LINK=#$link VLINK=#$vlink ALINK=#$alink><script>document.getElementById("show$number").innerHTML = "$str";</script></span>')\n~;
     }
     else {
-    	$allstr .= qq~document.write('<span LINK=#$link VLINK=#$vlink ALINK=#$alink><script>document.getElementById("show$number").innerHTML = "-* Ã»ÓĞÕÒµ½ÏàÓ¦µÄÂÛÌ³ *-";</script></span>')\n~;
+    	$allstr .= qq~document.write('<span LINK=#$link VLINK=#$vlink ALINK=#$alink><script>document.getElementById("show$number").innerHTML = "-* æ²¡æœ‰æ‰¾åˆ°ç›¸åº”çš„è®ºå› *-";</script></span>')\n~;
     }
 }
 

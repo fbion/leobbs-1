@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -68,14 +68,14 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>¾¯¸æ£¡£¡</b>
+        <font color=#990000><b>è­¦å‘Šï¼ï¼</b>
         </td></tr>
         
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-        <font color=#333333>½«É¾³ýÄúËùÑ¡¶¨µÄÃû³ÆÎª <b>$skinname</b> µÄÂÛÌ³·ç¸ñ£¬²»¿É»Ö¸´<p>
+        <font color=#333333>å°†åˆ é™¤æ‚¨æ‰€é€‰å®šçš„åç§°ä¸º <b>$skinname</b> çš„è®ºå›é£Žæ ¼ï¼Œä¸å¯æ¢å¤<p>
         <p>
-        >> <a href="$thisprog?action=delstyleok&skinname=$skinname">È·¶¨É¾³ý</a> <<
+        >> <a href="$thisprog?action=delstyleok&skinname=$skinname">ç¡®å®šåˆ é™¤</a> <<
         </td></tr>
         </table></td></tr></table>
         ~;
@@ -85,11 +85,11 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
     	unlink $filetomake;
                     print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ·ç¸ñÉ¾³ý</b>
+                    <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é£Žæ ¼åˆ é™¤</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#EEEEEE align=center colspan=2>
-                    <font color=#333333><b>ËùÓÐÐÅÏ¢ÒÑ¾­±£´æ</b><br>¸Ã·ç¸ñÒÑ¾­ÍêÈ«É¾³ý¡£
+                    <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><br>è¯¥é£Žæ ¼å·²ç»å®Œå…¨åˆ é™¤ã€‚
                     </td></tr></table></td></tr></table>
                     ~;
 
@@ -115,22 +115,22 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         if (-e $filetomake && -w $filetomake) {
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ·ç¸ñÉèÖÃ</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é£Žæ ¼è®¾ç½®</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE colspan=2>
-                <font color=#333333><center><b>ËùÓÐÉèÖÃÒÑ¾­³É¹¦±£´æ£¡</b><br><br>
+                <font color=#333333><center><b>æ‰€æœ‰è®¾ç½®å·²ç»æˆåŠŸä¿å­˜ï¼</b><br><br>
                 </center></td></tr></table></td></tr></table>~;
                 }
 
                 else {
                     print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                    <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ·ç¸ñÉèÖÃ</b>
+                    <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é£Žæ ¼è®¾ç½®</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#EEEEEE align=center colspan=2>
-                    <font color=#333333><b>ËùÓÐÐÅÏ¢Ã»ÓÐ±£´æ</b><br>ÎÄ¼þ»òÕßÄ¿Â¼²»¿ÉÐ´£¬ÇëÉèÖÃÊôÐÔÎª 777 £¡
+                    <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯æ²¡æœ‰ä¿å­˜</b><br>æ–‡ä»¶æˆ–è€…ç›®å½•ä¸å¯å†™ï¼Œè¯·è®¾ç½®å±žæ€§ä¸º 777 ï¼
                     </td></tr></table></td></tr></table>
                     ~;
                     }
@@ -154,46 +154,46 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         @thd=sort @thd;
         for (my $i=0;$i<$topiccount;$i++){
        	$thd[$i]=~s /\.cgi//isg;
-        $myskin.=qq~<option value="$thd[$i]">Æ¤·ô [ $thd[$i] ]~;
+        $myskin.=qq~<option value="$thd[$i]">çš®è‚¤ [ $thd[$i] ]~;
         }
         $myskin =~ s/value=\"$action\"/value=\"$action\" selected/;
                 $inmembername =~ s/\_/ /g;
 	$skinname=$query->param('action');
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / ·ç¸ñÉèÖÃ</b>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é£Žæ ¼è®¾ç½®</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#333333><b>ÐÂ½¨Éè¶¨·ç¸ñ</b>
+                <font color=#333333><b>æ–°å»ºè®¾å®šé£Žæ ¼</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF width=40% colspan=2>
-                <font color=#333333><b>ÒýÓÃÏµÍ³×Ô´øµÄ·ç¸ñ</b><br>ÄúÑ¡Ôñºó£¬ÐèÒªÕýÊ½È·¶¨ÒýÓÃ²ÅÉúÐ§</font></td>
+                <font color=#333333><b>å¼•ç”¨ç³»ç»Ÿè‡ªå¸¦çš„é£Žæ ¼</b><br>æ‚¨é€‰æ‹©åŽï¼Œéœ€è¦æ­£å¼ç¡®å®šå¼•ç”¨æ‰ç”Ÿæ•ˆ</font></td>
                 <td bgcolor=#FFFFFF>
                 <form action="$thisprog" method="post" name=skin>
                 <select name="action">
-                <option value="">Ä¬ÈÏ·ç¸ñ$myskin
+                <option value="">é»˜è®¤é£Žæ ¼$myskin
                 </select>
-                <input type=submit value="Òý ÓÃ">¡¡<input type=button value="É¾ ³ý" onclick="location.href='$thisprog?action=delstyle&skinname=$skinname'">
+                <input type=submit value="å¼• ç”¨">ã€€<input type=button value="åˆ  é™¤" onclick="location.href='$thisprog?action=delstyle&skinname=$skinname'">
                 </form>
                 </td></tr>
                 <form action="$thisprog" method="post">
                 <input type=hidden name="action" value="process">
                 <input type=hidden name="skin" value=$skinname>
-<tr><td bgcolor=#FcFcFc colspan=2 align=right><font color=#333333>ÅäÉ«Ãû³Æ</font></td><td bgcolor=#FFFFFF><input type=text name="cssname" size=10 value="$cssname"></td></tr><tr><td bgcolor=#FcFcFc colspan=2 align=right><font color=#333333>ÅäÉ«×÷Õß</font></td><td bgcolor=#FFFFFF><input type=text name="cssmaker" size=10 value="$cssmaker"></td></tr><tr><td bgcolor=#FcFcFc colspan=2 align=right><font color=#333333>ÅäÉ«¼ò½é</font></td><td bgcolor=#FFFFFF><textarea cols=40 name="cssreadme" rows=2>$cssreadme</textarea>
+<tr><td bgcolor=#FcFcFc colspan=2 align=right><font color=#333333>é…è‰²åç§°</font></td><td bgcolor=#FFFFFF><input type=text name="cssname" size=10 value="$cssname"></td></tr><tr><td bgcolor=#FcFcFc colspan=2 align=right><font color=#333333>é…è‰²ä½œè€…</font></td><td bgcolor=#FFFFFF><input type=text name="cssmaker" size=10 value="$cssmaker"></td></tr><tr><td bgcolor=#FcFcFc colspan=2 align=right><font color=#333333>é…è‰²ç®€ä»‹</font></td><td bgcolor=#FFFFFF><textarea cols=40 name="cssreadme" rows=2>$cssreadme</textarea>
 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b>ÂÛÌ³BODY±êÇ©</b>
+                <font color=#990000><b>è®ºå›BODYæ ‡ç­¾</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>¿ØÖÆÕû¸öÂÛÌ³·ç¸ñµÄ±³¾°ÑÕÉ«»òÕß±³¾°Í¼Æ¬µÈ</font></td>
+                <font color=#333333>æŽ§åˆ¶æ•´ä¸ªè®ºå›é£Žæ ¼çš„èƒŒæ™¯é¢œè‰²æˆ–è€…èƒŒæ™¯å›¾ç‰‡ç­‰</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="lbbody" size=40 value="$lbbody"><br>Ä¬ÈÏ£ºbgcolor=#FFFFFF  alink=#333333 vlink=#333333 link=#333333 topmargin=0 leftmargin=0</td>
+                <input type=text name="lbbody" size=40 value="$lbbody"><br>é»˜è®¤ï¼šbgcolor=#FFFFFF  alink=#333333 vlink=#333333 link=#333333 topmargin=0 leftmargin=0</td>
                 </tr>
 <script>
 function selcolor(obj,obj2){
@@ -204,55 +204,55 @@ obj2.style.backgroundColor=arr;
 </script>                
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b>ÂÛÌ³Ò³Ê×²Ëµ¥</b>
+                <font color=#990000><b>è®ºå›é¡µé¦–èœå•</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>²Ëµ¥´ø×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$menufontcolor  width=12 id=menufontcolor2>¡¡</td>
+                <font color=#333333>èœå•å¸¦å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$menufontcolor  width=12 id=menufontcolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="menufontcolor" value="$menufontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,menufontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="menufontcolor" value="$menufontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,menufontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>²Ëµ¥´ø±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$menubackground  width=12 id=menubackground2>¡¡</td>
+                <font color=#333333>èœå•å¸¦èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$menubackground  width=12 id=menubackground2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="menubackground" value="$menubackground" size=7 maxlength=7 onclick="javascript:selcolor(this,menubackground2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#DDDDDD</td>
+                <input type=text name="menubackground" value="$menubackground" size=7 maxlength=7 onclick="javascript:selcolor(this,menubackground2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#DDDDDD</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>²Ëµ¥´ø±³¾°Í¼Æ¬</font><BR>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ</td>
-                <td background=$imagesurl/myimages/$menubackpic  width=12>¡¡</td>
+                <font color=#333333>èœå•å¸¦èƒŒæ™¯å›¾ç‰‡</font><BR>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹</td>
+                <td background=$imagesurl/myimages/$menubackpic  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="menubackpic" value="$menubackpic"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>²Ëµ¥´ø±ß½çÑÕÉ«</font></td>
-                <td bgcolor=$titleborder  width=12 id=titleborder2>¡¡</td>
+                <font color=#333333>èœå•å¸¦è¾¹ç•Œé¢œè‰²</font></td>
+                <td bgcolor=$titleborder  width=12 id=titleborder2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="titleborder" value="$titleborder" size=7 maxlength=7 onclick="javascript:selcolor(this,titleborder2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="titleborder" value="$titleborder" size=7 maxlength=7 onclick="javascript:selcolor(this,titleborder2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b>×ÖÌåÍâ¹ÛºÍÑÕÉ«</b>
+                <font color=#990000><b>å­—ä½“å¤–è§‚å’Œé¢œè‰²</b>
                 </font></td>
                 </tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ö÷×ÖÌåÍâ¹Û</font></td>
+                <font color=#333333>ä¸»å­—ä½“å¤–è§‚</font></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"font\">\n<option value=\"ËÎÌå\">ËÎÌå\n<option value=\"·ÂËÎ\">·ÂËÎ\n<option value=\"¿¬Ìå\">¿¬Ìå\n<option value=\"ºÚÌå\">ºÚÌå\n<option value=\"Á¥Êé\">Á¥Êé\n<option value=\"Ó×Ô²\">Ó×Ô²\n</select><p>\n";
+                $tempoutput = "<select name=\"font\">\n<option value=\"å®‹ä½“\">å®‹ä½“\n<option value=\"ä»¿å®‹\">ä»¿å®‹\n<option value=\"æ¥·ä½“\">æ¥·ä½“\n<option value=\"é»‘ä½“\">é»‘ä½“\n<option value=\"éš¶ä¹¦\">éš¶ä¹¦\n<option value=\"å¹¼åœ†\">å¹¼åœ†\n</select><p>\n";
                 $tempoutput =~ s/value=\"$font\"/value=\"$font\" selected/;
                 print qq~
                 $tempoutput</td>
@@ -260,357 +260,357 @@ obj2.style.backgroundColor=arr;
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>"×îºó·¢ÌùÕß"×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$lastpostfontcolor  width=12 id=lastpostfontcolor2>¡¡</td>
+                <font color=#333333>"æœ€åŽå‘è´´è€…"å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$lastpostfontcolor  width=12 id=lastpostfontcolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="lastpostfontcolor" value="$lastpostfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,lastpostfontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#000000</td>
+                <input type=text name="lastpostfontcolor" value="$lastpostfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,lastpostfontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#000000</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>"¼ÓÖØÇø"×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$fonthighlight  width=12 id=fonthighlight2>¡¡</td>
+                <font color=#333333>"åŠ é‡åŒº"å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$fonthighlight  width=12 id=fonthighlight2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="fonthighlight" value="$fonthighlight" size=7 maxlength=7 onclick="javascript:selcolor(this,fonthighlight2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#990000</td>
+                <input type=text name="fonthighlight" value="$fonthighlight" size=7 maxlength=7 onclick="javascript:selcolor(this,fonthighlight2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#990000</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>²é¿´Ê±·¢±íÕßÃû³Æ×ÖÌå</font></td>
+                <font color=#333333>æŸ¥çœ‹æ—¶å‘è¡¨è€…åç§°å­—ä½“</font></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"posternamefont\">\n<option value=\"ËÎÌå\">ËÎÌå\n<option value=\"·ÂËÎ\">·ÂËÎ\n<option value=\"¿¬Ìå\">¿¬Ìå\n<option value=\"ºÚÌå\">ºÚÌå\n<option value=\"Á¥Êé\">Á¥Êé\n<option value=\"Ó×Ô²\">Ó×Ô²\n</select><p>\n";
+                $tempoutput = "<select name=\"posternamefont\">\n<option value=\"å®‹ä½“\">å®‹ä½“\n<option value=\"ä»¿å®‹\">ä»¿å®‹\n<option value=\"æ¥·ä½“\">æ¥·ä½“\n<option value=\"é»‘ä½“\">é»‘ä½“\n<option value=\"éš¶ä¹¦\">éš¶ä¹¦\n<option value=\"å¹¼åœ†\">å¹¼åœ†\n</select><p>\n";
                 $tempoutput =~ s/value=\"$posternamefont\"/value=\"$posternamefont\" selected/;
                 print qq~
                 $tempoutput</td>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>Ò»°ãÓÃ»§Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$posternamecolor  width=12 id=posternamecolor2>¡¡</td>
+                <font color=#333333>ä¸€èˆ¬ç”¨æˆ·åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$posternamecolor  width=12 id=posternamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="posternamecolor" value="$posternamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,posternamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#000066</td>
+                <input type=text name="posternamecolor" value="$posternamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,posternamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#000066</td>
                 </tr>
 
 		<tr>
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>Ò»°ãÓÃ»§Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$memglow  width=12 id=memglow2>¡¡</td>
+		<font face=verdana color=#333333>ä¸€èˆ¬ç”¨æˆ·åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$memglow  width=12 id=memglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="memglow" value="$memglow" size=7 maxlength=7 onclick="javascript:selcolor(this,memglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#9898BA</td>
+		<input type=text name="memglow" value="$memglow" size=7 maxlength=7 onclick="javascript:selcolor(this,memglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#9898BA</td>
 		</tr>
                
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>Ì³Ö÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$adminnamecolor  width=12 id=adminnamecolor2>¡¡</td>
+                <font color=#333333>å›ä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$adminnamecolor  width=12 id=adminnamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="adminnamecolor" value="$adminnamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,adminnamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#990000</td>
+                <input type=text name="adminnamecolor" value="$adminnamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,adminnamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#990000</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>Ì³Ö÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$adminglow  width=12 id=adminglow2>¡¡</td>
+		<font face=verdana color=#333333>å›ä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$adminglow  width=12 id=adminglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="adminglow" value="$adminglow" size=7 maxlength=7 onclick="javascript:selcolor(this,adminglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#9898BA</td>
+		<input type=text name="adminglow" value="$adminglow" size=7 maxlength=7 onclick="javascript:selcolor(this,adminglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#9898BA</td>
 		</tr>
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>×Ü°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$smonamecolor  width=12 id=smonamecolor2>¡¡</td>
+                <font color=#333333>æ€»ç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$smonamecolor  width=12 id=smonamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="smonamecolor" value="$smonamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,smonamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#009900</td>
+                <input type=text name="smonamecolor" value="$smonamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,smonamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#009900</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>×Ü°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$smoglow  width=12 id=smoglow2>¡¡</td>
+		<font face=verdana color=#333333>æ€»ç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$smoglow  width=12 id=smoglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="smoglow" value="$smoglow" size=7 maxlength=7 onclick="javascript:selcolor(this,smoglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#9898BA</td>
+		<input type=text name="smoglow" value="$smoglow" size=7 maxlength=7 onclick="javascript:selcolor(this,smoglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#9898BA</td>
 		</tr>
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀàÇø°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$cmonamecolor  width=12 id=cmonamecolor2>¡¡</td>
+                <font color=#333333>åˆ†ç±»åŒºç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$cmonamecolor  width=12 id=cmonamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="cmonamecolor" value="$cmonamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,cmonamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#009900</td>
+                <input type=text name="cmonamecolor" value="$cmonamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,cmonamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#009900</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>·ÖÀàÇø°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$cmoglow  width=12 id=cmoglow2>¡¡</td>
+		<font face=verdana color=#333333>åˆ†ç±»åŒºç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$cmoglow  width=12 id=cmoglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="cmoglow" value="$cmoglow" size=7 maxlength=7 onclick="javascript:selcolor(this,cmoglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#9898BA</td>
+		<input type=text name="cmoglow" value="$cmoglow" size=7 maxlength=7 onclick="javascript:selcolor(this,cmoglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#9898BA</td>
 		</tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$teamnamecolor  width=12 id=teamnamecolor2>¡¡</td>
+                <font color=#333333>ç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$teamnamecolor  width=12 id=teamnamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="teamnamecolor" value="$teamnamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,teamnamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#0000ff</td>
+                <input type=text name="teamnamecolor" value="$teamnamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,teamnamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#0000ff</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font color=#333333>°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$teamglow  width=12 id=teamglow2>¡¡</td>
+		<font color=#333333>ç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$teamglow  width=12 id=teamglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="teamglow" value="$teamglow" size=7 maxlength=7 onclick="javascript:selcolor(this,teamglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#9898BA</td>
+		<input type=text name="teamglow" value="$teamglow" size=7 maxlength=7 onclick="javascript:selcolor(this,teamglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#9898BA</td>
 		</tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>¸±°æÖ÷Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$amonamecolor  width=12 id=amonamecolor2>¡¡</td>
+                <font color=#333333>å‰¯ç‰ˆä¸»åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$amonamecolor  width=12 id=amonamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="amonamecolor" value="$amonamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,amonamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#009900</td>
+                <input type=text name="amonamecolor" value="$amonamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,amonamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#009900</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>¸±°æÖ÷Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$amoglow  width=12 id=amoglow2>¡¡</td>
+		<font face=verdana color=#333333>å‰¯ç‰ˆä¸»åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$amoglow  width=12 id=amoglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="amoglow" value="$amoglow" size=7 maxlength=7 onclick="javascript:selcolor(this,amoglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#9898BA</td>
+		<input type=text name="amoglow" value="$amoglow" size=7 maxlength=7 onclick="javascript:selcolor(this,amoglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#9898BA</td>
 		</tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÈÏÖ¤ÓÃ»§Ãû³Æ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$rznamecolor  width=12 id=rznamecolor2>¡¡</td>
+                <font color=#333333>è®¤è¯ç”¨æˆ·åç§°å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$rznamecolor  width=12 id=rznamecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="rznamecolor" value="$rznamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,rznamecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#44ff00</td>
+                <input type=text name="rznamecolor" value="$rznamecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,rznamecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#44ff00</td>
                 </tr>
 
 		<td bgcolor=#FFFFFF>
-		<font color=#333333>ÈÏÖ¤ÓÃ»§Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$rzglow  width=12 id=rzglow2>¡¡</td>
+		<font color=#333333>è®¤è¯ç”¨æˆ·åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$rzglow  width=12 id=rzglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="rzglow" value="$rzglow" size=7 maxlength=7 onclick="javascript:selcolor(this,rzglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#008736</td>
+		<input type=text name="rzglow" value="$rzglow" size=7 maxlength=7 onclick="javascript:selcolor(this,rzglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#008736</td>
 		</tr>
 		
 		<td bgcolor=#FFFFFF>
-		<font face=verdana color=#333333>¹ýÂËºÍ½ûÑÔÓÃ»§Ãû³ÆÉÏµÄ¹âÔÎÑÕÉ«</font></td>
-		<td bgcolor=$banglow  width=12 id=banglow2>¡¡</td>
+		<font face=verdana color=#333333>è¿‡æ»¤å’Œç¦è¨€ç”¨æˆ·åç§°ä¸Šçš„å…‰æ™•é¢œè‰²</font></td>
+		<td bgcolor=$banglow  width=12 id=banglow2>ã€€</td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="banglow" value="$banglow" size=7 maxlength=7 onclick="javascript:selcolor(this,banglow2)" style="cursor:hand">¡¡Ä¬ÈÏ£ºnone</td>
+		<input type=text name="banglow" value="$banglow" size=7 maxlength=7 onclick="javascript:selcolor(this,banglow2)" style="cursor:hand">ã€€é»˜è®¤ï¼šnone</td>
 		</tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ËùÓÐÒ³ÃæÑÕÉ«</center></b><br>
-                <font color=#333333>ÕâÐ©ÑÕÉ«ÅäÖÃ½«ÓÃÓÚÃ¿¸öÒ³Ãæ¡£ÓÃÓÚ×¢²á¡¢µÇÂ¼¡¢ÔÚÏßÒÔ¼°ÆäËûÒ³Ãæ¡£
+                <font color=#990000><b><center>æ‰€æœ‰é¡µé¢é¢œè‰²</center></b><br>
+                <font color=#333333>è¿™äº›é¢œè‰²é…ç½®å°†ç”¨äºŽæ¯ä¸ªé¡µé¢ã€‚ç”¨äºŽæ³¨å†Œã€ç™»å½•ã€åœ¨çº¿ä»¥åŠå…¶ä»–é¡µé¢ã€‚
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>Ö÷×ÖÌåÑÕÉ«Ò»</font></td>
-                <td bgcolor=$fontcolormisc  width=12 id=fontcolormisc3>¡¡</td>
+                <font color=#333333>ä¸»å­—ä½“é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$fontcolormisc  width=12 id=fontcolormisc3>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="fontcolormisc" value="$fontcolormisc" size=7 maxlength=7 onclick="javascript:selcolor(this,fontcolormisc3)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="fontcolormisc" value="$fontcolormisc" size=7 maxlength=7 onclick="javascript:selcolor(this,fontcolormisc3)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333>Ö÷×ÖÌåÑÕÉ«¶þ</font></td>
-                <td bgcolor=$fontcolormisc2  width=12 id=fontcolormisc4>¡¡</td>
+                <font color=#333333>ä¸»å­—ä½“é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$fontcolormisc2  width=12 id=fontcolormisc4>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="fontcolormisc2" value="$fontcolormisc2" size=7 maxlength=7 onclick="javascript:selcolor(this,fontcolormisc4)" style="cursor:hand">¡¡Ä¬ÈÏ£º#444444</td>
+                <input type=text name="fontcolormisc2" value="$fontcolormisc2" size=7 maxlength=7 onclick="javascript:selcolor(this,fontcolormisc4)" style="cursor:hand">ã€€é»˜è®¤ï¼š#444444</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÆäËû±³¾°ÑÕÉ«Ò»</font></td>
-                <td bgcolor=$miscbackone  width=12 id=miscbackone2>¡¡</td>
+                <font color=#333333>å…¶ä»–èƒŒæ™¯é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$miscbackone  width=12 id=miscbackone2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="miscbackone" value="$miscbackone" size=7 maxlength=7 onclick="javascript:selcolor(this,miscbackone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#FFFFFF</td>
+                <input type=text name="miscbackone" value="$miscbackone" size=7 maxlength=7 onclick="javascript:selcolor(this,miscbackone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#FFFFFF</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÆäËû±³¾°ÑÕÉ«¶þ</font></td>
-                <td bgcolor=$miscbacktwo  width=12 id=miscbacktwo2>¡¡</td>
+                <font color=#333333>å…¶ä»–èƒŒæ™¯é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$miscbacktwo  width=12 id=miscbacktwo2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="miscbacktwo" value="$miscbacktwo" size=7 maxlength=7 onclick="javascript:selcolor(this,miscbacktwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#EEEEEE</td>
+                <input type=text name="miscbacktwo" value="$miscbacktwo" size=7 maxlength=7 onclick="javascript:selcolor(this,miscbacktwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#EEEEEE</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>±í¸ñÑÕÉ«</center></b><br>
-                <font color=#333333>ÕâÐ©ÑÕÉ«´ó²¿·ÖÓÃÓÚleobbs.cgi£¬forums.cgiºÍtopic.cgi
+                <font color=#990000><b><center>è¡¨æ ¼é¢œè‰²</center></b><br>
+                <font color=#333333>è¿™äº›é¢œè‰²å¤§éƒ¨åˆ†ç”¨äºŽleobbs.cgiï¼Œforums.cgiå’Œtopic.cgi
                 </td></tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀà´ø±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$catback  width=12 id=catback2>¡¡</td>
+                <font color=#333333>åˆ†ç±»å¸¦èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$catback  width=12 id=catback2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="catback" value="$catback" size=7 maxlength=7 onclick="javascript:selcolor(this,catback2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#ebebFF</td>
+                <input type=text name="catback" value="$catback" size=7 maxlength=7 onclick="javascript:selcolor(this,catback2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#ebebFF</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>±êÌâÀ¸±³¾°Í¼Æ¬</font><BR>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ</td>
-                <td background=$imagesurl/myimages/$catbackpic  width=12>¡¡</td>
+                <font color=#333333>æ ‡é¢˜æ èƒŒæ™¯å›¾ç‰‡</font><BR>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹</td>
+                <td background=$imagesurl/myimages/$catbackpic  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="catbackpic" value="$catbackpic"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀà´ø±³¾°Í¼Æ¬</font><BR>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ</td>
-                <td background=$imagesurl/myimages/$catsbackpicinfo  width=12>¡¡</td>
+                <font color=#333333>åˆ†ç±»å¸¦èƒŒæ™¯å›¾ç‰‡</font><BR>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹</td>
+                <td background=$imagesurl/myimages/$catsbackpicinfo  width=12>ã€€</td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="catsbackpicinfo" value="$catsbackpicinfo"></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>·ÖÀà´ø×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$catfontcolor  width=12 id=catfontcolor2>¡¡</td>
+                <font color=#333333>åˆ†ç±»å¸¦å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$catfontcolor  width=12 id=catfontcolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="catfontcolor" value="$catfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,catfontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="catfontcolor" value="$catfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,catfontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ËùÓÐ±í¸ñ±ß½çÑÕÉ«</font></td>
-                <td bgcolor=$tablebordercolor  width=12 id=tablebordercolor2>¡¡</td>
+                <font color=#333333>æ‰€æœ‰è¡¨æ ¼è¾¹ç•Œé¢œè‰²</font></td>
+                <td bgcolor=$tablebordercolor  width=12 id=tablebordercolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="tablebordercolor" value="$tablebordercolor" size=7 maxlength=7 onclick="javascript:selcolor(this,tablebordercolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#000000</td>
+                <input type=text name="tablebordercolor" value="$tablebordercolor" size=7 maxlength=7 onclick="javascript:selcolor(this,tablebordercolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#000000</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ËùÓÐ±í¸ñ¿í¶È</font></td>
+                <font color=#333333>æ‰€æœ‰è¡¨æ ¼å®½åº¦</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="tablewidth" value="$tablewidth" size=5 maxlength=5>¡¡Ä¬ÈÏ£º750</td>
+                <input type=text name="tablewidth" value="$tablewidth" size=5 maxlength=5>ã€€é»˜è®¤ï¼š750</td>
                 </tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>µ¼º½À¸ÑÕÉ«</center></b>
-                <font color=#333333>ÕâÀïÑÕÉ«ÅäÖÃÓÃÓÚÉèÖÃ¿ì½Ý²Ù×÷µ¼º½À¸µÄÑÕÉ«
+                <font color=#990000><b><center>å¯¼èˆªæ é¢œè‰²</center></b>
+                <font color=#333333>è¿™é‡Œé¢œè‰²é…ç½®ç”¨äºŽè®¾ç½®å¿«æ·æ“ä½œå¯¼èˆªæ çš„é¢œè‰²
                 </td></tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>µ¼º½À¸±ßÏßÑÕÉ«</font></td>
-                <td bgcolor=$navborder width=12 id=navborder2>¡¡</td>
+                <font color=#333333>å¯¼èˆªæ è¾¹çº¿é¢œè‰²</font></td>
+                <td bgcolor=$navborder width=12 id=navborder2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="navborder" value="$navborder" size=7 maxlength=7 onclick="javascript:selcolor(this,navborder2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#E6E6E6</td>
+                <input type=text name="navborder" value="$navborder" size=7 maxlength=7 onclick="javascript:selcolor(this,navborder2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#E6E6E6</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>µ¼º½À¸±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$navbackground width=12 id=navbackground2>¡¡</td>
+                <font color=#333333>å¯¼èˆªæ èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$navbackground width=12 id=navbackground2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="navbackground" value="$navbackground" size=7 maxlength=7 onclick="javascript:selcolor(this,navbackground2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#F7F7F7</td>
+                <input type=text name="navbackground" value="$navbackground" size=7 maxlength=7 onclick="javascript:selcolor(this,navbackground2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#F7F7F7</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>µ¼º½À¸×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$navfontcolor width=12 id=navfontcolor2>¡¡</td>
+                <font color=#333333>å¯¼èˆªæ å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$navfontcolor width=12 id=navfontcolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="navfontcolor" value="$navfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,navfontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#4D76B3</td>
-                </tr>
-                
-                <tr>
-                <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>±êÌâÑÕÉ«</center></b><br>
-                <font color=#333333>ÕâÀïÑÕÉ«ÅäÖÃÓÃÓÚ·¢±íµÚÒ»¸öÖ÷ÌâµÄ±êÌâ
-                </td></tr>
-                
-                <tr>
-                <td bgcolor=#FFFFFF>
-                <font color=#333333>ÂÛÌ³/Ö÷ÌâµÄ±êÌâÀ¸±³¾°ÑÕÉ«</font></td>
-                <td bgcolor=$titlecolor  width=12 id=titlecolor2>¡¡</td>
-                <td bgcolor=#FFFFFF>
-                <input type=text name="titlecolor" value="$titlecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,titlecolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#acbded</td>
-                </tr>
-                
-                <tr>
-                <td bgcolor=#FFFFFF>
-                <font color=#333333>ÂÛÌ³/Ö÷ÌâµÄ±êÌâÀ¸×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$titlefontcolor  width=12 id=titlefontcolor2>¡¡</td>
-                <td bgcolor=#FFFFFF>
-                <input type=text name="titlefontcolor" value="$titlefontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,titlefontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="navfontcolor" value="$navfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,navfontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#4D76B3</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ÂÛÌ³ÄÚÈÝÑÕÉ«</center></b><br>
-                <font color=#333333>²é¿´ÂÛÌ³ÄÚÈÝÊ±ÑÕÉ« (forums.cgi)
+                <font color=#990000><b><center>æ ‡é¢˜é¢œè‰²</center></b><br>
+                <font color=#333333>è¿™é‡Œé¢œè‰²é…ç½®ç”¨äºŽå‘è¡¨ç¬¬ä¸€ä¸ªä¸»é¢˜çš„æ ‡é¢˜
                 </td></tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝÑÕÉ«Ò»</font></td>
-                <td bgcolor=$forumcolorone  width=12 id=forumcolorone2>¡¡</td>
+                <font color=#333333>è®ºå›/ä¸»é¢˜çš„æ ‡é¢˜æ èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$titlecolor  width=12 id=titlecolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="forumcolorone" value="$forumcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolorone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#f0F3Fa</td>
+                <input type=text name="titlecolor" value="$titlecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,titlecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#acbded</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝÑÕÉ«¶þ</font></td>
-                <td bgcolor=$forumcolortwo  width=12 id=forumcolortwo2>¡¡</td>
+                <font color=#333333>è®ºå›/ä¸»é¢˜çš„æ ‡é¢˜æ å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$titlefontcolor  width=12 id=titlefontcolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="forumcolortwo" value="$forumcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolortwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#F2F8FF</td>
-                </tr>
-                
-                <tr>
-                <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$forumfontcolor  width=12 id=forumfontcolor2>¡¡</td>
-                <td bgcolor=#FFFFFF>
-                <input type=text name="forumfontcolor" value="$forumfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,forumfontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="titlefontcolor" value="$titlefontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,titlefontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>»Ø¸´ÑÕÉ«</center></b><br>
-                <font color=#333333>»Ø¸´Ìù×ÓÑÕÉ«(topic.cgi)
+                <font color=#990000><b><center>è®ºå›å†…å®¹é¢œè‰²</center></b><br>
+                <font color=#333333>æŸ¥çœ‹è®ºå›å†…å®¹æ—¶é¢œè‰² (forums.cgi)
+                </td></tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF>
+                <font color=#333333>å†…å®¹é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$forumcolorone  width=12 id=forumcolorone2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="forumcolorone" value="$forumcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolorone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#f0F3Fa</td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF>
+                <font color=#333333>å†…å®¹é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$forumcolortwo  width=12 id=forumcolortwo2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="forumcolortwo" value="$forumcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolortwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#F2F8FF</td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF>
+                <font color=#333333>å†…å®¹å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$forumfontcolor  width=12 id=forumfontcolor2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="forumfontcolor" value="$forumfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,forumfontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#EEEEEE align=center colspan=3>
+                <font color=#990000><b><center>å›žå¤é¢œè‰²</center></b><br>
+                <font color=#333333>å›žå¤è´´å­é¢œè‰²(topic.cgi)
                 </td></tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´ÑÕÉ«Ò»</font></td>
-                <td bgcolor=$postcolorone  width=12 id=postcolorone2>¡¡</td>
+                <font color=#333333>å›žå¤é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$postcolorone  width=12 id=postcolorone2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postcolorone" value="$postcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolorone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#EFF3F9</td>
+                <input type=text name="postcolorone" value="$postcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolorone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#EFF3F9</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´ÑÕÉ«¶þ</font></td>
-                <td bgcolor=$postcolortwo  width=12 id=postcolortwo2>¡¡</td>
+                <font color=#333333>å›žå¤é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$postcolortwo  width=12 id=postcolortwo2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postcolortwo" value="$postcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolortwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#F2F4EF</td>
+                <input type=text name="postcolortwo" value="$postcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolortwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#F2F4EF</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´×ÖÌåÑÕÉ«Ò»</font></td>
-                <td bgcolor=$postfontcolorone  width=12 id=postfontcolorone2>¡¡</td>
+                <font color=#333333>å›žå¤å­—ä½“é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$postfontcolorone  width=12 id=postfontcolorone2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postfontcolorone" value="$postfontcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolorone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="postfontcolorone" value="$postfontcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolorone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´×ÖÌåÑÕÉ«¶þ</font></td>
-                <td bgcolor=$postfontcolortwo  width=12 id=postfontcolortwo2>¡¡</td>
+                <font color=#333333>å›žå¤å­—ä½“é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$postfontcolortwo  width=12 id=postfontcolortwo2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postfontcolortwo" value="$postfontcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolortwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#555555</td>
+                <input type=text name="postfontcolortwo" value="$postfontcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolortwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#555555</td>
                 </tr>
                
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-<b>Áí´æÎª·ç¸ñÃû³Æ</b> <input type=text name=savename size=16> (Èç²»ÌîÐ´ÔòÎªÐÞ¸Ä¸ÃÅäÉ«)<br>
-                <input type=submit value="È· ¶¨">¡¡<input type=button value="È¡ Ïû"></td></form></tr></table></td></tr></table>
+<b>å¦å­˜ä¸ºé£Žæ ¼åç§°</b> <input type=text name=savename size=16> (å¦‚ä¸å¡«å†™åˆ™ä¸ºä¿®æ”¹è¯¥é…è‰²)<br>
+                <input type=submit value="ç¡® å®š">ã€€<input type=button value="å– æ¶ˆ"></td></form></tr></table></td></tr></table>
                 ~;
                 }
                 }

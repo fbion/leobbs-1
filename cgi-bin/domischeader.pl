@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
     my $filetoopen = "${lbdir}forum$inforum/foruminfo.cgi";
@@ -22,16 +22,16 @@
 	$forums = <FILE>;
 	close(FILE);
 	(undef, undef, undef, $tempforumname, undef) = split(/\t/,$forums);
-	$addlink  = qq~ ¡ú <a href=forums.cgi?forum=$tempforumno>$tempforumname</a>~;
+	$addlink  = qq~ â†’ <a href=forums.cgi?forum=$tempforumno>$tempforumname</a>~;
     }
     $forumdescription = &HTML("$forumdescription");
     $forumdescription =~ s/<BR>//isg;
     $forumdescription =~ s/<P>//isg;
 
     if ($indexforum ne "no") {
-        $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink ¡ú <a href=forums.cgi?forum=$inforum>$forumname</a> ¡ú misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
+        $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink â†’ <a href=forums.cgi?forum=$inforum>$forumname</a> â†’ misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
     } else {
-        $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=forums.cgi?forum=$inforum>$forumname</a> ¡ú¡¡misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
+        $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=forums.cgi?forum=$inforum>$forumname</a> â†’ã€€misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
     }
 
     $titleoutput .= qq~<br>~;

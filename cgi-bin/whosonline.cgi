@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -33,15 +33,15 @@ $thisprog = "whosonline.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
 $query = new LBCGI;
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie");   }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 }
 else {
 #    &getmember("$inmembername");
@@ -50,9 +50,9 @@ else {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 }
 $membercodetemp = $membercode;
 
@@ -63,17 +63,17 @@ $addtime = $timezone*3600 + $timedifferencevalue*3600;
 $current_time  = &dateformatshort($current_time + $addtime);
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 $catbackpic = "background=$imagesurl/images/$skin/$catbackpic";
 
-$helpurl = &helpfiles("ÔÚÏßÓÃ»§");
+$helpurl = &helpfiles("åœ¨çº¿ç”¨æˆ·");
 $helpurl = qq~$helpurl<img src="$imagesurl/images/$skin/help_b.gif" border=0></a>~;
 
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-    &whosonline("$inmembername\tÔÚÏßÓÃ»§\tboth\t²é¿´ÔÚÏßÓÃ»§×´Ì¬\t");
+    &whosonline("$inmembername\tåœ¨çº¿ç”¨æˆ·\tboth\tæŸ¥çœ‹åœ¨çº¿ç”¨æˆ·çŠ¶æ€\t");
 }
 $freshtime= $query->cookie("freshtime");
 if ($freshtime ne "") {
@@ -81,7 +81,7 @@ if ($freshtime ne "") {
     $autofreshtime = 60 if ($autofreshtime < 60);
     $refreshnow = qq~<meta http-equiv="refresh" content="$autofreshtime;">~;
 }
-&mischeader("µ±Ç°ÔÚÏßÓÃ»§ (×îºó¸üĞÂÊ±¼ä£º$current_time)");
+&mischeader("å½“å‰åœ¨çº¿ç”¨æˆ· (æœ€åæ›´æ–°æ—¶é—´ï¼š$current_time)");
 
 $output .= qq~$refreshnow
 <p>
@@ -89,13 +89,13 @@ $output .= qq~$refreshnow
 
 $onlinedata = @onlinedata;
 $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=8 align=center><font face=$font color=$fontcolormisc><b>ÔÚÏßÓÃ»§ÁĞ±í</b> (¹² $onlinedata ÈË)</td></tr><tr>
-<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>Í·Ïñ</td>
-<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>ÓÃ»§Ãû</td>
-<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>µ±Ç°Î»ÖÃ</td>
-<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>×îºó¶¯×÷</td>
-<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>À´·ÃÊ±¼ä</td>
-<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>×î½ü»î¶¯Ê±¼ä</td>
+<tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=8 align=center><font face=$font color=$fontcolormisc><b>åœ¨çº¿ç”¨æˆ·åˆ—è¡¨</b> (å…± $onlinedata äºº)</td></tr><tr>
+<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>å¤´åƒ</td>
+<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>ç”¨æˆ·å</td>
+<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>å½“å‰ä½ç½®</td>
+<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>æœ€ååŠ¨ä½œ</td>
+<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>æ¥è®¿æ—¶é—´</td>
+<td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>æœ€è¿‘æ´»åŠ¨æ—¶é—´</td>
 <td bgcolor=$miscbackone align=center><font face=$font color=$fontcolormisc><b>IP</td>
 </tr>
 ~;
@@ -103,23 +103,23 @@ $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 wid
 foreach (@onlinedata) {
     chomp $_;
     ($savedusername, $savedcometime, $savedtime, $savedwhere, $saveipaddresstemp, $saveosinfo, $savebrowseinfo, $savedwhere2, $fromwhere, $savemembercode, $savehidden) = split(/\t/, $_);
-    $savedwhere2 =~ s/£ª£££¡£¦£ª//;
-    $fromwhere     = "ÒÑÉèÖÃ±£ÃÜ" if (($pvtip ne "on")&&($membercode ne "ad")&&($membercode ne "smo")&&($inmembmod ne "yes"));
+    $savedwhere2 =~ s/ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+    $fromwhere     = "å·²è®¾ç½®ä¿å¯†" if (($pvtip ne "on")&&($membercode ne "ad")&&($membercode ne "smo")&&($inmembmod ne "yes"));
     $savedcometime = &dateformatshort($savedcometime + $addtime);
     $savedtime     = &dateformatshort($savedtime + $addtime);
     ($lookfor, $no) = split(/\(/,$savedusername);
-    if ($lookfor eq "¿ÍÈË") { $savedusername = "¿ÍÈË"; $useravatar = "Ã»ÓĞ"; }
+    if ($lookfor eq "å®¢äºº") { $savedusername = "å®¢äºº"; $useravatar = "æ²¡æœ‰"; }
     else {
 	my $checkhidden=0;
-	if (((($savehidden eq 1)&&($membercodetemp ne "ad"))||($savedusername =~ /^¿ÍÈË/))&&(lc($savedusername) ne lc($inmembername))) {
+	if (((($savehidden eq 1)&&($membercodetemp ne "ad"))||($savedusername =~ /^å®¢äºº/))&&(lc($savedusername) ne lc($inmembername))) {
 	    $checkhidden=1;
-	    $savedusername = "ÒşÉí»áÔ±"; $useravatar = "Ã»ÓĞ";
+	    $savedusername = "éšèº«ä¼šå‘˜"; $useravatar = "æ²¡æœ‰";
 	}
 	if ($checkhidden==0) {
 #	    &getmember("$savedusername");
 	    &getmember("$savedusername","no");
             if ($avatars eq "on") {
-	        if (($personalavatar)&&($personalwidth)&&($personalheight)) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+	        if (($personalavatar)&&($personalwidth)&&($personalheight)) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 	            $personalavatar =~ s/\$imagesurl/${imagesurl}/o;
 	            if (($personalavatar =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 		        $personalavatar=uri_escape($personalavatar);
@@ -136,9 +136,9 @@ foreach (@onlinedata) {
                 }
         	else {
             	    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) {
-            		$useravatar=qq~<br>&nbsp; <img src=http://qqshow-user.tencent.com/$oicqnumber/11/00/ title="QQ ĞãĞÎÏó" border=0 width=70 height=113>~;
+            		$useravatar=qq~<br>&nbsp; <img src=http://qqshow-user.tencent.com/$oicqnumber/11/00/ title="QQ ç§€å½¢è±¡" border=0 width=70 height=113>~;
                     }
-                    else {$useravatar="Ã»ÓĞ"; }
+                    else {$useravatar="æ²¡æœ‰"; }
                 }
             }
         }
@@ -153,20 +153,20 @@ foreach (@onlinedata) {
         if ($smocanseeip eq "no") { $saveipaddress="$ip1.$ip2.$ip3.$ip4"; }
         else {
 	    if ($pvtip eq "on") { $saveipaddress="$ip1.$ip2.$ip3.$ip4"; }
-	    else { $saveipaddress="ÒÑÉèÖÃ±£ÃÜ"; }
+	    else { $saveipaddress="å·²è®¾ç½®ä¿å¯†"; }
         }
     }
     elsif ($membercodetemp eq "mo") {
         if ($pvtip eq "on") { $saveipaddress="$ip1.$ip2.$ip3.*"; }
-                       else { $saveipaddress="ÒÑÉèÖÃ±£ÃÜ"; }
+                       else { $saveipaddress="å·²è®¾ç½®ä¿å¯†"; }
     }
     else {
-        if (($pvtip eq "on")&&($inmembername ne "¿ÍÈË")) {
+        if (($pvtip eq "on")&&($inmembername ne "å®¢äºº")) {
 	    $saveipaddress="$ip1.$ip2.*.*";
         }
-        else { $saveipaddress="ÒÑÉèÖÃ±£ÃÜ"; }
+        else { $saveipaddress="å·²è®¾ç½®ä¿å¯†"; }
     }
-    unless (($savedusername eq "¿ÍÈË")||($savedusername eq "ÒşÉí»áÔ±")) {
+    unless (($savedusername eq "å®¢äºº")||($savedusername eq "éšèº«ä¼šå‘˜")) {
 	$ppp = qq~<a href="profile.cgi?action=show&member=~ . uri_escape($savedusername) . qq~" target=_blank><font face=$font color=$fontcolormisc><b>$savedusername</b></font></a>~;
     }
     else {
@@ -185,5 +185,5 @@ foreach (@onlinedata) {
 $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - ÂÛÌ³µ±Ç°ÔÚÏßÓÃ»§",\$output);
+&output("$boardname - è®ºå›å½“å‰åœ¨çº¿ç”¨æˆ·",\$output);
 exit;

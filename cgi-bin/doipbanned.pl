@@ -1,15 +1,15 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
       unlink ("${lbdir}cache/id/$infilemembername.cgi");
-      if (($inmembername ne "")&&($inmembername ne "¿ÍÈË")) {
+      if (($inmembername ne "")&&($inmembername ne "å®¢äºº")) {
 	if (open(FILE,"${lbdir}data/idbans.cgi")) {
            $term_idbannedmembers = <FILE>;  
            close(FILE);
@@ -19,7 +19,7 @@
 	   $term_idbannedmembers =~ s/(\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\])//ig;
            $tempinmembername = "\_$inmembername\_";
 	   $tempinmembername =~ s/(\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\])//ig;
-           if ($term_idbannedmembers =~ /$tempinmembername/i) { &error(" ID ±»½ûÖ¹&ÓÉÓÚÄãÃ»×ñÊØ±¾Õ¾¹æ¶¨£¡ÄãµÄ ID ($inmembername) ±»½ûÖ¹£¡ÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±¡£"); }
+           if ($term_idbannedmembers =~ /$tempinmembername/i) { &error(" ID è¢«ç¦æ­¢&ç”±äºä½ æ²¡éµå®ˆæœ¬ç«™è§„å®šï¼ä½ çš„ ID ($inmembername) è¢«ç¦æ­¢ï¼å¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ã€‚"); }
 	}
       }
 
@@ -33,7 +33,7 @@
 	  my @arrowformwhere = split(/\,/,$arrowformwhere);
 	  foreach (@arrowformwhere) {
 	    next if ($_ eq "");
-	    if (($fromwhere =~ m/$_/)||($_ =~ m/$fromwhere/)) { #ÔÊĞí´ËµØÇø
+	    if (($fromwhere =~ m/$_/)||($_ =~ m/$fromwhere/)) { #å…è®¸æ­¤åœ°åŒº
 	    	$arrowwhere = "yes";
 	    	last;
 	    }
@@ -69,12 +69,12 @@
                     last;
                 }
             }
-            &error("µØÇø±»½ûÖ¹&ÓÉÓÚÌ³Ö÷¹æ¶¨£¬ÄãµÄÀ´×ÔµØÇø ( $fromwhere) ±»½ûÖ¹·ÃÎÊ±¾ÂÛÌ³£¡ÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±¡£") if ($arrowwhere eq "no");
+            &error("åœ°åŒºè¢«ç¦æ­¢&ç”±äºå›ä¸»è§„å®šï¼Œä½ çš„æ¥è‡ªåœ°åŒº ( $fromwhere) è¢«ç¦æ­¢è®¿é—®æœ¬è®ºå›ï¼å¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ã€‚") if ($arrowwhere eq "no");
 #            if ($arrowwhere eq "no") { print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES"); exit; }
-            &error(" IP ±»½ûÖ¹&ÓÉÓÚÄãÃ»×ñÊØ±¾Õ¾¹æ¶¨£¡ÄãµÄ IP ($ipallow) ±»½ûÖ¹£¡ÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±¡£") if ($ipallow ne "yes");
+            &error(" IP è¢«ç¦æ­¢&ç”±äºä½ æ²¡éµå®ˆæœ¬ç«™è§„å®šï¼ä½ çš„ IP ($ipallow) è¢«ç¦æ­¢ï¼å¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ã€‚") if ($ipallow ne "yes");
       }
 
-      #Ğ´Èë»º´æ±êÖ¾
+      #å†™å…¥ç¼“å­˜æ ‡å¿—
       $infilemembername =~ s/\.\.//g;
       $infilemembername =~ s/[\\\/]//isg;
       open (FILE, ">${lbdir}cache/id/$infilemembername.cgi");

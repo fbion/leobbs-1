@@ -1,18 +1,18 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
-# 2005-07-1 maiweb ������ -------- For leobbs 0926 �Ժ�İ汾
-# 1��������Ա���ϱ��ݡ��ָ�Bug ------�������� oldĿ¼���������
-# 2�������฽����Ŀ¼����bug
-# 3��������ӻָ�֮����Ҫ�����̨����ͳ��һ�Σ�
-# 4������ϵͳ���ñ�����ȫ
+# 2005-07-1 maiweb 大修正 -------- For leobbs 0926 以后的版本
+# 1，修正会员资料备份、恢复Bug ------仅仅备份 old目录下面的内容
+# 2，修正多附件多目录备份bug
+# 3，板块帖子恢复之后，需要进入后台重新统计一次！
+# 4，修正系统配置备份完全
 BEGIN {
     $startingtime=(times)[0]+(times)[1];
     foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
@@ -69,7 +69,7 @@ $oldversion=        $query-> param('oldversion');
 $packall=        $query-> param('packall');
 $mgn=  $query-> param('mgn');
 
-##########�ָ�����
+##########恢复变量
 @restorelist=        $query-> param('restorelist');
 $toopen=        $query-> param('toopen');
 
@@ -86,7 +86,7 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
             
             print qq~
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>��ӭ������̳�������� / ��̳���ݱ���</b>
+            <b>欢迎来到论坛管理中心 / 论坛数据备份</b>
             </td></tr>
             ~;
             
@@ -120,19 +120,19 @@ print qq~
     <input type=hidden name="action" value="dorestore">
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#990000><b>��������Ҫ��ԭ�ı����ļ�����</b>    
+    <font color=#990000><b>请输入你要还原的备份文件名称</b>    
     </td>
     </tr>
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <div align=center><font color=#333333><BR>��������Ҫ��ԭ�ı����ļ����ƣ�����ȷ�����Ѿ���FTP�ϴ������$lbdir��ǰĿ¼�� <br><br><B><input type=input size=40 name="dirtoopen" value="xqlb.tar"></B><p></div>
-    >***�����Ҫ��ԭ����Ŀ�����ʱδѡȡ<font color=blue>���ܴ��</font>ѡ��뽫���е������ļ��������$lbdir��ǰĿ¼�����������������<font color=blue>tarfilelist.txt</font>***
+    <div align=center><font color=#333333><BR>请输入你要还原的备份文件名称，并且确认你已经用FTP上传到你的$lbdir当前目录！ <br><br><B><input type=input size=40 name="dirtoopen" value="xqlb.tar"></B><p></div>
+    >***如果你要还原的项目，打包时未选取<font color=blue>汇总打包</font>选项，请将所有的下载文件置于你的$lbdir当前目录，并在输入框中输入<font color=blue>tarfilelist.txt</font>***
     <br><Br>
     <div align=center>
-    <input type="checkbox" name="oldversion" value="yes"><font color=red>�ɰ汾���</font><br>
-    �������ļ�������ʹ���°汾���ݳ��������ģ������ѡȡ���
+    <input type="checkbox" name="oldversion" value="yes"><font color=red>旧版本解包</font><br>
+    如果你的文件包不是使用新版本备份程序制作的，请务必选取此项）
     <p>
-    <input type="submit" name="Submit" value="ȷ�ϻ�ԭ����"></div>
+    <input type="submit" name="Submit" value="确认还原备份"></div>
     <p>
     </td>
     </tr>
@@ -154,7 +154,7 @@ sub dorestore
     $toopen=@dirtoopen[0];
     if (-e "${lbdir}$toopen") #do
     {
-      #################### δ���ܴ��� ##   
+      #################### 未汇总处理 ##   
       if ($toopen eq "tarfilelist.txt")
       {
        $packall="no";
@@ -176,7 +176,7 @@ sub dorestore
       {
       my $tar =  Archive::Tar->new();
       unless ($tar->read("${lbdir}$toopen", 0)) {
-	        print qq~<td class='w' align='left' width='60%'>${lbdir}$toopen���ܶ�ȡ�������Ƿ�ʹ�ö�����ģʽ�ϴ�(һ��Ҫ���ģʽ�ϴ����ѹ����)</td></tr>~;
+	        print qq~<td class='w' align='left' width='60%'>${lbdir}$toopen不能读取，请检查是否使用二进制模式上传(一定要这个模式上传这个压缩包)</td></tr>~;
             exit;
         }                                        
       @tarfile=$tar->list_files(); 
@@ -198,7 +198,7 @@ sub dorestore
        }
        close(FILE);
                   
-       ################## ��ȡ����Ϣ
+       ################## 读取包信息
        open(FILE,"tarfilelist.txt"); 
        @tarinfo=<FILE>;
        chomp(@tarinfo);
@@ -217,23 +217,23 @@ sub dorestore
 
        if ($havemember>0)
        {
-       	$showmember="<input type='checkbox' name='restorelist' value='memdir'>�û������ļ�";
+       	$showmember="<input type='checkbox' name='restorelist' value='memdir'>用户资料文件";
        	}
        if ($havemsg1>0)
        {
-       $showmsg="<input type='checkbox' name='restorelist' value='msg'>����Ϣ�ļ�";
+       $showmsg="<input type='checkbox' name='restorelist' value='msg'>短消息文件";
        }
        if ($havemsg2>0)
        {
-       $showmsg="<input type='checkbox' name='restorelist' value='msg'>����Ϣ�ļ�";
+       $showmsg="<input type='checkbox' name='restorelist' value='msg'>短消息文件";
        }
        if ($haveavatar>0)
        {
-       	$showavatar="<input type='checkbox' name='restorelist' value='avatar'>�û��Զ���ͷ��";
+       	$showavatar="<input type='checkbox' name='restorelist' value='avatar'>用户自定义头像";
        	}
        if ($havesystem>0)
        {
-       $showsystem="<input type='checkbox' name='restorelist' value='system'>ϵͳ�����ļ�";
+       $showsystem="<input type='checkbox' name='restorelist' value='system'>系统配置文件";
        }
        
        if ($havetopic>0)
@@ -255,7 +255,7 @@ sub dorestore
           ($a,$forumid)=split(/m/,$forumid);
                     
           $showforum.="<tr>" if ($ii==0);
-          $showforum=$showforum."<td><p><input type='checkbox' name='restorelist' value=$forumid>${forumname}</td><td>��ԭ��$forumid�Ű���</td>";
+          $showforum=$showforum."<td><p><input type='checkbox' name='restorelist' value=$forumid>${forumname}</td><td>还原至$forumid号版面</td>";
           $showforum.="</tr>" if ($ii==2);
           $ii=($ii>2)?0:++$i;
         }
@@ -263,15 +263,15 @@ sub dorestore
         }
         else
         {
-        $showforum="<p>�ð���û�б�����̳��������<p>";
+        $showforum="<p>该包中没有备份论坛版面贴子<p>";
         }
       if($haveattachement>0)
        {
-       $showattachement="<input type='checkbox' name='restorelist' value='attachement' checked>��ԭ����ͬʱ�ָ��ð��渽��<br>"
+       $showattachement="<input type='checkbox' name='restorelist' value='attachement' checked>还原版面同时恢复该版面附件<br>"
        }
        else
        {
-       $showattachement="�ð���û�б�����̳�������Ӹ���";
+       $showattachement="该包中没有备份论坛版面贴子附件";
        }
        
       print qq~
@@ -279,9 +279,9 @@ sub dorestore
        <input type=hidden name="action" value="untar">
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>��ѡ����Ҫ��ԭ����Ŀ</b>
+        <font color=#990000><b>请选择你要还原的项目</b>
         <p>
-        ����ʱ��:$tartime
+        备份时间:$tartime
         </td>
         </tr>          
         
@@ -290,11 +290,11 @@ sub dorestore
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
     <p>
-    <font color=red>ϵͳ���ݣ�</font>
+    <font color=red>系统数据：</font>
     <hr>
     $showmember &nbsp $showmsg &nbsp $showavatar &nbsp $showsystem
     <p>
-    <font color=red>��Ҫ�ָ��İ���</font>
+    <font color=red>需要恢复的版面</font>
     <hr>
     $showforum
     <p>
@@ -306,8 +306,8 @@ sub dorestore
                 <input type=hidden name="toopen" value="$toopen">
                 <input type=hidden name="packall" value="$packall">
                 <input type=hidden name="totalnum" value="$totalnum">
-                <input type="submit" name="Submit" value="�ָ��ļ�Ԥ����">
-                <input type="reset" name="Submit2" value="����ѡ��">
+                <input type="submit" name="Submit" value="恢复文件预处理">
+                <input type="reset" name="Submit2" value="重新选择">
 
     </td>
     </tr>
@@ -325,7 +325,7 @@ sub dorestore
            print qq~	
       <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    �޷��ҵ������ļ�.(����ԭ��:���п�������ļ�����ʹ�ñ��汾���....!����.�ļ������Ĺ�) 
+    无法找到索引文件.(出错原因:很有可能这个文件不是使用本版本打包....!或者.文件被更改过) 
      </td>
       </tr>
       ~;
@@ -342,7 +342,7 @@ sub dorestore
      print qq~	
       <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    ��������û�ҵ��ҵ�������������ļ������Ƿ��Ѿ��ϴ���
+    备份资料没找到找到，请检查输入的文件名和是否已经上传！
      </td>
       </tr>
       ~;
@@ -373,7 +373,7 @@ $msgdir = $msgdir[0];
        <input type=hidden name="action" value="untar">
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>���Ԥ����</b>
+        <font color=#990000><b>解包预处理</b>
         </td>
         </tr>
         <tr>       
@@ -401,7 +401,7 @@ $msgdir = $msgdir[0];
                	foreach $fl (@filelist)
                	   {
                	      $a=$tarname."m";
-               	      if ($fl =~ m/$a/) {push(@needtotar,"$fl\t${lbdir}${memberdir}/old");# ����by maiweb
+               	      if ($fl =~ m/$a/) {push(@needtotar,"$fl\t${lbdir}${memberdir}/old");# 修正by maiweb
                	      }
                	   }
                	}
@@ -469,7 +469,7 @@ $msgdir = $msgdir[0];
            {
            my $tar =  Archive::Tar->new();
            unless ($tar->read("${lbdir}$toopen", 0)) {
-	        print qq~<td class='w' align='left' width='60%'>${lbdir}$toopen���ܶ�ȡ�������Ƿ�ʹ�ö�����ģʽ�ϴ�(һ��Ҫ���ģʽ�ϴ����ѹ����)</td></tr>~;
+	        print qq~<td class='w' align='left' width='60%'>${lbdir}$toopen不能读取，请检查是否使用二进制模式上传(一定要这个模式上传这个压缩包)</td></tr>~;
             exit;
            }           
         
@@ -490,13 +490,13 @@ $msgdir = $msgdir[0];
           foreach(@needtotar)
           {
             (my $isok,my $dirname)=split(/\t/,$_);
-             if  (-e "$isok")  {$status.="$isok �ְ��ɹ�<br>";} else {$status.="$isok �ְ�<font color=blue>δ�ɹ�</font>�������Ƿ�ʹ�ö�����ģʽ�ϴ���<br>";$error="yes";}   
-             if  (opendir(DIR,"$dirname")) {$status.="$dirname ����<br>";} 
-                   else {$status.="$dirname <font color=blue>������</font>";
+             if  (-e "$isok")  {$status.="$isok 分包成功<br>";} else {$status.="$isok 分包<font color=blue>未成功</font>。请检查是否使用二进制模式上传！<br>";$error="yes";}   
+             if  (opendir(DIR,"$dirname")) {$status.="$dirname 存在<br>";} 
+                   else {$status.="$dirname <font color=blue>不存在</font>";
                          if (mkdir("$dirname",777)) {
 							 chmod(0777,"$dirname");
-							 $status.="&nbsp Ŀ¼�����ɹ�<br>";}
-                            else{$status.="&nbspĿ¼����ʧ��<br>";$error="yes";}                         
+							 $status.="&nbsp 目录创建成功<br>";}
+                            else{$status.="&nbsp目录创建失败<br>";$error="yes";}                         
                          } #else 
          
           
@@ -511,14 +511,14 @@ $msgdir = $msgdir[0];
           print qq~
           $status
           <p>
-          <div align=center>Ԥ�������</div>
+          <div align=center>预处理完毕</div>
           <p>
           ~;
            if ($error eq "yes")
            {
              print qq~
           <p><font color=red>
-          <div align=center>Ԥ������������ݴ�����ʾ�����¼��һ�顣</font>
+          <div align=center>预处理错误，请根据错误提示，重新检查一遍。</font>
           </td></tr>
           ~;
           exit;
@@ -533,7 +533,7 @@ $msgdir = $msgdir[0];
          {
          print qq~
          <p><font color=red>
-         <div align=center>Ԥ���������뷵�أ�����һ�顣</font>
+         <div align=center>预处理错误，请返回，重试一遍。</font>
          </td></tr>
          ~;
          exit;
@@ -549,7 +549,7 @@ $msgdir = $msgdir[0];
                 <input type=hidden name="step" value="untar">
                 <input type=hidden name="totalnum" value="$totalnum">
                 <input type=hidden name="packall" value="$packall">
-                <input type="submit" name="Submit" value="�ָ��ļ�">
+                <input type="submit" name="Submit" value="恢复文件">
         </form>
         </td>
         </tr>
@@ -563,7 +563,7 @@ $msgdir = $msgdir[0];
        <input type=hidden name="action" value="untar">
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>����ָ��С���������</b>
+        <font color=#990000><b>解包恢复中。。。。。</b>
         </td>
         </tr>
         <tr>       
@@ -578,12 +578,12 @@ $msgdir = $msgdir[0];
         ($name,$dir)=split(/\t/,$totar);
 		chdir $dir;
           my $tar =  Archive::Tar->new();
-           $status="${lbdir}$name��ԭ��ϡ�";         
+           $status="${lbdir}$name还原完毕。";         
            unless ($tar->read("${lbdir}$name", 0)) {
 	        print qq~
-	        ${lbdir}$name���ܶ�ȡ�������Ƿ�ʹ�ö�����ģʽ�ϴ�(һ��Ҫ���ģʽ�ϴ����ѹ����)
+	        ${lbdir}$name不能读取，请检查是否使用二进制模式上传(一定要这个模式上传这个压缩包)
 	        ~;
-                $status="${lbdir}$name���ܶ�ȡ�������Ƿ�ʹ�ö�����ģʽ�ϴ�(һ��Ҫ���ģʽ�ϴ����ѹ����)";
+                $status="${lbdir}$name不能读取，请检查是否使用二进制模式上传(一定要这个模式上传这个压缩包)";
 
            }
         
@@ -649,7 +649,7 @@ $msgdir = $msgdir[0];
                 <input type=hidden name="tarname" value="$tarname">
                 <input type=hidden name="step" value="finish">
                 <input type=hidden name="totalnum" value="$totalnum">
-                <input type="submit" name="Submit" value="�ָ��ļ�">
+                <input type="submit" name="Submit" value="恢复文件">
         <script>
         setTimeout('document.form.submit()',2000);
         </script>
@@ -672,8 +672,8 @@ $msgdir = $msgdir[0];
            
             
             <div align=center>
-                  <b>��ԭ����</b><br>
-       (��ԭ�������ֵ����Ի�ԭ�ļ������ļ����еı���,�����Դ���Ϊ��ԭ����ʱ����ƶ�)
+                  <b>还原进度</b><br>
+       (还原进度体现的是以还原文件在总文件数中的比例,不能以此作为还原花费时间的推断)
        <table width=80% board=0 height=20>
        <tr>
        <td width=$percent% bgcolor=blue></td>
@@ -686,7 +686,7 @@ $msgdir = $msgdir[0];
                 <input type=hidden name="tarname" value="$tarname">
                 <input type=hidden name="step" value="untar">
                 <input type=hidden name="totalnum" value="$totalnum">
-                <input type="submit" name="Submit" value="�ָ��ļ�">
+                <input type="submit" name="Submit" value="恢复文件">
         <script>
         setTimeout('document.form.submit()',2000);
         </script>
@@ -718,7 +718,7 @@ $msgdir = $msgdir[0];
         print qq~
         <tr>
         <td>
-        ��ԭ����..״̬����:
+        还原结束..状态如下:
         @status
         </td>
         </tr>
@@ -741,7 +741,7 @@ if (-e "${lbdir}$toopen"){
 print qq~
 <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    ���������ҵ������ڿ�ʼ��ԭ��
+    备份资料找到，现在开始还原！
 </td>
 </tr>
 ~;
@@ -749,7 +749,7 @@ print qq~
         my $cwd = cwd();
         my $tar =  Archive::Tar->new();
         unless ($tar->read("${lbdir}$toopen", 0)) {
-	        print qq~<td class='w' align='left' width='60%'>${lbdir}$toopen���ܶ�ȡ�������Ƿ�ʹ�ö�����ģʽ�ϴ�(һ��Ҫ���ģʽ�ϴ����ѹ����)</td></tr>~;
+	        print qq~<td class='w' align='left' width='60%'>${lbdir}$toopen不能读取，请检查是否使用二进制模式上传(一定要这个模式上传这个压缩包)</td></tr>~;
             exit;
         }
         chdir $lbdir;
@@ -760,7 +760,7 @@ print qq~
 print qq~
 <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    ��ԭ��ɣ�
+    还原完成！
 </td>
 </tr>
 ~;
@@ -768,7 +768,7 @@ print qq~
 print qq~	
 <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    ��������û�ҵ��ҵ�������������ļ������Ƿ��Ѿ��ϴ��� 
+    备份资料没找到找到，请检查输入的文件名和是否已经上传！ 
 </td>
 </tr>
 ~;
@@ -788,11 +788,11 @@ chdir $lbdir;
     
     $backupfile = @sortedfile;
     if ($backupfile > 0) {
-    	$last_backup = "���������ļ����ڣ��뼰ʱɾ��!";
+    	$last_backup = "残留备份文件存在，请及时删除!";
            $bakuptrue = 0;
     }
     else {
-           $last_backup = "���������ļ�û���ҵ�����̳��ȫ";
+           $last_backup = "残留备份文件没有找到，论坛安全";
            $bakuptrue = 1;
     }   
 
@@ -802,15 +802,15 @@ chdir $lbdir;
 
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#990000><b>��ѡ����Ҫ���ݵ�����</b>
+    <font color=#990000><b>请选择你要备份的内容</b>
     </td>
     </tr>          
         
                 
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><BR>�����������ļ��� <B>$last_backup</B><BR>
-    <font color=red>�����ֻ���� $imagesdir ���Ƿ��вд�ı����ļ���</font>
+    <font color=#333333><BR>检查残留备份文件： <B>$last_backup</B><BR>
+    <font color=red>本检查只搜索 $imagesdir 下是否有残存的备份文件。</font>
     <BR>
      
     </td>
@@ -819,8 +819,8 @@ chdir $lbdir;
     print qq~
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><b><a href="$thisprog?action=delete">ɾ�����������ļ�</a></b>��<font color=#990000>(Ϊ�˰�ȫ������뼰ʱɾ�����������ļ���)</font><br>
-     ע�⣺һ�㱸�ݵ�������ɺ�Ӧ��ֱ��ɾ�����������ļ������ⲻ��Ҫ�İ�ȫ©����<BR><BR>
+    <font color=#333333><b><a href="$thisprog?action=delete">删除残留备份文件</a></b>　<font color=#990000>(为了安全起见，请及时删除残留备份文件！)</font><br>
+     注意：一般备份到本地完成后，应该直接删除残留备份文件，避免不必要的安全漏洞。<BR><BR>
     </td>
     </tr>
     ~ if ($bakuptrue == 0);
@@ -830,20 +830,20 @@ chdir $lbdir;
     <td colspan=2>
     <hr>
     <br>
-    <div align=center>ʹ��˵��<br></div>
+    <div align=center>使用说明<br></div>
     <p>
-    &nbsp&nbsp&nbsp&nbsp�������Ŀ����Ϊ�˽�������ļ��ߴ��С�����µ���̳���� �ϴ������� Ч�ʵ��µ����⡣<p>
-    &nbsp&nbsp&nbsp&nbsp����ʹ��ǰע�����¼��㣺<p>
+    &nbsp&nbsp&nbsp&nbsp本程序的目的是为了解决由于文件尺寸过小而导致的论坛数据 上传、下载 效率低下的问题。<p>
+    &nbsp&nbsp&nbsp&nbsp请在使用前注意以下几点：<p>
     <table width=70% align=center>
     <tr>
     <td>
-    1���������������У�·���������Ƿ�ʹ�þ���·�������û�У���ĳɾ���·����
+    1、基本变量设置中，路径的配置是否使用绝对路径。如果没有，请改成绝对路径。
     <p>
-    2��$lbdir <br> $imagesdir <br>${lbdir}backup/ <br>����Ŀ¼�Ƿ����óɿ�д�����û�У�����Ϊ��д��
+    2、$lbdir <br> $imagesdir <br>${lbdir}backup/ <br>三个目录是否设置成可写。如果没有，请设为可写。
     <p>
-    3���ڳ��򱸷ݻ�ԭ�Ĳ����У���Ҫ��Ϊ������Զ�ˢ�¶��ر����������ʱ�������ڽ��С�
+    3、在程序备份或还原的操作中，不要因为程序的自动刷新而关闭浏览器，此时程序正在进行。
     <p>
-    4������ڳ���ִ�еĹ����г��ְ���������Ļ����ʾ time out ��memory out ����������Ҫ���ţ������ŵ���һ�²�����ͨ�������Խ����
+    4、如果在程序执行的过程中出现白屏、或屏幕上显示 time out 、memory out 等字样，不要惊慌，请试着调整一下参数，通常都可以解决。
     <p>
     </td>
     </tr>
@@ -854,7 +854,7 @@ chdir $lbdir;
     <td bgcolor=#FFFFFF colspan=2 align=center>
     <p><p>
     <hr>
-    <font color=#333333><a href=$thisprog?action=restore>--[��ԭ]--</a>&nbsp&nbsp&nbsp<a href=$thisprog?action=select>--[����]--
+    <font color=#333333><a href=$thisprog?action=restore>--[还原]--</a>&nbsp&nbsp&nbsp<a href=$thisprog?action=select>--[备份]--
     <hr>
     <p><p>
     </td>
@@ -868,7 +868,7 @@ print qq~
     <input type=hidden name="action" value="prebackup">
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#990000><b>��ѡ����Ҫ���ݵ�����</b>
+    <font color=#990000><b>请选择你要备份的内容</b>
     </td>
     </tr>
   ~;      
@@ -877,15 +877,15 @@ print qq~
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
     
-                    <font color=red>��ѡ��Ҫ���ݵ�ϵͳ�������ϣ�</font>
+                    <font color=red>请选择要备份的系统数据资料：</font>
                     <hr>
                     <p> 
-                      <input type="checkbox" name="dirtoopen" value="memdir">�û������ļ�&nbsp&nbsp&nbsp
-                      <input type="checkbox" name="dirtoopen" value="message">�û�����Ϣ�ļ�&nbsp&nbsp&nbsp
-                      <input type="checkbox" name="dirtoopen" value="avatar">�û��Զ���ͷ��&nbsp&nbsp&nbsp
-                      <input type="checkbox" name="dirtoopen" value="system">ϵͳ�����ļ�
+                      <input type="checkbox" name="dirtoopen" value="memdir">用户资料文件&nbsp&nbsp&nbsp
+                      <input type="checkbox" name="dirtoopen" value="message">用户短消息文件&nbsp&nbsp&nbsp
+                      <input type="checkbox" name="dirtoopen" value="avatar">用户自定义头像&nbsp&nbsp&nbsp
+                      <input type="checkbox" name="dirtoopen" value="system">系统配置文件
                       
-                    <p><font color=red>��ѡ��Ҫ���ݵİ��棺</font><hr>
+                    <p><font color=red>请选择要备份的版面：</font><hr>
     ~;
 my $filetoopen = "$lbdir" . "data/allforums.cgi";
 flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -913,20 +913,20 @@ print "</table>";
     print qq~
                      
                     <hr>
-                    <div align=center><input type="checkbox" name="attachement" value="yes" checked>ͬʱ���������������������ļ�&nbsp&nbsp&nbsp<input type="checkbox" name="packall" value="yes" checked>���ܳ�һ���������<br>
+                    <div align=center><input type="checkbox" name="attachement" value="yes" checked>同时备份帖子中所包含附件文件&nbsp&nbsp&nbsp<input type="checkbox" name="packall" value="yes" checked>汇总成一个大包下载<br>
                     
-                    <font color=red>(�Ƽ�ʹ�û��ܴ���������Ϊ��ķ������ṩ����Դ���⣬��������̳�������Ϲ���������޷����У���ȡ������)</font>                  
+                    <font color=red>(推荐使用汇总打包，如果因为你的服务商提供的资源问题，或由于论坛版面资料过多引起的无法进行，请取消该项)</font>                  
                     </div>
-                    *С���ɣ���������ʵ�����ѡȡһ�δ���Ķ��١��Ƿ���ܡ������ְ����ݵȡ���������Σ���Ȼ���Գɹ����ݡ�
+                    *小技巧：请根据你的实际情况选取一次打包的多少、是否汇总、调整分包数据等。多调整几次，必然可以成功备份。
                     
                     <hr>
-                    �ְ�����(ÿ���ְ�����������һ����Ŀ)��<br>
-                    <input type=text size=4 name="fn" value="500">�������ļ�&nbsp&nbsp<input type=text size=4 name="an" value="50">�������ļ�&nbsp&nbsp<input type=text size=4 name="mn" value="500">���û������ļ�&nbsp&nbsp<input type=text size=4 name="un" value="50">���û��Զ���ͷ���ļ�&nbsp&nbsp<input type=text size=4 name="mgn" value="500">������Ϣ�ļ�<br>
-                    <font color=red>(�������������ÿ����ѹ�����а����ļ������ģ�������Լ��ķ��������ã�ͨ��ȱʡ����)</font>
+                    分包限制(每个分包仅包含以下一个项目)：<br>
+                    <input type=text size=4 name="fn" value="500">个帖子文件&nbsp&nbsp<input type=text size=4 name="an" value="50">个附件文件&nbsp&nbsp<input type=text size=4 name="mn" value="500">个用户资料文件&nbsp&nbsp<input type=text size=4 name="un" value="50">个用户自定义头像文件&nbsp&nbsp<input type=text size=4 name="mgn" value="500">个短消息文件<br>
+                    <font color=red>(这个是用来设置每个分压缩包中包含文件数量的，请根据自己的服务器设置，通常缺省即可)</font>
                     <hr>
                     <div align=center>
-                      <input type="submit" name="Submit" value="�����ļ�����">
-                      <input type="reset" name="Submit2" value="����ѡ��">
+                      <input type="submit" name="Submit" value="备份文件处理">
+                      <input type="reset" name="Submit2" value="重新选择">
                     </div>
                     </p>
     
@@ -946,7 +946,7 @@ print qq~
         <td bgcolor=#FFFFFF align=left colspan=2>
         <font color=#990000>
                     
-        <b>�������׼��</b><p>
+        <b>打包备份准备</b><p>
 ~;        	
         chdir $lbdir;
         
@@ -1002,86 +1002,26 @@ if ($dirtoopen[0] eq "system")
 {
 chdir "${lbdir}data";
 
-# ���� by maiweb begin
+# 修正 by maiweb begin
     	@systemdata=glob("*\.*");     
     	foreach $adas(@systemdata){
         next if ($adas=~/\./);
         @temp223=glob("$adas/*");
         push(@systemdata,@temp223);
-        }# ���� By maiweb end
+        }# 修正 By maiweb end
 shift(@dirtoopen);
 chdir $lbdir;
 $step="system" if ($step eq "unknow");
 }
 
-if ($dirtoopen[0]=~m/forum/)
-{
-   $ttotal=0;
-   $atotal=0;
-   @forumtotar=@dirtoopen;
-   foreach $dirtoopen (@dirtoopen){
-    ($a,$b)=split(/m/,$dirtoopen);
-    chdir "$lbdir$dirtoopen";
-    @temp1=glob("*");      
-    if (($dirtoopen=~m/forum/)&&($attachement eq "yes"))
-    {   
-    	chdir "${imagesdir}$usrdir/$b";
-    	# ���� by maiweb begin
-    	@temp2=glob("$b\_*");     
-    	my @alladad=glob("*");
-    	foreach $adas(@alladad){
-        next if ($adas=~/\_/);
-        @temp223=glob("$adas/*");
-        push(@temp2,@temp223);
-        }# ���� By maiweb end
-    }
-   chdir $lbdir;
-   open(FILE,">backuptopic_$b.temp");
-   foreach(@temp1)
-        {
-        print FILE "$_";
-        print FILE "\n";
-        }
-   close(FILE);
-   open(FILE,">backupattachement_$b.temp");
-   foreach(@temp2)
-        {
-        print FILE "$_";
-        print FILE "\n";
-        }
-   close(FILE);   
-   ########�������Ӻ͸�����
-   $ttotal=$#temp1+1+$ttotal;
-   $atotal=$#temp2+1+$atotal;
-   
-   @emoticondata=(@emoticondata,"backuptopic_$b.temp");
-   @attachedata=(@attachedata,"backupattachement_$b.temp");
-   @temp1=();
-   @temp2=();
-   $step="topic" if ($step eq "unknow");
-   }
-}
-        
-        chdir $lbdir;
-        
-        if ($#systemdata>=0)
-        {
-        open(FILE,">backupsystem.temp");
-        foreach(@systemdata)
-        {
-        print FILE "$_";
-        print FILE "\n";
-        }
-        close(FILE);
-        }
-        
-        if ($#avatardata>=0)
-        {
-        open(FILE,">backupavatar.temp");
-        foreach(@avatardata)
-        {
-        print FILE "$_";
-        print FILE "\n";
+if ($dirtoopen[0	
+print qq~
+        <tr>
+       <tr>
+        <td bgcolor=#FFFFFF align=left colspan=2>
+        <font color=#990000>
+                    
+        <b>\n";
         }
         close(FILE);
         }

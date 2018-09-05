@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -30,8 +30,8 @@ $show.= qq~<card  title="$boardname"> ~;
 $lid = $query -> param('lid');
 &check($lid);
 $pa    = $query -> param('pa');
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername","no");
 }  
@@ -39,7 +39,7 @@ $inforum        = $query -> param('f');
 $intopic        = $query -> param('t');
 &getoneforum("$inforum");
 $myinmembmod = $inmembmod;
-&errorout("´ò¿ªÖ÷Ìâ&Õâ¸öÖ÷Ìâ²»´æÔÚ£¡¿ÉÄÜÒÑ¾­±»É¾³ı£¡") unless (-e "${lbdir}forum${inforum}/${intopic}.thd.cgi");
+&errorout("æ‰“å¼€ä¸»é¢˜&è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼å¯èƒ½å·²ç»è¢«åˆ é™¤ï¼") unless (-e "${lbdir}forum${inforum}/${intopic}.thd.cgi");
     my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
@@ -73,30 +73,30 @@ $myinmembmod = $inmembmod;
 	$testentry = $query->cookie($tempaccess);
 	$allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
 
-&errorout("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9]+$/);
-&errorout("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($intopic !~ /^[0-9]+$/);
+&errorout("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9]+$/);
+&errorout("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($intopic !~ /^[0-9]+$/);
 &getoneforum($inforum);
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
-&errorout("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡")if($yxz ne '' && $yxz!~/,$membercode,/);
+&errorout("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼")if($yxz ne '' && $yxz!~/,$membercode,/);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
-&errorout("½øÈë»áÔ±ÂÛÌ³²é¿´Ìû×ÓÄÚÈİ&ÄúÊÇ¿ÍÈËÃ»ÓĞÈ¨ÏŞ½øÈë!") if ($inmembername eq "¿ÍÈË" && $regaccess eq "on" && &checksearchbot);
-&errorout("½øÈëË½ÓĞÂÛÌ³&¶Ô²»Æğ£¬ÄúÃ»ÓĞÈ¨ÏŞ½øÈë¸ÃË½ÓĞÂÛÌ³£¡") if ($privateforum eq "yes" && $allowed ne "yes");
-if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "¿ÍÈË"))&&($userincert eq "no")) { &errorout("½øÈëÂÛÌ³&ÄãÒ»°ã»áÔ±²»ÔÊĞí½øÈë´ËÂÛÌ³£¡"); }
+&errorout("è¿›å…¥ä¼šå‘˜è®ºå›æŸ¥çœ‹å¸–å­å†…å®¹&æ‚¨æ˜¯å®¢äººæ²¡æœ‰æƒé™è¿›å…¥!") if ($inmembername eq "å®¢äºº" && $regaccess eq "on" && &checksearchbot);
+&errorout("è¿›å…¥ç§æœ‰è®ºå›&å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰æƒé™è¿›å…¥è¯¥ç§æœ‰è®ºå›ï¼") if ($privateforum eq "yes" && $allowed ne "yes");
+if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "å®¢äºº"))&&($userincert eq "no")) { &errorout("è¿›å…¥è®ºå›&ä½ ä¸€èˆ¬ä¼šå‘˜ä¸å…è®¸è¿›å…¥æ­¤è®ºå›ï¼"); }
 
 if ($allowusers ne ''){
-    &errorout('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &errorout('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
      if ($enterminmony > 0 || $enterminjf > 0 ) {
 require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-&errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney1£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-&errorout("½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+&errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoney1ï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+&errorout("è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
    }
 }
-$topictitle=~s/^£ª£££¡£¦£ª//;
+$topictitle=~s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
     my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
     open(FILE, "$filetoopen");
     my @threads = <FILE>;
@@ -147,7 +147,7 @@ else{chop($post);}
 	$post =~ s/\&amp;nbsp;/\&nbsp;/g;
 	$post =~ s/\&amp;gt;/\&gt;/g;
 	$post =~ s/\&amp;lt;/\&lt;/g;
-	$post =~ s/\&amp;#36;/\¡ç/g;
+	$post =~ s/\&amp;#36;/\ï¼„/g;
 	$post =~ s/\&amp\;(.{1,6})\&\#59\;/\&$1\;/isg;
     $post =~ s/\&\#([0-9]{1,6})\&\#59\;/\&\#$1\;/isg;
 	$post =~ s/\&amp;quot;/\"/g;
@@ -162,8 +162,8 @@ else{chop($post);}
 	$post =~ s/\&amp;nbsp;/\&nbsp;/g;
 }
  $postdate = &dateformat($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
- $a .= qq~<p>$rnÂ¥£º$postdate<br/>×÷Õß:$membername<br/>$post($postsize×Ö)<br/>------------</p>~;
+ $a .= qq~<p>$rnæ¥¼ï¼š$postdate<br/>ä½œè€…:$membername<br/>$post($postsizeå­—)<br/>------------</p>~;
 }
 my $r = &msg($inmembername);
-$show.=  qq~<p>$r<b>±êÌâ£º$topictitle</b><br/><small>($threadviews,$#threads,$startedby)</small><br/>----------</p>$a<p>[$paGe/$all_1Ò³]</p><p>$newpage</p><p>Ìøµ½<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_topic.cgi?t=$intopic&amp;paGe=\$(tz)&amp;f=$inforum&amp;lid=$lid&amp;paGe=$pa">Go..</a></p><p><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">·µ»Ø$forumname</a><br/><a href="wap_re.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">»Ø¸´Ìû×Ó</a><br/><a href="wap_index.cgi?lid=$lid">ÂÛÌ³Ê×Ò³</a></p>~;
+$show.=  qq~<p>$r<b>æ ‡é¢˜ï¼š$topictitle</b><br/><small>($threadviews,$#threads,$startedby)</small><br/>----------</p>$a<p>[$paGe/$all_1é¡µ]</p><p>$newpage</p><p>è·³åˆ°<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_topic.cgi?t=$intopic&amp;paGe=\$(tz)&amp;f=$inforum&amp;lid=$lid&amp;paGe=$pa">Go..</a></p><p><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">è¿”å›$forumname</a><br/><a href="wap_re.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">å›å¤å¸–å­</a><br/><a href="wap_index.cgi?lid=$lid">è®ºå›é¦–é¡µ</a></p>~;
 &wapfoot;

@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 #####################################################
-#           ÂÛÌ³¹æÔò²å¼şÓÉ Money Î¬»¤ÖÆ×÷           #
+#           è®ºå›è§„åˆ™æ’ä»¶ç”± Money ç»´æŠ¤åˆ¶ä½œ           #
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      ÍøÕ¾Î»Ö·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³Î»Ö·£º http://bbs.LeoBBS.com/            #
+#      ç½‘ç«™ä½å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›ä½å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -37,7 +37,7 @@ $query = new LBCGI;
 
 $action = $query->param('action');
 $inforum = $query->param('forum');
-&error("¿ªÆôµµ°¸&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9 ]+$/);
+&error("å¼€å¯æ¡£æ¡ˆ&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9 ]+$/);
 require "${lbdir}data/style${inforum}.cgi" if (-e "${lbdir}data/style${inforum}.cgi");
 
 #my $inmembername = $query->param('membername');
@@ -52,7 +52,7 @@ if ($inpassword ne "") {
 
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 require "${lbdir}data/skin/${inselectstyle}.cgi" if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi"));
 $catbackpic = "background=$imagesurl/images/$skin/$catbackpic" if $catbackpic;
 
@@ -63,20 +63,20 @@ $inpassword = $query->cookie("apasswordcookie") unless $inpassword;
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
     if ($inpassword ne $password) {
 	    $namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû³Æ²»Ïà·û£¬ÇëÖØĞÂµÇÈë£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åç§°ä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å…¥ï¼");
     }
 }
 
-&error("ÆÕÍ¨´íÎó&Ã»ÓĞÕâ¸ö·ÖÂÛÌ³£¡") unless -e "${lbdir}forum$inforum";
+&error("æ™®é€šé”™è¯¯&æ²¡æœ‰è¿™ä¸ªåˆ†è®ºå›ï¼") unless -e "${lbdir}forum$inforum";
 
 &moderator($inforum);
 
@@ -86,12 +86,12 @@ if ($action ne "edit") {
     &Edit();
 }
 
-&output("±à¼­ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢", \$output);
+&output("ç¼–è¾‘è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯", \$output);
 exit;
 
 sub ShowForm {
 
-    &mischeader("±à¼­ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢");
+    &mischeader("ç¼–è¾‘è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯");
 
     open FILE, "${lbdir}boarddata/forumrule$inforum.cgi";
     my $forumrule = <FILE>;
@@ -105,12 +105,12 @@ sub ShowForm {
 <form action="$thisprog" method="post">
 <input type=hidden name="action" value="edit">
 <input type=hidden name="forum" value="$inforum">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû³Æ¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [±à¼­ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><b><u>$inmembername</u></b></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§Ãû³ÆºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ°×¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû³Æ</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢<br>(ÔÊĞíÊ¹ÓÃ LBCODE ´úÂë)<br><br><font color=$fonthighlight>ÎªÁËÃÀ¹Û£¬ÄÚÈİÇë¿ØÖÆÔÚ5ĞĞÄÚ¡£</font></td><td bgcolor=$miscbackone><textarea cols=60 name=forumrule rows=10>$forumrule</textarea> £¨Áô¿Õ±íÊ¾²»ÏÔÊ¾ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢£©</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="±à ¼­"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åç§°ã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ç¼–è¾‘è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><b><u>$inmembername</u></b></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åç§°å’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºç™½ã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åç§°</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯<br>(å…è®¸ä½¿ç”¨ LBCODE ä»£ç )<br><br><font color=$fonthighlight>ä¸ºäº†ç¾è§‚ï¼Œå†…å®¹è¯·æ§åˆ¶åœ¨5è¡Œå†…ã€‚</font></td><td bgcolor=$miscbackone><textarea cols=60 name=forumrule rows=10>$forumrule</textarea> ï¼ˆç•™ç©ºè¡¨ç¤ºä¸æ˜¾ç¤ºè®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯ï¼‰</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç¼– è¾‘"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT><p>
 ~;
@@ -118,9 +118,9 @@ sub ShowForm {
 }
 
 sub Edit {
-    &mischeader("±à¼­ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢");
+    &mischeader("ç¼–è¾‘è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯");
 
-    &error("È¨ÏŞ²»×ã&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷»ò°æÖ÷£¬»òÊÇÄúµÄÃÜÂë´íÎó£¡") unless ((($membercode eq "ad")||($membercode eq 'smo')||(",$catemods," =~ /\Q\,$inmembername\,\E/i)||($inmembmod eq "yes"))&&($inpassword eq $password));
+    &error("æƒé™ä¸è¶³&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»æˆ–ç‰ˆä¸»ï¼Œæˆ–æ˜¯æ‚¨çš„å¯†ç é”™è¯¯ï¼") unless ((($membercode eq "ad")||($membercode eq 'smo')||(",$catemods," =~ /\Q\,$inmembername\,\E/i)||($inmembmod eq "yes"))&&($inpassword eq $password));
 
     my $forumrule = $query->param('forumrule');
        $forumrule = &cleaninput("$forumrule");
@@ -134,18 +134,18 @@ sub Edit {
         print FILE $forumrule;
         close FILE;
     }else {
-        # ·´Õı¶¼Ã»ÓĞÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢£¬µ¹²»ÈçÕû¸öµµ°¸É¾³ı£¬¼õÉÙÒ»´Îµµ°¸¶ÁÈ¡¡£
+        # åæ­£éƒ½æ²¡æœ‰è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯ï¼Œå€’ä¸å¦‚æ•´ä¸ªæ¡£æ¡ˆåˆ é™¤ï¼Œå‡å°‘ä¸€æ¬¡æ¡£æ¡ˆè¯»å–ã€‚
     	unlink "${lbdir}boarddata/forumrule$inforum.cgi";
     }
 
     require "recooper.pl";
-    &addadminlog("±à¼­ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢");
+    &addadminlog("ç¼–è¾‘è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯");
 
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ÂÛÌ³¹æÔò¼°ÖØÒªĞÅÏ¢ÒÑ±à¼­</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>è®ºå›è§„åˆ™åŠé‡è¦ä¿¡æ¯å·²ç¼–è¾‘</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">~;

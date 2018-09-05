@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 sub lbnocode {
@@ -31,18 +31,18 @@ sub lbnocode {
 	    my ($inmembername1,$editmembername1,$ratingname1,$reason1,$thistime1) = split(/\|/,$1);
 	    $thistime1 = $thistime1 + ($timedifferencevalue*3600) + ($timezone*3600);
 	    $thistime1 = &dateformatshort($thistime1);
-	    $$post =~ s/\[ADMINOPE=(.+?)\]/<font color=$fonthighlight>-------------------------------------------------------------------<br>$inmembername1 ÔÚ $thistime1 ÓÉÓÚ´ËÌû¶Ô $editmembername1¡¡½øĞĞÈçÏÂ²Ù×÷£º<BR>$ratingname1<BR>ÀíÓÉ£º $reason1<br>-------------------------------------------------------------------<\/font><br><br>/is;
+	    $$post =~ s/\[ADMINOPE=(.+?)\]/<font color=$fonthighlight>-------------------------------------------------------------------<br>$inmembername1 åœ¨ $thistime1 ç”±äºæ­¤å¸–å¯¹ $editmembername1ã€€è¿›è¡Œå¦‚ä¸‹æ“ä½œï¼š<BR>$ratingname1<BR>ç†ç”±ï¼š $reason1<br>-------------------------------------------------------------------<\/font><br><br>/is;
 	}
     }
 
     if ($$post =~ /\[POSTISDELETE=(.+?)\]/) {
     	$postdelete = 1;
-    	if ($1 ne " ") { $presult = "<BR>ÆÁ±ÎÀíÓÉ£º$1<BR>"; } else { $presult = "<BR>"; }
+    	if ($1 ne " ") { $presult = "<BR>å±è”½ç†ç”±ï¼š$1<BR>"; } else { $presult = "<BR>"; }
     	if (($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes")) {
     	    $$post =~ s/\[POSTISDELETE=(.+?)\]//;
-            $$post = "--------------------------<br><font color=$posternamecolor>´ËÌû×ÓÄÚÈİÒÑ¾­±»µ¥¶ÀÆÁ±Î£¡$presultÄÚÈİÈçÏÂ£¨Ö»ÓĞ¹ÜÀíÔ±¿ÉÊÓ£©£º</font><br>--------------------------<br><br>" . $$post;
+            $$post = "--------------------------<br><font color=$posternamecolor>æ­¤å¸–å­å†…å®¹å·²ç»è¢«å•ç‹¬å±è”½ï¼$presultå†…å®¹å¦‚ä¸‹ï¼ˆåªæœ‰ç®¡ç†å‘˜å¯è§†ï¼‰ï¼š</font><br>--------------------------<br><br>" . $$post;
     	} else {
-            $$post = qq(<br>--------------------------<br><font color=$posternamecolor>´ËÌû×ÓÄÚÈİÒÑ¾­±»µ¥¶ÀÆÁ±Î£¡$presultÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±£¡</font><br>--------------------------<BR>);
+            $$post = qq(<br>--------------------------<br><font color=$posternamecolor>æ­¤å¸–å­å†…å®¹å·²ç»è¢«å•ç‹¬å±è”½ï¼$presultå¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜ï¼</font><br>--------------------------<BR>);
             return;
         }
     }
@@ -52,25 +52,25 @@ if ($$post=~m/\[ALIPAYE\]/){
     
     my $zanshi; my $youfei;
     $wareurl = "http://$wareurl" if ($wareurl ne "");
-    if ($wareurl ne "") { $zanshi = " ¡¡[<a href=\"$wareurl\">ÉÌÆ·Õ¹Ê¾</a>]"; }
+    if ($wareurl ne "") { $zanshi = " ã€€[<a href=\"$wareurl\">å•†å“å±•ç¤º</a>]"; }
     if ($postage_mail ne "" || $postage_express ne "" || $postage_ems ne "") {
-	$youfei = "Âò¼Ò³Ğµ£ÓÊ·Ñ£¬"; $youfei .= "Æ½ÓÊ $postage_mail Ôª / " if ($postage_mail ne ""); $youfei .= "¿ìµİ $postage_express Ôª / " if ($postage_express ne ""); $youfei .= "EMS $postage_ems Ôª / " if ($postage_ems ne "");
+	$youfei = "ä¹°å®¶æ‰¿æ‹…é‚®è´¹ï¼Œ"; $youfei .= "å¹³é‚® $postage_mail å…ƒ / " if ($postage_mail ne ""); $youfei .= "å¿«é€’ $postage_express å…ƒ / " if ($postage_express ne ""); $youfei .= "EMS $postage_ems å…ƒ / " if ($postage_ems ne "");
 	chop $youfei;chop $youfei;chop $youfei;
     } else {
-	$youfei = "Âô¼Ò³Ğµ£ÓÊ·Ñ";
+	$youfei = "å–å®¶æ‰¿æ‹…é‚®è´¹";
     }
 
     my $firstline = $oldpost;
-    $firstline =~ s/(\[Õâ¸öÌù×Ó×îºóÓÉ.+?ÔÚ.+?´Î±à¼­\])/$1/isg;
+    $firstline =~ s/(\[è¿™ä¸ªè´´å­æœ€åç”±.+?åœ¨.+?æ¬¡ç¼–è¾‘\])/$1/isg;
     $firstline = $1;
-    $oldpost=~ s/\[Õâ¸öÌù×Ó×îºóÓÉ.+?ÔÚ.+?´Î±à¼­\]<br>//isg;
+    $oldpost=~ s/\[è¿™ä¸ªè´´å­æœ€åç”±.+?åœ¨.+?æ¬¡ç¼–è¾‘\]<br>//isg;
 
     my $post1 = qq~$firstline<BR><BR>
-<B>Âô¼ÒÃû³Æ£º</B> $alipayid ¡¡[<a href=https://www.alipay.com/trade/i_credit.do?email=$alipayid target=_blank>²é¿´¸ÃÂô¼ÒĞÅÓÃ</a>] <BR><BR>
-<B>ÉÌÆ·Ãû³Æ£º</B> $warename$zanshi<BR><BR>
-<B>ÉÌÆ·¼Û¸ñ£º</B> $wareprice Ôª<BR><BR>
-<B>ÓÊ·ÑÇé¿ö£º</B> $youfei<BR><BR>
-<B>ÉÌÆ·ÃèÊö£º</B><BR>
+<B>å–å®¶åç§°ï¼š</B> $alipayid ã€€[<a href=https://www.alipay.com/trade/i_credit.do?email=$alipayid target=_blank>æŸ¥çœ‹è¯¥å–å®¶ä¿¡ç”¨</a>] <BR><BR>
+<B>å•†å“åç§°ï¼š</B> $warename$zanshi<BR><BR>
+<B>å•†å“ä»·æ ¼ï¼š</B> $wareprice å…ƒ<BR><BR>
+<B>é‚®è´¹æƒ…å†µï¼š</B> $youfei<BR><BR>
+<B>å•†å“æè¿°ï¼š</B><BR>
 $oldpost<BR><BR>
 ~;
 $warename=uri_escape($warename);
@@ -83,7 +83,7 @@ $post1<BR>
 <a href=https://www.alipay.com/payto:$alipayid?subject=$warename&body=$oldpost&price=$wareprice&url=$wareurl&ordinary_fee=$postage_mail&express_fee=$postage_express&ems_fee=$postage_ems&readonly=true target=_blank><img src=http:\/\/img.alipay.com\/pimg\/button_alipaybutton_o.gif border=0><\/a><BR>
 ~;
 }
-#buyer_msg=Äú¶Ô±¾ÉÌÆ·ÓĞÊ²Ã´ÒÉÎÊºÍÒâ¼û¿ÉÒÔÔÚ´ËÁôÑÔ
+#buyer_msg=æ‚¨å¯¹æœ¬å•†å“æœ‰ä»€ä¹ˆç–‘é—®å’Œæ„è§å¯ä»¥åœ¨æ­¤ç•™è¨€
 
    if ($$post =~ /\[UploadFile.{0,6}=.+?\]/) {
      if ($abslink ne "yes") {
@@ -96,22 +96,22 @@ $post1<BR>
             	while ($$post =~ /\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/i) {
             	    $jsq ++;
             	    if (($jsq eq $sltnoperline)&&($sltnoperline ne 0)) {
-                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a><BR><BR>/i;
+                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a><BR><BR>/i;
                         $jsq = 0;
                     } else {
-                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a>¡¡/i;
+                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a>ã€€/i;
                     }
                 }
             } else {
-                $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a>/isg;
+                $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a>/isg;
             }
             if ($thisprog eq "post.cgi") {
-                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> ´ËÖ÷ÌâÏà¹ØÍ¼Æ¬ÈçÏÂ£º<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><BR>/isg;
+                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> æ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡å¦‚ä¸‹ï¼š<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><BR>/isg;
             } else {
-                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> ´ËÖ÷ÌâÏà¹ØÍ¼Æ¬ÈçÏÂ£º<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')><img id=followImg$1 src=$imagesurl\/images\/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> °´´Ë²é¿´Í¼Æ¬ÏêÏ¸ĞÅÏ¢<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$1 style=DISPLAY:none><tr><td id=followTd$1><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')>ÕıÔÚ¶ÁÈ¡´ËÍ¼Æ¬µÄÏêÏ¸ĞÅÏ¢£¬ÇëÉÔºò ...<\/DIV><\/td><\/tr><\/table><\/span><BR><BR>/isg;
+                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> æ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡å¦‚ä¸‹ï¼š<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')><img id=followImg$1 src=$imagesurl\/images\/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> æŒ‰æ­¤æŸ¥çœ‹å›¾ç‰‡è¯¦ç»†ä¿¡æ¯<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$1 style=DISPLAY:none><tr><td id=followTd$1><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')>æ­£åœ¨è¯»å–æ­¤å›¾ç‰‡çš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·ç¨å€™ ...<\/DIV><\/td><\/tr><\/table><\/span><BR><BR>/isg;
             }
 	} else{
-            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=$imagesurl\/icon\/$2.gif border=0 width=16><\/a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank>µã»÷ÏÔÊ¾´ËÖ÷ÌâÏà¹ØÍ¼Æ¬<\/a><br>/isg;
+            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank><img src=$imagesurl\/icon\/$2.gif border=0 width=16><\/a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.$2 target=_blank>ç‚¹å‡»æ˜¾ç¤ºæ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡<\/a><br>/isg;
 	}
     } else {
      	my $tmptopic = $intopic%100;
@@ -125,44 +125,44 @@ $post1<BR>
             	while ($$post =~ /\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/i) {
             	    $jsq ++;
             	    if (($jsq eq $sltnoperline)&&($sltnoperline ne 0)) {
-                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a><BR><BR>/i;
+                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a><BR><BR>/i;
                         $jsq = 0;
                     } else {
-                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a>¡¡/i;
+                        $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ width=$defaultsltwidth height=$defaultsltheight onmousewheel="return bbimg(this)"><\/a>ã€€/i;
                     }
                 }
             } else {
-                $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a>/isg;
+                $$post =~ s/\[UploadFileDisp=([^\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a>/isg;
             }
             if ($thisprog eq "post.cgi") {
-                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> ´ËÖ÷ÌâÏà¹ØÍ¼Æ¬ÈçÏÂ£º<br><a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><BR>/isg;
+                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> æ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡å¦‚ä¸‹ï¼š<br><a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><BR>/isg;
             } else {
-                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> ´ËÖ÷ÌâÏà¹ØÍ¼Æ¬ÈçÏÂ£º<br><a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')><img id=followImg$1 src=$imagesurl\/images\/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> °´´Ë²é¿´Í¼Æ¬ÏêÏ¸ĞÅÏ¢<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$1 style=DISPLAY:none><tr><td id=followTd$1><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')>ÕıÔÚ¶ÁÈ¡´ËÍ¼Æ¬µÄÏêÏ¸ĞÅÏ¢£¬ÇëÉÔºò ...<\/DIV><\/td><\/tr><\/table><\/span><BR><BR>/isg;
+                $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><img src=$imagesurl\/icon\/$2.gif border=0 width=16> æ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡å¦‚ä¸‹ï¼š<br><a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"><\/a><br><img src=$imagesurl\/images\/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')><img id=followImg$1 src=$imagesurl\/images\/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> æŒ‰æ­¤æŸ¥çœ‹å›¾ç‰‡è¯¦ç»†ä¿¡æ¯<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$1 style=DISPLAY:none><tr><td id=followTd$1><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,'','$2','$1')>æ­£åœ¨è¯»å–æ­¤å›¾ç‰‡çš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·ç¨å€™ ...<\/DIV><\/td><\/tr><\/table><\/span><BR><BR>/isg;
             }
 	} else{
-            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/icon\/$2.gif border=0 width=16><\/a> <a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank>µã»÷ÏÔÊ¾´ËÖ÷ÌâÏà¹ØÍ¼Æ¬<\/a><br>/isg;
+            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/icon\/$2.gif border=0 width=16><\/a> <a href=$imagesurl\/$usrdir\/$inforum\/$tmptopic\/$1\.$2 target=_blank>ç‚¹å‡»æ˜¾ç¤ºæ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡<\/a><br>/isg;
 	}
       }	
 	if (($arrawpostflash eq "on") ||($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
 	    $$post =~ s/\[UploadFileDisp=([^\]]+?)\.swf\]/<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$boardurl\/attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed>/isg;
-	    $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.swf\]/<br><img src=$imagesurl\/icon\/swf.gif border=0 width=16> ¸ÃÖ÷ÌâÓĞÒ»¸ö swf ¸ñÊ½ Flash ¶¯»­<br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$boardurl\/attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl\/images\/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf target=_blank>È«ÆÁ¹Û¿´<\/a> (°´ÓÒ¼üÏÂÔØ)<br><BR>/isg;
+	    $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.swf\]/<br><img src=$imagesurl\/icon\/swf.gif border=0 width=16> è¯¥ä¸»é¢˜æœ‰ä¸€ä¸ª swf æ ¼å¼ Flash åŠ¨ç”»<br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$boardurl\/attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl\/images\/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf target=_blank>å…¨å±è§‚çœ‹<\/a> (æŒ‰å³é”®ä¸‹è½½)<br><BR>/isg;
 	} else {
-	    $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.swf\]/<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf target=_blank><img src=$imagesurl\/icon\/swf.gif border=0 width=16 height=16>µã»÷ĞÀÉÍ Flash ¶¯»­<\/a><BR>/isg;
+	    $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.swf\]/<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.swf target=_blank><img src=$imagesurl\/icon\/swf.gif border=0 width=16 height=16>ç‚¹å‡»æ¬£èµ Flash åŠ¨ç”»<\/a><BR>/isg;
 	}
 
 	if ($$post =~ /\[UploadFile.{0,6}=([^\\\]]+?)\.torrent\]/) {
 	    require "newbt.pl" if ($loadnewbt ne 1);
 	    $loadnewbt = 1;
-            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.torrent\]/<BR><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank><img src=$imagesurl\/icon\/torrent.gif border=0 width=16><\/a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank>¸ÃÖ÷ÌâÓĞÒ»¸ö BitTorrent ¸ñÊ½µÄÎÄ¼ş£¬°´´Ë¿ÉÖ±½ÓÏÂÔØ<\/a><br>btfileinfolist/i;
+            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.torrent\]/<BR><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank><img src=$imagesurl\/icon\/torrent.gif border=0 width=16><\/a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank>è¯¥ä¸»é¢˜æœ‰ä¸€ä¸ª BitTorrent æ ¼å¼çš„æ–‡ä»¶ï¼ŒæŒ‰æ­¤å¯ç›´æ¥ä¸‹è½½<\/a><br>btfileinfolist/i;
             newbt();
 	    $$post =~ s/<br>btfileinfolist/<br>$addme/i;
 	    $addme = "";
-            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.torrent\]/<BR><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank><img src=$imagesurl\/icon\/torrent.gif border=0 width=16><\/a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank>Õâ¸öÊÇÉÏ´«µÄ BitTorrent ÎÄ¼ş£¬°´´Ë¿ÉÖ±½ÓÏÂÔØ<\/a><br>/isg;
+            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.torrent\]/<BR><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank><img src=$imagesurl\/icon\/torrent.gif border=0 width=16><\/a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=.torrent target=_blank>è¿™ä¸ªæ˜¯ä¸Šä¼ çš„ BitTorrent æ–‡ä»¶ï¼ŒæŒ‰æ­¤å¯ç›´æ¥ä¸‹è½½<\/a><br>/isg;
 	}
 
 	while ($$post =~ /\[UploadFile.{0,6}=([^\\\]]+?)(\.(.*?))\]/i) {
    	    $file_type = (-e "${imagesdir}icon/$3.gif") ? $3 : "unknow";
-            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)(\.(.*?))\]/<br><img src=$imagesurl\/icon\/$file_type.gif border=0 width=16> Õâ¸öÊÇÉÏ´«µÄ $3 ¸ñÊ½ÎÄ¼ş [<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=$2 target=_blank><B>µã»÷²é¿´<\/b><\/a>]<br>/isg;
+            $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)(\.(.*?))\]/<br><img src=$imagesurl\/icon\/$file_type.gif border=0 width=16> è¿™ä¸ªæ˜¯ä¸Šä¼ çš„ $3 æ ¼å¼æ–‡ä»¶ [<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&name=$1&type=$2 target=_blank><B>ç‚¹å‡»æŸ¥çœ‹<\/b><\/a>]<br>/isg;
 	}
     }
     return;

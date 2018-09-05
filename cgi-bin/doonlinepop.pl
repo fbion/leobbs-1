@@ -1,19 +1,19 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 		if ($firstcome ne 'yes')
 		{
 			if (@onlinefr)
 			{
-				my $onlinefriend = join('¡¡¡¡', @onlinefr);
-				$onlinepopup = "ÄãÏÂÃæÕâĞ©ºÃÓÑ¸Õ¸ÕÉÏÏßÁË£¡<p>$onlinefriend";
+				my $onlinefriend = join('ã€€ã€€', @onlinefr);
+				$onlinepopup = "ä½ ä¸‹é¢è¿™äº›å¥½å‹åˆšåˆšä¸Šçº¿äº†ï¼<p>$onlinefriend";
 				require 'onlinepop.pl';
 			}
 			$onlineprompt = uri_escape($onlineprompt);
@@ -35,7 +35,7 @@
 				my @onlinefr = ();
 				foreach my $friend (@friendlist)
 				{
-					$friend =~ s/^£ª£££¡£¦£ª//;
+					$friend =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 					$friend =~ s/[\r\n]*$//;
 					next if ($friend eq '');
 					if (grep(/^$friend\t/i, @onlinedata) > 0)
@@ -49,8 +49,8 @@
 				}
 				if (@onlinefr)
 				{
-					my $onlinefriend = join('¡¡¡¡', @onlinefr);
-					$onlinepopup = "ÄãÏÂÃæÕâĞ©ºÃÓÑÕıÔÚÏßÉÏ£¡<p>$onlinefriend";
+					my $onlinefriend = join('ã€€ã€€', @onlinefr);
+					$onlinepopup = "ä½ ä¸‹é¢è¿™äº›å¥½å‹æ­£åœ¨çº¿ä¸Šï¼<p>$onlinefriend";
 					require 'onlinepop.pl';
 				}
 				if (@noonlinefr)

@@ -22,7 +22,7 @@ $|++;
 $thisprog = "setcatedisplay.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 $query = new LBCGI;
-&ipbanned; #·âÉ±Ò»Ğ© ip
+&ipbanned; #å°æ€ä¸€äº› ip
 
 $action	   = $query -> param('action');
 $action        = &cleaninput("$action");
@@ -47,15 +47,15 @@ print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 	print qq~
 	<tr><td bgcolor="#2159C9" colspan=4><font color=#FFFFFF>
-	<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ·ÖÀàÏÔÊ¾·½Ê½</b>
+	<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ†ç±»æ˜¾ç¤ºæ–¹å¼</b>
 	</td></tr>~;
 	if($Mode{$action}) { 
 		$Mode{$action}->();
-		print qq~<tr><td bgcolor="#FFFFFF" align="center" valign="middle" colspan="2" height="50">--<a href="$thisprog?">·µ»Ø</a>--</td></tr>~;
+		print qq~<tr><td bgcolor="#FFFFFF" align="center" valign="middle" colspan="2" height="50">--<a href="$thisprog?">è¿”å›</a>--</td></tr>~;
 	} else {
 		&toppage;
 	}
-	print qq~<tr><td bgcolor=#FFFFFF align=right valign="bottom" colspan=4 height="80"><a href="http://www.LeoHacks.com" target="_blank" title="¹Ù·½LeoBoard Hacks¿ª·¢Õ¾µã"><font color=#bbbbbb>CATEDT for LeoBBS X Beta 1.0</font></a><br><font color=#bbbbbb>Copyright &copy; 2002 RoyRoy All rights reserved</font></td></tr></table></td></tr></table>~;
+	print qq~<tr><td bgcolor=#FFFFFF align=right valign="bottom" colspan=4 height="80"><a href="http://www.LeoHacks.com" target="_blank" title="å®˜æ–¹LeoBoard Hackså¼€å‘ç«™ç‚¹"><font color=#bbbbbb>CATEDT for LeoBBS X Beta 1.0</font></a><br><font color=#bbbbbb>Copyright &copy; 2002 RoyRoy All rights reserved</font></td></tr></table></td></tr></table>~;
 } else {
 	&adminlogin;
 }
@@ -89,8 +89,8 @@ sub toppage{
 			$temp = qq(<input type="hidden" name="select" value="$categoryid"><tr bgcolor="#FFFFFF" onmouseover="this.bgColor='#F7F7F7';" onmouseout="this.bgColor='#FFFFFF';">
 		<td style="border:1 solid #DDDDDD;border-top:0px;">[$categoryid]$categoryname<\/td>
 		<td style="border:1 solid #DDDDDD;border-top:0px;border-left:0px;">
-		<input type="radio" name="display_type[$categoryid]" value="basic"$temp_a{'basic'}> ¼òÒ×·½Ê½
-		<input type="radio" name="display_type[$categoryid]" value="adv"$temp_a{'adv'}> ÏêÏ¸·½Ê½
+		<input type="radio" name="display_type[$categoryid]" value="basic"$temp_a{'basic'}> ç®€æ˜“æ–¹å¼
+		<input type="radio" name="display_type[$categoryid]" value="adv"$temp_a{'adv'}> è¯¦ç»†æ–¹å¼
 		<\/td><\/tr>\n);
 		}
 		$temp;
@@ -119,8 +119,8 @@ sub toppage{
 			$temp = qq(<input type="hidden" name="pselect" value="$pforumid"><tr bgcolor="#FFFFFF" onmouseover="this.bgColor='#F7F7F7';" onmouseout="this.bgColor='#FFFFFF';">
 		<td style="border:1 solid #DDDDDD;border-top:0px;">[$pforumid]$pforumname<\/td>
 		<td style="border:1 solid #DDDDDD;border-top:0px;border-left:0px;">
-		<input type="radio" name="pdisplay_type[$pforumid]" value="basic"$temp_a{'basic'}> ¼òÒ×·½Ê½
-		<input type="radio" name="pdisplay_type[$pforumid]" value="adv"$temp_a{'adv'}> ÏêÏ¸·½Ê½
+		<input type="radio" name="pdisplay_type[$pforumid]" value="basic"$temp_a{'basic'}> ç®€æ˜“æ–¹å¼
+		<input type="radio" name="pdisplay_type[$pforumid]" value="adv"$temp_a{'adv'}> è¯¦ç»†æ–¹å¼
 		<\/td><\/tr>\n);
 		}
 		$temp;
@@ -131,15 +131,15 @@ sub toppage{
 	print qq~
 	<tr>
 	<td bgcolor=#EEEEEE align=center colspan=4>
-	<font color=#990000><b>Ê¹ÓÃËµÃ÷</b>
+	<font color=#990000><b>ä½¿ç”¨è¯´æ˜</b>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor=#FFFFFF align=center colspan=4>
 	<table width=80% align=center>
 	<tr><td><ol type="1">
-	<li>±¾³ÌĞò¿ÉÒÔĞŞ¸Ä¸÷·ÖÀàÓÚÊ×Ò³ÏÔÊ¾Ê±µÄÏÔÊ¾·½Ê½¡£
-	<li>Ò²¿ÉÒÔĞŞ¸Ä¸÷×ÓÂÛÌ³ÓÚ·ÖÂÛÌ³Ò³µÄÏÔÊ¾·½Ê½¡£
+	<li>æœ¬ç¨‹åºå¯ä»¥ä¿®æ”¹å„åˆ†ç±»äºé¦–é¡µæ˜¾ç¤ºæ—¶çš„æ˜¾ç¤ºæ–¹å¼ã€‚
+	<li>ä¹Ÿå¯ä»¥ä¿®æ”¹å„å­è®ºå›äºåˆ†è®ºå›é¡µçš„æ˜¾ç¤ºæ–¹å¼ã€‚
 	</td></tr>
 	</table>
 	</td>
@@ -147,33 +147,33 @@ sub toppage{
 	<form action="$thisprog" method=post name=form><input type="hidden" name="action" value="modify">
 	<tr>
 	<td bgcolor=#EEEEEE align=center colspan=4>
-	<font color=#990000><b>·ÖÀàÒ»ÀÀ±í</b>
+	<font color=#990000><b>åˆ†ç±»ä¸€è§ˆè¡¨</b>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor=#FFFFFF align=center colspan=4>
 	<table width="80%" align="center" cellspacing="0" cellpadding="5" border="0">
-	<tr bgcolor="#DDDDDD"><td><font color=blue>·ÖÀàÃû³Æ</font></td><td width="60%"><font color=blue>ÏÔÊ¾·½Ê½</font></td></tr>
+	<tr bgcolor="#DDDDDD"><td><font color=blue>åˆ†ç±»åç§°</font></td><td width="60%"><font color=blue>æ˜¾ç¤ºæ–¹å¼</font></td></tr>
 	$forumlist
 	</table>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor=#EEEEEE align=center colspan=4>
-	<font color=#990000><b>·ÖÂÛÌ³Ò»ÀÀ±í(°üº¬×ÓÂÛÌ³µÄ)</b>
+	<font color=#990000><b>åˆ†è®ºå›ä¸€è§ˆè¡¨(åŒ…å«å­è®ºå›çš„)</b>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor=#FFFFFF align=center colspan=4>
 	<table width="80%" align="center" cellspacing="0" cellpadding="5" border="0">
-	<tr bgcolor="#DDDDDD"><td><font color=blue>·ÖÂÛÌ³Ãû³Æ</font></td><td width="60%"><font color=blue>ÏÔÊ¾·½Ê½</font></td></tr>
+	<tr bgcolor="#DDDDDD"><td><font color=blue>åˆ†è®ºå›åç§°</font></td><td width="60%"><font color=blue>æ˜¾ç¤ºæ–¹å¼</font></td></tr>
 	$pforumlist
 	</table>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor=#FFFFFF align=center colspan=2>
-	<input type=submit value="Ìá ½»">
+	<input type=submit value="æ äº¤">
 	</td>
 	</tr>
 	</form>
@@ -183,7 +183,7 @@ sub modify{
 	print qq~
 	<tr>
 	<td bgcolor=#EEEEEE align=center colspan=4>
-	<font color=#990000><b>ÏÔÊ¾·½Ê½Éè¶¨Íê±Ï</b>
+	<font color=#990000><b>æ˜¾ç¤ºæ–¹å¼è®¾å®šå®Œæ¯•</b>
 	</td>
 	</tr>
 	~;
@@ -229,14 +229,14 @@ sub modify{
 	if($category_count){
 		print qq~
 	<tr>
-	<td bgcolor=#FFFFFF colspan="4" align="center" height="50" valign="middle">ÒÑ¾­Éè¶¨ÁË $category_count ¸ö·ÖÀàµÄÏÔÊ¾·½Ê½</td>
+	<td bgcolor=#FFFFFF colspan="4" align="center" height="50" valign="middle">å·²ç»è®¾å®šäº† $category_count ä¸ªåˆ†ç±»çš„æ˜¾ç¤ºæ–¹å¼</td>
 	</tr>
 	~;
 	}
 	if($parent_count){
 		print qq~
 	<tr>
-	<td bgcolor=#FFFFFF colspan="4" align="center" height="50" valign="middle">ÒÑ¾­Éè¶¨ÁË $parent_count ¸öÄ¸ÂÛÌ³µÄÏÔÊ¾×ÓÂÛÌ³·½Ê½</td>
+	<td bgcolor=#FFFFFF colspan="4" align="center" height="50" valign="middle">å·²ç»è®¾å®šäº† $parent_count ä¸ªæ¯è®ºå›çš„æ˜¾ç¤ºå­è®ºå›æ–¹å¼</td>
 	</tr>
 	~;
 	}
@@ -247,14 +247,14 @@ sub errorout{
 	print qq~
 	<tr>
 	<td bgcolor=#EEEEEE align=center colspan=4>
-	<font color=#990000><b>Éè¶¨³ÌÊ½³ö´í</b>
+	<font color=#990000><b>è®¾å®šç¨‹å¼å‡ºé”™</b>
 	</td>
 	</tr>
 	<tr>
 	<td bgcolor=#FFFFFF colspan="4" align="center"><font color=red>$errormsg</font></td>
 	</tr>
 	<tr>
-	<td bgcolor=#FFFFFF colspan="4" align="center" height="100" valign="bottom">-- <a href="$thisprog">·µ»Ø</a> --</td>
+	<td bgcolor=#FFFFFF colspan="4" align="center" height="100" valign="bottom">-- <a href="$thisprog">è¿”å›</a> --</td>
 	</tr>
 	~;
 }

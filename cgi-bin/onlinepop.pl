@@ -8,7 +8,7 @@ var popTopStep = 5;
 function popmsg()
 {
 	if (!document.all) return;
-	var winstr = '<div id=main style="width:220px; height:120px; border:solid 1px $titleborder; background-color: $menubackground; padding: 4px"><table border=0 width=97% height=97% bgcolor=$menubackground cellspacing=6 cellpadding=2 style="font-family: ËÎÌå; font-size: 9pt"><tr><td width=100%><center><b><font color=$fonthighlight>¡î ÔÚ Ïß ºÃ ÓÑ Ìá Ê¾ ¡î</font></b></center><p>$onlinepopup<br></td></tr></table></div>';
+	var winstr = '<div id=main style="width:220px; height:120px; border:solid 1px $titleborder; background-color: $menubackground; padding: 4px"><table border=0 width=97% height=97% bgcolor=$menubackground cellspacing=6 cellpadding=2 style="font-family: å®‹ä½“; font-size: 9pt"><tr><td width=100%><center><b><font color=$fonthighlight>â˜† åœ¨ çº¿ å¥½ å‹ æ ç¤º â˜†</font></b></center><p>$onlinepopup<br></td></tr></table></div>';
 	oPopup.document.body.innerHTML = winstr;
 	oPopup.document.body.oncontextmenu = function() {return false;}
 	oPopup.document.body.onselectstart = function() {return false;}

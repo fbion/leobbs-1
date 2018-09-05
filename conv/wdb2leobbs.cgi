@@ -1,16 +1,16 @@
 #!/usr/bin/perl
 
 ######################################
-# WDB Ìû×Ó+ÓÃ»§×ÊÁÏ --> LeoBBS ×ª»»Æ÷#
+# WDB å¸–å­+ç”¨æˆ·èµ„æ–™ --> LeoBBS è½¬æ¢å™¨#
 ######################################
 
-$wdbdir = "/path/to/WDB main dir/";       # ÇëÊäÈëWDB Ö÷×ÊÁÏËùÔÚµÄÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶£¬×îºó²»ÒªÒÅÂ© / ¡£
-$leobbsdir = "/path/to/LeoBBS main dir/"; # ÇëÊäÈë LeoBBS Ö÷×ÊÁÏËùÔÚµÄÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶£¬×îºó²»ÒªÒÅÂ© / £¬×¢ÒâÉèÖÃºÃ 777 ÊôĞÔ¡£
+$wdbdir = "/path/to/WDB main dir/";       # è¯·è¾“å…¥WDB ä¸»èµ„æ–™æ‰€åœ¨çš„ç›®å½•çš„ç»å¯¹è·¯å¾„ï¼Œæœ€åä¸è¦é—æ¼ / ã€‚
+$leobbsdir = "/path/to/LeoBBS main dir/"; # è¯·è¾“å…¥ LeoBBS ä¸»èµ„æ–™æ‰€åœ¨çš„ç›®å½•çš„ç»å¯¹è·¯å¾„ï¼Œæœ€åä¸è¦é—æ¼ / ï¼Œæ³¨æ„è®¾ç½®å¥½ 777 å±æ€§ã€‚
 
-$userhead= "g:/www/9438/wdbmember/";      # WDB ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© /
-$leobbsmember = "g:/www/9438/leobbs/";    # LB5000 ÓÃ»§Ä¿Â¼£¬×îºó²»ÒªÒÅÂ© / £¬×¢ÒâÉèÖÃ 777 ÊôĞÔ
+$userhead= "g:/www/9438/wdbmember/";      # WDB ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ /
+$leobbsmember = "g:/www/9438/leobbs/";    # LB5000 ç”¨æˆ·ç›®å½•ï¼Œæœ€åä¸è¦é—æ¼ / ï¼Œæ³¨æ„è®¾ç½® 777 å±æ€§
 
-################ÒÔÏÂ²»ÓÃĞŞ¸Ä
+################ä»¥ä¸‹ä¸ç”¨ä¿®æ”¹
 $nowtime = time;
 $ending = ".cgi";
 print ("Content-type: text/html\n\n");
@@ -37,7 +37,7 @@ $name = @stats[$i];
     open(IBMEMBER,">$leobbsmember$name$ending");
     print IBMEMBER "$name\t$password\tMember\tme\t$postamount\t$email\t$publicemail\txxx.xxx.xxx.xxx\t$homepage\t$oicq\t$icqnumber\t$area\t\t$nowtime\tNot Posted\t$signature\t\t\t$usericon\t\t\t\t\t80\t80\t\n";
     close(IBMEMBER);
-    print "ÓÃ»§ $UserName ÒÑ¾­³É¹¦×ª»»³É LeoBBS ÓÃ»§ÁË£¡<BR>";
+    print "ç”¨æˆ· $UserName å·²ç»æˆåŠŸè½¬æ¢æˆ LeoBBS ç”¨æˆ·äº†ï¼<BR>";
 }
 
 opendir (DIRS, "$wdbdir");
@@ -65,12 +65,12 @@ foreach $dirs1 (@dirs1) {
             ($topictitle,$membername,$post,$postdate,$postipaddresstemp,$posticon,$showsignature) = split (/\|/,$thread);
             if ($showsignature eq 1) { $showsignature = "yes"; } else { $showsignature = "no"; }
             if ($posticon eq "ran") { $posticon = ""; }
-            print FILE "$membername\t£ª£££¡£¦£ª$topictitle\t$postipaddresstemp=$postipaddresstemp\tyes\t$showsignature\t$postdate\t$post\t$posticon\t\n";
+            print FILE "$membername\tï¼Šï¼ƒï¼ï¼†ï¼Š$topictitle\t$postipaddresstemp=$postipaddresstemp\tyes\t$showsignature\t$postdate\t$post\t$posticon\t\n";
         }
         close (FILE);
         $a++;
     }
 }
 $dir1 = @dirs1;
-print "<BR><BR>×Ü¹²×ª»»ÁË $dir2 ¸ö·ÖÂÛÌ³£¡<BR><BR>ÇëÁ¢¼´½øÈë¹ÜÀíÇø£¬ĞŞ¸´ÂÛÌ³Ö÷½çÃæ£¬²¢¶ÔÖØ½¨ËùÓĞÂÛÌ³Ò»´Î\n";
+print "<BR><BR>æ€»å…±è½¬æ¢äº† $dir2 ä¸ªåˆ†è®ºå›ï¼<BR><BR>è¯·ç«‹å³è¿›å…¥ç®¡ç†åŒºï¼Œä¿®å¤è®ºå›ä¸»ç•Œé¢ï¼Œå¹¶å¯¹é‡å»ºæ‰€æœ‰è®ºå›ä¸€æ¬¡\n";
 exit;

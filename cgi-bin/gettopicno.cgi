@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -34,10 +34,10 @@ $thisprog = "gettopicno.cgi";
 $query = new LBCGI;
 $inforum        = $query -> param('forum');
 $intopic        = $query -> param('topic');
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($intopic !~ /^[0-9]+$/)||($inforum !~ /^[0-9]+$/));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($intopic !~ /^[0-9]+$/)||($inforum !~ /^[0-9]+$/));
 $inshow    = $query -> param('show');
 $inact     = $query -> param('act');
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inact !~ "pre")&&($inact !~ "next"));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inact !~ "pre")&&($inact !~ "next"));
 
 open(FILE, "${lbdir}boarddata/listno$inforum.cgi");
 sysread(FILE, $listall,(stat(FILE))[7]);
@@ -45,14 +45,14 @@ close(FILE);
 $listall =~ s/\r//isg;
 
 if ($inact eq "pre") {
-    if ($listall =~ m/^$intopic\n/) { &error("ÆÕÍ¨´íÎó&ÕâÒÑ¾­ÊÇµÚÒ»¸öÌû×ÓÁË£¡"); }
+    if ($listall =~ m/^$intopic\n/) { &error("æ™®é€šé”™è¯¯&è¿™å·²ç»æ˜¯ç¬¬ä¸€ä¸ªå¸–å­äº†ï¼"); }
     else {
 	$listall =~ m/.*(^|\n)(.+?)\n$intopic\n/;
         $intopic =$2;
     }
 }
 else {
-    if ($listall =~ m/(^|\n)$intopic\n$/) { &error("ÆÕÍ¨´íÎó&ÕâÒÑ¾­ÊÇ×îºóÒ»¸öÌû×ÓÁË£¡"); }
+    if ($listall =~ m/(^|\n)$intopic\n$/) { &error("æ™®é€šé”™è¯¯&è¿™å·²ç»æ˜¯æœ€åä¸€ä¸ªå¸–å­äº†ï¼"); }
     else {
 	$listall =~ m/.*(^|\n)$intopic\n(.+?)\n/;
         $intopic =$2;

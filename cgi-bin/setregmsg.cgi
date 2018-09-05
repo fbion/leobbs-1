@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / �װ����ᳬ����̳  #
+#  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
-# ����ɽӥ(��)������ȱ������ LB5000 XP 2.30 ��Ѱ�  #
-#   �°�������� & ��Ȩ����: �װ��Ƽ� (C)(R)2004    #
+# 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
+#   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      ��ҳ��ַ�� http://www.LeoBBS.com/            #
-#      ��̳��ַ�� http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.LeoBBS.com/            #
+#      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -63,22 +63,22 @@ if ($action eq "process") {
         if (-e $filetomake && -w $filetomake) {
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>��ӭ������̳��������</b>
+                <b>欢迎来到论坛管理中心</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
-                <font color=#333333><center><b>������Ϣ�Ѿ�����</b></center><br><br>
-                <b>ע�Ỷӭ����Ϣ�Ѿ�����.Ŀǰ��ע�Ỷӭ����Ϣ�������£�</b><br><HR><ul>$rules</ul>
-                <HR><br><br><center><a href=$thisprog>�ٴ��޸�ע�Ỷӭ����Ϣ</a></center>);
+                <font color=#333333><center><b>所有信息已经保存</b></center><br><br>
+                <b>注册欢迎短信息已经保存.目前的注册欢迎短信息正文如下：</b><br><HR><ul>$rules</ul>
+                <HR><br><br><center><a href=$thisprog>再次修改注册欢迎短信息</a></center>);
                 }
                 else {
                     print qq(
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                    <b>��ӭ������̳��������</b>
+                    <b>欢迎来到论坛管理中心</b>
                     </td></tr>
                     <tr>
                     <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                    <font color=#333333><b>��Ϣ�޷�����</b><br>�ļ�����Ŀ¼����д��
+                    <font color=#333333><b>信息无法保存</b><br>文件或者目录不可写。
                     </td></tr></table></td></tr></table>
                     );
                     }
@@ -86,7 +86,7 @@ if ($action eq "process") {
         
     else {
                 $filetoopen = "$lbdir" . "data/newusrmsg.dat";
-                open (FILE, "$filetoopen") or $rules = "����ע�Ỷӭ����Ϣ��������";
+                open (FILE, "$filetoopen") or $rules = "输入注册欢迎短信息正文内容";
 		sysread(FILE, $rules,(stat(FILE))[7]) if (!$rules);
                 close (FILE);
 	        $rules =~ s/\r//isg;
@@ -97,11 +97,11 @@ if ($action eq "process") {
 
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>��ӭ������̳�������� / ע�Ỷӭ����Ϣ��������</b>
+                <b>欢迎来到论坛管理中心 / 注册欢迎短信息内容设置</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font color=#333333><b>����ע�Ỷӭ����Ϣ��������</b>
+                <font color=#333333><b>输入注册欢迎短信息正文内容</b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -110,11 +110,11 @@ if ($action eq "process") {
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
                 <br>
-                <b>ע�⣺</b>����ʹ�� HTML��������ʹ�� LeoBBS ��ǩ����Ҫ�ûس��������У����� &lt;br&gt; ��ǩ����<br>
+                <b>注意：</b>可以使用 HTML，但不能使用 LeoBBS 标签。不要用回车键来断行，请用 &lt;br&gt; 标签换行<br>
                 </font>
-                <br><br><b>�����ˣ�</b>ȫ�幤����Ա<br>
-                <b>�ꡡ�⣺</b>��ӭ������ $homename ��̳��ף��ʹ����죬�ں��¹��ܽ��ܣ�<br>
-                <b>�����ģ�</b></td>
+                <br><br><b>发件人：</b>全体工作人员<br>
+                <b>标　题：</b>欢迎您访问 $homename 论坛，祝你使用愉快，内含新功能介绍！<br>
+                <b>正　文：</b></td>
                 </tr>
                 
                 <tr>
@@ -131,7 +131,7 @@ if ($action eq "process") {
                 
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit name=submit value=�ύ></form></td></tr></table></td></tr></table>
+                <input type=submit name=submit value=提交></form></td></tr></table></td></tr></table>
                 );
                 
         }

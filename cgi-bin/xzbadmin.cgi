@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -34,10 +34,10 @@ $query		= new LBCGI;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
 if (int($hownews) < 50)
-{	#×ÖÊıÔ¤ÉèÖµ
+{	#å­—æ•°é¢„è®¾å€¼
 	$hownews = 100;
 }
-#È¡µÃÊı¾İ
+#å–å¾—æ•°æ®
 for ('forum','membername','password','action','inpost','message','xzbid','checked') {
     next unless defined $_;
     $tp = $query->param($_);
@@ -46,14 +46,14 @@ for ('forum','membername','password','action','inpost','message','xzbid','checke
 }
 $inforum		= $forum;
 if (($inforum eq "")||($inforum !~ /^[0-9]+$/))
-{	#ÑéÖ¤·ÖÂÛÌ³±àºÅ
-	&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡");
+{	#éªŒè¯åˆ†è®ºå›ç¼–å·
+	&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼");
 }
 if (-e "${lbdir}data/style${inforum}.cgi")
-{	#¶ÁÈ¡×¨Êô·ç¸ñ
+{	#è¯»å–ä¸“å±é£æ ¼
 	require "${lbdir}data/style${inforum}.cgi";
 }
-$inmembername	= $membername;			#×ª»»±äÊı
+$inmembername	= $membername;			#è½¬æ¢å˜æ•°
 $inpassword	= $password;
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
@@ -64,114 +64,114 @@ if ($inpassword ne "") {
 $currenttime	= time;
 $inmembername	= &stripMETA($inmembername);
 
-#¸öÈË·ç¸ñ
-$inselectstyle	= $query->cookie("selectstyle");	#¶ÁÈ¡×ÊÁÏ
+#ä¸ªäººé£æ ¼
+$inselectstyle	= $query->cookie("selectstyle");	#è¯»å–èµ„æ–™
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
 if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./))
-{	#¸öÈË·ç¸ñ²»ÕıÈ·
-	&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡");	#Êä³ö´íÎóÒ³
+{	#ä¸ªäººé£æ ¼ä¸æ­£ç¡®
+	&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼");	#è¾“å‡ºé”™è¯¯é¡µ
 }
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi"))
-{	#ÓĞÖ¸¶¨¸öÈË·ç¸ñ
-	require "${lbdir}data/skin/${inselectstyle}.cgi";	#¶ÁÈ¡¸öÈË·ç¸ñ
+{	#æœ‰æŒ‡å®šä¸ªäººé£æ ¼
+	require "${lbdir}data/skin/${inselectstyle}.cgi";	#è¯»å–ä¸ªäººé£æ ¼
 }
-#»áÔ±ÕÊºÅ
+#ä¼šå‘˜å¸å·
 if ($inmembername eq "")
-{	#Ã»Ìá¹©»áÔ±Ãû³Æ
-	$inmembername	= $query->cookie("amembernamecookie");	#´Ó COOKIE ¶ÁÈ¡
+{	#æ²¡æä¾›ä¼šå‘˜åç§°
+	$inmembername	= $query->cookie("amembernamecookie");	#ä» COOKIE è¯»å–
 }
 if ($inpassword eq "")
-{	#Ã»Ìá¹©ÃÜÂë
-	$inpassword		= $query->cookie("apasswordcookie");	#´Ó COOKIE ¶ÁÈ¡
+{	#æ²¡æä¾›å¯†ç 
+	$inpassword		= $query->cookie("apasswordcookie");	#ä» COOKIE è¯»å–
 }
-$inmembername	=~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;	#×Ö´®´¦Àí
+$inmembername	=~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;	#å­—ä¸²å¤„ç†
 $inpassword		=~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-#¼ì²éÕÊºÅ
-if (($inmembername eq "")||($inmembername eq "¿ÍÈË"))
-{	#¿ÍÈË
-	&error("ÆÕÍ¨´íÎó&Ö»ÏŞ»áÔ±½øÈë£¡");	#½ûÖ¹½øÈë
+#æ£€æŸ¥å¸å·
+if (($inmembername eq "")||($inmembername eq "å®¢äºº"))
+{	#å®¢äºº
+	&error("æ™®é€šé”™è¯¯&åªé™ä¼šå‘˜è¿›å…¥ï¼");	#ç¦æ­¢è¿›å…¥
 }
 else
-{	#»áÔ±
-	&getmember("$inmembername","no");	#¶ÁÈ¡ÕÊºÅ×ÊÁÏ
+{	#ä¼šå‘˜
+	&getmember("$inmembername","no");	#è¯»å–å¸å·èµ„æ–™
 	if ($userregistered eq "no")
-	{	#Î´×¢²áÕÊºÅ
-		&error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡");				#½ûÖ¹½øÈë
+	{	#æœªæ³¨å†Œå¸å·
+		&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼");				#ç¦æ­¢è¿›å…¥
 	}
      if ($inpassword ne $password) {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
-$addtimes		= ($timedifferencevalue + $timezone)*3600;	#Ê±²î
-#ÂÛÌ³×´Ì¬
-&doonoff;  #ÂÛÌ³¿ª·ÅÓë·ñ
+$addtimes		= ($timedifferencevalue + $timezone)*3600;	#æ—¶å·®
+#è®ºå›çŠ¶æ€
+&doonoff;  #è®ºå›å¼€æ”¾ä¸å¦
 
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
     if ($allowusers ne '') {
-	&error('½øÈëÂÛÌ³&Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡') if (",$allowusers," !~ /\Q,$inmembername,\E/i);
+	&error('è¿›å…¥è®ºå›&ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼') if (",$allowusers," !~ /\Q,$inmembername,\E/i);
     }
 
-#¶ÁÈ¡·ÖÂÛÌ³×ÊÁÏ
+#è¯»å–åˆ†è®ºå›èµ„æ–™
 my $forumdata	= "${lbdir}forum${inforum}/foruminfo.cgi";
 if (-e $forumdata)
-{	#ÕÒµ½¸Ã·ÖÂÛÌ³×ÊÁÏ
-	&getoneforum("$inforum");							#¶ÁÈ¡×ÊÁÏ
+{	#æ‰¾åˆ°è¯¥åˆ†è®ºå›èµ„æ–™
+	&getoneforum("$inforum");							#è¯»å–èµ„æ–™
 }
 else
-{	#ÕÒ²»µ½×ÊÁÏ
-	&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡");	#Êä³ö´íÎóÒ³
+{	#æ‰¾ä¸åˆ°èµ„æ–™
+	&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼");	#è¾“å‡ºé”™è¯¯é¡µ
 }
-#ÑéÖ¤È¨ÏŞ
+#éªŒè¯æƒé™
 if (($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"))
-{	#ÓĞÈ¨ÏŞµÄÈË£ºÌ³Ö÷£¬×Ü°æÖ÷£¬°æÖ÷À¸ÖĞµÄ
-	&error("É¾³ıĞ¡×Ö±¨&ÄãÃ»È¨Á¦É¾³ı£¡");					#Êä³ö´íÎóÒ³
+{	#æœ‰æƒé™çš„äººï¼šå›ä¸»ï¼Œæ€»ç‰ˆä¸»ï¼Œç‰ˆä¸»æ ä¸­çš„
+	&error("åˆ é™¤å°å­—æŠ¥&ä½ æ²¡æƒåŠ›åˆ é™¤ï¼");					#è¾“å‡ºé”™è¯¯é¡µ
 }
-#ËµÃ÷Á¬½á
-$helpurl		= &helpfiles("ÔÄ¶Á±ê¼Ç");
+#è¯´æ˜è¿ç»“
+$helpurl		= &helpfiles("é˜…è¯»æ ‡è®°");
 $helpurl		= qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
-#Ö¸¶¨Ä£Ê½
+#æŒ‡å®šæ¨¡å¼
 my %Mode = (
-	'delete'		=> \&deletexzb,		#É¾³ı
-	'deleteover'	=> \&deleteoverxzb,	#É¾³ı 2
-	'edit'			=> \&editxzb,		#±à¼­
+	'delete'		=> \&deletexzb,		#åˆ é™¤
+	'deleteover'	=> \&deleteoverxzb,	#åˆ é™¤ 2
+	'edit'			=> \&editxzb,		#ç¼–è¾‘
 );
-#Êä³öµµÍ·
+#è¾“å‡ºæ¡£å¤´
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-#ÑéÖ¤Ä£Ê½
+#éªŒè¯æ¨¡å¼
 if (defined $Mode{$action})
-{	#ÓĞ¸ÃÄ£Ê½
-	$Mode{$action}->();		#Ö´ĞĞÄ£Ê½
+{	#æœ‰è¯¥æ¨¡å¼
+	$Mode{$action}->();		#æ‰§è¡Œæ¨¡å¼
 }
 else
-{	#Ã»ÓĞ¸ÃÄ£Ê½
-	&toppage;				#Ö´ĞĞÔ¤ÉèÄ£Ê½ -> Ê×Ò³
+{	#æ²¡æœ‰è¯¥æ¨¡å¼
+	&toppage;				#æ‰§è¡Œé¢„è®¾æ¨¡å¼ -> é¦–é¡µ
 }
-#Êä³öÒ³Ãæ
-&output("$forumname - Ğ¡×Ö±¨¹ÜÀí",\$output);
-#´¦Àí½áÊø
+#è¾“å‡ºé¡µé¢
+&output("$forumname - å°å­—æŠ¥ç®¡ç†",\$output);
+#å¤„ç†ç»“æŸ
 exit;
-#Ä£Ê½ÄÚÈİ
+#æ¨¡å¼å†…å®¹
 sub toppage
-{	#Ä£Ê½ -> Ê×Ò³
-	#Êä³öÒ³ÃæÍ·
-	&mischeader("Ğ¡×Ö±¨¹ÜÀí");
-	#¶ÁÈ¡×ÊÁÏ
-	my @xzbdata = ();								#³õÊ¼»¯
-	open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#¿ªÆôÎÄ¼ş
+{	#æ¨¡å¼ -> é¦–é¡µ
+	#è¾“å‡ºé¡µé¢å¤´
+	&mischeader("å°å­—æŠ¥ç®¡ç†");
+	#è¯»å–èµ„æ–™
+	my @xzbdata = ();								#åˆå§‹åŒ–
+	open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#å¼€å¯æ–‡ä»¶
 	while (my $line = <FILE>)
-	{	#Ã¿´Î¶ÁÈ¡Ò»ĞĞÄÚÈİ loop 1
-		chomp $line;			#È¥µô»»ĞĞ·û
-		push(@xzbdata,$line);	#·Å½ø½á¹û ARRAY
+	{	#æ¯æ¬¡è¯»å–ä¸€è¡Œå†…å®¹ loop 1
+		chomp $line;			#å»æ‰æ¢è¡Œç¬¦
+		push(@xzbdata,$line);	#æ”¾è¿›ç»“æœ ARRAY
 	}#loop 1 end
-	close(FILE);									#¹Ø±ÕÎÄ¼ş
+	close(FILE);									#å…³é—­æ–‡ä»¶
 
-	#Ò³ÃæÊä³ö
+	#é¡µé¢è¾“å‡º
 	$output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
@@ -185,37 +185,37 @@ sub toppage
 		<td bgcolor="$titlecolor" width="7%" $catbackpic align="center">
 		</td>
 		<td bgcolor="$titlecolor" width="*" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>±êÌâ</b></font>
+			<font color="$titlefontcolor"><b>æ ‡é¢˜</b></font>
 		</td>
 		<td bgcolor="$titlecolor" width="10%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>·¢²¼Õß</b></font>
+			<font color="$titlefontcolor"><b>å‘å¸ƒè€…</b></font>
 		</td>
 		<td bgcolor="$titlecolor" width="20%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>·¢²¼Ê±¼ä</b></font>
+			<font color="$titlefontcolor"><b>å‘å¸ƒæ—¶é—´</b></font>
 		</td>
 		<td bgcolor="$titlecolor" width="15%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>ÄÚÈİ×Ö½ÚÊı</b></font>
+			<font color="$titlefontcolor"><b>å†…å®¹å­—èŠ‚æ•°</b></font>
 		</td>
 		<td bgcolor="$titlecolor" width="3%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>Ñ¡</b></font>
+			<font color="$titlefontcolor"><b>é€‰</b></font>
 		</td>
 	</tr>~;
-	#Êä³öÊı¾İ
-	my $i = 0;	#±àºÅ
+	#è¾“å‡ºæ•°æ®
+	my $i = 0;	#ç¼–å·
 	foreach my $line(@xzbdata)
-	{	#»ØÈ¦´¦ÀíÊı¾İ loop 1
-		#   Ã»ÓÃ   , ±êÌâ   , ·¢²¼Õß  , ÄÚÈİ , ·¢²¼Ê±¼ä
-		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#·Ö¸îÊı¾İ
-		#±³¾°É«
+	{	#å›åœˆå¤„ç†æ•°æ® loop 1
+		#   æ²¡ç”¨   , æ ‡é¢˜   , å‘å¸ƒè€…  , å†…å®¹ , å‘å¸ƒæ—¶é—´
+		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#åˆ†å‰²æ•°æ®
+		#èƒŒæ™¯è‰²
 		if ($i%2 == 0) {
 			$postbackcolor = $postcolorone;
 		} else {
 			$postbackcolor = $postcolortwo;
 		}
-		my $admini		= qq~<div align="right"><font color="$titlecolor">|<a href="$thisprog?action=edit&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">±à¼­</font></a>|<a href="$thisprog?action=delete&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">É¾³ı</font></a>|</font></div>~;		#¹ÜÀíÁ¬½á
-		my $postdate		= &dateformat($posttime+$addtimes);						#·¢²¼Ê±¼ä
-		my $msgbytes	= length($msg);												#×Ö½ÚÊı
-		my $startedby	= uri_escape($postid);		#»áÔ±Ãû
+		my $admini		= qq~<div align="right"><font color="$titlecolor">|<a href="$thisprog?action=edit&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">ç¼–è¾‘</font></a>|<a href="$thisprog?action=delete&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">åˆ é™¤</font></a>|</font></div>~;		#ç®¡ç†è¿ç»“
+		my $postdate		= &dateformat($posttime+$addtimes);						#å‘å¸ƒæ—¶é—´
+		my $msgbytes	= length($msg);												#å­—èŠ‚æ•°
+		my $startedby	= uri_escape($postid);		#ä¼šå‘˜å
 		$iuu = $i + 1;
 		$output .= qq~
 	<tr>
@@ -238,9 +238,9 @@ sub toppage
 			<input type="checkbox" name="xzbid" value="$posttime">
 		</td>
 	</tr>~;
-		$i++;																		#±àºÅµİÔö
+		$i++;																		#ç¼–å·é€’å¢
 	}#loop 1 end
-	#Ò³ÃæÊä³ö
+	#é¡µé¢è¾“å‡º
 	$output .= qq~
 	</table>
 	</td>
@@ -249,56 +249,56 @@ sub toppage
 <table cellpadding="0" cellspacing="2" width="$tablewidth" align="center" border="0">
 <tr>
 	<td align="right" width="75%">
-		<input type="submit" value="É¾³ıÑ¡Ôñ">
+		<input type="submit" value="åˆ é™¤é€‰æ‹©">
 	</td>
 </form id="1 end">
 <form action="$thisprog" method="post" id="2">
 <input type="hidden" name="action" value="deleteover">
 <input type="hidden" name="forum" value="$inforum">
 	<td align="right">
-		<input type="submit" value="É¾³ı³¬¹ı£´£¸Ğ¡Ê±µÄĞ¡×Ö±¨">
+		<input type="submit" value="åˆ é™¤è¶…è¿‡ï¼”ï¼˜å°æ—¶çš„å°å­—æŠ¥">
 	</td>
 </tr>
 </form id="2 end">
 </table><BR>~;
 }
 sub editxzb
-{	#Ä£Ê½ -> ±à¼­
-	#Êä³öÒ³ÃæÍ·
-	&mischeader("±à¼­Ğ¡×Ö±¨");
-	#ÕÒÑ°Òª±à¼­µÄĞ¡×Ö±¨
-	my $findresult	= -1;	#³õÊ¼»¯
+{	#æ¨¡å¼ -> ç¼–è¾‘
+	#è¾“å‡ºé¡µé¢å¤´
+	&mischeader("ç¼–è¾‘å°å­—æŠ¥");
+	#æ‰¾å¯»è¦ç¼–è¾‘çš„å°å­—æŠ¥
+	my $findresult	= -1;	#åˆå§‹åŒ–
 	my @xzbdata		= ();
 	my $xzbno		= 0;
-	open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#¿ªÆôÎÄ¼ş
+	open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#å¼€å¯æ–‡ä»¶
 	while (my $line = <FILE>)
-	{	#Ã¿´Î¶ÁÈ¡Ò»ĞĞÄÚÈİ loop 1
-		chomp $line;															#È¥µô»»ĞĞ·û
-		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);	#·Ö¸îÊı¾İ
+	{	#æ¯æ¬¡è¯»å–ä¸€è¡Œå†…å®¹ loop 1
+		chomp $line;															#å»æ‰æ¢è¡Œç¬¦
+		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);	#åˆ†å‰²æ•°æ®
 		if ($posttime eq $xzbid)
-		{	#¾ÍÊÇÕâ¸ö
-			$findresult = $xzbno;		#¼¤»îÕÒÑ°½á¹û
+		{	#å°±æ˜¯è¿™ä¸ª
+			$findresult = $xzbno;		#æ¿€æ´»æ‰¾å¯»ç»“æœ
 		}
 		elsif ($findresult == -1)
-		{	#²»ÊÇµÄÊ±ºò
-			$xzbno++;				#±àºÅµİÔö
+		{	#ä¸æ˜¯çš„æ—¶å€™
+			$xzbno++;				#ç¼–å·é€’å¢
 		}
-		push(@xzbdata,$line);													#·Å½øÊı¾İ ARRAY
+		push(@xzbdata,$line);													#æ”¾è¿›æ•°æ® ARRAY
 	}#loop 1 end
 	close(FILE);
 	if ($findresult == -1)
-	{	#ÕÒ²»µ½
-		&error("±à¼­Ğ¡×Ö±¨&ÕÒ²»µ½Ä¿±êĞ¡×Ö±¨£¡");										#Êä³ö´íÎóÒ³
+	{	#æ‰¾ä¸åˆ°
+		&error("ç¼–è¾‘å°å­—æŠ¥&æ‰¾ä¸åˆ°ç›®æ ‡å°å­—æŠ¥ï¼");										#è¾“å‡ºé”™è¯¯é¡µ
 	}
 	if ($checked ne 'yes')
-	{	#Î´½øĞĞÈ·ÈÏ
-		#Ä¿Ç°Êı¾İ
-		#   Ã»ÓÃ   , ±êÌâ   , ·¢²¼Õß  , ÄÚÈİ , ·¢²¼Ê±¼ä
-		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$xzbdata[$xzbno]);	#·Ö¸îÊı¾İ
-	    $msg =~ s/\<p\>/\n\n/ig;															#×Ö´®´¦Àí
+	{	#æœªè¿›è¡Œç¡®è®¤
+		#ç›®å‰æ•°æ®
+		#   æ²¡ç”¨   , æ ‡é¢˜   , å‘å¸ƒè€…  , å†…å®¹ , å‘å¸ƒæ—¶é—´
+		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$xzbdata[$xzbno]);	#åˆ†å‰²æ•°æ®
+	    $msg =~ s/\<p\>/\n\n/ig;															#å­—ä¸²å¤„ç†
 	    $msg =~ s/\<br\>/\n/ig;
-		my $startedby	=  uri_escape($postid);				#»áÔ±Ãû
-		#Ò³ÃæÊä³ö
+		my $startedby	=  uri_escape($postid);				#ä¼šå‘˜å
+		#é¡µé¢è¾“å‡º
 		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post" id="1">
@@ -311,7 +311,7 @@ sub editxzb
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
 	<tr>
 		<td bgcolor="$titlecolor" width="100%" $catbackpic align="center" colspan="2">
-			<font color="$titlefontcolor"><b>±à¼­ËùÑ¡Ğ¡×Ö±¨</b></font>
+			<font color="$titlefontcolor"><b>ç¼–è¾‘æ‰€é€‰å°å­—æŠ¥</b></font>
 		</td>
 	</tr>
 	<tr>
@@ -320,12 +320,12 @@ sub editxzb
 			<tr>
 				<td>
 					<table cellpadding="3" cellspacing="1" border="0" width="100%">
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
 					<tr>
 						<td bgcolor=$miscbackone valign=top>
-							<font color="$fontcolormisc"><b>Ğ¡×Ö±¨·¢²¼Õß</b></font>
+							<font color="$fontcolormisc"><b>å°å­—æŠ¥å‘å¸ƒè€…</b></font>
 						</td>
 						<td bgcolor="$miscbackone">
 							<font color="$postfontcolorone"><u><span style=cursor:hand onClick=javascript:O9('$startedby')>$postid</span></u></font>
@@ -333,7 +333,7 @@ sub editxzb
 					</tr>
 					<tr>
 						<td bgcolor=$miscbackone valign=top>
-							<font color="$fontcolormisc"><b>Ğ¡×Ö±¨±êÌâ</b> (×î´ó 80 ×Ö)</font>
+							<font color="$fontcolormisc"><b>å°å­—æŠ¥æ ‡é¢˜</b> (æœ€å¤§ 80 å­—)</font>
 						</td>
 						<td bgcolor="$miscbackone">
 							<input type="text" maxlength="80" name=inpost onkeydown=ctlent() value="$title" size=80>
@@ -341,10 +341,10 @@ sub editxzb
 					</tr>
 					<tr>
 						<td bgcolor=$miscbacktwo valign=top>
-							<font color="$fontcolormisc"><b>Ğ¡×Ö±¨ÄÚÈİ</b> (×î¶à $hownews ×Ö)<p>
-							ÔÚ´ËÂÛÌ³ÖĞ£º
-							<li>HTML ±êÇ©: <b>²»¿ÉÓÃ</b>
-							<li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS ±êÇ©</a>: <b>¿ÉÓÃ</b></font>
+							<font color="$fontcolormisc"><b>å°å­—æŠ¥å†…å®¹</b> (æœ€å¤š $hownews å­—)<p>
+							åœ¨æ­¤è®ºå›ä¸­ï¼š
+							<li>HTML æ ‡ç­¾: <b>ä¸å¯ç”¨</b>
+							<li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS æ ‡ç­¾</a>: <b>å¯ç”¨</b></font>
 						</td>
 						<td bgcolor=$miscbacktwo valign=top>
 							<TEXTAREA cols=58 name=message rows=6 wrap=soft onkeydown=ctlent()>$msg</TEXTAREA>
@@ -358,13 +358,13 @@ sub editxzb
 	</tr>
 	<tr>
 		<td bgcolor="$postcolorone" align="right" width="51%">
-			<input type="submit" value="Ìá½»±à¼­">&nbsp;
+			<input type="submit" value="æäº¤ç¼–è¾‘">&nbsp;
 		</td>
 </form id="1">
 <form action="$thisprog" method="get" id="2">
 <input type="hidden" name="forum" value="$inforum">
 		<td bgcolor="$postcolorone" align="left">
-			&nbsp;<input type="submit" value="·µ»ØÖ÷Ò³Ãæ">
+			&nbsp;<input type="submit" value="è¿”å›ä¸»é¡µé¢">
 		</td>
 </form id="2">
 	</tr>
@@ -374,34 +374,8 @@ sub editxzb
 </table><SCRIPT>valignend()</SCRIPT>~;
 	}
 	else
-	{	#ÒÑ½øĞĞÈ·ÈÏ
-		#ò×CÌÀí
-		if ($inpost eq "")
-		{
-			&error("±à¼­Ğ¡×Ö±¨&±ØĞëÊäÈë±êÌâ£¡");									#Êä³ö´íÎóÒ³
-		}
-		elsif (length($inpost) > 82)
-		{
-			&error("±à¼­Ğ¡×Ö±¨&±êÌâ¹ı³¤£¡");										#Êä³ö´íÎóÒ³
-		}
-		elsif (length($message) > $hownews)
-		{
-			&error("±à¼­Ğ¡×Ö±¨&ÄÚÈİ¹ı³¤£¡");										#Êä³ö´íÎóÒ³
-		}
-		#±à¼­´¦Àí
-		my $newfile	= '';									#³õÊ¼»¯ÎÄ¼ş
-		foreach my $line (@xzbdata)
-		{	#Ã¿´Î¶ÁÈ¡Ò»ĞĞÄÚÈİ loop 1
-			chomp $line;			#È¥µô»»ĞĞ·û
-			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#·Ö¸îÊı¾İ
-			if($posttime eq $xzbid)
-			{	#±à¼­Ä¿±ê
-				$line = "££¡ª££¡ª¡¤\t$inpost\t$inmembername\t$message\t$posttime\t";	#ĞÂĞĞ
-			}
-			$newfile .= $line."\n";														#·ÅÈëĞÂÎÄ¼şÄÚ
-		}#loop 1 end
-		open(FILE,'>'."${lbdir}boarddata/xzb$inforum.cgi");	#¿ªÆôÖ»Ğ´ÎÄ¼ş
-		print FILE $newfile;								#Ğ´ÈëĞÂÎÄ¼şÄÚÈİ
+	{	#å·²è¿›è¡Œç¡®è®¤
+		#newfile;								#Ğ´ÈëĞÂÎÄ¼şÄÚÈİ
 		close(FILE);										#¹Ø±ÕÎÄ¼ş
 		#Ò³ÃæÊä³ö
 		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>

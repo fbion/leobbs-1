@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -30,10 +30,10 @@ $trueipaddress = $ENV{"HTTP_CLIENT_IP"};
 $trueipaddress = $ENV{"HTTP_X_FORWARDED_FOR"} if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
 $trueipaddress = $ipaddress if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
 $fromwhere1 = &ipwhere("$trueipaddress");
-print "ÄúµÄ IP µØÖ·£º$trueipaddress£¬À´Ô´¼ø¶¨£º$fromwhere1<BR>";
-if ($ipaddress ne $trueipaddress) { $fromwhere2 = &ipwhere("$ipaddress"); print "´úÀí IP µØÖ·£º$ipaddress£¬À´Ô´¼ø¶¨£º$fromwhere2<BR>"; } else { print "´úÀí IP µØÖ·Î´Öª(Ã»ÓĞÊ¹ÓÃ´úÀí¡¢´úÀí·şÎñÆ÷ IP ÏÔÊ¾±»½ûÖ¹)"; }
+print "æ‚¨çš„ IP åœ°å€ï¼š$trueipaddressï¼Œæ¥æºé‰´å®šï¼š$fromwhere1<BR>";
+if ($ipaddress ne $trueipaddress) { $fromwhere2 = &ipwhere("$ipaddress"); print "ä»£ç† IP åœ°å€ï¼š$ipaddressï¼Œæ¥æºé‰´å®šï¼š$fromwhere2<BR>"; } else { print "ä»£ç† IP åœ°å€æœªçŸ¥(æ²¡æœ‰ä½¿ç”¨ä»£ç†ã€ä»£ç†æœåŠ¡å™¨ IP æ˜¾ç¤ºè¢«ç¦æ­¢)"; }
 eval { $osinfo=&osinfo(); };
 if ($@) { $osinfo="Unknow"; }
 eval { $browseinfo=&browseinfo(); };
 if ($@) { $browseinfo="Unknow"; }
-print "<BR><BR>ÄúµÄ²Ù×÷ÏµÍ³ÊÇ£º$osinfo£¬Ê¹ÓÃµÄä¯ÀÀÆ÷ÊÇ£º$browseinfo<BR>($ENV{\"HTTP_USER_AGENT\"})<BR>";
+print "<BR><BR>æ‚¨çš„æ“ä½œç³»ç»Ÿæ˜¯ï¼š$osinfoï¼Œä½¿ç”¨çš„æµè§ˆå™¨æ˜¯ï¼š$browseinfo<BR>($ENV{\"HTTP_USER_AGENT\"})<BR>";

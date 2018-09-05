@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -41,19 +41,19 @@ for ('postnumber','moneynumber','inforum','intopic','salemembername') {
     ${$_} = $tp;
 }
 $salemembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]//isg;
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½1£¡") if ($postnumber !~ /^[0-9]+$/);
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($intopic !~ /^[0-9]+$/);
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($inforum !~ /^[0-9]+$/);
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($moneynumber < 0)||($moneynumber > 99999));
-&error("´ò¿ªÎÄ¼ş&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if ($salemembername eq "");
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€1ï¼") if ($postnumber !~ /^[0-9]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($intopic !~ /^[0-9]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($inforum !~ /^[0-9]+$/);
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($moneynumber < 0)||($moneynumber > 99999));
+&error("æ‰“å¼€æ–‡ä»¶&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if ($salemembername eq "");
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-&error("³ö´í&Çë²»ÒªÓÃÍâ²¿Á¬½Ó±¾³ÌĞò£¡") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
+&error("å‡ºé”™&è¯·ä¸è¦ç”¨å¤–éƒ¨è¿æ¥æœ¬ç¨‹åºï¼") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '')&&($canotherlink ne "yes"));
 
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
@@ -61,23 +61,23 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    &error("ÆÕÍ¨´íÎó&¶Ô²»Æğ£¬ÄãÄ¿Ç°µÄÉí·İÊÇ·Ã¿Í£¬²»ÄÜ½øÈë£¬ÇëÏÈµÇÂ¼!");
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    &error("æ™®é€šé”™è¯¯&å¯¹ä¸èµ·ï¼Œä½ ç›®å‰çš„èº«ä»½æ˜¯è®¿å®¢ï¼Œä¸èƒ½è¿›å…¥ï¼Œè¯·å…ˆç™»å½•!");
     exit;
 } else {
 #    &getmember("$inmembername");
     &getmember("$inmembername","no");
-    &error("ÆÕÍ¨´íÎó&´ËÓÃ»§¸ù±¾²»´æÔÚ£¡") if ($userregistered eq "no");
+    &error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
      if ($inpassword ne $password) {
 	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("ÆÕÍ¨´íÎó&ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡");
+        &error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼");
      }
 }
 $mvmoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-if ($mvmoney < $moneynumber){ &error("¹ºÂòÌû×ÓÊ§°Ü&ÀÏ´ó£¬ÄãµÄÇ®²»¹»ÂòÕâ¸öÌû×Ó°¡£¡");exit;}
-if (lc($salemembername) eq lc($inmembername)) { &error("¹ºÂòÌû×ÓÊ§°Ü&ÀÏ´ó£¬Äã×Ô¼ºÂò×Ô¼ºµÄÌû×Ó×öÊ²Ã´°¡£¡");exit; }
+if ($mvmoney < $moneynumber){ &error("è´­ä¹°å¸–å­å¤±è´¥&è€å¤§ï¼Œä½ çš„é’±ä¸å¤Ÿä¹°è¿™ä¸ªå¸–å­å•Šï¼");exit;}
+if (lc($salemembername) eq lc($inmembername)) { &error("è´­ä¹°å¸–å­å¤±è´¥&è€å¤§ï¼Œä½ è‡ªå·±ä¹°è‡ªå·±çš„å¸–å­åšä»€ä¹ˆå•Šï¼");exit; }
 
 open (FILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
 my @threads = <FILE>;
@@ -86,7 +86,7 @@ close (FILE);
 (my $membername1, my $no, $no, $no, $no, $no, my $post1, $no) = split(/\t/,$threads[$postnumber]);
 $post1 =~ s/LBSALE\[(.*?)\]LBSALE//sg;
 $buym = int($1);
-&error("¹ºÂòÌû×ÓÊ§°Ü&Ìû×ÓÊı¾İÓĞÎÊÌâ£¬²»ÄÜ½øĞĞÂòÂô£¡") if ((lc($membername1) ne lc($salemembername))||($buym eq "")||($buym ne $moneynumber));
+&error("è´­ä¹°å¸–å­å¤±è´¥&å¸–å­æ•°æ®æœ‰é—®é¢˜ï¼Œä¸èƒ½è¿›è¡Œä¹°å–ï¼") if ((lc($membername1) ne lc($salemembername))||($buym eq "")||($buym ne $moneynumber));
 
 open (FILE, "${lbdir}$saledir/$inforum\_$intopic\_$postnumber.cgi");
 $allbuyer = <FILE>;
@@ -94,7 +94,7 @@ close (FILE);
 chomp $allbuyer;
 $allbuyer = "\t$allbuyer\t";
 $allbuyer =~ s/\t\t/\t/;
-&error("¹ºÂòÌû×ÓÊ§°Ü&ÄãÒÑ¾­¹ºÂòÁËÕâ¸öÌû×ÓÁË£¬ÄãË¢ĞÂÌû×Ó¾Í¿ÉÒÔ¿´µ½µÄ£¡£¡") if ($allbuyer =~ /\t$inmembername\t/i);
+&error("è´­ä¹°å¸–å­å¤±è´¥&ä½ å·²ç»è´­ä¹°äº†è¿™ä¸ªå¸–å­äº†ï¼Œä½ åˆ·æ–°å¸–å­å°±å¯ä»¥çœ‹åˆ°çš„ï¼ï¼") if ($allbuyer =~ /\t$inmembername\t/i);
 
 open (FILE, ">>${lbdir}$saledir/$inforum\_$intopic\_$postnumber.cgi");
 print FILE "$inmembername\t";
@@ -117,16 +117,16 @@ $mvmoney = $mvmoney - $moneynumber;
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&mischeader("¹ºÂòÌû×Ó³É¹¦");
+&mischeader("è´­ä¹°å¸–å­æˆåŠŸ");
 
 $output .= qq~<SCRIPT>valignend()</SCRIPT><table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Äã¸¶³ö $moneynumber $moneyname£¬»¹Ê£Óà $mvmoney $moneyname£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡
-<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic">·µ»Ø¸ÃÖ÷Ìâ</a>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä½ ä»˜å‡º $moneynumber $moneynameï¼Œè¿˜å‰©ä½™ $mvmoney $moneynameï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼
+<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic">è¿”å›è¯¥ä¸»é¢˜</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=topic.cgi?forum=$inforum&topic=$intopic">
 ~;
-&output("$boardname - ÔÚ$forumnameÄÚ¹ºÂòÌû×Ó",\$output);
+&output("$boardname - åœ¨$forumnameå†…è´­ä¹°å¸–å­",\$output);
 exit;

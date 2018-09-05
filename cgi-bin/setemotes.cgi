@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -72,31 +72,31 @@ if ($action eq "process") {
         
         if (-e $filetomake && -w $filetomake) {
                 print qq(
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / EMOTE Éè¶¨</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / EMOTE è®¾å®š</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
-                <font face=ËÎÌå color=#333333><center><b>ËùÓÐÐÅÏ¢ÒÑ¾­±»³É¹¦±£´æ¡£</b></center><br><br>
-                <b>ÏÂÁÐEMOTE±»±£´æ£¡</b><br><br>
+                <font face=å®‹ä½“ color=#333333><center><b>æ‰€æœ‰ä¿¡æ¯å·²ç»è¢«æˆåŠŸä¿å­˜ã€‚</b></center><br><br>
+                <b>ä¸‹åˆ—EMOTEè¢«ä¿å­˜ï¼</b><br><br>
                 );
                 
                 foreach (@savedwordarray) {
                     chomp $_;
                     ($toemote, $beemote) = split(/\=/,$_);
-                    print qq(ËùÓÐ³öÏÖ <b>$toemote</b> µÄµØ·½½«±» <b>$beemote</b> Ìæ»»¡£<br>);
+                    print qq(æ‰€æœ‰å‡ºçŽ° <b>$toemote</b> çš„åœ°æ–¹å°†è¢« <b>$beemote</b> æ›¿æ¢ã€‚<br>);
                 }
                 print qq(
-                <br><br><br><center><a href="setemotes.cgi">ÔÙ´ÎÔö¼ÓEMOTEÁÐ±í</a></center>);
+                <br><br><br><center><a href="setemotes.cgi">å†æ¬¡å¢žåŠ EMOTEåˆ—è¡¨</a></center>);
         }
         else {
                 print qq(
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / EMOTE Éè¶¨</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / EMOTE è®¾å®š</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÐÅÏ¢Ã»ÓÐ±»±£´æ£¡</b><br>ÎÄ¼þ»òÕßÄ¿Â¼²»¿ÉÐ´¡£
+                <font face=å®‹ä½“ color=#333333><b>ä¿¡æ¯æ²¡æœ‰è¢«ä¿å­˜ï¼</b><br>æ–‡ä»¶æˆ–è€…ç›®å½•ä¸å¯å†™ã€‚
                 </td></tr></table></td></tr></table>
                 );
         }
@@ -125,12 +125,12 @@ if ($action eq "process") {
                 $inmembername =~ s/\_/ /g;
 
                 print qq(
-                <tr><td bgcolor=#2159C9 colspan=2><font face=ËÎÌå color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖÐÐÄ / EMOTE Éè¶¨</b>
+                <tr><td bgcolor=#2159C9 colspan=2><font face=å®‹ä½“ color=#FFFFFF>
+                <b>æ¬¢è¿Žæ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / EMOTE è®¾å®š</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=ËÎÌå color=#333333><b>EMOTEÉè¶¨</b>
+                <font face=å®‹ä½“ color=#333333><b>EMOTEè®¾å®š</b>
                 </td></tr>
                 
                 <form action="$thisprog" method="post">
@@ -138,18 +138,18 @@ if ($action eq "process") {
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle colspan=2>
-                <font face=ËÎÌå color=#000000>
-                EMOTEÉè¶¨¿ÉÒÔÊµÏÖÀàËÆÁÄÌìÊÒµÄEMOTE×ª»»,Ê¹ÄúµÄÂÛÌ³¸ü¼Ó·á¸»¶à²Ê.<br>
+                <font face=å®‹ä½“ color=#000000>
+                EMOTEè®¾å®šå¯ä»¥å®žçŽ°ç±»ä¼¼èŠå¤©å®¤çš„EMOTEè½¬æ¢,ä½¿æ‚¨çš„è®ºå›æ›´åŠ ä¸°å¯Œå¤šå½©.<br>
                 <br>
-                <b>Ê¹ÓÃ·½·¨£º</b><br>1.ÊäÈëÒ»¸öÒª×ª»»µÄEMOTEºÍ×ª»»ºóµÄ¶¯×÷£¬²¢ÔÚÖÐ¼ä¼ÓÉÏ "=" (µÈÓÚºÅ)¡£<BR>
-                2.Ã¿Ò»¸öÒª×ª»»µÄEMOTEÇ°Ãæ×îºÃ¼ÓÉÏ/// £¬ÒÔÇø±ðÓëÆäËû´Ê»ã¡£¶ø×ª»»ºóµÄ¶¯×÷ÖÐ£¬¡°¶ÔÏó¡±½«ÔÚ·¢ÌùÊ±×ª»»³ÉÎª·¢ÌùÈËµÄÐÕÃû£¬Ò²¿ÉÒÔ²»º¬¡°¶ÔÏó¡±£¬ÕâÑù½«ÍêÈ«²»±äµÄÏÔÊ¾ÄúÔÚÕâÀïËùÉè¶¨ÒÔºóµÄ¶¯×÷¡£<BR>
-                <b>×¢Òâ£º<br>1.Ã¿ÐÐÖ»ÄÜÐ´Ò»¸ö£¡<br>
-                2.ÉèÖÃÒª×ª»»µÄEMOTE¶¯×÷,¿ÉÒÔÊÇÖÐÎÄ£¬Ó¢ÎÄ£¬»òÕßÊý×Ö£¬×îºÃ²»Òªº¬ÓÐ°ë½Ç×´Ì¬ÏÂµÄ±êµã·ûºÅ£¬ÒÔÃâÒýÆð³ÌÐòÔËÐÐµÄ´íÎó¡£
-                <br>3.ÉèÖÃµÄEMOTE²»ÒªÖØ¸´£¬ÀýÈç///hiºÍ///hideÊÇ²»±»ÔÊÐíµÄ£¬ÔÚ×ª»»Ê±///hide½«ÏÈ×ª»¯Îª///hiµÄ¶¯×÷£¬È»ºóÔÚ¶¯×÷ºóÃæ¸½ÉÏde¡£
-                ±ÈÈçËµ£¬ÉèÖÃ///hi=¶ÔÏóËµµ½¡°´ó¼ÒºÃ¡£¡±ÄÇÃ´///hide½«»áÏÔÊ¾£º¶ÔÏóËµµ½¡°´ó¼ÒºÃ¡£¡±de¡£¶ø///hiºÍ///sohiÔòÊÇÔÊÐíµÄ¡£</b><br><br>
-                <b>ÀýÈç£º</b>///bug=¶ÔÏó°Ñ×ìÒ»ßÖ£¬Ëµµ½£º¡°ÎÒÊÇº¦³æ£¬ÎÒÅÂË­£¿¡±<br>
-                Èç¹û·¢ÌùÈËÊÇ"°Áº®¾ÅÌì"ÔòÕâ¾ä»°ÔÚ²é¿´Ìù×ÓÊ±½«ÏÔÊ¾:<br>
-                ¡¼°Áº®¾ÅÌì¡½°Ñ×ìÒ»ßÖ£¬Ëµµ½£º¡°ÎÒÊÇº¦³æ£¬ÎÒÅÂË­£¿¡±<br>
+                <b>ä½¿ç”¨æ–¹æ³•ï¼š</b><br>1.è¾“å…¥ä¸€ä¸ªè¦è½¬æ¢çš„EMOTEå’Œè½¬æ¢åŽçš„åŠ¨ä½œï¼Œå¹¶åœ¨ä¸­é—´åŠ ä¸Š "=" (ç­‰äºŽå·)ã€‚<BR>
+                2.æ¯ä¸€ä¸ªè¦è½¬æ¢çš„EMOTEå‰é¢æœ€å¥½åŠ ä¸Š/// ï¼Œä»¥åŒºåˆ«ä¸Žå…¶ä»–è¯æ±‡ã€‚è€Œè½¬æ¢åŽçš„åŠ¨ä½œä¸­ï¼Œâ€œå¯¹è±¡â€å°†åœ¨å‘è´´æ—¶è½¬æ¢æˆä¸ºå‘è´´äººçš„å§“åï¼Œä¹Ÿå¯ä»¥ä¸å«â€œå¯¹è±¡â€ï¼Œè¿™æ ·å°†å®Œå…¨ä¸å˜çš„æ˜¾ç¤ºæ‚¨åœ¨è¿™é‡Œæ‰€è®¾å®šä»¥åŽçš„åŠ¨ä½œã€‚<BR>
+                <b>æ³¨æ„ï¼š<br>1.æ¯è¡Œåªèƒ½å†™ä¸€ä¸ªï¼<br>
+                2.è®¾ç½®è¦è½¬æ¢çš„EMOTEåŠ¨ä½œ,å¯ä»¥æ˜¯ä¸­æ–‡ï¼Œè‹±æ–‡ï¼Œæˆ–è€…æ•°å­—ï¼Œæœ€å¥½ä¸è¦å«æœ‰åŠè§’çŠ¶æ€ä¸‹çš„æ ‡ç‚¹ç¬¦å·ï¼Œä»¥å…å¼•èµ·ç¨‹åºè¿è¡Œçš„é”™è¯¯ã€‚
+                <br>3.è®¾ç½®çš„EMOTEä¸è¦é‡å¤ï¼Œä¾‹å¦‚///hiå’Œ///hideæ˜¯ä¸è¢«å…è®¸çš„ï¼Œåœ¨è½¬æ¢æ—¶///hideå°†å…ˆè½¬åŒ–ä¸º///hiçš„åŠ¨ä½œï¼Œç„¶åŽåœ¨åŠ¨ä½œåŽé¢é™„ä¸Šdeã€‚
+                æ¯”å¦‚è¯´ï¼Œè®¾ç½®///hi=å¯¹è±¡è¯´åˆ°â€œå¤§å®¶å¥½ã€‚â€é‚£ä¹ˆ///hideå°†ä¼šæ˜¾ç¤ºï¼šå¯¹è±¡è¯´åˆ°â€œå¤§å®¶å¥½ã€‚â€deã€‚è€Œ///hiå’Œ///sohiåˆ™æ˜¯å…è®¸çš„ã€‚</b><br><br>
+                <b>ä¾‹å¦‚ï¼š</b>///bug=å¯¹è±¡æŠŠå˜´ä¸€å’§ï¼Œè¯´åˆ°ï¼šâ€œæˆ‘æ˜¯å®³è™«ï¼Œæˆ‘æ€•è°ï¼Ÿâ€<br>
+                å¦‚æžœå‘è´´äººæ˜¯"å‚²å¯’ä¹å¤©"åˆ™è¿™å¥è¯åœ¨æŸ¥çœ‹è´´å­æ—¶å°†æ˜¾ç¤º:<br>
+                ã€–å‚²å¯’ä¹å¤©ã€—æŠŠå˜´ä¸€å’§ï¼Œè¯´åˆ°ï¼šâ€œæˆ‘æ˜¯å®³è™«ï¼Œæˆ‘æ€•è°ï¼Ÿâ€<br>
                 </font></td>
                 </tr>
                 
@@ -161,7 +161,7 @@ if ($action eq "process") {
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
-                <input type=submit name=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+                <input type=submit name=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
                 );
                 
                 }

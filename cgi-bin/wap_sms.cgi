@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #########################
-# ÊÖ»úÂÛÌ³WAP°æ
+# æ‰‹æœºè®ºå›WAPç‰ˆ
 # By Maiweb 
 # 2005-11-08
 # leobbs-vip.com
@@ -22,14 +22,14 @@ require "wap.lib.pl";
 require "wap_code.cgi";
 $lid = $query -> param('lid');
 &check($lid);
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) {
-    $inmembername = "¿ÍÈË";
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) {
+    $inmembername = "å®¢äºº";
 } else {
     &getmember("$inmembername","no");
 }  
 
 &waptitle;
-$show.= qq~<card  title="ÊÕ¼şÏä"><p>$boardnameÊÕ¼şÏä<br/>~;
+$show.= qq~<card  title="æ”¶ä»¶ç®±"><p>$boardnameæ”¶ä»¶ç®±<br/>~;
 open(file,"${lbdir}${msgdir}/in/${inmembername}_msg.cgi");
 my @file=<file>;
 close(file);
@@ -52,7 +52,7 @@ foreach(@file[$k..$s]){
 	chomp;next if($_ eq '');$h++;
 	my($who,$zt,$sj,$ti,$post)=split(/\t/,$_);
 	 $sj = &dateformat($sj + ($timedifferencevalue*3600) + ($timezone*3600));
-	$who=~s/£ª£££¡£¦£ª//;
+	$who=~s/ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	$who1=uri_escape($who);
 	$ti1=uri_escape($ti);
 
@@ -70,7 +70,7 @@ else{chop($post);}
 	$post =~ s/\&amp;nbsp;/\&nbsp;/g;
 	$post =~ s/\&amp;gt;/\&gt;/g;
 	$post =~ s/\&amp;lt;/\&lt;/g;
-	$post =~ s/\&amp;#36;/\¡ç/g;
+	$post =~ s/\&amp;#36;/\ï¼„/g;
 	$post =~ s/\&amp\;(.{1,6})\&\#59\;/\&$1\;/isg;
     $post =~ s/\&\#([0-9]{1,6})\&\#59\;/\&\#$1\;/isg;
 	$post =~ s/\&amp;quot;/\"/g;
@@ -85,12 +85,12 @@ else{chop($post);}
 	$post =~ s/\&amp;nbsp;/\&nbsp;/g;
 }
 
-	 if ($zt eq 'no'){$zt = '(ĞÂ)';}else{$zt='';}
-	$show.= "$h,$ti$zt<br/>×÷Õß:$who<br/>Ê±¼ä:$sj<br/>$post<br/><a href=\"wap_smssend.cgi?lid=$lid&amp;name=$who1&amp;ti=$ti1\">»Ø¸´</a><br/>----------<br/>";
+	 if ($zt eq 'no'){$zt = '(æ–°)';}else{$zt='';}
+	$show.= "$h,$ti$zt<br/>ä½œè€…:$who<br/>æ—¶é—´:$sj<br/>$post<br/><a href=\"wap_smssend.cgi?lid=$lid&amp;name=$who1&amp;ti=$ti1\">å›å¤</a><br/>----------<br/>";
 }
-$show.= "[$paGe/$yemaÒ³]</p><p>$newpage</p>";
-$show.= qq~<p>Ìøµ½<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_sms.cgi?paGe=\$(tz)&amp;lid=$lid">Go..</a></p>~;
-$show.= "<p><a href=\"wap_index.cgi?lid=$lid\">$boardnameÁĞ±í</a>&nbsp;<a href=\"wap_smssend.cgi?lid=$lid\">·¢¶ÌÏûÏ¢</a></p>";
+$show.= "[$paGe/$yemaé¡µ]</p><p>$newpage</p>";
+$show.= qq~<p>è·³åˆ°<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_sms.cgi?paGe=\$(tz)&amp;lid=$lid">Go..</a></p>~;
+$show.= "<p><a href=\"wap_index.cgi?lid=$lid\">$boardnameåˆ—è¡¨</a>&nbsp;<a href=\"wap_smssend.cgi?lid=$lid\">å‘çŸ­æ¶ˆæ¯</a></p>";
 open(file,"${lbdir}${msgdir}/in/${inmembername}_msg.cgi");
 my @file=<file>;
 close(file);

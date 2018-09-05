@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 $versionnumber = "<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build090208";
@@ -16,10 +16,10 @@ $ENV{'REMOTE_ADDR'} = $ENV{'HTTP_X_FORWARDED_FOR'} if (($ENV{'REMOTE_ADDR'} eq "
 $skin = "leobbs" if ($skin eq "");
 
 ($memdir,$msgdir,$usrdir,$saledir) = split (/\|/, getdir());
-&error("ÓĞÎÊÌâ&ÂÛÌ³ÖĞ cgi-bin ÏÂµÄ members Ä¿Â¼²»´æÔÚ£¬Çë¼ì²éºó¼ÌĞø£¡") if($memdir eq "");
-&error("ÓĞÎÊÌâ&ÂÛÌ³ÖĞ cgi-bin ÏÂµÄ messages Ä¿Â¼²»´æÔÚ£¬Çë¼ì²éºó¼ÌĞø£¡") if($msgdir eq "");
-&error("ÓĞÎÊÌâ&ÂÛÌ³ÖĞ non-cgi ÏÂµÄ usr Ä¿Â¼²»´æÔÚ£¬Çë¼ì²éºó¼ÌĞø£¡") if($usrdir eq "");
-&error("ÓĞÎÊÌâ&ÂÛÌ³ÖĞ cgi-bin ÏÂµÄ sale Ä¿Â¼²»´æÔÚ£¬Çë¼ì²éºó¼ÌĞø£¡") if($saledir eq "");
+&error("æœ‰é—®é¢˜&è®ºå›ä¸­ cgi-bin ä¸‹çš„ members ç›®å½•ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥åç»§ç»­ï¼") if($memdir eq "");
+&error("æœ‰é—®é¢˜&è®ºå›ä¸­ cgi-bin ä¸‹çš„ messages ç›®å½•ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥åç»§ç»­ï¼") if($msgdir eq "");
+&error("æœ‰é—®é¢˜&è®ºå›ä¸­ non-cgi ä¸‹çš„ usr ç›®å½•ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥åç»§ç»­ï¼") if($usrdir eq "");
+&error("æœ‰é—®é¢˜&è®ºå›ä¸­ cgi-bin ä¸‹çš„ sale ç›®å½•ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥åç»§ç»­ï¼") if($saledir eq "");
 
 sub dofilter {
     my $infiltermessage=shift;
@@ -38,14 +38,14 @@ sub dofilter {
 
     my $tempinfilter = $infiltermessage;
     if ($wordfilter) { $tempinfilter =~ s/$wordfilter/ *** /isg; }
-    if ($tempinfilter ne $infiltermessage) { &error("ÓĞÎÊÌâ&ÄãËùĞ´µÄÄÚÈİÖĞÒ²Ğí°üº¬ÁËÒ»Ğ©±¾ÂÛÌ³²»ÔÊĞí·¢²¼µÄÑÔÂÛ£¬Çë×ĞÏ¸¼ì²éºó£¬ÖØĞÂ·¢²¼£¬Ğ»Ğ»£¡"); }
+    if ($tempinfilter ne $infiltermessage) { &error("æœ‰é—®é¢˜&ä½ æ‰€å†™çš„å†…å®¹ä¸­ä¹Ÿè®¸åŒ…å«äº†ä¸€äº›æœ¬è®ºå›ä¸å…è®¸å‘å¸ƒçš„è¨€è®ºï¼Œè¯·ä»”ç»†æ£€æŸ¥åï¼Œé‡æ–°å‘å¸ƒï¼Œè°¢è°¢ï¼"); }
     $tempinfilter =~ s/\&nbsp\;//ig;
     $tempinfilter =~ s/\<.+?\>//ig;
     $tempinfilter =~ s/\[.+?\]//g;
-    $tempinfilter =~ s/ |¡¡|\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\]//g;
+    $tempinfilter =~ s/ |ã€€|\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\]//g;
     my $tempinfilter1 = $tempinfilter;
     if ($wordfilter) { $tempinfilter1 =~ s/$wordfilter/ *** /isg; }
-    if ($tempinfilter1 ne $tempinfilter) { &error("ÓĞÎÊÌâ&ÄãËùĞ´µÄÄÚÈİÖĞÒ²Ğí°üº¬ÁËÒ»Ğ©±¾ÂÛÌ³²»ÔÊĞí·¢²¼µÄÑÔÂÛ£¬Çë×ĞÏ¸¼ì²éºó£¬ÖØĞÂ·¢²¼£¬Ğ»Ğ»£¡£¡"); }
+    if ($tempinfilter1 ne $tempinfilter) { &error("æœ‰é—®é¢˜&ä½ æ‰€å†™çš„å†…å®¹ä¸­ä¹Ÿè®¸åŒ…å«äº†ä¸€äº›æœ¬è®ºå›ä¸å…è®¸å‘å¸ƒçš„è¨€è®ºï¼Œè¯·ä»”ç»†æ£€æŸ¥åï¼Œé‡æ–°å‘å¸ƒï¼Œè°¢è°¢ï¼ï¼"); }
 
     if (open (FILE, "${lbdir}data/badwords.cgi")) {
 	$badwords = <FILE>;
@@ -67,7 +67,7 @@ sub dofilter {
     return $infiltermessage;
 }
 
-sub checksearchbot {  #·µ»Ø 0 = ËÑË÷ÒıÇæ·ÃÎÊ £¬·µ»Ø 1 = ·ÇËÑË÷ÒıÇæ£¨»òÕß²»ÔÊĞíËÑË÷ÒıÇæÖ±½Ó·ÃÎÊ£©
+sub checksearchbot {  #è¿”å› 0 = æœç´¢å¼•æ“è®¿é—® ï¼Œè¿”å› 1 = éæœç´¢å¼•æ“ï¼ˆæˆ–è€…ä¸å…è®¸æœç´¢å¼•æ“ç›´æ¥è®¿é—®ï¼‰
    return 1 if ($allowsearch ne "yes");
    my $useragent = $ENV{'HTTP_USER_AGENT'};
    foreach my $eachsearch ("Google","baiduspider","lycos","yahooseeker","MSNBOT","InfoSeek","Inktomi","Yahoo! Slurp")
@@ -91,9 +91,9 @@ sub ipbanned {
     $trueipaddress = $ipaddress if ($trueipaddress eq "" || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./ || $trueipaddress =~ m/a-z/i);
     $trueipaddress =~ s/\.\.//g;
     $trueipaddress =~ s/[a-z\\\/]//isg;
-    $infilemembername = $trueipaddress if (($inmembername eq "")||($inmembername eq "¿ÍÈË"));
+    $infilemembername = $trueipaddress if (($inmembername eq "")||($inmembername eq "å®¢äºº"));
     if ((-e "${lbdir}cache/id/$infilemembername.cgi")&&((-M "${lbdir}cache/id/$infilemembername.cgi") *86400 < 1800)) {
-    	#Ö±½ÓÍ¨¹ı
+    	#ç›´æ¥é€šè¿‡
     }
     else { require "doipbanned.pl"; }
 }
@@ -105,16 +105,16 @@ sub title {
     	require "${lbdir}dorepireskin.pl";
 	print header();
 	print "<script language='javascript'>javascript:this.location.reload()</script>";
-        print "Ò³ÃæÒÑ¾­¸üĞÂ£¬³ÌĞò×Ô¶¯Ë¢ĞÂ£¬Èç¹ûÃ»ÓĞ×Ô¶¯Ë¢ĞÂ£¬ÇëÊÖ¹¤Ë¢ĞÂÒ»´Î£¡£¡<BR><BR><meta http-equiv='refresh' content='3;'>";
+        print "é¡µé¢å·²ç»æ›´æ–°ï¼Œç¨‹åºè‡ªåŠ¨åˆ·æ–°ï¼Œå¦‚æœæ²¡æœ‰è‡ªåŠ¨åˆ·æ–°ï¼Œè¯·æ‰‹å·¥åˆ·æ–°ä¸€æ¬¡ï¼ï¼<BR><BR><meta http-equiv='refresh' content='3;'>";
 	exit;
     }
   } else { $userskins=""; $skinselect=""; }
 
     &doonoff;
     $newmail = "<p>";
-    if ($inmembername eq "" || $inmembername eq "¿ÍÈË") {
-	$inmembername = "¿ÍÈË";
-	$loggedinas = qq~<b>¿ÍÈË</b>£º <a href=loginout.cgi?forum=$inforum title=´ÓÕâÀï¿ªÊ¼½øÈëÂÛÌ³>µÇÂ¼</a> <img src=$imagesurl/images/fg.gif width=1> <a href=register.cgi?forum=$inforum title=×¢²áÁË²ÅÄÜ·¢±íÎÄÕÂÅ¶£¡><B><font color=$fonthighlight>°´ÕâÀï×¢²á</font></B></a> <img src=$imagesurl/images/fg.gif width=1> <a href=profile.cgi?action=lostpassword title=ºÃ²Ò°¡£¬Íü¼ÇÃÜÂëµÇÂ¼²»ÁË style=cursor:help>Íü¼ÇÃÜÂë</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=¿´¿´ÓĞË­ÔÚÏß¡­¡­>ÔÚÏß</a> <img src=$imagesurl/images/fg.gif width=1> <a href="search.cgi?forum=$inforum" title=°´¹Ø¼ü×Ö¡¢×÷ÕßÀ´ËÑÑ°>ËÑË÷</a> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick=javascript:openScript('help.cgi',500,400) title=³£¼ûÎÊÌâµÄ½â´ğ>°ïÖú</span>&nbsp;~;
+    if ($inmembername eq "" || $inmembername eq "å®¢äºº") {
+	$inmembername = "å®¢äºº";
+	$loggedinas = qq~<b>å®¢äºº</b>ï¼š <a href=loginout.cgi?forum=$inforum title=ä»è¿™é‡Œå¼€å§‹è¿›å…¥è®ºå›>ç™»å½•</a> <img src=$imagesurl/images/fg.gif width=1> <a href=register.cgi?forum=$inforum title=æ³¨å†Œäº†æ‰èƒ½å‘è¡¨æ–‡ç« å“¦ï¼><B><font color=$fonthighlight>æŒ‰è¿™é‡Œæ³¨å†Œ</font></B></a> <img src=$imagesurl/images/fg.gif width=1> <a href=profile.cgi?action=lostpassword title=å¥½æƒ¨å•Šï¼Œå¿˜è®°å¯†ç ç™»å½•ä¸äº† style=cursor:help>å¿˜è®°å¯†ç </a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=çœ‹çœ‹æœ‰è°åœ¨çº¿â€¦â€¦>åœ¨çº¿</a> <img src=$imagesurl/images/fg.gif width=1> <a href="search.cgi?forum=$inforum" title=æŒ‰å…³é”®å­—ã€ä½œè€…æ¥æœå¯»>æœç´¢</a> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick=javascript:openScript('help.cgi',500,400) title=å¸¸è§é—®é¢˜çš„è§£ç­”>å¸®åŠ©</span>&nbsp;~;
 	if (($regaccess eq "on" && &checksearchbot)&&($thisprog ne "loginout.cgi")&&($thisprog ne "register.cgi")&&($thisprog ne "profile.cgi")&&($thisprog ne "viewavatars.cgi")) {
 	    print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	    print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
@@ -123,9 +123,9 @@ sub title {
 	if(($regpuonoff eq "ontop")&&($thisprog eq "leobbs.cgi")||($regpuonoff eq "oneach")&&($thisprog ne "loginout.cgi")&&($thisprog ne "register.cgi")) {
 	    if ($boardlogo =~ /\.swf$/i) {$forumgraphic1 = qq~<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$imagesurl/myimages/$boardlogo quality=high width=$boardlogow height=$boardlogoh pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed>~}
             else {$forumgraphic1 = qq~<img src=$imagesurl/myimages/$boardlogo border=0>~};		
-            $popupmsg = qq~ÇëÏÈ×¢²áÒÔ±ÜÃâ´ËÊÓ´°³öÏÖ~ if(!$popupmsg);
+            $popupmsg = qq~è¯·å…ˆæ³¨å†Œä»¥é¿å…æ­¤è§†çª—å‡ºç°~ if(!$popupmsg);
             $popupmsg = &HTML("$popupmsg");
-	    $loggedinas .=qq~<script src="$imagesurl/images/lbpopup.js"></script><div id="lbplocation" style="position: absolute;visibility: hidden;height: 1;width: 1;top: 100;left: 50"><table width=520 height=320 bgcolor=$titleborder style="border: 1 outset $miscbackone"><tr><td><table width=490 height=290 bgcolor=$menubackground align=center style="border: 1 inset $miscbacktwo"><tr><td align=center valign=middle><a href=leobbs.cgi>$forumgraphic1</a><br>$popupmsg<br><br><b><a href=register.cgi title=°´ÕâÀï½øĞĞ×¢²á><U>×¢¡¡²á</U></a>¡¡¡¡<a href=loginout.cgi?forum=$inforum title=´ÓÕâÀï¿ªÊ¼½øÈëÂÛÌ³><U>µÇ¡¡Èë</U></a></b><p>(´ËÊÓ´°½«ÓÚ 5 Ãëºó×Ô¶¯¹Ø±Õ)</td></tr></table></td></tr></table></div>~;
+	    $loggedinas .=qq~<script src="$imagesurl/images/lbpopup.js"></script><div id="lbplocation" style="position: absolute;visibility: hidden;height: 1;width: 1;top: 100;left: 50"><table width=520 height=320 bgcolor=$titleborder style="border: 1 outset $miscbackone"><tr><td><table width=490 height=290 bgcolor=$menubackground align=center style="border: 1 inset $miscbacktwo"><tr><td align=center valign=middle><a href=leobbs.cgi>$forumgraphic1</a><br>$popupmsg<br><br><b><a href=register.cgi title=æŒ‰è¿™é‡Œè¿›è¡Œæ³¨å†Œ><U>æ³¨ã€€å†Œ</U></a>ã€€ã€€<a href=loginout.cgi?forum=$inforum title=ä»è¿™é‡Œå¼€å§‹è¿›å…¥è®ºå›><U>ç™»ã€€å…¥</U></a></b><p>(æ­¤è§†çª—å°†äº 5 ç§’åè‡ªåŠ¨å…³é—­)</td></tr></table></td></tr></table></div>~;
 	}
     }
     else {
@@ -141,7 +141,7 @@ sub title {
   	     require "domymsg.pl";
 	 }
       }
-      $loggedinas = qq~$inmembername£º<a href=loginout.cgi?forum=$inforum>ÖØµÇÂ¼</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[1])" onMouseout="delayhidemenu()">¿ØÖÆÃæ°å</span> <img src=$imagesurl/images/fg.gif width=1> <a href=search.cgi?forum=$inforum title=°´¹Ø¼ü×Ö¡¢×÷ÕßÀ´ËÑÑ°ÂÛÌ³ÄÚµÄÌû×Ó>ËÑË÷</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=¿´¿´ÓĞË­ÔÚÏß¡­¡­>ÔÚÏß</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[0])" onMouseout="delayhidemenu()">ÂÛÌ³ÉèÊ©</span> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick="javascript:openScript('help.cgi',500,400)" title=³£¼ûÎÊÌâµÄ½â´ğ>°ïÖú</span> <img src=$imagesurl/images/fg.gif width=1> <a href=loginout.cgi?action=logout title=ÔÚ¹«ÖÚµÄµØ·½ÉÏÍø¼ÇµÃÒª°´ÍË³öÅ¶><font color=$fonthighlight>ÍË³ö</font></a>&nbsp;~;
+      $loggedinas = qq~$inmembernameï¼š<a href=loginout.cgi?forum=$inforum>é‡ç™»å½•</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[1])" onMouseout="delayhidemenu()">æ§åˆ¶é¢æ¿</span> <img src=$imagesurl/images/fg.gif width=1> <a href=search.cgi?forum=$inforum title=æŒ‰å…³é”®å­—ã€ä½œè€…æ¥æœå¯»è®ºå›å†…çš„å¸–å­>æœç´¢</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=çœ‹çœ‹æœ‰è°åœ¨çº¿â€¦â€¦>åœ¨çº¿</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[0])" onMouseout="delayhidemenu()">è®ºå›è®¾æ–½</span> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick="javascript:openScript('help.cgi',500,400)" title=å¸¸è§é—®é¢˜çš„è§£ç­”>å¸®åŠ©</span> <img src=$imagesurl/images/fg.gif width=1> <a href=loginout.cgi?action=logout title=åœ¨å…¬ä¼—çš„åœ°æ–¹ä¸Šç½‘è®°å¾—è¦æŒ‰é€€å‡ºå“¦><font color=$fonthighlight>é€€å‡º</font></a>&nbsp;~;
     }
 
     if ($useadscript ne 0) {
@@ -178,7 +178,7 @@ sub title {
         eval{ require "${lbdir}data/skincache.pl";};
         if ($@) {  unlink ("${lbdir}data/skincache.pl"); }
     }
-    $loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <a href=admin.cgi target=_blank>¹ÜÀíÖĞĞÄ</a>&nbsp;~ if (($membercode eq "ad")||($membercode eq "smo"));
+    $loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <a href=admin.cgi target=_blank>ç®¡ç†ä¸­å¿ƒ</a>&nbsp;~ if (($membercode eq "ad")||($membercode eq "smo"));
 
     if ($navadd ne "") {
     	$navadd=&HTML($navadd);
@@ -204,17 +204,17 @@ sub title {
 .menuitems{margin:1px;padding:1px;word-break:keep-all;}
 </style>
 <script>
-linkset[1]='<div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("messanger.cgi?action=new",600,400) title=·¢ËÍÇÄÇÄ»°¶ÌÑ¶Ï¢¸øÕ¾ÄÚµÄÅóÓÑ>·¢¶ÌÑ¶¸øÅóÓÑ</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=profile.cgi?action=modify title=±à¼­ĞŞ¸ÄÄúµÄ¸öÈË×ÊÁÏ><font color=$menufontcolor>ĞŞ¸ÄÎÒµÄ×ÊÁÏ</font></a>&nbsp;</div><div class=menuitems>&nbsp;<a href=fav.cgi?action=show&member=$inmembername title=¶ÔÄúÊÕ²ØµÄÌû×Ó½øĞĞ¹ÜÀí><font color=$menufontcolor>¹ÜÀíÎÒµÄÊÕ²Ø</font></a>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("friendlist.cgi",420,320) title=²é¿´¡¢Ìí¼Ó¡¢É¾³ıÄãµÄºÃÓÑÃûµ¥>¹ÜÀíºÃÓÑÁĞ±í</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("blocklist.cgi",420,320) title=²é¿´¡¢Ìí¼Ó¡¢É¾³ıÄãµÄºÚÃûµ¥>¹ÜÀíºÚÃûµ¥±í</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=new",420,320) title=ÏÔÊ¾ÂÛÌ³×îĞÂµÄÌû×ÓÁĞ±í>ÂÛÌ³×îĞÂÌû×Ó</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=post",420,320) title=ÎÒ·¢±íµÄ¡¢¶øÇÒÒÑ¾­±»±ğÈË»Ø¸´¹ıµÄÖ÷ÌâÁĞ±í>±»»Ø¸´µÄÖ÷Ìâ</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=reply",420,320) title=ÎÒ·¢±í»Ø¸´¹ıµÄÖ÷ÌâÁĞ±í>ÎÒ²ÎÓëµÄÖ÷Ìâ</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=delmycache.cgi title=Çå³ıÎÒµÄ»º´æ£¬È·±£¸öÈËËùÓĞ×ÊÁÏ¶¼ÊÇ×îĞÂµÄ><font color=$menufontcolor>¸üĞÂÎÒµÄ»º´æ</font></a>&nbsp;</div>'
+linkset[1]='<div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("messanger.cgi?action=new",600,400) title=å‘é€æ‚„æ‚„è¯çŸ­è®¯æ¯ç»™ç«™å†…çš„æœ‹å‹>å‘çŸ­è®¯ç»™æœ‹å‹</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=profile.cgi?action=modify title=ç¼–è¾‘ä¿®æ”¹æ‚¨çš„ä¸ªäººèµ„æ–™><font color=$menufontcolor>ä¿®æ”¹æˆ‘çš„èµ„æ–™</font></a>&nbsp;</div><div class=menuitems>&nbsp;<a href=fav.cgi?action=show&member=$inmembername title=å¯¹æ‚¨æ”¶è—çš„å¸–å­è¿›è¡Œç®¡ç†><font color=$menufontcolor>ç®¡ç†æˆ‘çš„æ”¶è—</font></a>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("friendlist.cgi",420,320) title=æŸ¥çœ‹ã€æ·»åŠ ã€åˆ é™¤ä½ çš„å¥½å‹åå•>ç®¡ç†å¥½å‹åˆ—è¡¨</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("blocklist.cgi",420,320) title=æŸ¥çœ‹ã€æ·»åŠ ã€åˆ é™¤ä½ çš„é»‘åå•>ç®¡ç†é»‘åå•è¡¨</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=new",420,320) title=æ˜¾ç¤ºè®ºå›æœ€æ–°çš„å¸–å­åˆ—è¡¨>è®ºå›æœ€æ–°å¸–å­</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=post",420,320) title=æˆ‘å‘è¡¨çš„ã€è€Œä¸”å·²ç»è¢«åˆ«äººå›å¤è¿‡çš„ä¸»é¢˜åˆ—è¡¨>è¢«å›å¤çš„ä¸»é¢˜</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=reply",420,320) title=æˆ‘å‘è¡¨å›å¤è¿‡çš„ä¸»é¢˜åˆ—è¡¨>æˆ‘å‚ä¸çš„ä¸»é¢˜</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=delmycache.cgi title=æ¸…é™¤æˆ‘çš„ç¼“å­˜ï¼Œç¡®ä¿ä¸ªäººæ‰€æœ‰èµ„æ–™éƒ½æ˜¯æœ€æ–°çš„><font color=$menufontcolor>æ›´æ–°æˆ‘çš„ç¼“å­˜</font></a>&nbsp;</div>'
 </script>
 $pluginadd$headmark$userskins~;
     if (($usesuperannounce eq "1")&&($thisprog eq "leobbs.cgi" || $thisprog eq "forums.cgi" || $thisprog eq "topic.cgi")) {
     	require "superannounce.pl";
     	&superanndo;
-        $sann = qq~<span style=cursor:hand onClick=displayfadeinbox();><img src=$imagesurl/images/sann.gif height=16></span>¡¡~;
+        $sann = qq~<span style=cursor:hand onClick=displayfadeinbox();><img src=$imagesurl/images/sann.gif height=16></span>ã€€~;
     }
 
   eval{ require "${lbdir}data/myskin/${skin}.pl";};
-  if ($@) { require "${lbdir}data/myskin/title.pl";}   # µ÷ÈëÍ·²¿ skin £¬Èç¹û²»´æÔÚ»òÕß´íÎó£¬Ä¬ÈÏ title.pl ¡£
+  if ($@) { require "${lbdir}data/myskin/title.pl";}   # è°ƒå…¥å¤´éƒ¨ skin ï¼Œå¦‚æœä¸å­˜åœ¨æˆ–è€…é”™è¯¯ï¼Œé»˜è®¤ title.pl ã€‚
 
     if ($firstout eq "yemei") {
         $output .= $yemei if ($usetopm ne "no");
@@ -228,10 +228,10 @@ $pluginadd$headmark$userskins~;
 
     if ($forumlastvisit) {
 	my $fulldate  = &fulldatetime($forumlastvisit+$timedifferencevalue*3600+$timezone*3600);
-	$lastvisitdata = qq~ ×î½ü·ÃÎÊÂÛÌ³Ê±¼ä£º $fulldate~;
+	$lastvisitdata = qq~ æœ€è¿‘è®¿é—®è®ºå›æ—¶é—´ï¼š $fulldate~;
     }
-    else { $lastvisitdata = qq~ $forumname»¶Ó­ÄúµÄµ½À´ ~; }
-    $uservisitdata = qq~<a href=forums.cgi?forum=$inforum&action=resetposts title="$lastvisitdata">±ê¼ÇÂÛÌ³ËùÓĞÄÚÈİÎªÒÑ¶Á</a>&nbsp;~;
+    else { $lastvisitdata = qq~ $forumnameæ¬¢è¿æ‚¨çš„åˆ°æ¥ ~; }
+    $uservisitdata = qq~<a href=forums.cgi?forum=$inforum&action=resetposts title="$lastvisitdata">æ ‡è®°è®ºå›æ‰€æœ‰å†…å®¹ä¸ºå·²è¯»</a>&nbsp;~;
 }
 
 sub mischeader {
@@ -244,7 +244,7 @@ sub mischeader {
       require "domischeader.pl";
   }
   &title;
-  if ($inforum eq "") { $titleoutput =~ s/\ ¡ú\ \<a href=forums.cgi\?forum=\>\<\/a\>//isg; $titleoutput =~ s/\>\>\>\ //isg; }
+  if ($inforum eq "") { $titleoutput =~ s/\ â†’\ \<a href=forums.cgi\?forum=\>\<\/a\>//isg; $titleoutput =~ s/\>\>\>\ //isg; }
   $titleoutput =~ s/misctypehtc/$misctype/isg;
   $output .= qq~$titleoutput~;
 }
@@ -262,7 +262,7 @@ sub getoneforum {
     }
     $forummodnamestemp = ",$forummoderator,";
     my $tempinmembername = ",$inmembername,";
-    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,È«Ìå°æÖ÷,/ || $forummodnamestemp =~ /,È«Ìå°ßÖñ,/)) ? "yes" : "no";
+    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,å…¨ä½“ç‰ˆä¸»,/ || $forummodnamestemp =~ /,å…¨ä½“æ–‘ç«¹,/)) ? "yes" : "no";
     return;
 }
 
@@ -274,7 +274,7 @@ sub moderator {
         if ($@) { unlink ("${lbdir}cache/forums$inforum.pl"); require "domoderator.pl"; }
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
 
-        if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,È«Ìå°æÖ÷,/ || $forummodnamestemp =~ /,È«Ìå°ßÖñ,/))) { $inmembmod = "yes"; } else { $inmembmod = "no"; }
+        if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,å…¨ä½“ç‰ˆä¸»,/ || $forummodnamestemp =~ /,å…¨ä½“æ–‘ç«¹,/))) { $inmembmod = "yes"; } else { $inmembmod = "no"; }
         unlink("${lbdir}cache/forums$inforum.pl") if ((-M "${lbdir}cache/forums$inforum.pl") *86400 > 600);
     } else {
     	require "domoderator.pl";
@@ -327,14 +327,14 @@ sub getmember {
     my $filetoopen = "${lbdir}$memdir/$namenumber/$nametocheck.cgi";
 
     if ($readtype eq "check") {
-	if ((-e $filetoopen)&&($nametocheck !~ /^¿ÍÈË/)&&($nametocheck ne "")) {
+	if ((-e $filetoopen)&&($nametocheck !~ /^å®¢äºº/)&&($nametocheck ne "")) {
 	    return 1;
 	} else {
 	    return 0;
 	}
     }
 
-    if ((-e $filetoopen)&&($nametocheck !~ /^¿ÍÈË/)&&($nametocheck ne "")) {
+    if ((-e $filetoopen)&&($nametocheck !~ /^å®¢äºº/)&&($nametocheck ne "")) {
 	&winlock($filetoopen) if (($OS_USED eq "Nt") && ($readtype ne "no"));
         open(FILE3,"$filetoopen");
         flock(FILE3, 1) if (($OS_USED eq "Unix") && ($readtype ne "no"));
@@ -394,7 +394,7 @@ sub whosonline {
 	$trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
 	local $ipall      = "$ipaddress=$trueipaddress";
 	local $tempusername1=$tempusername;
-	$tempusername = "¿ÍÈË($ipaddress)" if ($tempusername eq "¿ÍÈË");
+	$tempusername = "å®¢äºº($ipaddress)" if ($tempusername eq "å®¢äºº");
 	$totleonlineall = 0;
 	$guests  = 0;
 	$members = 0;
@@ -441,10 +441,10 @@ sub whosonline {
                 chomp $line;
                 local ($savedusername, $savedcometime, $savedtime, $savedwhere, $savedipaddress, $saveosinfo, $savebrowseinfo, $savedwhere2, $fromwhere, $savemembercode, $savehidden, $savesex) = split(/\t/, $line);
  		my ($lookfor, $no) = split(/\(/,$savedusername);
-                next if (((length($savedusername)>12)&&($lookfor ne "¿ÍÈË"))||($lookfor eq ""));
-                $fromwhere = "Î´Öª" if (length($fromwhere) > 40);
-#                $saveosinfo = "Î´Öª" if (length($saveosinfo) > 15);
-#                $savebrowseinfo = "Î´Öª" if (length($savebrowseinfo) > 28);
+                next if (((length($savedusername)>12)&&($lookfor ne "å®¢äºº"))||($lookfor eq ""));
+                $fromwhere = "æœªçŸ¥" if (length($fromwhere) > 40);
+#                $saveosinfo = "æœªçŸ¥" if (length($saveosinfo) > 15);
+#                $savebrowseinfo = "æœªçŸ¥" if (length($savebrowseinfo) > 28);
 		$lookfor =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/ /isg;
 		$savedwhere =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/ /isg;
 		$savedwhere2 =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/ /isg;
@@ -454,11 +454,11 @@ sub whosonline {
                 $tempusername =~ s/\_/ /g;
 
 		if ($userexpire <= $savedtime) {
-		    if ($savedusername !~ /^¿ÍÈË/) { if ($savehidden ne 1) { $onlineuserlist = "$onlineuserlist$savedusername\_"; } else { $onlineuserlisthidden = "$onlineuserlisthidden$savedusername\_"; } }
-                    if ((lc($savedusername) eq lc($tempusername))||(($savedusername eq "¿ÍÈË($ipaddress)")&&($ipall eq $savedipaddress)&&($tempusername =~ /^¿ÍÈË/ || ($where eq "ÂÛÌ³µÇÂ¼" && $where2 eq "µÇÂ¼ÂÛÌ³" && $action eq "login")))) {
+		    if ($savedusername !~ /^å®¢äºº/) { if ($savehidden ne 1) { $onlineuserlist = "$onlineuserlist$savedusername\_"; } else { $onlineuserlisthidden = "$onlineuserlisthidden$savedusername\_"; } }
+                    if ((lc($savedusername) eq lc($tempusername))||(($savedusername eq "å®¢äºº($ipaddress)")&&($ipall eq $savedipaddress)&&($tempusername =~ /^å®¢äºº/ || ($where eq "è®ºå›ç™»å½•" && $where2 eq "ç™»å½•è®ºå›" && $action eq "login")))) {
                          if ((($currenttime - $savedtime) <= $banfreshtime - 1)&&(($currenttime - $savedtime) >= 0)&&($savedwhere eq $where)&&($savedwhere2 eq $where2)&&(($thisprog eq "post.cgi")||($thisprog eq "leobbs.cgi")||($thisprog eq "forums.cgi")||($thisprog eq "topic.cgi")||($thisprog eq "printpage.cgi")||($thisprog eq "whosonline.cgi"))) {
                              print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-                             print "<BR>·şÎñÆ÷Ã¦£¬Çë $banfreshtime Ãëºó°´Ë¢ĞÂ¼ü¼ÌĞø¡£<BR><BR>³ö´íÔ­Òò£ºÄãË¢ĞÂÒ³Ãæ¹ı¿ì£¬»òÕßÄã´ò¿ªÁË¹ı¶à´°¿ÚÀ´ä¯ÀÀ±¾ÍøÕ¾¡£";
+                             print "<BR>æœåŠ¡å™¨å¿™ï¼Œè¯· $banfreshtime ç§’åæŒ‰åˆ·æ–°é”®ç»§ç»­ã€‚<BR><BR>å‡ºé”™åŸå› ï¼šä½ åˆ·æ–°é¡µé¢è¿‡å¿«ï¼Œæˆ–è€…ä½ æ‰“å¼€äº†è¿‡å¤šçª—å£æ¥æµè§ˆæœ¬ç½‘ç«™ã€‚";
                              exit;
                          }
                          $savedcometime = $currenttime if (lc($savedusername) ne lc($tempusername));
@@ -478,7 +478,7 @@ sub whosonline {
                     else {
                          $line =~ s/[\a\f\n\e\0\r]//isg;
                          push(@onlinedata,$line);
-			 if ($tempusername !~ /^¿ÍÈË/ && $friendonlinepop ne 'no') {
+			 if ($tempusername !~ /^å®¢äºº/ && $friendonlinepop ne 'no') {
 			     $savedusernametemp = $savedusername;
 			     $savedusernametemp =~ s/\\\|\(\)\[\]\*\+\?//isg;
 			     if ($onlineprompt =~ /,$savedusername,/i) {
@@ -489,11 +489,11 @@ sub whosonline {
                     }
                 }
                 else {
-                	if ($savedusername !~ /^¿ÍÈË/) { require "douplogintime.pl"; &uplogintime("$savedusername",""); }
+                	if ($savedusername !~ /^å®¢äºº/) { require "douplogintime.pl"; &uplogintime("$savedusername",""); }
                 }
         }
 
-	if ($tempusername !~ /^¿ÍÈË/ && $friendonlinepop ne 'no') {
+	if ($tempusername !~ /^å®¢äºº/ && $friendonlinepop ne 'no') {
 	     require "doonlinepop.pl";
 	}
 
@@ -510,28 +510,17 @@ $guesttotle = 0;
 
         if ($method ne "none") {
 	    $memberoutput = qq~<script>
-function OLO(img, name, name1, place, action, time, time1, os, browser, ip, where, xa, xb) {document.write("<td width=12 align=center><img src=$imagesurl/images/" + img + " border=0 width=12 align=absmiddle alt='·¢ËÍÒ»¸ö¶ÌÏûÏ¢¸ø " + name + "' onClick=\\"javascript:openScript('messanger.cgi?action=new&touser=" + name1 + "', 600, 400)\\" style='cursor: hand'></td><td width=108><span onClick=\\"javascript:O9('" + name1 + "')\\" nowarp title=\\"Ä¿Ç°Î»ÖÃ£º" + place + "\\nÄ¿Ç°¶¯×÷£º" + action + "\\nÀ´·ÃÊ±¼ä£º" + time + "\\n»î¶¯Ê±¼ä£º" + time1 + "\\n²Ù×÷ÏµÍ³£º" + os + "\\nä¯ ÀÀ Æ÷£º" + browser + "\\n£É£ĞµØÖ·£º" + ip + "\\nÀ´Ô´¼ø¶¨£º" + where + "\\" style='cursor: hand'>" + xa + name + xb + "</span></td>");}
-function OHO(time, time1, ip, where, xa, xb) {document.write("<td width=12 align=center><img src=$imagesurl/images/$onlineguest width=12 align=absmiddle alt='ÇëÎğ´òÈÅ£¡'></td><td width=108><a href=# nowarp title=\\"À´·ÃÊ±¼ä£º" + time + "\\n»î¶¯Ê±¼ä£º" + time1 + "\\n£É£ĞµØÖ·£º" + ip + "\\nÀ´Ô´¼ø¶¨£º" + where + "\\">" + xa + "ÒşÉí»áÔ±" + xb + "</a></td>");}
+function OLO(img, name, name1, place, action, time, time1, os, browser, ip, where, xa, xb) {document.write("<td width=12 align=center><img src=$imagesurl/images/" + img + " border=0 width=12 align=absmiddle alt='å‘é€ä¸€ä¸ªçŸ­æ¶ˆæ¯ç»™ " + name + "' onClick=\\"javascript:openScript('messanger.cgi?action=new&touser=" + name1 + "', 600, 400)\\" style='cursor: hand'></td><td width=108><span onClick=\\"javascript:O9('" + name1 + "')\\" nowarp title=\\"ç›®å‰ä½ç½®ï¼š" + place + "\\nç›®å‰åŠ¨ä½œï¼š" + action + "\\næ¥è®¿æ—¶é—´ï¼š" + time + "\\næ´»åŠ¨æ—¶é—´ï¼š" + time1 + "\\næ“ä½œç³»ç»Ÿï¼š" + os + "\\næµ è§ˆ å™¨ï¼š" + browser + "\\nï¼©ï¼°åœ°å€ï¼š" + ip + "\\næ¥æºé‰´å®šï¼š" + where + "\\" style='cursor: hand'>" + xa + name + xb + "</span></td>");}
+function OHO(time, time1, ip, where, xa, xb) {document.write("<td width=12 align=center><img src=$imagesurl/images/$onlineguest width=12 align=absmiddle alt='è¯·å‹¿æ‰“æ‰°ï¼'></td><td width=108><a href=# nowarp title=\\"æ¥è®¿æ—¶é—´ï¼š" + time + "\\næ´»åŠ¨æ—¶é—´ï¼š" + time1 + "\\nï¼©ï¼°åœ°å€ï¼š" + ip + "\\næ¥æºé‰´å®šï¼š" + where + "\\">" + xa + "éšèº«ä¼šå‘˜" + xb + "</a></td>");}
 ~;
 	    $memberoutput1 = qq~<script>
-function OGO(place, action, time, time1, os, browser, ip, where, xa, xb) {document.write("<td width=12 align=center><img src=$imagesurl/images/$onlineguest border=0 width=12 align=absmiddle alt='¿ì×¢²áÑ½£¡'></td><td width=108><a href=# nowarp title=\\"Ä¿Ç°Î»ÖÃ£º" + place + "\\nÄ¿Ç°¶¯×÷£º" + action + "\\nÀ´·ÃÊ±¼ä£º" + time + "\\n»î¶¯Ê±¼ä£º" + time1 + "\\n²Ù×÷ÏµÍ³£º" + os + "\\nä¯ ÀÀ Æ÷£º" + browser + "\\n£É£ĞµØÖ·£º" + ip + "\\nÀ´Ô´¼ø¶¨£º" + where + "\\">" + xa + "¿ÍÈË" + xb + "</a></td>");}
+function OGO(place, action, time, time1, os, browser, ip, where, xa, xb) {document.write("<td width=12 align=center><img src=$imagesurl/images/$onlineguest border=0 width=12 align=absmiddle alt='å¿«æ³¨å†Œå‘€ï¼'></td><td width=108><a href=# nowarp title=\\"ç›®å‰ä½ç½®ï¼š" + place + "\\nç›®å‰åŠ¨ä½œï¼š" + action + "\\næ¥è®¿æ—¶é—´ï¼š" + time + "\\næ´»åŠ¨æ—¶é—´ï¼š" + time1 + "\\næ“ä½œç³»ç»Ÿï¼š" + os + "\\næµ è§ˆ å™¨ï¼š" + browser + "\\nï¼©ï¼°åœ°å€ï¼š" + ip + "\\næ¥æºé‰´å®šï¼š" + where + "\\">" + xa + "å®¢äºº" + xb + "</a></td>");}
 ~;
 
             foreach my $line (@onlinedata) {
                 chomp $line;
-		$line =~ s/£ª£££¡£¦£ª//;
-                my ($savedusername, $savedcometime, $savedtime, $savedwhere, $postipaddresstemp, $saveosinfo, $savebrowseinfo, $savedwhere2, $fromwhere, $memcod, $hiddened, $savesex) = split(/\t/, $line);
-                $guesttotle ++ if ($savedusername  =~ /^¿ÍÈË/);
-
- 		my ($lookfor, $no) = split(/\(/,$savedusername);
-    	    	next if ($lookfor =~ m/[\(\)\*]/ || $lookfor eq "");
-
-		       if ($memcod eq "ad")  {$mspic=$onlineadmin;}
-		    elsif ($memcod eq "smo") {$mspic=$onlinesmod;}
-		    elsif ($memcod eq "cmo") {$mspic=$onlinecmod;}
-		    elsif ($memcod eq "mo")  {$mspic=$onlinemod;}
-		    elsif ($memcod eq "amo") {$mspic=$onlineamod;}
-		    elsif ($memcod =~ /^rz/) {$mspic = $memcod eq "rz1" && $defrz1 ne "" && $defrzonline1 ne "" ? $defrzonline1 : $memcod eq "rz2" && $defrz2 ne "" && $defrzonline2 ne "" ? $defrzonline2 : $memcod eq "rz3" && $defrz3 ne "" && $defrzonline3 ne "" ? $defrzonline3 : $memcod eq "rz4" && $defrz4 ne "" && $defrzonline4 ne "" ? $defrzonline4 : $memcod eq "rz5" && $defrz5 ne "" && $defrzonline5 ne "" ? $defrzonline5 : $onlinerz;}
+		$line =~ s/ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+                my ($savedusername, $savedcometime, $savedtime, $savedwhere, $postipaddresstemp, $saveosinfo, $saè¾¾5 ne "" ? $defrzonline5 : $onlinerz;}
 		    else  {$mspic=$onlinemember;}
 
 		($savedipaddress,$truepostipaddress) = split(/\=/,$postipaddresstemp);

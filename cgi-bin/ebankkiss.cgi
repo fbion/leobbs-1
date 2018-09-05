@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -32,7 +32,7 @@ $inpassword = $cookie{"apasswordcookie"};
 print "Content-Type: text/html; Charset=gb2312\n\n";
 
 &error if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
-&error if ($inmembername eq "" || $inmembername eq "¿ÍÈË" );
+&error if ($inmembername eq "" || $inmembername eq "å®¢äºº" );
 $inmembername =~ s/ /\_/g;
 $inmembername =~ tr/A-Z/a-z/;
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -59,7 +59,7 @@ if ($inpassword ne $password)
 ($numberofposts, $numberofreplys) = split(/\|/, $numofposts);
 if ($numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb < 50)
 {
-	print "<html><body><img src=$imagesurl/ebank/waitress3.gif border=0 alt='Á¬Âò»¨µÄÇ®¶¼Ã»ÓĞ£¬555£¬¾¯²ìÊåÊåÓĞÈË·ÇÀñ°¢'></body></html>";
+	print "<html><body><img src=$imagesurl/ebank/waitress3.gif border=0 alt='è¿ä¹°èŠ±çš„é’±éƒ½æ²¡æœ‰ï¼Œ555ï¼Œè­¦å¯Ÿå”å”æœ‰äººéç¤¼é˜¿'></body></html>";
 }
 else
 {
@@ -74,14 +74,14 @@ else
 			close(FILE);
 		}
 	}
-	print "<html><body><img src=$imagesurl/ebank/waitress2.gif border=0 alt='ÄãÕæ¶®µÃÌÖºÃÅ®º¢×ÓÅ¶£¬ÎÒºÃÏ²»¶Äã'></body></html>";
+	print "<html><body><img src=$imagesurl/ebank/waitress2.gif border=0 alt='ä½ çœŸæ‡‚å¾—è®¨å¥½å¥³å­©å­å“¦ï¼Œæˆ‘å¥½å–œæ¬¢ä½ '></body></html>";
 }
 &winunlock($filetoopen) if ($OS_USED eq "Nt");
 exit;
 
 sub error
 {
-	print "·Ç·¨²Ù×÷£¡";
+	print "éæ³•æ“ä½œï¼";
 	exit;
 }
 

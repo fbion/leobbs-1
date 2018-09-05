@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -55,9 +55,9 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
     if ($action eq "delete") {
     	unlink ("${imagesdir}$intarname.csv");
     	print qq(<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / µ¼³ö»áÔ± Email</b></td></tr><tr>
+<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¯¼å‡ºä¼šå‘˜ Email</b></td></tr><tr>
 <td bgcolor=#FFFFFF valign=middle colspan=2><b><br>
-<center>É¾³ıÓÃ»§×ÊÁÏ²ĞÁôÎÄ¼ş $imagesdir$intarname.csv ³É¹¦!<br><br><a href=exportemail.cgi>ÔÙ´Îµ¼³öÆäËûÓÃ»§ÀàĞÍµÄ Email.</a></center>);
+<center>åˆ é™¤ç”¨æˆ·èµ„æ–™æ®‹ç•™æ–‡ä»¶ $imagesdir$intarname.csv æˆåŠŸ!<br><br><a href=exportemail.cgi>å†æ¬¡å¯¼å‡ºå…¶ä»–ç”¨æˆ·ç±»å‹çš„ Email.</a></center>);
     }
     elsif ($action eq "process") {
 	opendir (DIR, "$imagesdir"); 
@@ -74,8 +74,8 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         $inexportusers  =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\.\/\<\>\?]//isg;
         @senduserlist   = split(/\,/,$inexportusers);
         print qq(<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / µ¼³ö»áÔ± Email</b></td></tr><tr>
-<td bgcolor=#FFFFFF valign=middle colspan=2><b>ÈçÏÂÊÇÄúËùĞèÒªÓÃ»§ÀàĞÍµÄ Email ÁĞ±í£º</b><br>
+<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¯¼å‡ºä¼šå‘˜ Email</b></td></tr><tr>
+<td bgcolor=#FFFFFF valign=middle colspan=2><b>å¦‚ä¸‹æ˜¯æ‚¨æ‰€éœ€è¦ç”¨æˆ·ç±»å‹çš„ Email åˆ—è¡¨ï¼š</b><br>
 <table><tr><td bgcolor=#FFFFFF valign=middle align=center colspan=2>
 <textarea cols=60 rows=10>
 );
@@ -126,7 +126,7 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
 		}
 	    }
 	}
-	unshift (@cgi, "ĞÕÃû,µç×ÓÓÊ¼şµØÖ·,foxaddrID,foxaddrListMembers\n");
+	unshift (@cgi, "å§“å,ç”µå­é‚®ä»¶åœ°å€,foxaddrID,foxaddrListMembers\n");
         my $time=time;
         $time=crypt($time,"lb");
         $time=~s /\///isg;
@@ -136,26 +136,26 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
 	open(FILE, ">$filetomake");print FILE @cgi;close FILE;
 	    
 	print qq(@cgi</textarea><BR></td></tr>);
-        print qq(<br><br><a href=$imagesurl/$tarname.csv>µã»÷´Ë´¦ÏÂÔØÓÊ¼şÁĞ±í (Foxmail-CSVµØÖ·²¾¸ñÊ½)</a><br>
-<a href=$thisprog?action=delete&tarname=$tarname>µã»÷´Ë´¦É¾³ı FTP ÉÏÒÅÁôµÄÕâ¸öÎÄ¼ş</a><br><br><center><a href="exportemail.cgi">ÔÙ´Îµ¼³öÆäËûÓÃ»§ÀàĞÍµÄEmail</a></center>);
+        print qq(<br><br><a href=$imagesurl/$tarname.csv>ç‚¹å‡»æ­¤å¤„ä¸‹è½½é‚®ä»¶åˆ—è¡¨ (Foxmail-CSVåœ°å€ç°¿æ ¼å¼)</a><br>
+<a href=$thisprog?action=delete&tarname=$tarname>ç‚¹å‡»æ­¤å¤„åˆ é™¤ FTP ä¸Šé—ç•™çš„è¿™ä¸ªæ–‡ä»¶</a><br><br><center><a href="exportemail.cgi">å†æ¬¡å¯¼å‡ºå…¶ä»–ç”¨æˆ·ç±»å‹çš„Email</a></center>);
     }
     else {
-       my $memteam1 = qq~<option value="rz1">ËùÓĞ$defrz1(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz1 ne "");
-       my $memteam2 = qq~<option value="rz2">ËùÓĞ$defrz2(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz2 ne "");
-       my $memteam3 = qq~<option value="rz3">ËùÓĞ$defrz3(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz3 ne "");
-       my $memteam4 = qq~<option value="rz4">ËùÓĞ$defrz4(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz4 ne "");
-       my $memteam5 = qq~<option value="rz5">ËùÓĞ$defrz5(ÈÏÖ¤ÓÃ»§)</option>~ if ($defrz5 ne "");
-	print qq(<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / µ¼³ö»áÔ± Email</b></td></tr><tr>
-<td bgcolor=#EEEEEE valign=middle align=center colspan=2><font color=#333333><b>µ¼³ö»áÔ± Email</b></td></tr>
+       my $memteam1 = qq~<option value="rz1">æ‰€æœ‰$defrz1(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz1 ne "");
+       my $memteam2 = qq~<option value="rz2">æ‰€æœ‰$defrz2(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz2 ne "");
+       my $memteam3 = qq~<option value="rz3">æ‰€æœ‰$defrz3(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz3 ne "");
+       my $memteam4 = qq~<option value="rz4">æ‰€æœ‰$defrz4(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz4 ne "");
+       my $memteam5 = qq~<option value="rz5">æ‰€æœ‰$defrz5(è®¤è¯ç”¨æˆ·)</option>~ if ($defrz5 ne "");
+	print qq(<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¯¼å‡ºä¼šå‘˜ Email</b></td></tr><tr>
+<td bgcolor=#EEEEEE valign=middle align=center colspan=2><font color=#333333><b>å¯¼å‡ºä¼šå‘˜ Email</b></td></tr>
 <form action="$thisprog" method="post">
 <input type=hidden name="action" value="process">
 <tr><td bgcolor=#FFFFFF valign=middle colspan=2><br>
-¡¡¡¡<b>Í¨¹ıÕâ¹¦ÄÜ¿ÉÒÔ½«µ¼³öµÄ»áÔ±×ÊÁÏµ¼Èëµ½ Foxmail µÄµØÖ·²¾ÄÚ£¬ÒÔ±ãÓÚÄúÄÜÍ¨¹ıÓÊ¼şÀ´¸üºÃµØÓë»áÔ±ÁªÏµ¡£</b><br><br>
-<font color=#000000>µ¼³ö¶ÔÏó£º¡¡¡¡<select name="exporter" size="1"><option value="all">ËùÓĞÓÃ»§</option><option value="allmanager">ËùÓĞ¹ÜÀíÔ±</option><option value="ad">ËùÓĞÌ³Ö÷</option><option value="smo">ËùÓĞ×Ü°æÖ÷</option><option value="cmo">·ÖÀàÇø°æÖ÷</option><option value="mo">ËùÓĞ°æÖ÷</option><option value="amo">ËùÓĞ¸±°æÖ÷</option><option value="rz">ËùÓĞÈÏÖ¤»áÔ±</option>$memteam1$memteam2$memteam3$memteam4$memteam5<option value="me">ËùÓĞÆÕÍ¨»áÔ±</option></select><br>
-<font color=#000000>µ¼³öÖ¸¶¨¶ÔÏó£º<input type=text name="exportusers" size=30>¡¡ (ÓÃ¶ººÅ·Ö¿ª¸÷»áÔ± ID )
+ã€€ã€€<b>é€šè¿‡è¿™åŠŸèƒ½å¯ä»¥å°†å¯¼å‡ºçš„ä¼šå‘˜èµ„æ–™å¯¼å…¥åˆ° Foxmail çš„åœ°å€ç°¿å†…ï¼Œä»¥ä¾¿äºæ‚¨èƒ½é€šè¿‡é‚®ä»¶æ¥æ›´å¥½åœ°ä¸ä¼šå‘˜è”ç³»ã€‚</b><br><br>
+<font color=#000000>å¯¼å‡ºå¯¹è±¡ï¼šã€€ã€€<select name="exporter" size="1"><option value="all">æ‰€æœ‰ç”¨æˆ·</option><option value="allmanager">æ‰€æœ‰ç®¡ç†å‘˜</option><option value="ad">æ‰€æœ‰å›ä¸»</option><option value="smo">æ‰€æœ‰æ€»ç‰ˆä¸»</option><option value="cmo">åˆ†ç±»åŒºç‰ˆä¸»</option><option value="mo">æ‰€æœ‰ç‰ˆä¸»</option><option value="amo">æ‰€æœ‰å‰¯ç‰ˆä¸»</option><option value="rz">æ‰€æœ‰è®¤è¯ä¼šå‘˜</option>$memteam1$memteam2$memteam3$memteam4$memteam5<option value="me">æ‰€æœ‰æ™®é€šä¼šå‘˜</option></select><br>
+<font color=#000000>å¯¼å‡ºæŒ‡å®šå¯¹è±¡ï¼š<input type=text name="exportusers" size=30>ã€€ (ç”¨é€—å·åˆ†å¼€å„ä¼šå‘˜ ID )
 <br></td></tr>
 <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-<input type=submit name=submit value=Ìá½»></td></form></table></tr></td></tr></table>
+<input type=submit name=submit value=æäº¤></td></form></table></tr></td></tr></table>
 );
     }
 }

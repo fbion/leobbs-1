@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 open (MSGIN, "${lbdir}$msgdir/in/${memberfilename}_msg.cgi");
@@ -18,11 +18,11 @@ my @newmessages=grep(/^(.+)\tno\t/,@allmessages);
 $unread = @newmessages;
 if ($unread && $allowusemsg ne "off") {
     my $intanchumsg = $query->cookie("tanchumsg");
-    my $popnew = qq~<script>if (confirm("ÄãÓĞĞÂµÄ¶ÌÏûÏ¢£¬ÊÇ·ñ´ò¿ªÊÕ¼şÏä²é¿´£¿")) openScript("messanger.cgi?action=inbox",600,400);</script>~ if ((($newmsgpop eq "on")||($newmsgpop eq "popup"))&&($intanchumsg eq ""));
+    my $popnew = qq~<script>if (confirm("ä½ æœ‰æ–°çš„çŸ­æ¶ˆæ¯ï¼Œæ˜¯å¦æ‰“å¼€æ”¶ä»¶ç®±æŸ¥çœ‹ï¼Ÿ")) openScript("messanger.cgi?action=inbox",600,400);</script>~ if ((($newmsgpop eq "on")||($newmsgpop eq "popup"))&&($intanchumsg eq ""));
     my $lightnew = qq~<script language="JavaScript">pmBox.bgColor='Lightblue';setInterval("Timer()", 500);x=1;function Timer(){set=1;if(x==0 && set==1){pmBox.bgColor='Lightblue';x=1;set=0;}if(x==1 && set==1){pmBox.bgColor='';x=0;set=0;}}</script>~ if ((($newmsgpop eq "on")||($newmsgpop eq "light")));
-    $newmail = qq(<table width=$tablewidth cellpadding=2 cellspacing=0 align=center><tr><td width="*"></td><td align=right id="pmBox" width=215><bgsound src=$imagesurl/images/mail.wav border=0>$lightnew$popnew<span style="cursor:hand" onClick="javascript:openScript('messanger.cgi?action=inbox',600,400)"><img src=$imagesurl/images/newmail.gif border=0><font color=$fonthighlight>ÄãÓĞ <B>$unread</B> ÌõĞÂµÄ¶ÌĞÅÏ¢£¬Çë×¢Òâ²éÊÕ</font></span></td></tr></table>);
+    $newmail = qq(<table width=$tablewidth cellpadding=2 cellspacing=0 align=center><tr><td width="*"></td><td align=right id="pmBox" width=215><bgsound src=$imagesurl/images/mail.wav border=0>$lightnew$popnew<span style="cursor:hand" onClick="javascript:openScript('messanger.cgi?action=inbox',600,400)"><img src=$imagesurl/images/newmail.gif border=0><font color=$fonthighlight>ä½ æœ‰ <B>$unread</B> æ¡æ–°çš„çŸ­ä¿¡æ¯ï¼Œè¯·æ³¨æ„æŸ¥æ”¶</font></span></td></tr></table>);
 }
-#Ğ´Èë cache
+#å†™å…¥ cache
 open (FILE, ">${lbdir}cache/mymsg/$memberfilename.pl");
 print FILE qq~\$totalmessages = $totalmessages;\n~;
 print FILE qq~\$unread = $unread;\n~;

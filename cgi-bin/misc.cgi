@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 BEGIN {
@@ -45,11 +45,11 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $inselectstyle  = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-if ($inmembername eq "" || $inmembername eq "¿ÍÈË" ) { $inmembername = "¿ÍÈË"; }
+if ($inmembername eq "" || $inmembername eq "å®¢äºº" ) { $inmembername = "å®¢äºº"; }
 if ($action eq "showsmilies") {
     $output = qq~ 
 <p>
@@ -60,15 +60,15 @@ if ($action eq "showsmilies") {
         <table width=100% cellpadding=5 cellspacing=1>
             <tr>
                 <td bgcolor=$miscbackone $catbackpic align=center colspan=2>
-                    <font color=$titlefontcolor><b>$boardname - ±íÇé×ª»»</b></font>
+                    <font color=$titlefontcolor><b>$boardname - è¡¨æƒ…è½¬æ¢</b></font>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbacktwo align=center>
-                    <font color="$fontcolormisc">´úÂë</font>
+                    <font color="$fontcolormisc">ä»£ç </font>
                 </td>
                     <td bgcolor=$miscbacktwo align=center>
-                    <font color=$fontcolormisc>×ª»»ºó</font>
+                    <font color=$fontcolormisc>è½¬æ¢å</font>
                 </td>
                 </tr>
     ~;
@@ -129,12 +129,12 @@ function ShowForum_Emot(page){
 		Audibles_Url = "$imagesurl/MagicFace/gif/"+Audibles_ID + ".gif";
 		if (i<=CountLength)
 		{
-			showlist = showlist + '<tr><td width=33% align=center bgcolor=$miscbackone>µÚ'+i+'¸ö±íÇé</td><td width=34% bgcolor=$miscbackone align=center><img src="'+ Audibles_Url +'" onclick="ShowMagicFace('+Audibles_ID+');"  style="cursor:hand;"></td>'
-			showlist = showlist + '<td width=33% align=center bgcolor=$miscbackone><input type=button value=" ²åÈë "  onclick="InnerAudibles(\\'' + Audibles_ID + '\\')"><\\/td><\\/tr>'
+			showlist = showlist + '<tr><td width=33% align=center bgcolor=$miscbackone>ç¬¬'+i+'ä¸ªè¡¨æƒ…</td><td width=34% bgcolor=$miscbackone align=center><img src="'+ Audibles_Url +'" onclick="ShowMagicFace('+Audibles_ID+');"  style="cursor:hand;"></td>'
+			showlist = showlist + '<td width=33% align=center bgcolor=$miscbackone><input type=button value=" æ’å…¥ "  onclick="InnerAudibles(\\'' + Audibles_ID + '\\')"><\\/td><\\/tr>'
 		}
 	}
 	for (i=1;i<=Page_Max;i++)pagelist += (i==page)? '<font color=gray>['+i+']</font> ':'<A href="javascript:ShowForum_Emot('+i+')">['+i+']</A> '
-	showlist = showlist + '<tr><td bgcolor=$miscbacktwo align=center colspan=3>'+ pagelist +'</TD></TR><tr><td bgcolor=$miscbacktwo align=center colspan=3><font color=blue>µã»÷Í¼Æ¬Ô¤ÀÀ±íÇé¶¯»­£¬Ã¿´ÎÖ»ÄÜÒ»¸ö.</font></TD></tr>'
+	showlist = showlist + '<tr><td bgcolor=$miscbacktwo align=center colspan=3>'+ pagelist +'</TD></TR><tr><td bgcolor=$miscbacktwo align=center colspan=3><font color=blue>ç‚¹å‡»å›¾ç‰‡é¢„è§ˆè¡¨æƒ…åŠ¨ç”»ï¼Œæ¯æ¬¡åªèƒ½ä¸€ä¸ª.</font></TD></tr>'
 	showlist = '<tr><td><table width=100% cellpadding=5 cellspacing=1>' + showlist + '</table></td></tr>'
 	document.getElementById("AudiblesShow").innerHTML = showlist ;
 }
@@ -162,16 +162,16 @@ elsif ($action eq "icq") {
     <tr>
         <td>
         <form action="http://wwp.mirabilis.com/scripts/WWPMsg.dll" method="post">
-        <input type="hidden" name="subject" value="À´×Ô - $boardname"><input type="hidden" name="to" value="$UIN">
+        <input type="hidden" name="subject" value="æ¥è‡ª - $boardname"><input type="hidden" name="to" value="$UIN">
         <table width=100% cellpadding=5 cellspacing=1>
             <tr>
                 <td bgcolor=$miscbackone align=center colspan=2>
-                    <font color=$titlefontcolor><b>$boardname - ICQ Ñ°ºô</b><br>·¢ËÍÒ»¸öÏûÏ¢¸ø $UIN</font>
+                    <font color=$titlefontcolor><b>$boardname - ICQ å¯»å‘¼</b><br>å‘é€ä¸€ä¸ªæ¶ˆæ¯ç»™ $UIN</font>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbacktwo valign=top>
-                    <font color=$fontcolormisc>ÇëÊäÈëÄúµÄĞÕÃû</font>
+                    <font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å§“å</font>
                 </td>
                     <td bgcolor=$miscbacktwo>
                     <input type="text" name="from" size="20" maxlength="40">
@@ -179,7 +179,7 @@ elsif ($action eq "icq") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone valign=top>
-                    <font color=$fontcolormisc>ÇëÊäÈëÄúµÄ Email</font>
+                    <font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ Email</font>
                 </td>
                     <td bgcolor=$miscbackone>
                     <input type="text" name="fromemail" size="20" maxlength="40">
@@ -187,7 +187,7 @@ elsif ($action eq "icq") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone valign=top>
-                    <font color=$fontcolormisc>Òª·¢ËÍµÄÏûÏ¢</font>
+                    <font color=$fontcolormisc>è¦å‘é€çš„æ¶ˆæ¯</font>
                 </td>
                     <td bgcolor=$miscbackone>
                     <textarea name="body" rows="3" cols="30" wrap="Virtual"></textarea>
@@ -195,7 +195,7 @@ elsif ($action eq "icq") {
                 </tr>
                 <tr>
                 <td bgcolor=$miscbacktwo align=center colspan=2>
-                <input type="submit" name="Send" value="·¢ËÍÏûÏ¢"></form>
+                <input type="submit" name="Send" value="å‘é€æ¶ˆæ¯"></form>
                 </td>
                 </tr>
             </table>
@@ -214,18 +214,18 @@ elsif ($action eq "lbcode") {
         <table width=100% cellpadding=5 cellspacing=1>
             <tr>
                 <td bgcolor=$miscbacktwo align=center colspan=2>
-                    <font color=$titlefontcolor><b>LeoBBS ±êÇ©</b>
-                    <br>LeoBBS ±êÇ©ºÜÏó HTML ±êÇ©£¬µ«±È HTML ±êÇ©°²È«¡£Äã¿ÉÒÔ²ÎÕÕÏÂÃæÊÖ²áÖĞµÄ¸ñÊ½À´Ê¹ÓÃËü£¡
+                    <font color=$titlefontcolor><b>LeoBBS æ ‡ç­¾</b>
+                    <br>LeoBBS æ ‡ç­¾å¾ˆè±¡ HTML æ ‡ç­¾ï¼Œä½†æ¯” HTML æ ‡ç­¾å®‰å…¨ã€‚ä½ å¯ä»¥å‚ç…§ä¸‹é¢æ‰‹å†Œä¸­çš„æ ¼å¼æ¥ä½¿ç”¨å®ƒï¼
                     </font>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone><ul>
                     <font color=$fontcolormisc>
-                    <font color=$fonthighlight>[quote]</font>Õâ¸ö±êÇ©ÊÇÓÃÀ´×öÎªÒıÓÃËùÉèÖÃµÄ£¬Èç¹ûÄãÓĞÊ²Ã´ÄÚÈİÊÇÒıÓÃ×Ô±ğµÄµØ·½£¬Çë¼ÓÉÏÕâ¸ö±êÇ©£¡<font color=$fonthighlight>[/quote]</font>
+                    <font color=$fonthighlight>[quote]</font>è¿™ä¸ªæ ‡ç­¾æ˜¯ç”¨æ¥åšä¸ºå¼•ç”¨æ‰€è®¾ç½®çš„ï¼Œå¦‚æœä½ æœ‰ä»€ä¹ˆå†…å®¹æ˜¯å¼•ç”¨è‡ªåˆ«çš„åœ°æ–¹ï¼Œè¯·åŠ ä¸Šè¿™ä¸ªæ ‡ç­¾ï¼<font color=$fonthighlight>[/quote]</font>
                 </td>
                     <td bgcolor=$miscbackone>
-                    <font color=$fontcolormisc><hr noshade color=$fonthighlight><blockquote>Õâ¸ö±êÇ©ÊÇÓÃÀ´×öÎªÒıÓÃËùÉèÖÃµÄ£¬Èç¹ûÄãÓĞÊ²Ã´ÄÚÈİÊÇÒıÓÃ×Ô±ğµÄµØ·½£¬Çë¼ÓÉÏÕâ¸ö±êÇ©£¡</blockquote><hr noshade color=$fonthighlight></font>
+                    <font color=$fontcolormisc><hr noshade color=$fonthighlight><blockquote>è¿™ä¸ªæ ‡ç­¾æ˜¯ç”¨æ¥åšä¸ºå¼•ç”¨æ‰€è®¾ç½®çš„ï¼Œå¦‚æœä½ æœ‰ä»€ä¹ˆå†…å®¹æ˜¯å¼•ç”¨è‡ªåˆ«çš„åœ°æ–¹ï¼Œè¯·åŠ ä¸Šè¿™ä¸ªæ ‡ç­¾ï¼</blockquote><hr noshade color=$fonthighlight></font>
                 </td>
                 </tr>
                 <tr>
@@ -233,7 +233,7 @@ elsif ($action eq "lbcode") {
                     <font color=$fontcolormisc>
                     <font color=$fonthighlight>[code]</font>
                     	<BR>unless ( eq "$authenticateme") {
-			<BR>print "´íÎóµÄ¹ÜÀíÃÜÂë";
+			<BR>print "é”™è¯¯çš„ç®¡ç†å¯†ç ";
 			<BR>&unlock;
 			<BR>exit;
 			<BR>}<BR>
@@ -241,9 +241,9 @@ elsif ($action eq "lbcode") {
                 </td>
                     <td bgcolor=$miscbackone>
                     <font color=$fontcolormisc>
-			<BLOCKQUOTE>´úÂë£º<hr noshade color=$fonthighlight>
+			<BLOCKQUOTE>ä»£ç ï¼š<hr noshade color=$fonthighlight>
 			unless ( eq "$authenticateme") { <BR>
-			print "´íÎóµÄ¹ÜÀíÃÜÂë"; <BR>
+			print "é”™è¯¯çš„ç®¡ç†å¯†ç "; <BR>
 			&unlock; <BR>
 			exit; <BR>
 			}<hr noshade color=$fonthighlight></FONT></BLOCKQUOTE>
@@ -251,11 +251,11 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[html]</font>&lt;font size=5&gt;HTML ºÍ JS ´úÂëÖ§³Ö&lt;/font&gt;<font color=$fonthighlight>[/html]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[html]</font>&lt;font size=5&gt;HTML å’Œ JS ä»£ç æ”¯æŒ&lt;/font&gt;<font color=$fonthighlight>[/html]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone>
-                    <font color=$fontcolormisc><SPAN><IMG src=$imagesurl/images/code.gif align=absBottom> HTML ´úÂëÆ¬¶ÎÈçÏÂ:<BR><TEXTAREA style="WIDTH: 94%; BACKGROUND-COLOR: #f7f7f7" name=textfield rows=4>&lt;font size=5&gt;HTML ºÍ JS ´úÂëÖ§³Ö&lt;/font&gt;<\/TEXTAREA><BR><INPUT onclick=runEx() type=button value=ÔËĞĞ´Ë´úÂë name=Button> [Ctrl+A È«²¿Ñ¡Ôñ   ÌáÊ¾:Äã¿ÉÏÈĞŞ¸Ä²¿·Ö´úÂë£¬ÔÙ°´ÔËĞĞ]</SPAN><BR></font>
+                    <font color=$fontcolormisc><SPAN><IMG src=$imagesurl/images/code.gif align=absBottom> HTML ä»£ç ç‰‡æ®µå¦‚ä¸‹:<BR><TEXTAREA style="WIDTH: 94%; BACKGROUND-COLOR: #f7f7f7" name=textfield rows=4>&lt;font size=5&gt;HTML å’Œ JS ä»£ç æ”¯æŒ&lt;/font&gt;<\/TEXTAREA><BR><INPUT onclick=runEx() type=button value=è¿è¡Œæ­¤ä»£ç  name=Button> [Ctrl+A å…¨éƒ¨é€‰æ‹©   æç¤º:ä½ å¯å…ˆä¿®æ”¹éƒ¨åˆ†ä»£ç ï¼Œå†æŒ‰è¿è¡Œ]</SPAN><BR></font>
                 </td>
                 </tr>
                 <tr>
@@ -269,20 +269,20 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[url=http://www.LeoBBS.com]</font>À×°Á¿Æ¼¼<font color=$fonthighlight>[/url]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[url=http://www.LeoBBS.com]</font>é›·å‚²ç§‘æŠ€<font color=$fonthighlight>[/url]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><a href="http://www.LeoBBS.com">À×°Á¿Æ¼¼</a></font>
+                    <font color=$fontcolormisc><a href="http://www.LeoBBS.com">é›·å‚²ç§‘æŠ€</a></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[email=webmaster\@leobbs.com]</font>Ğ´ĞÅ¸øÎÒ<font color=$fonthighlight>[/email]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[email=webmaster\@leobbs.com]</font>å†™ä¿¡ç»™æˆ‘<font color=$fonthighlight>[/email]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><a href="mailto:webmaster\@leobbs.com">Ğ´ĞÅ¸øÎÒ</a></font>
+                    <font color=$fontcolormisc><a href="mailto:webmaster\@leobbs.com">å†™ä¿¡ç»™æˆ‘</a></font>
                 </td>
                 </tr>
                 <tr>
@@ -296,105 +296,105 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[b]</font>ÎÄ×Ö¼Ó´ÖÌåĞ§¹û<font color=$fonthighlight>[/b]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[b]</font>æ–‡å­—åŠ ç²—ä½“æ•ˆæœ<font color=$fonthighlight>[/b]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><b>ÎÄ×Ö¼Ó´ÖÌåĞ§¹û</b></font>
+                    <font color=$fontcolormisc><b>æ–‡å­—åŠ ç²—ä½“æ•ˆæœ</b></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[i]</font>ÎÄ×Ö¼ÓÇãĞ±Ğ§¹û<font color=$fonthighlight>[/i]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[i]</font>æ–‡å­—åŠ å€¾æ–œæ•ˆæœ<font color=$fonthighlight>[/i]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><i>ÎÄ×Ö¼ÓÇãĞ±Ğ§¹û</i></font>
+                    <font color=$fontcolormisc><i>æ–‡å­—åŠ å€¾æ–œæ•ˆæœ</i></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[u]</font>ÎÄ×Ö¼ÓÏÂ»®ÏßĞ§¹û<font color=$fonthighlight>[/u]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[u]</font>æ–‡å­—åŠ ä¸‹åˆ’çº¿æ•ˆæœ<font color=$fonthighlight>[/u]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><u>ÎÄ×Ö¼ÓÏÂ»®ÏßĞ§¹û</u></font>
+                    <font color=$fontcolormisc><u>æ–‡å­—åŠ ä¸‹åˆ’çº¿æ•ˆæœ</u></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[size=4]</font>¸Ä±äÎÄ×Ö´óĞ¡<font color=$fonthighlight>[/size]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[size=4]</font>æ”¹å˜æ–‡å­—å¤§å°<font color=$fonthighlight>[/size]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font size=4>¸Ä±äÎÄ×Ö´óĞ¡</font>
+                    <font color=$fontcolormisc><font size=4>æ”¹å˜æ–‡å­—å¤§å°</font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[font=impact]</font>¸Ä±ä×ÖÌå<font color=$fonthighlight>[/font]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[font=impact]</font>æ”¹å˜å­—ä½“<font color=$fonthighlight>[/font]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font face=impact>¸Ä±ä×ÖÌå</font>
+                    <font color=$fontcolormisc><font face=impact>æ”¹å˜å­—ä½“</font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[color=red]</font>¸Ä±äÎÄ×ÖÑÕÉ«<font color=$fonthighlight>[/color]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[color=red]</font>æ”¹å˜æ–‡å­—é¢œè‰²<font color=$fonthighlight>[/color]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=red>¸Ä±äÎÄ×ÖÑÕÉ«</font>
+                    <font color=$fontcolormisc><font color=red>æ”¹å˜æ–‡å­—é¢œè‰²</font>
                 </td>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[s]</font>ÎÄ×ÖÉÏ¼ÓÉ¾³ıÏß<font color=$fonthighlight>[/s]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[s]</font>æ–‡å­—ä¸ŠåŠ åˆ é™¤çº¿<font color=$fonthighlight>[/s]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><s>ÎÄ×ÖÉÏ¼ÓÉ¾³ıÏß</s></font>
+                    <font color=$fontcolormisc><s>æ–‡å­—ä¸ŠåŠ åˆ é™¤çº¿</s></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[sup]</font>ÉÏ±êÎÄ×Ö<font color=$fonthighlight>[/sup]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[sup]</font>ä¸Šæ ‡æ–‡å­—<font color=$fonthighlight>[/sup]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><sup>ÉÏ±êÎÄ×Ö</sup></font>
+                    <font color=$fontcolormisc><sup>ä¸Šæ ‡æ–‡å­—</sup></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[sub]</font>ÏÂ±êÎÄ×Ö<font color=$fonthighlight>[/sub]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[sub]</font>ä¸‹æ ‡æ–‡å­—<font color=$fonthighlight>[/sub]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><sub>ÏÂ±êÎÄ×Ö</sub></font>
+                    <font color=$fontcolormisc><sub>ä¸‹æ ‡æ–‡å­—</sub></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[FLIPH]</font>×óÓÒµßµ¹ÎÄ×Ö<font color=$fonthighlight>[/FLIPH]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[FLIPH]</font>å·¦å³é¢ å€’æ–‡å­—<font color=$fonthighlight>[/FLIPH]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><table style="filter:flipH">×óÓÒµßµ¹ÎÄ×Ö</table></FLIPH>
+                    <font color=$fontcolormisc><table style="filter:flipH">å·¦å³é¢ å€’æ–‡å­—</table></FLIPH>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[FLIPV]</font>ÉÏÏÂµßµ¹ÎÄ×Ö<font color=$fonthighlight>[/FLIPV]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[FLIPV]</font>ä¸Šä¸‹é¢ å€’æ–‡å­—<font color=$fonthighlight>[/FLIPV]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><table style="filter:flipV">ÉÏÏÂµßµ¹ÎÄ×Ö</table></font>
+                    <font color=$fontcolormisc><table style="filter:flipV">ä¸Šä¸‹é¢ å€’æ–‡å­—</table></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[INVERT]</font>µ×Æ¬Ğ§¹û<font color=$fonthighlight>[/INVERT]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[INVERT]</font>åº•ç‰‡æ•ˆæœ<font color=$fonthighlight>[/INVERT]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
@@ -403,7 +403,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[XRAY]</font>ÆØ¹âĞ§¹û<font color=$fonthighlight>[/XRAY]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[XRAY]</font>æ›å…‰æ•ˆæœ<font color=$fonthighlight>[/XRAY]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
@@ -412,38 +412,38 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[shadow=ÎÄ×Ö¿í¶È,ÑÕÉ«,±ß½ç´óĞ¡]</font>ÒõÓ°ÎÄ×Ö<font color=$fonthighlight>[/shadow]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[shadow=æ–‡å­—å®½åº¦,é¢œè‰²,è¾¹ç•Œå¤§å°]</font>é˜´å½±æ–‡å­—<font color=$fonthighlight>[/shadow]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><table width=50 style="filter:shadow\(color=#f000ff\, direction=1)">ÒõÓ°ÎÄ×Ö</table></font>
+                    <font color=$fontcolormisc><table width=50 style="filter:shadow\(color=#f000ff\, direction=1)">é˜´å½±æ–‡å­—</table></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[GLOW=ÎÄ×Ö¿í¶È,ÑÕÉ«,±ß½ç´óĞ¡]</font>¹âÔÎÎÄ×Ö<font color=$fonthighlight>[/GLOW]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[GLOW=æ–‡å­—å®½åº¦,é¢œè‰²,è¾¹ç•Œå¤§å°]</font>å…‰æ™•æ–‡å­—<font color=$fonthighlight>[/GLOW]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><table width=50 style="filter:glow\(color=#00f0ff\, strength=1)">¹âÔÎÎÄ×Ö</table></font>
+                    <font color=$fontcolormisc><table width=50 style="filter:glow\(color=#00f0ff\, strength=1)">å…‰æ™•æ–‡å­—</table></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[BLUR=ÎÄ×Ö¿í¶È,·½Ïò,Å¨¶È]</font>Ä£ºıÎÄ×Ö<font color=$fonthighlight>[/BLUR]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[BLUR=æ–‡å­—å®½åº¦,æ–¹å‘,æµ“åº¦]</font>æ¨¡ç³Šæ–‡å­—<font color=$fonthighlight>[/BLUR]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><table width=50 style="filter:blur\(Add=0, direction=6\, strength=2)">Ä£ºıÎÄ×Ö</table></font>
+                    <font color=$fontcolormisc><table width=50 style="filter:blur\(Add=0, direction=6\, strength=2)">æ¨¡ç³Šæ–‡å­—</table></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[list]</font>¿ªÊ¼ÁĞ±í<br><font color=$fonthighlight>[*]</font>ÁĞ±íÏîÄ¿<br><font color=$fonthighlight>[/list]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[list]</font>å¼€å§‹åˆ—è¡¨<br><font color=$fonthighlight>[*]</font>åˆ—è¡¨é¡¹ç›®<br><font color=$fonthighlight>[/list]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone>
-                    <font color=$fontcolormisc><ul>¿ªÊ¼ÁĞ±í<br><li>ÁĞ±íÏîÄ¿</ul></font>
+                    <font color=$fontcolormisc><ul>å¼€å§‹åˆ—è¡¨<br><li>åˆ—è¡¨é¡¹ç›®</ul></font>
                 </td>
                 </tr>
                 <tr>
@@ -457,20 +457,20 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[fly]</font>·ÉĞĞÎÄ×ÖÌØĞ§<font color=$fonthighlight>[/fly]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[fly]</font>é£è¡Œæ–‡å­—ç‰¹æ•ˆ<font color=$fonthighlight>[/fly]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone>
-                    <font color=$fontcolormisc><marquee width=90% behavior=alternate scrollamount=3>·ÉĞĞÎÄ×ÖÌØĞ§<\/marquee></font>
+                    <font color=$fontcolormisc><marquee width=90% behavior=alternate scrollamount=3>é£è¡Œæ–‡å­—ç‰¹æ•ˆ<\/marquee></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[move]</font>¹ö¶¯ÎÄ×ÖÌØĞ§<font color=$fonthighlight>[/move]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[move]</font>æ»šåŠ¨æ–‡å­—ç‰¹æ•ˆ<font color=$fonthighlight>[/move]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone>
-                    <font color=$fontcolormisc><marquee width=90% scrollamount=3>¹ö¶¯ÎÄ×ÖÌØĞ§<\/marquee></font>
+                    <font color=$fontcolormisc><marquee width=90% scrollamount=3>æ»šåŠ¨æ–‡å­—ç‰¹æ•ˆ<\/marquee></font>
                 </td>
                 </tr>
                 <tr>
@@ -479,16 +479,16 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>²åÈëÒ»¸ö FLASH ÎÄ¼ş(×Ô¶¯¿ØÖÆ´óĞ¡)</font>
+                    <font color=$fontcolormisc>æ’å…¥ä¸€ä¸ª FLASH æ–‡ä»¶(è‡ªåŠ¨æ§åˆ¶å¤§å°)</font>
                 </td> 
                 </tr> 
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[flash=¿í¶È,¸ß¶È]</font>http://www.micromedia.com/demo.swf<font color=$fonthighlight>[/flash]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[flash=å®½åº¦,é«˜åº¦]</font>http://www.micromedia.com/demo.swf<font color=$fonthighlight>[/flash]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>²åÈëÒ»¸ö FLASH ÎÄ¼ş(ÊÖ¶¯ÉèÖÃ´óĞ¡)</font>
+                    <font color=$fontcolormisc>æ’å…¥ä¸€ä¸ª FLASH æ–‡ä»¶(æ‰‹åŠ¨è®¾ç½®å¤§å°)</font>
                 </td> 
                 </tr> 
                 <tr> 
@@ -497,7 +497,7 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>²åÈëÒ»¸ö±³¾°ÉùÒôÎÄ¼ş(*.mid,*.wav)</font>
+                    <font color=$fontcolormisc>æ’å…¥ä¸€ä¸ªèƒŒæ™¯å£°éŸ³æ–‡ä»¶(*.mid,*.wav)</font>
                 </td>
                 </tr>
                 <tr>
@@ -506,7 +506,7 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>²åÈëÒ»¸ö WM ¸ñÊ½Á÷Êı¾İ</font>
+                    <font color=$fontcolormisc>æ’å…¥ä¸€ä¸ª WM æ ¼å¼æµæ•°æ®</font>
                 </td> 
                 </tr> 
                 <tr>
@@ -515,7 +515,7 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>²åÈëÒ»¸ö Real ¸ñÊ½Á÷Êı¾İ</font>
+                    <font color=$fontcolormisc>æ’å…¥ä¸€ä¸ª Real æ ¼å¼æµæ•°æ®</font>
                 </td> 
                 </tr> 
                 <tr> 
@@ -524,7 +524,7 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>ÔÚÏßReal Player²¥·ÅÒôÆµÎÄ¼ş(*.mp3,*.ra)</font>
+                    <font color=$fontcolormisc>åœ¨çº¿Real Playeræ’­æ”¾éŸ³é¢‘æ–‡ä»¶(*.mp3,*.ra)</font>
                 </td>
                 </tr>
                 <tr> 
@@ -533,16 +533,16 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>ÔÚÏßReal Player²¥·ÅÊÓÆµÎÄ¼ş(*.rm)</font>
+                    <font color=$fontcolormisc>åœ¨çº¿Real Playeræ’­æ”¾è§†é¢‘æ–‡ä»¶(*.rm)</font>
                 </td>
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[real=¿í¶È,¸ß¶È]</font>http://www.LeoBBS.com/demo.rm<font color=$fonthighlight>[/real]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[real=å®½åº¦,é«˜åº¦]</font>http://www.LeoBBS.com/demo.rm<font color=$fonthighlight>[/real]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>ÔÚÏßReal Player²¥·ÅÊÓÆµÎÄ¼ş(*.rm)</font>
+                    <font color=$fontcolormisc>åœ¨çº¿Real Playeræ’­æ”¾è§†é¢‘æ–‡ä»¶(*.rm)</font>
                 </td>
                 </tr>
                 <tr> 
@@ -551,7 +551,7 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>ÔÚÏßWindows Media Player²¥·ÅÊÓÆµÎÄ¼ş(*.wmv)</font>
+                    <font color=$fontcolormisc>åœ¨çº¿Windows Media Playeræ’­æ”¾è§†é¢‘æ–‡ä»¶(*.wmv)</font>
                 </td>
                 </tr>
                 <tr> 
@@ -560,59 +560,55 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>ÔÚÏßWindows Media Player²¥·ÅÒôÆµÎÄ¼ş(*.wma)</font>
+                    <font color=$fontcolormisc>åœ¨çº¿Windows Media Playeræ’­æ”¾éŸ³é¢‘æ–‡ä»¶(*.wma)</font>
                 </td>
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[wm=¿í¶È,¸ß¶È]</font>http://www.LeoBBS.com/demo.wmv<font color=$fonthighlight>[/wm]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[wm=å®½åº¦,é«˜åº¦]</font>http://www.LeoBBS.com/demo.wmv<font color=$fonthighlight>[/wm]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>ÔÚÏßWindows Media Player²¥·ÅÊÓÆµÎÄ¼ş(*.wmv)</font>
+                    <font color=$fontcolormisc>åœ¨çº¿Windows Media Playeræ’­æ”¾è§†é¢‘æ–‡ä»¶(*.wmv)</font>
                 </td>
                 </tr>
 				<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[hide]</font>±£ÃÜÄÚÈİ<font color=$fonthighlight>[/hide]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[hide]</font>ä¿å¯†å†…å®¹<font color=$fonthighlight>[/hide]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><blockquote><font face=$font>Òş²Ø : <hr noshade size=1><font color=red>±¾²¿·ÖÄÚÈİÒÑ¾­Òş²Ø£¬±ØĞë»Ø¸´ºó£¬²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/blockquote><\/font><\/blockquote></font>
+                    <font color=$fontcolormisc><blockquote><font face=$font>éšè— : <hr noshade size=1><font color=red>æœ¬éƒ¨åˆ†å†…å®¹å·²ç»éšè—ï¼Œå¿…é¡»å›å¤åï¼Œæ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/blockquote><\/font><\/blockquote></font>
                 </td>
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[post=1000]</font>±£ÃÜÄÚÈİ<font color=$fonthighlight>[/post]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[post=1000]</font>ä¿å¯†å†…å®¹<font color=$fonthighlight>[/post]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><blockquote><font face=$font>ÎÄÕÂÄÚÈİ : <hr noshade size=1><font color=red>±¾ÄÚÈİÒÑ±»Òş²Ø , ·¢ÑÔ×ÜÊıĞëÓĞ1000²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/font><\/blockquote></font>
+                    <font color=$fontcolormisc><blockquote><font face=$font>æ–‡ç« å†…å®¹ : <hr noshade size=1><font color=red>æœ¬å†…å®¹å·²è¢«éšè— , å‘è¨€æ€»æ•°é¡»æœ‰1000æ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/font><\/blockquote></font>
                 </td>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[jf=1000]</font>±£ÃÜÄÚÈİ<font color=$fonthighlight>[/jf]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[jf=1000]</font>ä¿å¯†å†…å®¹<font color=$fonthighlight>[/jf]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><blockquote><font face=$font>ÎÄÕÂÄÚÈİ : <hr noshade size=1><font color=red>±¾ÄÚÈİÒÑ±»Òş²Ø , »ı·Ö´ïµ½ 1000 ²ÅÄÜ²é¿´<\/font><hr noshade size=1><\/font><\/blockquote></font>
+                    <font color=$fontcolormisc><blockquote><font face=$font>æ–‡ç« å†…å®¹ : <hr noshade size=1><font color=red>æœ¬å†…å®¹å·²è¢«éšè— , ç§¯åˆ†è¾¾åˆ° 1000 æ‰èƒ½æŸ¥çœ‹<\/font><hr noshade size=1><\/font><\/blockquote></font>
                 </td>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[watermark]</font>¼ÓË®Ó¡ÄÚÈİ<font color=$fonthighlight>[/watermark]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[watermark]</font>åŠ æ°´å°å†…å®¹<font color=$fonthighlight>[/watermark]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><blockquote><font face=$font>ÎÄÕÂÄÚÈİ : <hr noshade size=1><font color=$miscbackone>72!*1</font><font color=red>±¾ÄÚÈİÒÑ±»¼ÓË®Ó¡£¬ÄãÓÃÊó±êÑ¡ÖĞ¿´¿´¡£<\/font><font color=$miscbackone>(:9!*1</font><hr noshade size=1><\/font><\/blockquote></font>
+                    <font color=$fontcolormisc><blockquote><font face=$font>æ–‡ç« å†…å®¹ : <hr noshade size=1><font color=$miscbackone>72!*1</font><font color=red>æœ¬å†…å®¹å·²è¢«åŠ æ°´å°ï¼Œä½ ç”¨é¼ æ ‡é€‰ä¸­çœ‹çœ‹ã€‚<\/font><font color=$miscbackone>(:9!*1</font><hr noshade size=1><\/font><\/blockquote></font>
                 </td>
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[equote]</font>ÌØ±ğÑùÊ½µÄÒıÓÃ£¬Ğ§¹û²»´íµÄ¡£<font color=$fonthighlight>[/equote]</font>
-                    </font>       
-                </td> 
-                    <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><TABLE cellSpacing=0 cellPadding=0><TR><TD><IMG src=$imagesurl\/images\/top_l.gif><\/TD><TD background=$imagesurl\/images\/top_c.gif><\/TD><TD><IMG src=$imagesurl\/images\/top_r.gif><\/TD><\/TR><TR><TD vAlign=top background=$imagesurl\/images\/center_l.gif><\/TD><TD bgcolor=#fffff1>ÌØ±ğÑùÊ½µÄÒıÓÃ£¬Ğ§¹û²»´íµÄ¡£<TD vAlign=top background=$imagesurl\/images\/center_r.gif><\/TD><\/TR><TR><TD vAlign=top><IMG src=$imagesurl\/images\/foot_l1.gif ><\/TD><TD background=$imagesurl\/images\/foot_c.gif><IMG src=$imagesurl\/images\/foot_l3.gif><\/TD><TD align=right><IMG src=$imagesurl\/images\/foot_r.gif><\/TD><\/TR><\/TABLE></font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[equote]</font>ç‰¹åˆ«æ ·å¼çš„å¼•ç”¨ï¼Œæ•ˆæœä¸é”™çš„ã€‚<font color=$fonthighliermark]</font><\/TR><\/TABLE></font>
                 </td>
                 </tr>
 		<tr> 
