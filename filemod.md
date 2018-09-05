@@ -1,0 +1,121 @@
+论坛属性设置完整说明 A:visited{TEXT-DECORATION: none} A:active{TEXT-DECORATION: none} A:hover{TEXT-DECORATION: underline overline} A:link{text-decoration: none;} .h { font-family: 宋体; font-size: 12px; color: #FF0000 } .t { font-family: 宋体; font-size: 11px; color: #000003 } .ti { font-family: 宋体; font-size: 12px; color: #000003; font-weight: bold } .l { font-family: 宋体; font-size: 14px; font-weight: bold; color: #FFFFFF } BODY{FONT-FAMILY: 宋体; FONT-SIZE: 9pt;} caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: 宋体; FONT-SIZE: 9pt} INPUT,textarea, SUBMIT { font-family: 宋体; font-size: 9pt; font-family: 宋体; vertical-align:middle; background-color: #efefef; } a:active, a:link, a:visited { color:#000099 }
+
+雷傲极酷超级论坛 LeoBBS X 说明文档
+
+.
+
+  
+**论坛属性设置完整说明：**　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　[**返回上一页**](readme.md)  
+  
+**1.** 以下凡是写“此目录下的所有文件”的地方，指的是此目录下的普通文件，均不包含子目录及子目录下的文件！  
+**2.** 以下未注明详细属性的目录和文件，表明无需修改，保持原样即可。  
+**3.** 以下修改的属性均针对 Unix 类服务器，如果你使用的是 Windows 类服务器，那么无需做任何属性的设置(如果出现属性问题，  
+　 那么请联系你主机的管理员，让他在你的 NT 主机上设置你的目录 everyone 完全控制)。  
+
+CGI-BIN                 目录属性先不变，如果使用时出错(如: 无法建立分论坛等)，请再设置为 777 (此目录下的文件属性全部 755)
+├─Archive             目录属性 777 (此目录下的文件属性全部 666)
+├─boarddata           目录属性 777 (此目录下的文件属性全部 666)
+├─cache               目录属性 777 (此目录下的文件属性全部 666)
+│  ├─id              目录属性 777 (此目录下的文件属性全部 666)
+│  ├─meminfo         目录属性 777 (此目录下的文件属性全部 666)
+│  ├─myinfo          目录属性 777 (此目录下的文件属性全部 666)
+│  ├─mymsg           目录属性 777 (此目录下的文件属性全部 666)
+│  └─online          目录属性 777 (此目录下的文件属性全部 666)
+├─data                目录属性 777 (此目录下的文件属性全部 666)
+│  ├─skin            目录属性 777 (此目录下的文件属性全部 666)
+│  └─lbemail         目录属性 777 (此目录下的文件属性全部 666)
+├─Digest              目录属性 777 (此目录下的文件属性全部 666)
+├─ebankdata           目录属性 777 (此目录下的文件属性全部 666)
+│  └─log             目录属性 777 (此目录下的文件属性全部 666)
+├─face                目录属性 777 (此目录下的文件属性全部 666)
+│  ├─log             目录属性 777 (此目录下的文件属性全部 666)
+│  └─wpdata          目录属性 777 (此目录下的文件属性全部 666)
+├─FileCount           目录属性 777 (此目录下的文件属性全部 666)
+│  └─XX              目录属性 777 (XX 是数字，表明第几个分论坛)
+├─forumXX             目录属性 777 (XX 是数字，表明第几个分论坛，此目录下的文件属性全部 666)
+├─ftpdataXXXXXX       目录属性 777 (此目录下的文件属性全部 666，XXXXXX 是论坛随机生成的字符串)
+├─help                目录属性 777 (此目录下的文件属性全部 666)
+├─Image               目录属性 777 (此目录下的文件属性全部 666)
+│  └─Info            目录属性 777 (此目录下的文件属性全部 666)
+├─IO                  目录属性 777 (此目录下的文件属性全部 666)
+├─lock                目录属性 777 (此目录下的文件属性全部 666)
+├─membersXXXXXX       目录属性 777 (此目录下的文件属性全部 666，XXXXXX 是论坛随机生成的字符串)
+│  └─old             目录属性 777 (此目录下的文件属性全部 666)
+├─memblock            目录属性 777 (此目录下的文件属性全部 666)
+├─memfavXXXXXX        目录属性 777 (此目录下的文件属性全部 666，XXXXXX 是论坛随机生成的字符串)
+│  ├─close           目录属性 777 (此目录下的文件属性全部 666)
+│  └─open            目录属性 777 (此目录下的文件属性全部 666)
+├─memfriend           目录属性 777 (此目录下的文件属性全部 666)
+├─messagesXXXXXX      目录属性 777 (此目录下的文件属性全部 666，XXXXXX 是论坛随机生成的字符串)
+│  ├─in              目录属性 777 (此目录下的文件属性全部 666)
+│  ├─main            目录属性 777 (此目录下的文件属性全部 666)
+│  ├─modscarddata    目录属性 777 (此目录下的文件属性全部 666)
+│  └─out             目录属性 777 (此目录下的文件属性全部 666)
+├─recordXXXXXX        目录属性 777 (此目录下的文件属性全部 666，XXXXXX 是论坛随机生成的字符串)
+│  ├─post            目录属性 777 (此目录下的文件属性全部 666)
+│  └─reply           目录属性 777 (此目录下的文件属性全部 666)
+├─sale                目录属性 777 (此目录下的文件属性全部 666)
+├─searchXXXXXX        目录属性 777 (此目录下的文件属性全部 666，XXXXXX 是论坛随机生成的字符串)
+├─TagTables           目录属性 777 (此目录下的文件属性全部 666)
+└─verifynum           目录属性 777 (此目录下的文件属性全部 666)
+    └─login           目录属性 777 (此目录下的文件属性全部 666)
+
+
+NON-CGI           目录属性 777
+├─avatars
+├─btg
+├─ebank
+├─editor
+│  └─images
+├─emot
+├─emoticons
+├─face          目录属性 777
+│  ├─1
+│  ├─10
+│  ├─11
+│  ├─12
+│  ├─13
+│  ├─14
+│  ├─15
+│  ├─16
+│  ├─17
+│  ├─18
+│  ├─19
+│  ├─2
+│  ├─20
+│  ├─21
+│  ├─22
+│  ├─23
+│  ├─24
+│  ├─25
+│  ├─3
+│  ├─4
+│  ├─5
+│  ├─6
+│  ├─7
+│  ├─8
+│  ├─9
+│  ├─images
+│  └─js        目录属性 777
+├─flags
+├─icon
+├─images
+├─midi
+├─myimages      目录属性 777
+├─posticons
+├─star
+├─sx
+├─usrXXXXXX     目录属性 777 (XXXXXX 是论坛随机生成的字符串)
+│  └─XX        目录属性 777 (XX 是数字，表明第几个分论坛)
+└─usravatars    目录属性 777
+
+  
+
+[**返 回**](readme.md)
+
+  
+  
+
+* * *
+
+版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005
