@@ -1,169 +1,169 @@
-LeoBBS X �װ�������̳˵���ĵ� A:visited{TEXT-DECORATION: none} A:active{TEXT-DECORATION: none} A:hover{TEXT-DECORATION: underline overline} A:link{text-decoration: none;} .h { font-family: ����; font-size: 12px; color: #FF0000 } .t { font-family: ����; font-size: 11px; color: #000003 } .ti { font-family: ����; font-size: 12px; color: #000003; font-weight: bold } .l { font-family: ����; font-size: 14px; font-weight: bold; color: #FFFFFF } BODY{FONT-FAMILY: ����; FONT-SIZE: 9pt;} caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: ����; FONT-SIZE: 9pt} INPUT,textarea, SUBMIT { font-family: ����; font-size: 9pt; font-family: ����; vertical-align:middle; background-color: #efefef; } a:active, a:link, a:visited { color:#000099 }
+LeoBBS X 雷傲超级论坛说明文档 
 
-�װ����ᳬ����̳ LeoBBS X ˵���ĵ�
+雷傲极酷超级论坛 LeoBBS X 说明文档
 
 .
 
   
-**�ر�������**  
-��������̳Ϊ�������(shareware)�����ṩ��������վ���ʹ�ã�����Ƿ��޸ġ�ת�ء�ɢ��������������ͼ����Ϊ��������ɾ�����޸��κΰ�Ȩ��ʾ��ͼ�꣡  
-����һ����ҵ��վ���շ���վ���뾭��ע���Ժ�ſ��Լ���ʹ�ñ���̳��ע���ɻ�����Ƶ��ۺ������������񣬾���ע����������뿴��**[��ҵ��ע��˵��](reg.md)** ����ϵ **[http://www.leobbs.com/](http://www.leobbs.com/)** ��  
-�����������ҳ��������� 3721 �Ͱٶȵ�������ؼ����صĻ�����ô����ʹ�ñ���̳��лл������  
-������������վʹ�ñ���̳������̳���������漰��һ�з������ξ����װ��Ƽ��޹ء�  
+**特别声明：**  
+　　本论坛为共享软件(shareware)，仅提供给个人网站免费使用，请勿非法修改、转载、散播、或用于其他图利行为，并请勿删除或修改任何版权标示和图标！  
+　　一切商业网站和收费网站必须经过注册以后才可以继续使用本论坛，注册后可获得完善的售后服务和升级服务，具体注册相关事项请看：**[商业版注册说明](reg.htm)** 或联系 **[http://www.leobbs.com/](http://www.leobbs.com/)** 。  
+　　如果您的页面中添加有 3721 和百度的浏览器控件下载的话，那么请勿使用本论坛，谢谢合作！  
+　　当您的网站使用本论坛后，您论坛内容中所涉及的一切法律责任均与雷傲科技无关。  
   
   
-**��̳Ƥ���ļ��ṹ˵����**  
-��**1.** ���װ�ԭʼƤ��Ϊ����Ƥ���ļ���Ϊ��  
-???? ��ɫ�ļ� ? ? ? ? ? ? ? ? ? leobbs.cgi ? ? ? ����cgi-bin/data/skin�У� ? ?  
+**论坛皮肤文件结构说明：**  
+　**1.** 以雷傲原始皮肤为例，皮肤文件分为：  
+     配色文件                   leobbs.cgi       （在cgi-bin/data/skin中）      
   
-???? ģ���ļ� ? ? ? ? ? ? ? ? ? leobbs.cgi ? ? ? ����cgi-bin/data/template�У�  
+     模版文件                   leobbs.cgi       （在cgi-bin/data/template中）  
   
-???? ��̳��������������ʽ�ļ� ? ? leobbs.pl ? ? ? ?����cgi-bin/myskin�У�  
+     论坛顶部及导航栏样式文件     leobbs.pl        （在cgi-bin/myskin中）  
   
-Ƥ��ͼƬ�ļ� leobbs���ļ��У� ?����non-cgi/images�У�
+皮肤图片文件 leobbs（文件夹）  （在non-cgi/images中）
 
-???? ��#ע����Ϊ��ɫ�ļ�**leobbs.cgi**�У�$skin="leobbs"���������������ļ���ͼƬ�ļ��е����־�Ϊ**leobbs**��  
+     （#注：因为配色文件**leobbs.cgi**中，$skin="leobbs"，所以其他两个文件和图片文件夹的名字均为**leobbs**）  
 
-��**2.** �Դ�֮��Ƥ��Ϊ����Ƥ���ļ���Ϊ��  
-???? ��ɫ�ļ� ? ? ? ? ? ? ? ? ? ��֮��.cgi ? ? ?����cgi-bin/data/skin�У� ? ?  
+　**2.** 以春之舞皮肤为例，皮肤文件分为：  
+     配色文件                   春之舞.cgi      （在cgi-bin/data/skin中）      
   
-???? ģ���ļ� ? ? ? ? ? ? ? ? ? czw.cgi ? ? ? ����cgi-bin/data/template�У�  
+     模版文件                   czw.cgi       （在cgi-bin/data/template中）  
   
-???? ��̳��������������ʽ�ļ� ? ? czw.pl ? ? ? ?����cgi-bin/myskin�У�  
+     论坛顶部及导航栏样式文件     czw.pl        （在cgi-bin/myskin中）  
   
-???? Ƥ��ͼƬ�ļ� ? ? ? ? ? ? ? ?czw���ļ��У� ?����non-cgi/images�У�  
+     皮肤图片文件                czw（文件夹）  （在non-cgi/images中）  
   
-???? ��#ע����Ϊ��ɫ�ļ�**��֮��.cgi**�У�$skin="czw"���������������ļ���ͼƬ�ļ��е����־�Ϊ**czw**��  
-��
+     （#注：因为配色文件**春之舞.cgi**中，$skin="czw"，所以其他两个文件和图片文件夹的名字均为**czw**）  
+　
 
-**��̳��ɫ�ļ�˵����**
+**论坛配色文件说明：**
 
-??? ��������̳��ʹ�õ�ɫ�ʱ�������ļ򵥽��ܣ�  
+    下面是论坛所使用的色彩变量代码的简单介绍：  
 
-���룺
+代码：
 
 * * *
 
-`**��̳ҳ�ײ˵�**  
+`**论坛页首菜单**  
   
-�˵���������ɫ ? ? ? ? ? ? ? ? ? $menufontcolor  
+菜单带字体颜色                   $menufontcolor  
   
-�˵���������ɫ ? ? ? ? ? ? ? ? ? $menubackground  
+菜单带背景颜色                   $menubackground  
   
-�˵�������ͼƬ ? ? ? ? ? ? ? ? ? $menubackpic  
+菜单带背景图片                   $menubackpic  
   
-�˵����߽���ɫ ? ? ? ? ? ? ? ? ? $titleborder  
+菜单带边界颜色                   $titleborder  
   
   
   
-**������ۺ���ɫ**  
+**字体外观和颜色**  
   
-"�������"������ɫ ? ? ? ? ? ? $lastpostfontcolor  
+"最后发贴者"字体颜色             $lastpostfontcolor  
   
-"������"������ɫ ? ? ? ? ? ? ? ? $fonthighlight  
+"加重区"字体颜色                 $fonthighlight  
   
-һ���û�����������ɫ ? ? ? ? ? ? $posternamecolor  
+一般用户名称字体颜色             $posternamecolor  
   
-һ���û������ϵĹ�����ɫ ? ? ? ? $memglow  
+一般用户名称上的光晕颜色         $memglow  
   
-̳������������ɫ ? ? ? ? ? ? ? ? $adminnamecolor  
+坛主名称字体颜色                 $adminnamecolor  
   
-̳�������ϵĹ�����ɫ ? ? ? ? ? ? $adminglow  
+坛主名称上的光晕颜色             $adminglow  
   
-�ܰ�������������ɫ ? ? ? ? ? ? ? $smonamecolor  
+总版主名称字体颜色               $smonamecolor  
   
-�ܰ��������ϵĹ�����ɫ ? ? ? ? ? $smoglow  
+总版主名称上的光晕颜色           $smoglow  
   
-��������������������ɫ ? ? ? ? ? $cmonamecolor  
+分类区版主名称字体颜色           $cmonamecolor  
   
-���������������ϵĹ�����ɫ ? ? ? $cmoglow  
+分类区版主名称上的光晕颜色       $cmoglow  
   
-��������������ɫ ? ? ? ? ? ? ? ? $teamnamecolor  
+版主名称字体颜色                 $teamnamecolor  
   
-���������ϵĹ�����ɫ ? ? ? ? ? ? $teamglow  
+版主名称上的光晕颜色             $teamglow  
   
-����������������ɫ ? ? ? ? ? ? ? $amonamecolor  
+副版主名称字体颜色               $amonamecolor  
   
-�����������ϵĹ�����ɫ ? ? ? ? ? $amoglow  
+副版主名称上的光晕颜色           $amoglow  
   
-��֤�û�����������ɫ ? ? ? ? ? ? $rznamecolor  
+认证用户名称字体颜色             $rznamecolor  
   
-��֤�û������ϵĹ�����ɫ ? ? ? ? $rzglow  
+认证用户名称上的光晕颜色         $rzglow  
   
-���˺ͽ����û������ϵĹ�����ɫ ? $banglow  
+过滤和禁言用户名称上的光晕颜色   $banglow  
   
   
   
-**����ҳ����ɫ**  
+**所有页面颜色**  
   
-��������ɫһ ? ? ? ? ? ? ? ? ? ? $fontcolormisc  
+主字体颜色一                     $fontcolormisc  
   
-��������ɫ�� ? ? ? ? ? ? ? ? ? ? $fontcolormisc2  
+主字体颜色二                     $fontcolormisc2  
   
-����������ɫһ ? ? ? ? ? ? ? ? ? $miscbackone  
+其他背景颜色一                   $miscbackone  
   
-����������ɫ�� ? ? ? ? ? ? ? ? ? $miscbacktwo  
+其他背景颜色二                   $miscbacktwo  
   
   
   
-**�����ɫ**  
+**表格颜色**  
   
-�����������ɫ ? ? ? ? ? ? ? ? ? $catback  
+分类带背景颜色                   $catback  
   
-����������ͼƬ ? ? ? ? ? ? ? ? ? $catbackpic  
+标题栏背景图片                   $catbackpic  
   
-���������ͼƬ ? ? ? ? ? ? ? ? ? $catsbackpicinfo  
+分类带背景图片                   $catsbackpicinfo  
   
-�����������ɫ ? ? ? ? ? ? ? ? ? $catfontcolor  
+分类带字体颜色                   $catfontcolor  
   
-���б��߽���ɫ ? ? ? ? ? ? ? ? $tablebordercolor  
+所有表格边界颜色                 $tablebordercolor  
   
-���б���� ? ? ? ? ? ? ? ? ? ? $tablewidth  
+所有表格宽度                     $tablewidth  
   
   
   
-**��������ɫ**  
+**导航栏颜色**  
   
-������������ɫ ? ? ? ? ? ? ? ? ? $navborder  
+导航栏边线颜色                   $navborder  
   
-������������ɫ ? ? ? ? ? ? ? ? ? $navbackground  
+导航栏背景颜色                   $navbackground  
   
-������������ɫ ? ? ? ? ? ? ? ? ? $navfontcolor  
+导航栏字体颜色                   $navfontcolor  
   
   
   
-**������ɫ**  
+**标题颜色**  
   
-��̳/����ı�����������ɫ ? ? ? ?$titlecolor  
+论坛/主题的标题栏背景颜色        $titlecolor  
   
-��̳/����ı�����������ɫ ? ? ? ?$titlefontcolor  
+论坛/主题的标题栏字体颜色        $titlefontcolor  
   
   
   
-**��̳������ɫ**  
+**论坛内容颜色**  
   
-������ɫһ ? ? ? ? ? ? ? ? ? ? ? $forumcolorone  
+内容颜色一                       $forumcolorone  
   
-������ɫ�� ? ? ? ? ? ? ? ? ? ? ? $forumcolortwo  
+内容颜色二                       $forumcolortwo  
   
-����������ɫ ? ? ? ? ? ? ? ? ? ? $forumfontcolor  
+内容字体颜色                     $forumfontcolor  
   
   
   
-**�ظ�������ɫ**  
+**回复帖子颜色**  
   
-�ظ���ɫһ ? ? ? ? ? ? ? ? ? ? ? $postcolorone  
+回复颜色一                       $postcolorone  
   
-�ظ���ɫ�� ? ? ? ? ? ? ? ? ? ? ? $postcolortwo  
+回复颜色二                       $postcolortwo  
   
-�ظ�������ɫһ ? ? ? ? ? ? ? ? ? $postfontcolorone  
+回复字体颜色一                   $postfontcolorone  
   
-�ظ�������ɫ�� ? ? ? ? ? ? ? ? ? $postfontcolortwo`
+回复字体颜色二                   $postfontcolortwo`
 
-��  
-?? �����Ǿ���LBԭʼ������ɫ�ļ����ݣ�  
+　  
+   下面是举例LB原始风格的配色文件内容：  
 
-���룺
+代码：
 
 * * *
 
@@ -178,7 +178,7 @@ $catfontcolor = '#FFFFFF';
 $catsbackpicinfo = 'bg.gif';  
 $cmoglow = '#5577AA';  
 $cmonamecolor = '#F76809';  
-$cssmaker = "�װ��Ƽ�";  
+$cssmaker = "雷傲科技";  
 $cssname = "LeoBBS";  
 $cssurl = "[http://www.leobbs.com/";](http://www.leobbs.com/%22;)  
 $fontcolormisc = '#000000';  
@@ -202,7 +202,7 @@ $navfontcolor = '#4D76B3';
 $postcolorone = '#F3F6FA';  
 $postcolortwo = '#FFFFFF';  
 $posternamecolor = '#000066';  
-$posternamefont = '����';  
+$posternamefont = '宋体';  
 $postfontcolorone = '#000000';  
 $postfontcolortwo = '#000000';  
 $rzglow = '#778877';  
@@ -219,19 +219,19 @@ $titlecolor = '#73A2DE';
 $titlefontcolor = '#ffffff';  
 1;`
 
-**��̳ģ���ļ�˵����**  
+**论坛模板文件说明：**  
 
-??? ���������������leobbs���������˵  
+    就拿最基本的摸版leobbs风格摸版来说  
 
-���룺
+代码：
 
 * * *
 
 `<html>  
 <head>  
 <title>$page_title</title>  
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-<meta name=keywords content="�װ�,��̳,����,cgi,leobbs,leoboard,LB5000,bbs,leo,perl,lb,lbplus">  
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">  
+<meta name=keywords content="雷傲,论坛,异灵,cgi,leobbs,leoboard,LB5000,bbs,leo,perl,lb,lbplus">  
 $coolmeta  
 <script language="javascript" type="text/javascript" SRC="$imagesurl/board.js"></SCRIPT>  
 $coolclick  
@@ -244,10 +244,10 @@ A:active{TEXT-DECORATION: none}
 A:hover{TEXT-DECORATION: underline overline}  
 A:link{text-decoration: none;}  
 .t{LINE-HEIGHT: 1.4}  
-BODY{FONT-FAMILY: ����; FONT-SIZE: 9pt;}  
-caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: ����; FONT-SIZE: 9pt}  
+BODY{FONT-FAMILY: 宋体; FONT-SIZE: 9pt;}  
+caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: 宋体; FONT-SIZE: 9pt}  
 INPUT{FONT-SIZE: 9pt;}  
-textarea, select {border-width: 1; border-color: #000000; background-color: #efefef; font-family: ����; font-size: 9pt; font-style: bold;}  
+textarea, select {border-width: 1; border-color: #000000; background-color: #efefef; font-family: 宋体; font-size: 9pt; font-style: bold;}  
 </style>  
 <!--end css info-->  
 </head>  
@@ -267,27 +267,27 @@ $lbboard_main
   
   
   
-���У�  
-A:hover{TEXT-DECORATION: underline overline} ? �ǹ��������޸� ��underline overline����˼�����»��ߺ��ϻ��ߣ����ǵ�����ƶ����������ϵ�ʱ������ӣ�  
+其中：  
+A:hover{TEXT-DECORATION: underline overline}   是关于鼠标的修改 （underline overline的意思就是下划线和上划线，就是当鼠标移动到超连接上的时候的样子）  
   
-�ٸ����ӣ�  
-MacOSƤ�������趨�ǵ�ָ�����ӵ�ʱ��Ϊʮ����~�������»��ߺͰ���ȥ�����ӣ�����Ϊ��  
-A:hover { LEFT: 1px; ?POSITION: relative; TOP: 1px; CURSOR: crosshair;BORDER-BOTTOM: #808080 1px dotted A:hover ;}  
-������Ч�����������Ѽ�  
+举个例子：  
+MacOS皮肤的鼠标设定是当指向超连接的时候为十字形~并有虚下划线和凹进去的样子，代码为：  
+A:hover { LEFT: 1px;  POSITION: relative; TOP: 1px; CURSOR: crosshair;BORDER-BOTTOM: #808080 1px dotted A:hover ;}  
+更多特效可以在网上搜集  
   
   
-����Ҫ�ľ����������  
+最重要的就是这个部分  
 <SCRIPT>  
 <!--  
 function valigntop(){}  
 function valignend(){}  
 \-->  
 </SCRIPT>  
-Ϊ��̳���б����������߿���������߿��JS���ô��룬  
-��Ϊleobbs�����û���������������߿����Դ����ǿյġ�
+为论坛所有表格的上美化边框和下美化边框的JS调用代码，  
+因为leobbs风格里没有这两部分美化边框，所以代码是空的。
 
-�������������ͼƬ  
-����Macosƻ�����Ϊ����  
+如果有上下美化图片  
+就用Macos苹果风格为例子  
 <SCRIPT>  
 <!--  
 function valigntitle(){  
@@ -302,23 +302,23 @@ document.write("<SCRIPT>valigntitle()</SCRIPT><tr><td><img src=$imagesurl/macos/
 \-->  
 </SCRIPT>  
   
-���Դ����Ƥ���ʱ����������������߿�Ļ���ֻ��Ҫ�������ͼƬ����Ȼ���趨�Լ�Ҫ�趨��·���Ϳ����ˣ� ������෽������ͨ���˽����HTML������ѧϰ��
+所以大家做皮肤的时候如果有上下美化边框的话，只需要按照这个图片名字然后设定自己要设定的路径就可以了， 具体更多方法可以通过了解相关HTML代码来学习。
 
-��Ҫע����ǣ�����̳�����ļ���ͬ����ģ���ļ��У�$imagesurlָ��non-cgi/images  
+需要注意的是，与论坛其他文件不同，在模版文件中，$imagesurl指代non-cgi/images  
   
   
-���  
+最后  
 lbboard\_main  
-����ָ����̳�����岿���ˣ� �������������Ϸ����·�������̳�����͵ײ���ͼƬ��  
-���������������̳�Ķ�������ͼƬ�Ļ���ֻҪ���漰��������������ֱ�Ӽ���������������Ϳ��ԡ�  
-����漰�����˵�����ʽ������Ҫ�ڶ�����ʽ�ļ����޸ġ�  
+就是指代论坛的主体部分了， 你可以在这里的上方和下方加入论坛顶部和底部的图片。  
+所以如果你想在论坛的顶部增加图片的话，只要不涉及到顶部导航栏，直接加在这个代码的上面就可以。  
+如果涉及顶部菜单栏样式，则需要在顶部样式文件中修改。  
   
-��Macosƻ�����Ϊ����  
-�Ϳ��������������룬���Ƕ���ͼƬ�ˡ�  
+以Macos苹果风格为例子  
+就可以在这个上面加入，就是顶部图片了。  
   
-��
+　
 
-���룺
+代码：
 
 * * *
 
@@ -328,10 +328,10 @@ lbboard\_main
   
   
   
-���߼��뵽cgi-bin/myskin�µ����Ӧ��Ƥ��Ķ���pl�ļ���Ҳһ��,����Ҫ���������ʽΪ$output .= qq~��Ҫ�༭����ҳ������ʾ����������~;  
+或者加入到cgi-bin/myskin下的相对应的皮肤的顶部pl文件里也一样,但需要加输出，格式为$output .= qq~你要编辑的在页面上显示出来的内容~;  
   
   
-**�������Ѽ�����CCS���ô�����ܣ�**  
+**下面是搜集来的CCS常用代码介绍：**  
   
 A:link,A:active,A:visited{  
 TEXT-DECORATION:none ;  
@@ -343,104 +343,104 @@ TEXT-DECORATION: underline;
 Color:#4455aa  
 }  
   
-������ָ��������ڶ��������ֽ��в�����������Ͳ���ʱ��������Ч��  
-A����  
-link���������ӵ�Ĭ����ɫ��Ч����  
-active�����ʱ������Ч��  
-visited��������Ч��  
-hover�������ͣ��������ʱ��������Ч��  
+上面这指的是鼠标在对链接文字进行操作、操作后和操作时所产生的效果  
+A属性  
+link：文字连接的默认颜色、效果等  
+active：点击时产生的效果  
+visited：点击后的效果  
+hover：鼠标悬停在链接上时所产生的效果  
   
-Decoration����  
-none����Ч��  
-underline���»���Ч��  
+Decoration属性  
+none：无效果  
+underline：下划线效果  
   
-��ҿ��Ը��������ֳ������������ϲ������������Ч����  
+大家可以根据这两种常用属性来配出喜欢的链接文字效果。  
   
   
 BODY{  
 FONT-SIZE: 11.5px;  
 COLOR: #000000;  
-FONT-FAMILY: Verdana,����;  
+FONT-FAMILY: Verdana,宋体;  
 scrollbar-face-color: #DEE3E7;  
 scrollbar-highlight-color: #FFFFFF;  
 scrollbar-shadow-color: #DEE3E7;  
 scrollbar-3dlight-color: #D1D7DC;  
-scrollbar-arrow-color: ?#006699;  
+scrollbar-arrow-color:  #006699;  
 scrollbar-track-color: #EFEFEF;  
 scrollbar-darkshadow-color: #98AAB1;  
 }  
   
-body��ָHTML��<body>��ǩ������  
+body：指HTML内<body>标签的属性  
   
-font-size�������С����λ��Ϊpx�����أ���pt��������һ�����ǳ��õ������سߴ�Ϊ12px����11.5px�����Ĵ�СΪ9pt����8pt�����ֵ�λ������ʾ�Ĵ�С����һ���ģ������ֵ�λ�Ϳ�����ϰ���ˡ�  
+font-size：字体大小，单位分为px（象素）和pt（磅），一般我们常用的是象素尺寸为12px或者11.5px，磅的大小为9pt或者8pt，两种单位最终显示的大小都是一样的，用哪种单位就看个人习惯了。  
   
-color��Ĭ���������������ɫ����ɫ��ҿ���ʹ��RGB��ɫ��Ҳ����ʹ��16λ��ɫ���롣�Ƽ�ʹ��16λ��ɫ���롣  
+color：默认情况下是字体颜色，颜色大家可以使用RGB颜色，也可以使用16位颜色代码。推荐使用16位颜色代码。  
   
-FONT-FAMILY��������ʽ����һᾭ��������font-family������һ�³���3�����壨����FONT-FAMILY: Verdana,Tahoma,���壩��һ��ǰ����ΪӢ�����壬�������������塣Ӣ����������������Ϊ�˷�ֹ����ͻ���û�е�һ�����壬����ʹ�õڶ���Ӣ�����塣���������£����Ĳ���ϵͳ�ж���֧�����壬��������Ҳ�Ͳ���Ҫ�����õڶ������������ˡ�  
+FONT-FAMILY：字体样式，大家会经常看到在font-family设置里一下出现3种字体（例：FONT-FAMILY: Verdana,Tahoma,宋体），一般前两种为英文字体，最后的是中文字体。英文字体设置两种是为了防止如果客户端没有第一种字体，马上使用第二组英文字体。大多数情况下，中文操作系统中都会支持宋体，所以我们也就不必要再设置第二种中文字体了。  
   
-scrollbar��ָ������  
-scrollbar-face-color��������ɫ  
-scrollbar-highlight-color����������ɫ  
-scrollbar-shadow-color����Ӱ��ɫ  
-scrollbar-3dlight-color��3D��ɫ  
-scrollbar-arrow-color����ͷ��ɫ  
-scrollbar-track-color�������ɫ����������ɫ��  
-scrollbar-darkshadow-color������Ӱ��ɫ  
-IE5.5�Ժ�İ汾����֧�������Զ����������Ч����
+scrollbar：指滚动条  
+scrollbar-face-color：表面颜色  
+scrollbar-highlight-color：高亮区颜色  
+scrollbar-shadow-color：阴影颜色  
+scrollbar-3dlight-color：3D颜色  
+scrollbar-arrow-color：箭头颜色  
+scrollbar-track-color：轨道颜色（滚动条底色）  
+scrollbar-darkshadow-color：深阴影颜色  
+IE5.5以后的版本都会支持这种自定义滚动条的效果。
 
-**��̳������ʽ�ļ�˵����**
+**论坛顶部样式文件说明：**
 
-���ڶ����ļ��ĸ���  
+关于顶部文件的概述  
   
-��cgi-bin/myskin�µ�pl�ļ�  
-Ϊ���Ƥ������Ӧ�Ķ����ļ�  
+在cgi-bin/myskin下的pl文件  
+为这个皮肤所对应的顶部文件  
   
-��ר��Ϊ��Ӧ���ⶥ��ҳü������������ļ�  
+是专门为适应特殊顶部页眉而分离出来的文件  
   
-�����Ҫ��������ʽ����̳������ʽ  
-����Ҫ��������б༭��  
-����һ���������������  
-$daohang ����������  
-$yemei ����ҳü����  
-$firstout �趨��ʾ˳���������ʾҳü���ݵĻ����������ֵΪ "yemei"���������ʾ�������Ļ����������ֵΪ "daohang"  
+如果你要做特殊样式的论坛顶部样式  
+就需要在这里进行编辑了  
+里面一共有三个变量组成  
+$daohang 导航栏内容  
+$yemei 顶部页眉内容  
+$firstout 设定显示顺序，如果先显示页眉内容的话，这个变量值为 "yemei"，如果先显示导航栏的话，这个变量值为 "daohang"  
   
   
-��ע����Ҫ��ʾ��ҳ���ϵ����ݣ����밴�������ʽ���������  
-$yemei = qq~��Ҫ�༭����ҳ������ʾ������ҳü����HTML��ҳ����~;  
-$daohang = qq~��Ҫ�༭����ҳ������ʾ�����ĵ���������HTML��ҳ����~;  
-��Ҫ���˽����HTML��̣�������Բο����Ѿ���������Щ������ʽ��Ƥ��Ķ����ļ���Ҳ������ԭ�л������޸ġ�  
+但注意需要显示在页面上的内容，必须按照这个格式加输出命令  
+$yemei = qq~你要编辑的在页面上显示出来的页眉内容HTML网页代码~;  
+$daohang = qq~你要编辑的在页面上显示出来的导航栏内容HTML网页代码~;  
+需要你了解大量HTML编程，具体可以参考我已经发布的那些特殊样式的皮肤的顶部文件，也可以在原有基础上修改。  
   
-������С֪ʶ��  
-����������������  
-����������������  
-����ľ��� <tr> </tr>  
-��  
-�������Щ�����  
-�������ة�����  
-����  
+基本的小知识是  
+┌──────┐  
+└──────┘  
+上面的就是 <tr> </tr>  
+而  
+┌──┬──┐  
+└──┴──┘  
+就是  
 <tr>  
 <td> </td>  
-</tr> ?  
+</tr>    
   
-����Ŀ����ںܶ���ҳ�̳��￴����������˼Ҳ�Ƚ����׿����ף�Ҳ���Բ����Ѿ�������Ƥ��ȥ�޸ġ�
+更多的可以在很多网页教程里看到，而且意思也比较容易看明白，也可以参照已经发布的皮肤去修改。
 
   
-**��̳������˵���ĵ����ӣ�**  
-[��̳������������˵��](filemod.md)  
-[��̳����ת��˵��](convert.md)  
-[��̳�û���ṹ���޸ķ���](userformat.md)  
-[��̳�����б�](function.md)  
-[LeoBBBS X ��̳Ƥ������˵��](skin.md)  
-[���� BitTorrent ��������˵��](bittorrent.md)  
-[��̳��ȫ�ֲ�](safe.md)  
-[LeoBBBS X ��̳��ҵ��ע��˵��](reg.md)  
-[�װ���̳������װ���̳��ҵ�����˵��](plug.md)  
-[LeoBBBS X ��̳��������ѡ��˵��](vhost.md)  
+**论坛的其他说明文档联接：**  
+[论坛属性设置完整说明](filemod.htm)  
+[论坛数据转换说明](convert.htm)  
+[论坛用户库结构和修改方法](userformat.htm)  
+[论坛功能列表](function.htm)  
+[LeoBBBS X 论坛皮肤制作说明](skin.htm)  
+[制作 BitTorrent 下载区的说明](bittorrent.htm)  
+[论坛安全手册](safe.htm)  
+[LeoBBBS X 论坛商业版注册说明](reg.htm)  
+[雷傲论坛插件和雷傲论坛商业插件版说明](plug.htm)  
+[LeoBBBS X 论坛虚拟主机选购说明](vhost.htm)  
   
   
   
-**�����ŶӼ�����ʾ��֧����̳��**  
-**[�װ����ᳬ����̳](http://bbs.leobbs.com/)**  
+**开发团队技术演示及支持论坛：**  
+**[雷傲极酷超级论坛](http://bbs.leobbs.com/)**  
 **[LeoBBS X Develop Team](http://bbs.leobbs.com/cgi-bin/forums.cgi?forum=2)**  
   
   
@@ -450,4 +450,4 @@ $daohang = qq~��Ҫ�༭����ҳ������ʾ�����ĵ�
 
 * * *
 
-��Ȩ���У�[�װ��Ƽ�](http://www.leobbs.com) & [�װ����ᳬ����̳](http://bbs.leobbs.com)����Copyright 2000-2005
+版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005

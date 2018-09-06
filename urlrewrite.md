@@ -1,5 +1,4 @@
-LeoBBS X 雷傲超级论坛说明文档 A:visited{TEXT-DECORATION: none} A:active{TEXT-DECORATION: none} A:hover{TEXT-DECORATION: underline overline} A:link{text-decoration: none;} .h { font-family: 宋体; font-size: 12px; color: #FF0000 } .t { font-family: 宋体; font-size: 11px; color: #000003 } .ti { font-family: 宋体; font-size: 12px; color: #000003; font-weight: bold } .l { font-family: 宋体; font-size: 14px; font-weight: bold; color: #FFFFFF } BODY{FONT-FAMILY: 宋体; FONT-SIZE: 9pt;} caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: 宋体; FONT-SIZE: 9pt} INPUT,textarea, SUBMIT { font-family: 宋体; font-size: 9pt; font-family: 宋体; vertical-align:middle; background-color: #efefef; } a:active, a:link, a:visited { color:#000099 }
-
+LeoBBS X 雷傲超级论坛说明文档 
 雷傲极酷超级论坛 LeoBBS X 说明文档
 
 .
