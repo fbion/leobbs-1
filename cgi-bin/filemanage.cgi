@@ -157,12 +157,10 @@ if (isCharValid == false) {
   }
   return true;
 }
-
 function validateCharacter(character) {
   if (character != '/' && character != '\') return true;
     else return false;
   }
-
 function isNum(passedVal) {
   if (!passedVal) { return false }
   for (i=0; i<passedVal.length; i++) {
@@ -171,7 +169,6 @@ function isNum(passedVal) {
   }
   return true
 }
-
 function renameFile ( name ) {
   var newname = window.prompt("改名 '" + name + "' 为: ",'')
   if (newname != null) {
@@ -180,19 +177,16 @@ function renameFile ( name ) {
     }
   }
 }
-
 function deleteFile ( name ) {
   if (window.confirm("你真的想删除文件'" + name + "'吗?")) {
     window.location.href = "filemanage.cgi?action=delete&fn=" + name + "&wd=$working_dir"
   }
 }
-
 function deleteDir ( name ) {        
   if (window.confirm("你真的想删除目录'" + name + "'吗?")) {
     window.location.href = "filemanage.cgi?action=removedir&dir=" + name + "&wd=$working_dir"
   }
 }        
-
 function changePermissions ( name ) {
   var newperm = window.prompt("改变文件'" + name + "' 的权限为: ",'')
   if (newperm == null) {  return;  }
@@ -225,7 +219,6 @@ $javascript
 </head>
 <body bgcolor="#DDDDDD">
 <center>
-
 <table border="0" bgcolor="#FFFFFF" cellpadding="2" cellspacing="1" width="98%" align="center" valign="top">
 <tr><td>
 ~;
@@ -484,10 +477,8 @@ sub edit {
                         完成编辑后, 选择 "保存文档" 来保存 <B>$filename</B> 及返回主菜单
                         .
                 </blockquote></p>
-
                 <form method=post action="filemanage.cgi">
                 <textarea name="data" rows=40 cols=60 wrap=virtual>$lines</textarea>
-
                 <p>另存为文件名:
                            <input type=text name="fn" value="$filename"><br>
                                 (输入另外一个文件名将会不改变 <B>$filename</B>
@@ -705,10 +696,35 @@ sub is_valid_dir {
 
         ($dir =~ m,\.\.,)   and return ($dir, "不允许有连续两个小数点在文件名中 .");
         ($dir =~ m,^/,)                  and return ($dir, "目录名前不能有 / 号.");
-        ($dir =~ m,/$,)                  and return ($dir, "目录名后不"); }
+        ($dir =~ m,/$,)                  and return ($dir, "目录名后不能有 / 号.");
+        ($#size > 4)                     and return ($dir, "目录级太深.");
+        (length($last_dir) > 25) and return ($dir, "目录名太长. 请保持在 25 个字符以内.");
 
-        ($file =~ m,\.\.,)   and return ($file, "涓
-                                <p>�밴��������� <a href="javascript:history.go(-1)">����</a> �����ز���������.</p>
+        return ($okdir, "");
+}
+
+sub is_valid_perm {
+        my ($perm) = shift;
+        (!$perm)                                             and return ($perm, "");
+        ($perm =~ /^([0-7][0-7][0-7])$/) or return ($perm, "权限值只能为三位数字, 0 to 7.");        
+        return ($1, "");
+}
+
+sub user_error {
+        my ($error, $wd) = @_;
+
+        print qq~
+<html>
+<head>
+        <title>文件管理器</title>
+</head>
+<body bgcolor="#DDDDDD">
+        <center>
+             <table bgcolor="#FFFFFF" cellpadding=2 cellspacing=1 width="630" align=center valign=top>
+                        <tr><td colspan=3>
+                                <p><b>错误!</b> 出现下列错误: </p>
+                                <p><blockquote><font color=red><b>$error</b></font></blockquote></p>
+                                <p>请按你浏览器的 <a href="javascript:history.go(-1)">返回</a> 键返回并修正错误.</p>
                         </td></tr>
                         <tr><td colspan=3>
                         </td></tr>
