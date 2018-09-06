@@ -23,7 +23,7 @@ use LBCGI;
 require "data/boardinfo.cgi";
 use testinfo qw(ipwhere osinfo browseinfo);
 
-print "Content-type: text/html\n\n";
+print "Content-type: text/html;Charset=UTF-8\n\n";
 
 $ipaddress     = $ENV{"REMOTE_ADDR"};
 $trueipaddress = $ENV{"HTTP_CLIENT_IP"};
