@@ -699,7 +699,37 @@ sub list{
     if ((!(-e "${lbdir}$memdir/$namenumber/$filemembername.cgi"))&&(!(-e "${lbdir}$memdir/old/$filemembername.cgi"))) {&error("æŸ¥çœ‹ä¸ªäººæ”¶è—&æ²¡æœ‰è¯¥ä¼šå‘˜ï¼");}
 #    &getmember("$inmembername");
 
-    $favfile=(-e"${lbdir}$memfavdir/close/$filemembername.cgi")?"${lbdir}$memfavdir/close/$filmiscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">è¹‡ad");
+    $favfile=(-e"${lbdir}$memfavdir/close/$filemembername.cgi")?"${lbdir}$memfavdir/close/$filemembername.cgi":"${lbdir}$memfavdir/open/$filemembername.cgi";
+    if($filemembername eq $infilemembername){
+    $cleartoedit="yes";$indexname="ä¸ªäººæ”¶è—å¤¹";
+    }else{
+    	if ($favfile eq "${lbdir}$memfavdir/close/$filemembername.cgi"){&error("æŸ¥çœ‹ä¸ªäººæ”¶è—&è¯¥ä¸ªäººæ”¶è—è®¾å®šä¿å¯†ä¸­ï¼Œåªæœ‰ä»–æœ¬äººå¯ä»¥çœ‹ï¼") if($membercode ne "ad");}
+    	elsif (!(-e $favfile)){&error("æŸ¥çœ‹ä¸ªäººæ”¶è—&è¯¥ä¼šå‘˜æ²¡æœ‰ä¸ªäººæ”¶è—ï¼");}
+    $indexname=" $member çš„æ”¶è—å¤¹";$cleartoedit="no";
+    }
+
+
+my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
+if (!(-e "$filetoopens.lck")) {
+&whosonline("$inmembername\tä¸ªäººæ”¶è—\tnone\tæŸ¥çœ‹$indexname\t");
+}
+    $topcount = 0;
+    $selectcate=0 if(!$selectcate);
+    if (-e $favfile) {
+    	&winlock($favfile) if ($OS_USED eq "Nt");
+        open(FILE, "$favfile");
+        flock(FILE, 2) if ($OS_USED eq "Unix");
+        @allfavtopic = <FILE>;
+        close(FILE);
+	@allfavtopic = &cleanslashes (@allfavtopic);#anthony
+        &winunlock($favfile) if ($OS_USED eq "Nt");
+        chomp @allfavtopic;
+        $catelist=shift(@allfavtopic);
+        chomp $catelist;
+        @catelist=split(/\t/,$catelist);
+	foreach(@catelist){s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//o;}
+        $favdescript=pop(@catelist) if($catelist[$#catelist] =~/^\>\>/isg);
+        @catelist=grep(/o$/,@catelist) if($cleartoedit eq "no" && $membercode ne "ad");
         chomp @catelist;
         %catetopicc=();$catelist[$selectcate]=~s/[oc]$//;
         @favtopic=();@ontop=();
@@ -720,14 +750,14 @@ sub list{
     	$name=~s/[oc]$//;
     	next if($name eq "");
     $catetopicc{$name}=0 if(!$catetopicc{$name});
-    $cateoption.=qq(<option value="$i">$name ($catetopicc{$name} ÆªÖ÷Ìâ)</option>);
+    $cateoption.=qq(<option value="$i">$name ($catetopicc{$name} ç¯‡ä¸»é¢˜)</option>);
     $i++;
     }
     $ontopcount = @ontop;
     $topcount = @favtopic;
     $topcount +=$ontopcount;
     if($cateoption eq ""){
-    $cateoption=qq(<img src=$imagesurl/images/fav.gif width=16> <a href="$thisprog?action=setting"><b>½¨Á¢ĞÂÄ¿Â¼</b></a>);
+    $cateoption=qq(<img src=$imagesurl/images/fav.gif width=16> <a href="$thisprog?action=setting"><b>å»ºç«‹æ–°ç›®å½•</b></a>);
     }else{
     $cateoption=qq(<select name="selectcate" onchange="C1(this.value)" style="width:100%">$cateoption</select>)
     }
@@ -742,7 +772,7 @@ function Check(form){form.selecttopic.value="";j=0;for (var i=0;i<form.elements.
 ~;
 $multimanageform   = qq~<form action="$thisprog" name=Admin method=post onSubmit="return Check(this)"><input type=hidden name="selectcate" value="$selectcate"><input type=hidden name="selecttopic" value=""><input type=hidden name="action" value="del">~;
 	}
-&favmischeader("²é¿´¸öÈËÊÕ²Ø");
+&favmischeader("æŸ¥çœ‹ä¸ªäººæ”¶è—");
 $output .= qq~
 <style>
 TABLE {BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 1px; }
@@ -757,7 +787,7 @@ $multimanagejs
 </script>~;
 $favdescript=~s/^>>//;
 &lbcode(\$favdescript);
-$output.=qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=6 cellspacing=0 width=$tablewidth height=24 align=center style="border:1 solid $tablebordercolor"><tr><td bgcolor=$catback $catbackpic height=24 align=left><img src=$imagesurl/images/cat.gif border=0 width=9 height=9> <font color=$catfontcolor><b>ÊÕ²Ø¼Ğ½éÉÜ</b></font></td></tr></table>
+$output.=qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=6 cellspacing=0 width=$tablewidth height=24 align=center style="border:1 solid $tablebordercolor"><tr><td bgcolor=$catback $catbackpic height=24 align=left><img src=$imagesurl/images/cat.gif border=0 width=9 height=9> <font color=$catfontcolor><b>æ”¶è—å¤¹ä»‹ç»</b></font></td></tr></table>
 <table cellpadding=6 cellspacing=0 width=$tablewidth height=24 align=center style="border:1 solid $tablebordercolor;border-top-width:0px">
 <tr><td align=center width=26 bgcolor=$forumcolorone style="border-right:1 solid $tablebordercolor;"><img src=$imagesurl/images/fav.gif width=16 border=0></td>
 <td width=* bgColor=$forumcolortwo>$favdescript</td>
@@ -769,14 +799,13 @@ $multimanageform
 <table cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td height=1></td></tr></table><center>
 <table cellpadding=0 cellspacing=0 width=$tablewidth height=24 bordercolor=$tablebordercolor border=1>
-<tr><td bgcolor=$titlecolor width=32 align=center $catbackpic><font color=$titlefontcolor><b>×´Ì¬</b></td>
-<td bgcolor=$titlecolor width=* align=center $catbackpic><font color=$titlefontcolor><b>Ö÷¡¡Ìâ</b> (µãĞÄÇé·ûÎªĞÂÎÅ·½Ê½ÔÄ¶Á)</td>
-<td bgcolor=$titlecolor align=center width=80 $catbackpic><font color=$titlefontcolor><b>×÷ Õß</b></td>
-<td bgcolor=$titlecolor align=center width=32 $catbackpic><font color=$titlefontcolor><b>»Ø¸´</b></td>
-<td bgcolor=$titlecolor align=center width=32 $catbackpic><font color=$titlefontcolor><b>µã»÷</b></td>
-<td bgcolor=$titlecolor width=195 align=center $catbackpic><font color=$titlefontcolor><b>¡¡ ×îºó¸üĞÂ ¡¡ | ×îºó»Ø¸´ÈË</b></td>
-<td width=37 bgcolor=$titlecolor align=center $catbackpic><font color=$titlefontcolor><b>Ñ¡</b></font></td></tr></table>
-
+<tr><td bgcolor=$titlecolor width=32 align=center $catbackpic><font color=$titlefontcolor><b>çŠ¶æ€</b></td>
+<td bgcolor=$titlecolor width=* align=center $catbackpic><font color=$titlefontcolor><b>ä¸»ã€€é¢˜</b> (ç‚¹å¿ƒæƒ…ç¬¦ä¸ºæ–°é—»æ–¹å¼é˜…è¯»)</td>
+<td bgcolor=$titlecolor align=center width=80 $catbackpic><font color=$titlefontcolor><b>ä½œ è€…</b></td>
+<td bgcolor=$titlecolor align=center width=32 $catbackpic><font color=$titlefontcolor><b>å›å¤</b></td>
+<td bgcolor=$titlecolor align=center width=32 $catbackpic><font color=$titlefontcolor><b>ç‚¹å‡»</b></td>
+<td bgcolor=$titlecolor width=195 align=center $catbackpic><font color=$titlefontcolor><b>ã€€ æœ€åæ›´æ–° ã€€ | æœ€åå›å¤äºº</b></td>
+<td width=37 bgcolor=$titlecolor align=center $catbackpic><font color=$titlefontcolor><b>é€‰</b></font></td></tr></table>
 ~;
 $numberofpages = $topcount / $maxthreads;
 
@@ -791,7 +820,7 @@ if ($topcount > $maxthreads) {
 else {
     $showmore = "no";
     $startarray = 0;
-    $topicpages = qq~±¾ÊÕ²Ø¼ĞÖ»ÓĞÒ»Ò³~;
+    $topicpages = qq~æœ¬æ”¶è—å¤¹åªæœ‰ä¸€é¡µ~;
     $endarray = $topcount -1;
 }
 
@@ -824,25 +853,25 @@ if ($showmore eq "yes") {
     $checkpage++;
     }
     if ($count > "0") { 
-    $beginpage=qq~<a href="$thisprog?action=show&member=$member&show=0&selectcate=$selectcate" title="Ê× Ò³" ><font face=webdings >9</font></a>~; 
+    $beginpage=qq~<a href="$thisprog?action=show&member=$member&show=0&selectcate=$selectcate" title="é¦– é¡µ" ><font face=webdings >9</font></a>~; 
     $pageup=$count-1;
     $pageup1=($pageup-1)*$maxthreads;
-	$showup = qq~<a href="$thisprog?action=show&member=$member&show=$pageup1&selectcate=$selectcate" title="µÚ$pageupÒ³" ><font face=webdings >7</font></a>~;
+	$showup = qq~<a href="$thisprog?action=show&member=$member&show=$pageup1&selectcate=$selectcate" title="ç¬¬$pageupé¡µ" ><font face=webdings >7</font></a>~;
     } else {
     $beginpage=qq~<font color=$fonthighlight><font face=webdings >9</font></font>~;
 	$showup = qq~<font color=$fonthighlight><font face=webdings >7</font></font>~;
     }
     $showend=($mypages-1)*$maxthreads;
     if ($count ne $mypages) { 
-    $endpage=qq~<a href="$thisprog?action=show&member=$member&show=$showend&selectcate=$selectcate" title="Î² Ò³" ><font face=webdings >:</font></a>~; 
+    $endpage=qq~<a href="$thisprog?action=show&member=$member&show=$showend&selectcate=$selectcate" title="å°¾ é¡µ" ><font face=webdings >:</font></a>~; 
     $pagedown=$count+1;
     $pagedown1=($count+1)*$maxthreads;
-    $showdown = qq~<a href="$thisprog?action=show&member=$member&show=$pagedown1&selectcate=$selectcate" title="µÚ$pagedownÒ³" ><font face=webdings >8</font></a> ~; 
+    $showdown = qq~<a href="$thisprog?action=show&member=$member&show=$pagedown1&selectcate=$selectcate" title="ç¬¬$pagedowné¡µ" ><font face=webdings >8</font></a> ~; 
     } else { 
     $endpage=qq~<font color=$fonthighlight><font face=webdings >:</font></font>~;
     $showdown = qq~<font color=$fonthighlight><font face=webdings >8</font></font>~;
     }
-    $topicpages = qq~<font color=$menufontcolor><b>±¾ÊÕ²Ø¼Ğ¹² <font color=$fonthighlight>$mypages</font> Ò³</b> $beginpage $showup [ $pages ] $showdown $endpage~;
+    $topicpages = qq~<font color=$menufontcolor><b>æœ¬æ”¶è—å¤¹å…± <font color=$fonthighlight>$mypages</font> é¡µ</b> $beginpage $showup [ $pages ] $showdown $endpage~;
 }
 $threads=0;
 $posts=0;
@@ -929,7 +958,7 @@ foreach $topic (@toptopic) {
 	}
 	$pagestart   = $pagestart - $maxtopics;
         $gotoendpost = "$pagestart";
-        $pagestoshow = qq~<font color=$forumfontcolor>[µÚ $threadpages Ò³]</font>~;
+        $pagestoshow = qq~<font color=$forumfontcolor>[ç¬¬ $threadpages é¡µ]</font>~;
     }
     else {
         $gotoendpost = "0";
@@ -938,15 +967,15 @@ foreach $topic (@toptopic) {
 
     if (!$forumlastvisit) { $forumlastvisit = "0"; }
 
-    if ((lc($inmembername) eq lc($startedby))&&($nodispown eq "yes")){ $mypost="<img src=$imagesurl/images/$skin/$mypost_blogo title=ÎÒ·¢±íµÄÖ÷Ìâ> "}else {$mypost=""};
+    if ((lc($inmembername) eq lc($startedby))&&($nodispown eq "yes")){ $mypost="<img src=$imagesurl/images/$skin/$mypost_blogo title=æˆ‘å‘è¡¨çš„ä¸»é¢˜> "}else {$mypost=""};
 
     $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif width=14 border=0>";
 
-    if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($inmembername ne "¿ÍÈË")) { $topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif width=14 border=0>"; }
-    elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($inmembername ne "¿ÍÈË")) { $topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif width=14 border=0>"; }
-    elsif (($threadposts <  $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($inmembername ne "¿ÍÈË")) { $topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif width=14 border=0>"; }
-    elsif (($threadposts <  $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($inmembername ne "¿ÍÈË")) { $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif width=14 border=0>"; }
-		$forumcolorone=$forumcolortwo=$miscbacktwo if(($lastpostdate > $forumlastvisit) && ($inmembername ne "¿ÍÈË"));
+    if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($inmembername ne "å®¢äºº")) { $topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif width=14 border=0>"; }
+    elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($inmembername ne "å®¢äºº")) { $topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif width=14 border=0>"; }
+    elsif (($threadposts <  $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($inmembername ne "å®¢äºº")) { $topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif width=14 border=0>"; }
+    elsif (($threadposts <  $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($inmembername ne "å®¢äºº")) { $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif width=14 border=0>"; }
+		$forumcolorone=$forumcolortwo=$miscbacktwo if(($lastpostdate > $forumlastvisit) && ($inmembername ne "å®¢äºº"));
 
     $threadstate = "poll" if (($posticon =~/<br>/i)&&($threadstate eq ""));
     if (($threadstate eq "poll")||($threadstate eq "pollclosed")) {
@@ -970,7 +999,7 @@ foreach $topic (@toptopic) {
 		$lastpostdate = qq~<font color=$fontcolormisc>$longdate</font>~;
 	    }
 	    else {
-		$lastpostdate = qq~<font color=$fontcolormisc>Ã»ÓĞ~;
+		$lastpostdate = qq~<font color=$fontcolormisc>æ²¡æœ‰~;
 		$lastpoststamp = "";
 	    }
     
@@ -991,10 +1020,10 @@ if ($tablewidth > 100) {
     if ($screenmode >=10) { $topictitlemax = 84; } elsif ($screenmode >=8) { $topictitlemax = 71; } else { $topictitlemax = 40; }
 }
 
-    $posttemp       = "(ÎŞÄÚÈİ)" if ($posttemp eq "");
+    $posttemp       = "(æ— å†…å®¹)" if ($posttemp eq "");
     $topictitle1=$topictitle;
     $topictitletemp = &lbhz($topictitle,$topictitlemax-6);
-	$topic_title=qq( TITLE="$topictitle&nbsp;\n·¢²¼Ê±¼ä£º $startedpostdate&nbsp;\nÊÕ²ØÊ±¼ä£º $favtime&nbsp;\n×îºó»Ø¸´£º $posttemp&nbsp;");
+	$topic_title=qq( TITLE="$topictitle&nbsp;\nå‘å¸ƒæ—¶é—´ï¼š $startedpostdate&nbsp;\næ”¶è—æ—¶é—´ï¼š $favtime&nbsp;\næœ€åå›å¤ï¼š $posttemp&nbsp;");
     $topictitle     = qq~<a href="topic.cgi?forum=$forumid&topic=$topicid" target="_blank" $topic_title>$topictitletemp</a>~;
     
     $startedbyfilename = $startedby;
@@ -1004,9 +1033,9 @@ if ($tablewidth > 100) {
     if ($lastposter) {
 	$lastposterfilename = $lastposter;
 	$lastposterfilename =~ s/ /\_/isg;
-	if ($lastposter=~/\(¿Í\)/) {
-       	    $lastposter=~s/\(¿Í\)//isg;
-	    $lastposter = qq~<font color=$postfontcolorone title="´ËÎªÎ´×¢²áÓÃ»§">$lastposter</font>~;
+	if ($lastposter=~/\(å®¢\)/) {
+       	    $lastposter=~s/\(å®¢\)//isg;
+	    $lastposter = qq~<font color=$postfontcolorone title="æ­¤ä¸ºæœªæ³¨å†Œç”¨æˆ·">$lastposter</font>~;
 	}
 	else {
 	    $lastposter = qq~<a href=profile.cgi?action=show&member=~ . uri_escape($lastposterfilename) . qq~>$lastposter</a>~;
@@ -1016,30 +1045,30 @@ if ($tablewidth > 100) {
     undef $topicdescription;
 
     if ($counter == 0) { $pagestoshowtemp1 = 0; } elsif ($counter > 11) { $counter = 11; } else { $pagestoshowtemp1 = 7; }
-    $totlelength = $counter*3.3 + $pagestoshowtemp1 + length($topictitletemp) + 3 + $addonlength; #±êÌâÀ¸µÄ×Ü³¤¶È
+    $totlelength = $counter*3.3 + $pagestoshowtemp1 + length($topictitletemp) + 3 + $addonlength; #æ ‡é¢˜æ çš„æ€»é•¿åº¦
     undef $pagestoshowtemp1;
 
-    if($topicdescription=~m/<br>¡¡¡¡-=> >>(.+?)<</){
-    	$topicdescription="<br>¡¡¡¡>>".$1;
+    if($topicdescription=~m/<br>ã€€ã€€-=> >>(.+?)<</){
+    	$topicdescription="<br>ã€€ã€€>>".$1;
     }
     if($cleartoedit eq "yes"){
     	if($topiccount < $ontopcount){
-	    $admini = qq~<DIV ALIGN=Right><font color=$postfontcolortwo>|<a href=forums.cgi?forum=$forumid target=_blank><font color=$titlecolor>·ÃÎÊ¸ÃÌùËùÔÚ·ÖÂÛÌ³</font></a>|<a href=fav.cgi?action=del&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>É¾³ı</font></a>|<a href=fav.cgi?action=top&forum=$forumid&topic=$topicid&checked=yes&selectcate=$selectcate><font color=$titlecolor>È¡ÏûÖÃ¶¥</font></a>|<a href=fav.cgi?action=mov&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>ÒÆ¶¯</font></a>|</font>&nbsp;~ ;
+	    $admini = qq~<DIV ALIGN=Right><font color=$postfontcolortwo>|<a href=forums.cgi?forum=$forumid target=_blank><font color=$titlecolor>è®¿é—®è¯¥è´´æ‰€åœ¨åˆ†è®ºå›</font></a>|<a href=fav.cgi?action=del&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>åˆ é™¤</font></a>|<a href=fav.cgi?action=top&forum=$forumid&topic=$topicid&checked=yes&selectcate=$selectcate><font color=$titlecolor>å–æ¶ˆç½®é¡¶</font></a>|<a href=fav.cgi?action=mov&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>ç§»åŠ¨</font></a>|</font>&nbsp;~ ;
 	    $topicicon = "<img src=$imagesurl/images/$skin/locktop.gif width=15 border=0>";
 	    }else{
-	    $admini = qq~<DIV ALIGN=Right><font color=$postfontcolortwo>|<a href=forums.cgi?forum=$forumid target=_blank><font color=$titlecolor>·ÃÎÊ¸ÃÌùËùÔÚ·ÖÂÛÌ³</font></a>|<a href=fav.cgi?action=del&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>É¾³ı</font></a>|<a href=fav.cgi?action=add&forum=$forumid&topic=$topicid&checked=yes&selectcate=$selectcate&mainopen=up><font color=$titlecolor>ÌáÉı</font></a>|<a href=fav.cgi?action=top&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>ÖÃ¶¥</font></a>|<a href=fav.cgi?action=mov&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>ÒÆ¶¯</font></a>|</font>&nbsp;~ ;
+	    $admini = qq~<DIV ALIGN=Right><font color=$postfontcolortwo>|<a href=forums.cgi?forum=$forumid target=_blank><font color=$titlecolor>è®¿é—®è¯¥è´´æ‰€åœ¨åˆ†è®ºå›</font></a>|<a href=fav.cgi?action=del&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>åˆ é™¤</font></a>|<a href=fav.cgi?action=add&forum=$forumid&topic=$topicid&checked=yes&selectcate=$selectcate&mainopen=up><font color=$titlecolor>æå‡</font></a>|<a href=fav.cgi?action=top&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>ç½®é¡¶</font></a>|<a href=fav.cgi?action=mov&forum=$forumid&topic=$topicid&selectcate=$selectcate><font color=$titlecolor>ç§»åŠ¨</font></a>|</font>&nbsp;~ ;
 	    }
 	 $multimanagebutton = qq~<td bgcolor=$forumcolortwo align=center width=35><input type=checkbox name=selectt value="$forumid|$topicid"></td>~; $addonlength += 2.5;
 	}else{
-	$multimanagebutton = qq(<td bgcolor=$forumcolortwo align=center width=35><span style="CURSOR: hand" onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$forumid&topic=$topicid', '$boardname - $topictitle1')"><IMG SRC=$imagesurl/images/fav_add.gif BORDER=0 width=15 height=15 ALT="½«±¾ÌûÌí¼Óµ½ÊÕ²Ø¼Ğ"></span></td>);
+	$multimanagebutton = qq(<td bgcolor=$forumcolortwo align=center width=35><span style="CURSOR: hand" onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$forumid&topic=$topicid', '$boardname - $topictitle1')"><IMG SRC=$imagesurl/images/fav_add.gif BORDER=0 width=15 height=15 ALT="å°†æœ¬å¸–æ·»åŠ åˆ°æ”¶è—å¤¹"></span></td>);
 	}
     $topictitle = "$mypost$topictitle";
     $topictitle=$topictitle."<BR>" if ($totlelength > $topictitlemax+7);
-    if ($threadviews > 9999) { $threadviewstemp = "<font color=$forumfontcolor title=µã»÷Êı£º$threadviews>>Max</font>"; } else { $threadviewstemp = "<font color=$forumfontcolor>$threadviews</font>"; }
-    if ($threadposts > 9999) { $threadpoststemp = "<font color=$forumfontcolor title=»Ø¸´Êı£º$threadposts>>Max</font>"; } else { $threadpoststemp = "<font color=$forumfontcolor>$threadposts</font>"; }
-    if ($startedby=~/\(¿Í\)/) { $startedby=~s/\(¿Í\)//isg; $startedby=qq~<font color=$postfontcolorone title="´ËÎªÎ´×¢²áÓÃ»§">$startedby</font>~; } else { $startedby=qq~<a href=profile.cgi?action=show&member=~ . uri_escape($startedbyfilename) . qq~>$startedby</a>~; }
+    if ($threadviews > 9999) { $threadviewstemp = "<font color=$forumfontcolor title=ç‚¹å‡»æ•°ï¼š$threadviews>>Max</font>"; } else { $threadviewstemp = "<font color=$forumfontcolor>$threadviews</font>"; }
+    if ($threadposts > 9999) { $threadpoststemp = "<font color=$forumfontcolor title=å›å¤æ•°ï¼š$threadposts>>Max</font>"; } else { $threadpoststemp = "<font color=$forumfontcolor>$threadposts</font>"; }
+    if ($startedby=~/\(å®¢\)/) { $startedby=~s/\(å®¢\)//isg; $startedby=qq~<font color=$postfontcolorone title="æ­¤ä¸ºæœªæ³¨å†Œç”¨æˆ·">$startedby</font>~; } else { $startedby=qq~<a href=profile.cgi?action=show&member=~ . uri_escape($startedbyfilename) . qq~>$startedby</a>~; }
     if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { 
-$outputtemp=qq(<td bgcolor=$forumcolortwo align=center width=63 rowspan=2><ACRONYM TITLE="»Ø¸´Êı£º$threadposts£¬ µã»÷Êı£º$threadviews">¹² $size Æ±</ACRONYM></font></td>);
+$outputtemp=qq(<td bgcolor=$forumcolortwo align=center width=63 rowspan=2><ACRONYM TITLE="å›å¤æ•°ï¼š$threadpostsï¼Œ ç‚¹å‡»æ•°ï¼š$threadviews">å…± $size ç¥¨</ACRONYM></font></td>);
     } else { 
 $outputtemp=qq(<td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadpoststemp</font></td><td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadviewstemp</font></td>);
     }
@@ -1062,14 +1091,14 @@ $outputtemp
     }
 }
 $output .= qq~<SCRIPT>valignend()</SCRIPT>~;
-$output .= qq~<table cellpadding=0 cellspacing=2 width=$tablewidth align=center><tr height=4></tr><tr><td>$topicpages¡¡&nbsp;[Ö÷Ìâ <B>$threads</B> Æª£¬»Ø¸´ <b>$posts</b> Æª]</td>~;
-$output .= qq~<td align=center width="220"><input type="button" name="chkall" value="È«Ñ¡" onclick="CheckAll(this.form)"> <input type="button" name="clear2" value="·´Ñ¡" onclick="FanAll(this.form)"> <input type="reset" name="Reset" value="ÖØÖÃ"> <input type="submit" name="submit" value="É¾³ı" onClick="SetAction(this.form,'del')"> <input type="submit" name="submit" value="ÒÆ¶¯" onClick="SetAction(this.form,'mov')"></td>~ if($cleartoedit eq "yes");
+$output .= qq~<table cellpadding=0 cellspacing=2 width=$tablewidth align=center><tr height=4></tr><tr><td>$topicpagesã€€&nbsp;[ä¸»é¢˜ <B>$threads</B> ç¯‡ï¼Œå›å¤ <b>$posts</b> ç¯‡]</td>~;
+$output .= qq~<td align=center width="220"><input type="button" name="chkall" value="å…¨é€‰" onclick="CheckAll(this.form)"> <input type="button" name="clear2" value="åé€‰" onclick="FanAll(this.form)"> <input type="reset" name="Reset" value="é‡ç½®"> <input type="submit" name="submit" value="åˆ é™¤" onClick="SetAction(this.form,'del')"> <input type="submit" name="submit" value="ç§»åŠ¨" onClick="SetAction(this.form,'mov')"></td>~ if($cleartoedit eq "yes");
 $output .= qq~<td align=right width=30%>$cateoption</td></tr></form></table><br><br>~;
 }
 sub setting {
 #        &getmember("$inmembername");
 
-    &favmischeader("¸öÈËÊÕ²Ø¼ĞÉè¶¨");
+    &favmischeader("ä¸ªäººæ”¶è—å¤¹è®¾å®š");
 
     $file=(-e"${lbdir}$memfavdir/close/$infilemembername.cgi")?"${lbdir}$memfavdir/close/$infilemembername.cgi":"${lbdir}$memfavdir/open/$infilemembername.cgi";
     if (-e $file) {
@@ -1081,7 +1110,7 @@ sub setting {
         $catelist=shift(@favtopic);
         chomp $catelist;
         @catelist=split(/\t/,$catelist);
-	foreach(@catelist){s/^£ª£££¡£¦£ª//o;}
+	foreach(@catelist){s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//o;}
         chomp @catelist;
         $favdescript=pop(@catelist) if($catelist[$#catelist] =~/^\>\>/);
         $catelistno=@catelist;
@@ -1090,7 +1119,7 @@ sub setting {
     	foreach(@catelist){
     	$name=$_;
     	$name=~s/[oc]$//;;
-    	&error("ÉèÖÃ¸öÈËÊÕ²Ø&¸ÃÄ¿Â¼ÒÑ´æÔÚ£¡") if($newcate eq $name);
+    	&error("è®¾ç½®ä¸ªäººæ”¶è—&è¯¥ç›®å½•å·²å­˜åœ¨ï¼") if($newcate eq $name);
     	}
     	$oldcate=$catelist[$selectcate];
     	$cates=($oldcate =~ /o$/)?"o":"c";
@@ -1098,7 +1127,7 @@ sub setting {
     	$catelist[$selectcate]=$newcate.$cates;
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         	if($cate eq $oldcate){
@@ -1114,7 +1143,7 @@ sub setting {
     	$catelist[$selectcate]="";
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         	unless($cate eq $oldcate){
@@ -1131,7 +1160,7 @@ sub setting {
     	}
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_ ,@catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_ ,@catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         print FILE "$topic\t$forum\t$status\t$cate\t$ftime\t\n";
@@ -1146,7 +1175,7 @@ sub setting {
     	}
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         	unless($cate eq $oldcate){
@@ -1159,7 +1188,7 @@ sub setting {
     	unshift(@catelist,$oldcate1);
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         print FILE "$topic\t$forum\t$status\t$cate\t$ftime\t\n";
@@ -1170,7 +1199,7 @@ sub setting {
     	push(@catelist,$oldcate1);
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         	unless($cate eq $oldcate){
@@ -1185,18 +1214,18 @@ sub setting {
 		move("${lbdir}$memfavdir/close/$infilemembername.cgi","${lbdir}$memfavdir/open/$infilemembername.cgi") if(-e "${lbdir}$memfavdir/close/$infilemembername.cgi");
 		}
     }elsif($checked eq "newcate"){
-    	&error("ÉèÖÃ¸öÈËÊÕ²Ø&ĞÂÄ¿Â¼Ãû³Æ²»ÄÜÎª¿Õ£¡") if($newcate eq "");
-    	&error("ÉèÖÃ¸öÈËÊÕ²Ø&ĞÂÄ¿Â¼Ãû³Æ²»ÄÜ¶àÓÚ 30 ¸öÓ¢ÎÄ×Ö(15 ¸öÖĞÎÄ×Ö)£¡") if(length($newcate) > 30);
+    	&error("è®¾ç½®ä¸ªäººæ”¶è—&æ–°ç›®å½•åç§°ä¸èƒ½ä¸ºç©ºï¼") if($newcate eq "");
+    	&error("è®¾ç½®ä¸ªäººæ”¶è—&æ–°ç›®å½•åç§°ä¸èƒ½å¤šäº 30 ä¸ªè‹±æ–‡å­—(15 ä¸ªä¸­æ–‡å­—)ï¼") if(length($newcate) > 30);
     	foreach(@catelist){
     	$name=$_;
     	$name=~s/[oc]$//;;
-    	&error("ÉèÖÃ¸öÈËÊÕ²Ø&¸ÃÄ¿Â¼ÒÑ´æÔÚ£¡") if($newcate eq $name);
+    	&error("è®¾ç½®ä¸ªäººæ”¶è—&è¯¥ç›®å½•å·²å­˜åœ¨ï¼") if($newcate eq $name);
     	}
     	push(@catelist,$newcate."o");
         $catelistno=@catelist;
-        &error("ÉèÖÃ¸öÈËÊÕ²Ø&×î¶àÖ»ÄÜ¹»ÓĞ 10 ¸öÄ¿Â¼£¡") if($catelistno > 10);
+        &error("è®¾ç½®ä¸ªäººæ”¶è—&æœ€å¤šåªèƒ½å¤Ÿæœ‰ 10 ä¸ªç›®å½•ï¼") if($catelistno > 10);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         print FILE "$topic\t$forum\t$status\t$cate\t$ftime\t\n";
@@ -1209,19 +1238,19 @@ sub setting {
     	$catelist[$selectcate]=$oldcate.$ccates;
     	@catelist=grep(/(.+?)/,@catelist);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t$favdescript\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t$favdescript\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         print FILE "$topic\t$forum\t$status\t$cate\t$ftime\t\n";
         }
         close(FILE);
     }elsif($checked eq "changedescript"){
-    	&error("ÉèÖÃ¸öÈËÊÕ²Ø&¼ò½é²»ÄÜ¶àÓÚ 300 ¸öÓ¢ÎÄ×Ö(150 ¸öÖĞÎÄ×Ö)£¡") if(length($newcate) > 300);
+    	&error("è®¾ç½®ä¸ªäººæ”¶è—&ç®€ä»‹ä¸èƒ½å¤šäº 300 ä¸ªè‹±æ–‡å­—(150 ä¸ªä¸­æ–‡å­—)ï¼") if(length($newcate) > 300);
     	@descriptline = split(/\<br\>/,$newcate);
     	$descriptline = @descriptline;
-    	&error("ÉèÖÃ¸öÈËÊÕ²Ø&¼ò½é²»ÄÜ¶àÓÚ 3 ĞĞ£¡") if($descriptline > 3);
+    	&error("è®¾ç½®ä¸ªäººæ”¶è—&ç®€ä»‹ä¸èƒ½å¤šäº 3 è¡Œï¼") if($descriptline > 3);
         open(FILE, ">$file");
-        print FILE (join("\t",map('£ª£££¡£¦£ª'.$_, @catelist)))."\t>>$newcate\n";
+        print FILE (join("\t",map('ï¼Šï¼ƒï¼ï¼†ï¼Š'.$_, @catelist)))."\t>>$newcate\n";
         foreach $line(@favtopic){
         	my($topic,$forum,$status,$cate,$ftime)=split(/\t/,$line);
         print FILE "$topic\t$forum\t$status\t$cate\t$ftime\t\n";
@@ -1237,9 +1266,9 @@ sub setting {
 	$favdescript=~s/<p>/\n\n/isg;
 
 	if($file eq "${lbdir}$memfavdir/close/$infilemembername.cgi"){
-		$mainopenselect=qq(<option value="on">ÍêÈ«¹«¿ª</option><option value="off" selected>ÍêÈ«±£ÃÜ</option>);
+		$mainopenselect=qq(<option value="on">å®Œå…¨å…¬å¼€</option><option value="off" selected>å®Œå…¨ä¿å¯†</option>);
 	}else{
-		$mainopenselect=qq(<option value="on" selected>ÍêÈ«¹«¿ª</option><option value="off">ÍêÈ«±£ÃÜ</option>);
+		$mainopenselect=qq(<option value="on" selected>å®Œå…¨å…¬å¼€</option><option value="off">å®Œå…¨ä¿å¯†</option>);
 	}
             $inmembername =~ s/\_/ /g;
     $cattemplist=join('","',@catelist);
@@ -1250,19 +1279,19 @@ function edit(no,action){
 fav.selectcate.value=no;
 fav.checked.value=action;
 	if(action == 'rename'){
-		newname=prompt("ÇëÊäÈëĞÂµÄÄ¿Â¼Ãû³Æ¡£",catlist[no].replace(\/[oc]\$\/,""));
+		newname=prompt("è¯·è¾“å…¥æ–°çš„ç›®å½•åç§°ã€‚",catlist[no].replace(\/[oc]\$\/,""));
 		if(newname == ""){
-			alert("ĞÂÄ¿Â¼Ãû³Æ²»ÄÜÎª¿Õ£¡");
+			alert("æ–°ç›®å½•åç§°ä¸èƒ½ä¸ºç©ºï¼");
 		}else if(newname != null){
 			if(newname.length>30){
-			alert("ĞÂÄ¿Â¼Ãû³Æ²»ÄÜ¶àì¶ 30 ¸ö°ëĞÎ×Ö(15 ¸öÖĞÎÄ×Ö)£¡");
+			alert("æ–°ç›®å½•åç§°ä¸èƒ½å¤šæ–¼ 30 ä¸ªåŠå½¢å­—(15 ä¸ªä¸­æ–‡å­—)ï¼");
 			}else{
 			fav.newcate.value=newname;
 			fav.submit();
 			}
 		}
 	}else if(action == 'delete'){
-		if(confirm("È·¶¨É¾³ı´ËÄ¿Â¼£¿\\n¸ÃÄ¿Â¼µÄËùÓĞÖ÷Ìâ»á±»É¾³ı¡£")==true){
+		if(confirm("ç¡®å®šåˆ é™¤æ­¤ç›®å½•ï¼Ÿ\\nè¯¥ç›®å½•çš„æ‰€æœ‰ä¸»é¢˜ä¼šè¢«åˆ é™¤ã€‚")==true){
 		fav.submit();
 		}
 	}else{
@@ -1282,32 +1311,32 @@ fav.checked.value=action;
             <input type=hidden name="newcate" value="">
             </form>
             <td bgcolor=$titlecolor colspan=3 align=center $catbackpic>
-            <font color=$fontcolormisc><b>ÉèÖÃ¸öÈËÊÕ²Ø</b></font></td></tr>
+            <font color=$fontcolormisc><b>è®¾ç½®ä¸ªäººæ”¶è—</b></font></td></tr>
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="setting">
             <input type=hidden name="checked" value="mainopen">
-            <tr><td bgcolor=$miscbacktwo colspan="3"><span style="width=200"><b>Éè¶¨¿ª·Å·½Ê½£º</b></span><select name="mainopen">$mainopenselect</select> <input type=submit name="submit" value="±£ ´æ"></td></tr></form>
+            <tr><td bgcolor=$miscbacktwo colspan="3"><span style="width=200"><b>è®¾å®šå¼€æ”¾æ–¹å¼ï¼š</b></span><select name="mainopen">$mainopenselect</select> <input type=submit name="submit" value="ä¿ å­˜"></td></tr></form>
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="setting">
             <input type=hidden name="checked" value="changedescript">
-            <tr><td bgcolor=$miscbacktwo colspan="3"><span style="width:200"><b>ÊÕ²Ø¼ĞÄÚÈİ¼ò½é£º</b><br><br><br><li>×î´ó5ĞĞ£¬300×Ö½Ú</li><li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS ±êÇ©</a>: <b>¿ÉÓÃ</b></li></span><textarea name="newcate" rows="5" cols="50">$favdescript</textarea>¡¡<input type=submit name="submit" value="ĞŞ¸Ä¼ò½é"></span></td></tr></form>
+            <tr><td bgcolor=$miscbacktwo colspan="3"><span style="width:200"><b>æ”¶è—å¤¹å†…å®¹ç®€ä»‹ï¼š</b><br><br><br><li>æœ€å¤§5è¡Œï¼Œ300å­—èŠ‚</li><li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS æ ‡ç­¾</a>: <b>å¯ç”¨</b></li></span><textarea name="newcate" rows="5" cols="50">$favdescript</textarea>ã€€<input type=submit name="submit" value="ä¿®æ”¹ç®€ä»‹"></span></td></tr></form>
             <tr>
             <td bgcolor=$titlecolor colspan=3 align=center $catbackpic>
-            <font color=$fontcolormisc><b>¹ÜÀíÊÕ²ØÄ¿Â¼</b></font></td></tr>
+            <font color=$fontcolormisc><b>ç®¡ç†æ”¶è—ç›®å½•</b></font></td></tr>
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="setting">
             <input type=hidden name="checked" value="newcate">
-            <tr><td bgcolor=$miscbackone align="center" colspan="3"><font color=$fontcolormisc>ĞÂÄ¿Â¼Ãû³Æ</font>£º<input type=text name="newcate" value="" style="width:200"> <input type=submit name="submit" value="½¨Á¢ĞÂÄ¿Â¼">&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></form>
+            <tr><td bgcolor=$miscbackone align="center" colspan="3"><font color=$fontcolormisc>æ–°ç›®å½•åç§°</font>ï¼š<input type=text name="newcate" value="" style="width:200"> <input type=submit name="submit" value="å»ºç«‹æ–°ç›®å½•">&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></form>
             ~;
             $i=0;
             foreach(@catelist){
             $name=$_;
             $name=~s/[oc]$//;
-            $ccates=($_ =~ /o$/)?"¹Ø±Õ":"¿ª·Å";
-            $ncates=($_ =~ /o$/)?"¿ª·ÅÖĞ":"¹Ø±ÕÖĞ";
+            $ccates=($_ =~ /o$/)?"å…³é—­":"å¼€æ”¾";
+            $ncates=($_ =~ /o$/)?"å¼€æ”¾ä¸­":"å…³é—­ä¸­";
             $output .= qq~
             <tr bgColor=$forumcolortwo onmouseover="this.bgColor='$forumcolorone';" onmouseout="this.bgColor='$forumcolortwo';">
-            <td width="61%"><img src=$imagesurl/images/folder.gif width=13 height=16 align=absmiddle> <a href="$thisprog?action=show&selectcate=$i"><font color=$fontcolormisc>$name</a> <font color=$fonthighlight>($ncates)</font></font><div align=right>|<a href=javascript:edit($i,'rename')><font color=$titlecolor>¸üÃû</a></font>|<a href=javascript:edit($i,'delete')><font color=$titlecolor>É¾³ı</a></font>|<a href=javascript:edit($i,'up')><font color=$titlecolor>ÉÏÒÆ</font></a>|<a href=javascript:edit($i,'down')><font color=$titlecolor>ÏÂÒÆ</font></a>|<a href=javascript:edit($i,'top')><font color=$titlecolor>¶¥²¿</font></a>|<a href=javascript:edit($i,'bottom')><font color=$titlecolor>µ×²¿</font></a>|</div></td>
+            <td width="61%"><img src=$imagesurl/images/folder.gif width=13 height=16 align=absmiddle> <a href="$thisprog?action=show&selectcate=$i"><font color=$fontcolormisc>$name</a> <font color=$fonthighlight>($ncates)</font></font><div align=right>|<a href=javascript:edit($i,'rename')><font color=$titlecolor>æ›´å</a></font>|<a href=javascript:edit($i,'delete')><font color=$titlecolor>åˆ é™¤</a></font>|<a href=javascript:edit($i,'up')><font color=$titlecolor>ä¸Šç§»</font></a>|<a href=javascript:edit($i,'down')><font color=$titlecolor>ä¸‹ç§»</font></a>|<a href=javascript:edit($i,'top')><font color=$titlecolor>é¡¶éƒ¨</font></a>|<a href=javascript:edit($i,'bottom')><font color=$titlecolor>åº•éƒ¨</font></a>|</div></td>
             <td align="center" width="5%">
             <input type=button name="submit" value="$ccates" onClick="edit($i,'cateopen')">
             </td></tr>
@@ -1325,7 +1354,7 @@ sub favmischeader{
     local($misctype) = shift;
        &title;
     $output .= qq~
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> ¡ú <a href=fav.cgi?action=show>¸öÈËÊÕ²Ø</a> ¡ú $misctype</td><td bgcolor=$navbackground align=right><a href="$thisprog?action=setting">¸öÈËÊÕ²Ø¼ĞÉè¶¨</a></td></tr></table></td></tr></table><BR>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> â†’ <a href=fav.cgi?action=show>ä¸ªäººæ”¶è—</a> â†’ $misctype</td><td bgcolor=$navbackground align=right><a href="$thisprog?action=setting">ä¸ªäººæ”¶è—å¤¹è®¾å®š</a></td></tr></table></td></tr></table><BR>
 ~;
 }
 #anthony
