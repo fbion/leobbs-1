@@ -91,25 +91,31 @@ if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­
 	$tempintopictitle =~ s/ //g;
 	$tempintopictitle =~ s/\&nbsp\;//g;
         $tempintopictitle =~ s/ã€€//isg;
-        $tempintopictitle =~ s/mo')||($inmembmod eq "yes")) { $allowed = "yes"; }
-        if (($privateforum eq "yes") && ($allowed ne "yes")) { &errorout("·¢±í&¶Ô²»Æğ£¬Äú²»ÔÊĞíÔÚ´ËÂÛÌ³·¢±í£¡"); }
+        $tempintopictitle =~ s/îŸ¾//isg;
+        $tempintopictitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+	if ($tempintopictitle eq "") { &errorout("å‘è¡¨æ–°ä¸»é¢˜&ä¸»é¢˜æ ‡é¢˜æœ‰é—®é¢˜ï¼"); }
+
+        $tempaccess = "forumsallowed". "$inforum";
+        $testentry = $query->cookie("$tempaccess");
+        if (($allowedentry{$inforum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
+        if (($privateforum eq "yes") && ($allowed ne "yes")) { &errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œæ‚¨ä¸å…è®¸åœ¨æ­¤è®ºå›å‘è¡¨ï¼"); }
 
 	if ($startnewthreads eq "no") {
-            unless ($membercode eq "ad" ||$membercode eq 'smo'|| $inmembmod eq "yes") { &errorout("·¢±íĞÂÖ÷Ìâ&ÔÚ´ËÂÛÌ³ÖĞÖ»ÄÜÓÉÌ³Ö÷»òÕß±¾°æ°æÖ÷·¢±íĞÂÖ÷Ìâ£¡"); }
+            unless ($membercode eq "ad" ||$membercode eq 'smo'|| $inmembmod eq "yes") { &errorout("å‘è¡¨æ–°ä¸»é¢˜&åœ¨æ­¤è®ºå›ä¸­åªèƒ½ç”±å›ä¸»æˆ–è€…æœ¬ç‰ˆç‰ˆä¸»å‘è¡¨æ–°ä¸»é¢˜ï¼"); }
 	}
 	elsif ($startnewthreads eq "cert") {
-            unless ($membercode eq "ad" ||$membercode eq 'smo'|| $inmembmod eq "yes"||$membercode eq 'cmo'||$membercode eq 'mo'||$membercode eq 'amo'||$membercode =~ /^rz/) { &errorout("·¢±íĞÂÖ÷Ìâ&ÔÚ´ËÂÛÌ³ÖĞÖ»ÄÜÓÉÌ³Ö÷¡¢°æÖ÷ºÍÈÏÖ¤»áÔ±·¢±íĞÂÖ÷Ìâ£¡"); }
+            unless ($membercode eq "ad" ||$membercode eq 'smo'|| $inmembmod eq "yes"||$membercode eq 'cmo'||$membercode eq 'mo'||$membercode eq 'amo'||$membercode =~ /^rz/) { &errorout("å‘è¡¨æ–°ä¸»é¢˜&åœ¨æ­¤è®ºå›ä¸­åªèƒ½ç”±å›ä¸»ã€ç‰ˆä¸»å’Œè®¤è¯ä¼šå‘˜å‘è¡¨æ–°ä¸»é¢˜ï¼"); }
 	}
 	elsif (($startnewthreads eq "follow") &&($action eq "addnew")) {
-            unless ($membercode eq "ad" ||$membercode eq 'smo'||$membercode eq 'cmo' ||$membercode eq 'mo'||$membercode eq 'amo'|| $inmembmod eq "yes") { &errorout("·¢±íĞÂÖ÷Ìâ&ÔÚ´ËÂÛÌ³ÖĞÖ»ÄÜÓÉÌ³Ö÷»òÕß°æÖ÷·¢±íĞÂÖ÷Ìâ£¡"); }
+            unless ($membercode eq "ad" ||$membercode eq 'smo'||$membercode eq 'cmo' ||$membercode eq 'mo'||$membercode eq 'amo'|| $inmembmod eq "yes") { &errorout("å‘è¡¨æ–°ä¸»é¢˜&åœ¨æ­¤è®ºå›ä¸­åªèƒ½ç”±å›ä¸»æˆ–è€…ç‰ˆä¸»å‘è¡¨æ–°ä¸»é¢˜ï¼"); }
 	}
-	elsif (($startnewthreads eq "all")&&($userregistered eq "no")) { $inmembername = "$inmembername(¿Í)"; }
+	elsif (($startnewthreads eq "all")&&($userregistered eq "no")) { $inmembername = "$inmembername(å®¢)"; }
 
 	if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $inmembmod ne "yes") {
-	    &errorout("·¢±íĞÂÖ÷Ìâ&¶Ô²»Æğ£¬ÄãµÄÉ¾ÌùÂÊ³¬¹ıÁË<b>$deletepercent</b>%£¬¹ÜÀíÔ±²»ÔÊĞíÄã·¢±íĞÂÖ÷Ìâ£¡ÇëÁªÏµÌ³Ö÷½â¾ö£¡") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
+	    &errorout("å‘è¡¨æ–°ä¸»é¢˜&å¯¹ä¸èµ·ï¼Œä½ çš„åˆ è´´ç‡è¶…è¿‡äº†<b>$deletepercent</b>%ï¼Œç®¡ç†å‘˜ä¸å…è®¸ä½ å‘è¡¨æ–°ä¸»é¢˜ï¼è¯·è”ç³»å›ä¸»è§£å†³ï¼") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
 	}
-        $inpost =~ s/\[Õâ¸ö(.+?)×îºóÓÉ(.+?)±à¼­\]//isg;
-        	$inpost ="<img src='$imagesurl/images/sj.gif' width='22' alt='ÓÉÊÖ»ú WAP ·¢ËÍ' /> ".$inpost;
+        $inpost =~ s/\[è¿™ä¸ª(.+?)æœ€åç”±(.+?)ç¼–è¾‘\]//isg;
+        	$inpost ="<img src='$imagesurl/images/sj.gif' width='22' alt='ç”±æ‰‹æœº WAP å‘é€' /> ".$inpost;
 	undef $newthreadnumber;
 	$filetoopen = "$lbdir" . "boarddata/lastnum$inforum.cgi";
 	if (open(FILE, "$filetoopen")) {
@@ -154,7 +160,7 @@ if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­
         	    print FILE $oldthreadnumber;
         	    close(FILE);
         	}
-	    	&errorout("·¢±íĞÂÖ÷Ìâ&Çë²»ÒªÖØ¸´·¢Ìû×Ó£¬ÒÑ¾­´æÔÚÓë´ËÌû×ÓÖ÷ÌâÏàÍ¬»òÕßÄÚÈİÏàÍ¬µÄ¶øÇÒÊÇÄã·¢µÄÌû×ÓÁË£¡");
+	    	&errorout("å‘è¡¨æ–°ä¸»é¢˜&è¯·ä¸è¦é‡å¤å‘å¸–å­ï¼Œå·²ç»å­˜åœ¨ä¸æ­¤å¸–å­ä¸»é¢˜ç›¸åŒæˆ–è€…å†…å®¹ç›¸åŒçš„è€Œä¸”æ˜¯ä½ å‘çš„å¸–å­äº†ï¼");
 	    }
 	}
 
@@ -169,7 +175,7 @@ if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­
         $intopictitle =~ s/e/\&\#101\;/g;
 	
 	$intopictitletemp = $intopictitle ;
-	$intopictitletemp =~ s/^£ª£££¡£¦£ª//;
+	$intopictitletemp =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 
         if (open(FILE, ">${lbdir}forum$inforum/$newthreadnumber.pl")) {
@@ -196,7 +202,7 @@ if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­
 		    if (($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/)) {
 		        foreach (@recentposts) {
 			    (my $no,$no,my $temptopic,$no,$no,my $tempmembername) = split(/\t/,$_);
-			    $temptopic =~ s/^£ª£££¡£¦£ª//;
+			    $temptopic =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 			    $checknumber ++ if (($intopictitletemp eq $temptopic)&&(lc($tempmembername) eq lc($inmembername)));
 		        }
 
@@ -223,7 +229,7 @@ if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­
 		            open (FILE, ">>$filetomake");
         		    print FILE "$inmembername\t";
 		            close (FILE);
-			    &errorout("³ö´í&ÓÉÓÚÄãÔÚ¶àÇø·¢ËÍ¹ã¸æ£¬ËùÒÔÄãÒÑ¾­±»½ûÖ¹·¢ÑÔ£¡");
+			    &errorout("å‡ºé”™&ç”±äºä½ åœ¨å¤šåŒºå‘é€å¹¿å‘Šï¼Œæ‰€ä»¥ä½ å·²ç»è¢«ç¦æ­¢å‘è¨€ï¼");
 			}
 		    }
 
@@ -250,13 +256,13 @@ if ($startnewthreads eq "onlysub") {&errorout("å‘è¡¨&å¯¹ä¸èµ·ï¼Œè¿™é‡Œæ˜¯çº¯å­
                         print PSF2 "\$allnew=qq~";
                         flock (FILE, 2) if ($OS_USED eq "Unix");
                         print FILE "$inforum\t$newthreadnumber\t$topictitle3\t$postdate\t\t$inmembername\t$topictitle22\n";
-                        print PSF2 "¡¤<a href=topic.cgi?forum=$inforum&topic=$newthreadnumber title='$topictitle3\n×÷Õß£º$inmembername\nÊ±¼ä£º$postdate'>$topictitle22</a>";
+                        print PSF2 "Â·<a href=topic.cgi?forum=$inforum&topic=$newthreadnumber title='$topictitle3\nä½œè€…ï¼š$inmembername\næ—¶é—´ï¼š$postdate'>$topictitle22</a>";
                         for ($i=0;$i<9;$i++) { 
                         chomp $recentposts[$i];
                         if ($recentposts[$i] ne ''){
                         my ($d1,$d2,$d3,$d4,$no,$d5,$d6)=split(/\t/,$recentposts[$i]);
                         next if($d6 eq '');
-                        print PSF2 "<br>¡¤<a href=topic.cgi?forum=$d1&topic=$d2  title='$d3\n×÷Õß£º$d5\nÊ±¼ä£º$d4'>$d6</a>";
+                        print PSF2 "<br>Â·<a href=topic.cgi?forum=$d1&topic=$d2  title='$d3\nä½œè€…ï¼š$d5\næ—¶é—´ï¼š$d4'>$d6</a>";
                         print FILE "$recentposts[$i]\n"; }}
                         print PSF2 "~;\n1;";
                         close(PSF2);
@@ -440,5 +446,5 @@ opendir (CATDIR, "${lbdir}cache");
 my @dirdata = readdir(CATDIR);
 closedir (CATDIR);
 unlink ("${lbdir}cache/plcache$inforum\_0.pl");
-    $show.= qq~<p>ĞÂÖ÷Ìâ·¢±í³É¹¦..<br/><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">·µ»ØÁĞ±í..</a></p><p><a href="wap_topic.cgi?f=$inforum&amp;lid=$lid&amp;t=$newthreadnumber">·µ»ØÌû×Ó..</a></p>~;
+    $show.= qq~<p>æ–°ä¸»é¢˜å‘è¡¨æˆåŠŸ..<br/><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">è¿”å›åˆ—è¡¨..</a></p><p><a href="wap_topic.cgi?f=$inforum&amp;lid=$lid&amp;t=$newthreadnumber">è¿”å›å¸–å­..</a></p>~;
 &wapfoot;

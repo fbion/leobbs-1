@@ -65,16 +65,19 @@ my $charone = substr($emailaddress, 0, 1);
     if($inmembername =~ /_/)  { &errorout("ç”¨æˆ·æ³¨å†Œ&è¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­ä½¿ç”¨ä¸‹åˆ’çº¿ï¼"); }
     $inmembername =~ s/\&nbsp\;//ig;
     $inmembername =~ s/ã€€/ /g;
-    $inmembername =~ s/;
-    $inmembername =~ s/ÿ//isg;
+    $inmembername =~ s/îŸ¾/ /g;
+    $inmembername =~ s/[ ]+/ /g;
+    $inmembername =~ s/[ ]+/_/;
+    $inmembername =~ s/[_]+/_/;
+    $inmembername =~ s/ï¿½//isg;
     $inmembername =~ s///isg;
-    $inmembername =~ s/¡¡//isg;
-    $inmembername =~ s/©¡//isg;
+    $inmembername =~ s/ã€€//isg;
+    $inmembername =~ s/îŸ¾//isg;
     $inmembername =~ s/()+//isg;
     $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]//isg;
     $inmembername =~ s/\s*$//g;
     $inmembername =~ s/^\s*//g;
-    &errorout("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄúÊäÈëµÄÓÃ»§ÃûÓĞÎÊÌâ") if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
+    &errorout("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œæ‚¨è¾“å…¥çš„ç”¨æˆ·åæœ‰é—®é¢˜") if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
 	$bannedmember = "no";
     open(FILE,"${lbdir}data/banemaillist.cgi");
     my $bannedemail = <FILE>;
@@ -95,8 +98,8 @@ my $charone = substr($emailaddress, 0, 1);
     (my $ipaddresstemp = $ipaddress) =~ s/\./\\\./g;
     $ipaddresstemp =~ /^((((.*?\\\.).*?\\\.).*?\\\.).*?)$/;
     $bannedmember = "yes" if ($bannedips =~ /\t($1|$2|$3|$4)\t/);
-    $bannedmember = "yes" if (($inmembername =~ /^m-/i)||($inmembername =~ /^s-/i)||($inmembername =~ /tr-/i)||($inmembername =~ /^y-/i)||($inmembername =~ /×¢²á/i)||($inmembername =~ /guest/i)||($inmembername =~ /qq-/i)||($inmembername =~ /qq/i)||($inmembername =~ /qw/i)||($inmembername =~ /q-/i)||($inmembername =~ /qx-/i)||($inmembername =~ /qw-/i)||($inmembername =~ /qr-/i)||($inmembername =~ /^È«Ìå/i)||($inmembername =~ /register/i)||($inmembername =~ /³ÏÆ¸ÖĞ/i)||($inmembername =~ /°ßÖñ/i)||($inmembername =~ /¹ÜÀíÏµÍ³Ñ¶Ï¢/i)||($inmembername =~ /leobbs/i)||($inmembername =~ /leoboard/i)||($inmembername =~ /À×°Á/i)||($inmembername =~ /LB5000/i)||($inmembername =~ /È«Ìå¹ÜÀíÈËÔ±/i)||($inmembername =~ /¹ÜÀíÔ±/i)||($inmembername =~ /ÒşÉí/i)||($inmembername =~ /¶ÌÏûÏ¢¹ã²¥/i)||($inmembername =~ /ÔİÊ±¿ÕÈ±/i)||($inmembername =~ /£ª£££¡£¦£ª/i)||($inmembername =~ /°æÖ÷/i)||($inmembername =~ /Ì³Ö÷/i)||($inmembername =~ /nodisplay/i)||($inmembername =~ /^system/i)||($inmembername =~ /---/i)||($inmembername eq "admin")||($inmembername eq "root")||($inmembername eq "copy")||($inmembername =~ /^sub/)||($inmembername =~ /^exec/)||($inmembername =~ /\@ARGV/i)||($inmembername =~ /^require/)||($inmembername =~ /^rename/i)||($inmembername =~ /^dir/i)||($inmembername =~ /^print/i)||($inmembername =~ /^con/i)||($inmembername =~ /^nul/i)||($inmembername =~ /^aux/i)||($inmembername =~ /^com/i)||($inmembername =~ /^lpt/i));
-    if ($bannedmember eq "yes") { &errorout("ÓÃ»§×¢²á&²»ÔÊĞí×¢²á£¬ÄãÌîĞ´µÄÓÃ»§Ãû¡¢Email »òµ±Ç°µÄ IP ±»Ì³Ö÷ÉèÖÃ³É½ûÖ¹×¢²áĞÂÓÃ»§ÁË£¬Çë¸ü»»»òÕßÁªÏµÌ³Ö÷ÒÔ±ã½â¾ö£¡"); }
+    $bannedmember = "yes" if (($inmembername =~ /^m-/i)||($inmembername =~ /^s-/i)||($inmembername =~ /tr-/i)||($inmembername =~ /^y-/i)||($inmembername =~ /æ³¨å†Œ/i)||($inmembername =~ /guest/i)||($inmembername =~ /qq-/i)||($inmembername =~ /qq/i)||($inmembername =~ /qw/i)||($inmembername =~ /q-/i)||($inmembername =~ /qx-/i)||($inmembername =~ /qw-/i)||($inmembername =~ /qr-/i)||($inmembername =~ /^å…¨ä½“/i)||($inmembername =~ /register/i)||($inmembername =~ /è¯šè˜ä¸­/i)||($inmembername =~ /æ–‘ç«¹/i)||($inmembername =~ /ç®¡ç†ç³»ç»Ÿè®¯æ¯/i)||($inmembername =~ /leobbs/i)||($inmembername =~ /leoboard/i)||($inmembername =~ /é›·å‚²/i)||($inmembername =~ /LB5000/i)||($inmembername =~ /å…¨ä½“ç®¡ç†äººå‘˜/i)||($inmembername =~ /ç®¡ç†å‘˜/i)||($inmembername =~ /éšèº«/i)||($inmembername =~ /çŸ­æ¶ˆæ¯å¹¿æ’­/i)||($inmembername =~ /æš‚æ—¶ç©ºç¼º/i)||($inmembername =~ /ï¼Šï¼ƒï¼ï¼†ï¼Š/i)||($inmembername =~ /ç‰ˆä¸»/i)||($inmembername =~ /å›ä¸»/i)||($inmembername =~ /nodisplay/i)||($inmembername =~ /^system/i)||($inmembername =~ /---/i)||($inmembername eq "admin")||($inmembername eq "root")||($inmembername eq "copy")||($inmembername =~ /^sub/)||($inmembername =~ /^exec/)||($inmembername =~ /\@ARGV/i)||($inmembername =~ /^require/)||($inmembername =~ /^rename/i)||($inmembername =~ /^dir/i)||($inmembername =~ /^print/i)||($inmembername =~ /^con/i)||($inmembername =~ /^nul/i)||($inmembername =~ /^aux/i)||($inmembername =~ /^com/i)||($inmembername =~ /^lpt/i));
+    if ($bannedmember eq "yes") { &errorout("ç”¨æˆ·æ³¨å†Œ&ä¸å…è®¸æ³¨å†Œï¼Œä½ å¡«å†™çš„ç”¨æˆ·åã€Email æˆ–å½“å‰çš„ IP è¢«å›ä¸»è®¾ç½®æˆç¦æ­¢æ³¨å†Œæ–°ç”¨æˆ·äº†ï¼Œè¯·æ›´æ¢æˆ–è€…è”ç³»å›ä¸»ä»¥ä¾¿è§£å†³ï¼"); }
     open(THEFILE,"${lbdir}data/noreglist.cgi");
     $userarray = <THEFILE>;
     close(THEFILE);
@@ -111,29 +114,29 @@ my $charone = substr($emailaddress, 0, 1);
 	    last;
 	}
     }
-    &errorout("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄãËù×¢²áµÄÓÃ»§ÃûÒÑ¾­±»±£Áô»òÕß±»½ûÖ¹×¢²á£¬Çë¸ü»»Ò»¸öÓÃ»§Ãû£¡") if ($noreg eq "yes");
-    if($inmembername =~ /\t/) { &errorout("ÓÃ»§×¢²á&Çë²»ÒªÔÚÓÃ»§ÃûÖĞÊ¹ÓÃÌØÊâ×Ö·û£¡"); }
-    if($password =~ /[^a-zA-Z0-9]/)     { &errorout("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂëÖ»ÔÊĞí´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ£¡£¡"); }
-    if($password =~ /^lEO/)     { &errorout("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂë²»ÔÊĞíÊÇ lEO ¿ªÍ·£¬Çë¸ü»»£¡£¡"); }
+    &errorout("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œä½ æ‰€æ³¨å†Œçš„ç”¨æˆ·åå·²ç»è¢«ä¿ç•™æˆ–è€…è¢«ç¦æ­¢æ³¨å†Œï¼Œè¯·æ›´æ¢ä¸€ä¸ªç”¨æˆ·åï¼") if ($noreg eq "yes");
+    if($inmembername =~ /\t/) { &errorout("ç”¨æˆ·æ³¨å†Œ&è¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­ä½¿ç”¨ç‰¹æ®Šå­—ç¬¦ï¼"); }
+    if($password =~ /[^a-zA-Z0-9]/)     { &errorout("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç åªå…è®¸å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆï¼ï¼"); }
+    if($password =~ /^lEO/)     { &errorout("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç ä¸å…è®¸æ˜¯ lEO å¼€å¤´ï¼Œè¯·æ›´æ¢ï¼ï¼"); }
     $tempinmembername =$inmembername;
     $tempinmembername =~ s/ //g;
-    $tempinmembername =~ s/¡¡//g;
-    if ($tempinmembername eq "")  { &errorout("ÓÃ»§×¢²á&ÄãµÄÓÃ»§ÃûÓĞµãÎÊÌâÓ´£¬»»Ò»¸ö£¡"); }
-    if ($inmembername =~ /^¿ÍÈË/) { &errorout("ÓÃ»§×¢²á&Çë²»ÒªÔÚÓÃ»§ÃûµÄ¿ªÍ·ÖĞÊ¹ÓÃ¿ÍÈË×ÖÑù£¡"); }
-    if (length($inmembername)>12) { &errorout("ÓÃ»§×¢²á&ÓÃ»§ÃûÌ«³¤£¬Çë²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©£¡"); }
-    if (length($inmembername)<2)  { &errorout("ÓÃ»§×¢²á&ÓÃ»§ÃûÌ«¶ÌÁË£¬Çë²»ÒªÉÙì¶2¸ö×Ö·û£¨1¸öºº×Ö£©£¡"); }
-    if (length($newlocation)>12)  { &errorout("ÓÃ»§×¢²á&À´×ÔµØÇø¹ı³¤£¬Çë²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©£¡"); }
-    if (($inmembername =~ m/_/)||(!$inmembername)) { &errorout("ÓÃ»§×¢²á&ÓÃ»§ÃûÖĞº¬ÓĞ·Ç·¨×Ö·û£¡"); }
+    $tempinmembername =~ s/ã€€//g;
+    if ($tempinmembername eq "")  { &errorout("ç”¨æˆ·æ³¨å†Œ&ä½ çš„ç”¨æˆ·åæœ‰ç‚¹é—®é¢˜å“Ÿï¼Œæ¢ä¸€ä¸ªï¼"); }
+    if ($inmembername =~ /^å®¢äºº/) { &errorout("ç”¨æˆ·æ³¨å†Œ&è¯·ä¸è¦åœ¨ç”¨æˆ·åçš„å¼€å¤´ä¸­ä½¿ç”¨å®¢äººå­—æ ·ï¼"); }
+    if (length($inmembername)>12) { &errorout("ç”¨æˆ·æ³¨å†Œ&ç”¨æˆ·åå¤ªé•¿ï¼Œè¯·ä¸è¦è¶…è¿‡12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰ï¼"); }
+    if (length($inmembername)<2)  { &errorout("ç”¨æˆ·æ³¨å†Œ&ç”¨æˆ·åå¤ªçŸ­äº†ï¼Œè¯·ä¸è¦å°‘æ–¼2ä¸ªå­—ç¬¦ï¼ˆ1ä¸ªæ±‰å­—ï¼‰ï¼"); }
+    if (length($newlocation)>12)  { &errorout("ç”¨æˆ·æ³¨å†Œ&æ¥è‡ªåœ°åŒºè¿‡é•¿ï¼Œè¯·ä¸è¦è¶…è¿‡12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰ï¼"); }
+    if (($inmembername =~ m/_/)||(!$inmembername)) { &errorout("ç”¨æˆ·æ³¨å†Œ&ç”¨æˆ·åä¸­å«æœ‰éæ³•å­—ç¬¦ï¼"); }
     if ($passwordverification eq "no"){
-	if ($password ne $password2) { &errorout("ÓÃ»§×¢²á&¶Ô²»Æğ£¬ÄãÊäÈëµÄÁ½´ÎÂÛÌ³ÃÜÂë²»ÏàÍ¬£¡");   }
-        if(length($password)<8)      { &errorout("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂëÌ«¶ÌÁË£¬Çë¸ü»»£¡ÂÛÌ³ÃÜÂë±ØĞë 8 Î»ÒÔÉÏ£¡"); }
-#       if ($password =~ /^[0-9]+$/) { &errorout("ÓÃ»§×¢²á&ÂÛÌ³ÃÜÂëÇë²»ÒªÈ«²¿ÎªÊı×Ö£¬Çë¸ü»»£¡"); }
+	if ($password ne $password2) { &errorout("ç”¨æˆ·æ³¨å†Œ&å¯¹ä¸èµ·ï¼Œä½ è¾“å…¥çš„ä¸¤æ¬¡è®ºå›å¯†ç ä¸ç›¸åŒï¼");   }
+        if(length($password)<8)      { &errorout("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç å¤ªçŸ­äº†ï¼Œè¯·æ›´æ¢ï¼è®ºå›å¯†ç å¿…é¡» 8 ä½ä»¥ä¸Šï¼"); }
+#       if ($password =~ /^[0-9]+$/) { &errorout("ç”¨æˆ·æ³¨å†Œ&è®ºå›å¯†ç è¯·ä¸è¦å…¨éƒ¨ä¸ºæ•°å­—ï¼Œè¯·æ›´æ¢ï¼"); }
     }
-    if ($inmembername eq $password) { &errorout("ÓÃ»§×¢²á&ÇëÎğ½«ÓÃ»§ÃûºÍÂÛÌ³ÃÜÂëÉèÖÃ³ÉÏàÍ¬£¡"); } 
-    if($emailaddress !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/) { &errorout("ÓÃ»§×¢²á&ÓÊ¼şµØÖ·´íÎó£¡"); }
+    if ($inmembername eq $password) { &errorout("ç”¨æˆ·æ³¨å†Œ&è¯·å‹¿å°†ç”¨æˆ·åå’Œè®ºå›å¯†ç è®¾ç½®æˆç›¸åŒï¼"); } 
+    if($emailaddress !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/) { &errorout("ç”¨æˆ·æ³¨å†Œ&é‚®ä»¶åœ°å€é”™è¯¯ï¼"); }
     $emailaddress =~ s/[\ \a\f\n\e\0\r\t\`\~\!\$\%\^\&\*\(\)\=\+\\\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
     &getmember("$inmembername","no");
-    if ($userregistered ne "no") { &errorout("ÓÃ»§×¢²á&¸ÃÓÃ»§ÒÑ¾­´æÔÚ£¬ÇëÖØĞÂÊäÈëÒ»¸öĞÂµÄÓÃ»§Ãû£¡"); }
+    if ($userregistered ne "no") { &errorout("ç”¨æˆ·æ³¨å†Œ&è¯¥ç”¨æˆ·å·²ç»å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥ä¸€ä¸ªæ–°çš„ç”¨æˆ·åï¼"); }
     $membercode    = "me";
     $memberfiletitle = $inmembername;
     $memberfiletitle =~ y/ /_/;
@@ -220,6 +223,6 @@ require "$lbdir" . "data/boardstats.cgi";
     print file "$inmembername,$x\n";
     close(file);
 $show.= qq~<p>
-	×¢²á³É¹¦£¬ÄúµÄĞÒÔËIDÎª£º$x,ÄúµÄIPÎª£º$xh2£¬Çë²»ÒªĞ¹Â©ÄúµÄĞÒÔËID¸øÈÎºÎÈË£¡Èç¹ûÄúÊÇÓÃÊÖ»ú·ÃÎÊÇÒÊÖ»úÎªË½ÓĞ£¬Çë°ÑÏÂÃæ½øÈëµÄÊ×Ò³µØÖ·¼ÓÈëÊéÇ©(ÊéÇ©µØÖ·£º$boardurl/wap.cgi?lid=$x £¬¼ÓÈëÖ®ºó¿ÉÃâµÇÂ½) ¡£·ñÔòÇë²»Òª¼ÓÈëÊéÇ©£¡</p><p><a href="wap.cgi?lid=$x">µã»÷´Ë´¦½øÈëÊ×Ò³</a>
+	æ³¨å†ŒæˆåŠŸï¼Œæ‚¨çš„å¹¸è¿IDä¸ºï¼š$x,æ‚¨çš„IPä¸ºï¼š$xh2ï¼Œè¯·ä¸è¦æ³„æ¼æ‚¨çš„å¹¸è¿IDç»™ä»»ä½•äººï¼å¦‚æœæ‚¨æ˜¯ç”¨æ‰‹æœºè®¿é—®ä¸”æ‰‹æœºä¸ºç§æœ‰ï¼Œè¯·æŠŠä¸‹é¢è¿›å…¥çš„é¦–é¡µåœ°å€åŠ å…¥ä¹¦ç­¾(ä¹¦ç­¾åœ°å€ï¼š$boardurl/wap.cgi?lid=$x ï¼ŒåŠ å…¥ä¹‹åå¯å…ç™»é™†) ã€‚å¦åˆ™è¯·ä¸è¦åŠ å…¥ä¹¦ç­¾ï¼</p><p><a href="wap.cgi?lid=$x">ç‚¹å‡»æ­¤å¤„è¿›å…¥é¦–é¡µ</a>
 	</p>~;
 &wapfoot;

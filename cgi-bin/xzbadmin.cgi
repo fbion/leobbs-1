@@ -375,9 +375,35 @@ sub editxzb
 	}
 	else
 	{	#å·²è¿›è¡Œç¡®è®¤
-		#newfile;								#Ğ´ÈëĞÂÎÄ¼şÄÚÈİ
-		close(FILE);										#¹Ø±ÕÎÄ¼ş
-		#Ò³ÃæÊä³ö
+		#é©—è­‰è™•ç†
+		if ($inpost eq "")
+		{
+			&error("ç¼–è¾‘å°å­—æŠ¥&å¿…é¡»è¾“å…¥æ ‡é¢˜ï¼");									#è¾“å‡ºé”™è¯¯é¡µ
+		}
+		elsif (length($inpost) > 82)
+		{
+			&error("ç¼–è¾‘å°å­—æŠ¥&æ ‡é¢˜è¿‡é•¿ï¼");										#è¾“å‡ºé”™è¯¯é¡µ
+		}
+		elsif (length($message) > $hownews)
+		{
+			&error("ç¼–è¾‘å°å­—æŠ¥&å†…å®¹è¿‡é•¿ï¼");										#è¾“å‡ºé”™è¯¯é¡µ
+		}
+		#ç¼–è¾‘å¤„ç†
+		my $newfile	= '';									#åˆå§‹åŒ–æ–‡ä»¶
+		foreach my $line (@xzbdata)
+		{	#æ¯æ¬¡è¯»å–ä¸€è¡Œå†…å®¹ loop 1
+			chomp $line;			#å»æ‰æ¢è¡Œç¬¦
+			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#åˆ†å‰²æ•°æ®
+			if($posttime eq $xzbid)
+			{	#ç¼–è¾‘ç›®æ ‡
+				$line = "ï¼ƒâ€”ï¼ƒâ€”Â·\t$inpost\t$inmembername\t$message\t$posttime\t";	#æ–°è¡Œ
+			}
+			$newfile .= $line."\n";														#æ”¾å…¥æ–°æ–‡ä»¶å†…
+		}#loop 1 end
+		open(FILE,'>'."${lbdir}boarddata/xzb$inforum.cgi");	#å¼€å¯åªå†™æ–‡ä»¶
+		print FILE $newfile;								#å†™å…¥æ–°æ–‡ä»¶å†…å®¹
+		close(FILE);										#å…³é—­æ–‡ä»¶
+		#é¡µé¢è¾“å‡º
 		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="get">
@@ -387,12 +413,12 @@ sub editxzb
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
 	<tr>
 		<td bgcolor="$titlecolor" width="100%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>ÒÑ¾­±à¼­¸ÃĞ¡×Ö±¨ÄÚÈİ</b></font>
+			<font color="$titlefontcolor"><b>å·²ç»ç¼–è¾‘è¯¥å°å­—æŠ¥å†…å®¹</b></font>
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="$postcolorone" align="center">
-			<input type="submit" value="·µ»ØÖ÷Ò³Ãæ">
+			<input type="submit" value="è¿”å›ä¸»é¡µé¢">
 		</td>
 	</tr>
 	</table>
@@ -403,33 +429,33 @@ sub editxzb
 	}
 }
 sub deletexzb
-{	#Ä£Ê½ -> É¾³ı
-	#Êä³öÒ³ÃæÍ·
-	&mischeader("É¾³ıĞ¡×Ö±¨");
-	#¶ÁÈ¡¸´Ñ¡Êı¾İ
-	my @noarray		= ();	#³õÊ¼»¯
+{	#æ¨¡å¼ -> åˆ é™¤
+	#è¾“å‡ºé¡µé¢å¤´
+	&mischeader("åˆ é™¤å°å­—æŠ¥");
+	#è¯»å–å¤é€‰æ•°æ®
+	my @noarray		= ();	#åˆå§‹åŒ–
 	my %nohash		= ();
 	my $xzbidcount	= 0;
-	my $novalue		= '';	# HIDDEN µÄÊäÈëÀ¸
+	my $novalue		= '';	# HIDDEN çš„è¾“å…¥æ 
 	if ($xzbid ne "")
-	{	#ÓĞ¶¨ÒåµÚÒ»¸ö ID
-		@noarray = $query->param('xzbid');	#ËùÓĞ ID
+	{	#æœ‰å®šä¹‰ç¬¬ä¸€ä¸ª ID
+		@noarray = $query->param('xzbid');	#æ‰€æœ‰ ID
 		foreach my $xzbid(@noarray)
-		{	#´¦ÀíËùÓĞ ID loop 1
-			$novalue .= '<input type="hidden" name="xzbid" value="'.$xzbid.'">'."\n";	#Ôö¼ÓÀ¸Î»
-			$nohash{$xzbid} = $xzbid;													#·ÅÈë HASH
-			$xzbidcount++;																#ÊıÄ¿µİÔö
+		{	#å¤„ç†æ‰€æœ‰ ID loop 1
+			$novalue .= '<input type="hidden" name="xzbid" value="'.$xzbid.'">'."\n";	#å¢åŠ æ ä½
+			$nohash{$xzbid} = $xzbid;													#æ”¾å…¥ HASH
+			$xzbidcount++;																#æ•°ç›®é€’å¢
 		}#loop 1 end 
-		chomp $novalue;						#È¥³ı×îáá»»ĞĞ
+		chomp $novalue;						#å»é™¤æœ€å¾Œæ¢è¡Œ
 	}
 	if ($xzbidcount == 0)
-	{	#Ã»Ñ¡ÈÎºÎĞ¡×Ö±¨
-		&error("É¾³ıĞ¡×Ö±¨&Ã»ÓĞÑ¡ÈÎºÎĞ¡×Ö±¨£¡");			#Êä³ö´íÎóÒ³
+	{	#æ²¡é€‰ä»»ä½•å°å­—æŠ¥
+		&error("åˆ é™¤å°å­—æŠ¥&æ²¡æœ‰é€‰ä»»ä½•å°å­—æŠ¥ï¼");			#è¾“å‡ºé”™è¯¯é¡µ
 	}
 
 	if ($checked ne 'yes')
-	{	#Î´½øĞĞÈ·ÈÏ
-		#Ò³ÃæÊä³ö
+	{	#æœªè¿›è¡Œç¡®è®¤
+		#é¡µé¢è¾“å‡º
 		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post" id="1">
@@ -442,18 +468,18 @@ $novalue
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
 	<tr>
 		<td bgcolor="$titlecolor" width="100%" $catbackpic align="center" colspan="2">
-			<font color="$titlefontcolor"><b>È·ÈÏÉ¾³ıËùÑ¡µÄ $xzbidcount ¸öĞ¡×Ö±¨£¿</b></font>
+			<font color="$titlefontcolor"><b>ç¡®è®¤åˆ é™¤æ‰€é€‰çš„ $xzbidcount ä¸ªå°å­—æŠ¥ï¼Ÿ</b></font>
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="$postcolorone" align="right" width="51%">
-			<input type="submit" value="È·ÈÏÉ¾³ı">&nbsp;
+			<input type="submit" value="ç¡®è®¤åˆ é™¤">&nbsp;
 		</td>
 </form id="1">
 <form action="$thisprog" method="get" id="2">
 <input type="hidden" name="forum" value="$inforum">
 		<td bgcolor="$postcolorone" align="left">
-			&nbsp;<input type="submit" value="·µ»ØÖ÷Ò³Ãæ">
+			&nbsp;<input type="submit" value="è¿”å›ä¸»é¡µé¢">
 		</td>
 </form id="2">
 	</tr>
@@ -463,27 +489,27 @@ $novalue
 </table><SCRIPT>valignend()</SCRIPT>~;
 	}
 	else
-	{	#ÒÑ½øĞĞÈ·ÈÏ
-		#É¾³ı´¦Àí
-		my $newfile	= '';									#³õÊ¼»¯ÎÄ¼ş
-		my $delbyte	= '';									#É¾³ıµÄ×Ö½Ú
-		open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");		#¿ªÆôÎÄ¼ş
+	{	#å·²è¿›è¡Œç¡®è®¤
+		#åˆ é™¤å¤„ç†
+		my $newfile	= '';									#åˆå§‹åŒ–æ–‡ä»¶
+		my $delbyte	= '';									#åˆ é™¤çš„å­—èŠ‚
+		open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");		#å¼€å¯æ–‡ä»¶
 		while (my $line = <FILE>)
-		{	#Ã¿´Î¶ÁÈ¡Ò»ĞĞÄÚÈİ loop 1
-			chomp $line;			#È¥µô»»ĞĞ·û
-			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#·Ö¸îÊı¾İ
+		{	#æ¯æ¬¡è¯»å–ä¸€è¡Œå†…å®¹ loop 1
+			chomp $line;			#å»æ‰æ¢è¡Œç¬¦
+			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#åˆ†å‰²æ•°æ®
 			if(($line eq "") || (defined $nohash{$posttime}))
-			{	#¿Õ°×ĞĞ»òÉ¾³ıÄ¿Â¼
-				$delbyte += length($line);	#¼ÓÉÏÉ¾³ıµÄ×Ö½Ú
-				next;						#Ìø¹ı
+			{	#ç©ºç™½è¡Œæˆ–åˆ é™¤ç›®å½•
+				$delbyte += length($line);	#åŠ ä¸Šåˆ é™¤çš„å­—èŠ‚
+				next;						#è·³è¿‡
 			}
-			$newfile .= $line."\n";														#·ÅÈëĞÂÎÄ¼şÄÚ
+			$newfile .= $line."\n";														#æ”¾å…¥æ–°æ–‡ä»¶å†…
 		}#loop 1 end
-		close(FILE);										#¹Ø±ÕÎÄ¼ş
-		open(FILE,'>'."${lbdir}boarddata/xzb$inforum.cgi");	#¿ªÆôÖ»Ğ´ÎÄ¼ş
-		print FILE $newfile;								#Ğ´ÈëĞÂÎÄ¼şÄÚÈİ
-		close(FILE);										#¹Ø±ÕÎÄ¼ş
-		#Ò³ÃæÊä³ö
+		close(FILE);										#å…³é—­æ–‡ä»¶
+		open(FILE,'>'."${lbdir}boarddata/xzb$inforum.cgi");	#å¼€å¯åªå†™æ–‡ä»¶
+		print FILE $newfile;								#å†™å…¥æ–°æ–‡ä»¶å†…å®¹
+		close(FILE);										#å…³é—­æ–‡ä»¶
+		#é¡µé¢è¾“å‡º
 		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="get">
@@ -493,17 +519,17 @@ $novalue
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
 	<tr>
 		<td bgcolor="$titlecolor" width="100%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>ËùÑ¡µÄ $xzbidcount ¸öĞ¡×Ö±¨ÒÑ±»É¾³ı</b></font>
+			<font color="$titlefontcolor"><b>æ‰€é€‰çš„ $xzbidcount ä¸ªå°å­—æŠ¥å·²è¢«åˆ é™¤</b></font>
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="$postcolortwo" align="center">
-			×Ü¹²É¾³ı $delbyte  byte(s)
+			æ€»å…±åˆ é™¤ $delbyte  byte(s)
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="$postcolorone" align="center">
-			<input type="submit" value="·µ»ØÖ÷Ò³Ãæ">
+			<input type="submit" value="è¿”å›ä¸»é¡µé¢">
 		</td>
 	</tr>
 	</table>
@@ -514,52 +540,52 @@ $novalue
 	}
 }
 sub deleteoverxzb
-{	#Ä£Ê½ -> É¾³ı 2
-	#Êä³öÒ³ÃæÍ·
-	&mischeader("É¾³ıĞ¡×Ö±¨");
-	#¶ÁÈ¡³¬Ê±×ÊÁÏ
-	my @delxzbid	= ();	#³õÊ¼»¯
+{	#æ¨¡å¼ -> åˆ é™¤ 2
+	#è¾“å‡ºé¡µé¢å¤´
+	&mischeader("åˆ é™¤å°å­—æŠ¥");
+	#è¯»å–è¶…æ—¶èµ„æ–™
+	my @delxzbid	= ();	#åˆå§‹åŒ–
 	if($checked ne 'yes')
-	{	#Î´½øĞĞÈ·ÈÏ
-		open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#¿ªÆôÎÄ¼ş
+	{	#æœªè¿›è¡Œç¡®è®¤
+		open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#å¼€å¯æ–‡ä»¶
 		while (my $line = <FILE>)
-		{	#Ã¿´Î¶ÁÈ¡Ò»ĞĞÄÚÈİ loop 1
-			chomp $line;															#È¥µô»»ĞĞ·û
-			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);	#·Ö¸îÊı¾İ
+		{	#æ¯æ¬¡è¯»å–ä¸€è¡Œå†…å®¹ loop 1
+			chomp $line;															#å»æ‰æ¢è¡Œç¬¦
+			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);	#åˆ†å‰²æ•°æ®
 			if ($currenttime-$posttime > 3600*48)
-			{	#³¬¹ı£´£¸Ğ¡Ê±
-				push(@delxzbid,$posttime);		#·Åµ½ĞèÉ¾ ID
+			{	#è¶…è¿‡ï¼”ï¼˜å°æ—¶
+				push(@delxzbid,$posttime);		#æ”¾åˆ°éœ€åˆ  ID
 			}
 		}#loop 1 end
-		close(FILE);									#¹Ø±ÕÎÄ¼ş
+		close(FILE);									#å…³é—­æ–‡ä»¶
 	}
 	else
-	{	#ÒÑ½øĞĞÈ·ÈÏ
-		@delxzbid = $query->param('xzbid');				#ĞèÉ¾ ID
+	{	#å·²è¿›è¡Œç¡®è®¤
+		@delxzbid = $query->param('xzbid');				#éœ€åˆ  ID
 	}
 	if (@delxzbid == 0)
-	{	#Ã»ÈÎºÎĞ¡×Ö±¨ĞèÒªÉ¾
-		&error("É¾³ıĞ¡×Ö±¨&Ã»ÓĞĞ¡×Ö±¨ĞèÒªÉ¾³ı£¡");			#Êä³ö´íÎóÒ³
+	{	#æ²¡ä»»ä½•å°å­—æŠ¥éœ€è¦åˆ 
+		&error("åˆ é™¤å°å­—æŠ¥&æ²¡æœ‰å°å­—æŠ¥éœ€è¦åˆ é™¤ï¼");			#è¾“å‡ºé”™è¯¯é¡µ
 	}
-	#¶ÁÈ¡¸´Ñ¡Êı¾İ
+	#è¯»å–å¤é€‰æ•°æ®
 	my %nohash		= ();
 	my $xzbidcount	= 0;
-	my $novalue		= '';	# HIDDEN µÄÊäÈëÀ¸
+	my $novalue		= '';	# HIDDEN çš„è¾“å…¥æ 
 	foreach my $xzbid(@delxzbid)
-	{	#´¦ÀíËùÓĞ ID loop 1
+	{	#å¤„ç†æ‰€æœ‰ ID loop 1
 		unless ($currenttime-$posttime > 3600*48)
-		{	#ÔÙ¼ì²éÊ±¼ä£¬²»Í¨¹ı
-			next;		#Ìø¹ı
+		{	#å†æ£€æŸ¥æ—¶é—´ï¼Œä¸é€šè¿‡
+			next;		#è·³è¿‡
 		}
-		$novalue .= '<input type="hidden" name="xzbid" value="'.$xzbid.'">'."\n";	#Ôö¼ÓÀ¸Î»
-		$nohash{$xzbid} = $xzbid;													#·ÅÈë HASH
-		$xzbidcount++;																#ÊıÄ¿µİÔö
+		$novalue .= '<input type="hidden" name="xzbid" value="'.$xzbid.'">'."\n";	#å¢åŠ æ ä½
+		$nohash{$xzbid} = $xzbid;													#æ”¾å…¥ HASH
+		$xzbidcount++;																#æ•°ç›®é€’å¢
 	}#loop 1 end 
-	chomp $novalue;						#È¥³ı×îáá»»ĞĞ
+	chomp $novalue;						#å»é™¤æœ€å¾Œæ¢è¡Œ
 	
 	if ($checked ne 'yes')
-	{	#Î´½øĞĞÈ·ÈÏ
-		#Ò³ÃæÊä³ö
+	{	#æœªè¿›è¡Œç¡®è®¤
+		#é¡µé¢è¾“å‡º
 		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post">
@@ -572,12 +598,12 @@ $novalue
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
 	<tr>
 		<td bgcolor="$titlecolor" width="100%" $catbackpic align="center">
-			<font color="$titlefontcolor"><b>È·ÈÏÉ¾³ıËùÑ¡µÄ $xzbidcount ¸öĞ¡×Ö±¨£¿</b></font>
+			<font color="$titlefontcolor"><b>ç¡®è®¤åˆ é™¤æ‰€é€‰çš„ $xzbidcount ä¸ªå°å­—æŠ¥ï¼Ÿ</b></font>
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="$postcolorone" align="center">
-			<input type="submit" value="È·ÈÏÉ¾³ı">
+			<input type="submit" value="ç¡®è®¤åˆ é™¤">
 		</td>
 	</tr>
 	</table>

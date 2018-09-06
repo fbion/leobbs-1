@@ -670,24 +670,34 @@ for ($i = 1; $i < @threads; $i++)
 	{
 		@fileinfo = stat("${imagesdir}$usrdir/${inforum}/${up_name}.${up_ext}");
 		$filetype = "unknow";
-		$filetype = $up_ext if (-e "${imagesdir}icon/lor=red>$hasadd</font>æ¶“sewheel="return bbimg(this)"></a><br><br>~;
+		$filetype = $up_ext if (-e "${imagesdir}icon/${up_ext}.gif");
+		my $rnrn = $rn + 1;
+	if ($up_ext eq "gif" || $up_ext eq "jpg" || $up_ext eq "png" || $up_ext eq "bmp")
+	{
+		if ($nodispphoto eq "yes" || $arrawpostpic eq "off")
+		{
+			$addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank>ç‚¹å‡»æ˜¾ç¤ºæ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡</a><br><br>~;
 		}
-	        $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,$rnrn,'$up_ext')><img id=followImg$rnrn src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> °´´Ë²é¿´Í¼Æ¬ÏêÏ¸ĞÅÏ¢<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$rnrn style=DISPLAY:none><tr><td id=followTd$rnrn><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,$rnrn,'$up_ext')>ÕıÔÚ¶ÁÈ¡´ËÍ¼Æ¬µÄÏêÏ¸ĞÅÏ¢£¬ÇëÉÔºò ...</DIV></td></tr></table></span><BR><BR>);
+		else
+		{
+			$addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> æ­¤ä¸»é¢˜ç›¸å…³å›¾ç‰‡å¦‚ä¸‹ï¼š<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext border=0 alt="æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡" onload="javascript: if(this.width > document.body.clientWidth - 333) this.width = document.body.clientWidth - 333" onmousewheel="return bbimg(this)"></a><br><br>~;
+		}
+	        $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,$rnrn,'$up_ext')><img id=followImg$rnrn src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> æŒ‰æ­¤æŸ¥çœ‹å›¾ç‰‡è¯¦ç»†ä¿¡æ¯<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$rnrn style=DISPLAY:none><tr><td id=followTd$rnrn><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,$rnrn,'$up_ext')>æ­£åœ¨è¯»å–æ­¤å›¾ç‰‡çš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·ç¨å€™ ...</DIV></td></tr></table></span><BR><BR>);
 	}
 	elsif ($up_ext eq "swf")
 	{
 		if ($arrawpostflash eq "on")
 		{
-			$addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> ¸ÃÖ÷ÌâÓĞÒ»¸ö $up_ext ¸ñÊ½ Flash ¶¯»­ (¹² $fileinfo[7] ×Ö½Ú)<br><br><param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext quality=high width=410 height=280 pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank>È«ÆÁ¹Û¿´</a> (°´ÓÒ¼üÏÂÔØ)<br><br>~;
+			$addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> è¯¥ä¸»é¢˜æœ‰ä¸€ä¸ª $up_ext æ ¼å¼ Flash åŠ¨ç”» (å…± $fileinfo[7] å­—èŠ‚)<br><br><param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext quality=high width=410 height=280 pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank>å…¨å±è§‚çœ‹</a> (æŒ‰å³é”®ä¸‹è½½)<br><br>~;
 		}
 		else
 		{
-			$addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>µã»÷ĞÀÉÍ Flash ¶¯»­</a>~;
+			$addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>ç‚¹å‡»æ¬£èµ Flash åŠ¨ç”»</a>~;
 		}
 	}
 	else
 	{
-		$addme = qq~<font color=$fonthighlight>Ïà¹Ø¸½¼ş</font>£º<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="¸ÃÖ÷ÌâÓĞÒ»¸ö¡°$filetype¡±ÀàĞÍ¸½¼ş£¬µã»÷ÏÂÔØ"></a> (¹² $fileinfo[7] ×Ö½Ú)<br><br>~;		
+		$addme = qq~<font color=$fonthighlight>ç›¸å…³é™„ä»¶</font>ï¼š<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="è¯¥ä¸»é¢˜æœ‰ä¸€ä¸ªâ€œ$filetypeâ€ç±»å‹é™„ä»¶ï¼Œç‚¹å‡»ä¸‹è½½"></a> (å…± $fileinfo[7] å­—èŠ‚)<br><br>~;		
 	}
 	}
 	else
@@ -700,7 +710,7 @@ for ($i = 1; $i < @threads; $i++)
 	if ($idmbcodestate eq "on")
 	{
 		&lbcode(\$post);
-		if ($post =~ /<blockquote><font face=ËÎÌå>´úÂë/isg)
+		if ($post =~ /<blockquote><font face=å®‹ä½“>ä»£ç /isg)
 		{
 			$post =~ s/\&amp\;/\&/ig;
 			$post =~ s/\&lt\;br\&gt\;/<br>/ig;
@@ -731,13 +741,13 @@ for ($i = 1; $i < @threads; $i++)
 <table style="table-layout: fixed" cellPadding=8 cellSpacing=1 border=0 width=100%>
 <tr>
 <td bgColor=#ffffff rowspan=2 valign=top width=100 $postipaddresstemp><font color=#000000><b><a href=profile.cgi?action=show&member=$memberfilename target=_blank>$membername</a></b></font></td>
-<td bgColor=#ffffff><font color=#000000><b>·¢±íÓÚ£º $postdate</b><br>$addme</td>
+<td bgColor=#ffffff><font color=#000000><b>å‘è¡¨äºï¼š $postdate</b><br>$addme</td>
 </tr>
 <tr>
 <td bgColor=#ffffff style="left: 0px; width: 100%; word-wrap: break-word">$post</td>
 </tr>
 <tr>
-<td colspan=2 bgColor=#eeeeee align=right>&nbsp;<a href=#top><img src=$imagesurl/images/gotop.gif border=0 weight=15 height=15 align=absmiddle>¶¥²¿</a></td>
+<td colspan=2 bgColor=#eeeeee align=right>&nbsp;<a href=#top><img src=$imagesurl/images/gotop.gif border=0 weight=15 height=15 align=absmiddle>é¡¶éƒ¨</a></td>
 </tr>
 </table>~;
 }
@@ -753,7 +763,7 @@ print qq~
 function bbimg(o){var zoom=parseInt(o.style.zoom, 10)||100;zoom+=event.wheelDelta/12;if (zoom>0) o.style.zoom=zoom+'%';return false;}
 var correctwidth = 800;
 var correctheight = 600;
-if (screen.width != correctwidth || screen.height != correctheight) document.write("½¨ÒéÊ¹ÓÃ" + correctwidth + "¡Á" + correctheight + "ÒÔÉÏ·Ö±æÂÊ. Äúµ±Ç°µÄ·Ö±æÂÊÊÇ:" + screen.width + "¡Á" + screen.height+"¡£");
+if (screen.width != correctwidth || screen.height != correctheight) document.write("å»ºè®®ä½¿ç”¨" + correctwidth + "Ã—" + correctheight + "ä»¥ä¸Šåˆ†è¾¨ç‡. æ‚¨å½“å‰çš„åˆ†è¾¨ç‡æ˜¯:" + screen.width + "Ã—" + screen.height+"ã€‚");
 --></script>
 </td></tr>
 </table></div><br>

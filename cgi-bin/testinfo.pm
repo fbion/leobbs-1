@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 package testinfo;
@@ -47,7 +47,7 @@ sub ipwhere
 	$ipfile="${main::lbdir}data/QQWry.Dat" if (!(-e "$ipfile"));
 	$ipfile="${main::lbdir}data/QQWry.dat" if (!(-e "$ipfile"));
 
-	return "Î´ÖªµØÇø!" if (!(-e "$ipfile"));
+	return "æœªçŸ¥åœ°åŒº!" if (!(-e "$ipfile"));
 
 	open(FILE, "$ipfile");
 	binmode(FILE);
@@ -84,7 +84,7 @@ sub ipwhere
 		$ip2num = unpack("L", $ipData2);
 		if ($ip2num < $ipNum)
 		{
-			return 'Î´ÖªµØÇø' if ($Middle == $BeginNum);
+			return 'æœªçŸ¥åœ°åŒº' if ($Middle == $BeginNum);
 			$BeginNum = $Middle;
 		}
 	}
@@ -148,7 +148,7 @@ sub ipwhere
 	$ipaddr =~ s/CZ88\.NET//isg;
 	$ipaddr =~ s/^\s*//sg;
 	$ipaddr =~ s/\s*$//sg;
-	$ipaddr = 'Î´ÖªµØÇø' if ($ipaddr=~/Î´Öª|http/i || $ipaddr eq '');
+	$ipaddr = 'æœªçŸ¥åœ°åŒº' if ($ipaddr=~/æœªçŸ¥|http/i || $ipaddr eq '');
 	return $ipaddr;
 }
 

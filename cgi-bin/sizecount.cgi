@@ -369,8 +369,10 @@ $searchdir = $searchdir[0];
 	                $tsize = sprintf("%6.2f",$tsize);
 	                $tsize =~ s/\s//g;
 
-	                $output .= "<tr><td>|           	($tforumno,$forumname,$showsize,$osize) = split(/\t/);
-	                	$output .= "<tr><td>|£ |£ |- $forumname</td><td>$showsize</td><Td>($osize ×Ö½Ú)</td><tr>\n$output{$tforumno}";
+	                $output .= "<tr><td>|î—¥|- <font color=blue>$typename</td><td><font color=blue>&nbsp;$tsize $lbsd</td><td><font color=blue>($osize å­—èŠ‚)</td></tr>\n";
+	                foreach(@forumsizes{@forumids}) {
+	                	($tforumno,$forumname,$showsize,$osize) = split(/\t/);
+	                	$output .= "<tr><td>|î—¥|î—¥|- $forumname</td><td>$showsize</td><Td>($osize å­—èŠ‚)</td><tr>\n$output{$tforumno}";
 	                }
 	        }
 	        $osize = $tsize = $forumsize;
@@ -390,7 +392,7 @@ $searchdir = $searchdir[0];
                 }
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
-	        print "<tr><td>|- <B>ÂÛÌ³Ìû×ÓÕ¼ÓÃ¿Õ¼ä£º</B></td><td><B>&nbsp;$tsize $lbsd</B></td><td><B>($osize ×Ö½Ú)</B></td></tr>\n";
+	        print "<tr><td>|- <B>è®ºå›å¸–å­å ç”¨ç©ºé—´ï¼š</B></td><td><B>&nbsp;$tsize $lbsd</B></td><td><B>($osize å­—èŠ‚)</B></td></tr>\n";
 	        print $output;
 
 	        $osize = $tsize = $progsize;
@@ -409,7 +411,7 @@ $searchdir = $searchdir[0];
                 }
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
-	        print "<tr><td>|- ³ÌĞòÎÄ¼şÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+	        print "<tr><td>|- ç¨‹åºæ–‡ä»¶å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 
 
 		$tsize = 0;
@@ -433,7 +435,7 @@ $searchdir = $searchdir[0];
                 $tsize =~ s/\s//g;
 
 		print "<tr height=20><td colspan=3>&nbsp;</td></tr>\n";
-		print "<tr><td><font color=blue><b>non-cgi Õ¼ÓÃ¿Õ¼ä£º</b></td><td><font color=blue><b>&nbsp;$tsize $lbsd</b></td><td><font color=blue><b>($osize ×Ö½Ú)</b></td></tr>\n";
+		print "<tr><td><font color=blue><b>non-cgi å ç”¨ç©ºé—´ï¼š</b></td><td><font color=blue><b>&nbsp;$tsize $lbsd</b></td><td><font color=blue><b>($osize å­—èŠ‚)</b></td></tr>\n";
 
 		$tsize = 0;
                 find(\&countsize,"${imagesdir}$usrdir");
@@ -455,7 +457,7 @@ $searchdir = $searchdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- Ìû×Ó¸½¼şÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- å¸–å­é™„ä»¶å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 
 		$tsize = 0;
                 find(\&countsize,"${imagesdir}usravatars");
@@ -477,7 +479,7 @@ $searchdir = $searchdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÓÃ»§ÉÏ´«Í·ÏñÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- ç”¨æˆ·ä¸Šä¼ å¤´åƒå ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 
 		$osize = $tsize = $nonsize;
                 if($tsize > 1024) {
@@ -495,7 +497,7 @@ $searchdir = $searchdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td>|- ÆäËûÎÄ¼şÕ¼ÓÃ¿Õ¼ä£º</td><td>&nbsp;$tsize $lbsd</td><td>($osize ×Ö½Ú)</td></tr>\n";
+		print "<tr><td>|- å…¶ä»–æ–‡ä»¶å ç”¨ç©ºé—´ï¼š</td><td>&nbsp;$tsize $lbsd</td><td>($osize å­—èŠ‚)</td></tr>\n";
 		print "<tr height=50><td colspan=3>&nbsp;</td></tr>\n";
 
 		$osize = $tsize = $allsize;
@@ -514,7 +516,7 @@ $searchdir = $searchdir[0];
                 $tsize = sprintf("%6.2f",$tsize);
                 $tsize =~ s/\s//g;
 
-		print "<tr><td><font color=red><b>ÂÛÌ³Õ¼ÓÃ×Ü¿Õ¼ä£º</b></td><td><font color=red><b>&nbsp;$tsize $lbsd</b></td><td><font color=red><b>($osize ×Ö½Ú)</b></td></tr>\n";
+		print "<tr><td><font color=red><b>è®ºå›å ç”¨æ€»ç©ºé—´ï¼š</b></td><td><font color=red><b>&nbsp;$tsize $lbsd</b></td><td><font color=red><b>($osize å­—èŠ‚)</b></td></tr>\n";
 
 
 		print qq~
@@ -530,23 +532,23 @@ $searchdir = $searchdir[0];
         if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
                 print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-		<b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Í³¼ÆÂÛÌ³Õ¼ÓÃ¿Õ¼ä</b>
+		<b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç»Ÿè®¡è®ºå›å ç”¨ç©ºé—´</b>
 		</td></tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<font color=#333333><b>Í³¼ÆÂÛÌ³Õ¼ÓÃ¿Õ¼ä</b>
+		<font color=#333333><b>ç»Ÿè®¡è®ºå›å ç”¨ç©ºé—´</b>
 		</td></tr>
 		<form action="$thisprog" method="post">
 		<input type=hidden name="action" value="process">
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle colspan=2>
 		<font color=#000000>
-		<b>Çë×¢Òâ:</b><br>´Ë¹ı³Ì½«ºÄ·Ñ´óÁ¿CPUÊ±¼äºÍÏµÍ³×ÊÔ´£¬Çë¾¡Á¿ÉÙÓÃ±¾¹¦ÄÜ£¡
+		<b>è¯·æ³¨æ„:</b><br>æ­¤è¿‡ç¨‹å°†è€—è´¹å¤§é‡CPUæ—¶é—´å’Œç³»ç»Ÿèµ„æºï¼Œè¯·å°½é‡å°‘ç”¨æœ¬åŠŸèƒ½ï¼
 		</td>
 		</tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-		<input type=submit name=submit value=Ìá½»></td></form></tr></table></td></tr></table>
+		<input type=submit name=submit value=æäº¤></td></form></tr></table></td></tr></table>
 		);
 	}
         else {

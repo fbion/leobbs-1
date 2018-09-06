@@ -165,9 +165,17 @@ foreach $teammember (@teamlist[$startmember ... $endmember]) {
          chomp @userdetail;
    #	 $userdetail[0] =~ tr/A-Z/a-z/;
 	next if (($userdetail[3] ne "ad")&&($userdetail[3] ne "smo")&&($userdetail[3] ne "cmo")&&($userdetail[3] ne "mo")&&($userdetail[3] ne "amo"));
-         ## Definiere die Hintergrund- und Textfarbe f         ## Registrierdatum
+         ## Definiere die Hintergrund- und Textfarbe fé»µ die Zeilen
+         if ($lastcolor eq $postcolortwo) {
+             $color = $postcolorone;
+             $fontcolor = $postfontcolorone; }
+         else {
+             $color = $postcolortwo;
+             $fontcolor = $postfontcolortwo; }
+
+         ## Registrierdatum
          $userdetail[13] = $userdetail[13] + ($userdetail[16] + $timezone) * 3600;
-         if ($userdetail[13]) { $userdetail[13] = &longdate ($userdetail[13]) } else { $userdetail[13] = "Î´Öª"; } 
+         if ($userdetail[13]) { $userdetail[13] = &longdate ($userdetail[13]) } else { $userdetail[13] = "æœªçŸ¥"; } 
 
        $lastgone   = $userdetail[26]; 
        $lastgone   = $joineddate if($lastgone eq ""); 
@@ -208,11 +216,11 @@ foreach $teammember (@teamlist[$startmember ... $endmember]) {
         elsif ($jifen >= $mpostmark3)  { $mtitle =  $mtitle3;   $membergraphic = $mgraphic3; }
         elsif ($jifen >= $mpostmark2)  { $mtitle =  $mtitle2;   $membergraphic = $mgraphic2; }
         elsif ($jifen >= $mpostmark1)  { $mtitle =  $mtitle1;   $membergraphic = $mgraphic1; }
-        else { $mtitle = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic = $mgraphic0; }  #ÏÔÊ¾Ä¬ÈÏµÈ¼¶
+        else { $mtitle = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic = $mgraphic0; }  #æ˜¾ç¤ºé»˜è®¤ç­‰çº§
          if ($membergraphic) {
              $membergraphic = qq~<img src="$imagesurl/images/$membergraphic" border="0" width=100 height=9>~; }
         if ($avatars eq "on") {
-	    if (($userdetail[22])&&($userdetail[23])&&($userdetail[24])) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+	    if (($userdetail[22])&&($userdetail[23])&&($userdetail[24])) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 	    	$userdetail[22] =~ s/\$imagesurl/${imagesurl}/o;
 	        if (($userdetail[22] =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 	            $userdetail[22]=uri_escape($userdetail[22]);
@@ -233,89 +241,89 @@ foreach $teammember (@teamlist[$startmember ... $endmember]) {
         ## Setze Mitgliedsstatus 
         if ($userdetail[3] eq "ad") {
             $posterfontcolor = "$adminnamecolor";
-            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamad.gif" border=0 alt=´ËÈËÎªÌ³Ö÷ width=16 height=14>~;
+            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamad.gif" border=0 alt=æ­¤äººä¸ºå›ä¸» width=16 height=14>~;
             $membergraphic = "<img src=\"$imagesurl/images/$admingraphic\" border=\"0\" width=100 height=9>" if ($admingraphic ne "");
             $mtitle = $adtitle if ($adtitle ne "");
             if (($userdetail[2] eq "member")||($userdetail[2] eq "Member")||($userdetail[2] eq "")) {
-                $membertitle = qq~<font face="$font" color=$fontcolor>ÂÛÌ³Ì³Ö÷</font>~; }
+                $membertitle = qq~<font face="$font" color=$fontcolor>è®ºå›å›ä¸»</font>~; }
             else {
                 $membertitle = qq~<font face="$font" color=$fontcolor>$userdetail[2]</font>~; } }
         elsif ($userdetail[3] eq "mo") {
             $posterfontcolor = "$teamnamecolor";
-            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teammo.gif" border=0 alt=´ËÈËÎª°æÖ÷ width=16 height=14>~;
+            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teammo.gif" border=0 alt=æ­¤äººä¸ºç‰ˆä¸» width=16 height=14>~;
             $membergraphic = "<img src=\"$imagesurl/images/$modgraphic\" border=\"0\" width=100 height=9>" if ($modgraphic ne "");
             $mtitle = $motitle if ($motitle ne "");
             if (($userdetail[2] eq "")||($userdetail[2] eq "Member")||($userdetail[2] eq "member")) {
-                $membertitle = qq~<font face="$font" color=$fontcolor>ÂÛÌ³°æÖ÷</font>~; }
+                $membertitle = qq~<font face="$font" color=$fontcolor>è®ºå›ç‰ˆä¸»</font>~; }
             else {
                 $membertitle = qq~<font face="$font" color=$fontcolor>$userdetail[2]</font>~; } }
 	elsif ($userdetail[3] eq "amo") {
 		$posterfontcolor = "$amonamecolor";
-            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamamo.gif" border=0 alt=´ËÈËÎª¸±°æÖ÷ width=16 height=14>~;
+            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamamo.gif" border=0 alt=æ­¤äººä¸ºå‰¯ç‰ˆä¸» width=16 height=14>~;
             $membergraphic = "<img src=\"$imagesurl/images/$amodgraphic\" border=\"0\" width=100 height=9>" if ($amodgraphic ne "");
             $mtitle = $amotitle if ($amotitle ne "");
             if (($userdetail[2] eq "")||($userdetail[2] eq "Member")||($userdetail[2] eq "member")) {
-                $membertitle = qq~<font face="$font" color=$fontcolor>ÂÛÌ³¸±°æÖ÷</font>~; }
+                $membertitle = qq~<font face="$font" color=$fontcolor>è®ºå›å‰¯ç‰ˆä¸»</font>~; }
             else {
                 $membertitle = qq~<font face="$font" color=$fontcolor>$userdetail[2]</font>~; } }
 	elsif ($userdetail[3] eq "cmo") {
 		$posterfontcolor = "$cmonamecolor";
-            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamcmo.gif" border=0 alt=´ËÈËÎª·ÖÀàÇø°æÖ÷ width=16 height=14>~;
+            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamcmo.gif" border=0 alt=æ­¤äººä¸ºåˆ†ç±»åŒºç‰ˆä¸» width=16 height=14>~;
             $membergraphic = "<img src=\"$imagesurl/images/$cmodgraphic\" border=\"0\" width=100 height=9>" if ($cmodgraphic ne "");
             $mtitle = $cmotitle if ($cmotitle ne "");
             if (($userdetail[2] eq "")||($userdetail[2] eq "Member")||($userdetail[2] eq "member")) {
-                $membertitle = qq~<font face="$font" color=$fontcolor>·ÖÀàÇø°æÖ÷</font>~; }
+                $membertitle = qq~<font face="$font" color=$fontcolor>åˆ†ç±»åŒºç‰ˆä¸»</font>~; }
             else {
                 $membertitle = qq~<font face="$font" color=$fontcolor>$userdetail[2]</font>~; } }
 	elsif ($userdetail[3] eq "smo") {
 		$posterfontcolor = "$smonamecolor";
-            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamsmo.gif" border=0 alt=´ËÈËÎª×Ü°æÖ÷ width=16 height=14>~;
+            $membername = qq~$userdetail[0] <img src="$imagesurl/images/teamsmo.gif" border=0 alt=æ­¤äººä¸ºæ€»ç‰ˆä¸» width=16 height=14>~;
             $membergraphic = "<img src=\"$imagesurl/images/$smodgraphic\" border=\"0\" width=100 height=9>" if ($smodgraphic ne "");
             $mtitle = $smotitle if ($smotitle ne "");
             if (($userdetail[2] eq "")||($userdetail[2] eq "Member")||($userdetail[2] eq "member")) {
-                $membertitle = qq~<font face="$font" color=$fontcolor>×Ü°æÖ÷</font>~; }
+                $membertitle = qq~<font face="$font" color=$fontcolor>æ€»ç‰ˆä¸»</font>~; }
             else {
                 $membertitle = qq~<font face="$font" color=$fontcolor>$userdetail[2]</font>~; } }
 	## Setze letzte Beitrags-Details
 	($postdate, $posturl, $posttopic) = split(/\%%%/, $userdetail[14]);
-	if ($postdate ne "Ã»ÓĞ·¢±í¹ı") {
+	if ($postdate ne "æ²¡æœ‰å‘è¡¨è¿‡") {
 	    $postdate = $postdate + ($userdetail[16] * 3600) + ($timezone * 3600);
             $lastpostdate = &longdate ("$postdate");
             $lastposttime = &shorttime ("$postdate");
 
-	    $posttopic =~ s/^£ª£££¡£¦£ª//;
+	    $posttopic =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 
 	    $lastpostdetails = qq~<a href="$posturl">$posttopic</a> ($lastpostdate $lastposttime)~; }
-	else { $lastpostdetails = qq~´ÓÎ´·¢ÑÔ¹ı~; }
-	if ($posturl eq "" && $posttopic eq "" && $postdate ne "Ã»ÓĞ·¢±í¹ı") {$lastpostdetails = qq~ÊÇ·¢ÔÚ±£ÃÜÂÛÌ³µÄÓ´£¬²»¸ø¿´~; }
+	else { $lastpostdetails = qq~ä»æœªå‘è¨€è¿‡~; }
+	if ($posturl eq "" && $posttopic eq "" && $postdate ne "æ²¡æœ‰å‘è¡¨è¿‡") {$lastpostdetails = qq~æ˜¯å‘åœ¨ä¿å¯†è®ºå›çš„å“Ÿï¼Œä¸ç»™çœ‹~; }
 
     my $membernametemp = "\_$userdetail[0]\_";
-    if ($onlineuserlist =~ /$membernametemp/i) { $onlineinfo = "¸ÃÓÃ»§Ä¿Ç°ÔÚÏß";$onlinepic="online1.gif"; } else { $onlineinfo = "¸ÃÓÃ»§Ä¿Ç°²»ÔÚÏß";$onlinepic="offline1.gif"; }
-    if (($inmembercode eq "ad")&&($onlineuserlisthidden =~ /$membernametemp/i)) { $onlineinfo = "¸ÃÓÃ»§Ä¿Ç°´¦ÓÚÒşÉí×´Ì¬";$onlinepic="onlinehidden.gif"; }
+    if ($onlineuserlist =~ /$membernametemp/i) { $onlineinfo = "è¯¥ç”¨æˆ·ç›®å‰åœ¨çº¿";$onlinepic="online1.gif"; } else { $onlineinfo = "è¯¥ç”¨æˆ·ç›®å‰ä¸åœ¨çº¿";$onlinepic="offline1.gif"; }
+    if (($inmembercode eq "ad")&&($onlineuserlisthidden =~ /$membernametemp/i)) { $onlineinfo = "è¯¥ç”¨æˆ·ç›®å‰å¤„äºéšèº«çŠ¶æ€";$onlinepic="onlinehidden.gif"; }
     $online = qq~<IMG SRC=$imagesurl/images/$onlinepic width=15 alt=$onlineinfo>~;
 
         ## Mehr Details
 	$userdetail[5] = &encodeemail($userdetail[5]);
 	$userdetail[6] = "no" if ($dispmememail eq "no");
-	if ($userdetail[6] eq "no") {$email = "±£ÃÜ"; }
+	if ($userdetail[6] eq "no") {$email = "ä¿å¯†"; }
 	elsif ($userdetail[6] eq "msn") {$email = qq~<img src=$imagesurl/images/msn.gif border=0 width=16 align=absmiddle> <a href="mailto:$userdetail[5]">$userdetail[5]</a>~; }
 	elsif ($userdetail[6] eq "popo") {$email = qq~<img src=$imagesurl/images/popo.gif border=0 width=16 align=absmiddle> <a href="mailto:$userdetail[5]">$userdetail[5]</a>~; }
         else {$email = qq~<a href="mailto:$userdetail[5]">$userdetail[5]</a>~; }
 
         if ($userdetail[8] eq "" || $userdetail[8] eq "http://") {
-            $homepage = "Ã»ÓĞ"; }
+            $homepage = "æ²¡æœ‰"; }
         else {
             $homepage = qq~<a href="$userdetail[8]" target="_blank">$userdetail[8]</a>~; }
         if ($userdetail[9] eq "") {
-            $oicqnumber = "Ã»ÓĞ"; }
+            $oicqnumber = "æ²¡æœ‰"; }
         else {
             $oicqnumber = $userdetail[9]; }
         if ($userdetail[10] eq "") {
-            $icqnumber = "Ã»ÓĞ"; }
+            $icqnumber = "æ²¡æœ‰"; }
         else {
             $icqnumber = $userdetail[10]; }
         if ($userdetail[39] eq "") {
-            $jhmp = "ÎŞÃÅÎŞÅÉ"; }
+            $jhmp = "æ— é—¨æ— æ´¾"; }
         else {
             $jhmp = $userdetail[39]; }
 
@@ -359,7 +367,7 @@ undef $subforumname;
             }
         }
         if (!@moderatedforums) {
-           @moderatedforums = "$userdetail[0] Ã»ÓĞÖ÷³ÖÈÎºÎ°æ¿é"; }
+           @moderatedforums = "$userdetail[0] æ²¡æœ‰ä¸»æŒä»»ä½•ç‰ˆå—"; }
         @moderatedforums = sort alphabetically (@moderatedforums);
 
         ## Schreibe HTML in eine Variable
@@ -367,46 +375,46 @@ undef $subforumname;
         <!--Begin Profile for $userdetail[0]-->
         <tr bgcolor=$color>
         <td valign=top>
-	<table style="filter:glow(color=$titlecolor,strength=2)">$online¡¡<font face="$posternamefont" color="$posterfontcolor"><b>$membername</b></font>
+	<table style="filter:glow(color=$titlecolor,strength=2)">$onlineã€€<font face="$posternamefont" color="$posterfontcolor"><b>$membername</b></font>
 	</table>
-        Í·ÏÎ£º$membertitle
+        å¤´è¡”ï¼š$membertitle
         <br>$useravatar
         <br>$membergraphic
-        <br>¼¶±ğ£º<a href="lookinfo.cgi?action=style" target="_blank">$mtitle</a><br>ÃÅÅÉ: $jhmp</td>
+        <br>çº§åˆ«ï¼š<a href="lookinfo.cgi?action=style" target="_blank">$mtitle</a><br>é—¨æ´¾: $jhmp</td>
         <td valign=top><table cellspacing=0 cellpadding=0 border=0 width=100%>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>×¢²áÈÕÆÚ£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>æ³¨å†Œæ—¥æœŸï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor $userdetail[7]>$userdetail[13]</font></td>
         </tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>×îºó·¢ÑÔ£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>æœ€åå‘è¨€ï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor>$lastpostdetails</font></td>
         </tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>Ê§×ÙÌìÊı£º</font></td>
-        <td width=75% valign=top><font face="$font" color=$fontcolor>$novisitdate Ìì</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>å¤±è¸ªå¤©æ•°ï¼š</font></td>
+        <td width=75% valign=top><font face="$font" color=$fontcolor>$novisitdate å¤©</font></td>
         </tr>
         <tr><td colspan=2><font face="$font">&nbsp;</font></td></tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>µç×ÓÓÊ¼ş£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>ç”µå­é‚®ä»¶ï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor>$email</font></td>
         </tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>Ö÷Ò³£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>ä¸»é¡µï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor>$homepage</font></td>
         </tr>
         <tr><td colspan=2><font face="$font">&nbsp;</font></td></tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>OICQ ºÅÂë£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>OICQ å·ç ï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor>$oicqnumber</font></td>
         </tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>ICQ ºÅÂë£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>ICQ å·ç ï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor>$icqnumber</font></td>
         </tr>
         <tr><td colspan=2><font face="$font">&nbsp;</font></td></tr>
         <tr>
-        <td width=25% valign=top><font face="$font" color=$fontcolor>Ö÷³Ö°å¿é£º</font></td>
+        <td width=25% valign=top><font face="$font" color=$fontcolor>ä¸»æŒæ¿å—ï¼š</font></td>
         <td width=75% valign=top><font face="$font" color=$fontcolor>@moderatedforums</font></td>
         </tr>
         </table></td>
@@ -430,20 +438,18 @@ undef $subforumname;
 
 $output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´µ½±¾Õ¾ËùÓĞ¹ÜÀíÈËÔ±µÄÁĞ±í¼°ÏêÏ¸ĞÅÏ¢</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="team.cgi">¹ÜÀíÍÅ¶Ó</a> ¡ú ²é¿´ÁĞ±í<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹åˆ°æœ¬ç«™æ‰€æœ‰ç®¡ç†äººå‘˜çš„åˆ—è¡¨åŠè¯¦ç»†ä¿¡æ¯</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="team.cgi">ç®¡ç†å›¢é˜Ÿ</a> â†’ æŸ¥çœ‹åˆ—è¡¨<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td>
 <table cellpadding=6 cellspacing=1 border=0 width=100%>
 <tr bgcolor=$titlecolor>
-<td width=25% align=center $catbackpic><font face="$font" color=$titlefontcolor><b>¹Ü Àí ÈË Ô±</b></td>
-<td width=75% align=center $catbackpic><font face="$font" color=$titlefontcolor><b>Ïê Ï¸ ĞÅ Ï¢</b></td>
+<td width=25% align=center $catbackpic><font face="$font" color=$titlefontcolor><b>ç®¡ ç† äºº å‘˜</b></td>
+<td width=75% align=center $catbackpic><font face="$font" color=$titlefontcolor><b>è¯¦ ç»† ä¿¡ æ¯</b></td>
 </tr>
-
 $teamguts
-
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <p>
@@ -451,7 +457,7 @@ $teamguts
 <tr>
 <td><table cellpadding=6 cellspacing=1 border=0 width=100%>
 <tr bgcolor=$menubackground>
-<td align=center><font face=ËÎÌå color=$fontcolormisc>$pagelinks</font></td>
+<td align=center><font face=å®‹ä½“ color=$fontcolormisc>$pagelinks</font></td>
 </tr>
 </table></td>
 </tr>
@@ -460,5 +466,5 @@ $teamguts
 
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");    
-&output("$boardname - ¹ÜÀíÍÅ¶Ó",\$output);
+&output("$boardname - ç®¡ç†å›¢é˜Ÿ",\$output);
 exit;
