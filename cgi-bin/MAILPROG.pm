@@ -83,7 +83,7 @@ sub send_mail {
 	print MAIL "Subject: $subject\n";
 	print MAIL "Reply-to: $tempname<$replyaddr>\n" if ($replyaddr ne "");
 	print MAIL "X-Mailer: LeoBBS Sendmail Mail Sender\n";
-	print MAIL "Content-Type: text/html; charset=gb2312\n";
+	print MAIL "Content-Type: text/html; charset=UTF-8\n";
 	print MAIL "Content-Transfer-Encoding: base64\n\n";
 	print MAIL $message;
 	print MAIL "\n.";
@@ -175,7 +175,7 @@ sub smtpmail {
 	print S "Subject: $subject\r\n";
 	print S "Reply-To: $tempname<$replyaddr>\r\n" if ($replyaddr);
 	print S "X-Mailer: LeoBBS eSmtp Mail Sender\r\n";
-	print S "Content-Type: text/html; charset=gb2312\r\n";
+	print S "Content-Type: text/html; charset=UTF-8\r\n";
 	print S "Content-Transfer-Encoding: base64\r\n\r\n";
 	print S "$body\r\n";
 	print S "\r\n\r\n";
@@ -293,7 +293,7 @@ sub directmail
 			print S "Subject: $subject\r\n";
 			print S "Reply-To: $tempname<$replyaddr>\r\n" if ($replyaddr);
 			print S "X-Mailer: 94Cool Direct Mail Sender\r\n";
-			print S "Content-Type: text/html; charset=gb2312\r\n";
+			print S "Content-Type: text/html; charset=UTF-8\r\n";
 			print S "Content-Transfer-Encoding: base64\r\n\r\n";
 			print S "$body\r\n";
 			print S "\r\n\r\n";
@@ -311,7 +311,7 @@ sub directmail
 
 sub mimeencode {
     my $str = shift;
-    return '=?gb2312?B?'.Base64encode($str).'?=';
+    return '=?UTF-8?B?'.Base64encode($str).'?=';
 }
 
 sub Base64encode {

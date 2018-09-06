@@ -137,7 +137,7 @@ if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$cat
 
 require "postjs.cgi";
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $maxpollitem = 5  if (($maxpollitem eq "")||($maxpollitem !~ /^[0-9]+$/));
 $maxpollitem = 5  if ($maxpollitem < 5);

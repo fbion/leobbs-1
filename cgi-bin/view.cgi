@@ -515,7 +515,7 @@ $topictitletemp =~s/\'/\`/isg;
 
 print qq~
 <html><head><title>$topictitle</title>
-<meta http-equiv="Content-Type" Content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" Content="text/html; charset=UTF-8">
 <script language="JavaScript" src=$imagesurl/images/board.js></script>
 <style>
 body	{font-size: 9pt; font-family: "MS Shell Dlg"}

@@ -29,7 +29,7 @@ $|++;
 $show.= qq~<card  title="$boardname">~;
 $inmembername = $query -> param('n1');
 if($inmembername ne ''){ # login
-$inmembername= $uref->fromUTF8("gb2312",$inmembername);
+$inmembername= $uref->fromUTF8("UTF-8",$inmembername);
 $inpassword = $query -> param('p');
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};

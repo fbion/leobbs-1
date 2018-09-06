@@ -89,7 +89,7 @@ $output = qq~<p>
 <tr><td bgcolor=$miscbacktwo $catbackpic align=center height=26><font color=$fontcolormisc><b>$title</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>$mytopics</font></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output("$boardname - 主题关注",\$output,"msg");
 exit;
 

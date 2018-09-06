@@ -63,6 +63,6 @@ $output = <<"HTML";
 </table><br>
 HTML
 
-print header( -charset => gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header( -charset => UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output("$boardname - 邮箱限制",\$output,'msg');
 exit;

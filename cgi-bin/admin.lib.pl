@@ -81,7 +81,7 @@ sub admintitle {
 <html>
 <head>
 <title>LeoBBS - 论坛管理中心</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 BODY {BACKGROUND: #799ae1; FONT: 9pt 宋体;}
 TABLE {BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px}

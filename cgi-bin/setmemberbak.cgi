@@ -52,7 +52,7 @@ $beginone     = 0    if ($beginone !~ /^[0-9]+$/);
 $totolerepire = 0    if ($totolerepire !~ /^[0-9]+$/);
 
 &getadmincheck;
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");       
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");       
 &admintitle;
 
 &getmember("$inmembername","no");

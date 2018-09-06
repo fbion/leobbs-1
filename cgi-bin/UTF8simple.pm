@@ -37,8 +37,8 @@ Unicode::UTF8simple - Conversions to/from UTF8 from/to charactersets
  
  my $uref = new Unicode::UTF8simple;
 
- #convert a string (here: schön) to a utf8 byte string 
- my $utf8string=$uref->toUTF8("iso-8859-1","schön");
+ #convert a string (here: schï¿½n) to a utf8 byte string 
+ my $utf8string=$uref->toUTF8("iso-8859-1","schï¿½n");
 
  #convert a string from utf-8 to specified encoding
  my $string=$uref->fromUTF8("iso-8859-1",$utf8string);
@@ -46,8 +46,8 @@ Unicode::UTF8simple - Conversions to/from UTF8 from/to charactersets
  #get a lit of supported encodings:
  my @listOfNames=$uref->enclist();
 
- #check if a given encoding (here gb2312) is supported
- if ($uref->encsup('gb2312')){ ... }
+ #check if a given encoding (here UTF-8) is supported
+ if ($uref->encsup('UTF-8')){ ... }
 
 =head1 DESCRIPTION
 
@@ -120,7 +120,7 @@ sub initialize($) {
 0x8F => 0x0688, 0x9A => 0x0691, 0x8E => 0x0698, 0x98 => 0x06A9, 0x90 => 0x06AF,
 0x9F => 0x06BA, 0xAA => 0x06BE, 0xC0 => 0x06C1, 0xFF => 0x06D2
     );
-    my %byte2uni16_gb2312=(
+    my %byte2uni16_UTF-8=(
 0xa1a1=>0x3000,0xa1a2=>0x3001,0xa1a3=>0x3002,0xa1a4=>0x30FB,0xa1a5=>0x02C9,
 0xa1a6=>0x02C7,0xa1a7=>0x00A8,0xa1a8=>0x3003,0xa1a9=>0x3005,0xa1aa=>0x2015,
 0xa1ab=>0xFF5E,0xa1ac=>0x2225,0xa1ad=>0x2026,0xa1ae=>0x2018,0xa1af=>0x2019,
@@ -1669,18 +1669,18 @@ sub initialize($) {
     $self->{'koi8-r'}=\%byte2uni16_koi8_r;
     $self->{'windows-1256'}=\%byte2uni16_cp1256; # arabic = windows-1256 = cp1256
     $self->{'euc-kr'}=\%byte2uni16_euc_kr; # korean
-    #gb2312 encoding (Simplified Chinese):
+    #UTF-8 encoding (Simplified Chinese):
     #
     #All double byte characters have the msb set. If a character 
     #has 0x80 set then it is the start of a double byte char.
     #If the 0x80 bit is not set then it is a normal ascii character.
     #
-    #The mapping raw table to utf characters (file gb2312.txt) does not have 
+    #The mapping raw table to utf characters (file UTF-8.txt) does not have 
     #the msb set you have to add 0x8080 to get from there to the hash shown above. 
     #
-    #The gb2312 uses actually only
+    #The UTF-8 uses actually only
     #double-byte GB: 0xA1-0xFE
-    $self->{'gb2312'}=\%byte2uni16_gb2312;
+    $self->{'UTF-8'}=\%byte2uni16_UTF-8;
     # build the reverse tables:
     $self->{'iso-8859-1_r'}={};
     $self->{'utf-8_r'}={};
@@ -1723,7 +1723,7 @@ sub toUTF8($$$){
     my $str=shift;
     my $twobyte=0;
     return($str) if ($enc eq 'utf-8');
-    $twobyte=1 if ($enc eq 'gb2312');
+    $twobyte=1 if ($enc eq 'UTF-8');
     my @rval;
     my @ubytes;
     unless (defined $self->{$enc}){
@@ -1733,8 +1733,8 @@ sub toUTF8($$$){
     my $c16;
     for $c (unpack("C*",$str)){
         if ($c & 128){
-            # If the msb is set in gb2312 then it is a 2 byte character.
-            # Both gb2312 chinese bytes have the msb set not only the first.
+            # If the msb is set in UTF-8 then it is a 2 byte character.
+            # Both UTF-8 chinese bytes have the msb set not only the first.
             if ($twobyte){
                 if($c16){
                     # make a 16 bit char:

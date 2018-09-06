@@ -72,7 +72,7 @@ $get_the_link=$clinklist[$decrypt];
 chomp $get_the_link;
 &error("连接出错&找不到该编号的连结，请确定你来自一个有效的连接。") if($get_the_link eq "");
 if($get_the_link=~m/^(http|https|ftp):\/\//i){
-print header(-charset=>gb2312,-location=>$get_the_link,-expires=>now,-cache=>yes);
+print header(-charset=>UTF-8,-location=>$get_the_link,-expires=>now,-cache=>yes);
 }else{
 &error("连接出错&该编号的连结不是支持的通讯协定，本程序只支持 HTTP,HTTPS 和 FTP 。");
 }

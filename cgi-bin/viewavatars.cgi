@@ -115,7 +115,7 @@ foreach (@imagestoshow) {
 }
 
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &title;
 

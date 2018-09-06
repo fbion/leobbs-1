@@ -103,7 +103,7 @@ $filename =~ tr/A-Z/a-z/;
 $savefilename = "$lbdir" . "$searchdir/$filename\_sav.cgi";
 $searchfilename = "$lbdir" . "$searchdir/$filename\_sch.cgi";
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &mischeader("贴子搜索");
 

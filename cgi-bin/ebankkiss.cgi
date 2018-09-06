@@ -29,7 +29,7 @@ $|++;
 
 $inmembername = $cookie{"amembernamecookie"};
 $inpassword = $cookie{"apasswordcookie"};
-print "Content-Type: text/html; Charset=gb2312\n\n";
+print "Content-Type: text/html; Charset=UTF-8\n\n";
 
 &error if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
 &error if ($inmembername eq "" || $inmembername eq "客人" );

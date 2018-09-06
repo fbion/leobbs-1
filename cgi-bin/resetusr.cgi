@@ -43,7 +43,7 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $prestep = $query->param('prestep');
 $prestep = 300 if ($prestep <= 0 );
 &getadmincheck;
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &admintitle;
 if ($membercode eq "ad" && $inpassword eq $password && lc($inmembername) eq lc($membername))
 {

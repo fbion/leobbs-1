@@ -99,7 +99,7 @@ if ($catbackpic ne "")  { $catbackpic  = "background=$imagesurl/images/$skin/$ca
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 if (!$inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (!$inpassword) { $inpassword = $query->cookie("apasswordcookie"); }

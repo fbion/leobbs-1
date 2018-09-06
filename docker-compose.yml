@@ -7,7 +7,7 @@ services:
          - "4321:80"
       restart: always
       volumes:
-         - ./:/var/www/html
+         - ./:/var/www/html:rw
          - ./etc/leobbs.conf:/etc/apache2/sites-enabled/localhost.conf
       command: /usr/sbin/apache2ctl -D FOREGROUND
       networks:

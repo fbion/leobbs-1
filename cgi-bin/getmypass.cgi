@@ -91,7 +91,7 @@ if ($password ne "") {
 }
 
 &error("修改密码&错误，密码校验出错，请不要胡乱修改！") if ($mypassword ne $inpassword);
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &mischeader("取回密码");
 $action        = $query -> param('action');

@@ -210,7 +210,7 @@ document.FORM.inpost.value=savePost;
 <select onChange="if(this.options[this.selectedIndex].value!=''){showfont(this.options[this.selectedIndex].value);this.options[0].selected=true;}else {this.selectedIndex=0;}" name=font>
 <option value=>选择字体</option>
 <option value="宋体">宋体</option>
-<option value="楷体_GB2312">楷体</option>
+<option value="楷体_UTF-8">楷体</option>
 <option value="新宋体">新宋体</option>
 <option value="黑体">黑体</option>
 <option value="隶书">隶书</option>
@@ -469,6 +469,6 @@ AddText("[" + tsft + "] [/" + tsft + "]");
 <IMG onclick=setfly() height=22 alt=飞行字 src=$imagesurl/btg/fly.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
 <IMG onclick=move() height=22 alt=移动字 src=$imagesurl/btg/move.gif width=23  class="gray" onmouseover="enable(this)" onmouseout="disable(this)">
 <IMG onclick=glow() he onmouseover="enable(this)" onmouseout="disable(this)">
-<IMG onclick=setswf() height=22 alt="input type="button" class="button" name="lbcode_load" value="��ȡ����" onClick="postLoad()"><br>&nbsp;
+<IMG onclick=setswf() height=22 alt="input type="button" class="button" name="lbcode_load" value="��ȡ����" onClick="postLoad()"><br>&nbsp;
 ~;
 1;

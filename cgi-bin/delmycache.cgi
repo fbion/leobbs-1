@@ -49,7 +49,7 @@ unlink ("${lbdir}cache/myinfo/$cleanmembername.pl");
 unlink ("${lbdir}cache/meminfo/$cleanmembername.pl");
 unlink ("${lbdir}cache/mymsg/$cleanmembername.pl");
 unlink ("${lbdir}cache/online/$cleanmembername.pl");
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <SCRIPT>
 alert("您在论坛的所有缓存都被清空了！");

@@ -36,7 +36,7 @@ sub doemule {
 		if ($emuchg ne $emu[2]) {
 		    if ($loaduftmo ne 1) { use UTF8simple; $loaduftmo = 1; }
 	    	    my $uref = new UTF8simple;
-	    	    $emu[2]=$uref->fromUTF8("gb2312",$emuchg);
+	    	    $emu[2]=$uref->fromUTF8("UTF-8",$emuchg);
 	    	}
 
 		    $counters++;

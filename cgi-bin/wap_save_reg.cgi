@@ -28,7 +28,7 @@ $|++;
 $show.= qq~
 <card  title="$boardname">~;
 $inmembername   = $query -> param('n');
-$inmembername= $uref->fromUTF8("gb2312",$inmembername);
+$inmembername= $uref->fromUTF8("UTF-8",$inmembername);
 $password     = $query -> param('p');
 $password2     = $query -> param('p1');
 $emailaddress     = $query -> param('email');

@@ -33,7 +33,7 @@ $thisprog = "getbtinfo.cgi";
 use LBCGI;
 $query = new LBCGI;
 #&ipbanned;
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $forum  = $query->param("forum");
 $inforum = $forum;
@@ -118,7 +118,7 @@ print qq~
 <html>
 <head>
 <title>欢迎您光临$boardname BitTorrent</title>
-<meta http-equiv="Content-Type" Content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" Content="text/html; charset=UTF-8">
 <style>
 a:visited	{text-decoration: none}
 a:active	{text-decoration: none}

@@ -93,7 +93,7 @@ else {
      }
 	&error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     if ($inhelpon) {
         $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>

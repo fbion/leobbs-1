@@ -302,10 +302,11 @@ exit;
 
 sub output {
     my $outputinfo = shift;
-    print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     print qq~
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>LeoBBS X 安装程序</title>
     <style type="text/css">
     A:visited{TEXT-DECORATION: none}

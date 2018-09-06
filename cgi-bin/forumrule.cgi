@@ -56,7 +56,7 @@ $inselectstyle   = $skinselected if ($inselectstyle eq "");
 require "${lbdir}data/skin/${inselectstyle}.cgi" if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi"));
 $catbackpic = "background=$imagesurl/images/$skin/$catbackpic" if $catbackpic;
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $inmembername = $query->cookie("amembernamecookie") unless $inmembername;
 $inpassword = $query->cookie("apasswordcookie") unless $inpassword;

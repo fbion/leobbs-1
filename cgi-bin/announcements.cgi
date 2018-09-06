@@ -81,7 +81,7 @@ if ((!$inmembername) or ($inmembername eq "客人")) { $inmembername = "客人";
 if ($inforum ne "") { &getoneforum("$inforum"); } else { $inmembmod = "no"; }
 #    &moderator("$inforum");
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &title;
 

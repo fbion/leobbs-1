@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="gb2312"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN"
 "http://www.wapforum.org/DTD/wml_1.1.xml">
 <wml>
-<card id="loop" ontimer="http://xxxx/cgi-bin/wap.cgi" title="WAP 访问"><timer value="1"/><p>正在跳转...请稍候...</p></card></wml>
+<card id="loop" ontimer="http://xxxx/cgi-bin/wap.cgi" title="WAP 锟斤拷锟斤拷"><timer value="1"/><p>锟斤拷锟斤拷锟斤拷转...锟斤拷锟皆猴拷...</p></card></wml>

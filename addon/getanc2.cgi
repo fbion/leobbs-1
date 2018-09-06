@@ -52,7 +52,7 @@ $maxlength = &stripMETA("$maxlength");
 $maxlength = 999999999 if ($maxlength eq "");	 # 预设标题显示所有字元
 $forum = $query -> param('forum');
 
-print header(-charset=>gb2312);
+print header(-charset=>UTF-8);
 
 if ($forum ne "") { $filetoopen = "$lbdir" . "data/news$forum.cgi";}
 else { $filetoopen = "$lbdir" . "data/news.cgi";}

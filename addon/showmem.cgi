@@ -40,7 +40,7 @@ $show = $in{"show"};
 $show = 10 if ($show < 1);
 $|++;
 
-print "Content-type: text/html; charset=gb2312\n\n";
+print "Content-type: text/html; charset=UTF-8\n\n";
 
 $filetoopen = "${lbdir}data/onlinedata.cgi";
 open(FILE, $filetoopen);

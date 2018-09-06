@@ -76,12 +76,12 @@ $mymoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno
 $currenttime = time();
 $currenttime = &dateformat("$currenttime");
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <html>
 <head>
 <title>$plugname</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 A:visited{TEXT-DECORATION: none}
 A:active{TEXT-DECORATION: none}

@@ -62,7 +62,7 @@ if ($intopic ne "") {$tmpurl="&topic=$intopic";}
 $gourl1=qq~<meta http-equiv="refresh" content="3; url=$thisprog?action=uppic&forum=$forum$tmpurl"> [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>3 秒钟自动返回</a> ]~;
 $gourl=qq~ [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>按此返回</a> ]~;
 
-print header(-charset=>gb2312);
+print header(-charset=>UTF-8);
 
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 $maxupload = 300 if ($maxupload eq "");
@@ -354,5 +354,5 @@ location.href = parent1;
 </script>
 ~;
 
-    my $tmpoutput=qq~<head><title>$skin $title</title><meta http-equiv="Content-Type" content="text/html; charset=gb2312">$pastcss$lockjs</head><body alink=#333333 vlink=#333333 link=#333333 leftmargin=0 topmargin=0><!-- oncontextmenu="return false;" ondragstart="return false;" onselectstart ="return false" --><table cellspacing=0 cellpadding=0 border=0 width=100% height=100%><tr><td bgcolor=$miscbackone>$_[0]  </td></tr></table>~;print $tmpoutput; exit;
+    my $tmpoutput=qq~<head><title>$skin $title</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">$pastcss$lockjs</head><body alink=#333333 vlink=#333333 link=#333333 leftmargin=0 topmargin=0><!-- oncontextmenu="return false;" ondragstart="return false;" onselectstart ="return false" --><table cellspacing=0 cellpadding=0 border=0 width=100% height=100%><tr><td bgcolor=$miscbackone>$_[0]  </td></tr></table>~;print $tmpoutput; exit;
 }

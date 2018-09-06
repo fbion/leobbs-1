@@ -54,7 +54,7 @@ if (($membercode ne "ad")&&($membercode ne "smo")){
 unlink ("${lbdir}cache/onlineuserlist.pl");
 unlink ("${lbdir}data/skinselect.pl");
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <SCRIPT>
 alert("首页的所有缓存都被清空了！");

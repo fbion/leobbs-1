@@ -67,7 +67,7 @@ sub viewall
     }
 
     $rssout = qq~Content-type:application/xml\n\n~;
-    $rssout .= qq~<?xml version="1.0" encoding="gb2312"?>\n<rss version="2.0">\n~;
+    $rssout .= qq~<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n~;
     $rssout .= qq~<channel>\n~;
     $rssout .= qq~\t<title><![CDATA[$boardname - 论坛最新贴]]></title>\n~;
     $rssout .= qq~\t<link>$boardurl/leobbs.cgi</link>\n~;
@@ -200,7 +200,7 @@ if (-e "${lbdir}data/style${number}.cgi") { require "${lbdir}data/style${number}
     &banname($number);
 
     $rssout = qq~Content-type:application/xml\n\n~;
-    $rssout .= qq~<?xml version="1.0" encoding="gb2312"?>\n<rss version="2.0">\n~;
+    $rssout .= qq~<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n~;
     $rssout .= qq~<channel>\n~;
     $rssout .= qq~\t<title><![CDATA[$boardname - $forumname 最新贴子]]></title>\n~;
     $rssout .= qq~\t<link>$boardurl/forums.cgi&amp;forum=$number</link>\n~;

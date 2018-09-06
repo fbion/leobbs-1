@@ -72,7 +72,7 @@ $inforum     =  $PARAM{'forum'};
 $incategory  =  $PARAM{'category'};
 
 &getadmincheck;
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &admintitle;
 
 &getmember("$inmembername","no");
@@ -379,7 +379,7 @@ obj2.style.backgroundColor=arr;
 <font color=#333333>主字体外观</font></td>
 <td bgcolor=#FFFFFF>
 ~;
-$tempoutput = "<select name=\"font\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_gb2312\">仿宋\n<option value=\"楷体_gb2312\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
+$tempoutput = "<select name=\"font\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_UTF-8\">仿宋\n<option value=\"楷体_UTF-8\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
 $tempoutput =~ s/value=\"$font\"/value=\"$font\" selected/;
 print qq~
 $tempoutput</td>
@@ -407,7 +407,7 @@ $tempoutput</td>
 <font color=#333333>查看时发表者名称字体</font></td>
 <td bgcolor=#FFFFFF>
 ~;
-$tempoutput = "<select name=\"posternamefont\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_gb2312\">仿宋\n<option value=\"楷体_gb2312\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
+$tempoutput = "<select name=\"posternamefont\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_UTF-8\">仿宋\n<option value=\"楷体_UTF-8\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
 $tempoutput =~ s/value=\"$posternamefont\"/value=\"$posternamefont\" selected/;
 print qq~
 $tempoutput</td>

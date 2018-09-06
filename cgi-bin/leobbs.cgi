@@ -521,9 +521,17 @@ $output .= qq~
 <img src=$imagesurl/images/none.gif height=5><br>
 <table cellspacing=0 cellpadding=0 width=$tablewidth align=center>
 <tr><td>　$timenow ($basetimes)</td>
-<td align=right noWrap>[ <a href=leobbs.cgi?action=delcookieall>删除论坛 cookie</a> ] :: [ <a href=leobbs.cgi?action=resetall>标记所有为已读</a> ] :: [ <a href=$thisprog?action=expand>展开所有分类</a> ] :: [ <a href=$thisprog?action=depand>收缩所有分类</a> ]&nbsp;</td>enow");
+<td align=right noWrap>[ <a href=leobbs.cgi?action=delcookieall>删除论坛 cookie</a> ] :: [ <a href=leobbs.cgi?action=resetall>标记所有为已读</a> ] :: [ <a href=$thisprog?action=expand>展开所有分类</a> ] :: [ <a href=$thisprog?action=depand>收缩所有分类</a> ]&nbsp;</td></tr>
+</table><center><br>$adfoot</center><br>~;
 
-$output .= qq~
-<img src=$imagesurl/images/none.gif height=5><br>
-<table cellspacing=0 cellpadding=0 width=$tablewidth align=center>
-<tr><td>
+&output("$boardname",\$output);
+exit;
+
+sub getonlineno {
+  if ((-e "${lbdir}cache/forumonline.pl")&&((-M "${lbdir}cache/forumonline.pl") *86400 < 180)) {  
+    open (FILE, "${lbdir}cache/forumonline.pl");
+    %titleinfos = <FILE>;
+    close(FILE);
+  }
+  else { require "doforumsonline.pl"; }
+}

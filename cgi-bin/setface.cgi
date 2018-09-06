@@ -84,7 +84,7 @@ if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$cat
 
 &error("$plugname 后台管理&只有论坛坛主与插件管理员才能进入此区！") if (($membercode ne "ad")&&($admin_user ne "$tempmembername"));
 
-print $query->header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print $query->header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 $output .= qq~
 <BODY>
 <br>

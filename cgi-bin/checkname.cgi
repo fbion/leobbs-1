@@ -33,7 +33,7 @@ $thisprog = "checkname.cgi";
 $query = new LBCGI;
 $inmembername = $query -> param('name');
 $inmembername = &cleaninput($inmembername);
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $CheckR="";
 $bannedmember = "no";
@@ -94,7 +94,7 @@ print qq~
 <html>
 <head> 
 <title>$boardname</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--end Java-->
 <!--css info(editable)-->
 <style>

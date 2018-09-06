@@ -28,7 +28,7 @@ my ($no,$min,$hour)= localtime(time+(3600*$time_hour));
 if($hour<10){$hour="0".$hour;}
 if($min<10){$min="0".$min;}
 $show.= "<p><br/>报时:$hour:$min</p></card></wml>\n";
-$u=$uref->toUTF8("gb2312",$show);
+$u=$uref->toUTF8("UTF-8",$show);
 print $u;
 exit;
 }
@@ -36,7 +36,7 @@ sub errorout{
 my $a=shift();
 my($a,$b)=split(/\&/,$a);
 $show.= qq~<p>$a<br/><br/>$b<br/><a href="wap_login.cgi">「登录」</a>  <a href="wap_reg.cgi">「注册」</a></p></card></wml>~;
-$u=$uref->toUTF8("gb2312",$show);
+$u=$uref->toUTF8("UTF-8",$show);
 print $u ;exit;
 }
 sub msg{

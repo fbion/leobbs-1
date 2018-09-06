@@ -19,7 +19,7 @@
     <TD vAlign=top background=$imagesurl/images/center_r.gif></TD></TR><TR><TD vAlign=top><IMG src=$imagesurl/images/foot_l1.gif ></TD><TD background=$imagesurl/images/foot_c.gif></TD><TD align=right><IMG src=$imagesurl/images/foot_r.gif></TD></TR></TABLE><BR>
     <br><br><br>
 ~;
-    print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     &output("$boardname正在维护中，请稍后再访问...",\$output);
     exit;
 1;

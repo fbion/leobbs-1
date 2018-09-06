@@ -50,6 +50,6 @@ if (($query ne "")&&($query !~ /^[0-9\.]+$/)) {
     &error("普通错误&请不要胡乱使用本功能！") ;
 }
 if ($query ne "") { $fromwhere = &ipwhere("$query"); $fromwhere = "ＩＰ: $query\n<BR>来自: $fromwhere\n<BR><BR>如果对结果有疑问，请<a href=whois.cgi?query=$query>按此使用 NIC 数据库查询</a>！"} else { $fromwhere = "没有IP数据,我查什么啊!"; }
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print $fromwhere;
 exit;

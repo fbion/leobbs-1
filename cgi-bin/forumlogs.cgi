@@ -105,7 +105,7 @@ if ($action eq 'delete' && $membercode eq 'ad')
 	close(FILE);
 	&winunlock($filetomake) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
         print "<script language='javascript'>document.location = '$thisprog?forum=$inforum'</script>";
 	exit;
@@ -196,7 +196,7 @@ $output .= qq~
 <tr><td>$pages$adminoption</td><td align=right>$select <input name=key type=text size=16 value="$key"> <input type=submit value="查 找"></td></tr>
 </table></form>~;
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &output("$boardname - 版务日志查看",\$output);
 exit;

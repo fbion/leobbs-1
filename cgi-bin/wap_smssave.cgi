@@ -35,12 +35,12 @@ if ($inmembername eq "" || $inmembername eq "客人" ) {
     &getmember("$inmembername","no");
 }   
 $name     = $query -> param('name');
-$name = $uref->fromUTF8("gb2312",$name);
+$name = $uref->fromUTF8("UTF-8",$name);
 &getmember("$name","no");
     &erroroutout("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 $inpost        = $query -> param('inpost');
-$inpost=$uref->fromUTF8("gb2312",$inpost);
-$intopictitle=$uref->fromUTF8("gb2312",$intopictitle);
+$inpost=$uref->fromUTF8("UTF-8",$inpost);
+$intopictitle=$uref->fromUTF8("UTF-8",$intopictitle);
 $inpost = &cleaninput("$inpost");
 $intopictitle = &cleaninput("$intopictitle");
 

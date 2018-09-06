@@ -27,7 +27,7 @@ function document.onreadystatechange()
   window.onresize = DoLayout;
 
   Composition.document.open()
-  Composition.document.write("<head><style type=\"text/css\">body {font-size: 10.8pt}</style><meta http-equiv=Content-Type content=\"text/html; charset=gb2312\"></head><BODY bgcolor=\"#FFFFFF\" MONOSPACE></body>");
+  Composition.document.write("<head><style type=\"text/css\">body {font-size: 10.8pt}</style><meta http-equiv=Content-Type content=\"text/html; charset=UTF-8\"></head><BODY bgcolor=\"#FFFFFF\" MONOSPACE></body>");
   Composition.document.close()
   Composition.document.designMode="On"
 }
@@ -257,7 +257,7 @@ function DoLayout()
 function validateMode()
 {
   if (!	bTextMode) return true;
-  alert("请取消“查看HTML源代码”选项再使用系统编辑功能或者提交!");
+  alert("锟斤拷取锟斤拷锟斤拷锟介看HTML源锟斤拷锟诫”选锟斤拷锟斤拷使锟斤拷系统锟洁辑锟斤拷锟杰伙拷锟斤拷锟结交!");
   Composition.focus();
   return false;
 }
@@ -376,7 +376,7 @@ function getPureHtml()
 
 var bLoad=false
 var pureText=true
-var bodyTag="<head><style type=\"text/css\">body {font-size:	10.8pt}</style><meta http-equiv=Content-Type content=\"text/html; charset=gb2312\"></head><BODY bgcolor=\"#FFFFFF\" MONOSPACE>"
+var bodyTag="<head><style type=\"text/css\">body {font-size:	10.8pt}</style><meta http-equiv=Content-Type content=\"text/html; charset=UTF-8\"></head><BODY bgcolor=\"#FFFFFF\" MONOSPACE>"
 var bTextMode=false
 
 public_description=new Editor
@@ -481,12 +481,12 @@ function lbcode(){
 function help()
 {
     var helpmess;
-    helpmess="---------------填写帮助---------------\r\n\r\n"+
-         "1.请不要发表有危险性的脚本。\r\n\r\n"+
-         "2.如果要书写源代码，请选中\r\n\r\n"+
-         "　查看HTML源代码书写.\r\n\r\n"+
-         "3.需要你自己运行,才能看效果.\r\n\r\n"+
-         "4.如果书写js，尽量不要在这儿书写.\r\n\r\n";
+    helpmess="---------------锟斤拷写锟斤拷锟斤拷---------------\r\n\r\n"+
+         "1.锟诫不要锟斤拷锟斤拷锟斤拷危锟斤拷锟皆的脚憋拷锟斤拷\r\n\r\n"+
+         "2.锟斤拷锟揭拷锟叫丛达拷锟斤拷耄拷锟窖★拷锟絓r\n\r\n"+
+         "锟斤拷锟介看HTML源锟斤拷锟斤拷锟斤拷写.\r\n\r\n"+
+         "3.锟斤拷要锟斤拷锟皆硷拷锟斤拷锟斤拷,锟斤拷锟杰匡拷效锟斤拷.\r\n\r\n"+
+         "4.锟斤拷锟斤拷锟叫磈s锟斤拷锟斤拷锟斤拷锟斤拷要锟斤拷锟斤拷锟斤拷锟叫�.\r\n\r\n";
     alert(helpmess);
 
 }

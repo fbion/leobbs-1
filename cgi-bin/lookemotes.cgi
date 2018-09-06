@@ -80,7 +80,7 @@ if ($inmembername eq "" || $inmembername eq "客人" ) { $inmembername = "客人
 
 &mischeader("论坛EMOTE列表");
 
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     
             my %Mode = (             
             'style'               =>    \&styleform,                                

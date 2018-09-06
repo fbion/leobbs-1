@@ -70,7 +70,7 @@
                 }
             }
             &error("地区被禁止&由于坛主规定，你的来自地区 ( $fromwhere) 被禁止访问本论坛！如有疑问，请联系管理员。") if ($arrowwhere eq "no");
-#            if ($arrowwhere eq "no") { print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES"); exit; }
+#            if ($arrowwhere eq "no") { print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES"); exit; }
             &error(" IP 被禁止&由于你没遵守本站规定！你的 IP ($ipallow) 被禁止！如有疑问，请联系管理员。") if ($ipallow ne "yes");
       }
 

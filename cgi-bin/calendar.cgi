@@ -135,7 +135,7 @@ $DAY_LIST =~s/value="$set_day"/value="$set_day" selected/;
 #可選擇的列表 _E
 
 
-print header(-charset => 'gb2312' , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => 'UTF-8' , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 $catbackpic  = 'background="'.$imagesurl.'/images/'.$skin.'/'.$catbackpic.'"' if($catbackpic ne "");
 &title;
 

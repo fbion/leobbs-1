@@ -102,7 +102,7 @@ if ($action eq "logout") {
     print "Set-Cookie: adminname=\"\"\n";
     print "Set-Cookie: adminpass=\"\"\n";
 
-    print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
     &admintitle;
     print qq(
@@ -133,7 +133,7 @@ else {
     $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
     &getadmincheck;
 
-    print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
     &getmember("$inmembername","no");
     &admintitle;

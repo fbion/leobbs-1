@@ -37,8 +37,8 @@ if ($inmembername eq "" || $inmembername eq "客人" ) {
 }   
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }           
 $inpost        = $query -> param('inpost');
-$inpost=$uref->fromUTF8("gb2312",$inpost);
-$intopictitle=$uref->fromUTF8("gb2312",$intopictitle);
+$inpost=$uref->fromUTF8("UTF-8",$inpost);
+$intopictitle=$uref->fromUTF8("UTF-8",$intopictitle);
 $inpost = &cleaninput("$inpost");
 $intopictitle = &cleaninput("$intopictitle");
 $currenttime   = time;

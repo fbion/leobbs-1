@@ -275,13 +275,13 @@ sub OUTPUT_TREE{
 	my ($title,$output,$err) = @_;
 	chomp $output;
 
-	print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 print <<"HTML";
 <html>
 <head> 
 <title>文章树</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 <SCRIPT>

@@ -1,7 +1,7 @@
 <html>
 <head> 
 <title>$page_title</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name=keywords content="雷傲,论坛,cgi,leobbs,leoboard,LB5000,bbs,leo,perl,lb,lbplus">
 $coolmeta
 <script SRC="$imagesurl/board.js"></SCRIPT>

@@ -14,7 +14,7 @@ initialize_globals();
 sub new {
     my $class = shift;
     my $this = $class->SUPER::new( @_ );
-       $this ->_initCGI(); #('gb2312');
+       $this ->_initCGI(); #('UTF-8');
 
     if ($CGI::MOD_PERL) {
         if ($CGI::MOD_PERL == 1) {
@@ -43,7 +43,7 @@ sub initialize_globals {
    $LBCGI::AutoloadClass = 'CGI';
 
    # 初始值
-   $LBCGI::LBCHARSET = 'gb2312';
+   $LBCGI::LBCHARSET = 'UTF-8';
    $LBCGI::HEADERS_ONCE = 1;
    $LBCGI::POST_MAX=2000;
    $LBCGI::DISABLE_UPLOADS = 1;

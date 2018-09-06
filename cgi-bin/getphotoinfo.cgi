@@ -153,12 +153,12 @@ foreach (sort (keys %$tags)) {
 $out =~ s/\n//g;
 $out =~ s/\'/\\\'/g;
 }
-print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print <<"HTML";
 <html>
 <head> 
 <title>图片信息</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 <SCRIPT>
