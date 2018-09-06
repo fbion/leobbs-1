@@ -1,0 +1,17 @@
+#docker run -v c:/www:/var/www/html -p 80:80 -d docker-apache-perl /usr/sbin/apache2ctl -D FOREGROUND
+version: "3.3"
+services:
+  leobbs:
+      image: netroby/docker-apache-perl
+      ports:
+         - "4321:80"
+      restart: always
+      volumes:
+         - ./:/var/www/html
+         - ./cgi-bin:/usr/lib/cgi-bin
+         - ./etc/leobbs.conf:/etc/apache2/sites-enabled/localhost.conf
+      command: /usr/sbin/apache2ctl -D FOREGROUND
+      networks:
+        default:
+networks:
+  default:
