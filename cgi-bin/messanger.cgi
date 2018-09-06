@@ -497,7 +497,33 @@ elsif ($action eq "send")
 		$tempinmsgtitle =~ s/ //g;
 		$tempinmsgtitle =~ s/\&nbsp\;//g;
 		$tempinmsgtitle =~ s/ã€€//isg;
-		$tempinmsgtitle =~ s/winlock($filetoopen) if ($OS_USED eq "Nt");
+		$tempinmsgtitle =~ s/îŸ¾//isg;
+		$tempinmsgtitle =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
+		&error("å‘é€ç•™è¨€&æ ‡é¢˜æœ‰é—®é¢˜ï¼&msg") if ($tempinmsgtitle eq "");
+		&error("å‘é€ç•™è¨€&è¯·å°†ä¿¡æ¯å¡«å†™å®Œæ•´ï¼&msg") if ($inmessage eq "");
+
+		my $filetoopen = "${lbdir}${msgdir}/in/${cleanintouser}_msg.cgi";
+		&winlock($filetoopen) if ($OS_USED eq "Nt");
+		if (open(FILE, $filetoopen)) {
+			flock(FILE, 1) if ($OS_USED eq "Unix");
+       			sysread(FILE, $inboxmessages,(stat(FILE))[7]);
+			close(FILE);
+			$inboxmessages =~ s/\r//isg;
+		}
+		open(FILE, ">$filetoopen");
+		flock(FILE, 2) if ($OS_USED eq "Unix");
+		print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$inmembername\tno\t$currenttime\t$inmsgtitle\t$inmessage\t$attach\n$inboxmessages";
+		close(FILE);
+		&winunlock($filetoopen) if ($OS_USED eq "Nt");
+		unlink ("${lbdir}cache/mymsg/${cleanintouser}.pl");
+	}
+
+	if ($inbackup eq "yes")
+	{
+		undef @outboxmessages;
+
+		$filetoopen = "${lbdir}${msgdir}/out/${memberfilename}_out.cgi";
+		&winlock($filetoopen) if ($OS_USED eq "Nt");
 		if (open (FILE, $filetoopen)) {
 			flock(FILE, 1) if ($OS_USED eq "Unix");
        			sysread(FILE, $outboxmessages,(stat(FILE))[7]);
@@ -507,26 +533,26 @@ elsif ($action eq "send")
 		open(FILE, ">$filetoopen");
 		flock(FILE, 2) if ($OS_USED eq "Unix");
 		$intouser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-		print FILE "£ª£££¡£¦£ª$intouser\tyes\t$currenttime\t$inmsgtitle\t$inmessage\t$attach\n$outboxmessages";
+		print FILE "ï¼Šï¼ƒï¼ï¼†ï¼Š$intouser\tyes\t$currenttime\t$inmsgtitle\t$inmessage\t$attach\n$outboxmessages";
 		close(FILE);
 		&winunlock($filetoopen) if ($OS_USED eq "Nt");
-		$backupmsg = "¸ÃÏûÏ¢Í¬Ê±Ò²¸´ÖÆµ½ÄúµÄ·¢¼şÏäÖĞÁË£¡<br>";
+		$backupmsg = "è¯¥æ¶ˆæ¯åŒæ—¶ä¹Ÿå¤åˆ¶åˆ°æ‚¨çš„å‘ä»¶ç®±ä¸­äº†ï¼<br>";
 	}
 
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>ÊÕ·¢¶ÌÏûÏ¢</b></td></tr>
-<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi',420,320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi',420,320)">$blockpm</a></td></tr>~;
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>æ”¶å‘çŸ­æ¶ˆæ¯</b></td></tr>
+<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi',420,320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi',420,320)">$blockpm</a></td></tr>~;
 
 	unless (@NoRegUser > 0 || @Max > 0 || @NoPM > 0)
 	{
 		$output .= qq~
-<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>¸ø$intouserµÄ¶ÌÏûÏ¢ÒÑ¾­·¢³ö¡£</b>$backupmsg<br>×Ô¶¯·µ»ØÊÕ¼şÏä¡£<br><br></td></tr>
+<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ç»™$intouserçš„çŸ­æ¶ˆæ¯å·²ç»å‘å‡ºã€‚</b>$backupmsg<br>è‡ªåŠ¨è¿”å›æ”¶ä»¶ç®±ã€‚<br><br></td></tr>
 <meta http-equiv="refresh" Content="2; url=$thisprog?action=inbox">~;
 	}
 	else
 	{
 		$output .= qq~
-<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>¶ÌÏûÏ¢·¢ËÍÓĞ´íÎó¡£</b>$backupmsg<br><br><br></td></tr>~;
+<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>çŸ­æ¶ˆæ¯å‘é€æœ‰é”™è¯¯ã€‚</b>$backupmsg<br><br><br></td></tr>~;
 
 		foreach (@NoRegUser, @Max, @NoPM)
 		{
@@ -564,12 +590,12 @@ function FanAll(form)
 <form action=$thisprog method=POST>
 <input type=hidden name=where value="outbox">
 <input type=hidden name=action value="delete">
-<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>»¶Ó­Ê¹ÓÃ¶ÌÏûÏ¢·¢ËÍ£¬$inmembername</b></td></tr>
-<tr><td bgColor=$miscbackone align=center colSpan=3><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>æ¬¢è¿ä½¿ç”¨çŸ­æ¶ˆæ¯å‘é€ï¼Œ$inmembername</b></td></tr>
+<tr><td bgColor=$miscbackone align=center colSpan=3><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
 <tr>
-<td bgColor=$miscbackone align=center width=20%><font color=$fontcolormisc><b>ÊÕ¼şÈË</b></td>
-<td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>Ö÷Ìâ</b></td>
-<td bgColor=$miscbackone align=center width=10%><font color=$fontcolormisc><b>É¾³ı±ê¼Ç</b></td>
+<td bgColor=$miscbackone align=center width=20%><font color=$fontcolormisc><b>æ”¶ä»¶äºº</b></td>
+<td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ä¸»é¢˜</b></td>
+<td bgColor=$miscbackone align=center width=10%><font color=$fontcolormisc><b>åˆ é™¤æ ‡è®°</b></td>
 </tr>~;
 	&splitpage("outbox");
 
@@ -577,10 +603,10 @@ function FanAll(form)
 	{
 		chomp;
 		my ($from, $readstate, $date, $messagetitle, $message, $attach) = split(/\t/, $_);
-		$from =~ s/^£ª£££¡£¦£ª//isg;
+		$from =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 		$messagetitle = &dofilter($messagetitle);
 		$messagetitle = "<a href=$thisprog?action=outread&msg=$count>$messagetitle</a>";
-		$messagetitle .= qq~ <img src=$imagesurl/icon/replyattachment.gif width=15 align=absmiddle alt="¶ÌÏûÏ¢ÖĞº¬ÓĞ¸½¼ş">~ if($attach ne '');
+		$messagetitle .= qq~ <img src=$imagesurl/icon/replyattachment.gif width=15 align=absmiddle alt="çŸ­æ¶ˆæ¯ä¸­å«æœ‰é™„ä»¶">~ if($attach ne '');
 		my $tempform = my $tempname = $from;
 		$from = &lbhz($from, 12);
 		$tempname =~ s/ /\_/g;
@@ -594,7 +620,7 @@ function FanAll(form)
 		$count++;
  	}
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center colSpan=3>$pages<font color=$fontcolormisc><a href=$thisprog?action=deleteall&where=outbox>[É¾³ıËùÓĞ]</a>  <a href=$thisprog?action=exportall&where=outbox>[µ¼³öËùÓĞ]</a>  <input type=button name=chkall value="È«Ñ¡" OnClick="CheckAll(this.form)"> <input type=button name=clear2 value="·´Ñ¡" OnClick="FanAll(this.form)"> <input type=reset name=Reset value="ÖØÖÃ"> <input type=submit name=delete value="É¾³ı"></td></tr></form>~;
+<tr><td bgColor=$miscbacktwo align=center colSpan=3>$pages<font color=$fontcolormisc><a href=$thisprog?action=deleteall&where=outbox>[åˆ é™¤æ‰€æœ‰]</a>  <a href=$thisprog?action=exportall&where=outbox>[å¯¼å‡ºæ‰€æœ‰]</a>  <input type=button name=chkall value="å…¨é€‰" OnClick="CheckAll(this.form)"> <input type=button name=clear2 value="åé€‰" OnClick="FanAll(this.form)"> <input type=reset name=Reset value="é‡ç½®"> <input type=submit name=delete value="åˆ é™¤"></td></tr></form>~;
 }
 
 elsif ($action eq "inbox")
@@ -625,26 +651,26 @@ function FanAll(form)
 <form action=$thisprog method=POST>
 <input type=hidden name=where value="inbox">
 <input type=hidden name=action value="delete">
-<tr><td bgColor=$miscbacktwo align=center colSpan=4 $catbackpic height=26><font color=$fontcolormisc>$dxxboom<b>»¶Ó­Ê¹ÓÃÄúµÄÊÕ¼şÏä£¬$membername</b></td>
+<tr><td bgColor=$miscbacktwo align=center colSpan=4 $catbackpic height=26><font color=$fontcolormisc>$dxxboom<b>æ¬¢è¿ä½¿ç”¨æ‚¨çš„æ”¶ä»¶ç®±ï¼Œ$membername</b></td>
 </tr>
-<tr><td bgColor=$miscbackone align=center colSpan=4><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbackone align=center colSpan=4><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
 <tr>
-<td bgColor=$miscbackone align=center width=20%><font color=$fontcolormisc><b>·¢¼şÈË</b></td>
-<td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>Ö÷Ìâ</b></td>
-<td bgColor=$miscbackone align=center width=10%><font color=$fontcolormisc><b>ÊÇ·ñÒÑ¶Á</b></td>
-<td bgColor=$miscbackone align=center width=10%><font color=$fontcolormisc><b>É¾³ı±ê¼Ç</b></td>
+<td bgColor=$miscbackone align=center width=20%><font color=$fontcolormisc><b>å‘ä»¶äºº</b></td>
+<td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ä¸»é¢˜</b></td>
+<td bgColor=$miscbackone align=center width=10%><font color=$fontcolormisc><b>æ˜¯å¦å·²è¯»</b></td>
+<td bgColor=$miscbackone align=center width=10%><font color=$fontcolormisc><b>åˆ é™¤æ ‡è®°</b></td>
 </tr>~;
 	&splitpage("inbox");
 
 	foreach (@inboxmessages[$startarray .. $endarray])
 	{
 		my ($from, $readstate, $date, $messagetitle, $message, $attach) = split(/\t/, $_);
-		$from =~ s/^£ª£££¡£¦£ª//isg;
+		$from =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 		$callstate = 1 if($readstate eq "no");
-		my $readstate = $readstate eq "no" ? qq~<img src=$imagesurl/images/unread.gif border=0 alt="Î´¶Á" width=16 height=12>~ : qq~<img src=$imagesurl/images/read.gif border=0 alt="ÒÑ¶Á" width=16 height=14>~;
+		my $readstate = $readstate eq "no" ? qq~<img src=$imagesurl/images/unread.gif border=0 alt="æœªè¯»" width=16 height=12>~ : qq~<img src=$imagesurl/images/read.gif border=0 alt="å·²è¯»" width=16 height=14>~;
 		$messagetitle = &dofilter($messagetitle);
 		$messagetitle = "<a href=$thisprog?action=read&msg=$count>$messagetitle</a>";
-		$messagetitle .= qq~ <img src=$imagesurl/icon/replyattachment.gif width=15 height=15 align=absmiddle alt="¶ÌÏûÏ¢ÖĞº¬ÓĞ¸½¼ş">~ if($attach ne '');
+		$messagetitle .= qq~ <img src=$imagesurl/icon/replyattachment.gif width=15 height=15 align=absmiddle alt="çŸ­æ¶ˆæ¯ä¸­å«æœ‰é™„ä»¶">~ if($attach ne '');
 		my $tempform = my $tempname = $from;
 		$from = &lbhz($from, 12);
 		$tempname =~ s/ /\_/g;
@@ -664,18 +690,18 @@ function FanAll(form)
 		if ($pmpercent < 100)
 		{
 			$output .= qq~
-<tr><td bgColor=$miscbacktwo colSpan=4 align=center>ÄãÏÖÔÚµÄ¶ÌÏûÏ¢´æ´¢Á¿: $pmpercent%</td></tr>
+<tr><td bgColor=$miscbacktwo colSpan=4 align=center>ä½ ç°åœ¨çš„çŸ­æ¶ˆæ¯å­˜å‚¨é‡: $pmpercent%</td></tr>
 <tr><td bgColor=$miscbackone colSpan=4><img src=$imagesurl/images/pm_gauge.gif width=$pmpercent% height=9><table cellSpacing=1 width=100%><tr><td width=45% align=left>0%</td><td width=* align=center>50%</td><td width=45% align=right>100%</td></tr></table></td></tr>~;
 		}
 		else
 		{
-			$output .= qq~<tr><td bgColor=$miscbacktwo colSpan=4 align=center><font color=red>ÄãÏÖÔÚµÄ¶ÌÏûÏ¢´æ´¢Á¿ÒÑÂú£¬Èç²»½øĞĞÉ¾³ı½«²»ÄÜ½ÓÊÕ¶ÌĞÅÏ¢</font></td></tr>~;
+			$output .= qq~<tr><td bgColor=$miscbacktwo colSpan=4 align=center><font color=red>ä½ ç°åœ¨çš„çŸ­æ¶ˆæ¯å­˜å‚¨é‡å·²æ»¡ï¼Œå¦‚ä¸è¿›è¡Œåˆ é™¤å°†ä¸èƒ½æ¥æ”¶çŸ­ä¿¡æ¯</font></td></tr>~;
 		}
 	}
 	$output .= qq~<bgsound src=$imagesurl/images/mail.wav border=0>~ if(($callstate eq '1')&&($infofreshtime ne ''));
 	$output .= qq~<meta http-equiv="refresh" content="$infofreshtime; url=$thisprog?action=inbox">~ if($infofreshtime ne '');
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center colSpan=4>$pages<font color=$fontcolormisc><a href=$thisprog?action=deleteall&where=inbox>[É¾³ıËùÓĞ]</a> <a href=$thisprog?action=exportall&where=inbox>[µ¼³öËùÓĞ]</a> <a href=$thisprog?action=markall&where=inbox>[ËùÓĞÒÑ¶Á]</a> <input type=button name=chkall value="È«Ñ¡" OnClick="CheckAll(this.form)"> <input type=button name=clear2 value="·´Ñ¡" OnClick="FanAll(this.form)"> <input type=reset name=Reset value="ÖØÖÃ"> <input type=submit name=delete value="É¾³ı"></td></tr></form>~;
+<tr><td bgColor=$miscbacktwo align=center colSpan=4>$pages<font color=$fontcolormisc><a href=$thisprog?action=deleteall&where=inbox>[åˆ é™¤æ‰€æœ‰]</a> <a href=$thisprog?action=exportall&where=inbox>[å¯¼å‡ºæ‰€æœ‰]</a> <a href=$thisprog?action=markall&where=inbox>[æ‰€æœ‰å·²è¯»]</a> <input type=button name=chkall value="å…¨é€‰" OnClick="CheckAll(this.form)"> <input type=button name=clear2 value="åé€‰" OnClick="FanAll(this.form)"> <input type=reset name=Reset value="é‡ç½®"> <input type=submit name=delete value="åˆ é™¤"></td></tr></form>~;
 }
 
 elsif ($action eq "outread")
@@ -689,7 +715,7 @@ elsif ($action eq "outread")
 		@outboxmessages = split (/\n/, $outboxmessages);
 	}
 	my $msgtograb = $outboxmessages[$inmsg];
-	&error("ä¯ÀÀÏûÏ¢&Ã»ÓĞ´ËÏûÏ¢£¡»ò´ËÏûÏ¢ÒÑ±»É¾³ı£¡&msg") if ($msgtograb eq "");
+	&error("æµè§ˆæ¶ˆæ¯&æ²¡æœ‰æ­¤æ¶ˆæ¯ï¼æˆ–æ­¤æ¶ˆæ¯å·²è¢«åˆ é™¤ï¼&msg") if ($msgtograb eq "");
 
 	$wwjf = "no";
 	$hidejf = "no";
@@ -697,7 +723,7 @@ elsif ($action eq "outread")
 	$membercode = "no";
         
 	my ($to, $readstate, $date, $messagetitle, $post, $attach) = split(/\t/, $msgtograb);
-	$to =~ s/^£ª£££¡£¦£ª//isg;
+	$to =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 	$date = $date + ($timedifferencevalue + $timezone) * 3600;
 	$date = &dateformat($date);
 	
@@ -710,21 +736,21 @@ elsif ($action eq "outread")
 	}
 	$remsg = "Re:$messagetitle";
 	$fwmsg = "Fw:$messagetitle";
-	$remodel = "$to£¬ÄúºÃ£¡ÉÏ´ÎÄúĞ´µÀ£º\n\n------------------------------\n$post1\n------------------------------";
-	$fwmodel = "$to£¬ÄúºÃ£¡ÏÂÃæÊÇ×ª·¢µÄÏûÏ¢£º\n\n------------------------------\n$post1\n------------------------------";
+	$remodel = "$toï¼Œæ‚¨å¥½ï¼ä¸Šæ¬¡æ‚¨å†™é“ï¼š\n\n------------------------------\n$post1\n------------------------------";
+	$fwmodel = "$toï¼Œæ‚¨å¥½ï¼ä¸‹é¢æ˜¯è½¬å‘çš„æ¶ˆæ¯ï¼š\n\n------------------------------\n$post1\n------------------------------";
 
-	%readstatus = ("yes"=>"ÒÑ¶Á", "no"=>"Î´¶Á");
+	%readstatus = ("yes"=>"å·²è¯»", "no"=>"æœªè¯»");
         if ($inmsg < @outboxmessages - 1)
 	{
 		my $outboxdown = $inmsg + 1;
 		(undef, $nreadstate, undef, $nmessagetitle, undef) = split(/\t/, $outboxmessages[$outboxdown]);
-		$outboxmsgdown = qq~<a href=$thisprog?action=outread&msg=$outboxdown title="ÏÂÒ»ÌõÏûÏ¢: ($readstatus{$nreadstate})\nÏûÏ¢±êÌâ: $nmessagetitle">ÏÂÒ»Ìõ</a>~;
+		$outboxmsgdown = qq~<a href=$thisprog?action=outread&msg=$outboxdown title="ä¸‹ä¸€æ¡æ¶ˆæ¯: ($readstatus{$nreadstate})\næ¶ˆæ¯æ ‡é¢˜: $nmessagetitle">ä¸‹ä¸€æ¡</a>~;
 	}
 	if ($inmsg > 0)
 	{
 		my $outboxup = $inmsg - 1;
 		(undef, $preadstate, undef, $pmessagetitle, undef) = split(/\t/, $outboxmessages[$outboxup]);
-		$outboxmsgup = qq~<a href=$thisprog?action=outread&msg=$outboxup title="ÉÏÒ»ÌõÏûÏ¢: ($readstatus{$preadstate})\nÏûÏ¢±êÌâ: $pmessagetitle">ÉÏÒ»Ìõ</a>~;
+		$outboxmsgup = qq~<a href=$thisprog?action=outread&msg=$outboxup title="ä¸Šä¸€æ¡æ¶ˆæ¯: ($readstatus{$preadstate})\næ¶ˆæ¯æ ‡é¢˜: $pmessagetitle">ä¸Šä¸€æ¡</a>~;
 	}
 	$outboxsplitline = " | " if ($outboxmsgdown ne "" && $outboxmsgup ne "");
 	if ($outboxmsgdown ne "" || $outboxmsgup ne "")
@@ -735,24 +761,24 @@ elsif ($action eq "outread")
 	my $attachfile = '';
 	if ($attach ne '')
 	{
-		$attachfile = (split('£ª£££¡£¦£ª', $attach), 1)[0];
+		$attachfile = (split('ï¼Šï¼ƒï¼ï¼†ï¼Š', $attach), 1)[0];
 		my $up_ext = lc((split(/\./, $attachfile))[-1]);
 		my $filetype = "unknow";
 		$filetype = $up_ext if (-e "${imagesdir}icon/$up_ext.gif");
-		$attachfile = "<br><b>ÏûÏ¢¸½¼ş£º</b><img src=$imagesurl/icon/$filetype.gif width=16 height=16> <a href=$thisprog?action=attach&box=out&msg=$inmsg target=_blank>$attachfile</a>";
+		$attachfile = "<br><b>æ¶ˆæ¯é™„ä»¶ï¼š</b><img src=$imagesurl/icon/$filetype.gif width=16 height=16> <a href=$thisprog?action=attach&box=out&msg=$inmsg target=_blank>$attachfile</a>";
 		if (($filetype eq "gif")||($filetype eq "jpg")||($filetype eq "jpe")||($filetype eq "jpeg")||($filetype eq "tif")||($filetype eq "png")||($filetype eq "bmp")) {
-			$post = qq~<a href=$thisprog?action=attach&box=out&msg=$inmsg target=_blank><img src=$thisprog?action=attach&box=out&msg=$inmsg border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><p>$post~;
+			$post = qq~<a href=$thisprog?action=attach&box=out&msg=$inmsg target=_blank><img src=$thisprog?action=attach&box=out&msg=$inmsg border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><p>$post~;
 		}
 	}
 
 	$output .= qq~
 <form name=re action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$to"><input type=hidden name=msgtitle value="$remsg"><input type=hidden name=message value="$remodel"></form>
 <form name=fw action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$to"><input type=hidden name=msgtitle value="$fwmsg"><input type=hidden name=message value="$fwmodel"></form>
-<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>»¶Ó­Ê¹ÓÃ¶ÌÏûÏ¢½ÓÊÕ£¬$inmembername</b></td></tr>
-<tr><td bgColor=$miscbackone align=center colSpan=3><a href=$thisprog?action=delete&where=outbox&msg=$inmsg>$deletepm</a>¡¡<a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:document.re.submit()">$replypm</a>¡¡<a href="javascript:document.fw.submit()">$fwpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc>ÔÚ<b>$date</b>£¬Äú·¢ËÍ´ËÏûÏ¢¸ø<b>$to</b>£¡</td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>æ¬¢è¿ä½¿ç”¨çŸ­æ¶ˆæ¯æ¥æ”¶ï¼Œ$inmembername</b></td></tr>
+<tr><td bgColor=$miscbackone align=center colSpan=3><a href=$thisprog?action=delete&where=outbox&msg=$inmsg>$deletepm</a>ã€€<a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:document.re.submit()">$replypm</a>ã€€<a href="javascript:document.fw.submit()">$fwpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc>åœ¨<b>$date</b>ï¼Œæ‚¨å‘é€æ­¤æ¶ˆæ¯ç»™<b>$to</b>ï¼</td></tr>
 <tr><td bgColor=$miscbackone valign=top><font color=$fontcolormisc>
-<b>ÏûÏ¢±êÌâ£º$messagetitle</b>$attachfile<p>$post
+<b>æ¶ˆæ¯æ ‡é¢˜ï¼š$messagetitle</b>$attachfile<p>$post
 <p align=right>$outboxtempone$outboxmsgup$outboxsplitline$outboxmsgdown$outboxtemptwo</p>
 </td></tr>~;
 }
@@ -774,7 +800,7 @@ elsif ($action eq "read")
 	if ($msgtograb eq "")
 	{
 		&winunlock($filetoopen) if ($OS_USED eq "Nt");
-		&error("ä¯ÀÀÏûÏ¢&Ã»ÓĞ´ËÏûÏ¢£¡»ò´ËÏûÏ¢ÒÑ±»É¾³ı£¡&msg");
+		&error("æµè§ˆæ¶ˆæ¯&æ²¡æœ‰æ­¤æ¶ˆæ¯ï¼æˆ–æ­¤æ¶ˆæ¯å·²è¢«åˆ é™¤ï¼&msg");
 	}
 	my ($from, $readstate, $date, $messagetitle, $post, $attach) = split(/\t/, $msgtograb);
 	if ($readstate eq "no")
@@ -802,7 +828,7 @@ elsif ($action eq "read")
 	$postjf = "no";
 	$membercode = "no";
 
-	$from =~ s/^£ª£££¡£¦£ª//isg;
+	$from =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 	$date = $date + ($timedifferencevalue + $timezone) * 3600;
 	$date = &dateformat($date);
 
@@ -854,21 +880,21 @@ elsif ($action eq "read")
 	$post1 =~ s/<p>/\n\n/ig;
 	$post1 =~ s/<br>/\n/ig;
 	$post1 =~ s/[\"|\<|\>]//ig;
-	$remodel = "$from£¬ÄúºÃ£¡ÉÏ´ÎÄúĞ´µÀ£º\n\n------------------------------\n$post1------------------------------";
-	$fwmodel = "$from£¬ÄúºÃ£¡ÏÂÃæÊÇ×ª·¢µÄÏûÏ¢£º\n\n------------------------------\n$post1------------------------------";
+	$remodel = "$fromï¼Œæ‚¨å¥½ï¼ä¸Šæ¬¡æ‚¨å†™é“ï¼š\n\n------------------------------\n$post1------------------------------";
+	$fwmodel = "$fromï¼Œæ‚¨å¥½ï¼ä¸‹é¢æ˜¯è½¬å‘çš„æ¶ˆæ¯ï¼š\n\n------------------------------\n$post1------------------------------";
 
-	%readstatus = ("yes"=>"ÒÑ¶Á", "no"=>"Î´¶Á");
+	%readstatus = ("yes"=>"å·²è¯»", "no"=>"æœªè¯»");
         if ($inmsg < @inboxmessages - 1)
 	{
 		my $inboxdown = $inmsg + 1;
 		(undef, $nreadstate, undef, $nmessagetitle, undef) = split(/\t/, $inboxmessages[$inboxdown]);
-		$inboxmsgdown = qq~<a href=$thisprog?action=read&msg=$inboxdown title="ÏÂÒ»ÌõÏûÏ¢: ($readstatus{$nreadstate})\nÏûÏ¢±êÌâ: $nmessagetitle">ÏÂÒ»Ìõ</a>~;
+		$inboxmsgdown = qq~<a href=$thisprog?action=read&msg=$inboxdown title="ä¸‹ä¸€æ¡æ¶ˆæ¯: ($readstatus{$nreadstate})\næ¶ˆæ¯æ ‡é¢˜: $nmessagetitle">ä¸‹ä¸€æ¡</a>~;
 	}
 	if ($inmsg > 0)
 	{
 		my $inboxup = $inmsg - 1;
 		(undef, $preadstate, undef, $pmessagetitle, undef) = split(/\t/, $inboxmessages[$inboxup]);
-		$inboxmsgup = qq~<a href=$thisprog?action=read&msg=$inboxup title="ÉÏÒ»ÌõÏûÏ¢: ($readstatus{$preadstate})\nÏûÏ¢±êÌâ: $pmessagetitle">ÉÏÒ»Ìõ</a>~;
+		$inboxmsgup = qq~<a href=$thisprog?action=read&msg=$inboxup title="ä¸Šä¸€æ¡æ¶ˆæ¯: ($readstatus{$preadstate})\næ¶ˆæ¯æ ‡é¢˜: $pmessagetitle">ä¸Šä¸€æ¡</a>~;
 	}
 	$inboxsplitline = " | " if ($inboxmsgdown ne "" && $inboxmsgup ne "");
 	if ($inboxmsgdown ne "" || $inboxmsgup ne "")
@@ -880,34 +906,34 @@ elsif ($action eq "read")
 	my $attachfile = '';
 	if ($attach ne '')
 	{
-		$attachfile = (split('£ª£££¡£¦£ª', $attach), 1)[0];
+		$attachfile = (split('ï¼Šï¼ƒï¼ï¼†ï¼Š', $attach), 1)[0];
 		my $up_ext = lc((split(/\./, $attachfile))[-1]);
 		my $filetype = "unknow";
 		$filetype = $up_ext if (-e "${imagesdir}icon/$up_ext.gif");
-		$attachfile = "<br><b>ÏûÏ¢¸½¼ş£º</b><img src=$imagesurl/icon/$filetype.gif width=16 height=16> <a href=$thisprog?action=attach&box=in&msg=$inmsg target=_blank>$attachfile</a>";
+		$attachfile = "<br><b>æ¶ˆæ¯é™„ä»¶ï¼š</b><img src=$imagesurl/icon/$filetype.gif width=16 height=16> <a href=$thisprog?action=attach&box=in&msg=$inmsg target=_blank>$attachfile</a>";
 		if (($filetype eq "gif")||($filetype eq "jpg")||($filetype eq "jpe")||($filetype eq "jpeg")||($filetype eq "tif")||($filetype eq "png")||($filetype eq "bmp")) {
-			$post = qq~<a href=$thisprog?action=attach&box=in&msg=$inmsg target=_blank><img src=$thisprog?action=attach&box=in&msg=$inmsg border=0 alt=°´´ËÔÚĞÂ´°¿Úä¯ÀÀÍ¼Æ¬ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><p>$post~;
+			$post = qq~<a href=$thisprog?action=attach&box=in&msg=$inmsg target=_blank><img src=$thisprog?action=attach&box=in&msg=$inmsg border=0 alt=æŒ‰æ­¤åœ¨æ–°çª—å£æµè§ˆå›¾ç‰‡ onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><p>$post~;
 		}
 	}
 
 	$output .= qq~
 <form name=re action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$from"><input type=hidden name=msgtitle value="$remsg"><input type=hidden name=message value="$remodel"></form>
 <form name=fw action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$from"><input type=hidden name=msgtitle value="$fwmsg"><input type=hidden name=message value="$fwmodel"></form>
-<tr><td bgColor=$miscbacktwo align=center colSpan=2 $catbackpic height=26><font color=$fontcolormisc><b>»¶Ó­Ê¹ÓÃÄúµÄÊÕ¼şÏä£¬$inmembername</b></td></tr>
-<tr><td bgColor=$miscbackone align=center colSpan=2><a href=$thisprog?action=delete&where=inbox&msg=$inmsg>$deletepm</a>¡¡<a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:document.re.submit()">$replypm</a>¡¡<a href="javascript:document.fw.submit()">$fwpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbacktwo align=center colSpan=2><font color=$fontcolormisc>ÏûÏ¢À´×Ô<b>$from</b>£¬·¢ËÍ¸øÄúµÄÊ±¼ä£º<b>$date</b></font></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=2 $catbackpic height=26><font color=$fontcolormisc><b>æ¬¢è¿ä½¿ç”¨æ‚¨çš„æ”¶ä»¶ç®±ï¼Œ$inmembername</b></td></tr>
+<tr><td bgColor=$miscbackone align=center colSpan=2><a href=$thisprog?action=delete&where=inbox&msg=$inmsg>$deletepm</a>ã€€<a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:document.re.submit()">$replypm</a>ã€€<a href="javascript:document.fw.submit()">$fwpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=2><font color=$fontcolormisc>æ¶ˆæ¯æ¥è‡ª<b>$from</b>ï¼Œå‘é€ç»™æ‚¨çš„æ—¶é—´ï¼š<b>$date</b></font></td></tr>
 <tr><td bgColor=$miscbackone valign=top colSpan=2><font color=$fontcolormisc>
-<b>ÏûÏ¢±êÌâ£º$messagetitle</b>$attachfile<p>$post
+<b>æ¶ˆæ¯æ ‡é¢˜ï¼š$messagetitle</b>$attachfile<p>$post
 <p align=right>$inboxtempone$inboxmsgup$inboxsplitline$inboxmsgdown$inboxtemptwo</p>
 </td></tr>
 <tr>
-<td bgColor=$miscbacktwo valign=top width=20%><font color=$fontcolormisc><b>¿ìËÙ»Ø¸´£º</b></td> 
+<td bgColor=$miscbacktwo valign=top width=20%><font color=$fontcolormisc><b>å¿«é€Ÿå›å¤ï¼š</b></td> 
 <td bgColor=$miscbacktwo>$remsg</td> 
 </tr>
 <tr> 
 <form action=$thisprog method=POST name=FORM enctype="multipart/form-data"><input type=hidden name=action value="send"><input type=hidden name=touser value="$from"><input type=hidden name=msgtitle value="$remsg">
-<td bgColor=$miscbackone valign=top width=20%><font color=$fontcolormisc><b>ÄÚÈİ£º</b></td> 
-<td bgColor=$miscbackone><textarea cols=35 rows=4 name=message OnKeyDown="ctlent()"></textarea><br><input type=checkbox name=backup value=yes class=1><font color=$fontcolormisc>ÊÇ·ñ¸´ÖÆÒ»·İÏûÏ¢ÖÁ·¢¼şÏä£¿</font></td>
+<td bgColor=$miscbackone valign=top width=20%><font color=$fontcolormisc><b>å†…å®¹ï¼š</b></td> 
+<td bgColor=$miscbackone><textarea cols=35 rows=4 name=message OnKeyDown="ctlent()"></textarea><br><input type=checkbox name=backup value=yes class=1><font color=$fontcolormisc>æ˜¯å¦å¤åˆ¶ä¸€ä»½æ¶ˆæ¯è‡³å‘ä»¶ç®±ï¼Ÿ</font></td>
 </tr>
 ~;
 	if ($allowmsgattachment ne 'no')
@@ -917,7 +943,7 @@ elsif ($action eq "read")
 		$addtypedisp =~ s/ \,/\,/ig;
 		$addtypedisp =~ tr/A-Z/a-z/;
 		my @addtypedisp = split(/\,/, $addtypedisp);
-		$addtypedisp = "<select><option value=#>Ö§³ÖÀàĞÍ£º</option><option value=#>----------</option>";
+		$addtypedisp = "<select><option value=#>æ”¯æŒç±»å‹ï¼š</option><option value=#>----------</option>";
 		foreach (@addtypedisp)
 		{
 			chomp;
@@ -927,24 +953,24 @@ elsif ($action eq "read")
 		$addtypedisp .= qq~</select>~;
 		$output .= qq~
 <tr>
-<td bgColor=$miscbackone valign=top width=30%><font color=$fontcolormisc><b>¸½¼ş£º</b><br>(×î´ó <b>60</b> KB)</font></td>
+<td bgColor=$miscbackone valign=top width=30%><font color=$fontcolormisc><b>é™„ä»¶ï¼š</b><br>(æœ€å¤§ <b>60</b> KB)</font></td>
 <td bgColor=$miscbackone><input type=file size=30 name=addme><br>$addtypedisp</td>
 </tr>
 ~;
 	}
 $output .= qq~
-<tr><td bgColor=$miscbacktwo colSpan=2 align=center><input type=submit value="·¢ ËÍ" name=Submit>   <input type=reset name=Clear value="Çå ³ı"></td></form></tr>~;
+<tr><td bgColor=$miscbacktwo colSpan=2 align=center><input type=submit value="å‘ é€" name=Submit>   <input type=reset name=Clear value="æ¸… é™¤"></td></form></tr>~;
 }
 
 elsif ($action eq "deleteall")
 {
 	my $filetotrash = $inwhere eq "inbox" ? "${lbdir}${msgdir}/in/${memberfilename}_msg.cgi" : "${lbdir}${msgdir}/out/${memberfilename}_out.cgi";
 	unlink($filetotrash);
-	my $wherename = $inwhere eq "inbox" ? "ÊÕ¼şÏä" : "·¢¼şÏä";
+	my $wherename = $inwhere eq "inbox" ? "æ”¶ä»¶ç®±" : "å‘ä»¶ç®±";
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>ËùÓĞµÄ¶ÌÏûÏ¢ÒÑ±»É¾³ı</b></td></tr>
-<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ÄúÔÚ$wherenameÖĞµÄ¶ÌÏûÏ¢ÒÑ¾­È«²¿É¾³ı</b><br><br></td></tr>~;
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>æ‰€æœ‰çš„çŸ­æ¶ˆæ¯å·²è¢«åˆ é™¤</b></td></tr>
+<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>æ‚¨åœ¨$wherenameä¸­çš„çŸ­æ¶ˆæ¯å·²ç»å…¨éƒ¨åˆ é™¤</b><br><br></td></tr>~;
 }
 
 elsif ($action eq "delete")
@@ -980,23 +1006,23 @@ elsif ($action eq "delete")
 	}
 	close(FILE);
 	&winunlock($filetoopen) if ($OS_USED eq "Nt");
-	my $wherename = $inwhere eq "inbox" ? "ÊÕ¼şÏä" : "·¢¼şÏä";
+	my $wherename = $inwhere eq "inbox" ? "æ”¶ä»¶ç®±" : "å‘ä»¶ç®±";
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>ÏûÏ¢É¾³ı</b></td></tr>
-<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi',420,320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ÄúÔÚ$wherenameÖĞµÄ¶ÌÏûÏ¢ÒÑ¾­É¾³ı¡£<br><br>×Ô¶¯·µ»Ø$wherename<br><br></b></td></tr>
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>æ¶ˆæ¯åˆ é™¤</b></td></tr>
+<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi',420,320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>æ‚¨åœ¨$wherenameä¸­çš„çŸ­æ¶ˆæ¯å·²ç»åˆ é™¤ã€‚<br><br>è‡ªåŠ¨è¿”å›$wherename<br><br></b></td></tr>
 <meta http-equiv="refresh" Content="2; url=$thisprog?action=$inwhere">~;
 }
 elsif($action eq "disable_pm"){
-	my $disable_pm_status = ($query->param('disable_pm_status') eq "¿ªÆô")?"¿ªÆô":"¹Ø±Õ";
+	my $disable_pm_status = ($query->param('disable_pm_status') eq "å¼€å¯")?"å¼€å¯":"å…³é—­";
 	my $disable_pm_mess = &lbhz(&unHTML($query->param('mess')),40);
 	my $memberfilename = $inmembername;
 	$memberfilename =~ s/ /\_/g;
 	$memberfilename =~ tr/A-Z/a-z/;
 	my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
-	if($disable_pm_status eq "¿ªÆô"){
+	if($disable_pm_status eq "å¼€å¯"){
 		if (length($disable_pm_mess) == 0) {
-			$disable_pm_mess = "¶Ô²»Æğ£¬ÎÒÏÖÔÚºÜÃ¦£¬ÇëÄúÉÔºóÔÙÁªÏµÎÒ¡£";
+			$disable_pm_mess = "å¯¹ä¸èµ·ï¼Œæˆ‘ç°åœ¨å¾ˆå¿™ï¼Œè¯·æ‚¨ç¨åå†è”ç³»æˆ‘ã€‚";
 		}else {
 			$disable_pm_mess =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\=\+\\\'\:\"\/\<\>\?\[\]]//isg;
 		}
@@ -1009,9 +1035,9 @@ elsif($action eq "disable_pm"){
 	    unlink ($messfilename) if (-e $messfilename);
 	}
 	$output .= qq~
-<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>¶ÌÏûÏ¢Ãâ´òÈÅ</b></td></tr>
-<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>¡¡<a href=$thisprog?action=outbox>$outboxpm</a>¡¡<a href=$thisprog?action=new>$newpm</a>¡¡<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>¡¡<a href="javascript:openscript('blocklist.cgi',420,320)">$blockpm</a></td></tr>
-<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>ÄúÒÑ$disable_pm_statusÃâ´òÈÅÄ£Ê½¡£<br><br>×Ô¶¯·µ»ØÊÕ¼şÏä<br><br></b></td></tr>
+<tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc><b>çŸ­æ¶ˆæ¯å…æ‰“æ‰°</b></td></tr>
+<tr><td bgColor=$miscbackone align=center><a href=$thisprog?action=inbox>$inboxpm</a>ã€€<a href=$thisprog?action=outbox>$outboxpm</a>ã€€<a href=$thisprog?action=new>$newpm</a>ã€€<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>ã€€<a href="javascript:openscript('blocklist.cgi',420,320)">$blockpm</a></td></tr>
+<tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>æ‚¨å·²$disable_pm_statuså…æ‰“æ‰°æ¨¡å¼ã€‚<br><br>è‡ªåŠ¨è¿”å›æ”¶ä»¶ç®±<br><br></b></td></tr>
 <meta http-equiv="refresh" Content="2; url=$thisprog?action=inbox">~;
 }
 $memberfilename = $inmembername;
@@ -1023,8 +1049,8 @@ if (open(FILE, $messfilename)){
 	$disable_pm_mess = <FILE>;
 	close(FILE);
 }
-$now_status=($disable_pm_mess ne "")?"¿ªÆô":"¹Ø±Õ";
-$disable_pm_mess = "¶Ô²»Æğ£¬ÎÒÏÖÔÚºÜÃ¦£¬ÇëÄúÉÔºóÔÙÁªÏµÎÒ¡£" if (length($disable_pm_mess) == 0);
+$now_status=($disable_pm_mess ne "")?"å¼€å¯":"å…³é—­";
+$disable_pm_mess = "å¯¹ä¸èµ·ï¼Œæˆ‘ç°åœ¨å¾ˆå¿™ï¼Œè¯·æ‚¨ç¨åå†è”ç³»æˆ‘ã€‚" if (length($disable_pm_mess) == 0);
 
 	my $cleanname = $intouser;
 	$cleanname =~ tr/A-Z/a-z/;
@@ -1040,7 +1066,7 @@ $disable_pm_mess = "¶Ô²»Æğ£¬ÎÒÏÖÔÚºÜÃ¦£¬ÇëÄúÉÔºóÔÙÁªÏµÎÒ¡£" if (length($disable_
 	my $friendlist = "";
 	foreach (@currentlist) {
 		chomp;
-		s/^£ª£££¡£¦£ª//isg;
+		s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 		$friendlist .= qq~<option value="$_">$_</option>~;
 	}
 
@@ -1050,14 +1076,14 @@ $output.=qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><br>
 <p>
 <SCRIPT>valigntop()</SCRIPT><table cellPadding=0 cellSpacing=0 width=$tablewidth bgColor=$tablebordercolor align=center><tr><td>
 <table cellPadding=3 cellSpacing=1 width=100%><tr>
-<td bgColor=$miscbacktwo align=center width="30%"><b>¶ÌÏûÏ¢Ãâ´òÈÅ×´Ì¬£º</b> <u style="color:$fonthighlight">$now_status</u></td>
+<td bgColor=$miscbacktwo align=center width="30%"><b>çŸ­æ¶ˆæ¯å…æ‰“æ‰°çŠ¶æ€ï¼š</b> <u style="color:$fonthighlight">$now_status</u></td>
 <td bgColor=$miscbackone align=center><input type="text" name="mess" size=20 maxlength=40 value="$disable_pm_mess"></td>
-<td bgColor=$miscbacktwo align=center width="25%"><input type="submit" value="¿ªÆô" name="disable_pm_status"> <input type="submit" value="¹Ø±Õ" name="disable_pm_status"></td>
+<td bgColor=$miscbacktwo align=center width="25%"><input type="submit" value="å¼€å¯" name="disable_pm_status"> <input type="submit" value="å…³é—­" name="disable_pm_status"></td>
 </tr>
 </form>~;
 
 $output .= "</table></td></tr></table><SCRIPT>valignend()</SCRIPT>";
-&output("$boardname - ¶ÌÏûÏ¢",\$output,"msg");
+&output("$boardname - çŸ­æ¶ˆæ¯",\$output,"msg");
 
 sub splitpage
 {
@@ -1078,15 +1104,15 @@ sub splitpage
 
 		my $currentpage = int($instart / $maxthread) + 1;
 		my $endstart = ($numberofpages - 1) * $maxthread;
-		my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?action=$tmp&start=0 title="Ê× Ò³" ><font face=webdings>9</font></a>~;
-		my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?action=$tmp&start=$endstart title="Î² Ò³" ><font face=webdings>:</font></a>~;
+		my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?action=$tmp&start=0 title="é¦– é¡µ" ><font face=webdings>9</font></a>~;
+		my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?action=$tmp&start=$endstart title="å°¾ é¡µ" ><font face=webdings>:</font></a>~;
 
 		my $uppage = $currentpage - 1;
 		my $nextpage = $currentpage + 1;
 		my $upstart = $instart - $maxthread;
 		my $nextstart = $instart + $maxthread;
-		my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?action=$tmp&start=$upstart title="µÚ$uppageÒ³"><font face=webdings>7</font></a>~;
-		my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?action=$tmp&start=$nextstart title="µÚ$nextpageÒ³"><font face=webdings>8</font></a>~;
+		my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?action=$tmp&start=$upstart title="ç¬¬$uppageé¡µ"><font face=webdings>7</font></a>~;
+		my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?action=$tmp&start=$nextstart title="ç¬¬$nextpageé¡µ"><font face=webdings>8</font></a>~;
 
 		my $tempstep = $currentpage / 7;
 		my $currentstep = int($tempstep);
@@ -1095,8 +1121,8 @@ sub splitpage
 		my $nextsteppage = $currentstep * 7 + 1;
 		my $upstepstart = ($upsteppage - 1) * $maxthread;
 		my $nextstepstart = ($nextsteppage - 1) * $maxthread;
-		my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?action=$tmp&start=$upstepstart class=hb title="µÚ$upsteppageÒ³">¡û</a> ~;
-		my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?action=$tmp&start=$nextstepstart class=hb title="µÚ$nextsteppageÒ³">¡ú</a> ~;
+		my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?action=$tmp&start=$upstepstart class=hb title="ç¬¬$upsteppageé¡µ">â†</a> ~;
+		my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?action=$tmp&start=$nextstepstart class=hb title="ç¬¬$nextsteppageé¡µ">â†’</a> ~;
 
 		$pages = "";
 		for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++)
@@ -1105,19 +1131,19 @@ sub splitpage
 			my $currentstart = ($i - 1) * $maxthread;
 			$pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?action=$tmp&start=$currentstart class=hb>$i</a> ~;
 		}
-		$pages = "<font color=$menufontcolor><b>¹² <font color=$fonthighlight>$numberofpages</font> Ò³</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
+		$pages = "<font color=$menufontcolor><b>å…± <font color=$fonthighlight>$numberofpages</font> é¡µ</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
 	}
 	else
 	{
 		$startarray = 0;
 		$endarray = $totalinboxmessages - 1;
-		$pages = "<font color=$menufontcolor>Ö»ÓĞÒ»Ò³</font><br>";
+		$pages = "<font color=$menufontcolor>åªæœ‰ä¸€é¡µ</font><br>";
 	}
 	return;
 }
 
 sub Base64encode
-#Base64±àÂëº¯Êı
+#Base64ç¼–ç å‡½æ•°
 {
 	my $res = pack("u", $_[0]);
 	$res =~ s/^.//mg;
@@ -1129,7 +1155,7 @@ sub Base64encode
 }
 
 sub Base64decode
-#Base64½âÂëº¯Êı
+#Base64è§£ç å‡½æ•°
 {
 	local($^W) = 0;
 	my $str = shift;

@@ -112,6 +112,6 @@ if($allfilelength > 1024) {
 }
 $allfilelength = sprintf("%6.2f",$allfilelength) . " $lbsd";
 
-$addme .= qq~<tr bgColor=$titlecolor><td align=right nowrap colspan=2>ç§å­æ•°ï¼š$seedsforum=$inforum&filename=$1&topic=$intopic target=_blank title="°´´Ë¿É»ñµÃ¼´Ê±µÄ×ÊÁÏÊı¾İ£¬Èç¹ûÏÔÊ¾³öÏÖ\n°×ÆÁ£¬¿ÉÄÜÊÇ¶Ô·½·şÎñÆ÷ÎŞ·¨Á¬½Ó¡£">±¾Ò³ÃæÊı¾İ²¢·Ç¼´Ê±£¬ÈçĞèÒª¼´Ê±ĞÅÏ¢Çë°´ÕâÀï</a>]&nbsp;{br}×Ü¹²ÓĞ $count ¸öÎÄ¼ş£¬ÄÚÈİ¹²ÓĞ $allfilelength&nbsp;{br}URL: $announce&nbsp;</td></tr></table></ul>~;
+$addme .= qq~<tr bgColor=$titlecolor><td align=right nowrap colspan=2>ç§å­æ•°ï¼š$seedsã€€&nbsp;è¿æ¥æ•°ï¼š$leechesã€€&nbsp;å®Œæˆæ•°ï¼š$downloaded&nbsp;{br}[<a href=getbtinfo.cgi?forum=$inforum&filename=$1&topic=$intopic target=_blank title="æŒ‰æ­¤å¯è·å¾—å³æ—¶çš„èµ„æ–™æ•°æ®ï¼Œå¦‚æœæ˜¾ç¤ºå‡ºç°\nç™½å±ï¼Œå¯èƒ½æ˜¯å¯¹æ–¹æœåŠ¡å™¨æ— æ³•è¿æ¥ã€‚">æœ¬é¡µé¢æ•°æ®å¹¶éå³æ—¶ï¼Œå¦‚éœ€è¦å³æ—¶ä¿¡æ¯è¯·æŒ‰è¿™é‡Œ</a>]&nbsp;{br}æ€»å…±æœ‰ $count ä¸ªæ–‡ä»¶ï¼Œå†…å®¹å…±æœ‰ $allfilelength&nbsp;{br}URL: $announce&nbsp;</td></tr></table></ul>~;
 }
 1;

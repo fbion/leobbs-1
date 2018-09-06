@@ -80,10 +80,12 @@ else
 	&getmember($inmembername, 'no');
 	&error("æ™®é€šé”™è¯¯&æ­¤ç”¨æˆ·æ ¹æœ¬ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 	&error("æ™®é€šé”™è¯¯&å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password);
-	&error("æƒé™é”™è¯¯&è¢«å±è”½æ–‡ç« æˆ–ç¦è¨€çš„ç”¨ÈÏÖÏó
+	&error("æƒé™é”™è¯¯&è¢«å±è”½æ–‡ç« æˆ–ç¦è¨€çš„ç”¨æˆ¶ä¸å…è®¸è®¿é—® FTP è”ç›Ÿï¼") if ($membercode eq "banned" || $membercode eq "masked");
+
+	#é¿å…æ¶æ„ç”¨æˆ·åŒæ—¶æäº¤å¤šä¸ªäº¤æ˜“è¯·æ±‚é€ æˆçš„è´Ÿå€ºè´­ä¹°ç­‰ç°è±¡
 	if (-e $ftplockfile)
 	{
-		&myerror("Ë¢ĞÂ´íÎó&Çë²»ÒªË¢ĞÂFTPÁªÃËÌ«¿ì£¡") if ($currenttime < (stat($ftplockfile))[9] + 3);
+		&myerror("åˆ·æ–°é”™è¯¯&è¯·ä¸è¦åˆ·æ–°FTPè”ç›Ÿå¤ªå¿«ï¼") if ($currenttime < (stat($ftplockfile))[9] + 3);
 	}
 	open(LOCKCALFILE, ">$ftplockfile");
 	close(LOCKCALFILE);
@@ -93,22 +95,22 @@ else
 
 if (($membercode ne "ad")&&($plugstats eq "close")) {
     unlink($ftplockfile);
-    &error("ÆÕÍ¨´íÎó&FTP ÁªÃËÒÑ¾­±»¹ÜÀíÔ±ÔİÊ±¹Ø±Õ£¡");
+    &error("æ™®é€šé”™è¯¯&FTP è”ç›Ÿå·²ç»è¢«ç®¡ç†å‘˜æš‚æ—¶å…³é—­ï¼");
 }
 
 $action = $query->param("action");
 my %Mode = (
-	"view"	=> \&view,	#²é¿´Ä³¸öFTPµÄµÇÂ¼×ÊÁÏ
-	"poll"	=> \&poll,	#¸øÄ³¸öFTP´ò·Ö
-	"add"	=> \&add,	#Ìí¼ÓÒ»¸öFTPµÇÂ¼×ÊÁÏ
+	"view"	=> \&view,	#æŸ¥çœ‹æŸä¸ªFTPçš„ç™»å½•èµ„æ–™
+	"poll"	=> \&poll,	#ç»™æŸä¸ªFTPæ‰“åˆ†
+	"add"	=> \&add,	#æ·»åŠ ä¸€ä¸ªFTPç™»å½•èµ„æ–™
 	"addok"	=> \&addok,
-	"edit"	=> \&edit,	#±à¼­Ò»¸öFTPµÇÂ¼×ÊÁÏ
+	"edit"	=> \&edit,	#ç¼–è¾‘ä¸€ä¸ªFTPç™»å½•èµ„æ–™
 	"editok"=> \&editok,
-	"info"	=> \&info,	#²éÑ¯FTPµÄ¹ºÂò¼ÇÂ¼
-	"delete"=> \&delete,	#É¾³ıÒ»¸öFTPµÇÂ¼×ÊÁÏ
-	"up"	=> \&up,	#ÌáÉıFTPÔÚÁªÃËÖĞµÄÎ»ÖÃ
-	"repair"=> \&repair,	#ÖØ½¨ÁªÃËË÷Òı
-	"config"=> \&config	#ÅäÖÃ³ÌĞòÉèÖÃ
+	"info"	=> \&info,	#æŸ¥è¯¢FTPçš„è´­ä¹°è®°å½•
+	"delete"=> \&delete,	#åˆ é™¤ä¸€ä¸ªFTPç™»å½•èµ„æ–™
+	"up"	=> \&up,	#æå‡FTPåœ¨è”ç›Ÿä¸­çš„ä½ç½®
+	"repair"=> \&repair,	#é‡å»ºè”ç›Ÿç´¢å¼•
+	"config"=> \&config	#é…ç½®ç¨‹åºè®¾ç½®
 );
 
 if ($Mode{$action})
@@ -122,7 +124,7 @@ else
 
 unlink($ftplockfile);
 print header(-cookie=>[$onlineviewcookie], -charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - FTP ÁªÃË",\$output);
+&output("$boardname - FTP è”ç›Ÿ",\$output);
 exit;
 
 sub list
@@ -131,23 +133,23 @@ sub list
 	$onlineview = 0 if ($onlineview eq "");
 	$onlineview = $onlineview == 1 ? 0 : 1 if ($action eq "onlineview");
 	$onlineviewcookie = cookie(-name=>"onlineview", -value=>"$onlineview", -path=>"$cookiepath/", -expires=>"+30d");
-	my $onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>¹Ø±ÕÏêÏ¸ÁĞ±í</font></a>]" : "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>ÏÔÊ¾ÏêÏ¸ÁĞ±í</font></a>]";
+	my $onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>å…³é—­è¯¦ç»†åˆ—è¡¨</font></a>]" : "[<a href=$thisprog?action=onlineview><font color=$titlefontcolor>æ˜¾ç¤ºè¯¦ç»†åˆ—è¡¨</font></a>]";
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬²¢»ñµÃÔÚÏßÁĞ±í
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€å¹¶è·å¾—åœ¨çº¿åˆ—è¡¨
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
 	unless (-e "$filetoopens.lck")
 	{
 		$screenmode = $query->cookie("screenmode");
 		$screenmode = 8 if ($screenmode eq "");
-		&whosonline("$inmembername\tFTP ÁªÃË\tFTP ÁªÃË\t²é¿´ FTP ÁªÃËÁĞ±í");
-		$membertongji =~ s/±¾·ÖÂÛÌ³/FTP ÁªÃË/o;
+		&whosonline("$inmembername\tFTP è”ç›Ÿ\tFTP è”ç›Ÿ\tæŸ¥çœ‹ FTP è”ç›Ÿåˆ—è¡¨");
+		$membertongji =~ s/æœ¬åˆ†è®ºå›/FTP è”ç›Ÿ/o;
 		undef $memberoutput if ($onlineview != 1);
 	}
 	else
 	{
 		$memberoutput = "";
-		$membertongji = " <b>ÓÉÓÚ·şÎñÆ÷·±Ã¦£¬ËùÒÔ FTP ÁªÃËµÄÔÚÏßÊı¾İÔİÊ±²»Ìá¹©ÏÔÊ¾¡£</b>";
+		$membertongji = " <b>ç”±äºæœåŠ¡å™¨ç¹å¿™ï¼Œæ‰€ä»¥ FTP è”ç›Ÿçš„åœ¨çº¿æ•°æ®æš‚æ—¶ä¸æä¾›æ˜¾ç¤ºã€‚</b>";
 		$onlinetitle = "";
 	}
 
@@ -159,12 +161,12 @@ sub list
 	close(LIST);
 	&winunlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#Í·²¿Êä³öºÍÔÚÏßÍ³¼Æ
+	#å¤´éƒ¨è¾“å‡ºå’Œåœ¨çº¿ç»Ÿè®¡
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT><table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
 <tr>
-	<td bgcolor=$titlecolor width=92% $catbackpic><font color=$titlefontcolor>$membertongji¡¡ $onlinetitle</td>
+	<td bgcolor=$titlecolor width=92% $catbackpic><font color=$titlefontcolor>$membertongjiã€€ $onlinetitle</td>
 	<td bgcolor=$titlecolor width=8% align=center $catbackpic><a href="javascript:this.location.reload()"><img src=$imagesurl/images/refresh.gif border=0 width=40 height=12></a></td>
 </tr>~;
 	$output .= qq~\n<tr><td colspan=2 bgcolor=$forumcolorone $otherbackpic><table cellPadding=1 cellSpacing=0>$memberoutput</table><script language="JavaScript"> function O9(id) {if(id != "") window.open("profile.cgi?action=show&member=" + id);}</script></td></tr>~ if ($onlineview == 1 && $memberoutput);
@@ -173,51 +175,51 @@ sub list
 <script language="JavaScript">
 function Closed()
 {
-	alert("Õâ¸ö FTP Ä¿Ç°±»ÔİÊ±¹Ø±ÕÁË£¡");
+	alert("è¿™ä¸ª FTP ç›®å‰è¢«æš‚æ—¶å…³é—­äº†ï¼");
 	return false;
 }
 function LeastRate()
 {
-	alert("ÄãµÄÍşÍûÖµºÃÏñ²»¹»Õâ¸ö FTP µÄ²é¿´ÒªÇó£¡");
+	alert("ä½ çš„å¨æœ›å€¼å¥½åƒä¸å¤Ÿè¿™ä¸ª FTP çš„æŸ¥çœ‹è¦æ±‚ï¼");
 	return false;
 }
 function LeastMoney(myallmoney)
 {
-	alert("ÄãµÄÉçÇø»õ±ÒºÃÏñ²»¹»£¬Ö»ÓĞ " + myallmoney + " $moneyname£¬Âò²»ÆğÕâ¸ö FTP µÄµÇÂ¼×ÊÁÏÅ¶£¡\\nÈç¹ûÄãÔÚÒøĞĞÓĞ´æ¿îµÄ»°¸Ï½ôÈ¥È¡Ç®£¬ÎÒÃÇÖ»ÊÕÏÖ½ğ:)");
+	alert("ä½ çš„ç¤¾åŒºè´§å¸å¥½åƒä¸å¤Ÿï¼Œåªæœ‰ " + myallmoney + " $moneynameï¼Œä¹°ä¸èµ·è¿™ä¸ª FTP çš„ç™»å½•èµ„æ–™å“¦ï¼\\nå¦‚æœä½ åœ¨é“¶è¡Œæœ‰å­˜æ¬¾çš„è¯èµ¶ç´§å»å–é’±ï¼Œæˆ‘ä»¬åªæ”¶ç°é‡‘:)");
 	return false;
 }
 function MaxUser()
 {
-	alert("²é¿´Õâ¸ö FTP µÇÂ¼×ÊÁÏµÄÈËÊıÒÑ¾­´ïµ½ÁËÏŞ¶¨µÄ×î´óÊı¶î£¡");
+	alert("æŸ¥çœ‹è¿™ä¸ª FTP ç™»å½•èµ„æ–™çš„äººæ•°å·²ç»è¾¾åˆ°äº†é™å®šçš„æœ€å¤§æ•°é¢ï¼");
 	return false;
 }
 function ViewNEW(money, myallmoney)
 {
-	if (confirm("ÕâÊÇÄãµÚÒ»´Î²é¿´Õâ¸ö FTP£¬ÄãÏÖÔÚÓĞ " + myallmoney + " $moneynameÉçÇø»õ±Ò¡£\\n¹ºÂòµÇÂ¼×ÊÁÏĞèÒª»¨·ÑÄã " + money + " $moneynameÉçÇø»õ±Ò£¬ÊÇ·ñ¼ÌĞø£¿"))
+	if (confirm("è¿™æ˜¯ä½ ç¬¬ä¸€æ¬¡æŸ¥çœ‹è¿™ä¸ª FTPï¼Œä½ ç°åœ¨æœ‰ " + myallmoney + " $moneynameç¤¾åŒºè´§å¸ã€‚\\nè´­ä¹°ç™»å½•èµ„æ–™éœ€è¦èŠ±è´¹ä½  " + money + " $moneynameç¤¾åŒºè´§å¸ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ"))
 		return true;
 	else
 		return false;
 }
 function ViewOLD()
 {
-	if (confirm("ÄãÒÔÇ°¹ºÂò¹ıÕâ¸ö FTP µÄ×ÊÁÏ£¬ÔÙ´Î²é¿´ÎŞĞè»¨Ç®:) ÊÇ·ñ¼ÌĞø£¿"))
+	if (confirm("ä½ ä»¥å‰è´­ä¹°è¿‡è¿™ä¸ª FTP çš„èµ„æ–™ï¼Œå†æ¬¡æŸ¥çœ‹æ— éœ€èŠ±é’±:) æ˜¯å¦ç»§ç»­ï¼Ÿ"))
 		return true;
 	else
 		return false;
 }
 function AdminView()
 {
-	if (confirm("ÄãÊÇÕâ¸ö FTP µÄ¹ÜÀíÈËÔ±£¬²é¿´×ÊÁÏ²»ÊÜÏŞÖÆ£¬ÊÇ·ñ¼ÌĞø£¿"))
+	if (confirm("ä½ æ˜¯è¿™ä¸ª FTP çš„ç®¡ç†äººå‘˜ï¼ŒæŸ¥çœ‹èµ„æ–™ä¸å—é™åˆ¶ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ"))
 		return true;
 	else
 		return false;	
 }
 </script>~;
-	$output .= "\n<table width=$tablewidth align=center><tr><td>¡¡¡¡<a href=$thisprog?action=add><font color=$fonthighlight><b>³öÊÛĞÂµÄ FTP ·şÎñ</b></font></a></td></tr></table>" if ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
+	$output .= "\n<table width=$tablewidth align=center><tr><td>ã€€ã€€<a href=$thisprog?action=add><font color=$fonthighlight><b>å‡ºå”®æ–°çš„ FTP æœåŠ¡</b></font></a></td></tr></table>" if ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
 	$output .= qq~
 	<SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr style="color: $titlefontcolor; font-weight: bold; background-color: $titlecolor" align=center><td $catbackpic>FTP Ãû³Æ (µã»÷¹ºÂò)</td><td $catbackpic>×´Ì¬</td><td $catbackpic>ÀàĞÍ</td><td $catbackpic>¹ÜÀíÔ±</td><td $catbackpic>µ±Ç°ÊÛ¼Û</td><td $catbackpic>ÍşÍûÒªÇó</td><td $catbackpic>¹ºÂòÏŞÖÆ</td><td $catbackpic>µÃ·Ö</td></tr>~;
+<tr style="color: $titlefontcolor; font-weight: bold; background-color: $titlecolor" align=center><td $catbackpic>FTP åç§° (ç‚¹å‡»è´­ä¹°)</td><td $catbackpic>çŠ¶æ€</td><td $catbackpic>ç±»å‹</td><td $catbackpic>ç®¡ç†å‘˜</td><td $catbackpic>å½“å‰å”®ä»·</td><td $catbackpic>å¨æœ›è¦æ±‚</td><td $catbackpic>è´­ä¹°é™åˆ¶</td><td $catbackpic>å¾—åˆ†</td></tr>~;
 
 	foreach (@ftpinfos)
 	{
@@ -267,33 +269,33 @@ function AdminView()
 
 		if (lc($inmembername) eq lc($ftpadmin) || $membercode eq "ad")
 		{
-			$adminoption = qq~<a href=$thisprog?action=edit&id=$ftpid><font color=$titlecolor>±à</font></a> <font color=$titlecolor>|</font> <a href=$thisprog?action=delete&id=$ftpid OnClick="return confirm('Õâ½«³¹µ×É¾³ıÄãµÄ FTP ·şÎñ×ÊÁÏ£¬Èç¹ûÖ»ÊÇÒ»Ê±ÖĞ¶ÏÊ¹ÓÃ£¬½¨ÒéÄãÖ»½«ÆäÔİÊ±¹Ø±Õ¡£ÊÇ·ñ¼ÌĞø£¿');"><font color=$titlecolor>É¾</font></a> <font color=$titlecolor>|</font> <a href=$thisprog?action=info&id=$ftpid><font color=$titlecolor>¼ÇÂ¼</font></a>~;
+			$adminoption = qq~<a href=$thisprog?action=edit&id=$ftpid><font color=$titlecolor>ç¼–</font></a> <font color=$titlecolor>|</font> <a href=$thisprog?action=delete&id=$ftpid OnClick="return confirm('è¿™å°†å½»åº•åˆ é™¤ä½ çš„ FTP æœåŠ¡èµ„æ–™ï¼Œå¦‚æœåªæ˜¯ä¸€æ—¶ä¸­æ–­ä½¿ç”¨ï¼Œå»ºè®®ä½ åªå°†å…¶æš‚æ—¶å…³é—­ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ');"><font color=$titlecolor>åˆ </font></a> <font color=$titlecolor>|</font> <a href=$thisprog?action=info&id=$ftpid><font color=$titlecolor>è®°å½•</font></a>~;
 		}
-		$adminoption .= qq~ <font color=$titlecolor>|</font> <a href=$thisprog?action=up&id=$ftpid OnClick="return confirm('Õâ½«°ÑÕâ¸ö FTP ÌáÉıµ½ÁªÃËµÄ×î¶¥¶ËÎ»ÖÃ£¬ÊÇ·ñ¼ÌĞø£¿');"><font color=$titlecolor>Ìá</font></a>~ if ($membercode eq "ad");
+		$adminoption .= qq~ <font color=$titlecolor>|</font> <a href=$thisprog?action=up&id=$ftpid OnClick="return confirm('è¿™å°†æŠŠè¿™ä¸ª FTP æå‡åˆ°è”ç›Ÿçš„æœ€é¡¶ç«¯ä½ç½®ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ');"><font color=$titlecolor>æ</font></a>~ if ($membercode eq "ad");
 
 		$ftpintro =~ s/<br>/\n/isg;
 		$ftpname = "<font color=$fonthighlight><b>$ftpname</b></font>" if ($ftptype ne "priviate");
 		$ftpname = qq~<a href=$thisprog?action=view&id=$ftpid OnClick="return $prompt;" title="$ftpintro">$ftpname</a>~;
-		$ftpstatus = $ftpstatus eq "close" ? "¹Ø±Õ" : "¿ª·Å";
-		$ftptype = $ftptype eq "priviate" ? "¸öÈË" : "¹«¹²";
+		$ftpstatus = $ftpstatus eq "close" ? "å…³é—­" : "å¼€æ”¾";
+		$ftptype = $ftptype eq "priviate" ? "ä¸ªäºº" : "å…¬å…±";
 		my $encodeftpadmin = uri_escape($ftpadmin);
 		$ftpadmin = "<a href=profile.cgi?action=show&member=$encodeftpadmin target=_blank>$ftpadmin</a>";
-		$ftpmaxuser = $ftpmaxuser eq "" ? qq~<span title="µ±Ç°¹ºÂòÈËÊı: $viewnum\n×î¶àÔÊĞí¹ºÂòÈËÊı: ²»ÏŞ">$viewnum / MAX</span>~ : qq~<span title="µ±Ç°¹ºÂòÈËÊı: $viewnum\n×î¶àÔÊĞí¹ºÂòÈËÊı: $ftpmaxuser">$viewnum / $ftpmaxuser</span>~;
-		$pollscore = $polluser > 0 ? sprintf("%4.2f", $pollscore / $polluser) : "ÎŞ";
+		$ftpmaxuser = $ftpmaxuser eq "" ? qq~<span title="å½“å‰è´­ä¹°äººæ•°: $viewnum\næœ€å¤šå…è®¸è´­ä¹°äººæ•°: ä¸é™">$viewnum / MAX</span>~ : qq~<span title="å½“å‰è´­ä¹°äººæ•°: $viewnum\næœ€å¤šå…è®¸è´­ä¹°äººæ•°: $ftpmaxuser">$viewnum / $ftpmaxuser</span>~;
+		$pollscore = $polluser > 0 ? sprintf("%4.2f", $pollscore / $polluser) : "æ— ";
 		$output .= "\n<tr bgColor=$forumcolortwo align=center><td>$ftpname<div align=right>$adminoption</div></td><td>$ftpstatus</td><td>$ftptype</td><td>$ftpadmin</td><td><i>$ftpmoney</i> $moneyname</td><td>$ftprate</td><td>$ftpmaxuser</td><td>$pollscore</td></tr>";
 	}
 
-	$output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><table cellPadding=0 cellSpacing=0 width=$tablewidth><tr><td align=right width=100% style="line-height: 150%">&copy; <b>³ÌĞòÉè¼Æ: <a href=http://www.94cool.net target=_blank><font color=5599ff>94Cool</font><font color=ff9955>.net</font></a></b> <a href=mailto:Jim_White\@etang.com>BigJim</a> </td></tr></table>~;
+	$output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><table cellPadding=0 cellSpacing=0 width=$tablewidth><tr><td align=right width=100% style="line-height: 150%">&copy; <b>ç¨‹åºè®¾è®¡: <a href=http://www.94cool.net target=_blank><font color=5599ff>94Cool</font><font color=ff9955>.net</font></a></b> <a href=mailto:Jim_White\@etang.com>BigJim</a> </td></tr></table>~;
 
 	if ($membercode eq "ad")
-	{#Ì³Ö÷¿ÉÒÔ¿´µ½¹ÜÀíÑ¡Ïî
-		$plugopenorclose = qq~<select name="plugstats"><option value="open">Õı³£¿ª·Å</option><option value="close">ÔİÊ±¹Ø±Õ</option></select>~;
+	{#å›ä¸»å¯ä»¥çœ‹åˆ°ç®¡ç†é€‰é¡¹
+		$plugopenorclose = qq~<select name="plugstats"><option value="open">æ­£å¸¸å¼€æ”¾</option><option value="close">æš‚æ—¶å…³é—­</option></select>~;
 		$plugopenorclose =~ s/value=\"$plugstats\"/value=\"$plugstats\" selected/;
 		$output .= qq~<p>
 <script language="JavaScript">
 function AddSALE()
 {
-	if (name = prompt("ÇëÊäÈëÒªÌí¼ÓµÄÔÊĞí³öÊÛ FTP ·şÎñµÄ ID£º", ""))
+	if (name = prompt("è¯·è¾“å…¥è¦æ·»åŠ çš„å…è®¸å‡ºå”® FTP æœåŠ¡çš„ IDï¼š", ""))
 	{
 		if (CONFIG.saleusers.innerText) CONFIG.saleusers.innerText += "," + name;
 		else CONFIG.saleusers.innerText = name;
@@ -301,7 +303,7 @@ function AddSALE()
 }
 function DeleteSALE()
 {
-	if (name = prompt("ÇëÊäÈëÒªÈ¥³ıµÄÔÊĞí³öÊÛ FTP ·şÎñµÄ ID£º", ""))
+	if (name = prompt("è¯·è¾“å…¥è¦å»é™¤çš„å…è®¸å‡ºå”® FTP æœåŠ¡çš„ IDï¼š", ""))
 	{
 		CONFIG.saleusers.innerText = eval("CONFIG.saleusers.innerText.replace(/," + name + "/ig" + ",'')");
 		CONFIG.saleusers.innerText = eval("CONFIG.saleusers.innerText.replace(/" + name + ",/ig" + ",'')");
@@ -313,19 +315,19 @@ function ShowConfig()
 	if (configtable.style.display == "none")
 	{
 		configtable.style.display = "";
-		showtext.innerHTML = "Òş²Ø FTP ÁªÃËÉèÖÃ";
+		showtext.innerHTML = "éšè— FTP è”ç›Ÿè®¾ç½®";
 	}
 	else
 	{
 		configtable.style.display = "none";
-		showtext.innerHTML = "ÏÔÊ¾ FTP ÁªÃËÉèÖÃ";
+		showtext.innerHTML = "æ˜¾ç¤º FTP è”ç›Ÿè®¾ç½®";
 	}
 }
 </script>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellSpacing=0 cellPadding=0 width=$tablewidth bgColor=$tablebordercolor align=center><tr><td><table cellSpacing=1 cellPadding=6 width=100%>
-<tr><td bgColor=$titlecolor $catbackpic><font color=$titlefontcolor>¡¡<b>¹ÜÀíÑ¡Ïî</b>¡¡¡¡<input type=checkbox OnClick="ShowConfig()"> <span id=showtext>ÏÔÊ¾ FTP ÁªÃËÉèÖÃ</span></font>¡¡¡¡¡¡¡¡<a href=$thisprog?action=repair OnClick="return confirm('µ±ÁªÃËÒ³ÃæĞÅÏ¢¶ªÊ§µÄÊ±ºò£¬¿ÉÒÔÊ¹ÓÃ´Ë¹¦ÄÜ»Ö¸´£¬ÊÇ·ñ¼ÌĞø£¿')"><font color=$fonthighlight><b>ĞŞ¸´ÁªÃËË÷Òı</b></font></a></td></tr>
-<tr><td bgColor=$forumcolorone align=center><table id=configtable cellSpacing=15 style="display:none"><form name=CONFIG action=$thisprog method=POST OnSubmit="submit.disabled=true"><input type=hidden name=action value="config"><tr><td align=center><textarea name=saleusers rows=3 cols=40 readonly=true>$saleusers</textarea><br>³ıÌ³Ö÷ÒÔÍâµÄÔÊĞí³öÊÛÈËÔ±¡¡<input type=button value="Ìí ¼Ó" OnClick="AddSALE()">¡¡<input type=button value="É¾ ³ı" OnClick="DeleteSALE()"></td><td><br>¡¡¡¡FTP ÁªÃË²å¼ş×´Ì¬: $plugopenorclose<br>¡¡¡¡¸öÈË FTP ¹ÜÀíÔ±Ìá³É: <input name=percent type=text size=3 value="$percent"> %<br><br>¡¡¡¡¡¡¡¡<input type=submit name=submit value="±£¡¡´æ">¡¡<input type=reset value="ÖØ¡¡À´"></td><form></tr></table></td></tr>
+<tr><td bgColor=$titlecolor $catbackpic><font color=$titlefontcolor>ã€€<b>ç®¡ç†é€‰é¡¹</b>ã€€ã€€<input type=checkbox OnClick="ShowConfig()"> <span id=showtext>æ˜¾ç¤º FTP è”ç›Ÿè®¾ç½®</span></font>ã€€ã€€ã€€ã€€<a href=$thisprog?action=repair OnClick="return confirm('å½“è”ç›Ÿé¡µé¢ä¿¡æ¯ä¸¢å¤±çš„æ—¶å€™ï¼Œå¯ä»¥ä½¿ç”¨æ­¤åŠŸèƒ½æ¢å¤ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ')"><font color=$fonthighlight><b>ä¿®å¤è”ç›Ÿç´¢å¼•</b></font></a></td></tr>
+<tr><td bgColor=$forumcolorone align=center><table id=configtable cellSpacing=15 style="display:none"><form name=CONFIG action=$thisprog method=POST OnSubmit="submit.disabled=true"><input type=hidden name=action value="config"><tr><td align=center><textarea name=saleusers rows=3 cols=40 readonly=true>$saleusers</textarea><br>é™¤å›ä¸»ä»¥å¤–çš„å…è®¸å‡ºå”®äººå‘˜ã€€<input type=button value="æ·» åŠ " OnClick="AddSALE()">ã€€<input type=button value="åˆ  é™¤" OnClick="DeleteSALE()"></td><td><br>ã€€ã€€FTP è”ç›Ÿæ’ä»¶çŠ¶æ€: $plugopenorclose<br>ã€€ã€€ä¸ªäºº FTP ç®¡ç†å‘˜ææˆ: <input name=percent type=text size=3 value="$percent"> %<br><br>ã€€ã€€ã€€ã€€<input type=submit name=submit value="ä¿ã€€å­˜">ã€€<input type=reset value="é‡ã€€æ¥"></td><form></tr></table></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 	}
 	return;
@@ -334,14 +336,14 @@ function ShowConfig()
 sub view
 {
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒª²é¿´µÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦æŸ¥çœ‹çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t²é¿´ FTP ·şÎñµÇÂ¼×ÊÁÏ") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tæŸ¥çœ‹ FTP æœåŠ¡ç™»å½•èµ„æ–™") unless(-e "$filetoopens.lck");
 
 	open (INFO, $infofile);
 	flock(INFO, 1) if ($OS_USED eq "Unix");
@@ -350,8 +352,8 @@ sub view
 	chomp($ftpinfo);
 	my ($ftpstatus, $ftpname, $ftptype, $ftpadmin, $ftptime, $ftpaddress, $ftpport, $ftpuser, $ftppass, $ftprate, $ftpmoney, $ftpreduce, $ftpmaxuser, $ftpintro, $polluser, $pollscore) = split(/\t/, $ftpinfo);
 
-	&myerror("²é¿´´íÎó&Õâ¸ö FTP ÒÑ¾­ÔİÊ±¹Ø±Õ£¡") if ($ftpstatus eq "close");
-	&myerror("²é¿´´íÎó&ÄãµÄÍşÍû²»¹»²é¿´Õâ¸ö FTP µÄ×îµÍÒªÇó£¡") if ($rating < $ftprate && lc($inmembername) ne lc($ftpadmin) && $membercode ne "ad");
+	&myerror("æŸ¥çœ‹é”™è¯¯&è¿™ä¸ª FTP å·²ç»æš‚æ—¶å…³é—­ï¼") if ($ftpstatus eq "close");
+	&myerror("æŸ¥çœ‹é”™è¯¯&ä½ çš„å¨æœ›ä¸å¤ŸæŸ¥çœ‹è¿™ä¸ª FTP çš„æœ€ä½è¦æ±‚ï¼") if ($rating < $ftprate && lc($inmembername) ne lc($ftpadmin) && $membercode ne "ad");
 
 	my $viewfile = "$lbdir$ftpdir/view$ftpid.cgi";
 	if (-e $viewfile)
@@ -364,12 +366,12 @@ sub view
 	my @view = grep(/^$cleanmembername\t/, @ftpviews);
 	if (@view < 1 && lc($inmembername) ne lc($ftpadmin) && $membercode ne "ad")
 	{
-		&myerror("²é¿´´íÎó&²é¿´Õâ¸ö FTP µÇÂ¼×ÊÁÏµÄÈËÊıÒÑ¾­´ïµ½ÁËÏŞ¶¨µÄ×î´óÊı¶î£¡") if (@ftpviews >= $ftpmaxuser && $ftpmaxuser ne "");
+		&myerror("æŸ¥çœ‹é”™è¯¯&æŸ¥çœ‹è¿™ä¸ª FTP ç™»å½•èµ„æ–™çš„äººæ•°å·²ç»è¾¾åˆ°äº†é™å®šçš„æœ€å¤§æ•°é¢ï¼") if (@ftpviews >= $ftpmaxuser && $ftpmaxuser ne "");
 		$ftpmoney -= $ftpreduce * int(($currenttime - $ftptime) / 86400);
 		$ftpmoney = 1 if ($ftpmoney < 1);
-		&myerror("²é¿´´íÎó&ÄãµÄÂÛÌ³»õ±ÒÏÖ½ğ²»¹»Ö§¸¶²é¿´Õâ¸ö FTP ·şÎñµÇÂ¼×ÊÁÏËùĞèÒªµÄ»¨·Ñ£¡") if ($myallmoney < $ftpmoney);
+		&myerror("æŸ¥çœ‹é”™è¯¯&ä½ çš„è®ºå›è´§å¸ç°é‡‘ä¸å¤Ÿæ”¯ä»˜æŸ¥çœ‹è¿™ä¸ª FTP æœåŠ¡ç™»å½•èµ„æ–™æ‰€éœ€è¦çš„èŠ±è´¹ï¼") if ($myallmoney < $ftpmoney);
 
-		#¸üĞÂÓÃ»§½ğÇ®ºÍ²é¿´¼ÇÂ¼
+		#æ›´æ–°ç”¨æˆ·é‡‘é’±å’ŒæŸ¥çœ‹è®°å½•
 		use testinfo qw(ipwhere);
 		my $fromwhere = &ipwhere($trueipaddress);
 		&updateusermoney($inmembername, -$ftpmoney);
@@ -383,28 +385,28 @@ sub view
 	}
 
 	if ($ftpuser =~ /\*$/)
-	{#Ê¹ÓÃServ-UµÄ¶ÀÁ¢ÕË»§·½Ê½
+	{#ä½¿ç”¨Serv-Uçš„ç‹¬ç«‹è´¦æˆ·æ–¹å¼
 		eval("use Digest::MD5 qw(md5_hex);");
 		if ($@ eq "")
-		{#MD5Ä£¿é¹¤×÷Õı³£
+		{#MD5æ¨¡å—å·¥ä½œæ­£å¸¸
 			$ftpuser =~ s/\*$//o;
 			$ftpuser .= $cleanmembername;
 			$ftppass = md5_hex("$ftppass$ftpuser");
 		}
 	}
-	$pollscore = $polluser > 0 ? sprintf("%4.2f", $pollscore / $polluser) . " ·Ö" : "ÎŞ";
+	$pollscore = $polluser > 0 ? sprintf("%4.2f", $pollscore / $polluser) . " åˆ†" : "æ— ";
 
-	#Êä³öÒ³Ãæ
+	#è¾“å‡ºé¡µé¢
 	&ftpheader;
 	$output .= qq~
 	<SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr style="color: $fonthighlight; font-weight: bold; background-color: $titlecolor" align=center><td colSpan=2>$ftpname µÄ¾ßÌåµÇÂ¼×ÊÁÏ</td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" width=20% align=center>·şÎñµØÖ·:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpaddress<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>·şÎñ¶Ë¿Ú:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpport<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>µÇÂ½ÓÃ»§:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpuser<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>µÇÂ½ÃÜÂë:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftppass<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>Ïà¹ØËµÃ÷:¡¡</td><td bgColor=$miscbacktwo><form action=$thisprog method=POST><input name=action type=hidden value="poll"><input name=id type=hidden value="$ftpid"><table width=100%><tr><td width=12></td><td>$ftpintro</td><td align=right>µ±Ç°ÆÀ¼Û: $pollscore<br><br><select name=score><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option><option value=6 selected>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option><option value=10>10</option></select> <input type=submit value="ÆÀ·Ö"></td></tr></table></td></tr></form>
+<tr style="color: $fonthighlight; font-weight: bold; background-color: $titlecolor" align=center><td colSpan=2>$ftpname çš„å…·ä½“ç™»å½•èµ„æ–™</td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" width=20% align=center>æœåŠ¡åœ°å€:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpaddress<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>æœåŠ¡ç«¯å£:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpport<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>ç™»é™†ç”¨æˆ·:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpuser<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>ç™»é™†å¯†ç :</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftppass<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>ç›¸å…³è¯´æ˜:ã€€</td><td bgColor=$miscbacktwo><form action=$thisprog method=POST><input name=action type=hidden value="poll"><input name=id type=hidden value="$ftpid"><table width=100%><tr><td width=12></td><td>$ftpintro</td><td align=right>å½“å‰è¯„ä»·: $pollscore<br><br><select name=score><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option><option value=6 selected>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option><option value=10>10</option></select> <input type=submit value="è¯„åˆ†"></td></tr></table></td></tr></form>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 	return;
 }
@@ -412,18 +414,18 @@ sub view
 sub poll
 {
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒªÆÀ·ÖµÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦è¯„åˆ†çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 	my $score = $query->param("score");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($score =~/^[0-9]+$/ && $score > 0 && $score <= 10);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($score =~/^[0-9]+$/ && $score > 0 && $score <= 10);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t¶Ô FTP ·şÎñÆÀ·Ö") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tå¯¹ FTP æœåŠ¡è¯„åˆ†") unless(-e "$filetoopens.lck");
 
-	#¸üĞÂÓÃ»§ÆÀ·Ö²Ù×÷Ê±¼ä
+	#æ›´æ–°ç”¨æˆ·è¯„åˆ†æ“ä½œæ—¶é—´
 	my $pollfile = "$lbdir$ftpdir/poll$ftpid.cgi";
 	&winlock($pollfile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	if (-e $pollfile)
@@ -442,7 +444,7 @@ sub poll
 	if ($currenttime - $polltime{$cleanmembername} < 86400)
 	{
 		&winunlock($pollfile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
-		&myerror("ÆÀ·Ö´íÎó&ÄãÔÚ×î½ü24Ğ¡Ê±ÄÚÒÑ¾­¸øÕâ¸ö·şÎñÆ÷´ò¹ı·ÖÁË£¡");
+		&myerror("è¯„åˆ†é”™è¯¯&ä½ åœ¨æœ€è¿‘24å°æ—¶å†…å·²ç»ç»™è¿™ä¸ªæœåŠ¡å™¨æ‰“è¿‡åˆ†äº†ï¼");
 	}
 	$polltime{$cleanmembername} = $currenttime;
 	open(POLL, ">$pollfile");
@@ -454,7 +456,7 @@ sub poll
 	close(POLL);
 	&winunlock($pollfile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#¸üĞÂ·şÎñÆ÷ÆÀ·Ö
+	#æ›´æ–°æœåŠ¡å™¨è¯„åˆ†
 	&winlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	open (INFO, $infofile);
 	flock(INFO, 1) if ($OS_USED eq "Unix");
@@ -470,11 +472,11 @@ sub poll
 	close(INFO);
 	&winunlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#¸üĞÂË÷ÒıÎÄ¼ş
+	#æ›´æ–°ç´¢å¼•æ–‡ä»¶
 	my $listtoupdate = "$lbdir$ftpdir/list.cgi";
 	$filetoopens = &lockfilename($listtoupdate);
 	unless(-e "$filetoopens.lck")
-	{#·şÎñÆ÷Ã¦Ôò·ÅÆú¸üĞÂË÷Òı
+	{#æœåŠ¡å™¨å¿™åˆ™æ”¾å¼ƒæ›´æ–°ç´¢å¼•
 		&winlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 		open(LIST, $listtoupdate);
 		flock(LIST, 1) if ($OS_USED eq "Unix");
@@ -492,13 +494,13 @@ sub poll
 		&winunlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	}
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>¶Ô FTP ·şÎñÆÀ·Ö³É¹¦£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a><li><a href=$thisprog?action=view&id=$ftpid>·µ»Ø FTP µÇÂ¼×ÊÁÏ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>å¯¹ FTP æœåŠ¡è¯„åˆ†æˆåŠŸï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a><li><a href=$thisprog?action=view&id=$ftpid>è¿”å› FTP ç™»å½•èµ„æ–™</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -507,16 +509,16 @@ sub poll
 
 sub add
 {
-	&myerror("È¨ÏŞ´íÎó&ÄãÃ»ÓĞÈ¨Àû³öÊÛ FTP ·şÎñ£¡") unless ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
+	&myerror("æƒé™é”™è¯¯&ä½ æ²¡æœ‰æƒåˆ©å‡ºå”® FTP æœåŠ¡ï¼") unless ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t³öÊÛ FTP") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tå‡ºå”® FTP") unless(-e "$filetoopens.lck");
 
 	&ftpheader;
-	my $statusoption = qq~<input name=ftpstatus type=radio value="open" checked> Õı³£¿ª·Å¡¡¡¡<input name=ftpstatus type=radio value="close"> ÔİÊ±¹Ø±Õ~;
-	my $typeoption = qq~<select name=ftptype><option value="public">ÂÛÌ³¹«¹²</option><option value="priviate">¸öÈË·şÎñ</option></select>~;
+	my $statusoption = qq~<input name=ftpstatus type=radio value="open" checked> æ­£å¸¸å¼€æ”¾ã€€ã€€<input name=ftpstatus type=radio value="close"> æš‚æ—¶å…³é—­~;
+	my $typeoption = qq~<select name=ftptype><option value="public">è®ºå›å…¬å…±</option><option value="priviate">ä¸ªäººæœåŠ¡</option></select>~;
 	my $rateoption = "";
 	for (0 .. $maxweiwang)
 	{
@@ -527,20 +529,20 @@ sub add
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
 <form action=$thisprog method=POST OnSubmit="submit.disabled=true"><input type=hidden name=action value="addok">
 <tr><td bgcolor=$miscbackone align=center><table width=80%>
-<tr><td><b>FTP ×´Ì¬(*): ¡¡¡¡</b>$statusoption</td></tr>
-<tr><td><b>FTP Ãû³Æ(*): ¡¡¡¡</b><input name=ftpname type=text size=60></td></tr>
-<tr><td><b>FTP ÀàĞÍ(*): ¡¡¡¡</b>$typeoption¡¡¡¡<i>Ñ¡Ôñ¸öÈË·şÎñÀàĞÍ£¬ÔòÄú¸öÈË¿ÉÒÔµÃµ½¸Ã FTP ÊÕÒæµÄ $percent% ×÷Îª³êÀÍ¡£</i></td></tr>
-<tr><td><b>FTP µØÖ·(*): ¡¡¡¡</b><input name=ftpaddress type=text size=24></td></tr>
-<tr><td><b>FTP ¶Ë¿Ú(*): ¡¡¡¡</b><input name=ftpport type=text size=8 value="21" OnFocus="this.select()"></td></tr>
-<tr><td><b>µÇÂ¼ÓÃ»§Ãû³Æ(*): </b><input name=ftpuser type=text size=36></td></tr>
-<tr><td><b>µÇÂ¼ÃÜÂë(*): ¡¡¡¡</b><input name=ftppass type=text size=36></td></tr>
-<tr><td>¡¡¡¡<i>×¢Òâ£ºÈç¹ûÄãÒªÊ¹ÓÃ Serv-U µÄ¶ÀÁ¢ÕÊ»§¹¦ÄÜ£¬Çë½«µÇÂ¼ÓÃ»§ÃûÌî³ÉÓÃ»§ÃûÇ°×º +¡°*¡±µÄĞÎÊ½£¬±ÈÈç¡°leobbs_*¡±£¬ÕâÑùÓÃ»§¡°BigJim¡°Ëù»ñµÃµÄÓÃ»§Ãû¾ÍÊÇ¡°leobbs_bigjim¡±£¬µÇÂ¼ÃÜÂëÌî Serv-U ²å¼şÀïÉè¶¨µÄÃÜÂëÉú³ÉÊ¹ÓÃµÄKey¡£Serv-U Ã»ÓĞ°²×°²å¼şÇĞÎğÈç´ËÊ¹ÓÃ£¡Serv-U ²å¼şµÄÏÂÔØµØÖ·Îª <a href=http://www.94cool.net/download/Serv-U.rar>http://www.94cool.net/download/Serv-U.rar</a>¡£</i></td></tr>
-<tr><td><b>²é¿´ĞèÒªÍşÍû(*): </b><select name=ftprate>$rateoption</select></td></tr>
-<tr><td><b>³õÊ¼ÊÛ¼Û(*): ¡¡¡¡</b><input name=ftpmoney type=text size=18></td></tr>
-<tr><td><b>Ã¿24Ğ¡Ê±½µ¼Û:¡¡¡¡</b><input name=ftpreduce type=text size=15>¡¡¡¡<i>²»ĞèÒªÇëÁô¿Õ¡£</i></td></tr>
-<tr><td><b>×î´ó³öÊÛÈËÊı:¡¡¡¡</b><input name=ftpmaxuser type=text size=8>¡¡¡¡<i>´ïµ½ÏŞÖÆÒÔºó£¬FTP »á×Ô¶¯Í£Ö¹³öÊÛ£¬Èç¹û²»ÏëÏŞÖÆÇëÁô¿Õ¡£</i></td></tr>
-<tr><td><b>FTP ÆäËü¼ò½é:¡¡¡¡</b><textarea name=ftpintro rows=5 cols=60></textarea></td></tr>
-<tr><td align=center><br><input type=submit name=submit value="³ö¡¡¡¡ÊÛ"></td></tr>
+<tr><td><b>FTP çŠ¶æ€(*): ã€€ã€€</b>$statusoption</td></tr>
+<tr><td><b>FTP åç§°(*): ã€€ã€€</b><input name=ftpname type=text size=60></td></tr>
+<tr><td><b>FTP ç±»å‹(*): ã€€ã€€</b>$typeoptionã€€ã€€<i>é€‰æ‹©ä¸ªäººæœåŠ¡ç±»å‹ï¼Œåˆ™æ‚¨ä¸ªäººå¯ä»¥å¾—åˆ°è¯¥ FTP æ”¶ç›Šçš„ $percent% ä½œä¸ºé…¬åŠ³ã€‚</i></td></tr>
+<tr><td><b>FTP åœ°å€(*): ã€€ã€€</b><input name=ftpaddress type=text size=24></td></tr>
+<tr><td><b>FTP ç«¯å£(*): ã€€ã€€</b><input name=ftpport type=text size=8 value="21" OnFocus="this.select()"></td></tr>
+<tr><td><b>ç™»å½•ç”¨æˆ·åç§°(*): </b><input name=ftpuser type=text size=36></td></tr>
+<tr><td><b>ç™»å½•å¯†ç (*): ã€€ã€€</b><input name=ftppass type=text size=36></td></tr>
+<tr><td>ã€€ã€€<i>æ³¨æ„ï¼šå¦‚æœä½ è¦ä½¿ç”¨ Serv-U çš„ç‹¬ç«‹å¸æˆ·åŠŸèƒ½ï¼Œè¯·å°†ç™»å½•ç”¨æˆ·åå¡«æˆç”¨æˆ·åå‰ç¼€ +â€œ*â€çš„å½¢å¼ï¼Œæ¯”å¦‚â€œleobbs_*â€ï¼Œè¿™æ ·ç”¨æˆ·â€œBigJimâ€œæ‰€è·å¾—çš„ç”¨æˆ·åå°±æ˜¯â€œleobbs_bigjimâ€ï¼Œç™»å½•å¯†ç å¡« Serv-U æ’ä»¶é‡Œè®¾å®šçš„å¯†ç ç”Ÿæˆä½¿ç”¨çš„Keyã€‚Serv-U æ²¡æœ‰å®‰è£…æ’ä»¶åˆ‡å‹¿å¦‚æ­¤ä½¿ç”¨ï¼Serv-U æ’ä»¶çš„ä¸‹è½½åœ°å€ä¸º <a href=http://www.94cool.net/download/Serv-U.rar>http://www.94cool.net/download/Serv-U.rar</a>ã€‚</i></td></tr>
+<tr><td><b>æŸ¥çœ‹éœ€è¦å¨æœ›(*): </b><select name=ftprate>$rateoption</select></td></tr>
+<tr><td><b>åˆå§‹å”®ä»·(*): ã€€ã€€</b><input name=ftpmoney type=text size=18></td></tr>
+<tr><td><b>æ¯24å°æ—¶é™ä»·:ã€€ã€€</b><input name=ftpreduce type=text size=15>ã€€ã€€<i>ä¸éœ€è¦è¯·ç•™ç©ºã€‚</i></td></tr>
+<tr><td><b>æœ€å¤§å‡ºå”®äººæ•°:ã€€ã€€</b><input name=ftpmaxuser type=text size=8>ã€€ã€€<i>è¾¾åˆ°é™åˆ¶ä»¥åï¼ŒFTP ä¼šè‡ªåŠ¨åœæ­¢å‡ºå”®ï¼Œå¦‚æœä¸æƒ³é™åˆ¶è¯·ç•™ç©ºã€‚</i></td></tr>
+<tr><td><b>FTP å…¶å®ƒç®€ä»‹:ã€€ã€€</b><textarea name=ftpintro rows=5 cols=60></textarea></td></tr>
+<tr><td align=center><br><input type=submit name=submit value="å‡ºã€€ã€€å”®"></td></tr>
 </table></td></tr></form>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 	return;
@@ -548,31 +550,31 @@ sub add
 
 sub addok
 {
-	&myerror("È¨ÏŞ´íÎó&ÄãÃ»ÓĞÈ¨Àû³öÊÛ FTP ·şÎñ£¡") unless ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
+	&myerror("æƒé™é”™è¯¯&ä½ æ²¡æœ‰æƒåˆ©å‡ºå”® FTP æœåŠ¡ï¼") unless ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
 
 	for ("ftpstatus", "ftpname", "ftptype", "ftpaddress", "ftpport", "ftpuser", "ftppass", "ftprate", "ftpmoney", "ftpreduce", "ftpmaxuser", "ftpintro")
 	{
 		${$_} = &cleaninput($query->param($_));
 	}
-	#ÊäÈë¼ì²é
+	#è¾“å…¥æ£€æŸ¥
 	$ftpstatus = "open" unless ($ftpstatus eq "close");
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄÃû³Æ£¡") if ($ftpname eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„åç§°ï¼") if ($ftpname eq "");
 	$ftptype = "public" unless ($ftptype eq "priviate");
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄµØÖ·£¡") if ($ftpaddress eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„åœ°å€ï¼") if ($ftpaddress eq "");
 	$ftpport = 21 unless ($ftpport =~ /^[0-9]+$/);
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄÓÃ»§Ãû£¡") if ($ftpuser eq "");
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄÃÜÂë£¡") if ($ftppass eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„ç”¨æˆ·åï¼") if ($ftpuser eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„å¯†ç ï¼") if ($ftppass eq "");
 	$ftprate = 0 unless ($ftprate =~ /^[0-9]+$/);
 	$ftpmoney = 1 unless ($ftpmoney =~ /^[0-9]+$/);
 	$ftpreduce = "" unless ($ftpreduce =~ /^[0-9]+$/);
 	$ftpmaxuser = "" unless ($ftpmaxuser =~ /^[0-9]+$/);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t³öÊÛ FTP") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tå‡ºå”® FTP") unless(-e "$filetoopens.lck");
 
-	#È¡µÃĞÂFTPµÄID
+	#å–å¾—æ–°FTPçš„ID
 	my $numfiletoupdate = "$lbdir$ftpdir/lastnum.cgi";
 	if (open(NUMFILE, $numfiletoupdate))
 	{
@@ -589,12 +591,12 @@ sub addok
 	print NUMFILE $lastnumber;
 	close(NUMFILE);
 
-	#Ğ´ÈëĞÂÊı¾İÎÄ¼ş
+	#å†™å…¥æ–°æ•°æ®æ–‡ä»¶
 	open(INFO, ">$lbdir$ftpdir/info$lastnumber.cgi");
 	print INFO "$ftpstatus\t$ftpname\t$ftptype\t$inmembername\t$currenttime\t$ftpaddress\t$ftpport\t$ftpuser\t$ftppass\t$ftprate\t$ftpmoney\t$ftpreduce\t$ftpmaxuser\t$ftpintro\t0\t0";
 	close(INFO);
 
-	#¸üĞÂË÷ÒıÎÄ¼ş
+	#æ›´æ–°ç´¢å¼•æ–‡ä»¶
 	my $listtoupdate = "$lbdir$ftpdir/list.cgi";
 	&winlock($listtoupdate) if ($OS_USED eq "Nt");
 	open(LIST, ">>$listtoupdate");
@@ -603,13 +605,13 @@ sub addok
 	close(LIST);
 	&winunlock($listtoupdate) if ($OS_USED eq "Nt");
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>³öÊÛÄãµÄ FTP ³É¹¦£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>å‡ºå”®ä½ çš„ FTP æˆåŠŸï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -619,28 +621,28 @@ sub addok
 sub edit
 {
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒª±à¼­µÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦ç¼–è¾‘çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t±à¼­ FTP ×ÊÁÏ") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tç¼–è¾‘ FTP èµ„æ–™") unless(-e "$filetoopens.lck");
 
-	#¶ÁÈë¾ÉµÄ×ÊÁÏ
+	#è¯»å…¥æ—§çš„èµ„æ–™
 	open (INFO, $infofile);
 	flock(INFO, 1) if ($OS_USED eq "Unix");
 	my $ftpinfo = <INFO>;
 	close(INFO);
 	chomp($ftpinfo);
 	my ($ftpstatus, $ftpname, $ftptype, $ftpadmin, undef, $ftpaddress, $ftpport, $ftpuser, $ftppass, $ftprate, $ftpmoney, $ftpreduce, $ftpmaxuser, $ftpintro, undef) = split(/\t/, $ftpinfo);
-	&myerror("È¨ÏŞ´íÎó&ÄãÃ»ÓĞÈ¨Àû±à¼­Õâ¸ö FTP£¡") unless ($membercode eq "ad" || lc($inmembername) eq lc($ftpadmin));
+	&myerror("æƒé™é”™è¯¯&ä½ æ²¡æœ‰æƒåˆ©ç¼–è¾‘è¿™ä¸ª FTPï¼") unless ($membercode eq "ad" || lc($inmembername) eq lc($ftpadmin));
 
 	&ftpheader;
-	my $statusoption = qq~<input name=ftpstatus type=radio value="open"> Õı³£¿ª·Å¡¡¡¡<input name=ftpstatus type=radio value="close"> ÔİÊ±¹Ø±Õ~;
+	my $statusoption = qq~<input name=ftpstatus type=radio value="open"> æ­£å¸¸å¼€æ”¾ã€€ã€€<input name=ftpstatus type=radio value="close"> æš‚æ—¶å…³é—­~;
 	$statusoption =~ s/value=\"$ftpstatus\"/value=\"$ftpstatus\" checked/o;
-	my $typeoption = qq~<select name=ftptype><option value="public">ÂÛÌ³¹«¹²</option><option value="priviate">¸öÈË·şÎñ</option></select>~;
+	my $typeoption = qq~<select name=ftptype><option value="public">è®ºå›å…¬å…±</option><option value="priviate">ä¸ªäººæœåŠ¡</option></select>~;
 	$typeoption =~ s/value=\"$ftptype\"/value=\"$ftptype\" selected/o;
 	my $rateoption = "";
 	for (0 .. $maxweiwang)
@@ -654,21 +656,21 @@ sub edit
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
 <form action=$thisprog method=POST OnSubmit="submit.disabled=true"><input type=hidden name=action value="editok"><input type=hidden name=id value="$ftpid">
 <tr><td bgcolor=$miscbackone align=center><table width=80%>
-<tr><td><b>FTP ×´Ì¬(*): ¡¡¡¡</b>$statusoption</td></tr>
-<tr><td><b>FTP Ãû³Æ(*): ¡¡¡¡</b><input name=ftpname type=text size=60 value="$ftpname"></td></tr>
-<tr><td><b>FTP ÀàĞÍ(*): ¡¡¡¡</b>$typeoption¡¡¡¡<i>Ñ¡Ôñ¸öÈË·şÎñÀàĞÍ£¬ÔòÄú¸öÈË¿ÉÒÔµÃµ½¸Ã FTP ÊÕÒæµÄ $percent% ×÷Îª³êÀÍ¡£</i></td></tr>
-<tr><td><b>FTP µØÖ·(*): ¡¡¡¡</b><input name=ftpaddress type=text size=24 value="$ftpaddress"></td></tr>
-<tr><td><b>FTP ¶Ë¿Ú(*): ¡¡¡¡</b><input name=ftpport type=text size=8 value="$ftpport" OnFocus="this.select()" value="$ftpport"></td></tr>
-<tr><td><b>µÇÂ¼ÓÃ»§Ãû³Æ(*): </b><input name=ftpuser type=text size=36 value="$ftpuser"></td></tr>
-<tr><td><b>µÇÂ¼ÃÜÂë(*): ¡¡¡¡</b><input name=ftppass type=text size=36 value="$ftppass"></td></tr>
-<tr><td>¡¡¡¡<i>×¢Òâ£ºÈç¹ûÄãÒªÊ¹ÓÃ Serv-U µÄ¶ÀÁ¢ÕÊ»§¹¦ÄÜ£¬Çë½«µÇÂ¼ÓÃ»§ÃûÌî³ÉÓÃ»§ÃûÇ°×º +¡°*¡±µÄĞÎÊ½£¬±ÈÈç¡°dlmovie_*¡±£¬ÕâÑùÓÃ»§¡°BigJim¡°Ëù»ñµÃµÄÓÃ»§Ãû¾ÍÊÇ¡°dlmovie_bigjim¡±£¬µÇÂ¼ÃÜÂëÌî Serv-U ²å¼şÀïÉè¶¨µÄÃÜÂëÉú³ÉÊ¹ÓÃµÄKey¡£Serv-U Ã»ÓĞ°²×°²å¼şÇĞÎğÈç´ËÊ¹ÓÃ£¡Serv-U ²å¼şµÄÏÂÔØµØÖ·Îª <a href=http://www.94cool.net/download/Serv-U.rar>http://www.94cool.net/download/Serv-U.rar</a>¡£</i></td></tr>
-<tr><td><b>²é¿´ĞèÒªÍşÍû(*): </b><select name=ftprate>$rateoption</select></td></tr>
-<tr><td><b>³õÊ¼ÊÛ¼Û(*): ¡¡¡¡</b><input name=ftpmoney type=text size=18 value="$ftpmoney"></td></tr>
-<tr><td><b>Ã¿24Ğ¡Ê±½µ¼Û:¡¡¡¡</b><input name=ftpreduce type=text size=15 value="$ftpreduce">¡¡¡¡<i>²»ĞèÒªÇëÁô¿Õ¡£</i></td></tr>
-<tr><td><b>×î´ó³öÊÛÈËÊı:¡¡¡¡</b><input name=ftpmaxuser type=text size=8 value="$ftpmaxuser">¡¡¡¡<i>´ïµ½ÏŞÖÆÒÔºó£¬FTP »á×Ô¶¯Í£Ö¹³öÊÛ£¬Èç¹û²»ÏëÏŞÖÆÇëÁô¿Õ¡£</i></td></tr>
-<tr><td><b>FTP ÆäËü¼ò½é:¡¡¡¡</b><textarea name=ftpintro rows=5 cols=60>$ftpintro</textarea></td></tr>
-<tr><td><b>Çå³ıËùÓĞ²é¿´¼ÍÂ¼:</b>¡¡¡¡<input name=ftpclear type=checkbox value="yes"> <i>Ñ¡Ôñ´ËÏîÒÔºó£¬FTP µÄ²é¿´ÈËÔ±Ãûµ¥»á±»Çå¿Õ£¬ËùÓĞÈË¾ùĞèÖØĞÂ»¨·ÑÂÛÌ³»õ±Ò¹ºÂòĞÂµÄµÇÂ¼×ÊÁÏ¡£</i></td></tr>
-<tr><td align=center><br><input type=submit name=submit value="¸ü¡¡¡¡ĞÂ"></td></tr>
+<tr><td><b>FTP çŠ¶æ€(*): ã€€ã€€</b>$statusoption</td></tr>
+<tr><td><b>FTP åç§°(*): ã€€ã€€</b><input name=ftpname type=text size=60 value="$ftpname"></td></tr>
+<tr><td><b>FTP ç±»å‹(*): ã€€ã€€</b>$typeoptionã€€ã€€<i>é€‰æ‹©ä¸ªäººæœåŠ¡ç±»å‹ï¼Œåˆ™æ‚¨ä¸ªäººå¯ä»¥å¾—åˆ°è¯¥ FTP æ”¶ç›Šçš„ $percent% ä½œä¸ºé…¬åŠ³ã€‚</i></td></tr>
+<tr><td><b>FTP åœ°å€(*): ã€€ã€€</b><input name=ftpaddress type=text size=24 value="$ftpaddress"></td></tr>
+<tr><td><b>FTP ç«¯å£(*): ã€€ã€€</b><input name=ftpport type=text size=8 value="$ftpport" OnFocus="this.select()" value="$ftpport"></td></tr>
+<tr><td><b>ç™»å½•ç”¨æˆ·åç§°(*): </b><input name=ftpuser type=text size=36 value="$ftpuser"></td></tr>
+<tr><td><b>ç™»å½•å¯†ç (*): ã€€ã€€</b><input name=ftppass type=text size=36 value="$ftppass"></td></tr>
+<tr><td>ã€€ã€€<i>æ³¨æ„ï¼šå¦‚æœä½ è¦ä½¿ç”¨ Serv-U çš„ç‹¬ç«‹å¸æˆ·åŠŸèƒ½ï¼Œè¯·å°†ç™»å½•ç”¨æˆ·åå¡«æˆç”¨æˆ·åå‰ç¼€ +â€œ*â€çš„å½¢å¼ï¼Œæ¯”å¦‚â€œdlmovie_*â€ï¼Œè¿™æ ·ç”¨æˆ·â€œBigJimâ€œæ‰€è·å¾—çš„ç”¨æˆ·åå°±æ˜¯â€œdlmovie_bigjimâ€ï¼Œç™»å½•å¯†ç å¡« Serv-U æ’ä»¶é‡Œè®¾å®šçš„å¯†ç ç”Ÿæˆä½¿ç”¨çš„Keyã€‚Serv-U æ²¡æœ‰å®‰è£…æ’ä»¶åˆ‡å‹¿å¦‚æ­¤ä½¿ç”¨ï¼Serv-U æ’ä»¶çš„ä¸‹è½½åœ°å€ä¸º <a href=http://www.94cool.net/download/Serv-U.rar>http://www.94cool.net/download/Serv-U.rar</a>ã€‚</i></td></tr>
+<tr><td><b>æŸ¥çœ‹éœ€è¦å¨æœ›(*): </b><select name=ftprate>$rateoption</select></td></tr>
+<tr><td><b>åˆå§‹å”®ä»·(*): ã€€ã€€</b><input name=ftpmoney type=text size=18 value="$ftpmoney"></td></tr>
+<tr><td><b>æ¯24å°æ—¶é™ä»·:ã€€ã€€</b><input name=ftpreduce type=text size=15 value="$ftpreduce">ã€€ã€€<i>ä¸éœ€è¦è¯·ç•™ç©ºã€‚</i></td></tr>
+<tr><td><b>æœ€å¤§å‡ºå”®äººæ•°:ã€€ã€€</b><input name=ftpmaxuser type=text size=8 value="$ftpmaxuser">ã€€ã€€<i>è¾¾åˆ°é™åˆ¶ä»¥åï¼ŒFTP ä¼šè‡ªåŠ¨åœæ­¢å‡ºå”®ï¼Œå¦‚æœä¸æƒ³é™åˆ¶è¯·ç•™ç©ºã€‚</i></td></tr>
+<tr><td><b>FTP å…¶å®ƒç®€ä»‹:ã€€ã€€</b><textarea name=ftpintro rows=5 cols=60>$ftpintro</textarea></td></tr>
+<tr><td><b>æ¸…é™¤æ‰€æœ‰æŸ¥çœ‹çºªå½•:</b>ã€€ã€€<input name=ftpclear type=checkbox value="yes"> <i>é€‰æ‹©æ­¤é¡¹ä»¥åï¼ŒFTP çš„æŸ¥çœ‹äººå‘˜åå•ä¼šè¢«æ¸…ç©ºï¼Œæ‰€æœ‰äººå‡éœ€é‡æ–°èŠ±è´¹è®ºå›è´§å¸è´­ä¹°æ–°çš„ç™»å½•èµ„æ–™ã€‚</i></td></tr>
+<tr><td align=center><br><input type=submit name=submit value="æ›´ã€€ã€€æ–°"></td></tr>
 </table></td></tr></form>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 	return;
@@ -677,31 +679,31 @@ sub edit
 sub editok
 {
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒª±à¼­µÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦ç¼–è¾‘çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 
 	for ("ftpstatus", "ftpname", "ftptype", "ftpaddress", "ftpport", "ftpuser", "ftppass", "ftprate", "ftpmoney", "ftpreduce", "ftpmaxuser", "ftpintro", "ftpclear")
 	{
 		${$_} = &cleaninput($query->param($_));
 	}
-	#ÊäÈë¼ì²é
+	#è¾“å…¥æ£€æŸ¥
 	$ftpstatus = "open" unless ($ftpstatus eq "close");
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄÃû³Æ£¡") if ($ftpname eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„åç§°ï¼") if ($ftpname eq "");
 	$ftptype = "public" unless ($ftptype eq "priviate");
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄµØÖ·£¡") if ($ftpaddress eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„åœ°å€ï¼") if ($ftpaddress eq "");
 	$ftpport = 21 unless ($ftpport =~ /^[0-9]+$/);
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄÓÃ»§Ãû£¡") if ($ftpuser eq "");
-	&myerror("ÊäÈë´íÎó&ÄãÃ»ÓĞÊäÈë FTP µÄÃÜÂë£¡") if ($ftppass eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„ç”¨æˆ·åï¼") if ($ftpuser eq "");
+	&myerror("è¾“å…¥é”™è¯¯&ä½ æ²¡æœ‰è¾“å…¥ FTP çš„å¯†ç ï¼") if ($ftppass eq "");
 	$ftprate = 0 unless ($ftprate =~ /^[0-9]+$/);
 	$ftpmoney = 1 unless ($ftpmoney =~ /^[0-9]+$/);
 	$ftpreduce = "" unless ($ftpreduce =~ /^[0-9]+$/);
 	$ftpmaxuser = "" unless ($ftpmaxuser =~ /^[0-9]+$/);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t±à¼­ FTP ×ÊÁÏ") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tç¼–è¾‘ FTP èµ„æ–™") unless(-e "$filetoopens.lck");
 
 	&winlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	open (INFO, $infofile);
@@ -713,24 +715,24 @@ sub editok
 	unless ($membercode eq "ad" || lc($inmembername) eq lc($ftpadmin))
 	{
 		&winunlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
-		&myerror("È¨ÏŞ´íÎó&ÄãÃ»ÓĞÈ¨Àû±à¼­Õâ¸ö FTP£¡");
+		&myerror("æƒé™é”™è¯¯&ä½ æ²¡æœ‰æƒåˆ©ç¼–è¾‘è¿™ä¸ª FTPï¼");
 	}
 
-	#Çå¿Õ²é¿´¼ÇÂ¼
+	#æ¸…ç©ºæŸ¥çœ‹è®°å½•
 	if ($ftpclear eq "yes")
 	{
 		unlink("$lbdir$ftpdir/view$ftpid.cgi");
 		$ftptime = $currenttime;
 	}
 
-	#¸üĞÂÊı¾İÎÄ¼ş
+	#æ›´æ–°æ•°æ®æ–‡ä»¶
 	open(INFO, ">$infofile");
 	flock(INFO, 2) if ($OS_USED eq "Unix");
 	print INFO "$ftpstatus\t$ftpname\t$ftptype\t$ftpadmin\t$ftptime\t$ftpaddress\t$ftpport\t$ftpuser\t$ftppass\t$ftprate\t$ftpmoney\t$ftpreduce\t$ftpmaxuser\t$ftpintro\t$polluser\t$pollscore";
 	close(INFO);
 	&winunlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#¸üĞÂË÷ÒıÎÄ¼ş
+	#æ›´æ–°ç´¢å¼•æ–‡ä»¶
 	my $listtoupdate = "$lbdir$ftpdir/list.cgi";
 	&winlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	open(LIST, $listtoupdate);
@@ -748,13 +750,13 @@ sub editok
 	close(LIST);
 	&winunlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>±à¼­ÄãµÄ FTP ×ÊÁÏ³É¹¦£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ç¼–è¾‘ä½ çš„ FTP èµ„æ–™æˆåŠŸï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -766,16 +768,16 @@ sub info
 	use testinfo qw(ipwhere);
 
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒª²éÑ¯µÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦æŸ¥è¯¢çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\t²éÑ¯ FTP ¹ºÂò¼ÇÂ¼") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tæŸ¥è¯¢ FTP è´­ä¹°è®°å½•") unless(-e "$filetoopens.lck");
 
-	#ÅĞ¶ÏÓÃ»§È¨ÏŞ
+	#åˆ¤æ–­ç”¨æˆ·æƒé™
 	if ($membercode ne "ad")
 	{
 		open (INFO, $infofile);
@@ -784,10 +786,10 @@ sub info
 		close(INFO);
 		chomp($ftpinfo);
 		my (undef, undef, undef, $ftpadmin, undef) = split(/\t/, $ftpinfo);
-		&myerror("È¨ÏŞ´íÎó&ÄãÃ»ÓĞÈ¨Àû²éÑ¯Õâ¸ö FTP µÄ¹ºÂò¼ÇÂ¼£¡") unless (lc($inmembername) eq lc($ftpadmin));
+		&myerror("æƒé™é”™è¯¯&ä½ æ²¡æœ‰æƒåˆ©æŸ¥è¯¢è¿™ä¸ª FTP çš„è´­ä¹°è®°å½•ï¼") unless (lc($inmembername) eq lc($ftpadmin));
 	}
 
-	#¶ÁÈ¡²é¿´¼ÇÂ¼
+	#è¯»å–æŸ¥çœ‹è®°å½•
 	my $viewfile = "$lbdir$ftpdir/view$ftpid.cgi";
 	if (-e $viewfile)
 	{
@@ -797,7 +799,7 @@ sub info
 		close(VIEW);
 	}
 
-	#°´Ö¸¶¨IPÌõ¼şËÑË÷
+	#æŒ‰æŒ‡å®šIPæ¡ä»¶æœç´¢
 	my $key = $query->param("key");
 	$key = "" unless ($key =~ /^[0-9\.]+$/);
 	$key =~ s/^\.//sg;
@@ -815,14 +817,14 @@ sub info
 		}
 	}
 	$allitems = @ftpusers;
-	&splitpage("action=info&id=$ftpid&key=$key"); #·ÖÒ³
+	&splitpage("action=info&id=$ftpid&key=$key"); #åˆ†é¡µ
 
-	#Êä³öÒ³Ãæ
+	#è¾“å‡ºé¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr style="color: $titlefontcolor; font-weight: bold; background-color: $titlecolor" align=center><td $catbackpic>²é¿´Õß</td><td $catbackpic>À´×ÔIP</td><td $catbackpic>À´Ô´¼ø¶¨</td><td $catbackpic>¹ºÂòÊ±¼ä</td></tr>~;
+<tr style="color: $titlefontcolor; font-weight: bold; background-color: $titlecolor" align=center><td $catbackpic>æŸ¥çœ‹è€…</td><td $catbackpic>æ¥è‡ªIP</td><td $catbackpic>æ¥æºé‰´å®š</td><td $catbackpic>è´­ä¹°æ—¶é—´</td></tr>~;
 	my $timeadd = ($timezone + $timedifferencevalue) * 3600;
 	for ($i = $startnum; $i >= $endnum; $i--)
 	{
@@ -839,7 +841,7 @@ sub info
 <SCRIPT>valignend()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth align=center>
 <form action=$thisprog><input name=action type=hidden value="info"><input name=id type=hidden value="$ftpid"><tr><td>$pages</td>
-<td align=right>°´ÕÕ²é¿´ÕßIPËÑË÷(Ö§³Ö°´A¡¢B¡¢CÀàµØÖ·ËÑË÷) <input name=key type=text size=16> <input type=submit value="ËÑ Ë÷"></td></tr>
+<td align=right>æŒ‰ç…§æŸ¥çœ‹è€…IPæœç´¢(æ”¯æŒæŒ‰Aã€Bã€Cç±»åœ°å€æœç´¢) <input name=key type=text size=16> <input type=submit value="æœ ç´¢"></td></tr>
 </table></form>~;
 	return;
 }
@@ -847,16 +849,16 @@ sub info
 sub delete
 {
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒªÉ¾³ıµÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦åˆ é™¤çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\tÉ¾³ı FTP ×ÊÁÏ") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tåˆ é™¤ FTP èµ„æ–™") unless(-e "$filetoopens.lck");
 
-	#ÅĞ¶ÏÓÃ»§È¨ÏŞ
+	#åˆ¤æ–­ç”¨æˆ·æƒé™
 	if ($membercode ne "ad")
 	{
 		open (INFO, $infofile);
@@ -865,15 +867,15 @@ sub delete
 		close(INFO);
 		chomp($ftpinfo);
 		my (undef, undef, undef, $ftpadmin, undef) = split(/\t/, $ftpinfo);
-		&myerror("È¨ÏŞ´íÎó&ÄãÃ»ÓĞÈ¨ÀûÉ¾³ıÕâ¸ö FTP£¡") unless (lc($inmembername) eq lc($ftpadmin));
+		&myerror("æƒé™é”™è¯¯&ä½ æ²¡æœ‰æƒåˆ©åˆ é™¤è¿™ä¸ª FTPï¼") unless (lc($inmembername) eq lc($ftpadmin));
 	}
 
-	#É¾³ıÊı¾İÎÄ¼ş
+	#åˆ é™¤æ•°æ®æ–‡ä»¶
 	unlink("$lbdir$ftpdir/info$ftpid.cgi");
 	unlink("$lbdir$ftpdir/view$ftpid.cgi");
 	unlink("$lbdir$ftpdir/poll$ftpid.cgi");
 
-	#¸üĞÂË÷ÒıÎÄ¼ş
+	#æ›´æ–°ç´¢å¼•æ–‡ä»¶
 	my $listtoupdate = "$lbdir$ftpdir/list.cgi";
 	&winlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	open(LIST, $listtoupdate);
@@ -891,13 +893,13 @@ sub delete
 	close(LIST);
 	&winunlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>É¾³ı FTP ×ÊÁÏ³É¹¦£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>åˆ é™¤ FTP èµ„æ–™æˆåŠŸï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -906,18 +908,18 @@ sub delete
 
 sub up
 {
-	&myerror("È¨ÏŞ´íÎó&ÄãÎŞÈ¨ÌáÉı FTP Î»ÖÃ£¡") unless ($membercode eq "ad");
+	&myerror("æƒé™é”™è¯¯&ä½ æ— æƒæå‡ FTP ä½ç½®ï¼") unless ($membercode eq "ad");
 	my $ftpid = $query->param("id");
-	&myerror("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") unless ($ftpid =~ /^[0-9]+$/);
+	&myerror("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") unless ($ftpid =~ /^[0-9]+$/);
 	my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
-	&myerror("ÆÕÍ¨´íÎó&ÄãÒªÌáÉıµÄ FTP ²¢²»´æÔÚ£¡") unless (-e $infofile);
+	&myerror("æ™®é€šé”™è¯¯&ä½ è¦æå‡çš„ FTP å¹¶ä¸å­˜åœ¨ï¼") unless (-e $infofile);
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\tÌáÉı FTP Î»ÖÃ") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tæå‡ FTP ä½ç½®") unless(-e "$filetoopens.lck");
 
-	#¶ÁÈë¾ÉµÄ×ÊÁÏ
+	#è¯»å…¥æ—§çš„èµ„æ–™
 	open (INFO, $infofile);
 	flock(INFO, 1) if ($OS_USED eq "Unix");
 	my $ftpinfo = <INFO>;
@@ -925,7 +927,7 @@ sub up
 	chomp($ftpinfo);
 	my ($ftpstatus, $ftpname, $ftptype, $ftpadmin, $ftptime, undef, undef, undef, undef, $ftprate, $ftpmoney, $ftpreduce, $ftpmaxuser, $ftpintro, $polluser, $pollscore) = split(/\t/, $ftpinfo);
 
-	#¸üĞÂË÷ÒıÎÄ¼ş
+	#æ›´æ–°ç´¢å¼•æ–‡ä»¶
 	my $listtoupdate = "$lbdir$ftpdir/list.cgi";
 	&winlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 	open(LIST, $listtoupdate);
@@ -944,13 +946,13 @@ sub up
 	close(LIST);
 	&winunlock($listtoupdate) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ÌáÉı FTP Î»ÖÃ³É¹¦£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æå‡ FTP ä½ç½®æˆåŠŸï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -959,14 +961,14 @@ sub up
 
 sub repair
 {
-	&myerror("È¨ÏŞ´íÎó&ÄãÎŞÈ¨½øĞĞ FTP ÁªÃË¹ÜÀí£¡") unless ($membercode eq "ad");
+	&myerror("æƒé™é”™è¯¯&ä½ æ— æƒè¿›è¡Œ FTP è”ç›Ÿç®¡ç†ï¼") unless ($membercode eq "ad");
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\tĞŞ¸´ FTP ÁªÃË") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tä¿®å¤ FTP è”ç›Ÿ") unless(-e "$filetoopens.lck");
 
-	#»ñÈ¡ËùÓĞÊı¾İÎÄ¼şID²¢ÅÅĞò
+	#è·å–æ‰€æœ‰æ•°æ®æ–‡ä»¶IDå¹¶æ’åº
 	opendir(DIR, "$lbdir$ftpdir");
 	my @infofiles = readdir(DIR);
 	closedir(DIR);
@@ -978,7 +980,7 @@ sub repair
 	}
 	@infofiles = sort numerically @infofiles;
 
-	#ÖØĞÂ´ÓÊı¾İÎÄ¼şÖĞ¶ÁÈë
+	#é‡æ–°ä»æ•°æ®æ–‡ä»¶ä¸­è¯»å…¥
 	my $listtoupdate = "$lbdir$ftpdir/list.cgi";
 	&winlock($listtoupdate) if ($OS_USED eq "Nt");
 	open(LIST, ">$listtoupdate");
@@ -996,13 +998,13 @@ sub repair
 	close(LIST);
 	&winunlock($listtoupdate) if ($OS_USED eq "Nt");
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ÖØ½¨ FTP ÁªÃËË÷ÒıÍê³É£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>é‡å»º FTP è”ç›Ÿç´¢å¼•å®Œæˆï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -1011,12 +1013,12 @@ sub repair
 
 sub config
 {
-	&myerror("È¨ÏŞ´íÎó&ÄãÎŞÈ¨½øĞĞ FTP ÁªÃË¹ÜÀí£¡") unless ($membercode eq "ad");
+	&myerror("æƒé™é”™è¯¯&ä½ æ— æƒè¿›è¡Œ FTP è”ç›Ÿç®¡ç†ï¼") unless ($membercode eq "ad");
 
-	#Ğ´ÈëÓÃ»§ÔÚÏß×´Ì¬
+	#å†™å…¥ç”¨æˆ·åœ¨çº¿çŠ¶æ€
 	my $filetoopens = "${lbdir}data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\tFTP ÁªÃË\tnone\tÉè¶¨ FTP ÁªÃË") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\tFTP è”ç›Ÿ\tnone\tè®¾å®š FTP è”ç›Ÿ") unless(-e "$filetoopens.lck");
 
 	my $newsaleusers = $query->param("saleusers");
 	my $newpercent = $query->param("percent");
@@ -1033,13 +1035,13 @@ sub config
 	    &winunlock($configtomake) if ($OS_USED eq "Nt");
 	}
 
-	#Êä³öÌø×ª·µ»ØÒ³Ãæ
+	#è¾“å‡ºè·³è½¬è¿”å›é¡µé¢
 	&ftpheader;
 	$output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ĞŞ¸Ä FTP ÁªÃËÉèÖÃÍê³É£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡<ul><li><a href=$thisprog>·µ»Ø FTP ÁªÃËÒ³Ãæ</a></ul></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¿®æ”¹ FTP è”ç›Ÿè®¾ç½®å®Œæˆï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼<ul><li><a href=$thisprog>è¿”å› FTP è”ç›Ÿé¡µé¢</a></ul></td></tr>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
@@ -1047,71 +1049,71 @@ sub config
 }
 
 sub ftpheader
-{#Êä³öÍ·²¿µ¼º½À¸
+{#è¾“å‡ºå¤´éƒ¨å¯¼èˆªæ 
 	my $boardgraphic = $boardlogo =~ /\.swf$/i ? qq~<param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=$imagesurl/myimages/$boardlogo quality=high width=$fgwidth height=$fgheight pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed>~ : "<img src=$imagesurl/myimages/$boardlogo border=0>";
 
 	my $jump;
 	if ($action eq "view")
 	{
-		$jump = qq~²é¿´ FTP ·şÎñµÇÂ¼×ÊÁÏ~;
+		$jump = qq~æŸ¥çœ‹ FTP æœåŠ¡ç™»å½•èµ„æ–™~;
 	}
 	elsif ($action eq "poll")
 	{
-		$jump = qq~¶Ô FTP ·şÎñÆÀ·Ö~;
+		$jump = qq~å¯¹ FTP æœåŠ¡è¯„åˆ†~;
 	}
 	elsif ($action eq "add")
 	{
-		$jump = qq~³öÊÛÄãµÄ FTP~;
+		$jump = qq~å‡ºå”®ä½ çš„ FTP~;
 	}
 	elsif ($action eq "addok")
 	{
-		$jump = qq~³öÊÛÄãµÄ FTP ³É¹¦~;
+		$jump = qq~å‡ºå”®ä½ çš„ FTP æˆåŠŸ~;
 	}
 	elsif ($action eq "edit")
 	{
-		$jump = qq~±à¼­ÄãµÄ FTP ×ÊÁÏ~;
+		$jump = qq~ç¼–è¾‘ä½ çš„ FTP èµ„æ–™~;
 	}
 	elsif ($action eq "editok")
 	{
-		$jump = qq~±à¼­ÄãµÄ FTP ×ÊÁÏ³É¹¦~;
+		$jump = qq~ç¼–è¾‘ä½ çš„ FTP èµ„æ–™æˆåŠŸ~;
 	}
 	elsif ($action eq "info")
 	{
-		$jump = qq~²é¿´ FTP ¹ºÂò¼ÇÂ¼~;
+		$jump = qq~æŸ¥çœ‹ FTP è´­ä¹°è®°å½•~;
 	}
 	elsif ($action eq "delete")
 	{
-		$jump = qq~É¾³ı FTP ×ÊÁÏ³É¹¦~;
+		$jump = qq~åˆ é™¤ FTP èµ„æ–™æˆåŠŸ~;
 	}
 	elsif ($action eq "up")
 	{
-		$jump = qq~ÌáÉı FTP Î»ÖÃ³É¹¦~;
+		$jump = qq~æå‡ FTP ä½ç½®æˆåŠŸ~;
 	}
 	elsif ($action eq "repair")
 	{
-		$jump = qq~ÖØ½¨ FTP ÁªÃËË÷ÒıÍê³É~;
+		$jump = qq~é‡å»º FTP è”ç›Ÿç´¢å¼•å®Œæˆ~;
 	}
 	elsif ($action eq "config")
 	{
-		$jump = qq~ĞŞ¸Ä FTP ÁªÃËÉèÖÃÍê³É~;
+		$jump = qq~ä¿®æ”¹ FTP è”ç›Ÿè®¾ç½®å®Œæˆ~;
 	}
 	else
 	{
-		$jump = qq~²é¿´ FTP ÁªÃË~;
+		$jump = qq~æŸ¥çœ‹ FTP è”ç›Ÿ~;
 	}
 
 	&title;
 	$output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´±¾Õ¾ FTP ÁªÃËµÄÁĞ±í¼°ÏêÏ¸ĞÅÏ¢</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href=$thisprog>FTP ÁªÃË</a> ¡ú $jump<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹æœ¬ç«™ FTP è”ç›Ÿçš„åˆ—è¡¨åŠè¯¦ç»†ä¿¡æ¯</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href=$thisprog>FTP è”ç›Ÿ</a> â†’ $jump<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 ~;
 	return;
 }
 
 sub updateusermoney
-{#¸üĞÂÓÃ»§½ğÇ®
+{#æ›´æ–°ç”¨æˆ·é‡‘é’±
 	my ($nametochange, $cmoney) = @_;
 	$nametochange =~ s/ /\_/sg;
 	$nametochange =~ tr/A-Z/a-z/;
@@ -1142,7 +1144,7 @@ sub updateusermoney
 }
 
 sub splitpage
-{#»ñµÃ·ÖÒ³
+{#è·å¾—åˆ†é¡µ
 	my $addstring = shift;
 	my $instart = $query->param("start");
 	$instart = 0 if ($instart !~ /^[0-9]+$/);
@@ -1159,15 +1161,15 @@ sub splitpage
 
 		my $currentpage = int($instart / 20) + 1;
 		my $endstart = ($numberofpages - 1) * 20;
-		my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?start=0&$addstring title="Ê× Ò³" ><font face=webdings>9</font></a>~;
-		my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?start=$endstart&$addstring title="Î² Ò³" ><font face=webdings>:</font></a>~;
+		my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?start=0&$addstring title="é¦– é¡µ" ><font face=webdings>9</font></a>~;
+		my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?start=$endstart&$addstring title="å°¾ é¡µ" ><font face=webdings>:</font></a>~;
 
 		my $uppage = $currentpage - 1;
 		my $nextpage = $currentpage + 1;
 		my $upstart = $instart - 20;
 		my $nextstart = $instart + 20;
-		my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?start=$upstart&$addstring title="µÚ$uppageÒ³"><font face=webdings>7</font></a>~;
-		my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?start=$nextstart&$addstring title="µÚ$nextpageÒ³"><font face=webdings>8</font></a>~;
+		my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?start=$upstart&$addstring title="ç¬¬$uppageé¡µ"><font face=webdings>7</font></a>~;
+		my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?start=$nextstart&$addstring title="ç¬¬$nextpageé¡µ"><font face=webdings>8</font></a>~;
 
 		my $tempstep = $currentpage / 7;
 		my $currentstep = int($tempstep);
@@ -1176,8 +1178,8 @@ sub splitpage
 		my $nextsteppage = $currentstep * 7 + 1;
 		my $upstepstart = ($upsteppage - 1) * 20;
 		my $nextstepstart = ($nextsteppage - 1) * 20;
-		my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?start=$upstepstart&$addstring class=hb title="µÚ$upsteppageÒ³">¡û</a> ~;
-		my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?start=$nextstepstart&$addstring class=hb title="µÚ$nextsteppageÒ³">¡ú</a> ~;
+		my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?start=$upstepstart&$addstring class=hb title="ç¬¬$upsteppageé¡µ">â†</a> ~;
+		my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?start=$nextstepstart&$addstring class=hb title="ç¬¬$nextsteppageé¡µ">â†’</a> ~;
 
 		$pages = "";
 		my $currentstart = $upstepstart + 20;
@@ -1187,13 +1189,13 @@ sub splitpage
 			$pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?start=$currentstart&$addstring class=hb>$i</a> ~;
 			$currentstart += 20;
 		}
-		$pages = "<font color=$menufontcolor><b>¹² <font color=$fonthighlight>$numberofpages</font> Ò³</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
+		$pages = "<font color=$menufontcolor><b>å…± <font color=$fonthighlight>$numberofpages</font> é¡µ</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
 	}
 	else
 	{
 		$startnum = $allitems - 1;
 		$endnum = 0;
-		$pages = "<font color=$menufontcolor>Ö»ÓĞÒ»Ò³</font><br>";
+		$pages = "<font color=$menufontcolor>åªæœ‰ä¸€é¡µ</font><br>";
 	}
 	return;
 }

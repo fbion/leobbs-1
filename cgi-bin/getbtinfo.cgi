@@ -136,7 +136,7 @@ textarea,select	{border-width: 1; border-color: #000000; background-color: #efef
 <br><center>
 <table cellSpacing=1 cellPadding=4 bgColor=$tablebordercolor width=150>
 <tr bgColor=$titlecolor><td align=middle nowrap><font color=$titlefontcolor>$filename.torrent</td></tr>
-<tr bgColor=$postcolorone><td nowrap>&nbsp;<font color=$postfontcolorone>种子数：$seeds�������Ӳ��ϻ��߾ܾ����ݲ�ѯ��</td></tr>
+<tr bgColor=$postcolorone><td nowrap>&nbsp;<font color=$postfontcolorone>种子数：$seeds　&nbsp;连接数：$leeches　&nbsp;完成数：$downloaded<br>&nbsp;$announce<br><BR>如果种子数等都是未知，则说明对方服务器连接不上或者拒绝数据查询。</td></tr>
 </table>
 <br><br>
 </body></html>~;

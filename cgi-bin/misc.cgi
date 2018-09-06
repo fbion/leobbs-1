@@ -608,16 +608,20 @@ elsif ($action eq "lbcode") {
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[equote]</font>特别样式的引用，效果不错的。<font color=$fonthighliermark]</font><\/TR><\/TABLE></font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[equote]</font>特别样式的引用，效果不错的。<font color=$fonthighlight>[/equote]</font>
+                    </font>       
+                </td> 
+                    <td bgcolor=$miscbackone align=center>
+                    <font color=$fontcolormisc><TABLE cellSpacing=0 cellPadding=0><TR><TD><IMG src=$imagesurl\/images\/top_l.gif><\/TD><TD background=$imagesurl\/images\/top_c.gif><\/TD><TD><IMG src=$imagesurl\/images\/top_r.gif><\/TD><\/TR><TR><TD vAlign=top background=$imagesurl\/images\/center_l.gif><\/TD><TD bgcolor=#fffff1>特别样式的引用，效果不错的。<TD vAlign=top background=$imagesurl\/images\/center_r.gif><\/TD><\/TR><TR><TD vAlign=top><IMG src=$imagesurl\/images\/foot_l1.gif ><\/TD><TD background=$imagesurl\/images\/foot_c.gif><IMG src=$imagesurl\/images\/foot_l3.gif><\/TD><TD align=right><IMG src=$imagesurl\/images\/foot_r.gif><\/TD><\/TR><\/TABLE></font>
                 </td>
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[fquote]</font>����һ���ر���ʽ�����ã�Ч�������ġ�<font color=$fonthighlight>[/fquote]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[fquote]</font>另外一种特别样式的引用，效果不错的。<font color=$fonthighlight>[/fquote]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><table cellSpacing=0 cellPadding=0 width=100%><tr><td><table style=word-break: break-all cellSpacing=0 cellPadding=0><tr><td><img src=$imagesurl/images/top1_l.gif width=83 height=39></td><td width=100% background=$imagesurl/images/top1_c.gif>��</td><td><img src=$imagesurl/images/top1_r.gif width=7 height=39></td></tr><tr><td colSpan=3><table cellSpacing=0 cellPadding=0 width=100%><tr><td vAlign=top background=$imagesurl/images/center1_l.gif><img src=$imagesurl/images/top1_l2.gif width=11 height=1></td><td vAlign=center width=100% bgColor=#fffff1>����һ���ر���ʽ�����ã�Ч�������ġ�</td><td vAlign=top background=$imagesurl/images/center1_r.gif><img src=$imagesurl/images/top1_r2.gif width=7 height=2></td></tr></table></td></tr><tr><td colSpan=3><table cellSpacing=0 cellPadding=0 width=100%><tr><td vAlign=top><img src=$imagesurl/images/foot1_l1.gif width=12 height=18></td><td width=100% background=$imagesurl/images/foot1_c.gif><img src=$imagesurl/images/foot1_l3.gif width=1 height=18></td><td align=right><img src=$imagesurl/images/foot1_r.gif width=8 height=18></td></tr></table></td></tr></table></td></tr></table>
+                    <font color=$fontcolormisc><table cellSpacing=0 cellPadding=0 width=100%><tr><td><table style=word-break: break-all cellSpacing=0 cellPadding=0><tr><td><img src=$imagesurl/images/top1_l.gif width=83 height=39></td><td width=100% background=$imagesurl/images/top1_c.gif>　</td><td><img src=$imagesurl/images/top1_r.gif width=7 height=39></td></tr><tr><td colSpan=3><table cellSpacing=0 cellPadding=0 width=100%><tr><td vAlign=top background=$imagesurl/images/center1_l.gif><img src=$imagesurl/images/top1_l2.gif width=11 height=1></td><td vAlign=center width=100% bgColor=#fffff1>另外一种特别样式的引用，效果不错的。</td><td vAlign=top background=$imagesurl/images/center1_r.gif><img src=$imagesurl/images/top1_r2.gif width=7 height=2></td></tr></table></td></tr><tr><td colSpan=3><table cellSpacing=0 cellPadding=0 width=100%><tr><td vAlign=top><img src=$imagesurl/images/foot1_l1.gif width=12 height=18></td><td width=100% background=$imagesurl/images/foot1_c.gif><img src=$imagesurl/images/foot1_l3.gif width=1 height=18></td><td align=right><img src=$imagesurl/images/foot1_r.gif width=8 height=18></td></tr></table></td></tr></table></td></tr></table>
                 </td>
                 </tr>
 		<tr> 
@@ -626,16 +630,16 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>�������в����������</font>
+                    <font color=$fontcolormisc>在帖子中插入加密链接</font>
                 </td>
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[buyexege]�������ӵ�����ע��[/buyexege]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[buyexege]买卖贴子的内容注解[/buyexege]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>�������ӵ�����ע�⣬ֻ������ʱ����ʹ�ã�ע�����ݶ��κ��˶��ǿɼ��ġ�</font>
+                    <font color=$fontcolormisc>买卖贴子的内容注解，只有卖贴时才能使用，注解内容对任何人都是可见的。</font>
                 </td>
                 </tr>
 		<tr> 
@@ -644,7 +648,7 @@ elsif ($action eq "lbcode") {
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc>�������в�����ҳ</font>
+                    <font color=$fontcolormisc>在帖子中插入网页</font>
                 </td>
                 </tr>
 
@@ -658,5 +662,5 @@ elsif ($action eq "lbcode") {
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-    &output("$boardname - ����",\$output,"msg");
+    &output("$boardname - 帮助",\$output,"msg");
 exit;

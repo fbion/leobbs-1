@@ -571,10 +571,35 @@ sub unlocktop {
     &mischeader("ä¸»é¢˜å–æ¶ˆå›ºå®š");
 
     $cleartoedit = "no";
-    if (($membercodtd bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>le cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ö÷ÌâÈ¡Ïû¹Ì¶¨³É¹¦</b></font></td></tr>
+    if (($membercode eq "ad") && ($inpassword eq $password)) { $cleartoedit = "yes"; }
+    if(($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) { $cleartoedit = "yes"; }
+    unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
+    if ($cleartoedit eq "no" && $checked eq "yes") { &error("ä¸»é¢˜å–æ¶ˆå›ºå®š&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»æˆ–æ­£ç‰ˆä¸»ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
+
+    if (($cleartoedit eq "yes") && ($checked eq "yes")) {
+    	unlink("${lbdir}cache/forumstop$inforum.pl");
+        my $file = "${lbdir}boarddata/ontop$inforum.cgi";
+        if (open (TOPFILE, $file)) {
+            @toptopic = <TOPFILE>;
+            close (TOPFILE);
+
+            if (open (TOPFILE, ">$file")) {
+                foreach (@toptopic) {
+                    chomp $_;
+                    if (($_ ne $intopic)&&(-e "${lbdir}forum$inforum/$_.thd.cgi")) {
+	    	        print TOPFILE "$_\n";
+	            }
+	        }
+                close (TOPFILE);
+            }
+        }
+	&addadminlog("å–æ¶ˆè´´å­å›ºé¡¶", $intopic);
+        $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
+<tr><td><table cellpadding=6 cellspacing=1 width=100%>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¸»é¢˜å–æ¶ˆå›ºå®šæˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -589,11 +614,11 @@ sub unlocktop {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [Ö÷ÌâÈ¡Ïû¹Ì¶¨]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ä¸»é¢˜å–æ¶ˆå›ºå®š]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -601,13 +626,13 @@ sub unlocktop {
 }
 
 sub abslocktop {
-    &mischeader("Ö÷Ìâ×Ü¹Ì¶¨Ê×ĞĞ");
-    if (($startnewthreads eq "no")||($startnewthreads eq "cert")||($privateforum eq "yes")) { &error("Ö÷Ìâ×Ü¹Ì¶¨Ê×ĞĞ&¶Ô²»Æğ£¬Õâ¸ö·ÖÂÛÌ³²¢²»ÊÇ¶ÔËùÓĞÓÃ»§¿ª·ÅµÄ£¬ËùÒÔ²»ÄÜ×Ü¹Ì¶¨Ìû×Ó£¡"); }
+    &mischeader("ä¸»é¢˜æ€»å›ºå®šé¦–è¡Œ");
+    if (($startnewthreads eq "no")||($startnewthreads eq "cert")||($privateforum eq "yes")) { &error("ä¸»é¢˜æ€»å›ºå®šé¦–è¡Œ&å¯¹ä¸èµ·ï¼Œè¿™ä¸ªåˆ†è®ºå›å¹¶ä¸æ˜¯å¯¹æ‰€æœ‰ç”¨æˆ·å¼€æ”¾çš„ï¼Œæ‰€ä»¥ä¸èƒ½æ€»å›ºå®šå¸–å­ï¼"); }
     $absmaxtoptopic = 3 if ($absmaxtoptopic <=0);
     $cleartoedit = "no";
     if (($membercode eq "ad") && ($inpassword eq $password)) { $cleartoedit = "yes"; }
     unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-    if ($cleartoedit eq "no" && $checked eq "yes") { &error("Ö÷Ìâ×Ü¹Ì¶¨Ê×ĞĞ&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    if ($cleartoedit eq "no" && $checked eq "yes") { &error("ä¸»é¢˜æ€»å›ºå®šé¦–è¡Œ&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
     	opendir (CATDIR, "${lbdir}cache");
 	my @dirdata = readdir(CATDIR);
@@ -641,12 +666,12 @@ sub abslocktop {
                 close (TOPFILE);
             }
         }
-	&addadminlog("×Ü¹Ì¶¥Ìû×Ó", $intopic);
+	&addadminlog("æ€»å›ºé¡¶å¸–å­", $intopic);
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ö÷Ìâ×Ü¹Ì¶¨Ê×ĞĞ³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¸»é¢˜æ€»å›ºå®šé¦–è¡ŒæˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -665,7 +690,7 @@ sub abslocktop {
 	    	            $toptopic ++;
 	    	        }
 	        }
-	if ($toptopic >= $absmaxtoptopic) { $topnum = "<BR><B><font color=$fonthighlight>ÒÑ¾­×Ü¹Ì¶¨ÁË $toptopic ¸öÌû×ÓÁË£¬Èç¹û¼ÌĞø£¬×îÔçÒ»¸ö±»¹Ì¶¨µÄÌû×Ó½«±»×Ô¶¯È¡Ïû¹Ì¶¨¡£</B></font>" } else { $topnum = "<BR><B><font color=$fonthighlight>ÒÑ¾­×Ü¹Ì¶¨ÁË $toptopic ¸öÌû×ÓÁË£¬Äã×î¶à¿ÉÒÔ×Ü¹Ì¶¨ $absmaxtoptopic ¸öÌû×Ó¡£</B></font>"; }
+	if ($toptopic >= $absmaxtoptopic) { $topnum = "<BR><B><font color=$fonthighlight>å·²ç»æ€»å›ºå®šäº† $toptopic ä¸ªå¸–å­äº†ï¼Œå¦‚æœç»§ç»­ï¼Œæœ€æ—©ä¸€ä¸ªè¢«å›ºå®šçš„å¸–å­å°†è¢«è‡ªåŠ¨å–æ¶ˆå›ºå®šã€‚</B></font>" } else { $topnum = "<BR><B><font color=$fonthighlight>å·²ç»æ€»å›ºå®šäº† $toptopic ä¸ªå¸–å­äº†ï¼Œä½ æœ€å¤šå¯ä»¥æ€»å›ºå®š $absmaxtoptopic ä¸ªå¸–å­ã€‚</B></font>"; }
         $inmembername =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -675,11 +700,11 @@ sub abslocktop {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [Ö÷Ìâ×Ü¹Ì¶¨Ê×ĞĞ]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ä¸»é¢˜æ€»å›ºå®šé¦–è¡Œ]</b></font>$topnum</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -688,12 +713,12 @@ sub abslocktop {
 }
 
 sub absunlocktop {
-    &mischeader("Ö÷ÌâÈ¡Ïû×Ü¹Ì¶¨");
+    &mischeader("ä¸»é¢˜å–æ¶ˆæ€»å›ºå®š");
 
     $cleartoedit = "no";
     if (($membercode eq "ad") && ($inpassword eq $password)) { $cleartoedit = "yes"; }
     unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-    if ($cleartoedit eq "no" && $checked eq "yes") { &error("Ö÷ÌâÈ¡Ïû×Ü¹Ì¶¨&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    if ($cleartoedit eq "no" && $checked eq "yes") { &error("ä¸»é¢˜å–æ¶ˆæ€»å›ºå®š&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
     	opendir (CATDIR, "${lbdir}cache");
@@ -720,12 +745,12 @@ sub absunlocktop {
                 close (TOPFILE);
             }
         }
-	&addadminlog("È¡ÏûÌù×Ó×Ü¹Ì¶¥", $intopic);
+	&addadminlog("å–æ¶ˆè´´å­æ€»å›ºé¡¶", $intopic);
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ö÷ÌâÈ¡Ïû×Ü¹Ì¶¨³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¸»é¢˜å–æ¶ˆæ€»å›ºå®šæˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -740,18 +765,18 @@ sub absunlocktop {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [Ö÷ÌâÈ¡Ïû×Ü¹Ì¶¨]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ä¸»é¢˜å–æ¶ˆæ€»å›ºå®š]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
     }
 }
 sub highlight {
-  &mischeader("¼ÓÖØÌû×Ó±êÌâ");
+  &mischeader("åŠ é‡å¸–å­æ ‡é¢˜");
   $maxhightopic = 8 if ($maxhightopic <=0);
 
   $cleartoedit = "no";
@@ -759,7 +784,7 @@ sub highlight {
   if(($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
   if (($inmembmod eq "yes") && ($inpassword eq $password)) { $cleartoedit = "yes"; }
   unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-  if ($cleartoedit eq "no" && $checked eq "yes") { &error("¼ÓÖØÌû×Ó±êÌâ&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷»ò°æÖ÷£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+  if ($cleartoedit eq "no" && $checked eq "yes") { &error("åŠ é‡å¸–å­æ ‡é¢˜&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»æˆ–ç‰ˆä¸»ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
   if (($cleartoedit eq "yes") && ($checked eq "yes")) {
       unlink("${lbdir}cache/forumstop$inforum.pl");
       my $file = "$lbdir" . "boarddata/highlight$inforum.cgi";
@@ -790,12 +815,12 @@ sub highlight {
               close (HIGHFILE);
           }
       }
-      &addadminlog("¼ÓÖØÌû×Ó±êÌâ", $intopic);
+      &addadminlog("åŠ é‡å¸–å­æ ‡é¢˜", $intopic);
       $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>¼ÓÖØÌû×Ó±êÌâ³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>åŠ é‡å¸–å­æ ‡é¢˜æˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -814,7 +839,7 @@ sub highlight {
 	    	            $toptopic ++;
 	    	        }
 	        }
-	if ($toptopic >= $maxhightopic) { $topnum = "<BR><B><font color=$fonthighlight>ÒÑ¾­¼ÓÖØÁË $toptopic ¸öÌû×Ó±êÌâÁË£¬Èç¹û¼ÌĞø£¬×îÔçÒ»¸ö±»¼ÓÖØ±êÌâ½«±»×Ô¶¯È¡Ïû¼ÓÖØ±êÌâ¡£</B></font>" } else { $topnum = "<BR><B><font color=$fonthighlight>ÒÑ¾­¼ÓÖØÁË $toptopic ¸öÌû×Ó±êÌâÁË£¬Äã×î¶à¿ÉÒÔ¼ÓÖØ $maxhightopic ¸öÌû×Ó±êÌâ¡£</B></font>"; }
+	if ($toptopic >= $maxhightopic) { $topnum = "<BR><B><font color=$fonthighlight>å·²ç»åŠ é‡äº† $toptopic ä¸ªå¸–å­æ ‡é¢˜äº†ï¼Œå¦‚æœç»§ç»­ï¼Œæœ€æ—©ä¸€ä¸ªè¢«åŠ é‡æ ‡é¢˜å°†è¢«è‡ªåŠ¨å–æ¶ˆåŠ é‡æ ‡é¢˜ã€‚</B></font>" } else { $topnum = "<BR><B><font color=$fonthighlight>å·²ç»åŠ é‡äº† $toptopic ä¸ªå¸–å­æ ‡é¢˜äº†ï¼Œä½ æœ€å¤šå¯ä»¥åŠ é‡ $maxhightopic ä¸ªå¸–å­æ ‡é¢˜ã€‚</B></font>"; }
       $inmembername =~ s/\_/ /g;
       $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -824,11 +849,11 @@ sub highlight {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [¼ÓÖØÌû×Ó±êÌâ]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [åŠ é‡å¸–å­æ ‡é¢˜]</b></font>$topnum</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -837,14 +862,14 @@ sub highlight {
 }
 
 sub lowlight {
-  &mischeader("Ìû×Ó±êÌâÈ¡Ïû¼ÓÖØ");
+  &mischeader("å¸–å­æ ‡é¢˜å–æ¶ˆåŠ é‡");
 
   $cleartoedit = "no";
   if (($membercode eq "ad") && ($inpassword eq $password)) { $cleartoedit = "yes"; }
   if(($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
   if (($inmembmod eq "yes") && ($inpassword eq $password)) { $cleartoedit = "yes"; }
   unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-  if ($cleartoedit eq "no" && $checked eq "yes") { &error("Ìû×Ó±êÌâÈ¡Ïû¼ÓÖØ&Äú²»ÊÇ±¾ÂÛÌ³Ì³Ö÷»ò°æÖ÷£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+  if ($cleartoedit eq "no" && $checked eq "yes") { &error("å¸–å­æ ‡é¢˜å–æ¶ˆåŠ é‡&æ‚¨ä¸æ˜¯æœ¬è®ºå›å›ä¸»æˆ–ç‰ˆä¸»ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
   if (($cleartoedit eq "yes") && ($checked eq "yes")) {
       unlink("${lbdir}cache/forumstop$inforum.pl");
@@ -867,12 +892,12 @@ sub lowlight {
               close (HIGHPFILE);
           }
       }
-      &addadminlog("Ìû×Ó±êÌâÈ¡Ïû¼ÓÖØ", $intopic);
+      &addadminlog("å¸–å­æ ‡é¢˜å–æ¶ˆåŠ é‡", $intopic);
       $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ìû×Ó±êÌâÈ¡Ïû¼ÓÖØ³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>å¸–å­æ ‡é¢˜å–æ¶ˆåŠ é‡æˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -887,11 +912,11 @@ sub lowlight {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [Ìû×Ó±êÌâÈ¡Ïû¼ÓÖØ]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [å¸–å­æ ‡é¢˜å–æ¶ˆåŠ é‡]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -899,13 +924,13 @@ sub lowlight {
 } 
 
 sub catlocktop {
-    &mischeader("Ö÷ÌâÇø¹Ì¶¨Ê×ĞĞ");
-    if (($startnewthreads eq "no")||($startnewthreads eq "cert")||($privateforum eq "yes")) { &error("Ö÷ÌâÇø¹Ì¶¨Ê×ĞĞ&¶Ô²»Æğ£¬Õâ¸ö·ÖÂÛÌ³²¢²»ÊÇ¶ÔËùÓĞÓÃ»§¿ª·ÅµÄ£¬ËùÒÔ²»ÄÜÇø¹Ì¶¨Ìû×Ó£¡"); }
+    &mischeader("ä¸»é¢˜åŒºå›ºå®šé¦–è¡Œ");
+    if (($startnewthreads eq "no")||($startnewthreads eq "cert")||($privateforum eq "yes")) { &error("ä¸»é¢˜åŒºå›ºå®šé¦–è¡Œ&å¯¹ä¸èµ·ï¼Œè¿™ä¸ªåˆ†è®ºå›å¹¶ä¸æ˜¯å¯¹æ‰€æœ‰ç”¨æˆ·å¼€æ”¾çš„ï¼Œæ‰€ä»¥ä¸èƒ½åŒºå›ºå®šå¸–å­ï¼"); }
     $absmaxcantopic = 3 if ($absmaxcantopic <= 0);
     $cleartoedit = "no";
     if (($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) && ($inpassword eq $password)) { $cleartoedit = "yes"; }
     unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-    if ($cleartoedit eq "no" && $checked eq "yes") { &error("Ö÷ÌâÇø¹Ì¶¨Ê×ĞĞ&Äú²»ÊÇ±¾·ÖÇø¹ÜÀíÔ±£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    if ($cleartoedit eq "no" && $checked eq "yes") { &error("ä¸»é¢˜åŒºå›ºå®šé¦–è¡Œ&æ‚¨ä¸æ˜¯æœ¬åˆ†åŒºç®¡ç†å‘˜ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
     	opendir (CATDIR, "${lbdir}cache");
 	my @dirdata = readdir(CATDIR);
@@ -938,12 +963,12 @@ sub catlocktop {
                 close (TOPFILE);
             }
         }
-	&addadminlog("Çø¹Ì¶¥Ìû×Ó", $intopic);
+	&addadminlog("åŒºå›ºé¡¶å¸–å­", $intopic);
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ö÷ÌâÇø¹Ì¶¨Ê×ĞĞ³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¸»é¢˜åŒºå›ºå®šé¦–è¡ŒæˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -962,7 +987,7 @@ sub catlocktop {
                             $toptopic ++;
                     }
                 }
-        if ($toptopic >= $absmaxcantopic) { $topnum = "<BR><B><font color=$fonthighlight>ÒÑ¾­Çø¹Ì¶¨ÁË $toptopic ¸öÌû×ÓÁË£¬Èç¹û¼ÌĞø£¬×îÔçÒ»¸ö±»¹Ì¶¨µÄÌû×Ó½«±»×Ô¶¯È¡Ïû¹Ì¶¨¡£</B></font>" } else { $topnum = "<BR><B><font color=$fonthighlight>ÒÑ¾­Çø¹Ì¶¨ÁË $toptopic ¸öÌû×ÓÁË£¬Äã×î¶à¿ÉÒÔÇø¹Ì¶¨ $absmaxcantopic ¸öÌû×Ó¡£</B></font>"; }
+        if ($toptopic >= $absmaxcantopic) { $topnum = "<BR><B><font color=$fonthighlight>å·²ç»åŒºå›ºå®šäº† $toptopic ä¸ªå¸–å­äº†ï¼Œå¦‚æœç»§ç»­ï¼Œæœ€æ—©ä¸€ä¸ªè¢«å›ºå®šçš„å¸–å­å°†è¢«è‡ªåŠ¨å–æ¶ˆå›ºå®šã€‚</B></font>" } else { $topnum = "<BR><B><font color=$fonthighlight>å·²ç»åŒºå›ºå®šäº† $toptopic ä¸ªå¸–å­äº†ï¼Œä½ æœ€å¤šå¯ä»¥åŒºå›ºå®š $absmaxcantopic ä¸ªå¸–å­ã€‚</B></font>"; }
         $inmembername =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -972,11 +997,11 @@ sub catlocktop {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [Ö÷ÌâÇø¹Ì¶¨Ê×ĞĞ]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ä¸»é¢˜åŒºå›ºå®šé¦–è¡Œ]</b></font>$topnum</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
@@ -985,12 +1010,12 @@ sub catlocktop {
 }
 
 sub catunlocktop {
-    &mischeader("Ö÷ÌâÈ¡ÏûÇø¹Ì¶¨");
+    &mischeader("ä¸»é¢˜å–æ¶ˆåŒºå›ºå®š");
 
     $cleartoedit = "no";
     if (($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) && ($inpassword eq $password)) { $cleartoedit = "yes"; }
     unless ($cleartoedit eq "yes") { $cleartoedit = "no"; }
-    if ($cleartoedit eq "no" && $checked eq "yes") { &error("Ö÷ÌâÈ¡ÏûÇø¹Ì¶¨&Äú²»ÊÇ±¾·ÖÇø¹ÜÀíÔ±£¬»òÕßÄúµÄÃÜÂë´íÎó£¡"); }
+    if ($cleartoedit eq "no" && $checked eq "yes") { &error("ä¸»é¢˜å–æ¶ˆåŒºå›ºå®š&æ‚¨ä¸æ˜¯æœ¬åˆ†åŒºç®¡ç†å‘˜ï¼Œæˆ–è€…æ‚¨çš„å¯†ç é”™è¯¯ï¼"); }
 
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
     	opendir (CATDIR, "${lbdir}cache");
@@ -1015,12 +1040,12 @@ sub catunlocktop {
                 close (TOPFILE);
             }
         }
-	&addadminlog("È¡ÏûÌû×ÓÇø¹Ì¶¥", $intopic);
+	&addadminlog("å–æ¶ˆå¸–å­åŒºå›ºé¡¶", $intopic);
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ö÷ÌâÈ¡ÏûÇø¹Ì¶¨³É¹¦</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ä¸»é¢˜å–æ¶ˆåŒºå›ºå®šæˆåŠŸ</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-¾ßÌåÇé¿ö£º<ul><li><a href="forums.cgi?forum=$inforum">·µ»ØÂÛÌ³</a><li><a href="leobbs.cgi">·µ»ØÂÛÌ³Ê×Ò³</a></ul></tr></td>
+å…·ä½“æƒ…å†µï¼š<ul><li><a href="forums.cgi?forum=$inforum">è¿”å›è®ºå›</a><li><a href="leobbs.cgi">è¿”å›è®ºå›é¦–é¡µ</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
@@ -1035,11 +1060,11 @@ sub catunlocktop {
 <input type=hidden name="checked" value="yes">
 <input type=hidden name="forum" value="$inforum">
 <input type=hidden name="topic" value="$intopic">
-<font color=$fontcolormisc><b>ÇëÊäÈëÄúµÄÓÃ»§Ãû¡¢ÃÜÂë½øÈë°æÖ÷Ä£Ê½ [Ö÷ÌâÈ¡ÏûÇø¹Ì¶¨]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>ÄúÄ¿Ç°µÄÉí·İÊÇ£º <font color=$fonthighlight><B><u>$inmembername</u></B></font> £¬ÒªÊ¹ÓÃÆäËûÓÃ»§Éí·İ£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë¡£Î´×¢²á¿ÍÈËÇëÊäÈëÍøÃû£¬ÃÜÂëÁô¿Õ¡£</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="µÇ Â¼"></td></form></tr></table></td></tr></table>
+<font color=$fontcolormisc><b>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·åã€å¯†ç è¿›å…¥ç‰ˆä¸»æ¨¡å¼ [ä¸»é¢˜å–æ¶ˆåŒºå›ºå®š]</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>æ‚¨ç›®å‰çš„èº«ä»½æ˜¯ï¼š <font color=$fonthighlight><B><u>$inmembername</u></B></font> ï¼Œè¦ä½¿ç”¨å…¶ä»–ç”¨æˆ·èº«ä»½ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ã€‚æœªæ³¨å†Œå®¢äººè¯·è¾“å…¥ç½‘åï¼Œå¯†ç ç•™ç©ºã€‚</td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="ç™» å½•"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;

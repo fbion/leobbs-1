@@ -1,11 +1,11 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºı)¡¢»¨ÎŞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ĞÂ°æ³ÌĞòÖÆ×÷ & °æÈ¨ËùÓĞ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 package MAILPROG;
@@ -44,7 +44,7 @@ sub sendmail {
 	$replyaddr =~ s/.*<([^\s]*?)>/$1/;
 	$replyaddr =~ s/^([^\s]+).*/$1/;
 	$message .= "<br>=====================================================<br>";
-	$message .= "´ËÓÊ¼şÓÉÀ×°Á¼«¿á³¬¼¶ÂÛÌ³£¨LEO SuperCool BBS£©·¢ËÍ...  \n<br>";
+	$message .= "æ­¤é‚®ä»¶ç”±é›·å‚²æé…·è¶…çº§è®ºå›ï¼ˆLEO SuperCool BBSï¼‰å‘é€...  \n<br>";
 	if ($main::emailtype eq "blat_mail") {
 	    $sendstat = 1 if (&blat_mail($to, $fromaddr, $replyaddr, $subject, $message));
 	}
@@ -119,7 +119,7 @@ sub smtpmail {
     my ($name, $aliases, $proto, $type, $len, $thataddr);
     my @to = split(/, /, $address);
     foreach my $i (@to) {
-	#¶ÔµØÖ·½øĞĞ½âÂë
+	#å¯¹åœ°å€è¿›è¡Œè§£ç 
 	my $AF_INET = 2;
 	my $SOCK_STREAM = 1;
 	my $SOCKADDR = 'S n a4 x8';
@@ -129,7 +129,7 @@ sub smtpmail {
 	my $this = pack($SOCKADDR, $AF_INET, 0);
 	my $that = pack($SOCKADDR, $AF_INET, $main::SMTP_PORT, $thataddr);
 
-	#´ò¿ªSMTPµÄsocket¶Ë¿Ú
+	#æ‰“å¼€SMTPçš„socketç«¯å£
 	socket(S, $AF_INET, $SOCK_STREAM, $proto);
 	bind(S, $this);
 	connect(S, $that);
@@ -144,30 +144,30 @@ sub smtpmail {
 	    return $a;
 	}
 
-	if ($extra eq "no") {#ÓëÆÕÍ¨SMTP·şÎñÆ÷ÎÕÊÖÁ¬½Ó
+	if ($extra eq "no") {#ä¸æ™®é€šSMTPæœåŠ¡å™¨æ¡æ‰‹è¿æ¥
 	    print S "HELO localhost\r\n";
 	    $a = <S>;
-	} else {#½øĞĞESMTPÉí·İÑéÖ¤
+	} else {#è¿›è¡ŒESMTPèº«ä»½éªŒè¯
 	    print S "EHLO localhost\r\n";
 	    $a = <S>;
 	    print S "AUTH LOGIN\r\n";
 	    $a = <S>;
-	    my $encode_smtpuser = &Base64encode($main::SMTPUSER);    #ÓÃÀ´ÑéÖ¤µÄÓÃ»§Ãû±ØĞë¾­¹ıBase64±àÂëºó·¢Íù·şÎñÆ÷
+	    my $encode_smtpuser = &Base64encode($main::SMTPUSER);    #ç”¨æ¥éªŒè¯çš„ç”¨æˆ·åå¿…é¡»ç»è¿‡Base64ç¼–ç åå‘å¾€æœåŠ¡å™¨
 	    print S "$encode_smtpuser\r\n";
 	    $a = <S>;
-	    my $encode_smtppass = &Base64encode($main::SMTPPASS);    #ÓÃÀ´ÑéÖ¤µÄÃÜÂë±ØĞë¾­¹ıBase64±àÂëºó·¢Íù·şÎñÆ÷
+	    my $encode_smtppass = &Base64encode($main::SMTPPASS);    #ç”¨æ¥éªŒè¯çš„å¯†ç å¿…é¡»ç»è¿‡Base64ç¼–ç åå‘å¾€æœåŠ¡å™¨
 	    print S "$encode_smtppass\r\n";
 	    $a = <S>;
 	    return $a if ($a =~ /fail/i);
 	}
 
-	#·¢ËÍÓÊ¼şÍ·²¿ĞÅÏ¢
+	#å‘é€é‚®ä»¶å¤´éƒ¨ä¿¡æ¯
 	print S "MAIL FROM: <$from>\r\n";
 	$a = <S>;
 	print S "RCPT TO: <$i>\r\n";
 	$a = <S>;
 
-	#·¢ËÍÓÊ¼şÕıÎÄ
+	#å‘é€é‚®ä»¶æ­£æ–‡
 	print S "DATA\r\n";
 	$a = <S>;
 	print S "From: $tempname<$from>\r\n";
@@ -193,10 +193,10 @@ sub smtpmail {
 sub directmail
 ######################################
 #                                    #
-#    SuperLB ÓÊ¼şÌØ¿ì×¨µİv1.0        #
+#    SuperLB é‚®ä»¶ç‰¹å¿«ä¸“é€’v1.0        #
 #                                    #
-#    Ä£¿é×÷Õß£º94Cool.Net BigJim     #
-#    ×îºóĞŞ¸Ä£º2004/07/09            #
+#    æ¨¡å—ä½œè€…ï¼š94Cool.Net BigJim     #
+#    æœ€åä¿®æ”¹ï¼š2004/07/09            #
 #                                    #
 ######################################
 {
@@ -218,7 +218,7 @@ sub directmail
 	{
 		my $host = lc((split(/\@/, $i))[-1]);
 
-		#MX½âÎö¼ÍÂ¼»º´æ²¿·Ö
+		#MXè§£æçºªå½•ç¼“å­˜éƒ¨åˆ†
 		if (open(FILE, "${main::lbdir}cache/mxrecord.txt"))
 		{
 			$main::readisktimes++;
@@ -253,7 +253,7 @@ sub directmail
 				}
 			}
 		}
-		#MX½âÎö¼ÇÂ¼»º´æ½áÊø
+		#MXè§£æè®°å½•ç¼“å­˜ç»“æŸ
 
 		foreach my $mx (@mxs)
 		{
@@ -279,13 +279,13 @@ sub directmail
 				$a = <S>;
 			}
 
-			#·¢ËÍÓÊ¼şÍ·²¿ĞÅÏ¢
+			#å‘é€é‚®ä»¶å¤´éƒ¨ä¿¡æ¯
 			print S "MAIL FROM: <$from>\r\n";
 			$a = <S>;
 			print S "RCPT TO: <$i>\r\n";
 			$a = <S>;
 
-			#·¢ËÍÓÊ¼şÕıÎÄ
+			#å‘é€é‚®ä»¶æ­£æ–‡
 			print S "DATA\r\n";
 			$a = <S>;
 			print S "From: $tempname<$from>\r\n";
@@ -315,7 +315,7 @@ sub mimeencode {
 }
 
 sub Base64encode {
-#Base64±àÂëº¯Êı
+#Base64ç¼–ç å‡½æ•°
     my $res = pack("u", $_[0]);
     $res =~ s/^.//mg;
     $res =~ s/\n//g;

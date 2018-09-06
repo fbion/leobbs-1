@@ -59,46 +59,49 @@ $screenmode = $query->cookie("screenmode");
 $screenmode = 8 if ($screenmode eq "");
 $addtimes = ($timedifferencevalue + $timezone)*3600;
 
-#å–å‡ºä¸»me	= $query->cookie("amembernamecookie");
+#å–å‡ºä¸»é¡Œ ID
+$id_of_this_topid	= sprintf("%04d%05d",$inforum,$intopic);
+#ç”¨æˆ·èµ„æ–™
+$inmembername	= $query->cookie("amembernamecookie");
 $inpassword 	= $query->cookie("apasswordcookie");
 $userregistered	= "no";
-&ERROROUT("ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
-unless ((!$inmembername) or ($inmembername eq "¿ÍÈË")) { 
+&ERROROUT("è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+unless ((!$inmembername) or ($inmembername eq "å®¢äºº")) { 
 	&getmember("$inmembername","no");
 	$mymembercode=$membercode;
 	$myrating=$rating;
-	&ERROROUT("ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if ($inpassword ne $password);
+	&ERROROUT("å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if ($inpassword ne $password);
 }
-&ERROROUT("»áÔ±×¨ÓÃ¹¦ÄÜ£¬ÇëÏÈµÇÂ¼£¡") if ($userregistered eq "no");
-#È¡µÃ·ÖÂÛÌ³×ÊÁÏ
+&ERROROUT("ä¼šå‘˜ä¸“ç”¨åŠŸèƒ½ï¼Œè¯·å…ˆç™»å½•ï¼") if ($userregistered eq "no");
+#å–å¾—åˆ†è®ºå›èµ„æ–™
 &getoneforum("$inforum");
 $myinmembmod = $inmembmod;
 $testentry = cookie("forumsallowed$inforum");
 if (((($testentry ne $forumpass)||($testentry eq ""))&&($privateforum eq "yes"))||(($startnewthreads eq "cert")&&($membercode eq "me")&&($userincert eq "no"))) {
-	&ERROROUT("Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡") if(($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
+	&ERROROUT("ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼") if(($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
 }
 
-&error("½øÈëÂÛÌ³&ÄãµÄÂÛÌ³×éÃ»ÓĞÈ¨ÏŞ½øÈëÂÛÌ³£¡") if ($yxz ne '' && $yxz!~/,$membercode,/);
+&error("è¿›å…¥è®ºå›&ä½ çš„è®ºå›ç»„æ²¡æœ‰æƒé™è¿›å…¥è®ºå›ï¼") if ($yxz ne '' && $yxz!~/,$membercode,/);
 if ($allowusers ne ''){
-    &ERROROUT("Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¡") if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+    &ERROROUT("ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼") if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
-    &ERROROUT("Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄÍşÍûÎª $rating£¬¶ø±¾ÂÛÌ³Ö»ÓĞÍşÍû´óÓÚµÈÓÚ $enterminweiwang µÄ²ÅÄÜ½øÈë£¡") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
+    &ERROROUT("ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„å¨æœ›ä¸º $ratingï¼Œè€Œæœ¬è®ºå›åªæœ‰å¨æœ›å¤§äºç­‰äº $enterminweiwang çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
 	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
 	$mymoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&ERROROUT("Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ½ğÇ®Îª $mymoney£¬¶ø±¾ÂÛÌ³Ö»ÓĞ½ğÇ®´óÓÚµÈÓÚ $enterminmony µÄ²ÅÄÜ½øÈë£¡") if ($enterminmony > 0 && $mymoney < $enterminmony);
-	&ERROROUT("Äã²»ÔÊĞí½øÈë¸ÃÂÛÌ³£¬ÄãµÄ»ı·ÖÎª $jifen£¬¶ø±¾ÂÛÌ³Ö»ÓĞ»ı·Ö´óÓÚµÈÓÚ $enterminjf µÄ²ÅÄÜ½øÈë£¡") if ($enterminjf > 0 && $jifen < $enterminjf);
+	&ERROROUT("ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„é‡‘é’±ä¸º $mymoneyï¼Œè€Œæœ¬è®ºå›åªæœ‰é‡‘é’±å¤§äºç­‰äº $enterminmony çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminmony > 0 && $mymoney < $enterminmony);
+	&ERROROUT("ä½ ä¸å…è®¸è¿›å…¥è¯¥è®ºå›ï¼Œä½ çš„ç§¯åˆ†ä¸º $jifenï¼Œè€Œæœ¬è®ºå›åªæœ‰ç§¯åˆ†å¤§äºç­‰äº $enterminjf çš„æ‰èƒ½è¿›å…¥ï¼") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
-#³õÊ¼»¯ÄÚÈİ£¬»Ø¸²Êı
+#åˆå§‹åŒ–å†…å®¹ï¼Œå›è¦†æ•°
 my($OUTPUT_TABLE,$REPLY_COUNT);
 $addtimes = ($timedifferencevalue + $timezone)*3600;
-#¶ÁÈ¡ÄÚÈİ
+#è¯»å–å†…å®¹
 $file_of_this_topic = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
-open(FILE, "$file_of_this_topic") or &ERROROUT("Õâ¸öÖ÷Ìâ²»´æÔÚ£¡¿ÉÄÜÒÑ¾­±»É¾³ı£¡");
+open(FILE, "$file_of_this_topic") or &ERROROUT("è¿™ä¸ªä¸»é¢˜ä¸å­˜åœ¨ï¼å¯èƒ½å·²ç»è¢«åˆ é™¤ï¼");
 @threads = <FILE>;
 close(FILE);
 
@@ -109,7 +112,7 @@ close(FILE);
 	    $jfpost=$1;
 	    if (($jfpost <= $jifen)||($mymembercode eq "ad")||($mymembercode eq "smo")||($myinmembmod eq "yes")||(lc($membername) eq lc($inmembername))){ 
 	    } else { 
-	    &ERROROUT("ÓÉÓÚÖ÷ÌûÖĞÉèÖÃÓĞ»ı·Ö±êÇ©£¬ËùÒÔÎŞ·¨¿ìËÙ²é¿´£¬ÇëµãÈëºó²é¿´´ËÌû£¬Ğ»Ğ»£¡") if ($noviewjf eq "yes");
+	    &ERROROUT("ç”±äºä¸»å¸–ä¸­è®¾ç½®æœ‰ç§¯åˆ†æ ‡ç­¾ï¼Œæ‰€ä»¥æ— æ³•å¿«é€ŸæŸ¥çœ‹ï¼Œè¯·ç‚¹å…¥åæŸ¥çœ‹æ­¤å¸–ï¼Œè°¢è°¢ï¼") if ($noviewjf eq "yes");
    	    }
    	}
     }
@@ -120,12 +123,12 @@ shift(@threads);
 
 @threads = reverse(@threads);
 chomp @threads;
-#È¡µÃÎÄÕÂ×ÜÊı
+#å–å¾—æ–‡ç« æ€»æ•°
 $TREPLY_COUNT = @threads;
 $REPLY_COUNT = $TREPLY_COUNT+1;
 my $numberofitems = $TREPLY_COUNT;
-#È¡³öÖ÷ÌâÎÄÕÂ
-&ERROROUT("±¾Ö÷ÌâÃ»ÓĞÈÎºÎ»Ø¸´¡£") unless(@threads);
+#å–å‡ºä¸»é¢˜æ–‡ç« 
+&ERROROUT("æœ¬ä¸»é¢˜æ²¡æœ‰ä»»ä½•å›å¤ã€‚") unless(@threads);
 
 if ($tablewidth > 100) {
     if ($tablewidth > 1000) { $topictitlemax = 85; } elsif ($tablewidth > 770) { $topictitlemax = 70; } else { $topictitlemax = 40; }
@@ -133,7 +136,7 @@ if ($tablewidth > 100) {
     if ($screenmode >=10) { $topictitlemax = 85; } elsif ($screenmode >=8) { $topictitlemax = 70; } else { $topictitlemax = 40; }
 }
 
-#·ÖÒ³//add by hztz
+#åˆ†é¡µ//add by hztz
 my $tempnumberofpages = $numberofitems / $maxtopics;
 $numberofpages = int($tempnumberofpages);
 $numberofpages++ if ($numberofpages != $tempnumberofpages);
@@ -151,15 +154,15 @@ if ($numberofpages > 1) {
 
 	my $currentpage = int($instart / $maxtopics) + 1;
 	my $endstart = ($numberofpages - 1) * $maxtopics;
-	my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<font face=webdings><span style=cursor:hand title="Ê× Ò³" onclick="loadThreadFollows($inforum, \\\'$intopic&start=0\\\')">9</span></font>~;
-	my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<font face=webdings><span style=cursor:hand title="Î² Ò³" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$endstart\\\')">:</span></font>~;
+	my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<font face=webdings><span style=cursor:hand title="é¦– é¡µ" onclick="loadThreadFollows($inforum, \\\'$intopic&start=0\\\')">9</span></font>~;
+	my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<font face=webdings><span style=cursor:hand title="å°¾ é¡µ" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$endstart\\\')">:</span></font>~;
 
 	my $uppage = $currentpage - 1;
 	my $nextpage = $currentpage + 1;
 	my $upstart = $instart - $maxtopics;
 	my $nextstart = $instart + $maxtopics;
-	my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<font face=webdings><span style=cursor:hand title="µÚ$uppageÒ³" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$upstart\\\')">7</span></font>~;
-	my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<font face=webdings><span style=cursor:hand title="µÚ$nextpageÒ³" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$nextstart\\\')">8</span></font>~;
+	my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<font face=webdings><span style=cursor:hand title="ç¬¬$uppageé¡µ" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$upstart\\\')">7</span></font>~;
+	my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<font face=webdings><span style=cursor:hand title="ç¬¬$nextpageé¡µ" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$nextstart\\\')">8</span></font>~;
 
 	my $tempstep = $currentpage / 7;
 	my $currentstep = int($tempstep);
@@ -168,8 +171,8 @@ if ($numberofpages > 1) {
 	my $nextsteppage = $currentstep * 7 + 1;
 	my $upstepstart = ($upsteppage - 1) * $maxtopics;
 	my $nextstepstart = ($nextsteppage - 1) * $maxtopics;
-	my $showupstep = $upsteppage < 1 ? "" : qq~<span style=cursor:hand title="µÚ$upsteppageÒ³" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$upstepstart\\\')">¡û</span> ~;
-	my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<span style=cursor:hand title="µÚ$nextsteppageÒ³" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$nextstepstart\\\')">¡ú</span> ~;
+	my $showupstep = $upsteppage < 1 ? "" : qq~<span style=cursor:hand title="ç¬¬$upsteppageé¡µ" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$upstepstart\\\')">â†</span> ~;
+	my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<span style=cursor:hand title="ç¬¬$nextsteppageé¡µ" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$nextstepstart\\\')">â†’</span> ~;
 
 	$pages = "";
 	my $currentstart = $upstepstart + $maxtopics;
@@ -179,19 +182,19 @@ if ($numberofpages > 1) {
 		$pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<span style=cursor:hand onclick="loadThreadFollows($inforum, \\\'$intopic&start=$currentstart\\\')">$i</span> ~;
 		$currentstart += $maxtopics;
 	}
-	$pages = "<font color=$menufontcolor>Ò³´Î£º<b><font color=$fonthighlight>$currentpage</font> / $numberofpagesÒ³</b> Ã¿Ò³×î¶à <font color=$fonthighlight>$maxtopics</font> ¸ö ¹² <font color=$fonthighlight>$numberofitems</font> ¸ö $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font>";
+	$pages = "<font color=$menufontcolor>é¡µæ¬¡ï¼š<b><font color=$fonthighlight>$currentpage</font> / $numberofpagesé¡µ</b> æ¯é¡µæœ€å¤š <font color=$fonthighlight>$maxtopics</font> ä¸ª å…± <font color=$fonthighlight>$numberofitems</font> ä¸ª $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font>";
 }
 else {
 	$startarray = 0;
 	$endarray = $numberofitems - 1;
-	$pages = "<font color=$menufontcolor>¸ÃÖ÷ÌâµÄ»Ø¸´Ö»ÓĞÒ»Ò³</font>";
+	$pages = "<font color=$menufontcolor>è¯¥ä¸»é¢˜çš„å›å¤åªæœ‰ä¸€é¡µ</font>";
 }
 
 $REPLY_COUNT = $REPLY_COUNT - $startarray;
-#È¡µÃÊä³öÄÚÈİ
+#å–å¾—è¾“å‡ºå†…å®¹
 foreach (@threads[$startarray .. $endarray]){
 	my @postdata = split(/\t/,$_);
-	#¸üĞÂ»Ø¸²Êı
+	#æ›´æ–°å›è¦†æ•°
 	$REPLY_COUNT--;
 	$OUTPUT_TABLE .= &OUTPUT_TABLE($postdata[0], $postdata[5], $postdata[6], $postdata[7]);
 }
@@ -199,27 +202,27 @@ foreach (@threads[$startarray .. $endarray]){
 OUTPUT_TREE($boardname,$OUTPUT_TABLE,0);
 
 
-#Êä³öÏÔÊ¾
+#è¾“å‡ºæ˜¾ç¤º
 sub OUTPUT_TABLE{
-	#È¡µÃÄÚÈİ£¬»Ø¸²Õß
+	#å–å¾—å†…å®¹ï¼Œå›è¦†è€…
 	my ($OUTPUT_NAME, $OUTPUT_TIME, $OUTPUT_MSG, $OUTPUT_ICON) = @_;
-	#´¦ÀíÎÄÕÂÄÚÈİ
+	#å¤„ç†æ–‡ç« å†…å®¹
         $OUTPUT_TIME = &dateformat($OUTPUT_TIME + $addtimes);
 
     $OUTPUT_MSG =~ s/\[ADMINOPE=(.+?)\]//isg;
 	if ($OUTPUT_MSG =~ /\[POSTISDELETE=(.+?)\]/) {
-	    $OUTPUT_MSG = "´Ë»Ø¸´ÒÑ¾­±»ÆÁ±Î";
+	    $OUTPUT_MSG = "æ­¤å›å¤å·²ç»è¢«å±è”½";
 	}
 
         if (($OUTPUT_MSG =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/)||($OUTPUT_MSG =~ /LBSALE\[(.*?)\]LBSALE/)) {
-            $OUTPUT_MSG = "±£ÃÜ";
+            $OUTPUT_MSG = "ä¿å¯†";
         } else {
 	    $OUTPUT_MSG =~ s/\[quote\](.*)\[quote\](.*)\[\/quote](.*)\[\/quote\]//isg;
 	    $OUTPUT_MSG =~ s/\[quote\](.*)\[\/quote\]//isg;
 	    $OUTPUT_MSG =~ s/\[equote\](.*)\[\/equote\]//isg;
 	    $OUTPUT_MSG =~ s/\[fquote\](.*)\[\/fquote\]//isg;
 	    $OUTPUT_MSG =~ s/\[hidepoll\]//isg;
-	    $OUTPUT_MSG =~ s/\[Õâ¸ö(.+?)×îºóÓÉ(.+?)±à¼­\]\n//isg;
+	    $OUTPUT_MSG =~ s/\[è¿™ä¸ª(.+?)æœ€åç”±(.+?)ç¼–è¾‘\]\n//isg;
 	    $OUTPUT_MSG =~ s/\[hide\](.*)\[hide\](.*)\[\/hide](.*)\[\/hide\]//isg; 
 	    $OUTPUT_MSG =~ s/\[hide\](.*)\[\/hide\]//isg; 
 	    $OUTPUT_MSG =~ s/\[post=(.+?)\](.+?)\[\/post\](.*)\[post=(.+?)\](.+?)\[\/post\]//isg; 
@@ -233,10 +236,10 @@ sub OUTPUT_TABLE{
             $OUTPUT_MSG=&lbhz($OUTPUT_MSG,$topictitlemax);
 	}
 
-	$OUTPUT_MSG = "(ÎŞÄÚÈİ)" unless($OUTPUT_MSG ne "");
-	#³õÊ¼»¯Êä³öÄÚÈİ
+	$OUTPUT_MSG = "(æ— å†…å®¹)" unless($OUTPUT_MSG ne "");
+	#åˆå§‹åŒ–è¾“å‡ºå†…å®¹
 	my $OUTPUT_TABLE;
-	#´¦ÀíÁ¬½áÖµ
+	#å¤„ç†è¿ç»“å€¼
 	my $START=0;my $SID=$REPLY_COUNT+1;
 	if($REPLY_COUNT >= $maxtopics){
 		my ($crelyid,undef)=split(/\./,($REPLY_COUNT/$maxtopics));
@@ -250,10 +253,10 @@ sub OUTPUT_TABLE{
 	}
 	$OUTPUT_ICON = qq~<img src=$imagesurl/posticons/$OUTPUT_ICON $defaultsmilewidth $defaultsmileheight>~;
 
-	#Êä³öÄÚÈİ±í¸ñ
+	#è¾“å‡ºå†…å®¹è¡¨æ ¼
 	$REPLY_COUNT1 = $REPLY_COUNT+1;
-	$OUTPUT_TABLE .= qq~<span style=width:100%><span style=width:58%>¡¡¡¡¡¡¡¡$OUTPUT_ICON¡¡<a href=topic.cgi?forum=$inforum&topic=$intopic&start=$START#$SID target=_blank>$OUTPUT_MSG</a></span><span style=width:12%><a href=post.cgi?action=replyquote&forum=$inforum&topic=$intopic&postno=$REPLY_COUNT1 title=ÒıÓÃ»Ø¸´Õâ¸öÌù×Ó target=_blank><img src=$imagesurl/images/replynow.gif border=0 width=16 align=absmiddle></a></span><span style="width:14%">[ <span style="cursor:hand" onClick="javascript:O9('~ . ($uri_escape eq "no" ? $OUTPUT_NAME : uri_escape($OUTPUT_NAME)) . qq~')">$OUTPUT_NAME</span> ]</span><span style=width:14%>$OUTPUT_TIME</span>~;
-	#´¦ÀíÊä³öÄÚÈİ
+	$OUTPUT_TABLE .= qq~<span style=width:100%><span style=width:58%>ã€€ã€€ã€€ã€€$OUTPUT_ICONã€€<a href=topic.cgi?forum=$inforum&topic=$intopic&start=$START#$SID target=_blank>$OUTPUT_MSG</a></span><span style=width:12%><a href=post.cgi?action=replyquote&forum=$inforum&topic=$intopic&postno=$REPLY_COUNT1 title=å¼•ç”¨å›å¤è¿™ä¸ªè´´å­ target=_blank><img src=$imagesurl/images/replynow.gif border=0 width=16 align=absmiddle></a></span><span style="width:14%">[ <span style="cursor:hand" onClick="javascript:O9('~ . ($uri_escape eq "no" ? $OUTPUT_NAME : uri_escape($OUTPUT_NAME)) . qq~')">$OUTPUT_NAME</span> ]</span><span style=width:14%>$OUTPUT_TIME</span>~;
+	#å¤„ç†è¾“å‡ºå†…å®¹
 	$OUTPUT_TABLE =~ s/\n//g;
 	$OUTPUT_TABLE =~ s/\'/\\\'/g;
 	return "$OUTPUT_TABLE";
@@ -277,15 +280,15 @@ sub OUTPUT_TREE{
 print <<"HTML";
 <html>
 <head> 
-<title>ÎÄÕÂÊ÷</title>
+<title>æ–‡ç« æ ‘</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 </head>
 <body>
 <SCRIPT>
 <!--
-//³õÊ¼»¯ÄÚÈİÖµ
+//åˆå§‹åŒ–å†…å®¹å€¼
 parent.followTd$id_of_this_topid.innerHTML='$output';
-//ÒÑ¶ÁÈ¡
+//å·²è¯»å–
 parent.document.images.followImg$id_of_this_topid.loaded='yes';
 -->
 </SCRIPT>

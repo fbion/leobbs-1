@@ -32,7 +32,7 @@ sub new {
 
 sub _reset_globals {
    initialize_globals();
-   #ÒÔÏÂ3ÐÐÍêÈ«Ã»ÓÐ±ØÒª£¬Ð´µ½ÕâÀï½ö½öÊÇÎªÁË_reset_globals µ÷ÓÃ£¬¼´MOD_PERLÊ¹ÓÃ¡£
+   #ä»¥ä¸‹3è¡Œå®Œå…¨æ²¡æœ‰å¿…è¦ï¼Œå†™åˆ°è¿™é‡Œä»…ä»…æ˜¯ä¸ºäº†_reset_globals è°ƒç”¨ï¼Œå³MOD_PERLä½¿ç”¨ã€‚
    $CGI::HEADERS_ONCE = $LBCGI::HEADERS_ONCE;
    $CGI::POST_MAX = $LBCGI::POST_MAX;
    $CGI::DISABLE_UPLOADS = $LBCGI::DISABLE_UPLOADS;
@@ -42,18 +42,18 @@ sub initialize_globals {
    $CGI::DefaultClass = __PACKAGE__;
    $LBCGI::AutoloadClass = 'CGI';
 
-   # ³õÊ¼Öµ
+   # åˆå§‹å€¼
    $LBCGI::LBCHARSET = 'gb2312';
    $LBCGI::HEADERS_ONCE = 1;
    $LBCGI::POST_MAX=2000;
    $LBCGI::DISABLE_UPLOADS = 1;
-   # ³õÊ¼ END
+   # åˆå§‹ END
 
-   $LBCGI::VERSION='0.03 Hacked By EasunLee';  #  °æ±¾ºÅÂë
+   $LBCGI::VERSION='0.03 Hacked By EasunLee';  #  ç‰ˆæœ¬å·ç 
    $LBCGI::randseed = 0;
 }
 
-sub _initCGI {  #Íâ²¿·óÖµ
+sub _initCGI {  #å¤–éƒ¨æ•·å€¼
    # my($self,$str)= @_;
    my $self = shift;
    #$self ->charset($str);
@@ -140,14 +140,14 @@ sub fulldatetime
 {
         my ($self, $time) = CGI::self_or_CGI (@_);
         my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime ($time);
-        sprintf ('%04dÄê%02dÔÂ%02dÈÕ %02d:%02d%s', $year + 1900, $mon + 1, $mday, ($hour % 12), $min, ($hour > 11) ? 'pm' : 'am');
+        sprintf ('%04då¹´%02dæœˆ%02dæ—¥ %02d:%02d%s', $year + 1900, $mon + 1, $mday, ($hour % 12), $min, ($hour > 11) ? 'pm' : 'am');
 }
 
 sub longdate
 {
         my ($self, $time) = CGI::self_or_CGI (@_);
         my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime ($time);
-        sprintf ('%04dÄê%02dÔÂ%02dÈÕ', $year + 1900, $mon + 1, $mday);
+        sprintf ('%04då¹´%02dæœˆ%02dæ—¥', $year + 1900, $mon + 1, $mday);
 }
 
 sub shortdate
@@ -168,7 +168,7 @@ sub longdateandtime
 {
         my ($self, $time) = CGI::self_or_CGI (@_);
         my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime($time);
-        sprintf ('%04dÄê%02dÔÂ%02dÈÕ %02d:%02d%s', $year + 1900, $mon + 1, $mday, ($hour % 12), $min, ($hour > 11) ? 'pm' : 'am');
+        sprintf ('%04då¹´%02dæœˆ%02dæ—¥ %02d:%02d%s', $year + 1900, $mon + 1, $mday, ($hour % 12), $min, ($hour > 11) ? 'pm' : 'am');
 }
 
 sub shorttime
@@ -230,7 +230,7 @@ sub unclean {
         $text =~ s/\&\#35\;/#/isg;
         $text =~ s/\&amp;/\&/g;
         $text =~ s/\&quot;/"/g;
-        $text =~ s/ \&nbsp;/¡¡/g;
+        $text =~ s/ \&nbsp;/ã€€/g;
         $text =~ s/\&\#039\;/'/g;
         return $text;
 }
@@ -251,7 +251,7 @@ sub HTML {
         my ($self, $text) = CGI::self_or_CGI(@_);
         $text =~ s/\&amp;/\&/g;
         $text =~ s/\&quot;/"/g;
-        $text =~ s/ \&nbsp;/¡¡/g;
+        $text =~ s/ \&nbsp;/ã€€/g;
         $text =~ s/\&lt;/</g;
         $text =~ s/\&gt;/>/g;
         $text =~ s/documents\&\#46\;cookie/document.cookie/isg;
@@ -294,7 +294,7 @@ sub lbhz {
         return $str if (length($str) <= $maxlen);
         $str = substr($str, 0, $maxlen-4);
         if ($str =~ /^([\000-\177]|[\200-\377][\200-\377])*([\000-\177]|[\200-\377][\200-\377])$/){return $str . " ...";}
-        else{chop($str);return $str . "¡¡...";}
+        else{chop($str);return $str . "ã€€...";}
 }
 sub lockfilename{
         my ($self, $lockfilename) = CGI::self_or_CGI(@_);

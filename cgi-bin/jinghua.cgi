@@ -671,28 +671,38 @@ $topiccount = 0;
 		$lastpostdate = qq~<font color=$fontcolormisc>$longdate</font>~;
 	    }
 	    else {
-		$lastpostdate = qq~<font color=$fontcolormisc>Ê≤°Êúâ~;/ $maxtopics;
-	    $counter = 0;
-            if ($topcount > $maxtopics) {
-		if ($maxtopics < $topcount) {
-		    ($integer,$decimal) = split(/\./,$topcount);
-		    if ($decimal > 0) { $topcount = $integer + 1; }
-		    $pagestart = 0;
-		    while ($topcount > $counter) {
-			$counter++;
-			$threadpages .= qq~<a href=topic.cgi?forum=$inforum&topic=$topicid&start=$pagestart><font color=$fonthighlight><b>$counter</b></font></a> ~;
-			$pagestart = $pagestart + $maxtopics;
-		    }
-		}
-		$pagestoshow = qq~<font color=$forumfontcolor>qq~>$startedby</a>~; }
-    if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=63 rowspan=2><ACRONYM TITLE="ªÿ∏¥ ˝£∫$threadposts£¨ µ„ª˜ ˝£∫$threadviews">π≤ $size ∆±</ACRONYM></font></td>~; } else { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadposts</font></td><td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadviews</font></td>~; }
+		$lastpostdate = qq~<font color=$fontcolormisc>Ê≤°Êúâ~;
+		$lastpoststamp = "";
+	    }
+	    $startedpostdate = $startedpostdate + ($timedifferencevalue*3600) + ($timezone*3600);
+	    $startedlongdate = &shortdate("$startedpostdate");
+	    $startedshorttime = &shorttime("$startedpostdate");
+	    $startedpostdate = qq~<font color=$fontcolormisc>$startedlongdate</font>~;
+	    $screenmode   = $query->cookie("screenmode");
+	    $topictitlemax = 54;
+
+if ($tablewidth > 100) {
+    if ($tablewidth > 1000) { $topictitlemax = 84; } elsif ($tablewidth > 770) { $topictitlemax = 71; } else { $topictitlemax = 40; }
+} else {
+    if ($screenmode >=10) { $topictitlemax = 84; } elsif ($screenmode >=8) { $topictitlemax = 71; } else { $topictitlemax = 40; }
+}
+
+	    $posttemp = "(Êó†ÂÜÖÂÆπ)" if ($posttemp eq "");
+	    if (length($topictitle)>$topictitlemax) { $topictitletemp = substr($topictitle,0,$topictitlemax-4)." ..."; }
+	    else { $topictitletemp = $topictitle; }
+	    $topictitle = qq~<ACRONYM TITLE="ÊúÄÂêéÂõûÂ§çÊëòË¶ÅÔºö\n\n$posttemp"><a href=topic.cgi?forum=$inforum&topic=$topicid target=_blank>$topictitletemp</a></ACRONYM>~;
+	    $startedbyfilename = $startedby;
+	    $startedbyfilename =~ s/ /\_/isg;
+	    $startedbyfilename =~ tr/A-Z/a-z/;
+           if ($startedby=~/\(ÂÆ¢\)/) { $startedby=~s/\(ÂÆ¢\)//isg; $startedby=qq~<font color=$postfontcolorone title="Ê≠§‰∏∫Êú™Ê≥®ÂÜåÁî®Êà∑">$startedby</font>~; } else { $startedby=qq~<a href=profile.cgi?action=show&member=~ . uri_escape($startedbyfilename) . qq~>$startedby</a>~; }
+    if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=63 rowspan=2><ACRONYM TITLE="ÂõûÂ§çÊï∞Ôºö$threadpostsÔºå ÁÇπÂáªÊï∞Ôºö$threadviews">ÂÖ± $size Á•®</ACRONYM></font></td>~; } else { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadposts</font></td><td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadviews</font></td>~; }
 
 	    if ($lastposter) {
 	$lastposterfilename = $lastposter;
 	$lastposterfilename =~ s/ /\_/isg;
-	if ($lastposter=~/\(øÕ\)/) {
-       	    $lastposter=~s/\(øÕ\)//isg;
-	    $lastposter = qq~<font color=$postfontcolorone title="¥ÀŒ™Œ¥◊¢≤·”√ªß">$lastposter</font>~;
+	if ($lastposter=~/\(ÂÆ¢\)/) {
+       	    $lastposter=~s/\(ÂÆ¢\)//isg;
+	    $lastposter = qq~<font color=$postfontcolorone title="Ê≠§‰∏∫Êú™Ê≥®ÂÜåÁî®Êà∑">$lastposter</font>~;
 	}
 	else {
 	    $lastposter = qq~<a href=profile.cgi?action=show&member=~ . uri_escape($lastposterfilename) . qq~>$lastposter</a>~;
@@ -710,17 +720,17 @@ $topiccount = 0;
 		$topicdescription =~s/\<a \s*(.*?)\s*\>\s*(.*?)\s*\<\/a\>/\<a $1\>$topicdescriptiontemp\<\/a\>/isg;
 	    }
 
-	    if ($topicdescription) { $topicdescription = qq~<br>°°°°-=> $topicdescription~; }
+	    if ($topicdescription) { $topicdescription = qq~<br>„ÄÄ„ÄÄ-=> $topicdescription~; }
 
 	    if ($counter == 0) { $pagestoshowtemp1 = 0; }
 	    else { $pagestoshowtemp1 =7;}
-	    $totlelength = $counter*3.3 + $pagestoshowtemp1 + length($topictitletemp) + 4; #±ÍÃ‚¿∏µƒ◊‹≥§∂»
+	    $totlelength = $counter*3.3 + $pagestoshowtemp1 + length($topictitletemp) + 4; #Ê†áÈ¢òÊ†èÁöÑÊÄªÈïøÂ∫¶
 	    undef $pagestoshowtemp1;
 
 
 
       	   if (($membercode eq "ad") ||($membercode eq "smo") || ($inmembmod eq "yes")) {
-		    $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=del&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>≥˝</font></a>|<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>Ã·</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>À¯</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>Ω‚</font></a>|</font>&nbsp;</DIV>~;
+		    $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=del&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>Èô§</font></a>|<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>Êèê</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>ÈîÅ</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>Ëß£</font></a>|</font>&nbsp;</DIV>~;
       	   }else{
       	   $admini="";
       	   }
@@ -735,7 +745,7 @@ $topiccount = 0;
         }
     }
 
-    if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=63 rowspan=2><ACRONYM TITLE="ªÿ∏¥ ˝£∫$threadposts£¨ µ„ª˜ ˝£∫$threadviews">π≤ $size ∆±</ACRONYM></font></td>~; } else { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadposts</font></td><td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadviews</font></td>~; }
+    if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=63 rowspan=2><ACRONYM TITLE="ÂõûÂ§çÊï∞Ôºö$threadpostsÔºå ÁÇπÂáªÊï∞Ôºö$threadviews">ÂÖ± $size Á•®</ACRONYM></font></td>~; } else { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadposts</font></td><td bgcolor=$forumcolortwo align=center width=30><font color=$forumfontcolor>$threadviews</font></td>~; }
 
 	    $topictitle=$topictitle."<BR>" if ($totlelength > $topictitlemax+5);
 	    $output .=qq~
@@ -806,7 +816,7 @@ sub UpdateNo { #R2
 }
 
 sub upmember {
-    my ($nametocheck,$jhcount) = @_;    # ”√ªß√˚°¢æ´ª™ ˝
+    my ($nametocheck,$jhcount) = @_;    # Áî®Êà∑Âêç„ÄÅÁ≤æÂçéÊï∞
 
     $nametocheck =~ s/ /\_/g;
     $nametocheck =~ tr/A-Z/a-z/;
@@ -818,7 +828,7 @@ sub upmember {
 	my $namenumber = &getnamenumber($nametocheck);
 	&checkmemfile($nametocheck,$namenumber);
         my $filetoopen = "${lbdir}$memdir/$namenumber/$nametocheck.cgi";
-        if ((-e $filetoopen)&&($nametocheck !~ /^øÕ»À/)) {
+        if ((-e $filetoopen)&&($nametocheck !~ /^ÂÆ¢‰∫∫/)) {
            &winlock($filetoopen) if (($OS_USED eq "Unix")||($OS_USED eq "Nt"));
 	   if (open(FILE,">$filetoopen")) {
 	        print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";

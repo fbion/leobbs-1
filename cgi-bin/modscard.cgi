@@ -79,35 +79,36 @@ if($lbbody !~/scroll/i){
 #IP ç¦æ­¢
 &ipbanned;
 
-# -> param('action'));		#Ä£Ê½
-$checkaction	= $query -> param('checkaction');				#¼ì²é¶¯×÷
+#è®Šæ•¸ï¼šå–å¾—æ‰€éœ€å˜æ•°
+$action		= &cleaninput($query -> param('action'));		#æ¨¡å¼
+$checkaction	= $query -> param('checkaction');				#æ£€æŸ¥åŠ¨ä½œ
 $checkaction	= &cleaninput($checkaction);
-$start_page	= int($query -> param('start_page'));			#ÏÖÔÚÒ³Êı
-$otheraction_a	= $query -> param('otheraction_a');				#ÆäËû¶¯×÷
+$start_page	= int($query -> param('start_page'));			#ç°åœ¨é¡µæ•°
+$otheraction_a	= $query -> param('otheraction_a');				#å…¶ä»–åŠ¨ä½œ
 $otheraction_a	= &cleaninput($otheraction_a);
-$otheraction_b	= $query -> param('otheraction_b');				#ÆäËû¶¯×÷
+$otheraction_b	= $query -> param('otheraction_b');				#å…¶ä»–åŠ¨ä½œ
 $otheraction_b	= &cleaninput($otheraction_b);
-$otheraction_c	= $query -> param('otheraction_c');				#ÆäËû¶¯×÷
+$otheraction_c	= $query -> param('otheraction_c');				#å…¶ä»–åŠ¨ä½œ
 $otheraction_c	= &cleaninput($otheraction_c);
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");
 
-&error("ÆÕÍ¨´íÎó&ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
+&error("æ™®é€šé”™è¯¯&è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-#È¡µÃ»áÔ±×ÊÁÏ
+#å–å¾—ä¼šå‘˜èµ„æ–™
 $inmembername	= $query -> cookie("amembernamecookie");
 $inpassword		= $query -> cookie("apasswordcookie");
-&page_error("ÆÕÍ¨´íÎó","ÀÏ´ó£¬±ğÂÒºÚÎÒµÄ³ÌĞòÑ½£¡") if(($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&page_error("æ™®é€šé”™è¯¯","è€å¤§ï¼Œåˆ«ä¹±é»‘æˆ‘çš„ç¨‹åºå‘€ï¼") if(($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
 
-if ((!$inmembername) or ($inmembername eq "¿ÍÈË")){
-	&page_error("ÆÕÍ¨´íÎó","Äú²»ÊÇÂÛÌ³µÄ¹ÜÀíÍÅ¶Ó£¡");
+if ((!$inmembername) or ($inmembername eq "å®¢äºº")){
+	&page_error("æ™®é€šé”™è¯¯","æ‚¨ä¸æ˜¯è®ºå›çš„ç®¡ç†å›¢é˜Ÿï¼");
 }else{
 	&getmember($inmembername, "no");
-	&page_error("ÆÕÍ¨´íÎó","ÃÜÂëÓëÓÃ»§Ãû²»Ïà·û£¬ÇëÖØĞÂµÇÂ¼£¡") if($inpassword ne $password);
-	&page_error("ÆÕÍ¨´íÎó","ÓÃ»§Ã»ÓĞµÇÂ¼»ò×¢²á£¡") if($userregistered eq "no");
-	&page_error("ÆÕÍ¨´íÎó","Äú²»ÊÇÂÛÌ³µÄ¹ÜÀíÍÅ¶Ó£¡") unless($membercode eq "ad" || $membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo");
+	&page_error("æ™®é€šé”™è¯¯","å¯†ç ä¸ç”¨æˆ·åä¸ç›¸ç¬¦ï¼Œè¯·é‡æ–°ç™»å½•ï¼") if($inpassword ne $password);
+	&page_error("æ™®é€šé”™è¯¯","ç”¨æˆ·æ²¡æœ‰ç™»å½•æˆ–æ³¨å†Œï¼") if($userregistered eq "no");
+	&page_error("æ™®é€šé”™è¯¯","æ‚¨ä¸æ˜¯è®ºå›çš„ç®¡ç†å›¢é˜Ÿï¼") unless($membercode eq "ad" || $membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo");
 	$inmembername = $membername;
 	$forum_ad = ($membercode eq "ad")?1:0;
 }
@@ -115,7 +116,7 @@ $addtime = $mytimeadd * 3600 + $timezone * 3600;
 
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
-&whosonline("$inmembername\t°æÖ÷Ç©µ½\tboth\tÂÛÌ³°æÖ÷Ç©µ½\t") unless(-e "$filetoopens.lck");
+&whosonline("$inmembername\tç‰ˆä¸»ç­¾åˆ°\tboth\tè®ºå›ç‰ˆä¸»ç­¾åˆ°\t") unless(-e "$filetoopens.lck");
 
 $today_date = &longdate($currenttime+$addtime);
 $output = "";
@@ -125,11 +126,11 @@ if($action eq "set_ad_announce" || $action eq "pcard_status" || $action eq "pcar
 	&top_page;
 }
 
-#Êä³ö£ºÒ³Ãæ×ÊÁÏ
+#è¾“å‡ºï¼šé¡µé¢èµ„æ–™
 
 print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
-&output("$boardname - ÂÛÌ³°æÖ÷Ç©µ½",\$output,'msg');
+&output("$boardname - è®ºå›ç‰ˆä¸»ç­¾åˆ°",\$output,'msg');
 
 sub top_page{
 	my ($ad_announce,$ad_ann_date);
@@ -145,8 +146,8 @@ sub top_page{
 		&smilecode(\$ad_announce);
 		chomp $ad_announce;
 	}
-	$ad_announce = "<br><br><br><center><i>ÔİÊ±Ã»ÓĞÈÎºÎ¹«¸æ</i></center>" if($ad_announce eq "");
-	$ad_ann_date = "" if ($ad_ann_date eq "1970Äê01ÔÂ01ÈÕ 08:00am");
+	$ad_announce = "<br><br><br><center><i>æš‚æ—¶æ²¡æœ‰ä»»ä½•å…¬å‘Š</i></center>" if($ad_announce eq "");
+	$ad_ann_date = "" if ($ad_ann_date eq "1970å¹´01æœˆ01æ—¥ 08:00am");
 	my $today_log = "${prog_dir}$today_date.cgi";
 	$pcard_or_not = 0;
 	my (@get_today_log,$get_today_log_list);
@@ -178,39 +179,39 @@ sub top_page{
 <table cellPadding="0" cellSpacing="0" border="0" width=$tablewidth bgColor="$tablebordercolor" align="center" height="320">
 <tr><td>
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="100%">
-<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>Ì³Ö÷¹«¸æ</b></font></td></tr>
+<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>å›ä¸»å…¬å‘Š</b></font></td></tr>
 <tr><td bgcolor="$miscbackone" valign="top" colspan="2" align="right">
 <span style="height:$td_height;overflow:auto;padding:2px;color:$fontcolormisc;width:100%;text-align:left">
 $ad_announce
 </span><i>$ad_ann_date</i>
 </td></tr>
-<tr><td bgcolor="$miscbacktwo" align="center" colspan="2"><font color="$fontcolormisc"><b>´ò¿¨Ç©µ½</b></font></td></tr>~;
+<tr><td bgcolor="$miscbacktwo" align="center" colspan="2"><font color="$fontcolormisc"><b>æ‰“å¡ç­¾åˆ°</b></font></td></tr>~;
 	if($pcard_or_not){
 		$output .= qq~
 <tr>
-<td bgcolor="$miscbackone"><font color="$fontcolormisc">ÈÕÆÚ£º<i>$today_date<i></font></td>
-<td bgcolor="$miscbackone" align="center"><b><font color="$fonthighlight">ÒÑ¾­Ç©µ½</font></b></td>
+<td bgcolor="$miscbackone"><font color="$fontcolormisc">æ—¥æœŸï¼š<i>$today_date<i></font></td>
+<td bgcolor="$miscbackone" align="center"><b><font color="$fonthighlight">å·²ç»ç­¾åˆ°</font></b></td>
 </tr>~;
 	}else{
 		$output .= qq~
 <form action="$thisprog" method="GET">
 <input type="hidden" name="checkaction" value="pcard">
 <tr>
-<td bgcolor="$miscbackone"><font color="$fontcolormisc">ÈÕÆÚ£º<i>$today_date<i></font></td>
-<td bgcolor="$miscbackone" align="center"><input type="submit" value="Ç©µ½"></td>
+<td bgcolor="$miscbackone"><font color="$fontcolormisc">æ—¥æœŸï¼š<i>$today_date<i></font></td>
+<td bgcolor="$miscbackone" align="center"><input type="submit" value="ç­¾åˆ°"></td>
 </tr>
 </form>~;
 	}
 	if($forum_ad){
 		$output .= qq~
 <tr>
-<td bgcolor="$miscbacktwo"><select style="width:100%;background-color:$miscbacktwo"><option style="color:$fonthighlight;">½ñÌìÒÑÇ©µ½¹ÜÀíÔ±</option>$get_today_log_list</select></td>
-<td bgcolor="$miscbacktwo" align="center"><font color="$fontcolormisc"><b>Ì³Ö÷¹ÜÀí</b></font></td>
+<td bgcolor="$miscbacktwo"><select style="width:100%;background-color:$miscbacktwo"><option style="color:$fonthighlight;">ä»Šå¤©å·²ç­¾åˆ°ç®¡ç†å‘˜</option>$get_today_log_list</select></td>
+<td bgcolor="$miscbacktwo" align="center"><font color="$fontcolormisc"><b>å›ä¸»ç®¡ç†</b></font></td>
 </tr>
 <form action="$thisprog" method="GET">
 <input type="hidden" name="checkaction" value="pcard">
 <tr>
-<td bgcolor="$miscbackone" align="center" colspan="2">[<b><a href="$thisprog?action=set_ad_announce" target="_self">¸ü¸ÄÌ³Ö÷¹«¸æ</a></b>] [<b><a href="$thisprog?action=pcard_status" target="_self">²é¿´Ç©µ½¼ÇÂ¼</a></b>]</td>
+<td bgcolor="$miscbackone" align="center" colspan="2">[<b><a href="$thisprog?action=set_ad_announce" target="_self">æ›´æ”¹å›ä¸»å…¬å‘Š</a></b>] [<b><a href="$thisprog?action=pcard_status" target="_self">æŸ¥çœ‹ç­¾åˆ°è®°å½•</a></b>]</td>
 </tr>
 </form>~;
 	}
@@ -221,7 +222,7 @@ $ad_announce
 }
 
 sub set_ad_announce{
-	&page_error("Ç©µ½¼ÇÂ¼","Ö»ÔÊĞíÌ³Ö÷¸ü¸Ä¹«¸æ£¡") unless($forum_ad);
+	&page_error("ç­¾åˆ°è®°å½•","åªå…è®¸å›ä¸»æ›´æ”¹å…¬å‘Šï¼") unless($forum_ad);
 	my $ad_announcement = "${prog_dir}ad_announcement.cgi";
 	if($start_page != 0){
 		open(FILE,">$ad_announcement");
@@ -242,19 +243,19 @@ sub set_ad_announce{
 <table cellPadding="0" cellSpacing="0" border="0" width=$tablewidth bgColor="$tablebordercolor" align="center" height="320">
 <tr><td>
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="100%">
-<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>Ì³Ö÷¹«¸æ</b></font></td></tr>
+<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>å›ä¸»å…¬å‘Š</b></font></td></tr>
 <form action="$thisprog" method="POST">
 <input type="hidden" name="start_page" value="1">
 <input type="hidden" name="action" value="set_ad_announce">
 <tr><td bgcolor="$miscbackone" valign="top" align="center" colspan="2">
 <textarea cols="60" rows="16" name="checkaction">$ad_announce</textarea><br>
-¡ù¿ÉÒÔÊ¹ÓÃ LBCODE¡¡¡ù²»ÄÜÊ¹ÓÃ HTML
+â€»å¯ä»¥ä½¿ç”¨ LBCODEã€€â€»ä¸èƒ½ä½¿ç”¨ HTML
 </td></tr>
 <tr>
 <td bgcolor="$miscbackone" align="center" width="50">
-<< <a href="$thisprog">·µ»Ø</a>
+<< <a href="$thisprog">è¿”å›</a>
 </td>
-<td bgcolor="$miscbackone" align="center" width="350"><input type="submit" value="¸ü¸Ä¹«¸æ" style="width:120px"></td>
+<td bgcolor="$miscbackone" align="center" width="350"><input type="submit" value="æ›´æ”¹å…¬å‘Š" style="width:120px"></td>
 </tr>
 </form>
 </table>
@@ -263,8 +264,8 @@ sub set_ad_announce{
 }
 
 sub pcard_status{
-	&page_error("Ç©µ½¼ÇÂ¼","Ö»ÔÊĞíÌ³Ö÷²é¿´Ç©µ½¼ÇÂ¼£¡") unless($forum_ad);
-	$checkaction = ($checkaction =~/^[0-9]{4,4}Äê[0-9]{2,2}ÔÂ[0-9]{2,2}ÈÕ$/)?$checkaction:$today_date;
+	&page_error("ç­¾åˆ°è®°å½•","åªå…è®¸å›ä¸»æŸ¥çœ‹ç­¾åˆ°è®°å½•ï¼") unless($forum_ad);
+	$checkaction = ($checkaction =~/^[0-9]{4,4}å¹´[0-9]{2,2}æœˆ[0-9]{2,2}æ—¥$/)?$checkaction:$today_date;
 	my $that_day_log = "${prog_dir}$checkaction.cgi";
 	if($start_page == -1) {
 		$start_page = 0;
@@ -288,11 +289,11 @@ sub pcard_status{
 	$checkaction_link = uri_escape($checkaction);
 	$log_date_list =~s/value="$checkaction"/value="$checkaction" selected/;
 	
-	&page_error("Ç©µ½¼ÇÂ¼","Ã»ÓĞÈÎºÎÇ©µ½¼ÇÂ¼£¡") unless(-e $that_day_log);
+	&page_error("ç­¾åˆ°è®°å½•","æ²¡æœ‰ä»»ä½•ç­¾åˆ°è®°å½•ï¼") unless(-e $that_day_log);
 	
 	if($otheraction_a eq "search"){
 		$that_day_log = "${prog_dir}$inmembername\_search.cgi";
-		$checkaction = "ËÑÑ°Ç©µ½¼ÇÂ¼";
+		$checkaction = "æœå¯»ç­¾åˆ°è®°å½•";
 		$checkaction_link = "";
 	}
 	open(FILE,$that_day_log);
@@ -311,28 +312,28 @@ sub pcard_status{
 	}
 	@memberdata = sort alphabetically @memberdata;
 	$total_member = @memberdata;
-	&page_error("Ç©µ½¼ÇÂ¼","Ã»ÓĞÈÎºÎÇ©µ½¼ÇÂ¼£¡") unless($total_member);
+	&page_error("ç­¾åˆ°è®°å½•","æ²¡æœ‰ä»»ä½•ç­¾åˆ°è®°å½•ï¼") unless($total_member);
 	%membernameimg = ();
-	$membernameimg{'ad'} = "<img src=$imagesurl/images/teamad.gif alt=´ËÈËÎªÌ³Ö÷ width=16 align='absmiddle'>";
-	$membernameimg{'mo'} = "<img src=$imagesurl/images/teammo.gif alt=´ËÈËÎª°æÖ÷ width=16 align='absmiddle'>";
-	$membernameimg{'amo'} = "<img src=$imagesurl/images/teamamo.gif alt=´ËÈËÎª¸±°æÖ÷ width=16 align='absmiddle'>";
-	$membernameimg{'smo'} = "<img src=$imagesurl/images/teamsmo.gif alt=´ËÈËÎª×Ü°æÖ÷ width=16 align='absmiddle'>";
-	$membernameimg{'cmo'} = "<img src=$imagesurl/images/teamcmo.gif alt=´ËÈËÎªÇø°æÖ÷ width=16 align='absmiddle'>";
+	$membernameimg{'ad'} = "<img src=$imagesurl/images/teamad.gif alt=æ­¤äººä¸ºå›ä¸» width=16 align='absmiddle'>";
+	$membernameimg{'mo'} = "<img src=$imagesurl/images/teammo.gif alt=æ­¤äººä¸ºç‰ˆä¸» width=16 align='absmiddle'>";
+	$membernameimg{'amo'} = "<img src=$imagesurl/images/teamamo.gif alt=æ­¤äººä¸ºå‰¯ç‰ˆä¸» width=16 align='absmiddle'>";
+	$membernameimg{'smo'} = "<img src=$imagesurl/images/teamsmo.gif alt=æ­¤äººä¸ºæ€»ç‰ˆä¸» width=16 align='absmiddle'>";
+	$membernameimg{'cmo'} = "<img src=$imagesurl/images/teamcmo.gif alt=æ­¤äººä¸ºåŒºç‰ˆä¸» width=16 align='absmiddle'>";
 	
 	$output .= qq~<SCRIPT>valigntop()</SCRIPT>
 <table cellPadding="0" cellSpacing="0" border="0" width=$tablewidth bgColor="$tablebordercolor" align="center" height="320">
 <tr><td>
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="100%">
 <tr>
-<td bgcolor="$titlecolor" align="center" $catbackpic><a href="$thisprog?action=pcard_search"><font color="$fontcolormisc">[ËÑÑ°]</font></a></td>
-<td bgcolor="$titlecolor" align="center" $catbackpic><font color="$fontcolormisc"><b>Ç©µ½¼ÇÂ¼ - $checkaction</b></font></td>
+<td bgcolor="$titlecolor" align="center" $catbackpic><a href="$thisprog?action=pcard_search"><font color="$fontcolormisc">[æœå¯»]</font></a></td>
+<td bgcolor="$titlecolor" align="center" $catbackpic><font color="$fontcolormisc"><b>ç­¾åˆ°è®°å½• - $checkaction</b></font></td>
 </tr>
 <tr><td bgcolor="$miscbackone" valign="top" align="right" colspan="2">
 <span style="height:230;overflow:auto;padding:2px;color:$fontcolormisc;width:100%;text-align:left">~;
 	my $last_membername = 0;
 	for($i=$start_page;($i<$start_page+5)&&($i<$total_member);$i++){
 		my ($membername,$pcard_result) = split(/\t/,$memberdata[$i]);
-		$pcard_result = '<font color="'.$fonthighlight.'">´Ë°æÖ÷ÓĞÔÚ±¾ÈÕÇ©µ½</font>' if($pcard_result eq "" || $otheraction_a ne "search");
+		$pcard_result = '<font color="'.$fonthighlight.'">æ­¤ç‰ˆä¸»æœ‰åœ¨æœ¬æ—¥ç­¾åˆ°</font>' if($pcard_result eq "" || $otheraction_a ne "search");
 		my $memberlinkname = uri_escape($membername);
 		my $memberfilename = $membername;
 		$memberfilename =~s/ /_/g;
@@ -347,7 +348,7 @@ sub pcard_status{
 		chomp @userdetail;
 		undef $useravatar;
 		if ($avatars eq "on") {
-			if (($userdetail[22])&&($userdetail[23])&&($userdetail[24])) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+			if (($userdetail[22])&&($userdetail[23])&&($userdetail[24])) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 				$userdetail[22] =~ s/\$imagesurl/${imagesurl}/o;
 				if (($userdetail[22] =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 					$userdetail[22]=&uri_escape($userdetail[22]);
@@ -370,45 +371,45 @@ sub pcard_status{
 		$novisitdate = int($today/(3600*24));
 		$lastgone   = &dateformat($lastgone + ($timedifferencevalue*3600) + ($timezone*3600));
 		if($novisitdate < 2){
-			$visitresult=qq(´Ë°æÖ÷±È½ÏÇÚ¿ì);
+			$visitresult=qq(æ­¤ç‰ˆä¸»æ¯”è¾ƒå‹¤å¿«);
 		}elsif($novisitdate < 7){
-			$visitresult=qq(´Ë°æÖ÷ £· ÌìÖ®ÄÚÓĞ·ÃÎÊ);
+			$visitresult=qq(æ­¤ç‰ˆä¸» ï¼— å¤©ä¹‹å†…æœ‰è®¿é—®);
 		}elsif($novisitdate < 15){
-			$visitresult=qq(´Ë°æÖ÷ £±£µ ÌìÖ®ÄÚÓĞ·ÃÎÊ);
+			$visitresult=qq(æ­¤ç‰ˆä¸» ï¼‘ï¼• å¤©ä¹‹å†…æœ‰è®¿é—®);
 		}else{
-			$visitresult=qq(´Ë°æÖ÷ÒÑÓĞºÜ¾ÃÎ´·ÃÎÊÂÛÌ³);
+			$visitresult=qq(æ­¤ç‰ˆä¸»å·²æœ‰å¾ˆä¹…æœªè®¿é—®è®ºå›);
 		}
-		my $emailgraphic	= qq~<img src=$imagesurl/images/email.gif border=0 width=16 align=absmiddle style=filter:gray><font style=color:#444444 disabled>ÓÊ¼ş</font>~;
-		my $homepagegraphic= qq~<img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle style=filter:gray><font style=color:#444444 disabled>Ö÷Ò³</font>~;
+		my $emailgraphic	= qq~<img src=$imagesurl/images/email.gif border=0 width=16 align=absmiddle style=filter:gray><font style=color:#444444 disabled>é‚®ä»¶</font>~;
+		my $homepagegraphic= qq~<img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle style=filter:gray><font style=color:#444444 disabled>ä¸»é¡µ</font>~;
 		my $oicqgraphic	= qq~<img src=$imagesurl/images/oicq.gif border=0 width=16 align=absmiddle style=filter:gray><font style=color:#444444 disabled>QQ</font>~;
 		my $icqgraphic		= qq~<img src=$imagesurl/images/icq.gif border=0 width=16 align=absmiddle style=filter:gray><font style=color:#444444 disabled>ICQ</font>~;
 	        $userdetail[5] = &encodeemail($userdetail[5]);
 	        $userdetail[6] = "no" if ($dispmememail eq "no");
 		if ($userdetail[6] eq "yes") { 
-			$emailgraphic = qq~<a href=mailto:$userdetail[5] title=µç×ÓÓÊ¼şµØÖ·><img src=$imagesurl/images/email.gif border=0 width=16 align=absmiddle>ÓÊ¼ş</a>~;
+			$emailgraphic = qq~<a href=mailto:$userdetail[5] title=ç”µå­é‚®ä»¶åœ°å€><img src=$imagesurl/images/email.gif border=0 width=16 align=absmiddle>é‚®ä»¶</a>~;
 		} elsif ($userdetail[6] eq "msn") {
-			$emailgraphic = qq~<a href=mailto:$userdetail[5] title="MSN µØÖ·"><img src=$imagesurl/images/msn.gif border=0 width=16 align=absmiddle>MSN</a>~;
+			$emailgraphic = qq~<a href=mailto:$userdetail[5] title="MSN åœ°å€"><img src=$imagesurl/images/msn.gif border=0 width=16 align=absmiddle>MSN</a>~;
 		} elsif ($userdetail[6] eq "popo"){
-                       $emailgraphic = qq~<a href=mailto:$userdetail[5] title="ÅİÅİµØÖ·"><img src=$imagesurl/images/popo.gif border=0 width=16 align=absmiddle>ÅİÅİ</a>~;
+                       $emailgraphic = qq~<a href=mailto:$userdetail[5] title="æ³¡æ³¡åœ°å€"><img src=$imagesurl/images/popo.gif border=0 width=16 align=absmiddle>æ³¡æ³¡</a>~;
 		}
 		if ($userdetail[8]=~/^([a-z]+?:\/\/){1}([a-z0-9\-\.,\?!%\*_\#:;~\\&$@\/=\+\(\)]+)/i) {
-			$homepagegraphic = qq~<a href="$userdetail[8]" target=_blank title="·ÃÎÊ $membername µÄÖ÷Ò³"><img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle>Ö÷Ò³</a>~;
+			$homepagegraphic = qq~<a href="$userdetail[8]" target=_blank title="è®¿é—® $membername çš„ä¸»é¡µ"><img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle>ä¸»é¡µ</a>~;
 		}
 		if (($userdetail[9]) && ($userdetail[9] =~ /^[0-9]+$/)) {
-			$oicqgraphic = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$userdetail[9] target=_blank title="²é¿´ QQ:$userdetail[9] µÄ×ÊÁÏ"><img src=$imagesurl/images/oicq.gif border=0 width=16 align=absmiddle>QQ</a>~;
+			$oicqgraphic = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$userdetail[9] target=_blank title="æŸ¥çœ‹ QQ:$userdetail[9] çš„èµ„æ–™"><img src=$imagesurl/images/oicq.gif border=0 width=16 align=absmiddle>QQ</a>~;
 		}
 		if (($userdetail[10]) && ($userdetail[10] =~ /^[0-9]+$/)) {
-			$icqgraphic = qq~<span style="cursor:hand" onClick="javascript:openScript('misc.cgi?action=icq&UIN=$userdetail[10]',450,300)" title="¸ø ICQ:$userdetail[10] ·¢¸öÏûÏ¢"><img src=$imagesurl/images/icq.gif border=0 width=16 align=absmiddle>ICQ</span>~;
+			$icqgraphic = qq~<span style="cursor:hand" onClick="javascript:openScript('misc.cgi?action=icq&UIN=$userdetail[10]',450,300)" title="ç»™ ICQ:$userdetail[10] å‘ä¸ªæ¶ˆæ¯"><img src=$imagesurl/images/icq.gif border=0 width=16 align=absmiddle>ICQ</span>~;
 		}
 		if($otheraction_a ne "search"){
 		$output .= qq~
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="$maxposticonheight" style="border:1 solid $tablebordercolor">
-<tr>$useravatar<td>$membernameimg{$userdetail[3]} <b><a href="profile.cgi?action=show&member=$memberlinkname" title="²é¿´$membernameµÄ¸öÈË×ÊÁÏ" target=_blank><u>$membername</u></a></b></td></tr>
+<tr>$useravatar<td>$membernameimg{$userdetail[3]} <b><a href="profile.cgi?action=show&member=$memberlinkname" title="æŸ¥çœ‹$membernameçš„ä¸ªäººèµ„æ–™" target=_blank><u>$membername</u></a></b></td></tr>
 <tr>
 <td>
-<font color="$fontcolormisc">×îºóÀ´·Ã£º<i>$lastgone</i><br>
-Ê§×ÙÌìÊı£º¹² <b>$novisitdate</b> Ìì<br>
-ÆÀ¶¨½á¹û£º<b><font color="$fonthighlight">$visitresult</font></b></font></td>
+<font color="$fontcolormisc">æœ€åæ¥è®¿ï¼š<i>$lastgone</i><br>
+å¤±è¸ªå¤©æ•°ï¼šå…± <b>$novisitdate</b> å¤©<br>
+è¯„å®šç»“æœï¼š<b><font color="$fonthighlight">$visitresult</font></b></font></td>
 </tr>
 <tr>
 <td><font color="$fontcolormisc">$homepagegraphic $emailgraphic $oicqgraphic $icqgraphic</font></td>
@@ -420,7 +421,7 @@ sub pcard_status{
 		}else{
 				$output .= qq~
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="$maxposticonheight" style="border:1 solid $tablebordercolor">
-<tr>$useravatar<td>$membernameimg{$userdetail[3]} <b><a href="profile.cgi?action=show&member=$memberlinkname" title="²é¿´$membernameµÄ¸öÈË×ÊÁÏ"><u>$membername</u></a></b></td></tr>
+<tr>$useravatar<td>$membernameimg{$userdetail[3]} <b><a href="profile.cgi?action=show&member=$memberlinkname" title="æŸ¥çœ‹$membernameçš„ä¸ªäººèµ„æ–™"><u>$membername</u></a></b></td></tr>
 <tr>
 <td><span style="height:100;overflow:auto;padding:2px;color:$fontcolormisc;width:100%;">$memberdata{$membername}</span></td>
 </tr>
@@ -433,13 +434,13 @@ sub pcard_status{
 </td></tr>
 <tr>
 <td bgcolor="$miscbackone" align="center" width="50">
-<< <a href="$thisprog">·µ»Ø</a>
+<< <a href="$thisprog">è¿”å›</a>
 </td>
 <form action="$thisprog" method="GET">
 <input type="hidden" name="action" value="pcard_status">
 <td bgcolor="$miscbackone" align="center" width="350">
-<select name="checkaction" style="width:120px">$log_date_list</select> <input type="submit" value="²é¿´Ç©µ½¼ÇÂ¼"> 
-[<a href="$thisprog?action=pcard_status&checkaction=$checkaction_link&start_page=-1" target="_self">É¾³ı¼ÇÂ¼</a>]
+<select name="checkaction" style="width:120px">$log_date_list</select> <input type="submit" value="æŸ¥çœ‹ç­¾åˆ°è®°å½•"> 
+[<a href="$thisprog?action=pcard_status&checkaction=$checkaction_link&start_page=-1" target="_self">åˆ é™¤è®°å½•</a>]
 </td>
 </form>
 </tr>
@@ -455,7 +456,7 @@ sub pcard_search{
 	foreach(readdir(DIR)){
 		next if($_ eq "." || $_ eq ".." || $_ eq "index.html" || $_ eq "ad_announcement.cgi" || $_ eq "" || $_ =~/\_search.cgi/i);
 		$_ =~s/\.cgi$//i;
-		$log_date_list .=qq~<option value="$_">$_µÄ¼ÇÂ¼</option>~;
+		$log_date_list .=qq~<option value="$_">$_çš„è®°å½•</option>~;
 		$log_date_list_b .=qq~<option value="$_">$_</option>~;
 	}
 	closedir(DIR);
@@ -463,54 +464,54 @@ sub pcard_search{
 <table cellPadding="0" cellSpacing="0" border="0" width=$tablewidth bgColor="$tablebordercolor" align="center" height="320">
 <tr><td>
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="100%">
-<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>ÀàĞÍËÑÑ°</b></font></td></tr>
+<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>ç±»å‹æœå¯»</b></font></td></tr>
 <form action="$thisprog" method="POST">
 <input type="hidden" name="start_page" value="1">
 <input type="hidden" name="action" value="pcard_search_a">
 <tr>
-<td bgcolor="$miscbackone" align="center" width="50"><b>¼ÇÂ¼</b></td>
-<td bgcolor="$miscbackone" align="left" width="350"><select name="checkaction" style="width:150px"><option value="ËùÓĞ">ËÑÑ°ËùÓĞ¼ÇÂ¼</option>$log_date_list</select></td>
+<td bgcolor="$miscbackone" align="center" width="50"><b>è®°å½•</b></td>
+<td bgcolor="$miscbackone" align="left" width="350"><select name="checkaction" style="width:150px"><option value="æ‰€æœ‰">æœå¯»æ‰€æœ‰è®°å½•</option>$log_date_list</select></td>
 </tr>
 <tr>
-<td bgcolor="$miscbackone" align="center" width="50"><b>ÀàĞÍ</b></td>
-<td bgcolor="$miscbackone" align="left" width="350"><input type="checkbox" name="otheraction_a" value="ad"> Ì³Ö÷ <input type="checkbox" name="otheraction_a" value="smo"> ×Ü°æÖ÷ <input type="checkbox" name="otheraction_a" value="cmo"> Çø°æÖ÷ <input type="checkbox" name="otheraction_a" value="mo"> °æÖ÷ <input type="checkbox" name="otheraction_a" value="amo"> ¸±°æÖ÷ </td>
+<td bgcolor="$miscbackone" align="center" width="50"><b>ç±»å‹</b></td>
+<td bgcolor="$miscbackone" align="left" width="350"><input type="checkbox" name="otheraction_a" value="ad"> å›ä¸» <input type="checkbox" name="otheraction_a" value="smo"> æ€»ç‰ˆä¸» <input type="checkbox" name="otheraction_a" value="cmo"> åŒºç‰ˆä¸» <input type="checkbox" name="otheraction_a" value="mo"> ç‰ˆä¸» <input type="checkbox" name="otheraction_a" value="amo"> å‰¯ç‰ˆä¸» </td>
 </tr>
 <tr>
-<td bgcolor="$miscbackone" align="center" width="50"><b>·½Ê½</b></td>
+<td bgcolor="$miscbackone" align="center" width="50"><b>æ–¹å¼</b></td>
 <td bgcolor="$miscbackone" align="left" width="350">
-<input type="radio" name="otheraction_b" value="1" checked> ÔÚËùÑ¡¼ÇÂ¼ÖĞËÑÑ°ÓĞÇ©µ½µÄËùÑ¡ÀàĞÍ<br>
-<input type="radio" name="otheraction_b" value="2"> ÔÚËùÑ¡¼ÇÂ¼ÖĞËÑÑ°Ã»ÓĞÇ©µ½µÄËùÑ¡ÀàĞÍ<br>
+<input type="radio" name="otheraction_b" value="1" checked> åœ¨æ‰€é€‰è®°å½•ä¸­æœå¯»æœ‰ç­¾åˆ°çš„æ‰€é€‰ç±»å‹<br>
+<input type="radio" name="otheraction_b" value="2"> åœ¨æ‰€é€‰è®°å½•ä¸­æœå¯»æ²¡æœ‰ç­¾åˆ°çš„æ‰€é€‰ç±»å‹<br>
 </tr>
 <tr>
-<td bgcolor="$miscbackone" align="center" colspan="2"><input type="submit" value="¿ªÊ¼ËÑÑ°" style="width:120px"></td>
+<td bgcolor="$miscbackone" align="center" colspan="2"><input type="submit" value="å¼€å§‹æœå¯»" style="width:120px"></td>
 </tr>
 </form>
-<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>»áÔ±ËÑÑ°</b></font></td></tr>
+<tr><td bgcolor="$titlecolor" align="center" colspan="2" $catbackpic><font color="$fontcolormisc"><b>ä¼šå‘˜æœå¯»</b></font></td></tr>
 <form action="$thisprog" method="POST">
 <input type="hidden" name="start_page" value="2">
 <input type="hidden" name="action" value="pcard_search_a">
 <tr>
-<td bgcolor="$miscbackone" align="center" width="50"><b>»áÔ±</b></td>
-<td bgcolor="$miscbackone" align="left" width="350"><input type="text" name="otheraction_a" value="" size="30"> ÒÔ°ëĞÎ¶ººÅ(,)·Ö¸ô
+<td bgcolor="$miscbackone" align="center" width="50"><b>ä¼šå‘˜</b></td>
+<td bgcolor="$miscbackone" align="left" width="350"><input type="text" name="otheraction_a" value="" size="30"> ä»¥åŠå½¢é€—å·(,)åˆ†éš”
 </tr>
 <tr>
-<td bgcolor="$miscbackone" align="center" width="50"><b>·½Ê½</b></td>
+<td bgcolor="$miscbackone" align="center" width="50"><b>æ–¹å¼</b></td>
 <td bgcolor="$miscbackone" align="left" width="350">
-<input type="radio" name="otheraction_b" value="1" checked> ÔÚËùÓĞ¼ÇÂ¼ÖĞËÑÑ°ÓĞÇ©µ½µÄÊäÈë»áÔ±<br>
-<input type="radio" name="otheraction_b" value="2"> ÔÚËùÓĞ¼ÇÂ¼ÖĞËÑÑ°Ã»ÓĞÇ©µ½µÄÊäÈë»áÔ±<br>
+<input type="radio" name="otheraction_b" value="1" checked> åœ¨æ‰€æœ‰è®°å½•ä¸­æœå¯»æœ‰ç­¾åˆ°çš„è¾“å…¥ä¼šå‘˜<br>
+<input type="radio" name="otheraction_b" value="2"> åœ¨æ‰€æœ‰è®°å½•ä¸­æœå¯»æ²¡æœ‰ç­¾åˆ°çš„è¾“å…¥ä¼šå‘˜<br>
 </tr>
 <tr>
-<td bgcolor="$miscbackone" align="center" colspan="2"><input type="submit" value="¿ªÊ¼ËÑÑ°" style="width:120px"></td>
+<td bgcolor="$miscbackone" align="center" colspan="2"><input type="submit" value="å¼€å§‹æœå¯»" style="width:120px"></td>
 </tr>
 </form>
 <tr>
 <td bgcolor="$miscbackone" align="center" width="50">
-<< <a href="$thisprog">·µ»Ø</a>
+<< <a href="$thisprog">è¿”å›</a>
 </td>
 <form action="$thisprog" method="GET">
 <input type="hidden" name="action" value="pcard_status">
 <td bgcolor="$miscbackone" align="center" width="350">
-<select name="checkaction" style="width:120px">$log_date_list_b</select> <input type="submit" value="²é¿´Ç©µ½¼ÇÂ¼"> 
+<select name="checkaction" style="width:120px">$log_date_list_b</select> <input type="submit" value="æŸ¥çœ‹ç­¾åˆ°è®°å½•"> 
 </td>
 </form>
 </tr>
@@ -520,13 +521,13 @@ sub pcard_search{
 }
 sub pcard_search_a{
 	if($start_page == 1){
-		#Òª SEARCH µÄîĞÍ
+		#è¦ SEARCH çš„é¡å‹
 		my @otheraction_a = $query -> param('otheraction_a');
 		my $otheraction_a = join("\_",@otheraction_a);
 		$otheraction_a = &cleaninput($otheraction_a);
 		$otheraction_a .="\_";
 		my @memberdata;
-		#ßx³öÄÇ(Ğ©)îĞÍ
+		#é¸å‡ºé‚£(äº›)é¡å‹
 		my %membernamecode = ('ad' => 1,'smo' => 2,'cmo' => 3,'mo' => 4,'amo' => 5);
 		open (FILE, "$lbdir/data/lbmember.cgi");
 		while(<FILE>){
@@ -537,9 +538,9 @@ sub pcard_search_a{
 		}
 		chomp @memberdata;
 		close (FILE);
-		#Òª SEARCH µÄÓ›ä›
+		#è¦ SEARCH çš„è¨˜éŒ„
 		my (@log_selected);
-		if($checkaction eq "ËùÓĞ"){
+		if($checkaction eq "æ‰€æœ‰"){
 			opendir(DIR,$prog_dir);
 			foreach(readdir(DIR)){
 				next if($_ eq "." || $_ eq ".." || $_ eq "index.html" || $_ eq "ad_announcement.cgi" || $_ eq "" || $_ =~/\_search.cgi/i);
@@ -550,7 +551,7 @@ sub pcard_search_a{
 			my $that_day_log = "${prog_dir}$checkaction.cgi";
 			push(@log_selected,"$checkaction\.cgi") if(-e $that_day_log);
 		}
-		#é_Ê¼ SEARCH
+		#é–‹å§‹ SEARCH
 		my $i=0;
 		my (@have_pcard,@have_not_pcard);
 		my $search_file = "${prog_dir}$inmembername\_search.cgi";
@@ -572,17 +573,17 @@ sub pcard_search_a{
 			open(SFILE,">>$search_file");
 			foreach $membername(@memberdata){
 				if($get_that_day_log=~/\_$membername\_/i){
-					print SFILE "$membername\t<font color=\"$fonthighlight\">´Ë°æÖ÷ÓĞÔÚ$log_file_dateÇ©µ½</font>\n" if($otheraction_b == 1);
+					print SFILE "$membername\t<font color=\"$fonthighlight\">æ­¤ç‰ˆä¸»æœ‰åœ¨$log_file_dateç­¾åˆ°</font>\n" if($otheraction_b == 1);
 				}else{
-					print SFILE "$membername\t<font color=\"$fontcolormisc\">´Ë°æÖ÷Ã»ÓĞÔÚ$log_file_dateÇ©µ½</font>\n" if($otheraction_b == 2);
+					print SFILE "$membername\t<font color=\"$fontcolormisc\">æ­¤ç‰ˆä¸»æ²¡æœ‰åœ¨$log_file_dateç­¾åˆ°</font>\n" if($otheraction_b == 2);
 				}
 			}
 			close(SFILE);
 			$i++;
 		}
-		&page_error("Ç©µ½¼ÇÂ¼","Ã»ÓĞÈÎºÎÇ©µ½¼ÇÂ¼£¡") unless($i);
+		&page_error("ç­¾åˆ°è®°å½•","æ²¡æœ‰ä»»ä½•ç­¾åˆ°è®°å½•ï¼") unless($i);
 	}else{
-		#Òª SEARCH µÄ»áÔ±
+		#è¦ SEARCH çš„ä¼šå‘˜
 		my @otheraction_a = split(/\,/,$otheraction_a);
 		my @memberdata;
 		my %membernamecode = ('ad' => 1,'smo' => 2,'cmo' => 3,'mo' => 4,'amo' => 5);
@@ -600,7 +601,7 @@ sub pcard_search_a{
 			chomp @userdetail;
 			push(@memberdata,$userdetail[0]) if(defined $membernamecode{$userdetail[3]});
 		}
-		#Òª SEARCH µÄÓ›ä›
+		#è¦ SEARCH çš„è¨˜éŒ„
 		my @log_selected;
 		opendir(DIR,$prog_dir);
 		foreach(readdir(DIR)){
@@ -608,7 +609,7 @@ sub pcard_search_a{
 			push(@log_selected,$_);
 		}
 		closedir(DIR);
-		#é_Ê¼ SEARCH
+		#é–‹å§‹ SEARCH
 		my $i=0;
 		my (@have_pcard,@have_not_pcard);
 		my $search_file = "${prog_dir}$inmembername\_search.cgi";
@@ -630,27 +631,27 @@ sub pcard_search_a{
 			open(SFILE,">>$search_file");
 			foreach $membername(@memberdata){
 				if($get_that_day_log=~/\_$membername\_/i){
-					print SFILE "$membername\t<font color=\"$fonthighlight\">´Ë°æÖ÷ÓĞÔÚ$log_file_dateÇ©µ½</font>\n" if($otheraction_b == 1);
+					print SFILE "$membername\t<font color=\"$fonthighlight\">æ­¤ç‰ˆä¸»æœ‰åœ¨$log_file_dateç­¾åˆ°</font>\n" if($otheraction_b == 1);
 				}else{
-					print SFILE "$membername\t<font color=\"$fontcolormisc\">´Ë°æÖ÷Ã»ÓĞÔÚ$log_file_dateÇ©µ½</font>\n" if($otheraction_b == 2);
+					print SFILE "$membername\t<font color=\"$fontcolormisc\">æ­¤ç‰ˆä¸»æ²¡æœ‰åœ¨$log_file_dateç­¾åˆ°</font>\n" if($otheraction_b == 2);
 				}
 			}
 			close(SFILE);
 			$i++;
 		}
-		&page_error("Ç©µ½¼ÇÂ¼","Ã»ÓĞÈÎºÎÇ©µ½¼ÇÂ¼£¡") unless($i);
+		&page_error("ç­¾åˆ°è®°å½•","æ²¡æœ‰ä»»ä½•ç­¾åˆ°è®°å½•ï¼") unless($i);
 	}
 	$output = qq~<SCRIPT>valigntop()</SCRIPT>
 <table cellPadding="0" cellSpacing="0" border="0" width=$tablewidth bgColor="$tablebordercolor" align="center" height="320">
 <tr><td>
 <table cellPadding="5" cellSpacing="1" border="0" width="100%" height="100%">
-<tr><td bgcolor="$miscbacktwo" align="center" height="20" $catbackpic><font color="$fontcolormisc"><b>ËÑÑ°Íê³É</b></font></td></tr>
+<tr><td bgcolor="$miscbacktwo" align="center" height="20" $catbackpic><font color="$fontcolormisc"><b>æœå¯»å®Œæˆ</b></font></td></tr>
 <tr><td bgcolor="$miscbackone" valign="top">
 <font color="$fontcolormisc">
-<b>ÒÑ¾­Íê³ÉËÑÑ°£º</b>
+<b>å·²ç»å®Œæˆæœå¯»ï¼š</b>
 <ul>
-<li><b>ÒÑ¾­½¨Á¢ĞèÒªµÄËÑÑ°¼ÇÂ¼</b>
-<li><a href="$thisprog?action=pcard_status&checkaction=$checkaction_link&otheraction_a=search">Èç¹ûÄúµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯ÌøÒ³£¬Çë°´ÕâÀï</a>
+<li><b>å·²ç»å»ºç«‹éœ€è¦çš„æœå¯»è®°å½•</b>
+<li><a href="$thisprog?action=pcard_status&checkaction=$checkaction_link&otheraction_a=search">å¦‚æœæ‚¨çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è·³é¡µï¼Œè¯·æŒ‰è¿™é‡Œ</a>
 </ul>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=pcard_status&checkaction=$checkaction_link&otheraction_a=search">
 </font>
@@ -667,69 +668,69 @@ sub page_error{
 <table cellPadding="0" cellSpacing="0" border="0" width=$tablewidth bgColor="$tablebordercolor" align="center" height="320">
 <tr><td>
 <table cellPadding="2" cellSpacing="1" border="0" width="100%" height="100%">
-<tr><td bgcolor="$miscbacktwo" align="center" $catbackpic><font color="$fontcolormisc"><b>´íÎó£º $where</b></font></td></tr>
+<tr><td bgcolor="$miscbacktwo" align="center" $catbackpic><font color="$fontcolormisc"><b>é”™è¯¯ï¼š $where</b></font></td></tr>
 <tr><td bgcolor="$miscbackone" valign="top">
 <font color="$fontcolormisc">
-<b>¹ØÓÚ$whereµÄÏêÏ¸Ô­Òò£º</b>
+<b>å…³äº$whereçš„è¯¦ç»†åŸå› ï¼š</b>
 <ul>
 <li><b>$errormsg</b>
-<li>ÄúÊÇ·ñĞèÒª²é¿´<span style="cursor:hand" onClick="javascript:openScript('help.cgi',500,400)">°ïÖúÎÄ¼ş</span>?
+<li>æ‚¨æ˜¯å¦éœ€è¦æŸ¥çœ‹<span style="cursor:hand" onClick="javascript:openScript('help.cgi',500,400)">å¸®åŠ©æ–‡ä»¶</span>?
 </ul>
-<b>²úÉú$where´íÎóµÄ¿ÉÄÜÔ­Òò£º</b>
+<b>äº§ç”Ÿ$whereé”™è¯¯çš„å¯èƒ½åŸå› ï¼š</b>
 <ul>
-<li>ÃÜÂë´íÎó
-<li>ÓÃ»§Ãû´íÎó
-<li>Äú²»ÊÇ<a href="register.cgi" target="_blank">×¢²á</a>ÓÃ»§
+<li>å¯†ç é”™è¯¯
+<li>ç”¨æˆ·åé”™è¯¯
+<li>æ‚¨ä¸æ˜¯<a href="register.cgi" target="_blank">æ³¨å†Œ</a>ç”¨æˆ·
 </ul>
-<br><br><center><font color=$fontcolormisc> << <a href="javascript:history.go(-1)">·µ»ØÉÏÒ»Ò³</a></center>
+<br><br><center><font color=$fontcolormisc> << <a href="javascript:history.go(-1)">è¿”å›ä¸Šä¸€é¡µ</a></center>
 </font>
 </td></tr>
 </table>
 </td></tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
 	print header(-charset=>gb2312 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-	&output("$boardname - ÂÛÌ³°æÖ÷Ç©µ½",\$output,'msg');
+	&output("$boardname - è®ºå›ç‰ˆä¸»ç­¾åˆ°",\$output,'msg');
 	exit;
 }
 
 sub page_link_gen{
-	#ÒıÊı£ºÏîÄ¿×ÜÊı£¬ÏÔÊ¾ÊıÁ¿£¬ÏÖÊ±Î»ÖÃ£¬£Ï£Æ£Æ£Ó£Å£Ô£¬±äÊıÃû£¬´«µİ±äÊı£¬³ÌĞòÃû³Æ£¬Í¨³£ÑÕÉ«£¬¼ÓÖØÑÕÉ«£¬Á¬½áÄ¿±ê£¬ÎÄ×ÖÑùÊ½
+	#å¼•æ•°ï¼šé¡¹ç›®æ€»æ•°ï¼Œæ˜¾ç¤ºæ•°é‡ï¼Œç°æ—¶ä½ç½®ï¼Œï¼¯ï¼¦ï¼¦ï¼³ï¼¥ï¼´ï¼Œå˜æ•°åï¼Œä¼ é€’å˜æ•°ï¼Œç¨‹åºåç§°ï¼Œé€šå¸¸é¢œè‰²ï¼ŒåŠ é‡é¢œè‰²ï¼Œè¿ç»“ç›®æ ‡ï¼Œæ–‡å­—æ ·å¼
 	my ($total_count,$disp_count,$now_count,$each_count,$var_this,$var_add,$this_prog,$color_a,$color_b,$link_target,$link_temp) = @_;
-	#³õÊ¼»¯£ºËùÓĞĞèÒªÖµ
+	#åˆå§‹åŒ–ï¼šæ‰€æœ‰éœ€è¦å€¼
 	my ($link_s,$link_e,$this_count,$this_dec,$i,$count,$uplink_page,$downlink_page,$link_of_page,$now_page);
-	$total_count= int($total_count);				#±äÊı´¦Àí£ºÏîÄ¿×ÜÊı£¨”µÖµ»¯£©
-	$disp_count	= int($disp_count);					#±äÊı´¦Àí£ºÏÔÊ¾ÊıÁ¿£¨”µÖµ»¯£©
-	$now_count	= int($now_count);					#±äÊı´¦Àí£ºÏÖÊ±Î»ÖÃ£¨”µÖµ»¯£©
-	$var_this	=~s/[^A-Za-z0-9\_]//g;				#±äÊı´¦Àí£º±äÊıÃû¡¡£¨É¾³ıÓ¢Êı×ÖÒÔÍâ×Ö´®£©
-	$color_a	= "#333333" if($color_a eq "");		#±äÊı´¦Àí£ºÍ¨³£ÑÕÉ«£¨Ä¬ÈÏ£º#333333£©
-	$color_b	= "#990000" if($color_b eq "");		#±äÊı´¦Àí£º¼ÓÖØÑÕÉ«£¨Ä¬ÈÏ£º#990000£©
-	$link_target= "_self" if($link_target eq "");	#±äÊı´¦Àí£ºÁ¬½áÄ¿±ê£¨Ä¬ÈÏÎªÄ¿Ç°¿ò£©
-	#¼ì²é±ØĞèÖµ£¬ÈçÎŞ£¨ÈÎºÎ£©·µ»Ø£ºÏÔÊ¾ÊıÁ¿£¬£Ï£Æ£Æ£Ó£Å£Ô£¬±äÊıÃû
+	$total_count= int($total_count);				#å˜æ•°å¤„ç†ï¼šé¡¹ç›®æ€»æ•°ï¼ˆæ•¸å€¼åŒ–ï¼‰
+	$disp_count	= int($disp_count);					#å˜æ•°å¤„ç†ï¼šæ˜¾ç¤ºæ•°é‡ï¼ˆæ•¸å€¼åŒ–ï¼‰
+	$now_count	= int($now_count);					#å˜æ•°å¤„ç†ï¼šç°æ—¶ä½ç½®ï¼ˆæ•¸å€¼åŒ–ï¼‰
+	$var_this	=~s/[^A-Za-z0-9\_]//g;				#å˜æ•°å¤„ç†ï¼šå˜æ•°åã€€ï¼ˆåˆ é™¤è‹±æ•°å­—ä»¥å¤–å­—ä¸²ï¼‰
+	$color_a	= "#333333" if($color_a eq "");		#å˜æ•°å¤„ç†ï¼šé€šå¸¸é¢œè‰²ï¼ˆé»˜è®¤ï¼š#333333ï¼‰
+	$color_b	= "#990000" if($color_b eq "");		#å˜æ•°å¤„ç†ï¼šåŠ é‡é¢œè‰²ï¼ˆé»˜è®¤ï¼š#990000ï¼‰
+	$link_target= "_self" if($link_target eq "");	#å˜æ•°å¤„ç†ï¼šè¿ç»“ç›®æ ‡ï¼ˆé»˜è®¤ä¸ºç›®å‰æ¡†ï¼‰
+	#æ£€æŸ¥å¿…éœ€å€¼ï¼Œå¦‚æ— ï¼ˆä»»ä½•ï¼‰è¿”å›ï¼šæ˜¾ç¤ºæ•°é‡ï¼Œï¼¯ï¼¦ï¼¦ï¼³ï¼¥ï¼´ï¼Œå˜æ•°å
 	goto RETURN if($disp_count < 0 || $each_count < 0 || $var_this eq "");
-	#ÔO¶¨ÎÄ×ÖÑùÊ½£ºÎÄ×ÖÑùÊ½µÄÔ¤ÉèÖµ
-	$link_temp		= qq~<font color="$color_a"><b>¹² <font color="$color_b">%d</font> Ò³</b> %s [ %s ] %s</font>~ unless(defined $link_temp && $link_temp=~/\%d.*\%s.*%s.*%s/);
-	#È¡µÃÄ¿Ç°³ÌĞòÃû³Æ£º³ÌĞòÃû³ÆµÄÔ¤ÉèÖµ
+	#è¨­å®šæ–‡å­—æ ·å¼ï¼šæ–‡å­—æ ·å¼çš„é¢„è®¾å€¼
+	$link_temp		= qq~<font color="$color_a"><b>å…± <font color="$color_b">%d</font> é¡µ</b> %s [ %s ] %s</font>~ unless(defined $link_temp && $link_temp=~/\%d.*\%s.*%s.*%s/);
+	#å–å¾—ç›®å‰ç¨‹åºåç§°ï¼šç¨‹åºåç§°çš„é¢„è®¾å€¼
 	$this_prog		= substr($ENV{'SCRIPT_NAME'},rindex($ENV{'SCRIPT_NAME'},"/")+1) unless(defined $this_prog && $this_prog ne "");
-	#ÏÖËùÔÚÒ³
+	#ç°æ‰€åœ¨é¡µ
 	$now_page= ($now_count/$each_count)+1;
-	#×ÜÒ³Êı
-	($this_count,$this_dec) = split(/\./,($total_count/$each_count));	#¼ÆËã×ÜÒ³Êı£ºÏîÄ¿×ÜÊı³ı£Ï£Æ£Æ£Ó£Å£Ô
-	$this_count++ if($this_dec > 0);									#½øÎ»£ºÎŞÌõ¼ş
-	$this_count=1 if(!$this_count);										#ÕıÊı»¯£º×îÉÙ£±
-	#»ØÈ¦Ìõ¼ş£º
-	$link_s = $now_page-int($disp_count/2);#¿ªÊ¼
-	$link_e = $now_page+int($disp_count/2);#½áÊø
-	#»ØÈ¦Ìõ¼ş´¦Àí£º¿ªÊ¼Ìõ¼şÉÙì¶×ÜÒ³Êı
+	#æ€»é¡µæ•°
+	($this_count,$this_dec) = split(/\./,($total_count/$each_count));	#è®¡ç®—æ€»é¡µæ•°ï¼šé¡¹ç›®æ€»æ•°é™¤ï¼¯ï¼¦ï¼¦ï¼³ï¼¥ï¼´
+	$this_count++ if($this_dec > 0);									#è¿›ä½ï¼šæ— æ¡ä»¶
+	$this_count=1 if(!$this_count);										#æ­£æ•°åŒ–ï¼šæœ€å°‘ï¼‘
+	#å›åœˆæ¡ä»¶ï¼š
+	$link_s = $now_page-int($disp_count/2);#å¼€å§‹
+	$link_e = $now_page+int($disp_count/2);#ç»“æŸ
+	#å›åœˆæ¡ä»¶å¤„ç†ï¼šå¼€å§‹æ¡ä»¶å°‘æ–¼æ€»é¡µæ•°
 	if($link_s < 0){
 		$link_e += (0 - $link_s);
 		$link_s = 0;
 	}
-	#»ØÈ¦Ìõ¼ş´¦Àí£º½áÊøÌõ¼ş´óì¶£°
+	#å›åœˆæ¡ä»¶å¤„ç†ï¼šç»“æŸæ¡ä»¶å¤§æ–¼ï¼
 	if($link_e > $this_count){
 		$link_s -= ($link_e - $this_count);
 		$link_e = $this_count;
 	}
-	#´¦Àí£ºÌøÒ³ÏÔÊ¾
+	#å¤„ç†ï¼šè·³é¡µæ˜¾ç¤º
 	my @PARRAY = ($link_s..$link_e);
 	$link_of_page = join("  ",@PARRAY);
 	$link_of_page =~s/^\s+//;
@@ -738,40 +739,40 @@ sub page_link_gen{
 	$link_of_page =~s/ (-?[0-9]+) /
 		my $i=$1;
 		my $return_t="";
-		my $link_c= $i*$each_count;							#Ò³£Ï£Æ£Æ£Ó£Å£Ô
-		my $page_c= $i+1;									#´¦ÀíÒ³Êı
+		my $link_c= $i*$each_count;							#é¡µï¼¯ï¼¦ï¼¦ï¼³ï¼¥ï¼´
+		my $page_c= $i+1;									#å¤„ç†é¡µæ•°
 		if($link_c != $now_count){
-			#²»µÈì¶ÏÖ£Ï£Æ£Æ£Ó£Å£Ô£ºÏÔÊ¾Êı×ÖÁ¬½á
-			$return_t=qq~<a href="$this_prog?$var_this=$link_c&$var_add" title="µÚ $page_c Ò³" style="color:$color_a" target="$link_target"><b>$page_c<\/b><\/a> ~;
+			#ä¸ç­‰æ–¼ç°ï¼¯ï¼¦ï¼¦ï¼³ï¼¥ï¼´ï¼šæ˜¾ç¤ºæ•°å­—è¿ç»“
+			$return_t=qq~<a href="$this_prog?$var_this=$link_c&$var_add" title="ç¬¬ $page_c é¡µ" style="color:$color_a" target="$link_target"><b>$page_c<\/b><\/a> ~;
 		}else{
-			#ÏàµÈì¶ÏÖ£Ï£Æ£Æ£Ó£Å£Ô£ºÏÔÊ¾´¿Êı×Ö
+			#ç›¸ç­‰æ–¼ç°ï¼¯ï¼¦ï¼¦ï¼³ï¼¥ï¼´ï¼šæ˜¾ç¤ºçº¯æ•°å­—
 			$return_t=qq~<font color="$color_b"><b>$page_c<\/b><\/font> ~;
 		}
-		$count++;#µİÔö£ºÏÖÏÔÊ¾Êı
+		$count++;#é€’å¢ï¼šç°æ˜¾ç¤ºæ•°
 		$return_t="" if($count > $disp_count || $i >= $this_count || $i < 0);
 		$return_t;
 		/ge;
-	#³ıÈ¥×îÎ²µÄ¿Õ¸ñ
+	#é™¤å»æœ€å°¾çš„ç©ºæ ¼
 	chop $link_of_page;
-	#´¦Àí£ºÏòÉÏÌøÒ³
+	#å¤„ç†ï¼šå‘ä¸Šè·³é¡µ
 	$uplink_page		= qq~<font color="$color_b" face="webdings">9</font> <font color="$color_b" face="webdings">7</font>~;
 	if($now_count > 0){
-		#²»ì¶Ê×Ò³£¬¼ÓÉÏÏòÉÏÌøÒ³µÄÁ¬½á
+		#ä¸æ–¼é¦–é¡µï¼ŒåŠ ä¸Šå‘ä¸Šè·³é¡µçš„è¿ç»“
 		my $perv_page = $now_page-1;
 		my $perv_page_count = ($perv_page-1)*$each_count;
-		$uplink_page=qq~<a href="$this_prog?$var_this=0&$var_add" title="Ê× Ò³" target="$link_target"><font face="webdings" color="$color_a">9</font></a> <a href="$this_prog?$var_this=$perv_page_count&$var_add" title="µÚ $perv_page Ò³" target="$link_target"><font face="webdings" color="$color_a">7</font></a>~;
+		$uplink_page=qq~<a href="$this_prog?$var_this=0&$var_add" title="é¦– é¡µ" target="$link_target"><font face="webdings" color="$color_a">9</font></a> <a href="$this_prog?$var_this=$perv_page_count&$var_add" title="ç¬¬ $perv_page é¡µ" target="$link_target"><font face="webdings" color="$color_a">7</font></a>~;
 	}
-	#´¦Àí£ºÏòÏÂÌøÒ³
+	#å¤„ç†ï¼šå‘ä¸‹è·³é¡µ
 	$downlink_page	= qq~<font color="$color_b" face="webdings">8</font> <font color="$color_b" face="webdings">:</font>~;
 	if($now_count < ($this_count-1)*$each_count){
-		#²»ì¶Î²Ò³£¬¼ÓÉÏÏòÏÂÌøÒ³µÄÁ¬½á
+		#ä¸æ–¼å°¾é¡µï¼ŒåŠ ä¸Šå‘ä¸‹è·³é¡µçš„è¿ç»“
 		my $last_page_count = ($this_count-1)*$each_count;
 		my $next_page = $now_page+1;
 		my $next_page_count = ($next_page-1)*$each_count;
-		$downlink_page=qq~<a href="$this_prog?$var_this=$next_page_count&$var_add" title="µÚ $next_page Ò³" target="$link_target"><font face="webdings" color="$color_a">8</font></a> <a href="$this_prog?$var_this=$last_page_count&$var_add" title="Î² Ò³" target="$link_target"><font face="webdings" color="$color_a">:</font></a>~;
+		$downlink_page=qq~<a href="$this_prog?$var_this=$next_page_count&$var_add" title="ç¬¬ $next_page é¡µ" target="$link_target"><font face="webdings" color="$color_a">8</font></a> <a href="$this_prog?$var_this=$last_page_count&$var_add" title="å°¾ é¡µ" target="$link_target"><font face="webdings" color="$color_a">:</font></a>~;
 	}
 	$link_of_page = sprintf($link_temp,$this_count,$uplink_page,$link_of_page,$downlink_page);
-	#·µ»Ø£ºÁ¬½áÒ³×ÊÁÏ
+	#è¿”å›ï¼šè¿ç»“é¡µèµ„æ–™
 	RETURN:
 	return $link_of_page;
 }
