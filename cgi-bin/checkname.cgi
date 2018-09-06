@@ -50,7 +50,7 @@ my $ipaddresstemp     = "\t$ipaddress\t";
 my $trueipaddresstemp = "\t$trueipaddress\t";
 $bannedmember = "yes" if (($bannedips =~ /$ipaddresstemp/i)||($bannedips =~ /$trueipaddresstemp/i));
 
-if ($bannedmember eq "yes") { $CheckR = "æˆ–å½“å‰çš„ IP è¢«ç®¡ç†¡£"; }
+if ($bannedmember eq "yes") { $CheckR = "æˆ–å½“å‰çš„ IP è¢«ç®¡ç†å“¡è®¾ç½®æˆç¦æ­¢æ³¨å†Œæ–°ç”¨æˆ·äº†ï¼Œè¯·æ›´æ¢æˆ–è€…è”ç»œç®¡ç†å“¡ä»¥ä¾¿è§£å†³ã€‚"; }
 
 open(THEFILE,"${lbdir}data/noreglist.cgi");
 $userarray = <THEFILE>;
@@ -65,31 +65,31 @@ foreach (@saveduserarray) {
 	last;
     }
 }
-$CheckR="ÒÑ¾­±»±£Áô»òÕß±»½ûÖ¹×¢²á,Çë¸ü»»Ò»¸öÓÃ»§Ãû¡£" if ($noreg eq "yes");
+$CheckR="å·²ç»è¢«ä¿ç•™æˆ–è€…è¢«ç¦æ­¢æ³¨å†Œ,è¯·æ›´æ¢ä¸€ä¸ªç”¨æˆ·åã€‚" if ($noreg eq "yes");
 
-$CheckR="ÓÃ»§ÃûÓĞÎÊÌâ£¬Çë¸ü»»£¡" if (($inmembername =~ /^m-/i)||($inmembername =~ /^s-/i)||($inmembername =~ /tr-/i)||($inmembername =~ /^y-/i)||($inmembername =~ /×¢²á/i)||($inmembername =~ /guest/i)||($inmembername =~ /qq-/i)||($inmembername =~ /qq/i)||($inmembername =~ /qw/i)||($inmembername =~ /q-/i)||($inmembername =~ /qx-/i)||($inmembername =~ /qw-/i)||($inmembername =~ /qr-/i)||($inmembername =~ /^È«Ìå/i)||($inmembername =~ /register/i)||($inmembername =~ /³ÏÆ¸ÖĞ/i)||($inmembername =~ /°ßÖñ/i)||($inmembername =~ /¹ÜÀíÏµÍ³Ñ¶Ï¢/i)||($inmembername =~ /leobbs/i)||($inmembername =~ /leoboard/i)||($inmembername =~ /À×°Á/i)||($inmembername =~ /LB5000/i)||($inmembername =~ /È«Ìå¹ÜÀíÈËÔ±/i)||($inmembername =~ /¹ÜÀíÔ±/i)||($inmembername =~ /ÒşÉí/i)||($inmembername =~ /¶ÌÏûÏ¢¹ã²¥/i)||($inmembername =~ /ÔİÊ±¿ÕÈ±/i)||($inmembername =~ /£ª£££¡£¦£ª/i)||($inmembername =~ /°æÖ÷/i)||($inmembername =~ /Ì³Ö÷/i)||($inmembername =~ /nodisplay/i)||($inmembername =~ /^system/i)||($inmembername =~ /---/i)||($inmembername eq "admin")||($inmembername eq "root")||($inmembername eq "copy")||($inmembername =~ /^sub/)||($inmembername =~ /^exec/)||($inmembername =~ /\@ARGV/i)||($inmembername =~ /^require/)||($inmembername =~ /^rename/i)||($inmembername =~ /^dir/i)||($inmembername =~ /^print/i)||($inmembername =~ /^con/i)||($inmembername =~ /^nul/i)||($inmembername =~ /^aux/i)||($inmembername =~ /^com/i)||($inmembername =~ /^lpt/i)||($inmembername =~ /^open/i));
+$CheckR="ç”¨æˆ·åæœ‰é—®é¢˜ï¼Œè¯·æ›´æ¢ï¼" if (($inmembername =~ /^m-/i)||($inmembername =~ /^s-/i)||($inmembername =~ /tr-/i)||($inmembername =~ /^y-/i)||($inmembername =~ /æ³¨å†Œ/i)||($inmembername =~ /guest/i)||($inmembername =~ /qq-/i)||($inmembername =~ /qq/i)||($inmembername =~ /qw/i)||($inmembername =~ /q-/i)||($inmembername =~ /qx-/i)||($inmembername =~ /qw-/i)||($inmembername =~ /qr-/i)||($inmembername =~ /^å…¨ä½“/i)||($inmembername =~ /register/i)||($inmembername =~ /è¯šè˜ä¸­/i)||($inmembername =~ /æ–‘ç«¹/i)||($inmembername =~ /ç®¡ç†ç³»ç»Ÿè®¯æ¯/i)||($inmembername =~ /leobbs/i)||($inmembername =~ /leoboard/i)||($inmembername =~ /é›·å‚²/i)||($inmembername =~ /LB5000/i)||($inmembername =~ /å…¨ä½“ç®¡ç†äººå‘˜/i)||($inmembername =~ /ç®¡ç†å‘˜/i)||($inmembername =~ /éšèº«/i)||($inmembername =~ /çŸ­æ¶ˆæ¯å¹¿æ’­/i)||($inmembername =~ /æš‚æ—¶ç©ºç¼º/i)||($inmembername =~ /ï¼Šï¼ƒï¼ï¼†ï¼Š/i)||($inmembername =~ /ç‰ˆä¸»/i)||($inmembername =~ /å›ä¸»/i)||($inmembername =~ /nodisplay/i)||($inmembername =~ /^system/i)||($inmembername =~ /---/i)||($inmembername eq "admin")||($inmembername eq "root")||($inmembername eq "copy")||($inmembername =~ /^sub/)||($inmembername =~ /^exec/)||($inmembername =~ /\@ARGV/i)||($inmembername =~ /^require/)||($inmembername =~ /^rename/i)||($inmembername =~ /^dir/i)||($inmembername =~ /^print/i)||($inmembername =~ /^con/i)||($inmembername =~ /^nul/i)||($inmembername =~ /^aux/i)||($inmembername =~ /^com/i)||($inmembername =~ /^lpt/i)||($inmembername =~ /^open/i));
 
-$CheckR="ÓÃ»§ÃûÓĞÎÊÌâ£¬Çë¸ü»»£¡" if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
+$CheckR="ç”¨æˆ·åæœ‰é—®é¢˜ï¼Œè¯·æ›´æ¢ï¼" if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
 
 
 $tempinmembername =$inmembername;
 $tempinmembername =~ s/ //g;
 $tempinmembername =~ s/  //g;
-if ($inmembername =~ /^¿ÍÈË/) { $CheckR="ÓĞµãÎÊÌâÓ´£¬Çë²»ÒªÔÚÓÃ»§ÃûµÄ¿ªÍ·ÖĞÊ¹ÓÃ¿ÍÈË×ÖÑù¡£"; }
-if ($inmembername =~ /_/)     { $CheckR="ÓĞµãÎÊÌâÓ´£¬Çë²»ÒªÔÚÓÃ»§ÃûÖĞÊ¹ÓÃÏÂ»®Ïß£¡"; }
-if ($inmembername =~ /\t/)    { $CheckR="ÓĞµãÎÊÌâÓ´£¬Çë²»ÒªÔÚÓÃ»§ÃûÖĞÊ¹ÓÃÌØÊâ×Ö·û£¡"; }
-if (length($inmembername)>12) { $CheckR="Ì«³¤ÁË£¬Çë²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©¡£"; }
-if (length($inmembername)<2)  { $CheckR="Ì«¶ÌÁË£¬Çë²»ÒªÉÙì¶2¸ö×Ö·û£¨1¸öºº×Ö£©¡£"; }
+if ($inmembername =~ /^å®¢äºº/) { $CheckR="æœ‰ç‚¹é—®é¢˜å“Ÿï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åçš„å¼€å¤´ä¸­ä½¿ç”¨å®¢äººå­—æ ·ã€‚"; }
+if ($inmembername =~ /_/)     { $CheckR="æœ‰ç‚¹é—®é¢˜å“Ÿï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­ä½¿ç”¨ä¸‹åˆ’çº¿ï¼"; }
+if ($inmembername =~ /\t/)    { $CheckR="æœ‰ç‚¹é—®é¢˜å“Ÿï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­ä½¿ç”¨ç‰¹æ®Šå­—ç¬¦ï¼"; }
+if (length($inmembername)>12) { $CheckR="å¤ªé•¿äº†ï¼Œè¯·ä¸è¦è¶…è¿‡12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰ã€‚"; }
+if (length($inmembername)<2)  { $CheckR="å¤ªçŸ­äº†ï¼Œè¯·ä¸è¦å°‘æ–¼2ä¸ªå­—ç¬¦ï¼ˆ1ä¸ªæ±‰å­—ï¼‰ã€‚"; }
 
 #&getmember("$inmembername");
 &getmember("$inmembername","no");
-if ($userregistered ne "no") { $CheckR="ÒÑ¾­ÓĞÓÃ»§Ê¹ÓÃ£¬ÇëÑ¡ÔñÒ»¸öĞÂµÄÓÃ»§Ãû¡£"; }
+if ($userregistered ne "no") { $CheckR="å·²ç»æœ‰ç”¨æˆ·ä½¿ç”¨ï¼Œè¯·é€‰æ‹©ä¸€ä¸ªæ–°çš„ç”¨æˆ·åã€‚"; }
 
-if ($inmembername eq "") { $CheckR = "²»ÄÜÎª¿Õ"; }
+if ($inmembername eq "") { $CheckR = "ä¸èƒ½ä¸ºç©º"; }
 if ($inmembername ne "") { $show   = qq~"<font color="red">$inmembername</font>"~; }
-$CheckR = "¶Ô²»Æğ£¬ÄúÊäÈëµÄÓÃ»§ÃûÓĞÎÊÌâ£¬Çë²»ÒªÔÚÓÃ»§ÃûÖĞ°üº¬\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]ÕâÀà×Ö·û£¡" if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
+$CheckR = "å¯¹ä¸èµ·ï¼Œæ‚¨è¾“å…¥çš„ç”¨æˆ·åæœ‰é—®é¢˜ï¼Œè¯·ä¸è¦åœ¨ç”¨æˆ·åä¸­åŒ…å«\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]è¿™ç±»å­—ç¬¦ï¼" if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
 
-if ($CheckR eq "") {$CheckR="Ã»ÓĞÎÊÌâ£¬¿ÉÒÔÕı³£Ê¹ÓÃ¡£"; }
+if ($CheckR eq "") {$CheckR="æ²¡æœ‰é—®é¢˜ï¼Œå¯ä»¥æ­£å¸¸ä½¿ç”¨ã€‚"; }
 print qq~
 <html>
 <head> 
@@ -103,15 +103,15 @@ A:active{TEXT-DECORATION: none}
 A:hover{TEXT-DECORATION: underline overline}
 A:link{text-decoration: none;}
 .t{LINE-HEIGHT: 1.4}
-BODY{FONT-FAMILY: ĞÂÏ¸Ã÷Ìå; FONT-SIZE: 9pt;
+BODY{FONT-FAMILY: æ–°ç»†æ˜ä½“; FONT-SIZE: 9pt;
 SCROLLBAR-HIGHLIGHT-COLOR: buttonface;
 SCROLLBAR-SHADOW-COLOR: buttonface;
 SCROLLBAR-3DLIGHT-COLOR: buttonhighlight;
 SCROLLBAR-TRACK-COLOR: #eeeeee;
 SCROLLBAR-DARKSHADOW-COLOR: buttonshadow}
-TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: ĞÂÏ¸Ã÷Ìå; FONT-SIZE: 9pt} 
+TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: æ–°ç»†æ˜ä½“; FONT-SIZE: 9pt} 
 INPUT{BORDER-TOP-WIDTH: 1px; PADDING-RIGHT: 1px; PADDING-LEFT: 1px; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 9pt; BORDER-LEFT-COLOR: #cccccc; BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: #cccccc; PADDING-BOTTOM: 1px; BORDER-TOP-COLOR: #cccccc; PADDING-TOP: 1px; HEIGHT: 18px; BORDER-RIGHT-WIDTH: 1px; BORDER-RIGHT-COLOR: #cccccc}
-textarea, select {border-width: 1; border-color: #000000; background-color: #efefef; font-family: ĞÂÏ¸Ã÷Ìå; font-size: 9pt; font-style: bold;}
+textarea, select {border-width: 1; border-color: #000000; background-color: #efefef; font-family: æ–°ç»†æ˜ä½“; font-size: 9pt; font-style: bold;}
 --> 
 </style> 
 <!--end css info-->
@@ -119,7 +119,7 @@ textarea, select {border-width: 1; border-color: #000000; background-color: #efe
 <body $lbbody>
 <table width=100% align=center cellspacing=0 cellpadding=1  border=0 bgcolor=$titleborder height="100%"><tr><td>
 <table width=100% cellspacing=0 cellpadding=4 border=0 height="100%">
-<tr><td align="center" bgcolor=$menubackground><font color=$menufontcolor>ÄãËùÑ¡µÄÓÃ»§Ãû$show$CheckR</font></td></tr></table></td></tr></table>
+<tr><td align="center" bgcolor=$menubackground><font color=$menufontcolor>ä½ æ‰€é€‰çš„ç”¨æˆ·å$show$CheckR</font></td></tr></table></td></tr></table>
 </body>
 </html>
 ~;
