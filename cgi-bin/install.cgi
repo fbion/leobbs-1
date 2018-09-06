@@ -161,36 +161,57 @@ if ($action eq "proceed") {
 		$adminnametemp = $adminname;
 		$adminname =~ s/\&nbsp\;//ig;
 		$adminname =~ s/ã€€/ /g;
-		$adminname =~ s/<BR><BR><BR>¹ÜÀíÔ±ÓÃ»§ÃûÌ«³¤£¬Çë²»Òª³¬¹ı12¸ö×Ö·û£¨6¸öºº×Ö£©£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
+		$adminname =~ s/îŸ¾/ /g;
+		$adminname =~ s/[ ]+/ /g;
+		$adminname =~ s/[ ]+/_/;
+		$adminname =~ s/[_]+/_/;
+		$adminname =~ s/ï¿½//isg;
+		$adminname =~ s///isg;
+		$adminname =~ s/ã€€//isg;
+		$adminname =~ s/îŸ¾//isg;
+		$adminname =~ s/()+//isg;
+		$adminname =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]//isg;
+		$adminname =~ s/\s*$//g;
+		$adminname =~ s/^\s*//g;
+		if ($adminnametemp ne $adminname) {
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>æ‚¨è¾“å…¥çš„ç®¡ç†å‘˜ç”¨æˆ·åæœ‰é—®é¢˜ï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ï¼</font><BR><BR><BR>");
+   		    exit;
+		}
+		if ($adminname =~ /^å®¢äºº/) {
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>è¯·ä¸è¦åœ¨ç®¡ç†å‘˜ç”¨æˆ·åçš„å¼€å¤´ä¸­ä½¿ç”¨å®¢äººå­—æ ·ï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ï¼</font><BR><BR><BR>");
+   		    exit;
+		}
+    		if (length($adminname)>12) {
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜ç”¨æˆ·åå¤ªé•¿ï¼Œè¯·ä¸è¦è¶…è¿‡12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰ï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ï¼</font><BR><BR><BR>");
    		    exit;
     		}
     		if (length($adminname)<2)  {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÓÃ»§ÃûÌ«¶ÌÁË£¬Çë²»ÒªÉÙì¶2¸ö×Ö·û£¨1¸öºº×Ö£©£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜ç”¨æˆ·åå¤ªçŸ­äº†ï¼Œè¯·ä¸è¦å°‘æ–¼2ä¸ªå­—ç¬¦ï¼ˆ1ä¸ªæ±‰å­—ï¼‰ï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ï¼</font><BR><BR><BR>");
    		    exit;
     		}
 
 	        if ($adminpass =~ /[^a-zA-Z0-9]/) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÃÜÂëÖ»ÔÊĞí´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ£¬Çë·µ»Øºó¸ü»»£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜å¯†ç åªå…è®¸å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆï¼Œè¯·è¿”å›åæ›´æ¢ï¼</font><BR><BR><BR>");
    		    exit;
 	        }
 		if ($adminpass =~ /^lEO/) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÃÜÂë²»ÔÊĞíÊÇ lEO ¿ªÍ·£¬Çë·µ»Øºó¸ü»»£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜å¯†ç ä¸å…è®¸æ˜¯ lEO å¼€å¤´ï¼Œè¯·è¿”å›åæ›´æ¢ï¼</font><BR><BR><BR>");
    		    exit;
 		}
 	        if (length($adminpass)<8) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÃÜÂëÌ«¶ÌÁË£¬Çë·µ»Øºó¸ü»»£¨ÃÜÂë±ØĞë 8 Î»ÒÔÉÏ£©£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜å¯†ç å¤ªçŸ­äº†ï¼Œè¯·è¿”å›åæ›´æ¢ï¼ˆå¯†ç å¿…é¡» 8 ä½ä»¥ä¸Šï¼‰ï¼</font><BR><BR><BR>");
    		    exit;
 	        }
 		if ($adminpass =~ /^[0-9]+$/) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÃÜÂë²»ÄÜÈ«²¿ÎªÊı×Ö£¬Çë·µ»Øºó¸ü»»£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜å¯†ç ä¸èƒ½å…¨éƒ¨ä¸ºæ•°å­—ï¼Œè¯·è¿”å›åæ›´æ¢ï¼</font><BR><BR><BR>");
    		    exit;
 		}
 		if ($adminname eq $adminpass) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>²»Òª½«¹ÜÀíÔ±ÓÃ»§ÃûºÍ¹ÜÀíÔ±ÃÜÂëÉèÖÃ³ÉÏàÍ¬µÄ£¬Çë·µ»Øºó¸ü»»£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ä¸è¦å°†ç®¡ç†å‘˜ç”¨æˆ·åå’Œç®¡ç†å‘˜å¯†ç è®¾ç½®æˆç›¸åŒçš„ï¼Œè¯·è¿”å›åæ›´æ¢ï¼</font><BR><BR><BR>");
    		    exit;
 		}
 		if ($adminpass ne $adminpass1) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¶Ô²»Æğ£¬ÄúÊäÈëµÄÁ½´Î¹ÜÀíÔ±ÃÜÂë²»ÏàÍ¬£¬Çë·µ»ØÖØĞÂÊäÈë£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>å¯¹ä¸èµ·ï¼Œæ‚¨è¾“å…¥çš„ä¸¤æ¬¡ç®¡ç†å‘˜å¯†ç ä¸ç›¸åŒï¼Œè¯·è¿”å›é‡æ–°è¾“å…¥ï¼</font><BR><BR><BR>");
    		    exit;
 		}
 	}
@@ -216,7 +237,7 @@ if ($action eq "proceed") {
 	    print FILE "\n";
 	    close(FILE);
 	} else {
-	    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>${lbdir}data/boardinfo.cgi ÎÄ¼ş²»¿ÉĞ´£¬ÇëÊÖ¹¤ÉèÖÃÆäÊôĞÔÎª 666 £¬È»ºóË¢ĞÂ±¾Ò³Ãæ¼ÌĞø¡£</font><BR><BR><BR>");
+	    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>${lbdir}data/boardinfo.cgi æ–‡ä»¶ä¸å¯å†™ï¼Œè¯·æ‰‹å·¥è®¾ç½®å…¶å±æ€§ä¸º 666 ï¼Œç„¶ååˆ·æ–°æœ¬é¡µé¢ç»§ç»­ã€‚</font><BR><BR><BR>");
    	    exit;
 	}
 
@@ -229,7 +250,7 @@ if ($action eq "proceed") {
 		mkdir ("${lbdir}$memdir/$namenumber", 0777) if (!(-e "${lbdir}$memdir/$namenumber"));
 		chmod(0777,"${lbdir}$memdir/$namenumber");
 		if ((-e "$lbdir$memdir/$namenumber/$adminname.cgi")||(-e "$lbdir$memdir/old/$adminname.cgi")) {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>¹ÜÀíÔ±ÕËºÅ $oldadminname ÒÑ¾­´æÔÚ£¬Çë·µ»Ø¸ü»»£¡</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>ç®¡ç†å‘˜è´¦å· $oldadminname å·²ç»å­˜åœ¨ï¼Œè¯·è¿”å›æ›´æ¢ï¼</font><BR><BR><BR>");
    		    exit;
 		}
 	        eval {$adminpass = md5_hex($adminpass);};
@@ -247,36 +268,36 @@ if ($action eq "proceed") {
 		my $currenttime = time;
 		
 		if (open(FILE, ">$lbdir$memdir/$namenumber/$adminname.cgi")) {
-		    print FILE "$adminname\t$adminpass\tmember\tad\t0|0\t\tno\t±£ÃÜ\t\t\t\t\t\t$currenttime\t\t";
+		    print FILE "$adminname\t$adminpass\tmember\tad\t0|0\t\tno\tä¿å¯†\t\t\t\t\t\t$currenttime\t\t";
 		    close(FILE);
 		} else {
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>${lbdir}$memdir Ä¿Â¼²»¿ÉĞ´£¬ÇëÊÖ¹¤ÉèÖÃÆäÊôĞÔÎª 777 £¬È»ºóË¢ĞÂ±¾Ò³Ãæ¼ÌĞø¡£</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>${lbdir}$memdir ç›®å½•ä¸å¯å†™ï¼Œè¯·æ‰‹å·¥è®¾ç½®å…¶å±æ€§ä¸º 777 ï¼Œç„¶ååˆ·æ–°æœ¬é¡µé¢ç»§ç»­ã€‚</font><BR><BR><BR>");
    		    exit;
 		}
 		if (open(FILE, ">$lbdir$memdir/old/$adminname.cgi")) {
-		    print FILE "$adminname\t$adminpass\tmember\tad\t0|0\t\tno\t±£ÃÜ\t\t\t\t\t\t$currenttime\t\t";
+		    print FILE "$adminname\t$adminpass\tmember\tad\t0|0\t\tno\tä¿å¯†\t\t\t\t\t\t$currenttime\t\t";
 		    close(FILE);
 		} else {
 		    unlink("$lbdir$memdir/$namenumber/$adminname.cgi");
-		    &output("<BR><font size=+1 color=red><center>°²×°³ÌĞò·¢ÏÖ´íÎó£¡</font><BR><BR><BR>${lbdir}$memdir/old Ä¿Â¼²»¿ÉĞ´£¬ÇëÊÖ¹¤ÉèÖÃÆäÊôĞÔÎª 777 £¬È»ºóË¢ĞÂ±¾Ò³Ãæ¼ÌĞø¡£</font><BR><BR><BR>");
+		    &output("<BR><font size=+1 color=red><center>å®‰è£…ç¨‹åºå‘ç°é”™è¯¯ï¼</font><BR><BR><BR>${lbdir}$memdir/old ç›®å½•ä¸å¯å†™ï¼Œè¯·æ‰‹å·¥è®¾ç½®å…¶å±æ€§ä¸º 777 ï¼Œç„¶ååˆ·æ–°æœ¬é¡µé¢ç»§ç»­ã€‚</font><BR><BR><BR>");
    		    exit;
 		}
-		$output = "¹ÜÀíÔ±ÕËºÅ $oldadminname¡¡½¨Á¢³É¹¦£¡";
+		$output = "ç®¡ç†å‘˜è´¦å· $oldadminnameã€€å»ºç«‹æˆåŠŸï¼";
 	}
 
 	open(LOCK, ">${lbdir}data/install.lock");
 	print LOCK "www.LeoBBS.com";
 	close(LOCK);
 	unlink("${lbdir}install.cgi") if (!(-e "${lbdir}data/install.lock"));
-	&changedirname();  # ¸ü¸ÄÓÃ»§¹Ø¼üÄ¿Â¼µÄÃû³Æ
-        &output("<BR><font size=+1 color=red><center>ÂÛÌ³°²×°Íê³É£¡$output</font><BR><BR><BR>ÂÛÌ³°²×°ÒÑ¾­Ë³ÀûÍê³É£¡Ä¿Ç°°²×°³ÌĞòÒÑ¾­×Ô¶¯Ëø¶¨£¬ÎŞ·¨ÔÙ´ÎÖ´ĞĞ£¬µ«ÎÒÃÇ»¹ÊÇÇ¿ÁÒ½¨ÒéÄúÖ±½Ó½«Æä´Ó·şÎñÆ÷ÉÏÉ¾³ı¡£<BR><BR>Èç¹ûĞèÒªÔÙ´ÎÔËĞĞ°²×°³ÌĞò£¬ÇëÏÈÊÖ¹¤½« data Ä¿Â¼ÏÂµÄ install.lock ÎÄ¼şÉ¾³ı£¬È»ºóÔÙÔËĞĞ°²×°³ÌĞò£¡<BR><BR><BR>ÏÖÔÚÄú¿ÉÒÔÊ¹ÓÃ¹ÜÀíÔ±ÕËºÅºÍÃÜÂë½øÈë <a href=admin.cgi><B>ÂÛÌ³¹ÜÀíÖĞĞÄ</B></a> ÖØĞÂÉèÖÃËùÓĞ»ù±¾±äÁ¿ºÍ·ç¸ñ²ÎÊı¡£<BR><BR><BR>");
+	&changedirname();  # æ›´æ”¹ç”¨æˆ·å…³é”®ç›®å½•çš„åç§°
+        &output("<BR><font size=+1 color=red><center>è®ºå›å®‰è£…å®Œæˆï¼$output</font><BR><BR><BR>è®ºå›å®‰è£…å·²ç»é¡ºåˆ©å®Œæˆï¼ç›®å‰å®‰è£…ç¨‹åºå·²ç»è‡ªåŠ¨é”å®šï¼Œæ— æ³•å†æ¬¡æ‰§è¡Œï¼Œä½†æˆ‘ä»¬è¿˜æ˜¯å¼ºçƒˆå»ºè®®æ‚¨ç›´æ¥å°†å…¶ä»æœåŠ¡å™¨ä¸Šåˆ é™¤ã€‚<BR><BR>å¦‚æœéœ€è¦å†æ¬¡è¿è¡Œå®‰è£…ç¨‹åºï¼Œè¯·å…ˆæ‰‹å·¥å°† data ç›®å½•ä¸‹çš„ install.lock æ–‡ä»¶åˆ é™¤ï¼Œç„¶åå†è¿è¡Œå®‰è£…ç¨‹åºï¼<BR><BR><BR>ç°åœ¨æ‚¨å¯ä»¥ä½¿ç”¨ç®¡ç†å‘˜è´¦å·å’Œå¯†ç è¿›å…¥ <a href=admin.cgi><B>è®ºå›ç®¡ç†ä¸­å¿ƒ</B></a> é‡æ–°è®¾ç½®æ‰€æœ‰åŸºæœ¬å˜é‡å’Œé£æ ¼å‚æ•°ã€‚<BR><BR><BR>");
         $versionnumber =~ s/\<(.+?)\>//isg;
 	&sendurlinfo("www.leobbs.com","download/reg.cgi","ver=$versionnumber&url=$boardurl") if (($boardurl ne "")&&($boardurl !~ m/localhost/i)&&($boardurl !~ m/127\.0\.0\./i)&&($boardurl !~ m/192\.168\./i));
         exit;
 }
 
-# ²ÎÊı²»¶Ô£®
-&output("<BR><BR><BR><font size=+1 color=red><center>Çë²»ÒªºúÂÒÔËĞĞ±¾³ÌĞò£¬Ğ»Ğ»ºÏ×÷£¡</center></font><BR><BR><BR>");
+# å‚æ•°ä¸å¯¹ï¼
+&output("<BR><BR><BR><font size=+1 color=red><center>è¯·ä¸è¦èƒ¡ä¹±è¿è¡Œæœ¬ç¨‹åºï¼Œè°¢è°¢åˆä½œï¼</center></font><BR><BR><BR>");
 exit;
 
 sub output {
@@ -285,19 +306,19 @@ sub output {
     print qq~
 <html>
   <head>
-    <title>LeoBBS X °²×°³ÌĞò</title>
+    <title>LeoBBS X å®‰è£…ç¨‹åº</title>
     <style type="text/css">
     A:visited{TEXT-DECORATION: none}
     A:active{TEXT-DECORATION: none}
     A:hover{TEXT-DECORATION: underline overline}
     A:link{text-decoration: none;}
-    .h        { font-family: ËÎÌå; font-size: 12px; color: #FF0000 }
-    .t        { font-family: ËÎÌå; font-size: 11px; color: #000003 }
-    .ti       { font-family: ËÎÌå; font-size: 12px; color: #000003; font-weight: bold }
-    .l        { font-family: ËÎÌå; font-size: 14px; font-weight: bold; color: #FFFFFF }
-    BODY{FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt;}
-    caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: ËÎÌå; FONT-SIZE: 9pt} 
-    INPUT, SUBMIT { font-family: ËÎÌå; font-size: 9pt; font-family: ËÎÌå; vertical-align:middle; background-color: #CCCCCC; }
+    .h        { font-family: å®‹ä½“; font-size: 12px; color: #FF0000 }
+    .t        { font-family: å®‹ä½“; font-size: 11px; color: #000003 }
+    .ti       { font-family: å®‹ä½“; font-size: 12px; color: #000003; font-weight: bold }
+    .l        { font-family: å®‹ä½“; font-size: 14px; font-weight: bold; color: #FFFFFF }
+    BODY{FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt;}
+    caption,TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: å®‹ä½“; FONT-SIZE: 9pt} 
+    INPUT, SUBMIT { font-family: å®‹ä½“; font-size: 9pt; font-family: å®‹ä½“; vertical-align:middle; background-color: #CCCCCC; }
     a:active, a:link, a:visited { color:#000099 }
     </style>
   </head>
@@ -310,23 +331,22 @@ sub output {
         <td>
           <table cellspacing='0' cellpadding='4' width='100%' align='center' border='0'>
           <tr>
-            <td bgcolor='#666699' class='l' align='center'>À×°Á¼«¿á³¬¼¶ÂÛÌ³ LeoBBS X °²×°³ÌĞò</td>
+            <td bgcolor='#666699' class='l' align='center'>é›·å‚²æé…·è¶…çº§è®ºå› LeoBBS X å®‰è£…ç¨‹åº</td>
           </tr>
           <tr>
             <td bgcolor='#8888AA' class='l' align='left'><span style='font-size:6pt;color:#8888AA'>.</span></td>
           </tr>
           <tr>
-            <td valign='top' bgcolor='#FFFFFFF'><span font-family: ËÎÌå; font-size: 9pt;>
+            <td valign='top' bgcolor='#FFFFFFF'><span font-family: å®‹ä½“; font-size: 9pt;>
 		$outputinfo<BR>
-	¡¡¡¡¡î <a href=http://www.leobbs.com/leobbs/buy.asp target=_blank><B>Èç¹ûÒòÎªÄúË®Æ½ÓĞÏŞ¶øÎŞ·¨Õı³£°²×°ºÍÊ¹ÓÃ±¾ÂÛÌ³£¬Çë°´´Ë×¢²á±¾ÂÛÌ³ÉÌÒµ°æ£¬»ñµÃ°²×°Ê¹ÓÃĞ­ÖúµÈ¼¼ÊõÖ§³ÖÓë·şÎñ¡£</B></a><BR><BR>
-
+	ã€€ã€€â˜† <a href=http://www.leobbs.com/leobbs/buy.asp target=_blank><B>å¦‚æœå› ä¸ºæ‚¨æ°´å¹³æœ‰é™è€Œæ— æ³•æ­£å¸¸å®‰è£…å’Œä½¿ç”¨æœ¬è®ºå›ï¼Œè¯·æŒ‰æ­¤æ³¨å†Œæœ¬è®ºå›å•†ä¸šç‰ˆï¼Œè·å¾—å®‰è£…ä½¿ç”¨ååŠ©ç­‰æŠ€æœ¯æ”¯æŒä¸æœåŠ¡ã€‚</B></a><BR><BR>
             </td>
           </tr>
           </table>
          </td>
         </tr>
       </table>
-      <BR><BR><hr width=500><font color=black>°æÈ¨ËùÓĞ£º<a href=http://www.leobbs.com target=_blank>À×°Á¿Æ¼¼</a> & <a href=http://bbs.leobbs.com target=_blank>À×°Á¼«¿á³¬¼¶ÂÛÌ³</a>¡¡¡¡Copyright 2003-2004<BR>
+      <BR><BR><hr width=500><font color=black>ç‰ˆæƒæ‰€æœ‰ï¼š<a href=http://www.leobbs.com target=_blank>é›·å‚²ç§‘æŠ€</a> & <a href=http://bbs.leobbs.com target=_blank>é›·å‚²æé…·è¶…çº§è®ºå›</a>ã€€ã€€Copyright 2003-2004<BR>
     </td>
    </tr>
   </table>
@@ -406,7 +426,7 @@ sub sendurlinfo {
     return;
 }
 
-# ²âÊÔ¾ø¶ÔÂ·¾¶
+# æµ‹è¯•ç»å¯¹è·¯å¾„
 sub mypath {
     local $temp;
     if ($ENV{'SERVER_SOFTWARE'} =~ /apache/i) {
@@ -427,7 +447,7 @@ sub mypath {
     return $mypath;
 }
 
-# ²âÊÔ URL Â·¾¶
+# æµ‹è¯• URL è·¯å¾„
 sub myurl {
     local $server_port,$fullurl;
     $server_port = ":$ENV{'SERVER_PORT'}" if ($ENV{'SERVER_PORT'} ne '80');
@@ -438,7 +458,7 @@ sub myurl {
     return $myurl;
 }
 
-# ²âÊÔÍ¼ÏñÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶ºÍ url Â·¾¶
+# æµ‹è¯•å›¾åƒç›®å½•çš„ç»å¯¹è·¯å¾„å’Œ url è·¯å¾„
 sub myimgdir {
   my $html_dir = $html_url = $base = $base1 = "";
   $base  = $mypath;
