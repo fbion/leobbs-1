@@ -113,20 +113,26 @@ $month_end = $local_time + (86400*($month_end_day-$mday));
 my ($no,$no,$no,$no,$no,$no,$start_week,$no,$no) = localtime($month_start);
 my ($no,$no,$no,$no,$no,$no,$end_week,$no,$no) = localtime($month_end);
 
-#å¯/value="$set_year" selected/;
-	#ÔÂ
+#å¯é¸æ“‡çš„åˆ—è¡¨ _S
+	#å¹´
+$YEAR_LIST = '';
+for($y=$now_year-$YEAR_COUNT;$y<$now_year+$YEAR_COUNT;$y++){
+	$YEAR_LIST .= sprintf('<option value="%04d">%04då¹´</option>',$y,$y);
+}
+$YEAR_LIST =~s/value="$set_year"/value="$set_year" selected/;
+	#æœˆ
 $MONTH_LIST = '';
 for($m=1;$m<=12;$m++){
-	$MONTH_LIST .= sprintf('<option value="%d">%02dÔÂ</option>',$m,$m);
+	$MONTH_LIST .= sprintf('<option value="%d">%02dæœˆ</option>',$m,$m);
 }
 $MONTH_LIST =~s/value="$set_month"/value="$set_month" selected/;
-#ÈÕ
+#æ—¥
 $DAY_LIST = '';
 for($d=1;$d<=$month_end_day;$d++){
-	$DAY_LIST .= sprintf('<option value="%d">%02dÈÕ</option>',$d,$d);
+	$DAY_LIST .= sprintf('<option value="%d">%02dæ—¥</option>',$d,$d);
 }
 $DAY_LIST =~s/value="$set_day"/value="$set_day" selected/;
-#¿Éßx“ñµÄÁĞ±í _E
+#å¯é¸æ“‡çš„åˆ—è¡¨ _E
 
 
 print header(-charset => 'gb2312' , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
@@ -165,10 +171,10 @@ if(($birmon eq "0$set_month")||($birmon eq "$set_month")){
 $tempinfo = "$tempinfo$_\n";
 $age =$set_year - $biryear;
 if($changed{$birday} ne "1"){
-$birdata{$birday}.=qq~<img src=$imagesurl/images/born.gif title="½ñÌìÉúÈÕÁĞ±í"><BR><font color=$postfontcolortwo title=$ageËêÉúÈÕ>$biruser</font>, ~;
+$birdata{$birday}.=qq~<img src=$imagesurl/images/born.gif title="ä»Šå¤©ç”Ÿæ—¥åˆ—è¡¨"><BR><font color=$postfontcolortwo title=$ageå²ç”Ÿæ—¥>$biruser</font>, ~;
 $changed{$birday} = "1";
 }else{
-$birdata{$birday}.=qq~<font color=$postfontcolortwo title=$ageËêÉúÈÕ>$biruser</font>, ~;
+$birdata{$birday}.=qq~<font color=$postfontcolortwo title=$ageå²ç”Ÿæ—¥>$biruser</font>, ~;
 }
 }
 }
@@ -180,8 +186,8 @@ close(TFILE);
 
 $output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´ÂÛÌ³ÔÂÀúºÍÌØ±ğÊÂ¼ş¼ÇÂ¼</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="calendar.cgi">ÂÛÌ³ÔÂÀú</a> ¡ú ²é¿´$year_display$month_displayÔÂÀú <td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹è®ºå›æœˆå†å’Œç‰¹åˆ«äº‹ä»¶è®°å½•</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="calendar.cgi">è®ºå›æœˆå†</a> â†’ æŸ¥çœ‹$year_display$month_displayæœˆå† <td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <style>
 .TODAY {border:2px;border-style:outset;background-color:$miscbacktwo;}
@@ -202,12 +208,12 @@ my $month_starting = 0;
 my $line_loop_end = 0;
 for($l=0;$l<6;$l++){
 	last if($line_loop_end);
-	#Ã¿ÔÂºÏ¼Æ¹² 6 ĞÇÆÚ
+	#æ¯æœˆåˆè®¡å…± 6 æ˜ŸæœŸ
 	$output .= qq~
 <tr>~;
 	for($i=0;$i<7;$i++){
 		last if($line_loop_end);
-		#Ã¿ĞÇÆÚºÏ¼Æ¹² 7 ÈÕ
+		#æ¯æ˜ŸæœŸåˆè®¡å…± 7 æ—¥
 		if($month_starting == 0 && $l == 0){
 			if($i == $start_week){
 				$month_starting = 1;
@@ -229,8 +235,8 @@ for($l=0;$l<6;$l++){
 		$monthly_event = $lbdir.'calendar/monthly_'.$month_starting.'.cgi';
 		$event_temp .= open_event($monthly_event)."\n";
 		
-		my $view_event = ($event_temp !~/^[\n\s]*$/)?'<a href="'.$thisprog.'?action=view&set_year='.$set_year.'&set_month='.$set_month.'&set_day='.$month_starting.'"><img src="'.$imagesurl.'/images/openfold.gif" width="16" height="15" alt="²é¿´ÍêÕûÊÂ¼ş" border="0"></a> ':'';
-		my $edit_event = ($membercode eq "ad")?'<a href="'.$thisprog.'?action=event&set_year='.$set_year.'&set_month='.$set_month.'&set_day='.$month_starting.'"><img src="'.$imagesurl.'/images/edit.gif" width="16" height="15" alt="±à¼­ÊÂ¼ş" border="0"></a> ':'';
+		my $view_event = ($event_temp !~/^[\n\s]*$/)?'<a href="'.$thisprog.'?action=view&set_year='.$set_year.'&set_month='.$set_month.'&set_day='.$month_starting.'"><img src="'.$imagesurl.'/images/openfold.gif" width="16" height="15" alt="æŸ¥çœ‹å®Œæ•´äº‹ä»¶" border="0"></a> ':'';
+		my $edit_event = ($membercode eq "ad")?'<a href="'.$thisprog.'?action=event&set_year='.$set_year.'&set_month='.$set_month.'&set_day='.$month_starting.'"><img src="'.$imagesurl.'/images/edit.gif" width="16" height="15" alt="ç¼–è¾‘äº‹ä»¶" border="0"></a> ':'';
 		if($event_temp !~/^[\n\s]*$/){
 			$event_temp =~s/^\n+//;
 			my @event_temp = split(/\n+/,$event_temp);
@@ -260,7 +266,7 @@ for($l=0;$l<6;$l++){
 	$output .= qq~
 </tr>~;
 }
-$add_event = qq~<a href="$thisprog?action=event"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="Ôö¼ÓĞÂÊÂ¼ş" border="0"></a>&nbsp;&nbsp;[<a href=$thisprog?action=getmenbrithday>¸üĞÂÓÃ»§ÉúÈÕÊı¾İ</a>]~ if($membercode eq "ad");
+$add_event = qq~<a href="$thisprog?action=event"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="å¢åŠ æ–°äº‹ä»¶" border="0"></a>&nbsp;&nbsp;[<a href=$thisprog?action=getmenbrithday>æ›´æ–°ç”¨æˆ·ç”Ÿæ—¥æ•°æ®</a>]~ if($membercode eq "ad");
 
 $nextmonth = $set_month+1;
 $premonth = $set_month-1;
@@ -280,12 +286,12 @@ $output .= qq~
 <table border="0" cellspacing="2" cellpadding="4" width="$tablewidth" align="center">
 <tr>
 <td width="*">$add_event</td>
-<form action="$thisprog" method="GET"><td width="20%"><select name="set_year">$YEAR_LIST</select><select name="set_month">$MONTH_LIST</select> <input type="submit" value="ÏÔÊ¾ÔÂÀú"></td></form>
-<form action="$thisprog" method="GET"><td width="10%"><input type="submit" value="ÏÔÊ¾±¾ÔÂ"></td></form>
-<td width="12%"><a href="$thisprog?set_year=$preyear&set_month=$premonth"><img src="$imagesurl/images/premonth.gif" width="52" height="12" alt="ÏÔÊ¾ÉÏÒ»¸öÔÂ" border="0"></a> <a href="$thisprog?set_year=$nextyear&set_month=$nextmonth"><img src="$imagesurl/images/nextmonth.gif" width="52" height="12" alt="ÏÔÊ¾ÏÂÒ»¸öÔÂ" border="0"></a></td></tr>
+<form action="$thisprog" method="GET"><td width="20%"><select name="set_year">$YEAR_LIST</select><select name="set_month">$MONTH_LIST</select> <input type="submit" value="æ˜¾ç¤ºæœˆå†"></td></form>
+<form action="$thisprog" method="GET"><td width="10%"><input type="submit" value="æ˜¾ç¤ºæœ¬æœˆ"></td></form>
+<td width="12%"><a href="$thisprog?set_year=$preyear&set_month=$premonth"><img src="$imagesurl/images/premonth.gif" width="52" height="12" alt="æ˜¾ç¤ºä¸Šä¸€ä¸ªæœˆ" border="0"></a> <a href="$thisprog?set_year=$nextyear&set_month=$nextmonth"><img src="$imagesurl/images/nextmonth.gif" width="52" height="12" alt="æ˜¾ç¤ºä¸‹ä¸€ä¸ªæœˆ" border="0"></a></td></tr>
 </table>~;
 
-&output("$boardname - ÔÂÀú",\$output);
+&output("$boardname - æœˆå†",\$output);
 
 sub view_event{
 	my $event_list = '';
@@ -299,7 +305,7 @@ sub view_event{
 <td width="50%" height="200" valign="top" align="center">
 <table width="90%" border="0" style="border:1 solid $tablebordercolor" height="100%">
 <tr>
-<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>Ã¿ Äê ÊÂ ¼ş</td>
+<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>æ¯ å¹´ äº‹ ä»¶</td>
 </tr>
 <tr>
 <td valign="top" bgcolor="$miscbackone">$yearly_event_contents</td>
@@ -318,7 +324,7 @@ sub view_event{
 <td width="50%" height="200" valign="top" align="center">
 <table width="90%" border="0" style="border:1 solid $tablebordercolor" height="100%">
 <tr>
-<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>Ã¿ ÖÜ ÊÂ ¼ş</td>
+<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>æ¯ å‘¨ äº‹ ä»¶</td>
 </tr>
 <tr>
 <td valign="top" bgcolor="$miscbackone">$weekly_event_contents</td>
@@ -338,7 +344,7 @@ sub view_event{
 <td width="50%" height="200" valign="top" align="center">
 <table width="90%" border="0" style="border:1 solid $tablebordercolor" height="100%">
 <tr>
-<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>Ã¿ ÔÂ ÊÂ ¼ş</td>
+<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>æ¯ æœˆ äº‹ ä»¶</td>
 </tr>
 <tr>
 <td valign="top" bgcolor="$miscbackone">$monthly_event_contents</td>
@@ -357,7 +363,7 @@ sub view_event{
 <td width="50%" height="200" valign="top" align="center">
 <table width="90%" border="0" style="border:1 solid $tablebordercolor" height="100%">
 <tr>
-<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>ÌØ ±ğ ÊÂ ¼ş</td>
+<td height="10" style="border-bottom:1 solid $tablebordercolor" bgcolor="$miscbacktwo" align=center><B>ç‰¹ åˆ« äº‹ ä»¶</td>
 </tr>
 <tr>
 <td valign="top" bgcolor="$miscbackone">$dayonly_event_contents</td>
@@ -370,9 +376,9 @@ sub view_event{
 	}
 	$event_list .= qq~<td width="50%"></td>~ if($event_count == 1);
 	$event_list =~s/(<\/tr>\n<tr>)$//;
-	$event_list = '<td  height="200" valign="middle" align="center"><u>±¾ÈÕÃ»ÓĞÈÎºÎÊÂ¼ş</u></td>' if($event_list eq "");
+	$event_list = '<td  height="200" valign="middle" align="center"><u>æœ¬æ—¥æ²¡æœ‰ä»»ä½•äº‹ä»¶</u></td>' if($event_list eq "");
 	
-	$add_event = qq~<a href="$thisprog?action=event&set_year=$set_year&set_month=$set_month&set_day=$set_day"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="Ôö¼ÓĞÂÊÂ¼ş" border="0"></a>~ if($membercode eq "ad");
+	$add_event = qq~<a href="$thisprog?action=event&set_year=$set_year&set_month=$set_month&set_day=$set_day"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="å¢åŠ æ–°äº‹ä»¶" border="0"></a>~ if($membercode eq "ad");
 	
 	$nextday = $set_day+1;
 	$preday = $set_day-1;
@@ -395,34 +401,34 @@ sub view_event{
 		$premonth = 12;
 		$preyear--;
 	}
-	my $prelink = qq~<a href="$thisprog?action=view&set_year=$preyear&set_month=$premonth&set_day=$preday"><img src="$imagesurl/images/preday.gif" width="52" height="12" alt="ÏÔÊ¾ÉÏÒ»ÈÕ" border="0"></a>~;
+	my $prelink = qq~<a href="$thisprog?action=view&set_year=$preyear&set_month=$premonth&set_day=$preday"><img src="$imagesurl/images/preday.gif" width="52" height="12" alt="æ˜¾ç¤ºä¸Šä¸€æ—¥" border="0"></a>~;
 	if($preyear <= $now_year-$YEAR_COUNT){
-		$prelink = qq~<img src="$imagesurl/images/preday.gif" width="52" height="12" alt="ÏÔÊ¾ÉÏÒ»ÈÕ" border="0" style=filter:gray>~;
+		$prelink = qq~<img src="$imagesurl/images/preday.gif" width="52" height="12" alt="æ˜¾ç¤ºä¸Šä¸€æ—¥" border="0" style=filter:gray>~;
 	}
-	my $nextlink = qq~<a href="$thisprog?action=view&set_year=$nextyear&set_month=$nextmonth&set_day=$nextday"><img src="$imagesurl/images/nextday.gif" width="52" height="12" alt="ÏÔÊ¾ÏÂÒ»ÈÕ" border="0"></a>~;
+	my $nextlink = qq~<a href="$thisprog?action=view&set_year=$nextyear&set_month=$nextmonth&set_day=$nextday"><img src="$imagesurl/images/nextday.gif" width="52" height="12" alt="æ˜¾ç¤ºä¸‹ä¸€æ—¥" border="0"></a>~;
 	if($nextyear >= $now_year+$YEAR_COUNT){
-		$nextlink = qq~<img src="$imagesurl/images/nextday.gif" width="52" height="12" alt="ÏÔÊ¾ÏÂÒ»ÈÕ" border="0" style=filter:gray>~;
+		$nextlink = qq~<img src="$imagesurl/images/nextday.gif" width="52" height="12" alt="æ˜¾ç¤ºä¸‹ä¸€æ—¥" border="0" style=filter:gray>~;
 	}
 	$preclass = 'style=filter:gray';
 	$nextclass = 'style=filter:gray';
 	$output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´ÂÛÌ³ÔÂÀúºÍÌØ±ğÊÂ¼ş¼ÇÂ¼</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="$thisprog?set_year=$set_year&set_month=$set_month">ÂÛÌ³ÔÂÀú</a> ¡ú ²é¿´ÊÂ¼ş<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹è®ºå›æœˆå†å’Œç‰¹åˆ«äº‹ä»¶è®°å½•</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="$thisprog?set_year=$set_year&set_month=$set_month">è®ºå›æœˆå†</a> â†’ æŸ¥çœ‹äº‹ä»¶<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>²é¿´ <u>$date_display</u> µÄÊÂ¼ş</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æŸ¥çœ‹ <u>$date_display</u> çš„äº‹ä»¶</b></font></td></tr>
 <tr><td bgcolor=$miscbackone align="center"><table width="80%" border="0" cellspacing="0"><tr>$event_list</tr></table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 <table border="0" cellspacing="2" cellpadding="4" width="$tablewidth" align="center">
 <tr>
 <td width="*">$add_event</td>
 <td width="12%">$prelink $nextlink</td></tr>
 </table>~;
-	&output("$boardname - ²é¿´ÊÂ¼ş", \$output);
+	&output("$boardname - æŸ¥çœ‹äº‹ä»¶", \$output);
 }
 sub event_action{
-	$action_now = ($edit_event)?sprintf('±à¼­ÊÂ¼ş [%04dÄê%02dÔÂ%02dÈÕ]',$set_year,$set_month,$set_day):'Ôö¼ÓÊÂ¼ş';
+	$action_now = ($edit_event)?sprintf('ç¼–è¾‘äº‹ä»¶ [%04då¹´%02dæœˆ%02dæ—¥]',$set_year,$set_month,$set_day):'å¢åŠ äº‹ä»¶';
 	
 	my ($yearly_event,$weekly_event,$monthly_event,$dayonly_event);
 	my ($yearly_event_contents,$weekly_event_contents,$monthly_event_contents,$dayonly_event_contents);
@@ -465,15 +471,15 @@ function select_day(select_obj){
 		var day = d+1;
 		with(EVENTFORM.set_day){
 			options[d].value = day;
-			options[d].text = ((day < 10)?'0'+day:day)+'ÈÕ';
+			options[d].text = ((day < 10)?'0'+day:day)+'æ—¥';
 		}
 	}
 	EVENTFORM['full_date'].innerText = '';
 }
 </script>
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´ÂÛÌ³ÔÂÀúºÍÌØ±ğÊÂ¼ş¼ÇÂ¼</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="$thisprog?set_year=$set_year&set_month=$set_month">ÂÛÌ³ÔÂÀú</a> ¡ú ÊÂ¼şÉè¶¨<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹è®ºå›æœˆå†å’Œç‰¹åˆ«äº‹ä»¶è®°å½•</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="$thisprog?set_year=$set_year&set_month=$set_month">è®ºå›æœˆå†</a> â†’ äº‹ä»¶è®¾å®š<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -483,33 +489,33 @@ function select_day(select_obj){
 <input type="hidden" name="action" value="edit">
 <tr><td bgcolor=$titlecolor $catbackpic colspan="2" height="15"><font color=$titlefontcolor><b>$action_now</b></font></td></tr>
 <tr>
-<td width="30%" bgcolor="$miscbacktwo" valign=middle><font color=$fontcolormisc><b>ÊÂ¼şÈÕÆÚ</b></font></td>
+<td width="30%" bgcolor="$miscbacktwo" valign=middle><font color=$fontcolormisc><b>äº‹ä»¶æ—¥æœŸ</b></font></td>
 <td width="70%" bgcolor="$miscbacktwo"><select name="set_year" onChange="select_day(this)">$YEAR_LIST</select><select name="set_month" onChange="select_day(this)">$MONTH_LIST</select><select name="set_day">$DAY_LIST</select></td>
 </tr>
 <tr>
-<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>Ã¿ÖÜÊÂ¼ş</b></font><br><br><li>ÔÚÕâÀ¸ÌîĞ´Ã¿ÖÜÒ²Òª×¢ÒâµÄÊÂ¼ş</td>
+<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>æ¯å‘¨äº‹ä»¶</b></font><br><br><li>åœ¨è¿™æ å¡«å†™æ¯å‘¨ä¹Ÿè¦æ³¨æ„çš„äº‹ä»¶</td>
 <td width="70%" bgcolor="$miscbackone"><textarea name="weekly_event_contents" cols="70" rows="6">$weekly_event_contents</textarea></td>
 </tr>
 <tr>
-<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>Ã¿ÔÂÊÂ¼ş</b></font><br><br><li>ÔÚÕâÀ¸ÌîĞ´Ã¿ÔÂ±¾ÈÕÒ²Òª×¢ÒâµÄÊÂ¼ş</td>
+<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>æ¯æœˆäº‹ä»¶</b></font><br><br><li>åœ¨è¿™æ å¡«å†™æ¯æœˆæœ¬æ—¥ä¹Ÿè¦æ³¨æ„çš„äº‹ä»¶</td>
 <td width="70%" bgcolor="$miscbackone"><textarea name="monthly_event_contents" cols="70" rows="6">$monthly_event_contents</textarea></td>
 </tr>
 <tr>
-<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>Ã¿ÄêÊÂ¼ş</b></font><br><br><li>ÔÚÕâÀ¸ÌîĞ´Ã¿Äê±¾ÔÂ±¾ÈÕÒ²Òª×¢ÒâµÄÊÂ¼ş<li>Àı×Ó£ºĞÂÄê£¬Ê¥µ®£¬ÉúÈÕ</td>
+<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>æ¯å¹´äº‹ä»¶</b></font><br><br><li>åœ¨è¿™æ å¡«å†™æ¯å¹´æœ¬æœˆæœ¬æ—¥ä¹Ÿè¦æ³¨æ„çš„äº‹ä»¶<li>ä¾‹å­ï¼šæ–°å¹´ï¼Œåœ£è¯ï¼Œç”Ÿæ—¥</td>
 <td width="70%" bgcolor="$miscbackone"><textarea name="yearly_event_contents" cols="70" rows="6">$yearly_event_contents</textarea></td>
 </tr>
 <tr>
-<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>ÌØ„eÊÂ¼ş</b></font><br><br><li>ÔÚÕâÀ¸ÌîĞ´Ö»Òª×¢ÒâÒ»´ÎµÄÊÂ¼ş</td>
+<td width="30%" bgcolor="$miscbackone" valign=top><font color=$fontcolormisc><b>ç‰¹åˆ¥äº‹ä»¶</b></font><br><br><li>åœ¨è¿™æ å¡«å†™åªè¦æ³¨æ„ä¸€æ¬¡çš„äº‹ä»¶</td>
 <td width="70%" bgcolor="$miscbackone"><textarea name="dayonly_event_contents" cols="70" rows="6">$dayonly_event_contents</textarea></td>
 </tr>
 <tr>
 <td bgcolor="$miscbacktwo" colspan="2" align="center">
-<input type=Submit value="È· ¶¨ ´¢ ´æ" name=Submit>¡¡¡¡<input type="reset" name="Clear" value="Çå ³ı"></td>
+<input type=Submit value="ç¡® å®š å‚¨ å­˜" name=Submit>ã€€ã€€<input type="reset" name="Clear" value="æ¸… é™¤"></td>
 </tr>
 </form>
 </table>
 </td></tr></table><SCRIPT>valignend()</SCRIPT>~;
-	&output("$boardname - ±à¼­ÊÂ¼ş",\$output);
+	&output("$boardname - ç¼–è¾‘äº‹ä»¶",\$output);
 }
 
 sub edit_event {
@@ -531,24 +537,24 @@ sub edit_event {
 	$dayonly_event = $lbdir.'calendar/dayonly_'.$set_year.'_'.$set_month.'_'.$set_day.'.cgi';
 	write_event($dayonly_event,$dayonly_event_contents);
 	
-	&delete_old_event; #É¾³ı¹ıÆÚµÄÌØ±ğÊÂ¼ş
+	&delete_old_event; #åˆ é™¤è¿‡æœŸçš„ç‰¹åˆ«äº‹ä»¶
 	&title;
 	$output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´ÂÛÌ³ÔÂÀúºÍÌØ±ğÊÂ¼ş¼ÇÂ¼</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="$thisprog?set_year=$set_year&set_month=$set_month">ÂÛÌ³ÔÂÀú</a> ¡ú ÊÂ¼şÉè¶¨<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹è®ºå›æœˆå†å’Œç‰¹åˆ«äº‹ä»¶è®°å½•</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="$thisprog?set_year=$set_year&set_month=$set_month">è®ºå›æœˆå†</a> â†’ äº‹ä»¶è®¾å®š<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>Ğ»Ğ»£¬$inmembername£¡ÄúµÄÊÂ¼şÒÑ¾­³É¹¦´¢´æ£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡
-<ul><li><a href="$thisprog?set_year=$set_year&set_month=$set_month">·µ»ØÔÂÀú</a>
-<li><a href="leoboard.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>è°¢è°¢ï¼Œ$inmembernameï¼æ‚¨çš„äº‹ä»¶å·²ç»æˆåŠŸå‚¨å­˜ï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼
+<ul><li><a href="$thisprog?set_year=$set_year&set_month=$set_month">è¿”å›æœˆå†</a>
+<li><a href="leoboard.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$thisprog?set_year=$set_year&set_month=$set_month">~;
-	&output("$boardname - ´¢´æÊÂ¼ş",\$output);
+	&output("$boardname - å‚¨å­˜äº‹ä»¶",\$output);
 }
 
 sub open_event{
@@ -562,7 +568,7 @@ sub open_event{
 	my $FILE_EVENT = <EVENTFILE>;
 	$/ = "\n";
 	close(EVENTFILE);
-	$FILE_EVENT =~ s/^£ª£££¡£¦£ª//;
+	$FILE_EVENT =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//;
 	&winunlock($FILE_PATH) if (($OS_USED eq "Unix")||($OS_USED eq "Nt"));
 	if($FILE_EVENT =~/^[\n|\s]*$/){
 		$FILE_EVENT = "";
@@ -578,7 +584,7 @@ sub write_event{
 	if($FILE_EVENT =~/^[\n|\s]*$/){
 		unlink($FILE_PATH) if(-e $FILE_PATH);
 	}else{
-		$FILE_EVENT = '£ª£££¡£¦£ª'.$FILE_EVENT;
+		$FILE_EVENT = 'ï¼Šï¼ƒï¼ï¼†ï¼Š'.$FILE_EVENT;
 		my @FILE_EVENT = split(/\n+/,$FILE_EVENT);
 		&winlock($FILE_PATH) if (($OS_USED eq "Unix")||($OS_USED eq "Nt"));
 		open(EVENTFILE,">$FILE_PATH");
@@ -609,7 +615,7 @@ sub delete_old_event{
 }
 
 sub getmenbrithday{
-&error("È¨ÏŞ´íÎó&¶Ô²»Æğ£¬±¾¹¦ÄÜÖ»ÏŞÌ³Ö÷Ê¹ÓÃ£¡") if ($membercode ne "ad");
+&error("æƒé™é”™è¯¯&å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½åªé™å›ä¸»ä½¿ç”¨ï¼") if ($membercode ne "ad");
 open (MEMFILE, "${lbdir}data/lbmember3.cgi");
 @birthdaydata = <MEMFILE>;
 close (MEMFILE);
@@ -630,19 +636,19 @@ close(FILE);
 	&title;
 	$output .= qq~
 <br>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> ÔÚÕâÀïÄú¿ÉÒÔ²é¿´ÂÛÌ³ÔÂÀúºÍÌØ±ğÊÂ¼ş¼ÇÂ¼</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> ¡ú <a href="$thisprog?set_year=$set_year&set_month=$set_month">ÂÛÌ³ÔÂÀú</a> ¡ú ÊÂ¼şÉè¶¨<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> åœ¨è¿™é‡Œæ‚¨å¯ä»¥æŸ¥çœ‹è®ºå›æœˆå†å’Œç‰¹åˆ«äº‹ä»¶è®°å½•</td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> â†’ <a href="$thisprog?set_year=$set_year&set_month=$set_month">è®ºå›æœˆå†</a> â†’ äº‹ä»¶è®¾å®š<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>ËùÓĞÓÃ»§ÉúÈÕÊı¾İÒÑ¾­¸üĞÂ£¡</b></font></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡
-<ul><li><a href="$thisprog?set_year=$set_year&set_month=$set_month">·µ»ØÔÂÀú</a>
-<li><a href="leoboard.cgi">·µ»ØÂÛÌ³Ê×Ò³</a>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æ‰€æœ‰ç”¨æˆ·ç”Ÿæ—¥æ•°æ®å·²ç»æ›´æ–°ï¼</b></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼
+<ul><li><a href="$thisprog?set_year=$set_year&set_month=$set_month">è¿”å›æœˆå†</a>
+<li><a href="leoboard.cgi">è¿”å›è®ºå›é¦–é¡µ</a>
 </ul></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$thisprog?set_year=$set_year&set_month=$set_month">~;
-	&output("$boardname - ¸üĞÂÓÃ»§ÉúÈÕÊı¾İ",\$output);
+	&output("$boardname - æ›´æ–°ç”¨æˆ·ç”Ÿæ—¥æ•°æ®",\$output);
 
 }
