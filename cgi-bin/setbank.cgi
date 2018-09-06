@@ -758,40 +758,80 @@ sub editmem
 </tr>
 <tr>
 	<td bgcolor=#ffffff>ã€€ä¿®æ”¹å–æ¬¾å¯†ç ï¼šã€€</td>
-	<td bgcolor=#ffffff>ã€€<input type=isplay = $query->param('bankmaxdisplay');
+	<td bgcolor=#ffffff>ã€€<input type=text name=getpass size=15> (ç•™ç©ºåˆ™ä¸ä¿®æ”¹)</td>
+</tr>
+<tr>
+	<td bgcolor=#ffffff>ã€€ç”¨æˆ·è´¦æˆ·çŠ¶æ€ï¼šã€€</td>
+	<td bgcolor=#ffffff>ã€€<input name=accountstats type=radio value="on"> æ­£å¸¸ä½¿ç”¨ã€€ã€€<input name=accountstats value="off" type=radio> æš‚æ—¶å†»ç»“</td>
+</tr>
+<tr>
+	<td bgcolor=#ffffff align=center><input type=submit value=ä¿®ã€€æ”¹></td>
+	<td bgcolor=#ffffff align=center><input type=reset value=é‡ã€€ç½®></td>
+</tr>
+</table></form>~;
+
+	if ($mystatus == 1)
+	{
+		$output =~ s/value="on"/value="on" checked/g;
+	}
+	else
+	{
+		$output =~ s/value="off"/value="on" checked/g;
+	}
+
+	return;
+}
+
+sub setok
+{
+	my $newbankopen = $query->param('bankopen');
+	my $newbankname = $query->param('bankname');
+	my $newbankmanager = $query->param('bankmanager');
+	my $newbankmessage = $query->param('bankmessage');
+	my $newbanksaverate = $query->param('banksaverate');
+	my $newbanktransneed = $query->param('banktransneed');
+	my $newbanktransrate = $query->param('banktransrate');
+	my $newbankpostrate = $query->param('bankpostrate');
+	my $newbankallowloan = $query->param('bankallowloan');
+	my $newbankloanmaxdays = $query->param('bankloanmaxdays');
+	my $newbankloanrate = $query->param('bankloanrate');
+	my $newbankrateloan = $query->param('bankrateloan');
+	my $newbankmaxdeal = $query->param('bankmaxdeal');
+	my $newbankmindeal = $query->param('bankmindeal');
+	my $newbankmaxdisplay = $query->param('bankmaxdisplay');
 	my $newbankmaxdaydo = $query->param('bankmaxdaydo');
 	my $newbanklogpriviate = $query->param('banklogpriviate');
 	my $newbankadminallow = $query->param('bankadminallow');
 
 	$newbankopen = "on" if ($newbankopen ne "off");
-	&seterror("»¹Ã»ÓĞÊäÈëĞĞ³¤´óÃû£¡") if ($newbankmanager eq "");
+	&seterror("è¿˜æ²¡æœ‰è¾“å…¥è¡Œé•¿å¤§åï¼") if ($newbankmanager eq "");
 	$newbankmanager = &unHTML($newbankmanager);
-	&seterror("»¹Ã»ÓĞÊäÈëÒøĞĞÃû³Æ£¡") if ($newbankname eq "");
+	&seterror("è¿˜æ²¡æœ‰è¾“å…¥é“¶è¡Œåç§°ï¼") if ($newbankname eq "");
 	$newbankname = &unHTML($newbankname);
 	$newbankmessage = &unHTML($newbankmessage);
-	&seterror("´æ¿îÈÕÀûÂÊÊäÈë´íÎó£¡") if ($newbanksaverate =~ /[^0-9\.]/ or $newbanksaverate eq "");
-	&seterror("´æ¿îÈÕÀûÂÊÌ«¸ß£¡") if ($newbanksaverate > 10);
+	&seterror("å­˜æ¬¾æ—¥åˆ©ç‡è¾“å…¥é”™è¯¯ï¼") if ($newbanksaverate =~ /[^0-9\.]/ or $newbanksaverate eq "");
+	&seterror("å­˜æ¬¾æ—¥åˆ©ç‡å¤ªé«˜ï¼") if ($newbanksaverate > 10);
 	$newbanksaverate /= 100;
-	&seterror("×ªÕÊ»ã¿î¹¦ÄÜ×îµÍĞèÒªÍşÍûÖµÊäÈë´íÎó£¡") if ($newbanktransneed =~ /[^0-9]/ or $newbanktransneed eq "");
-	&seterror("×ªÕÊ»ãÂÊÊäÈë´íÎó£¡") if ($newbanktransrate =~ /[^0-9\.]/ or $newbanktransrate eq "");
+	&seterror("è½¬å¸æ±‡æ¬¾åŠŸèƒ½æœ€ä½éœ€è¦å¨æœ›å€¼è¾“å…¥é”™è¯¯ï¼") if ($newbanktransneed =~ /[^0-9]/ or $newbanktransneed eq "");
+	&seterror("è½¬å¸æ±‡ç‡è¾“å…¥é”™è¯¯ï¼") if ($newbanktransrate =~ /[^0-9\.]/ or $newbanktransrate eq "");
 	$newbanktransrate /= 100;
-	&seterror("»ã¿î»ãÂÊÊäÈë´íÎó£¡") if ($newbankpostrate =~ /[^0-9\.]/ or $newbankpostrate eq "");
+	&seterror("æ±‡æ¬¾æ±‡ç‡è¾“å…¥é”™è¯¯ï¼") if ($newbankpostrate =~ /[^0-9\.]/ or $newbankpostrate eq "");
 	$newbankpostrate /= 100;
 	$newbankallowloan = "yes" if ($newbankallowloan ne "no");
-	&seterror("´û¿î×î³¤³¥»¹ÆÚÏŞÊäÈë´íÎó£¡") if ($newbankloanmaxdays =~ /[^0-9]/ or $newbankloanmaxdays eq "");
-	&seterror("´û¿îÈÕÀûÂÊÊäÈë´íÎó£¡") if ($newbankloanrate =~ /[^0-9\.]/ or $newbankloanrate eq "");
+	&seterror("è´·æ¬¾æœ€é•¿å¿è¿˜æœŸé™è¾“å…¥é”™è¯¯ï¼") if ($newbankloanmaxdays =~ /[^0-9]/ or $newbankloanmaxdays eq "");
+	&seterror("è´·æ¬¾æ—¥åˆ©ç‡è¾“å…¥é”™è¯¯ï¼") if ($newbankloanrate =~ /[^0-9\.]/ or $newbankloanrate eq "");
 	$newbankloanrate /= 100;
-	&seterror("´û¿îÀûÂÊ±ØĞë¸ßÓÚ´æ¿îÀûÂÊ£¡") if ($newbankloanrate <= $newbanksaverate);
-	&seterror("Ã¿µãÍşÍû×î¸ßµÖÑº´û¿îÊı¶îÊäÈë´íÎó£¡") if ($newbankrateloan =~ /[^0-9]/ or $newbankrateloan eq "");
-	&seterror("µ¥±Ê½»Ò××î¸ßÏŞ¶îÊäÈë´íÎó£¡") if ($newbankmaxdeal =~ /[^0-9]/ or $newbankmaxdeal eq "");
-	&seterror("µ¥±Ê½»Ò××îµÍÏŞ¶îÊäÈë´íÎó£¡") if ($newbankmindeal =~ /[^0-9]/ or $newbankmindeal eq "");
-	&seterror("µ¥±Ê½»Ò××î¸ßÏŞ¶îÓ¦¸Ã´óÓÚµ¥±Ê½»Ò××îµÍÏŞ¶î£¡") if ($newbankmaxdeal <= $newbankmindeal);
-	&seterror("Ê×Ò³ÏÔÊ¾µÄÓÃ»§ÅÅÃûÊıÊäÈë´íÎó£¡") if ($newbankmaxdisplay =~ /[^0-9]/ or $newbankmaxdisplay eq "");
-	&seterror("Ê×Ò³ÏÔÊ¾µÄÓÃ»§ÅÅÃûÊı¹ı¶à£¡") if ($newbankmaxdisplay > 20);
-	&seterror("24Ğ¡Ê±ÄÚ×î´ó½»Ò×´ÎÊıÊäÈë´íÎó£¡") if ($newbankmaxdaydo =~ /[^0-9]/ or $newbankmaxdaydo eq "");
-	&seterror("24Ğ¡Ê±ÄÚ×î´ó½»Ò×´ÎÊı¹ı¶à£¡") if ($newbankmaxdaydo > 10);
-	&seterror("¸öÈË´æÕÛ×î¸ß¼ÇÂ¼ÌõÊıÊäÈë´íÎó£¡") if ($newbanklogpriviate =~ /[^0-9]/ or $newbanklogpriviate eq "");
-	&seterror("¸öÈË´æÕÛ×î¸ß¼ÇÂ¼ÌõÊı¹ı¶à£¡") if ($newbanklogpriviate > 20);
+	&seterror("è´·æ¬¾åˆ©ç‡å¿…é¡»é«˜äºå­˜æ¬¾åˆ©ç‡ï¼") if ($newbankloanrate <= $newbanksaverate);
+	&seterror("æ¯ç‚¹å¨æœ›æœ€é«˜æŠµæŠ¼è´·æ¬¾æ•°é¢è¾“å…¥é”™è¯¯ï¼") if ($newbankrateloan =~ /[^0-9]/ or $newbankrateloan eq "");
+	&seterror("å•ç¬”äº¤æ˜“æœ€é«˜é™é¢è¾“å…¥é”™è¯¯ï¼") if ($newbankmaxdeal =~ /[^0-9]/ or $newbankmaxdeal eq "");
+	&seterror("å•ç¬”äº¤æ˜“æœ€ä½é™é¢è¾“å…¥é”™è¯¯ï¼") if ($newbankmindeal =~ /[^0-9]/ or $newbankmindeal eq "");
+	&seterror("å•ç¬”äº¤æ˜“æœ€é«˜é™é¢åº”è¯¥å¤§äºå•ç¬”äº¤æ˜“æœ€ä½é™é¢ï¼") if ($newbankmaxdeal <= $newbankmindeal);
+	&seterror("é¦–é¡µæ˜¾ç¤ºçš„ç”¨æˆ·æ’åæ•°è¾“å…¥é”™è¯¯ï¼") if ($newbankmaxdisplay =~ /[^0-9]/ or $newbankmaxdisplay eq "");
+	&seterror("é¦–é¡µæ˜¾ç¤ºçš„ç”¨æˆ·æ’åæ•°è¿‡å¤šï¼") if ($newbankmaxdisplay > 20);
+	&seterror("24å°æ—¶å†…æœ€å¤§äº¤æ˜“æ¬¡æ•°è¾“å…¥é”™è¯¯ï¼") if ($newbankmaxdaydo =~ /[^0-9]/ or $newbankmaxdaydo eq "");
+	&seterror("24å°æ—¶å†…æœ€å¤§äº¤æ˜“æ¬¡æ•°è¿‡å¤šï¼") if ($newbankmaxdaydo > 10);
+	&seterror("ä¸ªäººå­˜æŠ˜æœ€é«˜è®°å½•æ¡æ•°è¾“å…¥é”™è¯¯ï¼") if ($newbanklogpriviate =~ /[^0-9]/ or $newbanklogpriviate eq "");
+	&seterror("ä¸ªäººå­˜æŠ˜æœ€é«˜è®°å½•æ¡æ•°è¿‡å¤šï¼") if ($newbanklogpriviate > 20);
 	$newbankadminallow = "allad" unless ($newbankadminallow eq "all" or $newbankadminallow eq "manager");
 
 	my $filetomake = $lbdir . "data/ebankinfo.cgi";
@@ -821,15 +861,15 @@ sub editmem
 	close(FILE);
 	&winunlock($filetomake) if ($OS_USED eq "Nt");
 
-	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çë<a href=$thisprog>µã»÷ÕâÀï</a>~;
+	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·<a href=$thisprog>ç‚¹å‡»è¿™é‡Œ</a>~;
 	return;
 }
 
 sub editok
 {
 	my $memid = $query->param('memid');
-	&seterror("Ã»ÓĞÊäÈë±à¼­µÄÕÊ»§Ãû£¡") if ($memid eq "");
-	&seterror("ÕÊ»§Ãûº¬ÓĞ·Ç·¨×Ö·û£¡") if (($memid =~ m/\//) || ($memid =~ m/\\/) || ($memid =~ m/\.\./));
+	&seterror("æ²¡æœ‰è¾“å…¥ç¼–è¾‘çš„å¸æˆ·åï¼") if ($memid eq "");
+	&seterror("å¸æˆ·åå«æœ‰éæ³•å­—ç¬¦ï¼") if (($memid =~ m/\//) || ($memid =~ m/\\/) || ($memid =~ m/\.\./));
 	$memid =~ s/ /\_/sg;
 	$memid =~ tr/A-Z/a-z/;
 
@@ -858,7 +898,7 @@ sub editok
 		{
 			if ($mysaves != $newsavenums)
 			{			
-				&logaction($inmembername, "±à¼­ÓÃ»§ $membername µÄ´æ¿î´Ó $mysaves $moneynameµ½ $newsavenums $moneyname¡£");
+				&logaction($inmembername, "ç¼–è¾‘ç”¨æˆ· $membername çš„å­˜æ¬¾ä» $mysaves $moneynameåˆ° $newsavenums $moneynameã€‚");
 				&updateallsave(0, $newsavenums - $mysaves);
 				$mysaves = $newsavenums;
 				&order($memid, $newsavenums);
@@ -866,7 +906,7 @@ sub editok
 
 			if ($myloan && $clearloan eq "yes")
 			{		
-				&logaction($inmembername, "Çå³ıÁËÓÃ»§ $membername $myloan $moneynameµÄ´û¿î¼ÇÂ¼¡£");
+				&logaction($inmembername, "æ¸…é™¤äº†ç”¨æˆ· $membername $myloan $moneynameçš„è´·æ¬¾è®°å½•ã€‚");
 				$myloan = 0;
 				$myloantime = "";
 				$myloanrating = 0;
@@ -875,19 +915,19 @@ sub editok
 			if ($getpass ne "")
 			{
 				$bankgetpass = $getpass;
-				&logaction($inmembername, "<b>ĞŞ¸ÄÁËÓÃ»§ $membername µÄÈ¡¿îÃÜÂë¡£</b>");
+				&logaction($inmembername, "<b>ä¿®æ”¹äº†ç”¨æˆ· $membername çš„å–æ¬¾å¯†ç ã€‚</b>");
 			}
 
 			if ($accountstats eq "on" && $mystatus == -1)
 			{
-				&bankmessage($memid, "½â¶³Í¨Öª", "ÄãÔÚ$banknameµÄÕË»§ÒÑ¾­±»$inmembername½â¶³¡£");
-				&logaction($inmembername, "<font color=green>½â³ıÁË¶ÔÓÃ»§ $membername ÕÊ»§µÄ¶³½á¡£</font>");
+				&bankmessage($memid, "è§£å†»é€šçŸ¥", "ä½ åœ¨$banknameçš„è´¦æˆ·å·²ç»è¢«$inmembernameè§£å†»ã€‚");
+				&logaction($inmembername, "<font color=green>è§£é™¤äº†å¯¹ç”¨æˆ· $membername å¸æˆ·çš„å†»ç»“ã€‚</font>");
 				$mystatus = 1;
 			}
 			elsif ($accountstats eq "off" && $mystatus == 1)
 			{
-				&bankmessage($memid, "¶³½áÍ¨Öª", "ÄãÔÚ$banknameµÄÕË»§ÒÑ¾­±»$inmembername¶³½á£¬ÈçÓĞÒÉÎÊÇëÓëÆäÁªÏµ¡£");
-				&logaction($inmembername, "<font color=red>ÔİÊ±¶³½áÁËÓÃ»§ $membername µÄÕÊ»§¡£</font>");
+				&bankmessage($memid, "å†»ç»“é€šçŸ¥", "ä½ åœ¨$banknameçš„è´¦æˆ·å·²ç»è¢«$inmembernameå†»ç»“ï¼Œå¦‚æœ‰ç–‘é—®è¯·ä¸å…¶è”ç³»ã€‚");
+				&logaction($inmembername, "<font color=red>æš‚æ—¶å†»ç»“äº†ç”¨æˆ· $membername çš„å¸æˆ·ã€‚</font>");
 				$mystatus = -1;
 			}
 
@@ -908,15 +948,15 @@ sub editok
 		else
 		{
 			&winunlock($filetoopen) if ($OS_USED eq "Nt");
-			&seterror("ÓÃ»§ $memid Ã»ÓĞÔÚ±¾ĞĞ¿ª»§£¡");
+			&seterror("ç”¨æˆ· $memid æ²¡æœ‰åœ¨æœ¬è¡Œå¼€æˆ·ï¼");
 		}
 	}
 	else
 	{
-		&seterror("ÓÃ»§ $memid ²»´æÔÚ£¡");
+		&seterror("ç”¨æˆ· $memid ä¸å­˜åœ¨ï¼");
 	}
 
-	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çë<a href=$thisprog>µã»÷ÕâÀï</a>~;
+	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·<a href=$thisprog>ç‚¹å‡»è¿™é‡Œ</a>~;
 	return;
 }
 
@@ -948,11 +988,11 @@ sub empty
 			print FILE "$_\n";
 		}
 	}
-	print FILE "$inmembername\t$currenttime\t<b>ÅúÁ¿É¾³ıÁËÒøĞĞ $clearday ÌìÒÔÇ°µÄ¹ıÆÚ½»Ò×ÈÕÖ¾¹² $deletenum Ìõ¡£</b>\n";
+	print FILE "$inmembername\t$currenttime\t<b>æ‰¹é‡åˆ é™¤äº†é“¶è¡Œ $clearday å¤©ä»¥å‰çš„è¿‡æœŸäº¤æ˜“æ—¥å¿—å…± $deletenum æ¡ã€‚</b>\n";
 	close(FILE);
 	&winunlock($filetomake) if ($OS_USED eq "Unix" || $OS_USED eq "Nt");
 
-	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çë<a href=$thisprog>µã»÷ÕâÀï</a>~;
+	$output = qq~<meta http-equiv="refresh" Content="0; url=$thisprog"><br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·<a href=$thisprog>ç‚¹å‡»è¿™é‡Œ</a>~;
 	return;
 }
 
@@ -961,16 +1001,16 @@ sub seterror
 	my $message = $_[0];
 	my $output = qq~
 <table width=100% cellpadding=6 cellspacing=0>
-<tr><td bgcolor=#2159C9><font color=#ffffff><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÒøĞĞ¹ÜÀí·¢Éú´íÎó</b></font></td></tr>
-<tr><td bgcolor=#eeeeee><font color=#990000><b>¡¡³ö´íÀ­£º</b>$message</font></td></tr>
-<tr><td bgcolor=#ffffff>¡¡¡¡<a href="javascript:history.go(-1);">·µ»ØÉÏÒ»Ò³</a></td></tr>
+<tr><td bgcolor=#2159C9><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / é“¶è¡Œç®¡ç†å‘ç”Ÿé”™è¯¯</b></font></td></tr>
+<tr><td bgcolor=#eeeeee><font color=#990000><b>ã€€å‡ºé”™æ‹‰ï¼š</b>$message</font></td></tr>
+<tr><td bgcolor=#ffffff>ã€€ã€€<a href="javascript:history.go(-1);">è¿”å›ä¸Šä¸€é¡µ</a></td></tr>
 </table>
 </td></tr></table></body></html>~;
 	print $output;	
 	exit;
 }
 
-sub bankmessage #¸øÓÃ»§·¢ÒøĞĞ¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£ºÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
+sub bankmessage #ç»™ç”¨æˆ·å‘é“¶è¡ŒçŸ­æ¶ˆæ¯ï¼ˆè°ƒç”¨å‚æ•°ï¼šæ”¶å–äººã€ä¸»é¢˜ã€å†…å®¹ï¼‰
 {
 	my ($receivemember, $topic, $content) = @_;
 
@@ -987,7 +1027,7 @@ sub bankmessage #¸øÓÃ»§·¢ÒøĞĞ¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£ºÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
 		close(FILE);
 	}
 
-	@filedata = ("£ª£££¡£¦£ª$bankname\tno\t$currenttime\t$topic\t$content<br><br>¡¡¡¡¸ĞĞ»Ê¹ÓÃ$banknameµÄÓÅÖÊ·şÎñ¡£<br><br>\n", @filedata);
+	@filedata = ("ï¼Šï¼ƒï¼ï¼†ï¼Š$bankname\tno\t$currenttime\t$topic\t$content<br><br>ã€€ã€€æ„Ÿè°¢ä½¿ç”¨$banknameçš„ä¼˜è´¨æœåŠ¡ã€‚<br><br>\n", @filedata);
 
 	open(FILE, ">$filetomake");
 	flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -1002,7 +1042,7 @@ sub bankmessage #¸øÓÃ»§·¢ÒøĞĞ¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£ºÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
 	return;
 }
 
-sub updateallsave #ÀûÓÃ±ä»¯Á¿À´¸üĞÂ×ÜÁ¿ĞÅÏ¢
+sub updateallsave #åˆ©ç”¨å˜åŒ–é‡æ¥æ›´æ–°æ€»é‡ä¿¡æ¯
 {
 	my ($callusers, $callsaves) = @_;
 
@@ -1034,7 +1074,7 @@ sub updateallsave #ÀûÓÃ±ä»¯Á¿À´¸üĞÂ×ÜÁ¿ĞÅÏ¢
 	return;
 }
 
-sub logaction #¼ÇÂ¼ÒøĞĞÈÕÖ¾£¨µ÷ÓÃ²ÎÊı£º²Ù×÷ÈËÔ±£¬ÈÕÖ¾ÄÚÈİ£©
+sub logaction #è®°å½•é“¶è¡Œæ—¥å¿—ï¼ˆè°ƒç”¨å‚æ•°ï¼šæ“ä½œäººå‘˜ï¼Œæ—¥å¿—å†…å®¹ï¼‰
 {
 	my ($actionmember, $actionretail) = @_;
 	my $currenttime = time;
@@ -1073,35 +1113,35 @@ if ($useverify eq 'yes')
 
 	print qq~
 <tr>
-	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>»¶Ó­À´µ½ÒøĞĞĞĞ³¤°ì¹«ÊÒ</b></font></td>
+	<td bgcolor=#2159C9 colspan=2><font color=#ffffff><b>æ¬¢è¿æ¥åˆ°é“¶è¡Œè¡Œé•¿åŠå…¬å®¤</b></font></td>
 </tr>
 <form action=$thisprog method=POST>
 <input type=hidden name=action value="login">
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÓÃ»§Ãû</font></td><td bgcolor=$miscbackone><input type=text name="membername" value="$inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">ÄúÃ»ÓĞ×¢²á£¿</span></td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>ÇëÊäÈëÄúµÄÃÜÂë</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">Íü¼ÇÃÜÂë£¿</a></font></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„ç”¨æˆ·å</font></td><td bgcolor=$miscbackone><input type=text name="membername" value="$inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">æ‚¨æ²¡æœ‰æ³¨å†Œï¼Ÿ</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>è¯·è¾“å…¥æ‚¨çš„å¯†ç </font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">å¿˜è®°å¯†ç ï¼Ÿ</a></font></td></tr>
 ~;
 print qq~
 <tr>
-	<td bgcolor=#ffffff valign=middle width=40% align=right><font color=#555555>ÇëÊäÈëÓÒ±ßÍ¼Æ¬µÄÊı×Ö</font></td>
-	<td bgcolor=#ffffff valign=middle><input type=hidden name=sessionid value="$sessionid"><input type=text name=verifynum size=4 maxlength=4>¡¡¡¡<img src=$imagesurl/verifynum/$sessionid.$houzhui border=0 align=absmiddle></td>
+	<td bgcolor=#ffffff valign=middle width=40% align=right><font color=#555555>è¯·è¾“å…¥å³è¾¹å›¾ç‰‡çš„æ•°å­—</font></td>
+	<td bgcolor=#ffffff valign=middle><input type=hidden name=sessionid value="$sessionid"><input type=text name=verifynum size=4 maxlength=4>ã€€ã€€<img src=$imagesurl/verifynum/$sessionid.$houzhui border=0 align=absmiddle></td>
 </tr>
 ~ if ($useverify eq "yes");
 
 print qq~
 <tr>
-	<td bgcolor=#ffffff valign=middle colspan=2 align=center><input type=submit value="µÇ Â½"></td>
+	<td bgcolor=#ffffff valign=middle colspan=2 align=center><input type=submit value="ç™» é™†"></td>
 </tr>
 </form>
 <tr>
 	<td bgcolor=#ffffff valign=middle align=left colspan=2><font face=$font color=#555555>
-		<blockquote><b>Çë×¢Òâ</b><p><b>Ö»ÓĞÒøĞĞĞĞ³¤²ÅÄÜ½øÈëĞĞ³¤°ì¹«ÊÒ¡£<br>Î´¾­¹ıÊÚÈ¨µÄ³¢ÊÔµÇÂ¼ĞĞÎª½«»á±»¼ÇÂ¼ÔÚÒøĞĞÈÕÖ¾£¡</b><p>ÔÚ½øÈëĞĞ³¤°ì¹«ÊÒÇ°£¬ÇëÈ·¶¨ÄãµÄä¯ÀÀÆ÷´ò¿ªÁË Cookie Ñ¡Ïî¡£<br> Cookie Ö»»á´æÔÚÓÚµ±Ç°µÄä¯ÀÀÆ÷½ø³ÌÖĞ¡£ÎªÁË°²È«Æğ¼û£¬µ±Äã¹Ø±ÕÁËä¯ÀÀÆ÷ºó£¬Cookie »áÊ§Ğ§²¢±»×Ô¶¯É¾³ı¡£</blockquote>
+		<blockquote><b>è¯·æ³¨æ„</b><p><b>åªæœ‰é“¶è¡Œè¡Œé•¿æ‰èƒ½è¿›å…¥è¡Œé•¿åŠå…¬å®¤ã€‚<br>æœªç»è¿‡æˆæƒçš„å°è¯•ç™»å½•è¡Œä¸ºå°†ä¼šè¢«è®°å½•åœ¨é“¶è¡Œæ—¥å¿—ï¼</b><p>åœ¨è¿›å…¥è¡Œé•¿åŠå…¬å®¤å‰ï¼Œè¯·ç¡®å®šä½ çš„æµè§ˆå™¨æ‰“å¼€äº† Cookie é€‰é¡¹ã€‚<br> Cookie åªä¼šå­˜åœ¨äºå½“å‰çš„æµè§ˆå™¨è¿›ç¨‹ä¸­ã€‚ä¸ºäº†å®‰å…¨èµ·è§ï¼Œå½“ä½ å…³é—­äº†æµè§ˆå™¨åï¼ŒCookie ä¼šå¤±æ•ˆå¹¶è¢«è‡ªåŠ¨åˆ é™¤ã€‚</blockquote>
 	</td>
 </tr>
 ~;
 	return;
 }
 
-sub order #ÒøĞĞÅÅĞò³ÌĞò
+sub order #é“¶è¡Œæ’åºç¨‹åº
 {
 	my ($adduser, $addsave) = @_;
 	my %ordersaves;
@@ -1173,14 +1213,14 @@ sub checkverify {
         mkdir ("${lbdir}verifynum", 0777) unless (-e "${lbdir}verifynum");
         mkdir ("${lbdir}verifynum/login", 0777) if (!(-e "${lbdir}verifynum/login"));
 
-	###»ñÈ¡ÕæÊµµÄ IP µØÖ·
+	###è·å–çœŸå®çš„ IP åœ°å€
 	my $ipaddress = $ENV{'REMOTE_ADDR'};
 	my $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
 	$ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
 	$trueipaddress = $ENV{'HTTP_CLIENT_IP'};
 	$ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
 
-	###»ñÈ¡µ±Ç°½ø³ÌµÄÑéÖ¤ÂëºÍÑéÖ¤Âë²úÉúÊ±¼ä¡¢ÓÃ»§ÃÜÂë
+	###è·å–å½“å‰è¿›ç¨‹çš„éªŒè¯ç å’ŒéªŒè¯ç äº§ç”Ÿæ—¶é—´ã€ç”¨æˆ·å¯†ç 
 	my $filetoopen = "${lbdir}verifynum/$sessionid.cgi";
 	open(FILE, $filetoopen);
 	my $content = <FILE>;
@@ -1191,7 +1231,7 @@ sub checkverify {
 	my $currenttime = time;
 
 	if (($verifynum ne $trueverifynum || $currenttime > $verifytime + 300 || $ipaddress ne $savedipaddress)&&($useverify eq "yes"))
-	{#ÑéÖ¤ÂëÓĞĞ§Ê±¼ä½öÎª5·ÖÖÓ
+	{#éªŒè¯ç æœ‰æ•ˆæ—¶é—´ä»…ä¸º5åˆ†é’Ÿ
 		$inpassword = "";
 	}
 	else

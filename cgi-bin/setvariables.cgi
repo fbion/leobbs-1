@@ -226,7 +226,6 @@ if ($@) {
                <td bgcolor=#FFFFFF>
                $tempoutput1 <input name=regautovalue value="$regautovalue" size=8><br>注: 可以使用单一数字或是范围，如每天6, 每天0-6, 每星期6, 每月10-15</td>
                </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333 ><b>不允许注册说明</b> (支持 HTML)<BR><BR></font></td>
@@ -261,7 +260,6 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 <textarea name="popupmsg" cols="40">$popupmsg</textarea><BR><BR></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛名称</b></font></td>
@@ -296,14 +294,12 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="homename" value="$homename"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>版权信息</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="copyrightinfo" value="$copyrightinfo"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛备案信息，只需填入编号就可以，<BR>不要填其他多余的内容，如果没有请留空！</b></font></td>
@@ -317,14 +313,12 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="statusbar" value="$statusbar"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>主页地址</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="homeurl" value="$homeurl"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>图片目录 URL</b><br>在结尾不要加 "/images"</font></td>
@@ -376,14 +370,12 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛关键字</b><br>输入和你论坛相关的关键字，每个关键字之间用英文的逗号隔开 ！</font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="newkeywords" value="$newkeywords" size=40 maxlength=100></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
                 <font face=宋体 color=#990000><b>短消息功能</b>
@@ -434,7 +426,6 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
                 <font face=宋体 color=#990000><b>邮件功能</b>
@@ -462,21 +453,18 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>发送邮件程序位置</b><br>如果您使用的不是 Sendmail，请不要填写</font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=30 name="SEND_MAIL" value="$SEND_MAIL"> 测试结果：$sendmailprog</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>SMTP 的位置</b><br>如果您使用的不是 SMTP，请不要填写，一般填写你 ISP 提供的发信服务器地址</font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="SMTP_SERVER" value="$SMTP_SERVER"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>SMTP 的端口</b><br>如果您使用的不是 SMTP，请不要填写，默认为 25</font></td>
@@ -490,14 +478,12 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="SMTPUSER" value="$SMTPUSER"></td>
                 </tr>
-
                 <tr>
 				<td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>ESMTP 的密码</b><br>如果您使用的不是 ESMTP，请不要填写</font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="SMTPPASS" value="$SMTPPASS"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>坛主接收邮件使用的信箱</b></font></td>
@@ -552,7 +538,6 @@ if ($@) {
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
                 <font face=宋体 color=#990000><b>广告选项</b>
@@ -566,7 +551,6 @@ if ($@) {
                $tempoutput = "<select name=\"useadscript\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n"; 
                $tempoutput =~ s/value=\"$useadscript\"/value=\"$useadscript\" selected/; 
                print qq~ 
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页独立广告书写(如果没有，请留空)</font></td>
@@ -574,14 +558,12 @@ if ($@) {
                 <textarea name="adscriptmain" rows="5" cols="40">$adscriptmain</textarea>
                 </td>
                 </tr>
-
                <tr> 
                <td bgcolor=#FFFFFF width=40%> 
                <font face=宋体 color=#333333><b>是否使用论坛首页广告</b></font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页广告书写</font></td>
@@ -600,7 +582,6 @@ if ($@) {
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页尾部代码书写</font></td>
@@ -619,28 +600,24 @@ if ($@) {
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页浮动广告图片(Flash) URL</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="adimage" value="$adimage"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页浮动广告连接目标网址</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="adimagelink" value="$adimagelink"></td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页浮动广告图片宽度</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=3 name="adimagewidth" value="$adimagewidth" maxlength=3>&nbsp;像素</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
                 <font face=宋体 color=#333333><b>论坛首页浮动广告图片高度</b></font></td>
@@ -653,168 +630,173 @@ if ($@) {
                $tempoutput =~ s/value=\"$useimageadforum\"/value=\"$useimageadforum\" selected/; 
                print qq~ 
                <tr> 
-               <td bgcolor=#FFFFFF width=40%>      <td bgcolor=#FFFFFF>
-                <input type=text size=40 name="adimage" value="$adimage"></td>
-                </tr>
-
+               <td bgcolor=#FFFFFF width=40%> 
+               <font face=宋体 color=#333333><b>分论坛是否使用此浮动广告</b><BR>如果分论坛有自定义的浮动广告，<BR>那么此选项无效</font></td> 
+               <td bgcolor=#FFFFFF> 
+               $tempoutput<BR><BR></td> 
+               </tr>
+		~;
+               
+               $tempoutput = "<select name=\"useimagead1\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n"; 
+               $tempoutput =~ s/value=\"$useimagead1\"/value=\"$useimagead1\" selected/; 
+               print qq~ 
+               <tr> 
+               <td bgcolor=#FFFFFF width=40%> 
+               <font face=宋体 color=#333333><b>是否使用论坛首页右下固定广告</b></font></td> 
+               <td bgcolor=#FFFFFF> 
+               $tempoutput</td> 
+               </tr> 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=瀹       <tr>
-                <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳��ҳ���¹̶����ͼƬ�߶�</b></font></td>
+                <font face=宋体 color=#333333><b>论坛首页右下固定广告图片(Flash) URL</b></font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=3 name="adimageheight1" value="$adimageheight1" maxlength=3>&nbsp;����</td>
+                <input type=text size=40 name="adimage1" value="$adimage1"></td>
+                </tr>
+                <tr>
+                <td bgcolor=#FFFFFF width=40%>
+                <font face=宋体 color=#333333><b>论坛首页右下固定广告连接目标网址</b></font></td>
+                <td bgcolor=#FFFFFF>
+                <input type=text size=40 name="adimagelink1" value="$adimagelink1"></td>
+                </tr>
+                <tr>
+                <td bgcolor=#FFFFFF width=40%>
+                <font face=宋体 color=#333333><b>论坛首页右下固定广告图片宽度</b></font></td>
+                <td bgcolor=#FFFFFF>
+                <input type=text size=3 name="adimagewidth1" value="$adimagewidth1" maxlength=3>&nbsp;像素</td>
+                </tr>
+                <tr>
+                <td bgcolor=#FFFFFF width=40%>
+                <font face=宋体 color=#333333><b>论坛首页右下固定广告图片高度</b></font></td>
+                <td bgcolor=#FFFFFF>
+                <input type=text size=3 name="adimageheight1" value="$adimageheight1" maxlength=3>&nbsp;像素</td>
                 </tr>
                 ~;
                 
-               $tempoutput = "<select name=\"useimageadforum1\">\n<option value=\"0\">��ʹ��\n<option value=\"1\">ʹ��\n</select>\n"; 
+               $tempoutput = "<select name=\"useimageadforum1\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n"; 
                $tempoutput =~ s/value=\"$useimageadforum1\"/value=\"$useimageadforum1\" selected/; 
                print qq~ 
                <tr> 
                <td bgcolor=#FFFFFF width=40%> 
-               <font face=���� color=#333333><b>����̳�Ƿ�ʹ�ô����¹̶����</b><BR>�������̳���Զ�������¹̶���棬<BR>��ô��ѡ����Ч</font></td> 
+               <font face=宋体 color=#333333><b>分论坛是否使用此右下固定广告</b><BR>如果分论坛有自定义的右下固定广告，<BR>那么此选项无效</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <font face=���� color=#990000><b>����ѡ��</b>
+                <font face=宋体 color=#990000><b>其他选项</b>
                 </font></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>֧���ϴ��ĸ�������</b><br>��,�ָ�</font></td>
+                <font face=宋体 color=#333333><b>支持上传的附件类型</b><br>用,分割</font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="addtype" value="$addtype"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>���ÿ���ϴ���������</b></font></td>
+                <font face=宋体 color=#333333><b>最大每次上传几个附件</b></font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=2 name="maxaddnum" value="$maxaddnum"> ���鲻Ҫ����10��</td>
+                <input type=text size=2 name="maxaddnum" value="$maxaddnum"> 建议不要超过10。</td>
                 </tr>
                 
                 ~;
-                $tempoutput = "<select name=\"COOKIE_USED\">\n<option value=\"0\">����·��ģʽ\n<option value=\"1\">��Ŀ¼ģʽ\n<option value=\"2\">�̶�ģʽ\n</select>\n";
-                #<option value=\"0\">�Զ����Ŀ¼ģʽ\n
+                $tempoutput = "<select name=\"COOKIE_USED\">\n<option value=\"0\">完整路径模式\n<option value=\"1\">根目录模式\n<option value=\"2\">固定模式\n</select>\n";
+                #<option value=\"0\">自动侦测目录模式\n
                 $tempoutput =~ s/value=\"$COOKIE_USED\"/value=\"$COOKIE_USED\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ѡ�� Cookie ʹ�÷�ʽ��</B><br>Ĭ��ʹ������·��ģʽ������㷢����̳<BR>�û���¼���ǿ��˵Ļ�����ʹ��<BR>��Ŀ¼ģʽ��̶�ģʽ(�̶�ģʽ�����������һ������ʹ��)��</font></td>
+                <font face=宋体 color=#333333><b>请选择 Cookie 使用方式！</B><br>默认使用完整路径模式，如果你发现论坛<BR>用户登录后还是客人的话，请使用<BR>根目录模式或固定模式(固定模式必须配合下面一个参数使用)。</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>Cookie �̶�ģʽ����</b><br>����̶���������·����ֻ�е�����ѡ������Ϊ�̶�ģʽ����Ч</font></td>
+                <font face=宋体 color=#333333><b>Cookie 固定模式内容</b><br>输入固定的域名和路径，只有当上面选项设置为固定模式才有效</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=20 name="mycookiepath" value="$mycookiepath"> <BR>(����ǰ��Ҫ�� http://�����Ҫ�� / �ţ����磺www.abc.com )</td>
+                <input type=text size=20 name="mycookiepath" value="$mycookiepath"> <BR>(域名前不要加 http://，最后不要加 / 号，例如：www.abc.com )</td>
                 </tr>
-
                 ~;
-                $tempoutput = "<select name=\"EXP_MODE\">\n<option value=\"\">��׼ģʽ\n<option value=\"0\">��ǿģʽ\n</select>\n";
+                $tempoutput = "<select name=\"EXP_MODE\">\n<option value=\"\">标准模式\n<option value=\"0\">增强模式\n</select>\n";
                 $tempoutput =~ s/value=\"$EXP_MODE\"/value=\"$EXP_MODE\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ѡ��ҳ����·�ʽ��</B><br>Ĭ��ʹ�ñ�׼ģʽ������㷢����̳˽��������ʱ��<BR>������ȷ����󻹱���ˢ�µĻ������޸�Ϊ��ǿģʽ��<BR>���������Ϊ��ǿģʽ����һЩ��ֵ�������Ļأ�</font></td>
+                <font face=宋体 color=#333333><b>请选择页面更新方式！</B><br>默认使用标准模式，如果你发现论坛私密区进入时，<BR>输入正确密码后还必须刷新的话，请修改为增强模式。<BR>但如果设置为增强模式后发现一些奇怪的现象，请改回！</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 ~;
-                $tempoutput = "<select name=\"CACHE_MODES\">\n<option value=\"\">����ģʽ\n<option value=\"no\">�ܾ�ģʽ\n</select>\n";
+                $tempoutput = "<select name=\"CACHE_MODES\">\n<option value=\"\">开放模式\n<option value=\"no\">拒绝模式\n</select>\n";
                 $tempoutput =~ s/value=\"$CACHE_MODES\"/value=\"$CACHE_MODES\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ѡ��ҳ���Ƿ񱣳ֻ��棡</B><br>Ĭ��ʹ�ÿ���ģʽ�����������̳������ֵĻ�������<BR>�����ֹ�ˢ�²��ܽ���Ļ������޸�Ϊ�ܾ�ģʽ��<BR>���������Ϊ�ܾ�ģʽ����һЩ��ֵ�������Ļأ�</font></td>
+                <font face=宋体 color=#333333><b>请选择页面是否保持缓存！</B><br>默认使用开放模式，如果发现论坛出现奇怪的混乱现象，<BR>必须手工刷新才能解决的话，请修改为拒绝模式。<BR>但如果设置为拒绝模式后发现一些奇怪的现象，请改回！</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
     unless (WebGzip::getStatus()) {
-	$gzipfunc = qq~Gzip ģ�����ʹ��~;
+	$gzipfunc = qq~Gzip 模块可以使用~;
     }
     else {
     	$e = WebGzip::getStatus();
-    	$gzipfunc = qq~<BR><font color=#FF0000>Gzip ģ�鲻���ã�</font> $e~ 
+    	$gzipfunc = qq~<BR><font color=#FF0000>Gzip 模块不可用！</font> $e~ 
     }
 
-                $tempoutput = "<select name=\"usegzip\">\n<option value=\"no\">�ر�\n<option value=\"yes\">��\n</select>\n ���Խ����$gzipfunc";
+                $tempoutput = "<select name=\"usegzip\">\n<option value=\"no\">关闭\n<option value=\"yes\">打开\n</select>\n 测试结果：$gzipfunc";
                 $tempoutput =~ s/value=\"$usegzip\"/value=\"$usegzip\" selected/;
                 print qq~
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ѡ���Ƿ����Gzipѹ����</B><br>Ĭ�Ͽ��ţ�Gzip ������Ч��ѹ�������ҳ�棬��ҳ�洫��ĸ��죬��Ҳ������Ĳ�����Դ����������ԴҪ����ϣ���ô��ѡ��رգ�</font></td>
+                <font face=宋体 color=#333333><b>请选择是否采用Gzip压缩！</B><br>默认开放，Gzip 可以有效的压缩传输的页面，让页面传输的更快，但也会多消耗部分资源！如果你对资源要求很严，那么请选择关闭！</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 ~;
                 $tempoutput = "<select name=\"complevel\">\n<option value=\"9\">9\n<option value=\"8\">8\n<option value=\"7\">7\n<option value=\"6\">6\n<option value=\"5\">5\n<option value=\"4\">4\n<option value=\"3\">3\n<option value=\"2\">2\n<option value=\"1\">1\n</select>\n";
                 $tempoutput =~ s/value=\"$complevel\"/value=\"$complevel\" selected/;
                 print qq~
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ѡ��Gzipѹ������</B><br>9 ��ʾѹ������ߣ�1��ʾѹ������ͣ��������ѡ��ʹ�ã�</font></td>
+                <font face=宋体 color=#333333><b>请选择Gzip压缩级别！</B><br>9 表示压缩率最高，1表示压缩率最低，配合上面选项使用！</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 ~;
-                $tempoutput = "<select name=\"OS_USED\">\n<option value=\"Nt\">Windows ϵ��\n<option value=\"Unix\">Unix ϵ��\n<option value=\"No\">������\n</select>\n";
+                $tempoutput = "<select name=\"OS_USED\">\n<option value=\"Nt\">Windows 系列\n<option value=\"Unix\">Unix 系列\n<option value=\"No\">不加锁\n</select>\n";
                 $tempoutput =~ s/value=\"$OS_USED\"/value=\"$OS_USED\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ѡ�����ϵͳƽ̨�����ļ�����</b><BR>��ǧ��Ҫѡ��������㲻��ȷ������ѡ�� Windows ϵ�У���<BR>�ļ�����������Ч�ķ�ֹ�������ݶ�ʧ�����⣬����Ӱ���ٶȣ����Լ�������<br></font></td>
+                <font face=宋体 color=#333333><b>请选择操作系统平台用于文件加锁</b><BR>请千万不要选错，如果你不能确定，请选择 Windows 系列！！<BR>文件加锁可以有效的防止贴子数据丢失等问题，但会影响速度，请自己衡量！<br></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 ~;
-                $tempoutput = "<select name=\"canotherlink\">\n<option value=\"no\">�������ⲿ����\n<option value=\"yes\">�����ⲿ����\n</select>\n";
+                $tempoutput = "<select name=\"canotherlink\">\n<option value=\"no\">不允许外部连接\n<option value=\"yes\">允许外部连接\n</select>\n";
                 $tempoutput =~ s/value=\"$canotherlink\"/value=\"$canotherlink\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ��ֹ�ⲿ���ӳ������̳����</b><BR>�򿪵Ļ�������Ч��ֹ�ⲿ���ӵĳ����ˮ��ը����ɧ�ţ����п��ܻ�ͷ���ǽ��ͻ<br></font></td>
+                <font face=宋体 color=#333333><b>是否禁止外部连接程序对论坛操作</b><BR>打开的话，可有效防止外部连接的程序灌水轰炸机的骚扰，但有可能会和防火墙冲突<br></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 ~;
-                $tempoutput = "<select name=\"useverify\">\n<option value=\"no\">������ʹ��\n<option value=\"yes\">����ʹ��\n</select>\n";
+                $tempoutput = "<select name=\"useverify\">\n<option value=\"no\">不允许使用\n<option value=\"yes\">允许使用\n</select>\n";
                 $tempoutput =~ s/value=\"$useverify\"/value=\"$useverify\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�ʹ����֤��У��</b><br></font></td>
+                <font face=宋体 color=#333333><b>是否使用验证码校验</b><br></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 ~;
 
 eval ('use GD;');
@@ -825,14 +807,12 @@ else {
     $gdfunc = 1;
 }
 if ($gdfunc eq "1") {
-                $tempoutput = "<select name=\"verifyusegd\">\n<option value=\"yes\">ʹ��\n<option value=\"no\">��ʹ��\n</select>\n";
+                $tempoutput = "<select name=\"verifyusegd\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
                 $tempoutput =~ s/value=\"$verifyusegd\"/value=\"$verifyusegd\" selected/;
                 print qq~
-
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�ʹ�� GD ����ʾ��֤��</b><br></font></td>
+                <font face=宋体 color=#333333><b>是否使用 GD 来显示验证码</b><br></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
@@ -841,56 +821,53 @@ if ($gdfunc eq "1") {
 	print qq~<input type=hidden name="verifyusegd" value="no">~;
 }
 
-                $tempoutput = "<select name=\"floodcontrol\">\n<option value=\"off\">��\n<option value=\"on\">��\n</select>\n";
+                $tempoutput = "<select name=\"floodcontrol\">\n<option value=\"off\">否\n<option value=\"on\">是\n</select>\n";
                 $tempoutput =~ s/value=\"$floodcontrol\"/value=\"$floodcontrol\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ��ˮԤ�����ƣ�</b><br>ǿ���Ƽ�ʹ��</font></td>
+                <font face=宋体 color=#333333><b>是否灌水预防机制？</b><br>强烈推荐使用</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�û����������ʱ��</b><br>��ˮԤ�����Ʋ���Ӱ�쵽̳�������</font></td>
+                <font face=宋体 color=#333333><b>用户发贴的相隔时间</b><br>灌水预防机制不会影响到坛主或版主</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=5 name="floodcontrollimit" value="$floodcontrollimit" maxlength=4> �� (һ������ 30 ����)</td>
+                <input type=text size=5 name="floodcontrollimit" value="$floodcontrollimit" maxlength=4> 秒 (一般设置 30 左右)</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>ͬ IP ��ע����С���ʱ��</b><br>������Ч��ֹ��ˮע���</font></td>
+                <font face=宋体 color=#333333><b>同 IP 的注册最小相隔时间</b><br>可以有效防止灌水注册机</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=5 name="regcontrollimit" value="$regcontrollimit" maxlength=4> �� (һ������ 30 ����)</td>
+                <input type=text size=5 name="regcontrollimit" value="$regcontrollimit" maxlength=4> 秒 (一般设置 30 左右)</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ʾ�༭��������Сʱ��</b><br>�ڸ�ʱ���ڶ����ӵı༭������</font></td>
+                <font face=宋体 color=#333333><b>显示编辑计数的最小时间</b><br>在该时间内对贴子的编辑不计数</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=6 name="noaddedittime" value="$noaddedittime" maxlength=5> �� (Ĭ�� 60 ��)</td>
+                <input type=text size=6 name="noaddedittime" value="$noaddedittime" maxlength=5> 秒 (默认 60 秒)</td>
                 </tr>
                 
                <tr>
                <td bgcolor=#FFFFFF width=40%>
-               <font face=���� color=#333333><b>��������Сʱ�����Ӳ������ٱ༭</b><br>�������ϼ�������</font></td>
+               <font face=宋体 color=#333333><b>超过多少小时的贴子不允许再编辑</b><br>版主以上级别不限制</font></td>
                <td bgcolor=#FFFFFF>
-               <input type=text size=3 name="noedittime" value="$noedittime" maxlength=2> Сʱ (���ղ�����)</td>
+               <input type=text size=3 name="noedittime" value="$noedittime" maxlength=2> 小时 (留空不限制)</td>
                </tr>
                
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>ɾ�����ڶ������ϵĻ�Ա����������������</b><br>���趨����Ӱ�쵽̳�������</font></td>
+                <font face=宋体 color=#333333><b>删贴率在多少以上的会员不允许发表新主题</b><br>此设定不会影响到坛主或版主</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=3 name="deletepercent" value="$deletepercent" maxlength=3> % (һ������ 20% ���ң����������ƣ������� 0 ��հ�)</td>
+                <input type=text size=3 name="deletepercent" value="$deletepercent" maxlength=3> % (一般设置 20% 左右，若不想限制，则设置 0 或空白)</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳�����������������</b><br>���Կ��Ʒ���������Դʹ��</font></td>
+                <font face=宋体 color=#333333><b>论坛允许的最大在线人数</b><br>可以控制服务器的资源使用</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=6 name="arrowonlinemax" value="$arrowonlinemax" maxlength=5> �� (һ���� 500 ���ң����������ƣ������� 99999)</td>
+                <input type=text size=6 name="arrowonlinemax" value="$arrowonlinemax" maxlength=5> 人 (一般设 500 左右，若不想限制，则设置 99999)</td>
                 </tr>
                 ~;
                 
@@ -899,221 +876,221 @@ if ($gdfunc eq "1") {
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>������ʱ��</b></font></td>
+                <font face=宋体 color=#333333><b>服务器时差</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>���ڵ�ʱ��</font></td>
+                <font face=宋体 color=#333333><b>所在的时区</font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=40 name="basetimes" value="$basetimes"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�û����������٣�</font></td>
+                <font face=宋体 color=#333333><b>用户威望最大多少？</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=4 name="maxweiwang" value="$maxweiwang" maxlength=3> Ĭ��: 10(����С��5)</td>
+                <input type=text size=4 name="maxweiwang" value="$maxweiwang" maxlength=3> 默认: 10(不能小于5)</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�ڶ�����������ͬ���ӾͲ�⣿</font></td>
+                <font face=宋体 color=#333333><b>在多少区发送相同贴子就查封？</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=4 name="maxadpost" value="$maxadpost" maxlength=3> Ĭ��: 4(����С��3)�����Ҫȡ���������� 999</td>
+                <input type=text size=4 name="maxadpost" value="$maxadpost" maxlength=3> 默认: 4(不能小于3)，如果要取消，请设置 999</td>
                 </tr>
                 ~;
 		
-		$tempoutput = "<select name=\"coolclickdisp\">\n<option value=\"0\">��ʹ��\n<option value=\"1\">ʹ��\n</select>\n";
+		$tempoutput = "<select name=\"coolclickdisp\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
 		$tempoutput =~ s/value=\"$coolclickdisp\"/value=\"$coolclickdisp\" selected/;
 		print qq~
 		<tr>
 		<td bgcolor=#FFFFFF width=40%>
-		<font face=���� color=#333333><b>�Ƿ�ʹ�� LeoBBS ������ʹ�õĻ��������������ʾһ����������</font></td>
+		<font face=宋体 color=#333333><b>是否使用 LeoBBS 点击风格？使用的话，点击将会先显示一个进程条！</font></td>
 		<td bgcolor=#FFFFFF>
 		$tempoutput</td>
 		</tr>
 		~;
 		
-		$tempoutput = "<select name=\"friendonlinepop\">\n<option value=\"yes\">ʹ��\n<option value=\"no\">��ʹ��\n</select>\n";
+		$tempoutput = "<select name=\"friendonlinepop\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
 		$tempoutput =~ s/value=\"$friendonlinepop\"/value=\"$friendonlinepop\" selected/;
 		print qq~
 		<tr>
 		<td bgcolor=#FFFFFF width=40%>
-		<font face=���� color=#333333><b>���������Ƿ�֪ͨ��</font></td>
+		<font face=宋体 color=#333333><b>好友上线是否通知？</font></td>
 		<td bgcolor=#FFFFFF>
 		$tempoutput</td>
 		</tr>
 		~;
 
-		$tempoutput = "<select name=\"cpudisp\">\n<option value=\"0\">����ʾ\n<option value=\"1\">��ʾ\n</select>\n";
+		$tempoutput = "<select name=\"cpudisp\">\n<option value=\"0\">不显示\n<option value=\"1\">显示\n</select>\n";
 		$tempoutput =~ s/value=\"$cpudisp\"/value=\"$cpudisp\" selected/;
 		print qq~
 		<tr>
 		<td bgcolor=#FFFFFF width=40%>
-		<font face=���� color=#333333><b>�Ƿ���ʾ��̳ CPU ռ��ʱ�䡣(�����ö�̳����Ч)</font></td>
+		<font face=宋体 color=#333333><b>是否显示论坛 CPU 占用时间。(此设置对坛主无效)</font></td>
 		<td bgcolor=#FFFFFF>
 		$tempoutput</td>
 		</tr>
 		
 		<tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ʾ��̳ CPU ռ��ʱ���������ɫ</b></font></td>
+                <font face=宋体 color=#333333><b>显示论坛 CPU 占用时间的字体颜色</b></font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=8 maxlength=7 name="cpudispcolor" value="$cpudispcolor"> Ĭ�ϣ�#c0c0c0</td>
+                <input type=text size=8 maxlength=7 name="cpudispcolor" value="$cpudispcolor"> 默认：#c0c0c0</td>
                 </tr>
 		~;
 		
-                $tempoutput = "<select name=\"useemote\">\n<option value=\"no\">��ʹ��\n<option value=\"yes\">ʹ��\n</select>\n";
+                $tempoutput = "<select name=\"useemote\">\n<option value=\"no\">不使用\n<option value=\"yes\">使用\n</select>\n";
                 $tempoutput =~ s/value=\"$useemote\"/value=\"$useemote\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�ʹ�� EMOTE ��ǩ</b></font></td>
+                <font face=宋体 color=#333333><b>是否使用 EMOTE 标签</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"announcements\">\n<option value=\"yes\">ʹ��\n<option value=\"no\">��ʹ��\n</select>\n";
+                $tempoutput = "<select name=\"announcements\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
                 $tempoutput =~ s/value=\"$announcements\"/value=\"$announcements\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�ʹ����̳����</b></font></td>
+                <font face=宋体 color=#333333><b>是否使用论坛公告</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 		
-                $tempoutput = "<select name=\"refreshurl\">\n<option value=\"0\">�Զ����ص�ǰ��̳\n<option value=\"1\">�Զ����ص�ǰ����\n</select>\n";
+                $tempoutput = "<select name=\"refreshurl\">\n<option value=\"0\">自动返回当前论坛\n<option value=\"1\">自动返回当前贴子\n</select>\n";
                 $tempoutput =~ s/value=\"$refreshurl\"/value=\"$refreshurl\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�������ظ����Ӻ��Զ�ת�Ƶ���</b></font></td>
+                <font face=宋体 color=#333333><b>发表、回复贴子后自动转移到？</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"dispboardonline\">\n<option value=\"no\">����ʾ\n<option value=\"yes\">��ʾ\n</select>\n";
+                $tempoutput = "<select name=\"dispboardonline\">\n<option value=\"no\">不显示\n<option value=\"yes\">显示\n</select>\n";
                 $tempoutput =~ s/value=\"$dispboardonline\"/value=\"$dispboardonline\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�����ҳ��ʾ����̳��ϸ�������</b></font></td>
+                <font face=宋体 color=#333333><b>是否在首页显示分论坛详细在线情况</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"adminstyle\">\n<option value=\"2\">�����˵���ʾ\n<option value=\"1\">ƽ����ʾ\n<option value=\"3\">�Զ��ж�\n</select>\n";
+                $tempoutput = "<select name=\"adminstyle\">\n<option value=\"2\">下拉菜单显示\n<option value=\"1\">平板显示\n<option value=\"3\">自动判断\n</select>\n";
                 $tempoutput =~ s/value=\"$adminstyle\"/value=\"$adminstyle\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳������ʾ��ʽ</b><BR>���ѡ��ƽ����ʾ��ֻ����ʾǰ�������������ú���Ҫ��ջ���һ��</font></td>
+                <font face=宋体 color=#333333><b>论坛版主显示样式</b><BR>如果选择平板显示，只能显示前３个版主，设置后，需要清空缓存一次</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"disphideboard\">\n<option value=\"no\">����ʾ\n<option value=\"yes\">��ʾ\n</select>\n";
+                $tempoutput = "<select name=\"disphideboard\">\n<option value=\"no\">不显示\n<option value=\"yes\">显示\n</select>\n";
                 $tempoutput =~ s/value=\"$disphideboard\"/value=\"$disphideboard\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ת��̳�����Ƿ���ʾ������̳</b></font></td>
+                <font face=宋体 color=#333333><b>跳转论坛栏中是否显示隐含论坛</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispchildjump\">\n<option value=\"no\">����ʾ\n<option value=\"yes\">��ʾ\n</select>\n";
+                $tempoutput = "<select name=\"dispchildjump\">\n<option value=\"no\">不显示\n<option value=\"yes\">显示\n</select>\n";
                 $tempoutput =~ s/value=\"$dispchildjump\"/value=\"$dispchildjump\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ת��̳�����Ƿ���ʾ����̳</b></font></td>
+                <font face=宋体 color=#333333><b>跳转论坛栏中是否显示子论坛</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispboardsm\">\n<option value=\"yes\">��ʾ\n<option value=\"no\">����ʾ\n</select>\n";
+                $tempoutput = "<select name=\"dispboardsm\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select>\n";
                 $tempoutput =~ s/value=\"$dispboardsm\"/value=\"$dispboardsm\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�����������ʾ��̳����</b></font></td>
+                <font face=宋体 color=#333333><b>是否在最下面显示论坛声明</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 		
-                $tempoutput = "<select name=\"dispborn\">\n<option value=\"yes\">��ʾ\n<option value=\"no\">����ʾ\n<option value=\"auto\">�в���ʾ��������ʾ\n</select>\n";
+                $tempoutput = "<select name=\"dispborn\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n<option value=\"auto\">有才显示，无则不显示\n</select>\n";
                 $tempoutput =~ s/value=\"$dispborn\"/value=\"$dispborn\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ҳ�Ƿ���ʾ���������û�</b></font></td>
+                <font face=宋体 color=#333333><b>首页是否显示当天生日用户</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 		
-                $tempoutput = "<select name=\"sendtobirthday\">\n<option value=\"no\">������\n<option value=\"yes\">����\n</select>\n";
+                $tempoutput = "<select name=\"sendtobirthday\">\n<option value=\"no\">不发送\n<option value=\"yes\">发送\n</select>\n";
                 $tempoutput =~ s/value=\"$sendtobirthday\"/value=\"$sendtobirthday\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�����������û�����ף����Ϣ</b></font></td>
+                <font face=宋体 color=#333333><b>是否给当天生日用户发送祝贺信息</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 		
-		$tempoutput = "<select name=\"usetodaypostreply\">\n<option value=\"yes\">�ǵģ���¼\n<option value=\"no\">��������¼\n</select>\n";
+		$tempoutput = "<select name=\"usetodaypostreply\">\n<option value=\"yes\">是的，记录\n<option value=\"no\">不，不记录\n</select>\n";
                 $tempoutput =~ s/value=\"$usetodaypostreply\"/value=\"$usetodaypostreply\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ�ѻظ�Ҳ��¼��ÿ�շ�������</b></font></td>
+                <font face=宋体 color=#333333><b>是否把回复也记录在每日发贴数上</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"dispinfos\">\n<option value=\"yes\">��ʾ\n<option value=\"no\">����ʾ\n</select>\n";
+		$tempoutput = "<select name=\"dispinfos\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select>\n";
                 $tempoutput =~ s/value=\"$dispinfos\"/value=\"$dispinfos\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ҳ�Ƿ���ʾ����״̬���߿��ٵ�¼</b></font></td>
+                <font face=宋体 color=#333333><b>首页是否显示个人状态或者快速登录</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"displink\">\n<option value=\"no\">����ʾ\n<option value=\"yes\">��ʾ\n</select>\n";
+		$tempoutput = "<select name=\"displink\">\n<option value=\"no\">不显示\n<option value=\"yes\">显示\n</select>\n";
                 $tempoutput =~ s/value=\"$displink\"/value=\"$displink\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ҳ�Ƿ���ʾ��ҳ����</b></font></td>
+                <font face=宋体 color=#333333><b>首页是否显示首页连接</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"displinkaddr\">\n<option value=\"1\">��ҳ�·�\n<option value=\"2\">��ҳ�Ϸ�\n</select>\n";
+		$tempoutput = "<select name=\"displinkaddr\">\n<option value=\"1\">首页下方\n<option value=\"2\">首页上方\n</select>\n";
                 $tempoutput =~ s/value=\"$displinkaddr\"/value=\"$displinkaddr\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ʾ��ҳ���ӵ�λ��</b></font></td>
+                <font face=宋体 color=#333333><b>显示首页连接的位置</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
@@ -1122,7 +1099,7 @@ if ($gdfunc eq "1") {
 		print qq~
 		<tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��ҳ����</b><br>�� HTML �﷨��д��</font></td>
+                <font face=宋体 color=#333333><b>首页连接</b><br>用 HTML 语法书写！</font></td>
                 <td bgcolor=#FFFFFF>
                 <textarea name="links" cols="40" rows="6">$links</textarea><BR>
                 </td>
@@ -1134,7 +1111,7 @@ if ($gdfunc eq "1") {
 		print qq~
 		<tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳�����</b><br>�� HTML �﷨��д��</font></td>
+                <font face=宋体 color=#333333><b>论坛广告区</b><br>用 HTML 语法书写！</font></td>
                 <td bgcolor=#FFFFFF>
                 <textarea name="adlinks" cols="40" rows="10">$adlinks</textarea><BR>
                 </td>
@@ -1147,7 +1124,7 @@ if ($gdfunc eq "1") {
 		print qq~
 		<tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>���������</b><br>�� HTML �﷨��д��</font></td>
+                <font face=宋体 color=#333333><b>看贴广告区</b><br>用 HTML 语法书写！</font></td>
                 <td bgcolor=#FFFFFF>
                 <textarea name="topicad" cols="40" rows="10">$topicad</textarea><BR>
                 </td>
@@ -1157,135 +1134,129 @@ if ($gdfunc eq "1") {
 		print qq~
 		<tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳����������</b><BR>����д�����������ղ���ȱ�κ�һ����</font></td>
+                <font face=宋体 color=#333333><b>论坛创建的日期</b><BR>请填写完整，年月日不可缺任何一个！</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="createyear" value="$createyear" size=4>��<input type=text name="createmon" value="$createmon" size=2>��<input type=text name="createday" value="$createday" size=2>�ա�(���ñ�׼�����ո�ʽ��������λ��ʾ)</td>
+                <input type=text name="createyear" value="$createyear" size=4>年<input type=text name="createmon" value="$createmon" size=2>月<input type=text name="createday" value="$createday" size=2>日。(请用标准年月日格式，年用四位表示)</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"dispprofile\">\n<option value=\"yes\">����\n<option value=\"no\">������\n</select>\n";
+                $tempoutput = "<select name=\"dispprofile\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
                 $tempoutput =~ s/value=\"$dispprofile\"/value=\"$dispprofile\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ��������˲鿴�û�����</b></font></td>
+                <font face=宋体 color=#333333><b>是否允许客人查看用户资料</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"forumnamedisp\">\n<option value=\"0\">����ʾ\n<option value=\"1\">��ʾ\n</select>\n";
+                $tempoutput = "<select name=\"forumnamedisp\">\n<option value=\"0\">不显示\n<option value=\"1\">显示\n</select>\n";
                 $tempoutput =~ s/value=\"$forumnamedisp\"/value=\"$forumnamedisp\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳��ҳ�Ƿ���ʾֱ�ӷ�����ť</b></font></td>
+                <font face=宋体 color=#333333><b>论坛首页是否显示直接发贴按钮</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"canhidden\">\n<option value=\"yes\">����\n<option value=\"no\">������\n</select>\n";
+                $tempoutput = "<select name=\"canhidden\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
                 $tempoutput =~ s/value=\"$canhidden\"/value=\"$canhidden\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳�Ƿ������û�������</b></font></td>
+                <font face=宋体 color=#333333><b>论坛是否允许用户隐身？</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispguest\">\n<option value=\"1\">��ϵͳ���ɶ���\n<option value=\"2\">��Զ��ʾ\n<option value=\"3\">��Զ����ʾ\n</select>\n";
+                $tempoutput = "<select name=\"dispguest\">\n<option value=\"1\">视系统负荷而定\n<option value=\"2\">永远显示\n<option value=\"3\">永远不显示\n</select>\n";
                 $tempoutput =~ s/value=\"$dispguest\"/value=\"$dispguest\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�����б����Ƿ���ʾ���ˣ�</b></font></td>
+                <font face=宋体 color=#333333><b>在线列表中是否显示客人？</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"userincert\">\n<option value=\"yes\">����\n<option value=\"no\">������\n</select>\n";
+                $tempoutput = "<select name=\"userincert\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
                 $tempoutput =~ s/value=\"$userincert\"/value=\"$userincert\" selected/;
                 print qq~
-
 		<tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>������̳����������(��������Ŀ�Ŀ��˽�����ע��ſ��Է��ʡ��򿪴˹��ܺ󣬼ǵ���Ĭ�Ϸ�������аѡ��Ƿ�������������ֱ�ӷ��ʣ������ţ���������������ܻ���Ϊ���������������޷�������̳������ȷ������)</b></font></td>
+                <font face=宋体 color=#333333><b>访问论坛的最大客人数(超过此数目的客人将必须注册才可以访问。打开此功能后，记得在默认风格设置中把“是否允许搜索引擎直接访问？”开放，否则搜索引擎可能会因为客人数超过导致无法对你论坛进行正确的索引)</b></font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text size=4 maxlength=4 name="maxguests" value="$maxguests"> �粻��Ҫ�˹��ܣ�������Ϊ�ջ�0</td>
+                <input type=text size=4 maxlength=4 name="maxguests" value="$maxguests"> 如不需要此功能，请设置为空或0</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��֤��̳�Ƿ�������ͨ�û����룿</b></font></td>
+                <font face=宋体 color=#333333><b>认证论坛是否允许普通用户进入？</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispmememail\">\n<option value=\"yes\">�����û�����Ҫ�������ʾ\n<option value=\"no\">ǿ�Ʋ���ʾ���е� Email ��ַ\n</select>\n";
+                $tempoutput = "<select name=\"dispmememail\">\n<option value=\"yes\">根据用户设置要求决定显示\n<option value=\"no\">强制不显示所有的 Email 地址\n</select>\n";
                 $tempoutput =~ s/value=\"$dispmememail\"/value=\"$dispmememail\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>��̳���Ƿ������е��û� Email ��</b></font></td>
+                <font face=宋体 color=#333333><b>论坛中是否保密所有的用户 Email ？</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"flashavatar\">\n<option value=\"no\">��֧��\n<option value=\"yes\">֧��\n</select>\n";
+                $tempoutput = "<select name=\"flashavatar\">\n<option value=\"no\">不支持\n<option value=\"yes\">支持\n</select>\n";
                 $tempoutput =~ s/value=\"$flashavatar\"/value=\"$flashavatar\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�ϴ�ͷ���Ƿ�֧�� FLASH ��ʽ</b></font></td>
+                <font face=宋体 color=#333333><b>上传头像是否支持 FLASH 格式</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�ϴ�ͷ���ļ����������ֵ(��λ��KB)</b><br>Ĭ��������� 200KB ��</font></td>
+                <font face=宋体 color=#333333><b>上传头像文件允许的最大值(单位：KB)</b><br>默认允许最大 200KB ！</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxuploadava" value="$maxuploadava" size=5 maxlength=5>����Ҫ�� KB�����鲻Ҫ���� 200</td>
+                <input type=text name="maxuploadava" value="$maxuploadava" size=5 maxlength=5>　不要加 KB，建议不要超过 200</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font color=#333333><b>��̳��ҳ��������</b>(���û��������)<br>�����뱳���������ƣ���������<BR>Ӧ�ϴ��� non-cgi/midi Ŀ¼�¡�<br><b>��Ҫ���� URL ��ַ�����·����</b></font></td>
+                <font color=#333333><b>论坛首页音乐名称</b>(如果没有请留空)<br>请输入背景音乐名称，背景音乐<BR>应上传于 non-cgi/midi 目录下。<br><b>不要包含 URL 地址或绝对路径！</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=20 name="midiaddr2" value="$midiaddr2">~;
                 $midiabsaddr = "$imagesdir" . "midi/$midiaddr2";
-                print qq~��<EMBED src="$imagesurl/midi/$midiaddr2" autostart="false" width=70 height=25 loop="true" align=absmiddle>~ if ((-e "$midiabsaddr")&&($midiaddr2 ne ""));
+                print qq~　<EMBED src="$imagesurl/midi/$midiaddr2" autostart="false" width=70 height=25 loop="true" align=absmiddle>~ if ((-e "$midiabsaddr")&&($midiaddr2 ne ""));
                 print qq~
                 </td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>ֻ����������̳�ĵ���</b><br>������������ IP ���޷�������̳���������õ�����̳�ڲ��� IP ��ַ�⣬�����жϵĿ����ԣ�<B>���Ҵ�ѡ��� IP ��ֹ��Լ��</B>��</font></td>
+                <font face=宋体 color=#333333><b>只允许进入论坛的地区</b><br>非允许地区的 IP 将无法进入论坛，由于利用的是论坛内部的 IP 地址库，有误判断的可能性，<B>而且此选项还受 IP 禁止的约束</B>！</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="arrowformwhere" value="$arrowformwhere" size=20>����������ö��Ÿ��������л�ʡΪ��λ</td>
+                <input type=text name="arrowformwhere" value="$arrowformwhere" size=20>　多个地区用逗号隔开，以市或省为单位</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"usefake\">\n<option value=\"no\">��ʹ��\n<option value=\"yes\">ʹ��\n</select>\n";
+                $tempoutput = "<select name=\"usefake\">\n<option value=\"no\">不使用\n<option value=\"yes\">使用\n</select>\n";
                 $tempoutput =~ s/value=\"$usefake\"/value=\"$usefake\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40%>
-                <font face=���� color=#333333><b>�Ƿ����α��̬��ʽ�����忴˵������������֧�ֵĻ���ǧ��Ҫ�ã�</b></font></td>
+                <font face=宋体 color=#333333><b>是否采用伪静态方式（具体看说明，服务器不支持的话，千万不要用）</b></font></td>
                 <td bgcolor=#FFFFFF>
-                $tempoutput <a href=leobbs.htm target=_blank>���˲���</a>������ܿ�����̳��ҳ��˵��������������ȷ��<BR>����ʾ�ļ�û���ҵ����Ǿ�˵��δ������ȷ����ο�˵���ĵ��������ã�</td>
+                $tempoutput <a href=leobbs.htm target=_blank>按此测试</a>，如果能看到论坛首页，说明服务器设置正确！<BR>如提示文件没有找到，那就说明未设置正确，请参考说明文档重新设置！</td>
                 </tr>
-
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit value="�� ��"></form></td></tr></table></td></tr></table>
+                <input type=submit value="提 交"></form></td></tr></table></td></tr></table>
                 ~;
                 
                 }
@@ -1297,7 +1268,7 @@ if ($gdfunc eq "1") {
 print qq~</td></tr></table></body></html>~;
 exit;
 
-# ���� SENDMAIL ·��
+# 测试 SENDMAIL 路径
 sub mailprogram
 {
     $mailprogram='/usr/sbin/sendmail';

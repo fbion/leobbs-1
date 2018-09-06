@@ -860,15 +860,59 @@ sub view_user
 	$loadface = "è®ºå›æ™®é€šå½¢è±¡(æŸ¥çœ‹ä¸ªäººèµ„æ–™æ—¶å€™æ˜¾ç¤º)" if($loadface eq "n");
     }
 
-    $output .=qq~<SCRIPT language=jacurrenttime = time();
-
-	my $filetoopen = "$lbdir" . "face/wpdata/$file_name.pl";
-	open(FILE, ">>$filetoopen");
-	print FILE "$currenttime\t$sp_name\t$sp_money\t$sp_description\t$sp_wear\t$sp_fitherd\t$sp_graphic\t$sp_sxgraphic\t\t\n";
-	close(FILE);
-	$output .= qq~
+    $output .=qq~<SCRIPT language=javascript>
+function select_user(){
+window.open("$thisprog?action=view&id="+document.FORM.file_name.options[document.FORM.file_name.selectedIndex].value,"_self");
+}</SCRIPT>
 <table cellPadding=6 cellSpacing=1 width=100%>
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>outinfo2);
+<form action="$thisprog" method="post" name=FORM>
+<tr bgcolor=$miscbacktwo>
+<td colspan=3 align=center><font color=$fontcolormisc><b>[ æŸ¥ çœ‹ ç”¨ æˆ· ä¿¡ æ¯ - æ€»å…±æœ‰ï¼š$membernum å ]</b></font></td>
+</tr>
+<tr bgcolor=$miscbackone>
+<td rowspan="8" width=150><DIV id="SHOW" style='padding:0;position:relative;top:0;left:0;width:140;height:226'></div></td>
+<td width=550></td>
+<td rowspan="8" width=150><select name=file_name size=16 onchange=select_user()>$userinfo</select></td></tr>~;
+
+if($id ne '')
+{
+    for($i=1;$i<26;$i++)
+    {
+	@tempsp=split(/\_/,@buy_sp[$i]);
+	next if(@tempsp eq "");
+	for($j=0;$j<@tempsp;$j++)
+	{
+	    ($info1,$info2)=split(/\,/,@tempsp[$j]);
+
+	    $/="";
+	    my $filetoopen = "$lbdir" . "face/wpdata/$i.pl";
+	    open(FILE,"$filetoopen");
+	    my $sort=<FILE>;
+	    close(FILE);
+	    $/="\n";
+
+	    if($sort !~ /$info1\t(.*)/)	# æ‰¾ä¸åˆ°æŒ‡å®šçš„å•†å“ID
+	    {
+		$ladesign = $info2 eq 'Y' ? 1 : 0 ;
+		$outinfo .=qq~'$info1|$info2||||$i|$j',~;
+		$outinfo1 .=qq~'$ladesign',~;
+		$outinfo2 .=qq~'$i',~;	
+	    }
+	    else
+ 	    {
+	        my ($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
+		$ladesign = $info2 eq 'Y' ? 1 : 0 ;
+		$outinfo .=qq~'$sp_name|$info2|$sp_fitherd|$sp_graphic|$sp_sxgraphic|$sp_suitid|$j',~;
+		$outinfo1 .=qq~'$ladesign',~;
+		$outinfo2 .=qq~'$i',~;
+		$outmoney += $sp_money;
+	    }
+	}
+    }
+
+    chop($outinfo);
+    chop($outinfo1);
+    chop($outinfo2);
 $outmoney = 0 if ($outmoney eq "");
 $output .=qq~
 <SCRIPT LANGUAGE="JavaScript">
@@ -889,19 +933,19 @@ s+="<IMG src=$imagesurl/face/blank.gif style='padding:0;position:absolute;top:0;
 SHOW.innerHTML=s;
 </script>
   <tr bgcolor=$miscbackone> 
-    <td>µ±Ç°ÓÃ»§Ãû£º$id</td>
+    <td>å½“å‰ç”¨æˆ·åï¼š$id</td>
   </tr>
   <tr bgcolor=$miscbackone> 
-    <td>ĞéÄâĞÎÏóÊ¹ÓÃ·½Ê½£º$loadface</td>
-  </tr>
-  <tr bgcolor=$miscbackone> 
-    <td></td>
+    <td>è™šæ‹Ÿå½¢è±¡ä½¿ç”¨æ–¹å¼ï¼š$loadface</td>
   </tr>
   <tr bgcolor=$miscbackone> 
     <td></td>
   </tr>
   <tr bgcolor=$miscbackone> 
-    <td>µ±Ç°×°±¸×Ü½ğ¶î£º$outmoney $moneyname</td>
+    <td></td>
+  </tr>
+  <tr bgcolor=$miscbackone> 
+    <td>å½“å‰è£…å¤‡æ€»é‡‘é¢ï¼š$outmoney $moneyname</td>
   </tr>
   <tr bgcolor=$miscbackone> 
     <td></td>
@@ -924,23 +968,23 @@ function DispInfo(Sign)
     {
 	if(Sign == LadeSign[i])
 	{
-	    var UTemp = AllArray[i].split('|');	// ·Ö½âÉÌÆ·ĞÅÏ¢
+	    var UTemp = AllArray[i].split('|');	// åˆ†è§£å•†å“ä¿¡æ¯
 
 	    if(UTemp[2] == 'f')
-		SPSEX = 'Å®'
+		SPSEX = 'å¥³'
 	    else if(UTemp[2] == 'm')
-	        SPSEX = 'ÄĞ'
+	        SPSEX = 'ç”·'
 	    else
-	        SPSEX = 'Í¨ÓÃ'
+	        SPSEX = 'é€šç”¨'
 
 	    if(jj == 0)
 	        Info += "<tr>";
 	    Info += "<td width=84 bgColor=$miscbackone>";
 
 	    if(UTemp[2] == '')
-		Info += "<img src=$imagesurl/face/images/abate.gif width=84 height=84 border=0' alt='ÎŞĞ§ÉÌÆ·\\nÉÌÆ·Àà±ğ£º"+UTemp[5]+"\\nÉÌÆ·IDºÅ£º"+UTemp[0]+"'></td>";
+		Info += "<img src=$imagesurl/face/images/abate.gif width=84 height=84 border=0' alt='æ— æ•ˆå•†å“\\nå•†å“ç±»åˆ«ï¼š"+UTemp[5]+"\\nå•†å“IDå·ï¼š"+UTemp[0]+"'></td>";
 	    else
-		Info += "<img src=$imagesurl/face/"+SortArray[i]+"/"+UTemp[4]+" width=84 height=84 border=0 alt='ÉÌÆ·Ãû³Æ£º"+UTemp[0]+"\\nÊÊÓÃĞÔ±ğ£º"+SPSEX+"'></td>";
+		Info += "<img src=$imagesurl/face/"+SortArray[i]+"/"+UTemp[4]+" width=84 height=84 border=0 alt='å•†å“åç§°ï¼š"+UTemp[0]+"\\né€‚ç”¨æ€§åˆ«ï¼š"+SPSEX+"'></td>";
 
 	    if(jj == 7)
 	        Info += "</tr>";
@@ -959,11 +1003,11 @@ function DispInfo(Sign)
 }
 </script>
 
-<tr><td colspan=3 bgcolor=$miscbacktwo height=20><font color=$titlefont size=2><B>µ±Ç°Åä´øÎïÆ·</B></font></td></tr>
+<tr><td colspan=3 bgcolor=$miscbacktwo height=20><font color=$titlefont size=2><B>å½“å‰é…å¸¦ç‰©å“</B></font></td></tr>
 <tr><td colspan=3 bgcolor=$miscbackone>
 <div id=LoadArea><script>DispInfo(1);</script></div>
 </td></tr>
-<tr><td colspan=3 bgcolor=$miscbacktwo height=20><font color=$titlefont size=2><B>Î´Åä´øÎïÆ·</B></font></td></tr>
+<tr><td colspan=3 bgcolor=$miscbacktwo height=20><font color=$titlefont size=2><B>æœªé…å¸¦ç‰©å“</B></font></td></tr>
 <tr><td colspan=3 bgcolor=$miscbackone>
 <div id=ULoadArea><script>DispInfo(0);</script></div>
 <div id=Area></div>
@@ -975,7 +1019,7 @@ function DispInfo(Sign)
 
 sub edit_sp
 {
-    my $filetoopen = "$lbdir" . "face/class.cgi";	# ÉÌÆ·Àà±ğ
+    my $filetoopen = "$lbdir" . "face/class.cgi";	# å•†å“ç±»åˆ«
     open(FILE,"$filetoopen");
     my @sort=<FILE>;
     close(FILE);
@@ -997,9 +1041,9 @@ window.open("$thisprog?action=edit&id="+document.FORM.sort.options[document.FORM
 <table cellPadding=6 cellSpacing=1 width=100%>
 <form action=$thisprog method=POST name=FORM>
 <tr bgcolor=$miscbacktwo>
-<td align=center><font color=$fontcolormisc><b>[ ÉÌ Æ· ¹Ü Àí ]</b></font></td>
+<td align=center><font color=$fontcolormisc><b>[ å•† å“ ç®¡ ç† ]</b></font></td>
 </tr>
-<tr bgcolor=#EEEEEE><td height=30>Ñ¡ÔñÉÌÆ·Àà±ğ£º<select name=sort size=1" onchange=select_sort()><option value=''>== Ñ¡ÔñÀà±ğ ==</option>$mainid</select></td></tr></form>~;
+<tr bgcolor=#EEEEEE><td height=30>é€‰æ‹©å•†å“ç±»åˆ«ï¼š<select name=sort size=1" onchange=select_sort()><option value=''>== é€‰æ‹©ç±»åˆ« ==</option>$mainid</select></td></tr></form>~;
 
 if($id ne '')
 {
@@ -1012,7 +1056,7 @@ if($id ne '')
 	if ($sort eq '0')
 	{
 		$output .= qq~
-<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>±¾ÀàÔİÎŞÈÎºÎÉÌÆ·£¡</b></font></td></tr>
+<tr><td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>æœ¬ç±»æš‚æ— ä»»ä½•å•†å“ï¼</b></font></td></tr>
 </table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 		return;
 	}
@@ -1022,7 +1066,7 @@ if($id ne '')
 function editface(forumid,countid,action){
 var Win=window.open("editface.cgi?action="+action+"&num="+forumid+"&id="+countid,"FACE",'width=500,height=280,resizable=0,scrollbars=0,menubar=0,status=1');
 }
-function check(){if(!confirm("¼ÌĞøÏÂÈ¥µÄ²Ù×÷½«²»¿É»Ö¸´£¬ÊÇ·ñÈ·ÈÏÉ¾³ı£¿"))return false;}
+function check(){if(!confirm("ç»§ç»­ä¸‹å»çš„æ“ä½œå°†ä¸å¯æ¢å¤ï¼Œæ˜¯å¦ç¡®è®¤åˆ é™¤ï¼Ÿ"))return false;}
 </script>
 <tr bgcolor=$miscbackone><td>
 <TABLE border=0 cellPadding=0 cellSpacing=1 width=100% align=center>~;
@@ -1038,14 +1082,14 @@ function check(){if(!confirm("¼ÌĞøÏÂÈ¥µÄ²Ù×÷½«²»¿É»Ö¸´£¬ÊÇ·ñÈ·ÈÏÉ¾³ı£¿"))return 
     $page = $allpages if ($page > $allpages);
     my $showpage = "";
     if (!$allpages)
-    {$showpage .= "µ±Ç°Ã»ÓĞ¼ÇÂ¼";}
+    {$showpage .= "å½“å‰æ²¡æœ‰è®°å½•";}
     elsif ($allpages == 1)
-    {$showpage .= "µ±Ç°¼ÇÂ¼Ö»ÓĞ <B>1</B> Ò³";}
+    {$showpage .= "å½“å‰è®°å½•åªæœ‰ <B>1</B> é¡µ";}
     else
     {
-	$showpage = "×Ü¹² <b>$allpages</b> Ò³£¬<b>$sort</b> ¼şÉÌÆ·£º[";
+	$showpage = "æ€»å…± <b>$allpages</b> é¡µï¼Œ<b>$sort</b> ä»¶å•†å“ï¼š[";
 	$i = $page - 3;
-	$showpage .= qq~ <a href=$thisprog?action=edit&id=$id$searpage&page=$i title='µÚ $i Ò³'>¡û</a>~ if ($i > 0);
+	$showpage .= qq~ <a href=$thisprog?action=edit&id=$id$searpage&page=$i title='ç¬¬ $i é¡µ'>â†</a>~ if ($i > 0);
 	$i++;
 	$showpage .= qq~ <a href=$thisprog?action=edit&id=$id$searpage&page=$i>$i</a>~ if ($i > 0);
 	$i++;
@@ -1057,7 +1101,7 @@ function check(){if(!confirm("¼ÌĞøÏÂÈ¥µÄ²Ù×÷½«²»¿É»Ö¸´£¬ÊÇ·ñÈ·ÈÏÉ¾³ı£¿"))return 
 	$i++;
 	$showpage .= qq~ <a href=$thisprog?action=edit&id=$id$searpage&page=$i>$i</a>~ unless ($i > $allpages);
 	$i++;
-	$showpage .= qq~ <a href=$thisprog?action=edit&id=$id$searpage&page=$i title='µÚ $i Ò³'>¡ú</a>~ unless ($i > $allpages);
+	$showpage .= qq~ <a href=$thisprog?action=edit&id=$id$searpage&page=$i title='ç¬¬ $i é¡µ'>â†’</a>~ unless ($i > $allpages);
 	$showpage .= " ]";
     }
 
@@ -1071,9 +1115,9 @@ function check(){if(!confirm("¼ÌĞøÏÂÈ¥µÄ²Ù×÷½«²»¿É»Ö¸´£¬ÊÇ·ñÈ·ÈÏÉ¾³ı£¿"))return 
 	    @taoinfo=split(/\_/,$sp_suitid);
 	    $numid = @taoinfo[0];
 	}
-	$sp_fitherd = 'ÄĞ' if($sp_fitherd eq 'm');
-	$sp_fitherd = 'Å®' if($sp_fitherd eq 'f');
-	$sp_fitherd = 'ÄĞÅ®' if($sp_fitherd eq 't');
+	$sp_fitherd = 'ç”·' if($sp_fitherd eq 'm');
+	$sp_fitherd = 'å¥³' if($sp_fitherd eq 'f');
+	$sp_fitherd = 'ç”·å¥³' if($sp_fitherd eq 't');
 
 	$output .=qq~<tr>~ if ($ii==0);
 
@@ -1082,13 +1126,13 @@ function check(){if(!confirm("¼ÌĞøÏÂÈ¥µÄ²Ù×÷½«²»¿É»Ö¸´£¬ÊÇ·ñÈ·ÈÏÉ¾³ı£¿"))return 
 <table border=0 cellPadding=0 cellSpacing=2 width=100%><TBODY>
 <TR><TD bgColor=#eeeeee height=84 rowSpan=5 width=84><img src=$imagesurl/face/$numid/$sp_sxgraphic width=84 hegiht=84></TD>
 <TD bgColor=#eeeeee height=20>$sp_name</TD></TR>
-<TR><TD bgColor=#eeeeee height=20>µ¥¡¡¼Û£º$sp_money.00</TD></TR>
-<TR><TD bgColor=#eeeeee height=20>ÊÊ¡¡ÓÃ£º$sp_fitherd</TD></TR>
-<TR><TD bgColor=#eeeeee height=20 align=center><a href="javascript:editface('$id','$sp_id','edit_sp')">[ĞŞ¸Ä]</a>¡¡¡¡<a href="javascript:editface('$id','$sp_id','del_sp')" onclick="return check();">[É¾³ı]</a></TD></TR>
+<TR><TD bgColor=#eeeeee height=20>å•ã€€ä»·ï¼š$sp_money.00</TD></TR>
+<TR><TD bgColor=#eeeeee height=20>é€‚ã€€ç”¨ï¼š$sp_fitherd</TD></TR>
+<TR><TD bgColor=#eeeeee height=20 align=center><a href="javascript:editface('$id','$sp_id','edit_sp')">[ä¿®æ”¹]</a>ã€€ã€€<a href="javascript:editface('$id','$sp_id','del_sp')" onclick="return check();">[åˆ é™¤]</a></TD></TR>
 </TBODY></TABLE>
 </TD><TD width=10>&nbsp;</TD>~;
 
-#<TR><TD bgColor=#eeeeee height=20>ÄÍ¾Ã¶È£º$sp_wear</TD></TR>
+#<TR><TD bgColor=#eeeeee height=20>è€ä¹…åº¦ï¼š$sp_wear</TD></TR>
 
 	$output .=qq~</tr>~ if ($ii==2);
 	if ($ii<2)
@@ -1105,9 +1149,9 @@ function Page_Jump()
      document.Jump.page.value = document.Jump.N_Page.value;
 }
 </script>
-<tr bgcolor=$miscbacktwo><td align=center><font color=$menufontcolor>$showpage</font> Ìøµ½ <input type="text" name="N_Page" size="3" maxlength="3">  <input type="submit" name="Submit" value="È·¶¨" onClick="return Page_Jump();"></td></tr></form>~;
+<tr bgcolor=$miscbacktwo><td align=center><font color=$menufontcolor>$showpage</font> è·³åˆ° <input type="text" name="N_Page" size="3" maxlength="3">  <input type="submit" name="Submit" value="ç¡®å®š" onClick="return Page_Jump();"></td></tr></form>~;
 }
     $output .=qq~</table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 
-&output("$plugname - ºóÌ¨¹ÜÀí",\$output);
+&output("$plugname - åå°ç®¡ç†",\$output);

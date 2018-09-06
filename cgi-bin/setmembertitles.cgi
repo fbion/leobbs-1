@@ -682,85 +682,105 @@ else {
                 </tr>
                 
                 <tr>
-                <td bgcolorark19" value="$mpostmark19"></td>
+                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
+                <font face=宋体 color=#333333><b>最高等级的最大积分数 (达到就升级)</b></font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="mpostmarkmax" value="$mpostmarkmax"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=瀹
+                <font face=宋体 color=#333333><b>最高等级的名称</b></font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="mtitlemax" value="$mtitlemax"></td>
+                </tr>
+                
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>�������ĵȼ�����</b></font></td>
+                <font face=宋体 color=#333333><b>最高等级的图像</b></font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="mgraphicmax" value="$mgraphicmax"></td>
+                </tr>
+
+                <tr>
+                <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
+                <font face=宋体 color=#990000><b>管理员专用的名称和图像 (如果不想要，请全部留空)</b>
+                </font></td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
+                <font face=宋体 color=#333333><b>副版主的等级名称</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="amotitle" value="$amotitle"><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>��������ͼ��</b></font></td>
+                <font face=宋体 color=#333333><b>副版主的图像</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="amodgraphic" value="$amodgraphic"><BR><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>�����ĵȼ�����</b></font></td>
+                <font face=宋体 color=#333333><b>版主的等级名称</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="motitle" value="$motitle"><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>������ͼ��</b></font></td>
+                <font face=宋体 color=#333333><b>版主的图像</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="modgraphic" value="$modgraphic"><BR><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>�����������ĵȼ�����</b></font></td>
+                <font face=宋体 color=#333333><b>分类区版主的等级名称</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="cmotitle" value="$cmotitle"><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>������������ͼ��</b></font></td>
+                <font face=宋体 color=#333333><b>分类区版主的图像</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="cmodgraphic" value="$cmodgraphic"><BR><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>�ܰ����ĵȼ�����</b></font></td>
+                <font face=宋体 color=#333333><b>总版主的等级名称</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="smotitle" value="$smotitle"><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>�ܰ�����ͼ��</b></font></td>
+                <font face=宋体 color=#333333><b>总版主的图像</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="smodgraphic" value="$smodgraphic"><BR><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>̳���ĵȼ�����</b></font></td>
+                <font face=宋体 color=#333333><b>坛主的等级名称</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="adtitle" value="$adtitle"><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=���� color=#333333><b>̳����ͼ��</b></font></td>
+                <font face=宋体 color=#333333><b>坛主的图像</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="admingraphic" value="$admingraphic"><BR><BR></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit name=submit value="�� ��"></td></form></tr></table></td></tr></table>
+                <input type=submit name=submit value="提 交"></td></form></tr></table></td></tr></table>
                 ~;
                 
                 }

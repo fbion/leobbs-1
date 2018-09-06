@@ -713,25 +713,30 @@ foreach $_ (@molist){
                     ($tempforumno,undef,$tempcategorynumber)=split(/\t/,$line);
                     print FILE "$line\n";
                     if($new_categoryname =~/childforum-[0-9]+/){
-                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_
-                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t";
+                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t\n" if($new_categoryname eq "childforum-$tempforumno");
+                $Get=1;
+                    }
+                    }
+                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t\n" if($new_categoryname !~/childforum-[0-9]+/);
                 close(FILE);
+#	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-                $filetoopen = "$lbdir" . "data/allforums.cgi";
-#		&winlock($filetoopen) if ($OS_USED eq "Nt");
-                open(FILE, "$filetoopen");
-#	        flock(FILE, 1) if ($OS_USED eq "Unix");
-                @forums = <FILE>;
-                close(FILE);
+	    open(FILE, ">${lbdir}boarddata/forumposts$newforumid.pl");
+	    print FILE "\$threads = 0;\n\$posts = 0;\n\$todayforumpost = \"0\";\n1;\n";
+            close(FILE);
 
-                open(FILE, ">$filetoopen");
-                flock(FILE, 2) if ($OS_USED eq "Unix");
-                foreach $line (@forums) {
-                    chomp $line;
-                    ($tempforumno,undef,$tempcategorynumber)=split(/\t/,$line);
-                    print FILE "$line\n";
-                    if($new_categoryname =~/childforum-[0-9]+/){
-                print FILE "$newforumid\t$new_categoryname\t$new_categorynumber\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_           if (-e $dirtomake) {
+                print qq~
+                <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢åŠ è®ºå›ç»“æœ</b>
+                </td></tr>
+                <tr>
+                <td bgcolor=#FFFFFF colspan=2>
+                <font color=#333333>
+                ~;
+
+                print "<b>è¯¦ç»†èµ„æ–™</b><p>\n";
+                print "<ul>\n";
+                if (-e $dirtomake) {
                 print "<li><b>æ–°è®ºå›ç›®å½•å·²ç»å»ºç«‹</b><p>\n";
                     }
                     else {
@@ -1425,8 +1430,88 @@ sub doaddcategory {
                foreach(@catemolist){ 
                chomp $_; 
                $_ =~ s/ /\_/g; 
-               FFFF width=40%>
-        <font color=#333333><b>ç’å“„          $filetomake1 = "$dirtomake/foruminfo.cgi";
+               $_ =~ tr/A-Z/a-z/; 
+               next if ($_ eq ""); 
+               my $namenumber = &getnamenumber($_);
+		&checkmemfile($_,$namenumber);
+               if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) {&errorout("åŒºç‰ˆä¸»åå•ä¸­ï¼Œ$_ è¿™ä¸ªç”¨æˆ· ID æ˜¯ä¸å­˜åœ¨çš„ï¼"); } 
+               }
+
+                $filetoopen = "$lbdir" . "data/allforums.cgi";
+                open(FILE, "$filetoopen");
+                @forums = <FILE>;
+                close(FILE);
+
+                foreach (@forums) {
+                    ($forumid, $binit) = split(/\t/,$_);
+                    if ($forumid > $high) { $high = $forumid; }
+                    }
+
+                $high++;
+
+                $newforumid = $high;
+
+                $dirtomake = "$lbdir" . "forum$newforumid";
+                mkdir ("$dirtomake", 0777);
+
+                $dirtomake1 = "$lbdir" . "FileCount/$newforumid";
+                mkdir ("$dirtomake1", 0777);
+
+                $filetomake = "$dirtomake1/index.html";
+                open(FILE,">$filetomake");
+                print FILE "-";
+                close(FILE);
+
+                $dirtomake1 = "$imagesdir" . "$usrdir/$newforumid";
+                mkdir ("$dirtomake1", 0777);
+
+                $filetomake = "$dirtomake1/index.html";
+                open(FILE,">$filetomake");
+                print FILE "-";
+                close(FILE);
+
+                $filetomake = "$dirtomake/index.html";
+                open(FILE,">$filetomake");
+                print FILE "-";
+                close(FILE);
+
+                $filetomake = "$lbdir" . "boarddata/listno$newforumid.cgi";
+                open(FILE,">$filetomake");
+                close(FILE);
+                $filetomake = "$lbdir" . "boarddata/listall$newforumid.cgi";
+                open(FILE,">$filetomake");
+                close(FILE);
+
+	        open(FILE, ">${lbdir}boarddata/foruminfo$newforumid.cgi");
+	        print FILE "%%%%%%\t0\t0\t\t\t\n";
+                close(FILE);
+
+                $filetomake = "$dirtomake/.htaccess";
+                open(FILE, ">$filetomake");
+                print FILE "AuthUserFile /dev/null\n";
+                print FILE "AuthGroupFile /dev/null\n";
+                print FILE "AuthName DenyViaWeb\n";
+                print FILE "AuthType Basic\n";
+                print FILE "\n\n\n\n";
+                print FILE "<Limit GET>\n";
+                print FILE "order allow,deny\n";
+                print FILE "deny from all\n";
+                print FILE "</Limit>\n";
+                close (FILE);
+
+my @molist = split(/\,/,$new_forummoderator);
+foreach $_ (@molist){
+    chomp $_;
+    $_ =~ s/ /\_/g;
+    $_ =~ tr/A-Z/a-z/;
+    next if ($_ eq "");
+    next if (($_ =~ /è¯šè˜ä¸­/i)||($_ =~ /æ–‘ç«¹/i)||($_ =~ /å…¨ä½“ç®¡ç†äººå‘˜/i)||($_ =~ /ç®¡ç†å‘˜/i)||($_ =~ /æš‚æ—¶ç©ºç¼º/i)||($_ =~ /ç‰ˆä¸»/i)||($_ =~ /å›ä¸»/i));
+    my $namenumber = &getnamenumber($_);
+    &checkmemfile($_,$namenumber);
+    if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { &winunlock($filetoopen) if ($OS_USED eq "Nt"); &errorout("è®ºå›ç‰ˆä¸»åå•ä¸­ï¼Œ$_ è¿™ä¸ªç”¨æˆ· ID æ˜¯ä¸å­˜åœ¨çš„ï¼"); }
+}
+
+                $filetomake1 = "$dirtomake/foruminfo.cgi";
                 open(FILE,">$filetomake1");
                 print FILE "$newforumid\t$new_categoryname\t$incategory\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t\t\t0\t0\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t";
                 close(FILE);
@@ -1459,29 +1544,29 @@ sub doaddcategory {
 
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / Ôö¼Ó·ÖÀà(Í¬Ê±Ôö¼ÓÒ»¸öÂÛÌ³)½á¹û</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å¢åŠ åˆ†ç±»(åŒæ—¶å¢åŠ ä¸€ä¸ªè®ºå›)ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>
                 ~;
 
-                print "<b>ÏêÏ¸ĞÅÏ¢£º</b><p>\n";
+                print "<b>è¯¦ç»†ä¿¡æ¯ï¼š</b><p>\n";
                 print "<ul>\n";
                 if (-e $dirtomake) {
-                print "<li><b>ĞÂµÄ·ÖÀàºÍÂÛÌ³ÒÑ¾­½¨Á¢</b><p>\n";
+                print "<li><b>æ–°çš„åˆ†ç±»å’Œè®ºå›å·²ç»å»ºç«‹</b><p>\n";
                     }
                     else {
-                        print "<li><b>ĞÂµÄ·ÖÀàºÍÂÛÌ³Ã»ÓĞ½¨Á¢</b><p>Çë²é¿´ÊÇ·ñ¸Ä±äÁËÄ¿Â¼ÊôĞÔ£¿Çë¸ÄÊôĞÔ»Ø 777 £¡<p>\n";
+                        print "<li><b>æ–°çš„åˆ†ç±»å’Œè®ºå›æ²¡æœ‰å»ºç«‹</b><p>è¯·æŸ¥çœ‹æ˜¯å¦æ”¹å˜äº†ç›®å½•å±æ€§ï¼Ÿè¯·æ”¹å±æ€§å› 777 ï¼<p>\n";
                         }
 
 
                 $filetoopen = "$dirtomake/index.html";
                 if (-e $filetoopen) {
-                    print "<li><b>ĞÂÂÛÌ³ (index.html) ÎÄ¼ş½¨Á¢</b><p>\n";
+                    print "<li><b>æ–°è®ºå› (index.html) æ–‡ä»¶å»ºç«‹</b><p>\n";
                     }
                     else {
-                        print "<li><b>ĞÂÂÛÌ³ (index.html) ÎÄ¼şÃ»ÓĞ½¨Á¢</b><p>Çë²é¿´ÊÇ·ñ¸Ä±äÁËÄ¿Â¼ÊôĞÔ£¿Çë¸ÄÊôĞÔ»Ø 777 £¡<p>\n";
+                        print "<li><b>æ–°è®ºå› (index.html) æ–‡ä»¶æ²¡æœ‰å»ºç«‹</b><p>è¯·æŸ¥çœ‹æ˜¯å¦æ”¹å˜äº†ç›®å½•å±æ€§ï¼Ÿè¯·æ”¹å±æ€§å› 777 ï¼<p>\n";
                         }
                 print "$filetoopen<p>\n";
                 print "</ul>\n";
@@ -1535,32 +1620,32 @@ sub editcatname {
             <input type=hidden name="category" value="$incategory">
             <input type=hidden name="checkaction" value="yes">
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­·ÖÀàÃû³Æ</b>
+            <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘åˆ†ç±»åç§°</b>
             </td></tr>
             <tr>
 
             <tr>
             <td bgcolor=#EEEEEE align=center colspan=2>
-            <font color=#990000><b>±à¼­ '$categoryname' ·ÖÀàµÄÃû³Æ</b>
+            <font color=#990000><b>ç¼–è¾‘ '$categoryname' åˆ†ç±»çš„åç§°</b>
             </td></tr>
 
 
             <tr>
             <td bgcolor=#FFFFFF width=40%>
-            <font color=#333333><b>·ÖÀàÃû³Æ</b><br>ÇëÊäÈë·ÖÀàÃû³Æ</font></td>
+            <font color=#333333><b>åˆ†ç±»åç§°</b><br>è¯·è¾“å…¥åˆ†ç±»åç§°</font></td>
             <td bgcolor=#FFFFFF>
             <input type=text size=40 name="categoryname" value="$categoryname"></td>
             </tr>
             <tr> 
             <td bgcolor=#FFFFFF width=40%> 
-            <font color=#333333><b>Çø°æÖ÷</b><br>ÇëÊäÈë¹ÜÀí´Ë·ÖÀàµÄÇø°æÖ÷£¬Èç¹ûÄúÏ£ÍûÓĞ¶à¸öÇø°æÖ÷£¬ÇëÊ¹ÓÃ "," (Ó¢ÎÄ¶ººÅ£¬²»ÊÇÖĞÎÄ¶ººÅ)¸ô¿ª¡£<BR><B>ÀıÈç</B>£ºÉ½Ó¥, »¨ÎŞÈ±</font></td> 
+            <font color=#333333><b>åŒºç‰ˆä¸»</b><br>è¯·è¾“å…¥ç®¡ç†æ­¤åˆ†ç±»çš„åŒºç‰ˆä¸»ï¼Œå¦‚æœæ‚¨å¸Œæœ›æœ‰å¤šä¸ªåŒºç‰ˆä¸»ï¼Œè¯·ä½¿ç”¨ "," (è‹±æ–‡é€—å·ï¼Œä¸æ˜¯ä¸­æ–‡é€—å·)éš”å¼€ã€‚<BR><B>ä¾‹å¦‚</B>ï¼šå±±é¹°, èŠ±æ— ç¼º</font></td> 
             <td bgcolor=#FFFFFF> 
             <input type=text size=40 name="catemods" value="$catemods"></td> 
             </tr>
 
             <tr>
             <td bgcolor=#FFFFFF align=center colspan=2>
-            <input type=submit value="Ìá ½»"></form></td></tr></table></td></tr></table>
+            <input type=submit value="æ äº¤"></form></td></tr></table></td></tr></table>
             ~;
             } # end if
 
@@ -1575,7 +1660,7 @@ sub editcatname {
                next if ($_ eq ""); 
 	       my $namenumber = &getnamenumber($_);
 	       &checkmemfile($_,$namenumber);
-               if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { &winunlock($filetoopen) if ($OS_USED eq "Nt"); &errorout("Çø°æÖ÷Ãûµ¥ÖĞ£¬$_ Õâ¸öÓÃ»§ ID ÊÇ²»´æÔÚµÄ£¡"); } 
+               if ((!(-e "${lbdir}$memdir/$namenumber/$_.cgi"))&&(!(-e "${lbdir}$memdir/old/$_.cgi"))) { &winunlock($filetoopen) if ($OS_USED eq "Nt"); &errorout("åŒºç‰ˆä¸»åå•ä¸­ï¼Œ$_ è¿™ä¸ªç”¨æˆ· ID æ˜¯ä¸å­˜åœ¨çš„ï¼"); } 
                }
 
                 $filetoopen = "$lbdir" . "data/allforums.cgi";
@@ -1621,11 +1706,11 @@ sub editcatname {
 
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­·ÖÀàÃû³Æ½á¹û</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘åˆ†ç±»åç§°ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­³É¹¦±£´æ</b>
+                <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»æˆåŠŸä¿å­˜</b>
                 </td></tr></table></td></tr></table>
                 ~;
 &forumjump;
@@ -1650,13 +1735,13 @@ sub reordercats {
             <input type=hidden name="action" value="reordercategories">
             <input type=hidden name="checkaction" value="yes">
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÂÛÌ³·ÖÀàÖØĞÂÅÅĞò</b>
+            <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›åˆ†ç±»é‡æ–°æ’åº</b>
             </td></tr>
             <tr><td bgcolor=#FFFFFF" colspan=3><font color=#333333>
-            <b>×¢ÒâÊÂÏî£º</b><br><br>
-            ÔÚ´ËÄú¿ÉÒÔ½«ÂÛÌ³·ÖÀàÖØĞÂÅÅĞò¡£·ÖÀà½«°´ÕÕÊı×ÖÖØĞÂÏÔÊ¾¡£<BR><BR><b>1 ±íÊ¾´ËÎªµÚÒ»·ÖÀà£¬½«ÏÔÊ¾ÔÚ×îÇ°Ãæ</b>¡£<br><br>
-            <b>Ìá½»Ö®Ç°Çë×ĞÏ¸¼ì²éËùÓĞÉèÖÃ£¬²¢±£Ö¤Ã»ÓĞÖØ¸´Êı×Ö£¬ÓĞÖØ¸´½«»áµ¼ÖÂÓĞµÄ·ÖÀàÎŞ·¨ÏÔÊ¾£¡</b><br><br>
-            <b>Êı×ÖÇë×¢Òâ²»ÒªÓÃÈ«½Çºº×ÖµÄÊı×Ö£¬¶øÇÒ±ØĞë´óÓÚ0£¡</b><br><br>
+            <b>æ³¨æ„äº‹é¡¹ï¼š</b><br><br>
+            åœ¨æ­¤æ‚¨å¯ä»¥å°†è®ºå›åˆ†ç±»é‡æ–°æ’åºã€‚åˆ†ç±»å°†æŒ‰ç…§æ•°å­—é‡æ–°æ˜¾ç¤ºã€‚<BR><BR><b>1 è¡¨ç¤ºæ­¤ä¸ºç¬¬ä¸€åˆ†ç±»ï¼Œå°†æ˜¾ç¤ºåœ¨æœ€å‰é¢</b>ã€‚<br><br>
+            <b>æäº¤ä¹‹å‰è¯·ä»”ç»†æ£€æŸ¥æ‰€æœ‰è®¾ç½®ï¼Œå¹¶ä¿è¯æ²¡æœ‰é‡å¤æ•°å­—ï¼Œæœ‰é‡å¤å°†ä¼šå¯¼è‡´æœ‰çš„åˆ†ç±»æ— æ³•æ˜¾ç¤ºï¼</b><br><br>
+            <b>æ•°å­—è¯·æ³¨æ„ä¸è¦ç”¨å…¨è§’æ±‰å­—çš„æ•°å­—ï¼Œè€Œä¸”å¿…é¡»å¤§äº0ï¼</b><br><br>
             </td></tr>
             ~;
 
@@ -1690,7 +1775,7 @@ sub reordercats {
                     <tr>
                     <td bgcolor=#FFFFFF width=40%><font color=#333333>
                     <b>-=> $category</b></font></td>
-                    <td bgcolor=#FFFFFF><font color=#333333>ÏÖÔÚÎ»ÖÃ [ <B>$categoryplace</B> ]£¬ÇëÊäÈëĞÂµÄÊı×ÖÒÔ±ãÅÅĞò£º<input type=text size=4 maxlength=2 name="$categoryplace" value="$categoryplace">
+                    <td bgcolor=#FFFFFF><font color=#333333>ç°åœ¨ä½ç½® [ <B>$categoryplace</B> ]ï¼Œè¯·è¾“å…¥æ–°çš„æ•°å­—ä»¥ä¾¿æ’åºï¼š<input type=text size=4 maxlength=2 name="$categoryplace" value="$categoryplace">
                     </td></tr>
                     ~;
                     } # end if
@@ -1704,7 +1789,7 @@ sub reordercats {
                     print qq~
                     <tr>
                     <td bgcolor=#EEEEEE align=center colspan=2>
-                    <BR><input type=submit value="Ìá ½»"></td></form></tr></table></td></tr></table>
+                    <BR><input type=submit value="æ äº¤"></td></form></tr></table></td></tr></table>
                     ~;
 
             } # end if
@@ -1731,11 +1816,11 @@ sub reordercats {
 
                 	print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­·ÖÀàÃû³Æ½á¹û</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘åˆ†ç±»åç§°ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=red><b>ÄúÊäÈëµÄĞòºÅÖĞÓĞ´íÎó£¬Çë·µ»ØĞŞÕıºóÔÙ¼ÌĞø£¡</b>
+                <font color=red><b>æ‚¨è¾“å…¥çš„åºå·ä¸­æœ‰é”™è¯¯ï¼Œè¯·è¿”å›ä¿®æ­£åå†ç»§ç»­ï¼</b>
                 </td></tr></table></td></tr></table>
                 ~;
 			exit;
@@ -1774,11 +1859,11 @@ if (-e $cattop) {rename ($cattop,"${lbdir}boarddata/catontop$PARAM{$_}.cgi");}
 
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ±à¼­·ÖÀàÃû³Æ½á¹û</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / ç¼–è¾‘åˆ†ç±»åç§°ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­³É¹¦±£´æ</b>
+                <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»æˆåŠŸä¿å­˜</b>
                 </td></tr></table></td></tr></table>
                 ~;
 &forumjump;
@@ -1800,11 +1885,11 @@ sub reorder {
             <input type=hidden name="category" value="$inforum">
 
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-            <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ÂÛÌ³ÖØĞÂÅÅĞò</b>
+            <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / è®ºå›é‡æ–°æ’åº</b>
             </td></tr>
             <tr><td bgcolor=#FFFFFF" colspan=3><font color=#333333>
-            <b>×¢ÒâÊÂÏî£º</b><br><br>
-            ÔÚ´ËÄú¿ÉÒÔ½«·ÖÂÛÌ³ÖØĞÂÅÅĞò¡£<br>·ÖÂÛÌ³½«×Ô¶¯¸ù¾İË³ĞòÖØĞÂ¸Ä±äË³ĞòºÍ·ÖÇøÃû³Æ
+            <b>æ³¨æ„äº‹é¡¹ï¼š</b><br><br>
+            åœ¨æ­¤æ‚¨å¯ä»¥å°†åˆ†è®ºå›é‡æ–°æ’åºã€‚<br>åˆ†è®ºå›å°†è‡ªåŠ¨æ ¹æ®é¡ºåºé‡æ–°æ”¹å˜é¡ºåºå’Œåˆ†åŒºåç§°
             </td></tr>~;
             $filetoopen = "$lbdir" . "data/allforums.cgi";
 #         &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -1827,7 +1912,7 @@ sub reorder {
          }
          $childmove=($mycategory =~/^childforum-[0-9]+$/)?1:0;
             print qq~
-            <tr><td><input type="radio" name="movetype" value="tomove" checked>°ÑÂÛÌ³ <font color=red>$myforumname</font> ÒÆµ½ÂÛÌ³
+            <tr><td><input type="radio" name="movetype" value="tomove" checked>æŠŠè®ºå› <font color=red>$myforumname</font> ç§»åˆ°è®ºå›
             <select name="forum">
             ~;
 
@@ -1854,42 +1939,42 @@ foreach my $sortedforums (@finalsortedforums) {
     (my $categoryplace,my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forumpass, my $hiddenforum, my $indexforum,my $teamlogo,my $teamurl,my $fgwidth,my $fgheight,my $miscad4,my $todayforumpost,my $miscad5) = split(/\t/,$sortedforums);
     $categoryplace  = sprintf("%01d",$categoryplace);
     if ($category eq $mycategory){
-	$jumphtml3 = "<option value=\"top$categoryplace\">©ï×ÓÂÛÌ³ÁĞ±í×î¶¥\n" if ($jumphtml3 eq "");
-        $jumphtml3 .= "<option value=\"$forumid\">©À$forumname\n";
+	$jumphtml3 = "<option value=\"top$categoryplace\">â•‹å­è®ºå›åˆ—è¡¨æœ€é¡¶\n" if ($jumphtml3 eq "");
+        $jumphtml3 .= "<option value=\"$forumid\">â”œ$forumname\n";
     }
-#    else {$jumphtml3 .= "<option value=\"$forumid\">©À$category eq $mycategory\n"; }
+#    else {$jumphtml3 .= "<option value=\"$forumid\">â”œ$category eq $mycategory\n"; }
     next if ($category =~/childforum-[0-9]+/);
 
     if ($categoryplace ne $lastcategoryplace) {
-        $jumphtml .= "<option value=\"top$forumid\" style=background-color:$titlecolor>©ï$category\n";
+        $jumphtml .= "<option value=\"top$forumid\" style=background-color:$titlecolor>â•‹$category\n";
     }
     if (($forumname ne $myforumname)||($categoryplace ne $mycategoryplace)){
-        $jumphtml .= "<option value=\"$forumid\">¡¡©À$forumname\n";
+        $jumphtml .= "<option value=\"$forumid\">ã€€â”œ$forumname\n";
     }
 
     $lastcategoryplace = $categoryplace;
 }
 $jumphtml .= qq~</select>\n~;
 $jumphtml2=$jumphtml;
-$jumphtml2=~s/<option value="top(.+?)" style=background-color:$titlecolor>©ï(.+?)\n//g;
-$jumphtml2=~s/¡¡©À//g;
+$jumphtml2=~s/<option value="top(.+?)" style=background-color:$titlecolor>â•‹(.+?)\n//g;
+$jumphtml2=~s/ã€€â”œ//g;
 
 
 
 
                     print qq~
-                    $jumphtmlÏÂ£¬²¢ÇÒ×Ô¶¯¸Ä±ä·ÖÇøÊôĞÔ¡£
+                    $jumphtmlä¸‹ï¼Œå¹¶ä¸”è‡ªåŠ¨æ”¹å˜åˆ†åŒºå±æ€§ã€‚
                    </td></tr>
 ~;
                    	if($childmove){
                     print qq~
-                   	<tr><td><input type="radio" name="movetype" value="movechild">°Ñ×ÓÂÛÌ³ <font color=red>$myforumname</font> ÒÆµ½<select name="indexforum">$jumphtml3</select>ÏÂ¡£</td></tr>~;
+                   	<tr><td><input type="radio" name="movetype" value="movechild">æŠŠå­è®ºå› <font color=red>$myforumname</font> ç§»åˆ°<select name="indexforum">$jumphtml3</select>ä¸‹ã€‚</td></tr>~;
                    	}
-                    print qq~                   	<tr><td><input type="radio" name="movetype" value="tochild">°ÑÂÛÌ³ <font color=red>$myforumname</font> ³ÉÎª<select name="cforum">$jumphtml2µÄ×ÓÂÛÌ³£¬²¢ÇÒ×Ô¶¯¸Ä±ä·ÖÇøÊôĞÔ¡£</td></tr>
+                    print qq~                   	<tr><td><input type="radio" name="movetype" value="tochild">æŠŠè®ºå› <font color=red>$myforumname</font> æˆä¸º<select name="cforum">$jumphtml2çš„å­è®ºå›ï¼Œå¹¶ä¸”è‡ªåŠ¨æ”¹å˜åˆ†åŒºå±æ€§ã€‚</td></tr>
                    	<tr>
                     <tr>
                     <td bgcolor=#EEEEEE align=center colspan=2>
-                    <BR><input type=submit value="Ìá ½»"></td></form></tr></table></td></tr></table>
+                    <BR><input type=submit value="æ äº¤"></td></form></tr></table></td></tr></table>
                     ~;
 
             } # end if
@@ -2029,11 +2114,11 @@ $newforuminfo="$oldforumid\t$oldcategory\t$oldcategoryplace\t$oldmyforumname\t$o
 
                 print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
-                <b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ·ÖÂÛÌ³ÅÅĞòÃû³Æ½á¹û</b>
+                <b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / åˆ†è®ºå›æ’åºåç§°ç»“æœ</b>
                 </td></tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­³É¹¦±£´æ</b>
+                <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»æˆåŠŸä¿å­˜</b>
                 </td></tr></table></td></tr></table>
                 ~;
 &forumjump;
@@ -2044,7 +2129,7 @@ $newforuminfo="$oldforumid\t$oldcategory\t$oldcategoryplace\t$oldmyforumname\t$o
 }
 
 sub errorout {
-    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>»¶Ó­À´µ½ÂÛÌ³¹ÜÀíÖĞĞÄ / ·¢Éú´íÎó</b></td></tr>
+    print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>æ¬¢è¿æ¥åˆ°è®ºå›ç®¡ç†ä¸­å¿ƒ / å‘ç”Ÿé”™è¯¯</b></td></tr>
 <tr><td bgcolor=#FFFFFF colspan=2><font color=#333333><b>$_[0]</b></td></tr></table></td></tr></table>
 ~;
     exit;
@@ -2063,7 +2148,7 @@ top.location.href = URL; target = '_self';
 </SCRIPT>
 <form action="forums.cgi" method="post" name="jump">
 <select name="jumpto" onchange="surfto1(this)">
-<option value="leobbs.cgi">Ìø×ªÂÛÌ³ÖÁ...</option>
+<option value="leobbs.cgi">è·³è½¬è®ºå›è‡³...</option>
 ~;
 
 	open(FILE, "${lbdir}data/allforums.cgi");
@@ -2093,29 +2178,29 @@ foreach my $sortedforums (@finalsortedforums) {
     (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $forumpass, my $hiddenforum, my $indexforum) = split(/\t/,$sortedforums);
     $categoryplace  = sprintf("%01d",$categoryplace);
     if ($categoryplace ne $lastcategoryplace) {
-    	    $jumphtml .= "<option value=\"category.cgi?category=$categoryplace\" style=background-color:\$titlecolor>©ï$category\n</option>";
-#            $jumphtml .= "<option value=\"forums.cgi?forum=$forumid\" style=background-color:\$titlecolor>©ï$category\n</option>";
+    	    $jumphtml .= "<option value=\"category.cgi?category=$categoryplace\" style=background-color:\$titlecolor>â•‹$category\n</option>";
+#            $jumphtml .= "<option value=\"forums.cgi?forum=$forumid\" style=background-color:\$titlecolor>â•‹$category\n</option>";
     }
-    if ($hiddenforum eq "yes"){ $hidden="(Òşº¬)"; }else{ $hidden=""; } 
+    if ($hiddenforum eq "yes"){ $hidden="(éšå«)"; }else{ $hidden=""; } 
     if ($category !~ /^childforum-[0-9]+/) {
 	if ($hidden ne "") {
-	    $jumphtml .= "<!--h <option value=\"forums.cgi?forum=$forumid\">¡¡|-$forumname$hidden\n</option> -->";
-	    $outputbutton .= "<!--h <option value=\"$forumid\">¡¡|-$forumname$hidden\n</option> -->";
+	    $jumphtml .= "<!--h <option value=\"forums.cgi?forum=$forumid\">ã€€|-$forumname$hidden\n</option> -->";
+	    $outputbutton .= "<!--h <option value=\"$forumid\">ã€€|-$forumname$hidden\n</option> -->";
 	    $fname.="\$fname$forumid=\"$forumname\";\n";
 	} else {
-	    $jumphtml .= "<option value=\"forums.cgi?forum=$forumid\">¡¡|-$forumname\n</option>";
-	    $outputbutton .= "<option value=\"$forumid\">¡¡|-$forumname\n</option>";
+	    $jumphtml .= "<option value=\"forums.cgi?forum=$forumid\">ã€€|-$forumname\n</option>";
+	    $outputbutton .= "<option value=\"$forumid\">ã€€|-$forumname\n</option>";
 	    $fname.="\$fname$forumid=\"$forumname\";\n";
 	}
     }
     else {
         if ($hidden ne "") {
-            $jumphtml .= "<!--h <!--c <option value=\"forums.cgi?forum=$forumid\">¡¡|¡¡|-$forumname$hidden\n</option> --> -->";
-            $outputbutton .= "<!--h <!--c <option value=\"$forumid\">¡¡|¡¡|-$forumname$hidden\n</option> --> -->";
+            $jumphtml .= "<!--h <!--c <option value=\"forums.cgi?forum=$forumid\">ã€€|ã€€|-$forumname$hidden\n</option> --> -->";
+            $outputbutton .= "<!--h <!--c <option value=\"$forumid\">ã€€|ã€€|-$forumname$hidden\n</option> --> -->";
             $fname.="\$fname$forumid=\"$forumname\";\n";
         } else {
-            $jumphtml .= "<!--c <option value=\"forums.cgi?forum=$forumid\">¡¡|¡¡|-$forumname$hidden\n</option> -->";
-            $outputbutton .= "<!--c <option value=\"$forumid\">¡¡|¡¡|-$forumname$hidden\n</option> -->";
+            $jumphtml .= "<!--c <option value=\"forums.cgi?forum=$forumid\">ã€€|ã€€|-$forumname$hidden\n</option> -->";
+            $outputbutton .= "<!--c <option value=\"$forumid\">ã€€|ã€€|-$forumname$hidden\n</option> -->";
             $fname.="\$fname$forumid=\"$forumname\";\n";
         }
     }
@@ -2185,7 +2270,7 @@ sub writecatemod {
 	    }
 	    if ($cmodoutput ne "") {
 	    	$_ =~ s/^catemod(.+?)\.cgi$/$1/isg;
-	        $cmodoutputfile .= qq~\$cmodoutput[$_] = qq(<img src=$imagesurl/images/team2.gif width=19 align=absmiddle><select onchange="surfto(this)"><option style=background-color:\$titlecolor>´Ë·ÖÀàÇø°æÖ÷£º</option>$cmodoutput);
+	        $cmodoutputfile .= qq~\$cmodoutput[$_] = qq(<img src=$imagesurl/images/team2.gif width=19 align=absmiddle><select onchange="surfto(this)"><option style=background-color:\$titlecolor>æ­¤åˆ†ç±»åŒºç‰ˆä¸»ï¼š</option>$cmodoutput);
 ~;
 	        $cmodoutput = "";
 	    }
@@ -2210,26 +2295,26 @@ foreach (@dirdata) { unlink ("${lbdir}cache/$_"); }
 }
 
 
-#´¦ÀíºóÌ¨ÉÏ´«logo£¬By Easunlee
+#å¤„ç†åå°ä¸Šä¼ logoï¼ŒBy Easunlee
 sub douppics
 { #1
-  # $addme=$query->upload('addme'); #Èç¹ûCGI.pm°æ±¾>2.47£¬ÍÆ¼öÊ¹ÓÃ
-  $addme=$query->param('addme'); #Èç¹ûCGI.pm°æ±¾<2.47£¬ÓÃËûÌæ»»ÉÏ¾ä
+  # $addme=$query->upload('addme'); #å¦‚æœCGI.pmç‰ˆæœ¬>2.47ï¼Œæ¨èä½¿ç”¨
+  $addme=$query->param('addme'); #å¦‚æœCGI.pmç‰ˆæœ¬<2.47ï¼Œç”¨ä»–æ›¿æ¢ä¸Šå¥
   return unless ($addme);
 
-  my ($tmpfilename) = $addme =~ m|([^/:\\]+)$|; #×¢Òâ,»ñÈ¡ÎÄ¼şÃû×ÖµÄĞÎÊ½±ä»¯
-  my @filename = split(/\./,$tmpfilename); #×¢Òâ
+  my ($tmpfilename) = $addme =~ m|([^/:\\]+)$|; #æ³¨æ„,è·å–æ–‡ä»¶åå­—çš„å½¢å¼å˜åŒ–
+  my @filename = split(/\./,$tmpfilename); #æ³¨æ„
   my $up_name = $filename[0];
   my $up_ext = $filename[-1];
   $up_ext = lc($up_ext);
 
-  &errorout("ÉÏ´«³ö´í£¡²»Ö§³ÖÄúËùÉÏ´«µÄÍ¼Æ¬ÀàĞÍ£¬ÇëÖØĞÂÑ¡Ôñ£¡") if (($up_ext ne "gif") && ($up_ext ne "jpg") && ($up_ext ne "bmp")&&($up_ext ne "swf")&&($up_ext ne "png"));
+  &errorout("ä¸Šä¼ å‡ºé”™ï¼ä¸æ”¯æŒæ‚¨æ‰€ä¸Šä¼ çš„å›¾ç‰‡ç±»å‹ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼") if (($up_ext ne "gif") && ($up_ext ne "jpg") && ($up_ext ne "bmp")&&($up_ext ne "swf")&&($up_ext ne "png"));
 
 
   my $buffer;
   open (FILE,">$imagesdir/myimages/$up_name.$up_ext");
   binmode (FILE);
-  binmode ($addme); #×¢Òâ
+  binmode ($addme); #æ³¨æ„
 
   while (read($addme,$buffer,4096) )
   {#2
@@ -2237,7 +2322,7 @@ sub douppics
    $filesize=$filesize+4;
   } #2
   close (FILE);
-  close ($addme); #×¢Òâ
+  close ($addme); #æ³¨æ„
 
   if ($up_ext eq "gif"||$up_ext eq "jpg"||$up_ext eq "bmp"||$up_ext eq "jpeg"||$up_ext eq "png"||$up_ext eq "ppm"||$up_ext eq "svg"||$up_ext eq "xbm"||$up_ext eq "xpm")
   { #3
@@ -2246,7 +2331,7 @@ sub douppics
      if ($info->{error} eq "Unrecognized file format")
      {
         unlink ("${imagesdir}myimages/$up_name.$up_ext");
-        &errorout("ÉÏ´«³ö´í&ÉÏ´«ÎÄ¼ş²»ÊÇÍ¼Æ¬ÎÄ¼ş£¬ÇëÉÏ´«±ê×¼µÄÍ¼Æ¬ÎÄ¼ş£¡");
+        &errorout("ä¸Šä¼ å‡ºé”™&ä¸Šä¼ æ–‡ä»¶ä¸æ˜¯å›¾ç‰‡æ–‡ä»¶ï¼Œè¯·ä¸Šä¼ æ ‡å‡†çš„å›¾ç‰‡æ–‡ä»¶ï¼");
      }
      undef $info;
   } #3

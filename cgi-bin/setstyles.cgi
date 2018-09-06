@@ -668,117 +668,140 @@ obj2.style.backgroundColor=arr;
                 </td></tr>
                 
                 <tr>
-                <td bgcolor=#FFFFFF>        <td bgcolor=$navbackground width=12 id=navbackground2>         <font color=#333333>ÄÚÈÝÑÕÉ«Ò»</font></td>
-                <td bgcolor=$forumcolorone  width=12 id=forumcolorone2>¡¡</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="forumcolorone" value="$forumcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolorone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#f0F3Fa</td>
+                <font color=#333333>è®ºå›/ä¸»é¢˜çš„æ ‡é¢˜æ èƒŒæ™¯é¢œè‰²</font></td>
+                <td bgcolor=$titlecolor  width=12 id=titlecolor2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="titlecolor" value="$titlecolor" size=7 maxlength=7 onclick="javascript:selcolor(this,titlecolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#acbded</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝÑÕÉ«¶þ</font></td>
-                <td bgcolor=$forumcolortwo  width=12 id=forumcolortwo2>¡¡</td>
+                <font color=#333333>è®ºå›/ä¸»é¢˜çš„æ ‡é¢˜æ å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$titlefontcolor  width=12 id=titlefontcolor2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="forumcolortwo" value="$forumcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolortwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#F2F8FF</td>
-                </tr>
-                
-                <tr>
-                <td bgcolor=#FFFFFF>
-                <font color=#333333>ÄÚÈÝ×ÖÌåÑÕÉ«</font></td>
-                <td bgcolor=$forumfontcolor  width=12 id=forumfontcolor2>¡¡</td>
-                <td bgcolor=#FFFFFF>
-                <input type=text name="forumfontcolor" value="$forumfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,forumfontcolor2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="titlefontcolor" value="$titlefontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,titlefontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>»Ø¸´ÑÕÉ«</center></b>
-                <font color=#333333>»Ø¸´Ìù×ÓÑÕÉ«(topic.cgi)
+                <font color=#990000><b><center>è®ºå›å†…å®¹é¢œè‰²</center></b>
+                <font color=#333333>æŸ¥çœ‹è®ºå›å†…å®¹æ—¶é¢œè‰² (forums.cgi)
+                </td></tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF>
+                <font color=#333333>å†…å®¹é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$forumcolorone  width=12 id=forumcolorone2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="forumcolorone" value="$forumcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolorone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#f0F3Fa</td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF>
+                <font color=#333333>å†…å®¹é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$forumcolortwo  width=12 id=forumcolortwo2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="forumcolortwo" value="$forumcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,forumcolortwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#F2F8FF</td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#FFFFFF>
+                <font color=#333333>å†…å®¹å­—ä½“é¢œè‰²</font></td>
+                <td bgcolor=$forumfontcolor  width=12 id=forumfontcolor2>ã€€</td>
+                <td bgcolor=#FFFFFF>
+                <input type=text name="forumfontcolor" value="$forumfontcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,forumfontcolor2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
+                </tr>
+                
+                <tr>
+                <td bgcolor=#EEEEEE align=center colspan=3>
+                <font color=#990000><b><center>å›žå¤é¢œè‰²</center></b>
+                <font color=#333333>å›žå¤è´´å­é¢œè‰²(topic.cgi)
                 </td></tr>
                 
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´ÑÕÉ«Ò»</font></td>
-                <td bgcolor=$postcolorone  width=12 id=postcolorone2>¡¡</td>
+                <font color=#333333>å›žå¤é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$postcolorone  width=12 id=postcolorone2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postcolorone" value="$postcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolorone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#EFF3F9</td>
+                <input type=text name="postcolorone" value="$postcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolorone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#EFF3F9</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´ÑÕÉ«¶þ</font></td>
-                <td bgcolor=$postcolortwo  width=12 id=postcolortwo2>¡¡</td>
+                <font color=#333333>å›žå¤é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$postcolortwo  width=12 id=postcolortwo2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postcolortwo" value="$postcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolortwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#F2F4EF</td>
+                <input type=text name="postcolortwo" value="$postcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postcolortwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#F2F4EF</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´×ÖÌåÑÕÉ«Ò»</font></td>
-                <td bgcolor=$postfontcolorone  width=12 id=postfontcolorone2>¡¡</td>
+                <font color=#333333>å›žå¤å­—ä½“é¢œè‰²ä¸€</font></td>
+                <td bgcolor=$postfontcolorone  width=12 id=postfontcolorone2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postfontcolorone" value="$postfontcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolorone2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#333333</td>
+                <input type=text name="postfontcolorone" value="$postfontcolorone" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolorone2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#333333</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF>
-                <font color=#333333>»Ø¸´×ÖÌåÑÕÉ«¶þ</font></td>
-                <td bgcolor=$postfontcolortwo  width=12 id=postfontcolortwo2>¡¡</td>
+                <font color=#333333>å›žå¤å­—ä½“é¢œè‰²äºŒ</font></td>
+                <td bgcolor=$postfontcolortwo  width=12 id=postfontcolortwo2>ã€€</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postfontcolortwo" value="$postfontcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolortwo2)" style="cursor:hand">¡¡Ä¬ÈÏ£º#555555</td>
+                <input type=text name="postfontcolortwo" value="$postfontcolortwo" size=7 maxlength=7 onclick="javascript:selcolor(this,postfontcolortwo2)" style="cursor:hand">ã€€é»˜è®¤ï¼š#555555</td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>Ò³Ãæ¿ç¶È</center></b><br>
-                <font color=#333333>Ã¿Ò³ÏÔÊ¾Ö÷ÌâµÄ»Ø¸´Êý£¬µ±Ò»ÆªÖ÷Ìâ»Ø¸´³¬¹ýÒ»¶¨ÊýÁ¿Ê±·ÖÒ³ÏÔÊ¾ (topic.cgi)
+                <font color=#990000><b><center>é¡µé¢è·¨åº¦</center></b><br>
+                <font color=#333333>æ¯é¡µæ˜¾ç¤ºä¸»é¢˜çš„å›žå¤æ•°ï¼Œå½“ä¸€ç¯‡ä¸»é¢˜å›žå¤è¶…è¿‡ä¸€å®šæ•°é‡æ—¶åˆ†é¡µæ˜¾ç¤º (topic.cgi)
                 </td></tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ã¿Ò³Ö÷ÌâÊý</font></td>
+                <font color=#333333>æ¯é¡µä¸»é¢˜æ•°</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxthreads" value="$maxthreads" size=3 maxlength=3>¡¡Ò»°ãÎª 20 -- 30</td>
+                <input type=text name="maxthreads" value="$maxthreads" size=3 maxlength=3>ã€€ä¸€èˆ¬ä¸º 20 -- 30</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ã¿Ö÷ÌâÃ¿Ò³µÄ»Ø¸´Êý</font></td>
+                <font color=#333333>æ¯ä¸»é¢˜æ¯é¡µçš„å›žå¤æ•°</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxtopics" value="$maxtopics" size=3 maxlength=3>¡¡Ò»°ãÎª 10 -- 15</td>
+                <input type=text name="maxtopics" value="$maxtopics" size=3 maxlength=3>ã€€ä¸€èˆ¬ä¸º 10 -- 15</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>»Ø¸´Êý³¬¹ý¶àÉÙºó¾ÍÊÇÈÈÃÅÌù£¿</font></td>
+                <font color=#333333>å›žå¤æ•°è¶…è¿‡å¤šå°‘åŽå°±æ˜¯çƒ­é—¨è´´ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="hottopicmark" value="$hottopicmark" size=3 maxlength=3>¡¡Ò»°ãÎª 10 -- 15</td>
+                <input type=text name="hottopicmark" value="$hottopicmark" size=3 maxlength=3>ã€€ä¸€èˆ¬ä¸º 10 -- 15</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Í¶Æ±Êý³¬¹ý¶àÉÙºó¾ÍÊÇÈÈÃÅÍ¶Æ±Ìù£¿</font></td>
+                <font color=#333333>æŠ•ç¥¨æ•°è¶…è¿‡å¤šå°‘åŽå°±æ˜¯çƒ­é—¨æŠ•ç¥¨è´´ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="hotpollmark" value="$hotpollmark" size=3 maxlength=3>¡¡Ò»°ãÎª 10 -- 15</td>
+                <input type=text name="hotpollmark" value="$hotpollmark" size=3 maxlength=3>ã€€ä¸€èˆ¬ä¸º 10 -- 15</td>
                 </tr>
                 ~;
 
-			   $tempoutput = "<select name=\"usehigest\"><option value=\"yes\">Í»³ö<option value=\"no\">²»Í»³ö</select>\n"; 
+			   $tempoutput = "<select name=\"usehigest\"><option value=\"yes\">çªå‡º<option value=\"no\">ä¸çªå‡º</select>\n"; 
                $tempoutput =~ s/value=\"$usehigest\"/value=\"$usehigest\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÊÇ·ñÍ»³ö×î¸ßÆ±ÊýµÄ¶¥Ä¿£¿</font></td> 
+               <font color=#333333>æ˜¯å¦çªå‡ºæœ€é«˜ç¥¨æ•°çš„é¡¶ç›®ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF>$tempoutput</td> 
                </tr> 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>Í»³ö×î¸ßÆ±ÊýµÄ¶¥Ä¿µÄÎÄ×ÖÑÕÉ«</font></td> 
+               <font color=#333333>çªå‡ºæœ€é«˜ç¥¨æ•°çš„é¡¶ç›®çš„æ–‡å­—é¢œè‰²</font></td> 
                <td bgcolor=#FFFFFF> 
-               <input type=text name="higestcolor" value="$higestcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,higestcolor)" style="cursor:hand;background-color:$higestcolor">  Ä¬ÈÏ£º#0000FF</td> 
+               <input type=text name="higestcolor" value="$higestcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,higestcolor)" style="cursor:hand;background-color:$higestcolor">  é»˜è®¤ï¼š#0000FF</td> 
                </tr> 
                ~; 
 
@@ -788,237 +811,237 @@ obj2.style.backgroundColor=arr;
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>Í»³ö×î¸ßÆ±ÊýµÄ¶¥Ä¿µÄÎÄ×Ö´óÐ¡</font></td> 
-               <td bgcolor=#FFFFFF>$tempoutput  Ä¬ÈÏ£º3</td> 
+               <font color=#333333>çªå‡ºæœ€é«˜ç¥¨æ•°çš„é¡¶ç›®çš„æ–‡å­—å¤§å°</font></td> 
+               <td bgcolor=#FFFFFF>$tempoutput  é»˜è®¤ï¼š3</td> 
                </tr> 
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ã¿Ò³ÏÔÊ¾µÄ±íÇéÍ¼¸öÊý</font></td>
+                <font color=#333333>æ¯é¡µæ˜¾ç¤ºçš„è¡¨æƒ…å›¾ä¸ªæ•°</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxoneemot" value="$maxoneemot" size=3 maxlength=3>¡¡Ä¬ÈÏÎª 15£¬Èç¹û²»Ïë·ÖÒ³£¬¾ÍÉèÖÃÎª999</td>
+                <input type=text name="maxoneemot" value="$maxoneemot" size=3 maxlength=3>ã€€é»˜è®¤ä¸º 15ï¼Œå¦‚æžœä¸æƒ³åˆ†é¡µï¼Œå°±è®¾ç½®ä¸º999</td>
                 </tr>
                ~; 
 
 				print qq~
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>LeoBBS ±êÇ©ÉèÖÃ</center></b>(Ì³Ö÷ºÍ°æÖ÷²»ÊÜ´ËÏÞ)<br>
+                <font color=#990000><b><center>LeoBBS æ ‡ç­¾è®¾ç½®</center></b>(å›ä¸»å’Œç‰ˆä¸»ä¸å—æ­¤é™)<br>
                 </td></tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawpostpic\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawpostpic\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawpostpic\"/value=\"$arrawpostpic\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐÊÇ·ñÔÊÐíÌùÍ¼£¿</font></td>
+                <font color=#333333>è´´å­ä¸­æ˜¯å¦å…è®¸è´´å›¾ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawpostflash\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawpostflash\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawpostflash\"/value=\"$arrawpostflash\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐÊÇ·ñÔÊÐí Flash£¿</font></td>
+                <font color=#333333>è´´å­ä¸­æ˜¯å¦å…è®¸ Flashï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-	        $tempoutput = "<select name=\"arrawpostreal\"><option value=\"off\">²»ÔÊÐí<option value=\"on\" >ÔÊÐí</select>\n";
+	        $tempoutput = "<select name=\"arrawpostreal\"><option value=\"off\">ä¸å…è®¸<option value=\"on\" >å…è®¸</select>\n";
                 $tempoutput =~ s/value=\"$arrawpostreal\"/value=\"$arrawpostreal\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐÊÇ·ñÔÊÐí Real ÎÄ¼þ£¿</font></td>
+                <font color=#333333>è´´å­ä¸­æ˜¯å¦å…è®¸ Real æ–‡ä»¶ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput
 		</td>
                 </tr>
                 ~;
 
-	        $tempoutput = "<select name=\"arrawpostmedia\"><option value=\"off\">²»ÔÊÐí<option value=\"on\" >ÔÊÐí</select>\n";
+	        $tempoutput = "<select name=\"arrawpostmedia\"><option value=\"off\">ä¸å…è®¸<option value=\"on\" >å…è®¸</select>\n";
                 $tempoutput =~ s/value=\"$arrawpostmedia\"/value=\"$arrawpostmedia\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐÊÇ·ñÔÊÐí Media ÎÄ¼þ£¿</font></td>
+                <font color=#333333>è´´å­ä¸­æ˜¯å¦å…è®¸ Media æ–‡ä»¶ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput
 		</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawpostsound\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawpostsound\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawpostsound\"/value=\"$arrawpostsound\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐÊÇ·ñÔÊÐíÉùÒôÎÄ¼þ£¿</font></td>
+                <font color=#333333>è´´å­ä¸­æ˜¯å¦å…è®¸å£°éŸ³æ–‡ä»¶ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawautoplay\">\n<option value=\"1\">ÔÊÐí\n<option value=\"0\">²»ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawautoplay\">\n<option value=\"1\">å…è®¸\n<option value=\"0\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawautoplay\"/value=\"$arrawautoplay\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐµÄ¶àÃ½ÌåÎÄ¼þÊÇ·ñÔÊÐí×Ô¶¯²¥·Å£¿</font></td>
+                <font color=#333333>è´´å­ä¸­çš„å¤šåª’ä½“æ–‡ä»¶æ˜¯å¦å…è®¸è‡ªåŠ¨æ’­æ”¾ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawpostfontsize\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawpostfontsize\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawpostfontsize\"/value=\"$arrawpostfontsize\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÖÐÊÇ·ñÔÊÐí¸Ä±äÎÄ×Ö´óÐ¡£¿</font></td>
+                <font color=#333333>è´´å­ä¸­æ˜¯å¦å…è®¸æ”¹å˜æ–‡å­—å¤§å°ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 		
-                $tempoutput = "<select name=\"openiframe\">\n<option value=\"no\">²»ÔÊÐí\n<option value=\"yes\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"openiframe\">\n<option value=\"no\">ä¸å…è®¸\n<option value=\"yes\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$openiframe\"/value=\"$openiframe\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333>ÂÛÌ³ÊÇ·ñÔÊÐí Iframe ±êÇ©</font></td>
+                <font face=å®‹ä½“ color=#333333>è®ºå›æ˜¯å¦å…è®¸ Iframe æ ‡ç­¾</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 		
-		$tempoutput = "<select name=\"boarddispsign\">\n<option value=\"yes\">Ä¬ÈÏÏÔÊ¾\n<option value=\"noselect\">Ä¬ÈÏ²»ÏÔÊ¾\n<option value=\"no\">½ûÖ¹ÏÔÊ¾\n</select>\n";
+		$tempoutput = "<select name=\"boarddispsign\">\n<option value=\"yes\">é»˜è®¤æ˜¾ç¤º\n<option value=\"noselect\">é»˜è®¤ä¸æ˜¾ç¤º\n<option value=\"no\">ç¦æ­¢æ˜¾ç¤º\n</select>\n";
                 $tempoutput =~ s/value=\"$boarddispsign\"/value=\"$boarddispsign\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÏÔÊ¾Ìù×ÓÖÐµÄÇ©Ãû£¿</font></td>
+                <font color=#333333>æ˜¯å¦æ˜¾ç¤ºè´´å­ä¸­çš„ç­¾åï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
                 
-                $tempoutput = "<select name=\"arrawsignpic\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawsignpic\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawsignpic\"/value=\"$arrawsignpic\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ç©ÃûÖÐÊÇ·ñÔÊÐíÌùÍ¼£¿</font></td>
+                <font color=#333333>ç­¾åä¸­æ˜¯å¦å…è®¸è´´å›¾ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"arrawsignflash\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawsignflash\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawsignflash\"/value=\"$arrawsignflash\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ç©ÃûÖÐÊÇ·ñÔÊÐí Flash£¿</font></td>
+                <font color=#333333>ç­¾åä¸­æ˜¯å¦å…è®¸ Flashï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawsignsound\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawsignsound\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawsignsound\"/value=\"$arrawsignsound\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ç©ÃûÖÐÊÇ·ñÔÊÐíÉùÒô£¿</font></td>
+                <font color=#333333>ç­¾åä¸­æ˜¯å¦å…è®¸å£°éŸ³ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawsignfontsize\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrawsignfontsize\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrawsignfontsize\"/value=\"$arrawsignfontsize\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ç©ÃûÖÐÊÇ·ñÔÊÐí¸Ä±äÎÄ×Ö´óÐ¡£¿</font></td>
+                <font color=#333333>ç­¾åä¸­æ˜¯å¦å…è®¸æ”¹å˜æ–‡å­—å¤§å°ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìû×ÓºÍÇ©ÃûÖÐ Flash Ä¬ÈÏ´óÐ¡</font></td>
+                <font color=#333333>å¸–å­å’Œç­¾åä¸­ Flash é»˜è®¤å¤§å°</font></td>
                 <td bgcolor=#FFFFFF>
-                ¿í¶È£º <input type=text name="defaultflashwidth" value="$defaultflashwidth" size=3 maxlength=3>¡¡Ä¬ÈÏ 410 ÏñÊý<BR>
-                ¸ß¶È£º <input type=text name="defaultflashheight" value="$defaultflashheight" size=3 maxlength=3>¡¡Ä¬ÈÏ 280 ÏñÊý</td>
+                å®½åº¦ï¼š <input type=text name="defaultflashwidth" value="$defaultflashwidth" size=3 maxlength=3>ã€€é»˜è®¤ 410 åƒæ•°<BR>
+                é«˜åº¦ï¼š <input type=text name="defaultflashheight" value="$defaultflashheight" size=3 maxlength=3>ã€€é»˜è®¤ 280 åƒæ•°</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ÂÛÌ³Í¼ÏñÉèÖÃ</center></b><br>
+                <font color=#990000><b><center>è®ºå›å›¾åƒè®¾ç½®</center></b><br>
                 </td></tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>×Ô¶¨ÒåÍ·Ïñ×î´ó¿í¶È</font></td>
+                <font color=#333333>è‡ªå®šä¹‰å¤´åƒæœ€å¤§å®½åº¦</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxposticonwidth" value="$maxposticonwidth" size=3 maxlength=3>¡¡Çë²»Òª³¬¹ý 110</td>
+                <input type=text name="maxposticonwidth" value="$maxposticonwidth" size=3 maxlength=3>ã€€è¯·ä¸è¦è¶…è¿‡ 110</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>×Ô¶¨ÒåÍ·Ïñ×î´ó¸ß¶È</font></td>
+                <font color=#333333>è‡ªå®šä¹‰å¤´åƒæœ€å¤§é«˜åº¦</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxposticonheight" value="$maxposticonheight" size=3 maxlength=3>¡¡Çë²»Òª³¬¹ý 130</td>
+                <input type=text name="maxposticonheight" value="$maxposticonheight" size=3 maxlength=3>ã€€è¯·ä¸è¦è¶…è¿‡ 130</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Í·Ïñ¿âÄ¬ÈÏÍ¼Ïñ¿í¶È(Îª¿ÕÔò²»ÏÞ)</font><BR><BR></td>
+                <font color=#333333>å¤´åƒåº“é»˜è®¤å›¾åƒå®½åº¦(ä¸ºç©ºåˆ™ä¸é™)</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="defaultwidth" value="$defaultwidth" size=3 maxlength=3>¡¡Ä¬ÈÏ 32 ÏñÊý£¬Èç¹ûÎª¿Õ£¬Ôò²»ÏÞÖÆ</td>
+                <input type=text name="defaultwidth" value="$defaultwidth" size=3 maxlength=3>ã€€é»˜è®¤ 32 åƒæ•°ï¼Œå¦‚æžœä¸ºç©ºï¼Œåˆ™ä¸é™åˆ¶</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Í·Ïñ¿âÄ¬ÈÏÍ¼Ïñ¸ß¶È(Îª¿ÕÔò²»ÏÞ)</font><BR><BR></td>
+                <font color=#333333>å¤´åƒåº“é»˜è®¤å›¾åƒé«˜åº¦(ä¸ºç©ºåˆ™ä¸é™)</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="defaultheight" value="$defaultheight" size=3 maxlength=3>¡¡Ä¬ÈÏ 32 ÏñÊý£¬Èç¹ûÎª¿Õ£¬Ôò²»ÏÞÖÆ</td>
+                <input type=text name="defaultheight" value="$defaultheight" size=3 maxlength=3>ã€€é»˜è®¤ 32 åƒæ•°ï¼Œå¦‚æžœä¸ºç©ºï¼Œåˆ™ä¸é™åˆ¶</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>±íÇé·ûÍ¼ÏñÄ¬ÈÏ¿í¶È(Îª¿ÕÔò²»ÏÞ)</font><BR><BR></td>
+                <font color=#333333>è¡¨æƒ…ç¬¦å›¾åƒé»˜è®¤å®½åº¦(ä¸ºç©ºåˆ™ä¸é™)</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="defaultsmilewidth" value="$defaultsmilewidth" size=3 maxlength=3>¡¡Ä¬ÈÏ 13 ÏñÊý£¬Èç¹ûÎª¿Õ£¬Ôò²»ÏÞÖÆ</td>
+                <input type=text name="defaultsmilewidth" value="$defaultsmilewidth" size=3 maxlength=3>ã€€é»˜è®¤ 13 åƒæ•°ï¼Œå¦‚æžœä¸ºç©ºï¼Œåˆ™ä¸é™åˆ¶</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>±íÇé·ûÍ¼ÏñÄ¬ÈÏ¸ß¶È(Îª¿ÕÔò²»ÏÞ)</font><BR><BR></td>
+                <font color=#333333>è¡¨æƒ…ç¬¦å›¾åƒé»˜è®¤é«˜åº¦(ä¸ºç©ºåˆ™ä¸é™)</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="defaultsmileheight" value="$defaultsmileheight" size=3 maxlength=3>¡¡Ä¬ÈÏ 13 ÏñÊý£¬Èç¹ûÎª¿Õ£¬Ôò²»ÏÞÖÆ</td>
+                <input type=text name="defaultsmileheight" value="$defaultsmileheight" size=3 maxlength=3>ã€€é»˜è®¤ 13 åƒæ•°ï¼Œå¦‚æžœä¸ºç©ºï¼Œåˆ™ä¸é™åˆ¶</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÆôÓÃËõÂÔÍ¼Ä£Ê½</font><BR><BR></td>
+                <font color=#333333>æ˜¯å¦å¯ç”¨ç¼©ç•¥å›¾æ¨¡å¼</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = qq~<select name=imgslt><option value="">²»ÆôÓÃ</option><option value="Disp">ÆôÓÃ</option></select>~;
+                $tempoutput = qq~<select name=imgslt><option value="">ä¸å¯ç”¨</option><option value="Disp">å¯ç”¨</option></select>~;
                 $tempoutput =~ s/value=\"$imgslt\"/value=\"$imgslt\" selected/;
                 print qq~
                 $tempoutput
@@ -1027,21 +1050,21 @@ obj2.style.backgroundColor=arr;
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ËõÂÔÍ¼Ä¬ÈÏ¿í¶È(Îª¿ÕÔòÄ¬ÈÏÎª60)</font><BR><BR></td>
+                <font color=#333333>ç¼©ç•¥å›¾é»˜è®¤å®½åº¦(ä¸ºç©ºåˆ™é»˜è®¤ä¸º60)</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="defaultsltwidth" value="$defaultsltwidth" size=3 maxlength=3></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ËõÂÔÍ¼ÏñÄ¬ÈÏ¸ß¶È(Îª¿ÕÔòÄ¬ÈÏÎª60)</font><BR><BR></td>
+                <font color=#333333>ç¼©ç•¥å›¾åƒé»˜è®¤é«˜åº¦(ä¸ºç©ºåˆ™é»˜è®¤ä¸º60)</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="defaultsltheight" value="$defaultsltheight" size=3 maxlength=3></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ËõÂÔÍ¼Ã¿ÐÐÊýÁ¿</font><BR><BR></td>
+                <font color=#333333>ç¼©ç•¥å›¾æ¯è¡Œæ•°é‡</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
                 $tempoutput = qq~<select name=sltnoperline><option value="3">3</option><option value="1">1</option><option value="2">2</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>~;
@@ -1053,15 +1076,15 @@ obj2.style.backgroundColor=arr;
 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ÂÛÌ³ÌØÊâÑùÊ½ÉèÖÃ</center></b><br>
+                <font color=#990000><b><center>è®ºå›ç‰¹æ®Šæ ·å¼è®¾ç½®</center></b><br>
                 </td></tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×ÓÎÄ×ÖÏÔÊ¾´óÐ¡</font><BR><BR></td>
+                <font color=#333333>è´´å­æ–‡å­—æ˜¾ç¤ºå¤§å°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = qq~<select name=postfontsize><option value="12">Ä¬ÈÏ</option><option value="15">ÉÔ´ó</option><option value="18">ÆÕÍ¨</option><option value="21">½Ï´ó</option><option value="24">ºÜ´ó</option><option value="30">×î´ó</option></select>~;
+                $tempoutput = qq~<select name=postfontsize><option value="12">é»˜è®¤</option><option value="15">ç¨å¤§</option><option value="18">æ™®é€š</option><option value="21">è¾ƒå¤§</option><option value="24">å¾ˆå¤§</option><option value="30">æœ€å¤§</option></select>~;
                 $tempoutput =~ s/value=\"$postfontsize\"/value=\"$postfontsize\" selected/;
                 print qq~
                 $tempoutput
@@ -1070,20 +1093,20 @@ obj2.style.backgroundColor=arr;
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×Ó¶ÎÂä¼ä¾àµ÷Õû</font><BR><BR></td>
+                <font color=#333333>è´´å­æ®µè½é—´è·è°ƒæ•´</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"paraspace\">\n<option value=\"130\">Ä¬ÈÏ¼ä¾à<option value=\"100\">µ¥±¶ÐÐ¾à<option value=\"150\">1.5±¶ÐÐ¾à<option value=\"200\">Ë«±¶ÐÐ¾à";
+                $tempoutput = "<select name=\"paraspace\">\n<option value=\"130\">é»˜è®¤é—´è·<option value=\"100\">å•å€è¡Œè·<option value=\"150\">1.5å€è¡Œè·<option value=\"200\">åŒå€è¡Œè·";
                 $tempoutput =~ s/value=\"$paraspace\"/value=\"$paraspace\" selected/;
                 print qq~
                 $tempoutput
                 </td>
                 </tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìù×Ó×Ö¼ä¾àµ÷Õû</font><BR><BR></td>
+                <font color=#333333>è´´å­å­—é—´è·è°ƒæ•´</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"wordspace\">\n<option value=\"0\">Ä¬ÈÏ¼ä¾à<option value=\"-1\">½ôËõ<option value=\"+2\">À©³ä<option value=\"+4\">¼Ó¿í";
+                $tempoutput = "<select name=\"wordspace\">\n<option value=\"0\">é»˜è®¤é—´è·<option value=\"-1\">ç´§ç¼©<option value=\"+2\">æ‰©å……<option value=\"+4\">åŠ å®½";
                 $wordspace =~ s/\+/\\+/;
                 $tempoutput =~ s/value=\"$wordspace\"/value=\"$wordspace\" selected/;
                 print qq~
@@ -1093,135 +1116,135 @@ obj2.style.backgroundColor=arr;
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>»Ø¸´Ê±ºòÄ¬ÈÏÁÐ³öµÄ×îºó»Ø¸´¸öÊý</font><BR><BR></td>
+                <font color=#333333>å›žå¤æ—¶å€™é»˜è®¤åˆ—å‡ºçš„æœ€åŽå›žå¤ä¸ªæ•°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxlistpost" value="$maxlistpost" size=2 maxlength=2>¡¡Ò»°ã 5 -- 8 ¸ö×óÓÒÀ²</td>
+                <input type=text name="maxlistpost" value="$maxlistpost" size=2 maxlength=2>ã€€ä¸€èˆ¬ 5 -- 8 ä¸ªå·¦å³å•¦</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÔÊÐí¼ÓÖØÌû×Ó±êÌâµÄÖ÷ÌâÊý£¿<br>¿ÉÒÔ¼ÓÖØ¼¸¸öÖØÒªÌû×ÓµÄ±êÌâ¡£</font></td>
+                <font color=#333333>å…è®¸åŠ é‡å¸–å­æ ‡é¢˜çš„ä¸»é¢˜æ•°ï¼Ÿ<br>å¯ä»¥åŠ é‡å‡ ä¸ªé‡è¦å¸–å­çš„æ ‡é¢˜ã€‚</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxhightopic" value="$maxhightopic" size=2 maxlength=2>¡¡Ò»°ã 10 -- 20 ¸ö×óÓÒÀ²</td>
+                <input type=text name="maxhightopic" value="$maxhightopic" size=2 maxlength=2>ã€€ä¸€èˆ¬ 10 -- 20 ä¸ªå·¦å³å•¦</td>
                 </tr>
 		<tr>
               <td bgcolor=#FFFFFF colspan=2>
-              <font color=#333333>¿ÉÒÔÉè¶¨¼ÓÖØÌû×ÓµÄ±êÌâÑÕÉ«!</font></td>
+              <font color=#333333>å¯ä»¥è®¾å®šåŠ é‡å¸–å­çš„æ ‡é¢˜é¢œè‰²!</font></td>
               <td bgcolor=#FFFFFF>
-              <input type=text name="color_of_hightopic" value="$color_of_hightopic" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_hightopic)" style="cursor:hand;background-color:$color_of_hightopic">¡¡ÍÆ¼öÑ¡Ôñ#990000</td>
+              <input type=text name="color_of_hightopic" value="$color_of_hightopic" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_hightopic)" style="cursor:hand;background-color:$color_of_hightopic">ã€€æŽ¨èé€‰æ‹©#990000</td>
               </tr>
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÔÊÐí×Ü¹Ì¶¨ÔÚËùÓÐÂÛÌ³¶¥¶ËµÄÖ÷ÌâÊý£¿<br>¿ÉÒÔ×Ü¹Ì¶¨¼¸¸öÖØÒª»°ÌâÔÚËùÓÐÂÛÌ³µÄ×îÉÏÃæ¡£</font></td>
+                <font color=#333333>å…è®¸æ€»å›ºå®šåœ¨æ‰€æœ‰è®ºå›é¡¶ç«¯çš„ä¸»é¢˜æ•°ï¼Ÿ<br>å¯ä»¥æ€»å›ºå®šå‡ ä¸ªé‡è¦è¯é¢˜åœ¨æ‰€æœ‰è®ºå›çš„æœ€ä¸Šé¢ã€‚</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="absmaxtoptopic" value="$absmaxtoptopic" size=2 maxlength=2>¡¡Ò»°ã 1 -- 5 ¸ö×óÓÒÀ²</td>
+                <input type=text name="absmaxtoptopic" value="$absmaxtoptopic" size=2 maxlength=2>ã€€ä¸€èˆ¬ 1 -- 5 ä¸ªå·¦å³å•¦</td>
                 </tr>
 		<tr>
               <td bgcolor=#FFFFFF colspan=2>
-              <font color=#333333>¿ÉÒÔÉè¶¨×Ü¹Ì¶¨Ìù×ÓµÄÖ÷ÌâÑÕÉ«!</font></td>
+              <font color=#333333>å¯ä»¥è®¾å®šæ€»å›ºå®šè´´å­çš„ä¸»é¢˜é¢œè‰²!</font></td>
               <td bgcolor=#FFFFFF>
-              <input type=text name="color_of_absontop" value="$color_of_absontop" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_absontop)" style="cursor:hand;background-color:$color_of_absontop">¡¡ÍÆ¼öÑ¡Ôñ#990000</td>
+              <input type=text name="color_of_absontop" value="$color_of_absontop" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_absontop)" style="cursor:hand;background-color:$color_of_absontop">ã€€æŽ¨èé€‰æ‹©#990000</td>
               </tr>
 		~;
 
-               $tempoutput = "<select name=\"abstopshake\">\n<option value=\"\">²»²ÉÓÃÈÎºÎ·½Ê½\n<option value=\"1\">»Î¶¯\n<option value=\"2\">±äÉ«\n<option value=\"3\">·´É«\n</select>\n"; 
+               $tempoutput = "<select name=\"abstopshake\">\n<option value=\"\">ä¸é‡‡ç”¨ä»»ä½•æ–¹å¼\n<option value=\"1\">æ™ƒåŠ¨\n<option value=\"2\">å˜è‰²\n<option value=\"3\">åè‰²\n</select>\n"; 
                $tempoutput =~ s/value=\"$abstopshake\"/value=\"$abstopshake\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>×Ü¹Ì¶¨Ìù×Ó²ÉÓÃÊ²Ã´ÐÑÄ¿·½Ê½£¿</font></td> 
+               <font color=#333333>æ€»å›ºå®šè´´å­é‡‡ç”¨ä»€ä¹ˆé†’ç›®æ–¹å¼ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÔÊÐí¹Ì¶¨ÔÚÄ³¸öÇø¶¥¶ËµÄÖ÷ÌâÊý£¿<br>¿ÉÒÔÇø¹Ì¶¨¼¸¸öÖØÒª»°ÌâÔÚÇøÖÐËùÓÐÂÛÌ³µÄ×îÉÏÃæ¡£</font></td>
+                <font color=#333333>å…è®¸å›ºå®šåœ¨æŸä¸ªåŒºé¡¶ç«¯çš„ä¸»é¢˜æ•°ï¼Ÿ<br>å¯ä»¥åŒºå›ºå®šå‡ ä¸ªé‡è¦è¯é¢˜åœ¨åŒºä¸­æ‰€æœ‰è®ºå›çš„æœ€ä¸Šé¢ã€‚</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="absmaxcantopic" value="$absmaxcantopic" size=2 maxlength=2>¡¡Ò»°ã 1 -- 5 ¸ö×óÓÒÀ²</td>
+                <input type=text name="absmaxcantopic" value="$absmaxcantopic" size=2 maxlength=2>ã€€ä¸€èˆ¬ 1 -- 5 ä¸ªå·¦å³å•¦</td>
                 </tr>
 		<tr>
               <td bgcolor=#FFFFFF colspan=2>
-              <font color=#333333>¿ÉÒÔÉè¶¨Çø¹Ì¶¨Ìù×ÓµÄÖ÷ÌâÑÕÉ«!</font></td>
+              <font color=#333333>å¯ä»¥è®¾å®šåŒºå›ºå®šè´´å­çš„ä¸»é¢˜é¢œè‰²!</font></td>
               <td bgcolor=#FFFFFF>
-              <input type=text name="color_of_quontop" value="$color_of_quontop" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_quontop)" style="cursor:hand;background-color:$color_of_quontop">¡¡ÍÆ¼öÑ¡Ôñ#e7840d</td>
+              <input type=text name="color_of_quontop" value="$color_of_quontop" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_quontop)" style="cursor:hand;background-color:$color_of_quontop">ã€€æŽ¨èé€‰æ‹©#e7840d</td>
               </tr>
 		~;
 
-               $tempoutput = "<select name=\"cattopshake\">\n<option value=\"\">²»²ÉÓÃÈÎºÎ·½Ê½\n<option value=\"1\">»Î¶¯\n<option value=\"2\">±äÉ«\n<option value=\"3\">·´É«\n</select>\n"; 
+               $tempoutput = "<select name=\"cattopshake\">\n<option value=\"\">ä¸é‡‡ç”¨ä»»ä½•æ–¹å¼\n<option value=\"1\">æ™ƒåŠ¨\n<option value=\"2\">å˜è‰²\n<option value=\"3\">åè‰²\n</select>\n"; 
                $tempoutput =~ s/value=\"$cattopshake\"/value=\"$cattopshake\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>Çø¹Ì¶¨Ìù×Ó²ÉÓÃÊ²Ã´ÐÑÄ¿·½Ê½£¿</font></td> 
+               <font color=#333333>åŒºå›ºå®šè´´å­é‡‡ç”¨ä»€ä¹ˆé†’ç›®æ–¹å¼ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
               <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÔÊÐí¹Ì¶¨ÔÚ¶¥¶ËµÄÖ÷ÌâÊý£¿<br>¿ÉÒÔ¹Ì¶¨¼¸¸öÖØÒª»°ÌâÔÚÂÛÌ³µÄ×îÉÏÃæ¡£</font></td>
+                <font color=#333333>å…è®¸å›ºå®šåœ¨é¡¶ç«¯çš„ä¸»é¢˜æ•°ï¼Ÿ<br>å¯ä»¥å›ºå®šå‡ ä¸ªé‡è¦è¯é¢˜åœ¨è®ºå›çš„æœ€ä¸Šé¢ã€‚</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxtoptopic" value="$maxtoptopic" size=2 maxlength=2>¡¡Ò»°ã 1 -- 5 ¸ö×óÓÒÀ²</td>
+                <input type=text name="maxtoptopic" value="$maxtoptopic" size=2 maxlength=2>ã€€ä¸€èˆ¬ 1 -- 5 ä¸ªå·¦å³å•¦</td>
                 </tr>
 		<tr>
               <td bgcolor=#FFFFFF colspan=2>
-              <font color=#333333>¿ÉÒÔÉè¶¨¹Ì¶¨Ìù×ÓµÄÖ÷ÌâÑÕÉ«!</font></td>
+              <font color=#333333>å¯ä»¥è®¾å®šå›ºå®šè´´å­çš„ä¸»é¢˜é¢œè‰²!</font></td>
               <td bgcolor=#FFFFFF>
-              <input type=text name="color_of_ontop" value="$color_of_ontop" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_ontop)" style="cursor:hand;background-color:$color_of_ontop">¡¡ÍÆ¼öÑ¡Ôñ#002299</td>
+              <input type=text name="color_of_ontop" value="$color_of_ontop" size=7 maxlength=7 onclick="javascript:selcolor(this,color_of_ontop)" style="cursor:hand;background-color:$color_of_ontop">ã€€æŽ¨èé€‰æ‹©#002299</td>
               </tr>
 		~;
 
-               $tempoutput = "<select name=\"topshake\">\n<option value=\"\">²»²ÉÓÃÈÎºÎ·½Ê½\n<option value=\"1\">»Î¶¯\n<option value=\"2\">±äÉ«\n<option value=\"3\">·´É«\n</select>\n"; 
+               $tempoutput = "<select name=\"topshake\">\n<option value=\"\">ä¸é‡‡ç”¨ä»»ä½•æ–¹å¼\n<option value=\"1\">æ™ƒåŠ¨\n<option value=\"2\">å˜è‰²\n<option value=\"3\">åè‰²\n</select>\n"; 
                $tempoutput =~ s/value=\"$topshake\"/value=\"$topshake\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>¹Ì¶¨Ìù×Ó²ÉÓÃÊ²Ã´ÐÑÄ¿·½Ê½£¿</font></td> 
+               <font color=#333333>å›ºå®šè´´å­é‡‡ç”¨ä»€ä¹ˆé†’ç›®æ–¹å¼ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ç©ÃûÔÊÐíµÄÐÐÊý</font><BR><BR></td>
+                <font color=#333333>ç­¾åå…è®¸çš„è¡Œæ•°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxsignline" value="$maxsignline" size=5 maxlength=2>¡¡Ò»°ã 5 ÐÐ(ºÍÏÂÃæ²ÎÊýÅäºÏÊ¹ÓÃ)</td>
+                <input type=text name="maxsignline" value="$maxsignline" size=5 maxlength=2>ã€€ä¸€èˆ¬ 5 è¡Œ(å’Œä¸‹é¢å‚æ•°é…åˆä½¿ç”¨)</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ç©ÃûµÄ×î¶à×Ö·ûÊý</font><BR><BR></td>
+                <font color=#333333>ç­¾åçš„æœ€å¤šå­—ç¬¦æ•°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxsignlegth" value="$maxsignlegth" size=5 maxlength=4>¡¡Ò»°ã 200 ¸ö×Ö</td>
+                <input type=text name="maxsignlegth" value="$maxsignlegth" size=5 maxlength=4>ã€€ä¸€èˆ¬ 200 ä¸ªå­—</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>¸öÈË¼ò½éÔÊÐíµÄÐÐÊý</font><BR><BR></td>
+                <font color=#333333>ä¸ªäººç®€ä»‹å…è®¸çš„è¡Œæ•°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxinsline" value="$maxinsline" size=5 maxlength=2>¡¡Ò»°ã  5 ÐÐ(ºÍÏÂÃæ²ÎÊýÅäºÏÊ¹ÓÃ)</td>
+                <input type=text name="maxinsline" value="$maxinsline" size=5 maxlength=2>ã€€ä¸€èˆ¬  5 è¡Œ(å’Œä¸‹é¢å‚æ•°é…åˆä½¿ç”¨)</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>¸öÈË¼ò½éµÄ×î¶à×Ö·ûÊý</font><BR><BR></td>
+                <font color=#333333>ä¸ªäººç®€ä»‹çš„æœ€å¤šå­—ç¬¦æ•°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxinslegth" value="$maxinslegth" size=5 maxlength=4>¡¡Ò»°ã 100 ¸ö×Ö</td>
+                <input type=text name="maxinslegth" value="$maxinslegth" size=5 maxlength=4>ã€€ä¸€èˆ¬ 100 ä¸ªå­—</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÂÛÌ³Í¶Æ±Ìù×ÓÖÐÔÊÐíµÄ×î´óÏîÄ¿Êý</font></td>
+                <font color=#333333>è®ºå›æŠ•ç¥¨è´´å­ä¸­å…è®¸çš„æœ€å¤§é¡¹ç›®æ•°</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxpollitem" value="$maxpollitem" size=2 maxlength=2>¡¡ÇëÉèÖÃ 5 - 50 Ö®¼ä</td>
+                <input type=text name="maxpollitem" value="$maxpollitem" size=2 maxlength=2>ã€€è¯·è®¾ç½® 5 - 50 ä¹‹é—´</td>
                 </tr>
 
 <tr>
 <td bgcolor=#EEEEEE align=center colspan=3>
-<font color=#990000><center><b>³õÊ¼»¯ÌØÐ§ÉèÖÃ</b> (leobbs.cgi & Forums.cgi)</center><br>
+<font color=#990000><center><b>åˆå§‹åŒ–ç‰¹æ•ˆè®¾ç½®</b> (leobbs.cgi & Forums.cgi)</center><br>
 </font></td>
 </tr>
 ~;
@@ -1232,43 +1255,43 @@ $tempoutput =~ s/value=\"$pagechange\"/value=\"$pagechange\" selected/;
 print qq~
 <tr>
 <td bgcolor=#FFFFFF colspan=2>
-<font color=#333333><b>µ÷ÈëÒ³ÃæÊ±ÊÇ·ñÊ¹ÓÃÌØÐ§?</b><br>IE 4.0 ÒÔÉÏ°æ±¾ä¯ÀÀÆ÷ÓÐÐ§</font></td>
+<font color=#333333><b>è°ƒå…¥é¡µé¢æ—¶æ˜¯å¦ä½¿ç”¨ç‰¹æ•ˆ?</b><br>IE 4.0 ä»¥ä¸Šç‰ˆæœ¬æµè§ˆå™¨æœ‰æ•ˆ</font></td>
 <td bgcolor=#FFFFFF>
 $tempoutput</td>
 </tr>
 ~;
 
 $tempoutput = "<select name=\"cinoption\">\n
-<option value=\"0\">ºÐ×´ÊÕËõ\n
-<option value=\"1\">ºÐ×´·ÅÉä\n
-<option value=\"2\">Ô²ÐÎÊÕËõ\n
-<option value=\"3\">Ô²ÐÎ·ÅÉä\n
-<option value=\"4\">ÏòÉÏ²Á³ý\n
-<option value=\"5\">ÏòÏÂ²Á³ý\n
-<option value=\"6\">ÏòÓÒ²Á³ý\n
-<option value=\"7\">Ïò×ó²Á³ý\n
-<option value=\"8\">´¹Ö±ÕÚ±Î\n
-<option value=\"9\">Ë®Æ½ÕÚ±Î\n
-<option value=\"10\">ºáÏòÆåÅÌÊ½\n
-<option value=\"11\">×ÝÏòÆåÅÌÊ½\n
-<option value=\"12\">Ëæ»ú·Ö½â\n
-<option value=\"13\">×óÓÒÏòÖÐÑëËõ½ø\n
-<option value=\"14\">ÖÐÑëÏò×óÓÒÀ©Õ¹\n
-<option value=\"15\">ÉÏÏÂÏòÖÐÑëËõ½ø\n
-<option value=\"16\">ÖÐÑëÏòÉÏÏÂÀ©Õ¹\n
-<option value=\"17\">´Ó×óÏÂ³é³ö\n
-<option value=\"18\">´Ó×óÉÏ³é³ö\n
-<option value=\"29\">´ÓÓÒÏÂ³é³ö\n
-<option value=\"20\">´ÓÓÒÉÏ³é³ö\n
-<option value=\"21\">Ëæ»úË®Æ½ÏßÌõ\n
-<option value=\"22\">Ëæ»ú´¹Ö±ÏßÌõ\n
-<option value=\"23\">Ëæ»ú(ÉÏÃæÈÎºÎÒ»ÖÖ)\n
+<option value=\"0\">ç›’çŠ¶æ”¶ç¼©\n
+<option value=\"1\">ç›’çŠ¶æ”¾å°„\n
+<option value=\"2\">åœ†å½¢æ”¶ç¼©\n
+<option value=\"3\">åœ†å½¢æ”¾å°„\n
+<option value=\"4\">å‘ä¸Šæ“¦é™¤\n
+<option value=\"5\">å‘ä¸‹æ“¦é™¤\n
+<option value=\"6\">å‘å³æ“¦é™¤\n
+<option value=\"7\">å‘å·¦æ“¦é™¤\n
+<option value=\"8\">åž‚ç›´é®è”½\n
+<option value=\"9\">æ°´å¹³é®è”½\n
+<option value=\"10\">æ¨ªå‘æ£‹ç›˜å¼\n
+<option value=\"11\">çºµå‘æ£‹ç›˜å¼\n
+<option value=\"12\">éšæœºåˆ†è§£\n
+<option value=\"13\">å·¦å³å‘ä¸­å¤®ç¼©è¿›\n
+<option value=\"14\">ä¸­å¤®å‘å·¦å³æ‰©å±•\n
+<option value=\"15\">ä¸Šä¸‹å‘ä¸­å¤®ç¼©è¿›\n
+<option value=\"16\">ä¸­å¤®å‘ä¸Šä¸‹æ‰©å±•\n
+<option value=\"17\">ä»Žå·¦ä¸‹æŠ½å‡º\n
+<option value=\"18\">ä»Žå·¦ä¸ŠæŠ½å‡º\n
+<option value=\"29\">ä»Žå³ä¸‹æŠ½å‡º\n
+<option value=\"20\">ä»Žå³ä¸ŠæŠ½å‡º\n
+<option value=\"21\">éšæœºæ°´å¹³çº¿æ¡\n
+<option value=\"22\">éšæœºåž‚ç›´çº¿æ¡\n
+<option value=\"23\">éšæœº(ä¸Šé¢ä»»ä½•ä¸€ç§)\n
 </select>\n";
 $tempoutput =~ s/value=\"$cinoption\"/value=\"$cinoption\" selected/;
 print qq~
 <tr>
 <td bgcolor=#FFFFFF colspan=2>
-<font color=#333333><b>ÌØÐ§ÀàÐÍ?</b></font></td>
+<font color=#333333><b>ç‰¹æ•ˆç±»åž‹?</b></font></td>
 <td bgcolor=#FFFFFF>
 $tempoutput</td>
 </tr>
@@ -1278,104 +1301,104 @@ $tempoutput</td>
 
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <font color=#990000><b><center>ÆäËûÉèÖÃ</center></b><br>
+                <font color=#990000><b><center>å…¶ä»–è®¾ç½®</center></b><br>
                 </td></tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ä¬ÈÏÓÃ»§ÔÚÏßÊ±¼äÊÇ¶àÉÙ·ÖÖÓ£¿<BR>Èç¹ûÓÃ»§³¬¹ýÕâ¸öÊ±¼ä»¹Ã»ÓÐ¶¯×÷ÔòÄ¬ÈÏÓÃ»§ÒÑ¾­Àë¿ªÁËÂÛÌ³¡£</font></td>
+                <font color=#333333>é»˜è®¤ç”¨æˆ·åœ¨çº¿æ—¶é—´æ˜¯å¤šå°‘åˆ†é’Ÿï¼Ÿ<BR>å¦‚æžœç”¨æˆ·è¶…è¿‡è¿™ä¸ªæ—¶é—´è¿˜æ²¡æœ‰åŠ¨ä½œåˆ™é»˜è®¤ç”¨æˆ·å·²ç»ç¦»å¼€äº†è®ºå›ã€‚</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="membergone" value="$membergone" size=3 maxlength=3>¡¡Ò»°ãÎª 5 -- 15</td>
+                <input type=text name="membergone" value="$membergone" size=3 maxlength=3>ã€€ä¸€èˆ¬ä¸º 5 -- 15</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ã¿ÌìÔÊÐí×î¶àÉ¾³ýÌù×Ó´ÎÊý£¿(¶ÔÌ³Ö÷ÎÞÐ§)<br>Èç¹û²»ÏëÏÞÖÆ,ÇëÉèÖÃÎª 999.</font></td>
+                <font color=#333333>æ¯å¤©å…è®¸æœ€å¤šåˆ é™¤è´´å­æ¬¡æ•°ï¼Ÿ(å¯¹å›ä¸»æ— æ•ˆ)<br>å¦‚æžœä¸æƒ³é™åˆ¶,è¯·è®¾ç½®ä¸º 999.</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxdeloneday" value="$maxdeloneday" size=3 maxlength=3>¡¡Ò»°ã 5 - 10</td>
+                <input type=text name="maxdeloneday" value="$maxdeloneday" size=3 maxlength=3>ã€€ä¸€èˆ¬ 5 - 10</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ã¿ÌìÔÊÐí×î¶àÒÆ¶¯Ìû×Ó´ÎÊý£¿(¶ÔÌ³Ö÷ÎÞÐ§)<br>Èç¹û²»ÏëÏÞÖÆ,ÇëÉèÖÃÎª 999.</font></td>
+                <font color=#333333>æ¯å¤©å…è®¸æœ€å¤šç§»åŠ¨å¸–å­æ¬¡æ•°ï¼Ÿ(å¯¹å›ä¸»æ— æ•ˆ)<br>å¦‚æžœä¸æƒ³é™åˆ¶,è¯·è®¾ç½®ä¸º 999.</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxmoveoneday" value="$maxmoveoneday" size=3 maxlength=3>  Ò»°ã 5 - 10</td>
+                <input type=text name="maxmoveoneday" value="$maxmoveoneday" size=3 maxlength=3>  ä¸€èˆ¬ 5 - 10</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>¶àÉÙÐ¡Ê±ÄÚµÄÐÂÌùºóÃæ¼Ó new ±êÖ¾£¿<BR>(Èç¹û²»ÏëÒª£¬¿ÉÒÔÉèÖÃÎª 0)</font></td>
+                <font color=#333333>å¤šå°‘å°æ—¶å†…çš„æ–°è´´åŽé¢åŠ  new æ ‡å¿—ï¼Ÿ<BR>(å¦‚æžœä¸æƒ³è¦ï¼Œå¯ä»¥è®¾ç½®ä¸º 0)</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="newmarktime" value="$newmarktime" size=3 maxlength=3>¡¡Ò»°ã 12 - 24 Ð¡Ê±</td>
+                <input type=text name="newmarktime" value="$newmarktime" size=3 maxlength=3>ã€€ä¸€èˆ¬ 12 - 24 å°æ—¶</td>
                 </tr>
 		~;
 		
-		$tempoutput = "<select name=\"usetodayforumreply\">\n<option value=\"yes\">ÊÇµÄ£¬¼ÇÂ¼\n<option value=\"no\">²»£¬²»¼ÇÂ¼\n</select>\n";
+		$tempoutput = "<select name=\"usetodayforumreply\">\n<option value=\"yes\">æ˜¯çš„ï¼Œè®°å½•\n<option value=\"no\">ä¸ï¼Œä¸è®°å½•\n</select>\n";
                 $tempoutput =~ s/value=\"$usetodayforumreply\"/value=\"$usetodayforumreply\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333><b>·ÖÂÛÌ³µÄ½ñÈÕÐÂÌùÍ³¼ÆÊÇ·ñ°Ñ»Ø¸´Ò²¼ÇÂ¼ÉÏ</b></font></td>
+                <font color=#333333><b>åˆ†è®ºå›çš„ä»Šæ—¥æ–°è´´ç»Ÿè®¡æ˜¯å¦æŠŠå›žå¤ä¹Ÿè®°å½•ä¸Š</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-               $tempoutput = "<select name=\"usejhpoint\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n"; 
+               $tempoutput = "<select name=\"usejhpoint\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n"; 
                $tempoutput =~ s/value=\"$usejhpoint\"/value=\"$usejhpoint\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÊÇ·ñÊ¹ÓÃÔÚ¾«»ªÌû×ÓÊ¹ÓÃ±ê¼Ç£¿</font></td> 
+               <font color=#333333>æ˜¯å¦ä½¿ç”¨åœ¨ç²¾åŽå¸–å­ä½¿ç”¨æ ‡è®°ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
                 ~;
 
-               $tempoutput = "<select name=\"nodispown\">\n<option value=\"no\">²»Ê¹ÓÃ\n<option value=\"yes\">Ê¹ÓÃ\n</select>\n"; 
+               $tempoutput = "<select name=\"nodispown\">\n<option value=\"no\">ä¸ä½¿ç”¨\n<option value=\"yes\">ä½¿ç”¨\n</select>\n"; 
                $tempoutput =~ s/value=\"$nodispown\"/value=\"$nodispown\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÊÇ·ñ±êÖ¾ÏÔÊ¾×Ô¼º·¢µÄÌû×Ó£¿</font></td> 
+               <font color=#333333>æ˜¯å¦æ ‡å¿—æ˜¾ç¤ºè‡ªå·±å‘çš„å¸–å­ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
                 ~;
 
-               $tempoutput = "<select name=\"cancmodoutput\">\n<option value=\"yes\">ÏÔÊ¾\n<option value=\"no\">²»ÏÔÊ¾\n</select>\n"; 
+               $tempoutput = "<select name=\"cancmodoutput\">\n<option value=\"yes\">æ˜¾ç¤º\n<option value=\"no\">ä¸æ˜¾ç¤º\n</select>\n"; 
                $tempoutput =~ s/value=\"$cancmodoutput\"/value=\"$cancmodoutput\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÔÚÊ×Ò³ÊÇ·ñÏÔÊ¾Çø°ßÖñÃûµ¥£¿</font></td> 
+               <font color=#333333>åœ¨é¦–é¡µæ˜¯å¦æ˜¾ç¤ºåŒºæ–‘ç«¹åå•ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
                 ~;
 
-               $tempoutput = "<select name=\"canuseview\">\n<option value=\"yes\">ÔÊÐí\n<option value=\"no\">²»ÔÊÐí\n</select>\n"; 
+               $tempoutput = "<select name=\"canuseview\">\n<option value=\"yes\">å…è®¸\n<option value=\"no\">ä¸å…è®¸\n</select>\n"; 
                $tempoutput =~ s/value=\"$canuseview\"/value=\"$canuseview\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÂÛÌ³ÊÇ·ñÔÊÐíÐÂÎÅ·½Ê½¿ìËÙÔÄ¶Á£¿</font></td> 
+               <font color=#333333>è®ºå›æ˜¯å¦å…è®¸æ–°é—»æ–¹å¼å¿«é€Ÿé˜…è¯»ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
                 ~;
 
-               $tempoutput = "<select name=\"canusetreeview\">\n<option value=\"yes\">ÔÊÐí\n<option value=\"no\">²»ÔÊÐí\n</select>\n"; 
+               $tempoutput = "<select name=\"canusetreeview\">\n<option value=\"yes\">å…è®¸\n<option value=\"no\">ä¸å…è®¸\n</select>\n"; 
                $tempoutput =~ s/value=\"$canusetreeview\"/value=\"$canusetreeview\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÂÛÌ³ÊÇ·ñÔÊÐíÊ¹ÓÃ¿ìËÙÕ¹¿ª»Ø¸´£¿</font></td> 
+               <font color=#333333>è®ºå›æ˜¯å¦å…è®¸ä½¿ç”¨å¿«é€Ÿå±•å¼€å›žå¤ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
@@ -1383,20 +1406,20 @@ $tempoutput</td>
 	$maintopicad   =~ s/\[br\]/\n/isg;
 	$replytopicad   =~ s/\[br\]/\n/isg;
 
-               $tempoutput = "<select name=\"useads\">\n<option value=\"no\">²»ÔÊÐí\n<option value=\"yes\">ÔÊÐí\n</select>\n"; 
+               $tempoutput = "<select name=\"useads\">\n<option value=\"no\">ä¸å…è®¸\n<option value=\"yes\">å…è®¸\n</select>\n"; 
                $tempoutput =~ s/value=\"$useads\"/value=\"$useads\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>ÊÇ·ñÔÊÐíÂÛÌ³Ìû×ÓËæ»ú¹ã¸æ£¿</font></td> 
+               <font color=#333333>æ˜¯å¦å…è®¸è®ºå›å¸–å­éšæœºå¹¿å‘Šï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>Ìû×ÓÖ÷Ìâ¹ã¸æÊéÐ´(Èç¹ûÃ»ÓÐ£¬ÇëÁô¿Õ)</font></td>
+                <font face=å®‹ä½“ color=#333333><b>å¸–å­ä¸»é¢˜å¹¿å‘Šä¹¦å†™(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ç•™ç©º)</font></td>
                 <td bgcolor=#FFFFFF>
                 <textarea name="maintopicad" rows="5" cols="40">$maintopicad</textarea>
                 </td>
@@ -1404,7 +1427,7 @@ $tempoutput</td>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>Ìû×Ó»Ø¸´¹ã¸æÊéÐ´(Èç¹ûÃ»ÓÐ£¬ÇëÁô¿Õ)</font></td>
+                <font face=å®‹ä½“ color=#333333><b>å¸–å­å›žå¤å¹¿å‘Šä¹¦å†™(å¦‚æžœæ²¡æœ‰ï¼Œè¯·ç•™ç©º)</font></td>
                 <td bgcolor=#FFFFFF>
                 <textarea name="replytopicad" rows="5" cols="40">$replytopicad</textarea>
                 </td>
@@ -1412,606 +1435,606 @@ $tempoutput</td>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÔÊÐíË¢ÐÂÂÛÌ³µÄÊ±¼ä¼ä¸ô(Ãë)<BR>¿ÉÒÔÓÐÐ§·ÀÖ¹¶ñÒâË¢ÐÂ</font></td>
+                <font color=#333333>å…è®¸åˆ·æ–°è®ºå›çš„æ—¶é—´é—´éš”(ç§’)<BR>å¯ä»¥æœ‰æ•ˆé˜²æ­¢æ¶æ„åˆ·æ–°</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="banfreshtime" value="$banfreshtime" size=3 maxlength=3>¡¡Èç¹ûÎÞÐè£¬ÇëÉèÖÃ 0</td>
+                <input type=text name="banfreshtime" value="$banfreshtime" size=3 maxlength=3>ã€€å¦‚æžœæ— éœ€ï¼Œè¯·è®¾ç½® 0</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"look\">\n<option value=\"on\">¿ª·Å\n<option value=\"off\">²»¿ª·Å\n</select>\n";
+		$tempoutput = "<select name=\"look\">\n<option value=\"on\">å¼€æ”¾\n<option value=\"off\">ä¸å¼€æ”¾\n</select>\n";
                 $tempoutput =~ s/value=\"$look\"/value=\"$look\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñ¿ª·ÅÂÛÌ³ÅäÉ«£¿</font></td>
+                <font color=#333333>æ˜¯å¦å¼€æ”¾è®ºå›é…è‰²ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"showskin\">\n<option value=\"on\">ÔÊÐí\n<option value=\"off\">²»ÔÊÐí\n</select>\n";
+		$tempoutput = "<select name=\"showskin\">\n<option value=\"on\">å…è®¸\n<option value=\"off\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$showskin\"/value=\"$showskin\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÔÊÐíÓÃ»§×Ô¶¨Òåä¯ÀÀÂÛÌ³Ê±µÄ·ç¸ñ£¿</font></td>
+                <font color=#333333>æ˜¯å¦å…è®¸ç”¨æˆ·è‡ªå®šä¹‰æµè§ˆè®ºå›æ—¶çš„é£Žæ ¼ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"announcemove\">\n<option value=\"on\">ÒÆ¶¯\n<option value=\"off\">²»ÒÆ¶¯\n</select>\n";
+		$tempoutput = "<select name=\"announcemove\">\n<option value=\"on\">ç§»åŠ¨\n<option value=\"off\">ä¸ç§»åŠ¨\n</select>\n";
                	$tempoutput =~ s/value=\"$announcemove\"/value=\"$announcemove\" selected/;
                	print qq~
 
                	<tr>
                	<td bgcolor=#FFFFFF colspan=2>
-               	<font color=#333333>ÂÛÌ³¹«¸æÊÇ·ñ²ÉÓÃÒÆ¶¯·ç¸ñ£¿</font></td>
+               	<font color=#333333>è®ºå›å…¬å‘Šæ˜¯å¦é‡‡ç”¨ç§»åŠ¨é£Žæ ¼ï¼Ÿ</font></td>
                	<td bgcolor=#FFFFFF>
                	$tempoutput</td>
                	</tr>
                	~;
 
-                 $tempoutput = "<select name=\"newmsgpop\"><option value=\"off\">²»ÌáÊ¾<option value=\"popup\">µ¯³ö<option value=\"light\">ÉÁË¸<option value=\"on\">Á½Õß¾ùÒª</select>\n";
+                 $tempoutput = "<select name=\"newmsgpop\"><option value=\"off\">ä¸æç¤º<option value=\"popup\">å¼¹å‡º<option value=\"light\">é—ªçƒ<option value=\"on\">ä¸¤è€…å‡è¦</select>\n";
                 $tempoutput =~ s/value=\"$newmsgpop\"/value=\"$newmsgpop\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÓÐÐÂµÄ¶ÌÏûÏ¢²ÉÓÃºÎÖÖÌáÊ¾£¿</font></td>
+                <font color=#333333>æœ‰æ–°çš„çŸ­æ¶ˆæ¯é‡‡ç”¨ä½•ç§æç¤ºï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"payopen\"><option value=\"no\">²»ÔÊÐíÖ§¸¶±¦½»Ò×Ìû<option value=\"yes\">¿ÉÒÔÖ§¸¶±¦½»Ò×Ìû</select>\n";
+                $tempoutput = "<select name=\"payopen\"><option value=\"no\">ä¸å…è®¸æ”¯ä»˜å®äº¤æ˜“å¸–<option value=\"yes\">å¯ä»¥æ”¯ä»˜å®äº¤æ˜“å¸–</select>\n";
                 $tempoutput =~ s/value=\"$payopen\"/value=\"$payopen\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>´ò¿ªÂÛÌ³Ö§¸¶±¦½»Ò×Ìû¹¦ÄÜ£¿</font></td>
+                <font color=#333333>æ‰“å¼€è®ºå›æ”¯ä»˜å®äº¤æ˜“å¸–åŠŸèƒ½ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"pollopen\"><option value=\"yes\">´ò¿ªÍ¶Æ±<option value=\"no\">¹Ø±ÕÍ¶Æ±</select>\n";
+                $tempoutput = "<select name=\"pollopen\"><option value=\"yes\">æ‰“å¼€æŠ•ç¥¨<option value=\"no\">å…³é—­æŠ•ç¥¨</select>\n";
                 $tempoutput =~ s/value=\"$pollopen\"/value=\"$pollopen\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>´ò¿ªÂÛÌ³Í¶Æ±¹¦ÄÜ£¿</font></td>
+                <font color=#333333>æ‰“å¼€è®ºå›æŠ•ç¥¨åŠŸèƒ½ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"xzbopen\"><option value=\"yes\">´ò¿ªÐ¡×Ö±¨<option value=\"no\">¹Ø±ÕÐ¡×Ö±¨</select>\n";
+                $tempoutput = "<select name=\"xzbopen\"><option value=\"yes\">æ‰“å¼€å°å­—æŠ¥<option value=\"no\">å…³é—­å°å­—æŠ¥</select>\n";
                 $tempoutput =~ s/value=\"$xzbopen\"/value=\"$xzbopen\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>´ò¿ªÂÛÌ³Ð¡×Ö±¨¹¦ÄÜ£¿</font></td>
+                <font color=#333333>æ‰“å¼€è®ºå›å°å­—æŠ¥åŠŸèƒ½ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÔÊÐí·¢±íµÄÐ¡×Ö±¨µÄ×î¶à×ÖÊý</font><BR><BR></td>
+                <font color=#333333>å…è®¸å‘è¡¨çš„å°å­—æŠ¥çš„æœ€å¤šå­—æ•°</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="hownews" value="$hownews" size=4 maxlength=4>¡¡Ä¬ÈÏ£º100</td>
+                <input type=text name="hownews" value="$hownews" size=4 maxlength=4>ã€€é»˜è®¤ï¼š100</td>
                 </tr>
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font color=#333333><B>³¬¹ý¶àÉÙÌìµÄÌû×Ó²»ÔÊÐí»Ø¸´£¿</B></font><BR>ÒÔÌû×Ó×îºóÒ»´Î»Ø¸´Ê±¼ä¼ÆËã</td>
+               <font color=#333333><B>è¶…è¿‡å¤šå°‘å¤©çš„å¸–å­ä¸å…è®¸å›žå¤ï¼Ÿ</B></font><BR>ä»¥å¸–å­æœ€åŽä¸€æ¬¡å›žå¤æ—¶é—´è®¡ç®—</td>
                <td bgcolor=#FFFFFF>
-               <input type=text name="rdays" value="$rdays" size=4 maxlength=4>¡¡Ìì (Èç¹ûÎÞÐè£¬ÇëÁô¿Õ)</td>
+               <input type=text name="rdays" value="$rdays" size=4 maxlength=4>ã€€å¤© (å¦‚æžœæ— éœ€ï¼Œè¯·ç•™ç©º)</td>
                </tr>
                 ~;
 
-                $tempoutput = "<select name=\"infosopen\"><option value=\"0\">ÈÎºÎÈË¿ÉÒÔ²é¿´<option value=\"1\">×¢²áÓÃ»§¿ÉÒÔ²é¿´<option value=\"2\">Ì³Ö÷ºÍ°æÖ÷¿ÉÒÔ²é¿´<option value=\"3\">Ö»ÓÐÌ³Ö÷¿ÉÒÔ²é¿´</select>\n";
+                $tempoutput = "<select name=\"infosopen\"><option value=\"0\">ä»»ä½•äººå¯ä»¥æŸ¥çœ‹<option value=\"1\">æ³¨å†Œç”¨æˆ·å¯ä»¥æŸ¥çœ‹<option value=\"2\">å›ä¸»å’Œç‰ˆä¸»å¯ä»¥æŸ¥çœ‹<option value=\"3\">åªæœ‰å›ä¸»å¯ä»¥æŸ¥çœ‹</select>\n";
                 $tempoutput =~ s/value=\"$infosopen\"/value=\"$infosopen\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÁÐ±íÅÅÃû×ÊÁÏ²é¿´¿ª·Å·½Ê½£¿</font></td>
+                <font color=#333333>åˆ—è¡¨æŽ’åèµ„æ–™æŸ¥çœ‹å¼€æ”¾æ–¹å¼ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"searchopen\">\n<option value=\"0\">ÔÊÐíÈÎºÎÈËËÑË÷\n<option value=\"1\">Ö»ÔÊÐí×¢²á»áÔ±ÒÔÉÏ¼¶±ðËÑË÷\n<option value=\"2\">Ö»ÔÊÐíÈÏÖ¤»áÔ±ÒÔÉÏ¼¶±ðËÑË÷<option value=\"3\">Ö»ÔÊÐí°æÖ÷ÒÔÉÏ¼¶±ðËÑË÷<option value=\"4\">Ö»ÔÊÐíÌ³Ö÷ËÑË÷<option value=\"99\">¹Ø±ÕËÑË÷</select>\n";
+                $tempoutput = "<select name=\"searchopen\">\n<option value=\"0\">å…è®¸ä»»ä½•äººæœç´¢\n<option value=\"1\">åªå…è®¸æ³¨å†Œä¼šå‘˜ä»¥ä¸Šçº§åˆ«æœç´¢\n<option value=\"2\">åªå…è®¸è®¤è¯ä¼šå‘˜ä»¥ä¸Šçº§åˆ«æœç´¢<option value=\"3\">åªå…è®¸ç‰ˆä¸»ä»¥ä¸Šçº§åˆ«æœç´¢<option value=\"4\">åªå…è®¸å›ä¸»æœç´¢<option value=\"99\">å…³é—­æœç´¢</select>\n";
                 $tempoutput =~ s/value=\"$searchopen\"/value=\"$searchopen\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ËÑË÷Ìû×Ó¹¦ÄÜ¿ª·Å·½Ê½</font></td>
+                <font color=#333333>æœç´¢å¸–å­åŠŸèƒ½å¼€æ”¾æ–¹å¼</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"searchall\">\n<option value=\"yes\">ÔÊÐíÈ«ÎÄËÑË÷\n<option value=\"no\">²»ÔÊÐíÈ«ÎÄËÑË÷</select>\n";
+                $tempoutput = "<select name=\"searchall\">\n<option value=\"yes\">å…è®¸å…¨æ–‡æœç´¢\n<option value=\"no\">ä¸å…è®¸å…¨æ–‡æœç´¢</select>\n";
                 $tempoutput =~ s/value=\"$searchall\"/value=\"$searchall\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÔÊÐíÈ«ÎÄËÑË÷</font> ÔÊÐíµÄ»°£¬È«ÎÄËÑË÷½«ºÜÏûºÄ×ÊÔ´(¶ÔÌ³Ö÷ÎÞÏÞÖÆ)</td>
+                <font color=#333333>æ˜¯å¦å…è®¸å…¨æ–‡æœç´¢</font> å…è®¸çš„è¯ï¼Œå…¨æ–‡æœç´¢å°†å¾ˆæ¶ˆè€—èµ„æº(å¯¹å›ä¸»æ— é™åˆ¶)</td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"viewadminlog\">\n<option value=\"0\">ÔÊÐíÈÎºÎÈË²é¿´\n<option value=\"1\">Ö»ÔÊÐí×¢²á»áÔ±ÒÔÉÏ¼¶±ð²é¿´\n<option value=\"2\">Ö»ÔÊÐíÈÏÖ¤»áÔ±ÒÔÉÏ¼¶±ð²é¿´<option value=\"3\">Ö»ÔÊÐí°æÖ÷ÒÔÉÏ¼¶±ð²é¿´</select>\n";
+                $tempoutput = "<select name=\"viewadminlog\">\n<option value=\"0\">å…è®¸ä»»ä½•äººæŸ¥çœ‹\n<option value=\"1\">åªå…è®¸æ³¨å†Œä¼šå‘˜ä»¥ä¸Šçº§åˆ«æŸ¥çœ‹\n<option value=\"2\">åªå…è®¸è®¤è¯ä¼šå‘˜ä»¥ä¸Šçº§åˆ«æŸ¥çœ‹<option value=\"3\">åªå…è®¸ç‰ˆä¸»ä»¥ä¸Šçº§åˆ«æŸ¥çœ‹</select>\n";
                 $tempoutput =~ s/value=\"$viewadminlog\"/value=\"$viewadminlog\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>°æÎñÈÕÖ¾¹¦ÄÜ¿ª·Å·½Ê½</font></td>
+                <font color=#333333>ç‰ˆåŠ¡æ—¥å¿—åŠŸèƒ½å¼€æ”¾æ–¹å¼</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"regaccess\"><option value=\"off\">²»£¬ÔÊÐíÈÎºÎÈË·ÃÎÊ<option value=\"on\">ÊÇ£¬±ØÐëµÇÂ¼ºó²ÅÄÜ·ÃÎÊ</select>\n";
+		$tempoutput = "<select name=\"regaccess\"><option value=\"off\">ä¸ï¼Œå…è®¸ä»»ä½•äººè®¿é—®<option value=\"on\">æ˜¯ï¼Œå¿…é¡»ç™»å½•åŽæ‰èƒ½è®¿é—®</select>\n";
                 $tempoutput =~ s/value=\"$regaccess\"/value=\"$regaccess\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left  colspan=2>
-                <font face=ËÎÌå color=#333333>ÂÛÌ³Ö»ÓÐ×¢²áÓÃ»§¿ÉÒÔ·ÃÎÊ£¿</font></td>
+                <font face=å®‹ä½“ color=#333333>è®ºå›åªæœ‰æ³¨å†Œç”¨æˆ·å¯ä»¥è®¿é—®ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"allowsearch\"><option value=\"no\">²»ÔÊÐí<option value=\"yes\">ÔÊÐí</select>\n";
+		$tempoutput = "<select name=\"allowsearch\"><option value=\"no\">ä¸å…è®¸<option value=\"yes\">å…è®¸</select>\n";
                 $tempoutput =~ s/value=\"$allowsearch\"/value=\"$allowsearch\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left  colspan=2>
-                <font face=ËÎÌå color=#333333><B>ÊÇ·ñÔÊÐíËÑË÷ÒýÇæÖ±½Ó·ÃÎÊ£¿</B></font><BR>Èç¹ûÔÊÐí£¬ÄÇÃ´¼´Ê¹ÉèÖÃÁËÂÛÌ³Ö»ÓÐ×¢²áÓÃ»§<BR>²Å¿ÉÒÔ·ÃÎÊ£¬µ«ËÑË÷ÒýÇæÈÔÈ»ÄÜ¹»ËÑË÷µ½ÂÛÌ³<br>·ÇË½ÓÐ°æ¿éµÄÄÚÈÝÒÔ±ãÌá¸ßÐÂÓÃ»§Í¨¹ýËÑË÷ÒýÇæ<br>·ÃÎÊµ½ÂÛÌ³µÄ»ú»á£¬´ËÉè¶¨Ò²¿ÉÄÜ»á´øÀ´Î±×°<br>³ÉËÑË÷ÒýÇæÉí·ÝµÄÓÃ»§µÄ·ÃÎÊ!</td>
+                <font face=å®‹ä½“ color=#333333><B>æ˜¯å¦å…è®¸æœç´¢å¼•æ“Žç›´æŽ¥è®¿é—®ï¼Ÿ</B></font><BR>å¦‚æžœå…è®¸ï¼Œé‚£ä¹ˆå³ä½¿è®¾ç½®äº†è®ºå›åªæœ‰æ³¨å†Œç”¨æˆ·<BR>æ‰å¯ä»¥è®¿é—®ï¼Œä½†æœç´¢å¼•æ“Žä»ç„¶èƒ½å¤Ÿæœç´¢åˆ°è®ºå›<br>éžç§æœ‰ç‰ˆå—çš„å†…å®¹ä»¥ä¾¿æé«˜æ–°ç”¨æˆ·é€šè¿‡æœç´¢å¼•æ“Ž<br>è®¿é—®åˆ°è®ºå›çš„æœºä¼šï¼Œæ­¤è®¾å®šä¹Ÿå¯èƒ½ä¼šå¸¦æ¥ä¼ªè£…<br>æˆæœç´¢å¼•æ“Žèº«ä»½çš„ç”¨æˆ·çš„è®¿é—®!</td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"guestregistered\"><option value=\"on\">¿ÉÒÔ<option value=\"off\">²»ÄÜ</select>\n";
+		$tempoutput = "<select name=\"guestregistered\"><option value=\"on\">å¯ä»¥<option value=\"off\">ä¸èƒ½</select>\n";
 		$tempoutput =~ s/value=\"$guestregistered\"/value=\"$guestregistered\" selected/;
 		print qq~
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle align=left  colspan=2>
-		<font face=ËÎÌå color=#333333>¿ÍÈËÄÜ·ñ²é¿´Ìù×ÓÄÚÈÝ£¿</font></td>
+		<font face=å®‹ä½“ color=#333333>å®¢äººèƒ½å¦æŸ¥çœ‹è´´å­å†…å®¹ï¼Ÿ</font></td>
 		<td bgcolor=#FFFFFF valign=middle align=left>
 		$tempoutput</td>
 		</tr>
 		~;
 		
-                $tempoutput = "<select name=\"pvtip\">\n<option value=\"on\">ÏÔÊ¾ IP ºÍ¼ø¶¨\n<option value=\"off\">±£ÃÜ IP ºÍ¼ø¶¨\n</select>\n";
+                $tempoutput = "<select name=\"pvtip\">\n<option value=\"on\">æ˜¾ç¤º IP å’Œé‰´å®š\n<option value=\"off\">ä¿å¯† IP å’Œé‰´å®š\n</select>\n";
                 $tempoutput =~ s/value=\"$pvtip\"/value=\"$pvtip\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333><B>ÊÇ·ñ±£ÃÜ IP ºÍ¼ø¶¨£¿</B><BR>¼´Ê¹Ñ¡ÔñµÄÊÇÏÔÊ¾ IP£¬µ«ÆÕÍ¨ÓÃ»§»¹ÊÇ<BR>Ö»ÄÜ¿´¼û IP µÄÇ°Á½Î»</font></td>
+                <font color=#333333><B>æ˜¯å¦ä¿å¯† IP å’Œé‰´å®šï¼Ÿ</B><BR>å³ä½¿é€‰æ‹©çš„æ˜¯æ˜¾ç¤º IPï¼Œä½†æ™®é€šç”¨æˆ·è¿˜æ˜¯<BR>åªèƒ½çœ‹è§ IP çš„å‰ä¸¤ä½</font></td>
                 <td bgcolor=#FFFFFF>
-                $tempoutput¡¡´Ë¹¦ÄÜ¶ÔÌ³Ö÷ÎÞÐ§</td>
+                $tempoutputã€€æ­¤åŠŸèƒ½å¯¹å›ä¸»æ— æ•ˆ</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"smocanseeip\">\n<option value=\"yes\">ÓÐÐ§\n<option value=\"no\">ÎÞÐ§\n</select>\n";
+                $tempoutput = "<select name=\"smocanseeip\">\n<option value=\"yes\">æœ‰æ•ˆ\n<option value=\"no\">æ— æ•ˆ\n</select>\n";
                 $tempoutput =~ s/value=\"$smocanseeip\"/value=\"$smocanseeip\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333><b>±£ÃÜ IP ºÍ¼ø¶¨¶Ô×Ü°ßÖñÊÇ·ñÓÐÐ§£¿</B><BR>ÈçÑ¡ÔñÎÞÐ§£¬Ôò×Ü°æÖ÷¿É²é¿´ËùÓÐµÄ IP<BR>¶ø²»ÊÜÉÏÃæ IP ±£ÃÜµÄÏÞÖÆ</font></td>
+                <font color=#333333><b>ä¿å¯† IP å’Œé‰´å®šå¯¹æ€»æ–‘ç«¹æ˜¯å¦æœ‰æ•ˆï¼Ÿ</B><BR>å¦‚é€‰æ‹©æ— æ•ˆï¼Œåˆ™æ€»ç‰ˆä¸»å¯æŸ¥çœ‹æ‰€æœ‰çš„ IP<BR>è€Œä¸å—ä¸Šé¢ IP ä¿å¯†çš„é™åˆ¶</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrowupload\">\n<option value=\"on\">ÔÊÐí\n<option value=\"off\">²»ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrowupload\">\n<option value=\"on\">å…è®¸\n<option value=\"off\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrowupload\"/value=\"$arrowupload\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ö÷ÌâÌù×ÓÊÇ·ñÔÊÐíÉÏ´«£¿</font></td>
+                <font color=#333333>ä¸»é¢˜è´´å­æ˜¯å¦å…è®¸ä¸Šä¼ ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
-                $tempoutput¡¡´Ë¹¦ÄÜ¶Ô°æÖ÷ºÍÌ³Ö÷ÎÞÐ§</td>
+                $tempoutputã€€æ­¤åŠŸèƒ½å¯¹ç‰ˆä¸»å’Œå›ä¸»æ— æ•ˆ</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"allowattachment\">\n<option value=\"yes\">ÔÊÐí\n<option value=\"no\">²»ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"allowattachment\">\n<option value=\"yes\">å…è®¸\n<option value=\"no\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$allowattachment\"/value=\"$allowattachment\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>»Ø¸´Ìù×ÓÊÇ·ñÔÊÐíÉÏ´«£¿</font></td>
+                <font color=#333333>å›žå¤è´´å­æ˜¯å¦å…è®¸ä¸Šä¼ ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
-                $tempoutput¡¡´Ë¹¦ÄÜ¶Ô°æÖ÷ºÍÌ³Ö÷ÎÞÐ§</td>
+                $tempoutputã€€æ­¤åŠŸèƒ½å¯¹ç‰ˆä¸»å’Œå›ä¸»æ— æ•ˆ</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÂÛÌ³ÉÏ´«ÎÄ¼þÔÊÐíµÄ×î´óÖµ(µ¥Î»£ºKB)<br>Èç¹ûÉèÖÃÁË²»ÔÊÐíÉÏ´«£¬Ôò´ËÏîÎÞÐ§£¡</font><BR><BR></td>
+                <font color=#333333>è®ºå›ä¸Šä¼ æ–‡ä»¶å…è®¸çš„æœ€å¤§å€¼(å•ä½ï¼šKB)<br>å¦‚æžœè®¾ç½®äº†ä¸å…è®¸ä¸Šä¼ ï¼Œåˆ™æ­¤é¡¹æ— æ•ˆï¼</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxupload" value="$maxupload" size=5 maxlength=5>¡¡²»Òª¼Ó KB£¬½¨Òé²»Òª³¬¹ý 500</td>
+                <input type=text name="maxupload" value="$maxupload" size=5 maxlength=5>ã€€ä¸è¦åŠ  KBï¼Œå»ºè®®ä¸è¦è¶…è¿‡ 500</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÓÃ»§ÉÏ´«ÎÄ¼þ±ØÐë´ïµ½µÄ·¢Ìù×ÜÊý<br>Ö»¶ÔÆÕÍ¨×¢²áÓÃ»§ÓÐÐ§£¡Ì³Ö÷¡¢°ßÖñºÍÈÏÖ¤ÓÃ»§¶¼²»ÊÜ´ËÏÞÖÆ£¡</font><BR><BR></td>
+                <font color=#333333>ç”¨æˆ·ä¸Šä¼ æ–‡ä»¶å¿…é¡»è¾¾åˆ°çš„å‘è´´æ€»æ•°<br>åªå¯¹æ™®é€šæ³¨å†Œç”¨æˆ·æœ‰æ•ˆï¼å›ä¸»ã€æ–‘ç«¹å’Œè®¤è¯ç”¨æˆ·éƒ½ä¸å—æ­¤é™åˆ¶ï¼</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="uploadreqire" value="$uploadreqire" size=4 maxlength=4>¡¡Èç¹û²»ÏëÏÞÖÆ£¬¿ÉÒÔÉèÖÃÎª0¡£</td>
+                <input type=text name="uploadreqire" value="$uploadreqire" size=4 maxlength=4>ã€€å¦‚æžœä¸æƒ³é™åˆ¶ï¼Œå¯ä»¥è®¾ç½®ä¸º0ã€‚</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"mastpostatt\">\n<option value=\"no\">¿ÉÒÔ²»´ø¸½¼þ\n<option value=\"yes\">±ØÐë´ø¸½¼þ\n</select>\n";
+                $tempoutput = "<select name=\"mastpostatt\">\n<option value=\"no\">å¯ä»¥ä¸å¸¦é™„ä»¶\n<option value=\"yes\">å¿…é¡»å¸¦é™„ä»¶\n</select>\n";
                 $tempoutput =~ s/value=\"$mastpostatt\"/value=\"$mastpostatt\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÐÂÖ÷ÌâÌùÊÇ·ñ±ØÐë´ø¸½¼þ£¿</font></td>
+                <font color=#333333>æ–°ä¸»é¢˜è´´æ˜¯å¦å¿…é¡»å¸¦é™„ä»¶ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
-                $tempoutput¡¡´Ë¹¦ÄÜÖ÷ÒªÓÃÓÚÖÆ×÷ BT ·¢²¼Çø</td>
+                $tempoutputã€€æ­¤åŠŸèƒ½ä¸»è¦ç”¨äºŽåˆ¶ä½œ BT å‘å¸ƒåŒº</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢ÌùÖÁÉÙ×Ö·ûÊý£¬·ÀÖ¹¹àË®<br>Ö»¶ÔÆÕÍ¨×¢²áÓÃ»§ÓÐÐ§£¡Ì³Ö÷¡¢°ßÖñºÍÈÏÖ¤ÓÃ»§¶¼²»ÊÜ´ËÏÞÖÆ£¡</font><BR><BR></td>
+                <font color=#333333>å‘è´´è‡³å°‘å­—ç¬¦æ•°ï¼Œé˜²æ­¢çŒæ°´<br>åªå¯¹æ™®é€šæ³¨å†Œç”¨æˆ·æœ‰æ•ˆï¼å›ä¸»ã€æ–‘ç«¹å’Œè®¤è¯ç”¨æˆ·éƒ½ä¸å—æ­¤é™åˆ¶ï¼</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="minpoststr" value="$minpoststr" size=2 maxlength=2>¡¡Èç²»ÏëÏÞÖÆ£¬¿ÉÁô¿Õ£¬²»µÃ¶àÓÚ 50¡£</td>
+                <input type=text name="minpoststr" value="$minpoststr" size=2 maxlength=2>ã€€å¦‚ä¸æƒ³é™åˆ¶ï¼Œå¯ç•™ç©ºï¼Œä¸å¾—å¤šäºŽ 50ã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢ÌùÔÊÐíµÄ×î¶à×Ö·ûÊý<br>Ö»¶ÔÆÕÍ¨×¢²áÓÃ»§ÓÐÐ§£¡Ì³Ö÷¡¢°ßÖñºÍÈÏÖ¤ÓÃ»§¶¼²»ÊÜ´ËÏÞÖÆ£¡</font><BR><BR></td>
+                <font color=#333333>å‘è´´å…è®¸çš„æœ€å¤šå­—ç¬¦æ•°<br>åªå¯¹æ™®é€šæ³¨å†Œç”¨æˆ·æœ‰æ•ˆï¼å›ä¸»ã€æ–‘ç«¹å’Œè®¤è¯ç”¨æˆ·éƒ½ä¸å—æ­¤é™åˆ¶ï¼</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="maxpoststr" value="$maxpoststr" size=5 maxlength=5>¡¡Èç²»ÏëÏÞÖÆ£¬¿ÉÁô¿Õ£¬²»µÃÉÙÓÚ 100¡£</td>
+                <input type=text name="maxpoststr" value="$maxpoststr" size=5 maxlength=5>ã€€å¦‚ä¸æƒ³é™åˆ¶ï¼Œå¯ç•™ç©ºï¼Œä¸å¾—å°‘äºŽ 100ã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢¶ÌÏûÏ¢µÄ×îÉÙÔÚÏßÊ±¼ä<br>ÔÚÏßÊ±¼äÉÙÓÚÕâ¸öµÄÎÞ·¨·¢ËÍ¶ÌÏûÏ¢</font><BR><BR></td>
+                <font color=#333333>å‘çŸ­æ¶ˆæ¯çš„æœ€å°‘åœ¨çº¿æ—¶é—´<br>åœ¨çº¿æ—¶é—´å°‘äºŽè¿™ä¸ªçš„æ— æ³•å‘é€çŸ­æ¶ˆæ¯</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="onlinemessage" value="$onlinemessage" size=8 maxlength=8>¡¡µ¥Î»£ºÃë£¬½¨ÒéÉèÖÃ 600£¬Èç²»ÏëÏÞÖÆ£¬¾ÍÁô¿Õ¡£</td>
+                <input type=text name="onlinemessage" value="$onlinemessage" size=8 maxlength=8>ã€€å•ä½ï¼šç§’ï¼Œå»ºè®®è®¾ç½® 600ï¼Œå¦‚ä¸æƒ³é™åˆ¶ï¼Œå°±ç•™ç©ºã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢ÌùµÄ×îÉÙÔÚÏßÊ±¼ä<br>ÔÚÏßÊ±¼äÉÙÓÚÕâ¸öµÄÎÞ·¨·¢Ìù</font><BR><BR></td>
+                <font color=#333333>å‘è´´çš„æœ€å°‘åœ¨çº¿æ—¶é—´<br>åœ¨çº¿æ—¶é—´å°‘äºŽè¿™ä¸ªçš„æ— æ³•å‘è´´</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="onlinepost" value="$onlinepost" size=8 maxlength=8>¡¡µ¥Î»£ºÃë£¬½¨ÒéÉèÖÃ 600£¬Èç²»ÏëÏÞÖÆ£¬¾ÍÁô¿Õ¡£</td>
+                <input type=text name="onlinepost" value="$onlinepost" size=8 maxlength=8>ã€€å•ä½ï¼šç§’ï¼Œå»ºè®®è®¾ç½® 600ï¼Œå¦‚ä¸æƒ³é™åˆ¶ï¼Œå°±ç•™ç©ºã€‚</td>
                 </tr>
                 ~;
 
-               $tempoutput = "<select name=\"arrawrecordclick\">\n<option value=\"no\">²»ÔÊÐí\n<option value=\"yes\">ÔÊÐí\n</select>";
+               $tempoutput = "<select name=\"arrawrecordclick\">\n<option value=\"no\">ä¸å…è®¸\n<option value=\"yes\">å…è®¸\n</select>";
                $tempoutput =~ s/value=\"$arrawrecordclick\"/value=\"$arrawrecordclick\" selected/;
                print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font color=#333333>ÊÇ·ñÔÊÐí¼ÇÂ¼Ìû×Ó·ÃÎÊÇé¿ö</font></td>
+               <font color=#333333>æ˜¯å¦å…è®¸è®°å½•å¸–å­è®¿é—®æƒ…å†µ</font></td>
                <td bgcolor=#FFFFFF>
                $tempoutput</td>
                </tr>               
                ~;
                
-               $tempoutput = "<select name=\"nowater\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n</select>";
+               $tempoutput = "<select name=\"nowater\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n</select>";
                $tempoutput =~ s/value=\"$nowater\"/value=\"$nowater\" selected/;
                print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font color=#333333>ÊÇ·ñÔÊÐí·¢ÌùÕß¶Ô¹àË®½øÐÐÏÞÖÆ</font></td>
+               <font color=#333333>æ˜¯å¦å…è®¸å‘è´´è€…å¯¹çŒæ°´è¿›è¡Œé™åˆ¶</font></td>
                <td bgcolor=#FFFFFF>
                $tempoutput</td>
                </tr>               
                
 	       <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font face=ËÎÌå color=#333333><b>ÉÙÓÚ¶àÉÙ×Ö·ûËã¹àË®£¿</font></b><BR>Èç¹ûÉÏÃæÑ¡Ôñ²»ÔÊÐíÏÞÖÆ£¬ÄÇÃ´´ËÏîÎÞÐ§£¡</td>
+               <font face=å®‹ä½“ color=#333333><b>å°‘äºŽå¤šå°‘å­—ç¬¦ç®—çŒæ°´ï¼Ÿ</font></b><BR>å¦‚æžœä¸Šé¢é€‰æ‹©ä¸å…è®¸é™åˆ¶ï¼Œé‚£ä¹ˆæ­¤é¡¹æ— æ•ˆï¼</td>
                <td bgcolor=#FFFFFF valign=middle align=left>
-               <input type=text name="gsnum" value="$gsnum" size=5 maxlength=5>¡¡²»Òª¼Ó byte£¬½¨Òé²»Òª³¬¹ý 50¡£</td>
+               <input type=text name="gsnum" value="$gsnum" size=5 maxlength=5>ã€€ä¸è¦åŠ  byteï¼Œå»ºè®®ä¸è¦è¶…è¿‡ 50ã€‚</td>
                </tr>      
                ~;
 
-                $tempoutput = "<select name=\"defaulttopicshow\"><option value=>²é¿´ËùÓÐµÄÖ÷Ìâ<option value=\"1\">²é¿´Ò»ÌìÄÚµÄÖ÷Ìâ<option value=\"2\">²é¿´Á½ÌìÄÚµÄÖ÷Ìâ<option value=\"7\">²é¿´Ò»ÐÇÆÚÄÚµÄÖ÷Ìâ<option value=\"15\">²é¿´°ë¸öÔÂÄÚµÄÖ÷Ìâ<option value=\"30\">²é¿´Ò»¸öÔÂÄÚµÄÖ÷Ìâ<option value=\"60\">²é¿´Á½¸öÔÂÄÚµÄÖ÷Ìâ<option value=\"180\">²é¿´°ëÄêÄÚµÄÖ÷Ìâ</select>\n";
+                $tempoutput = "<select name=\"defaulttopicshow\"><option value=>æŸ¥çœ‹æ‰€æœ‰çš„ä¸»é¢˜<option value=\"1\">æŸ¥çœ‹ä¸€å¤©å†…çš„ä¸»é¢˜<option value=\"2\">æŸ¥çœ‹ä¸¤å¤©å†…çš„ä¸»é¢˜<option value=\"7\">æŸ¥çœ‹ä¸€æ˜ŸæœŸå†…çš„ä¸»é¢˜<option value=\"15\">æŸ¥çœ‹åŠä¸ªæœˆå†…çš„ä¸»é¢˜<option value=\"30\">æŸ¥çœ‹ä¸€ä¸ªæœˆå†…çš„ä¸»é¢˜<option value=\"60\">æŸ¥çœ‹ä¸¤ä¸ªæœˆå†…çš„ä¸»é¢˜<option value=\"180\">æŸ¥çœ‹åŠå¹´å†…çš„ä¸»é¢˜</select>\n";
                 $tempoutput =~ s/value=\"$defaulttopicshow\"/value=\"$defaulttopicshow\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ä¬ÈÏÏÔÊ¾Ö÷ÌâÊý</font></td>
+                <font color=#333333>é»˜è®¤æ˜¾ç¤ºä¸»é¢˜æ•°</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"arrowavaupload\">\n<option value=\"on\">ÔÊÐí\n<option value=\"off\">²»ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrowavaupload\">\n<option value=\"on\">å…è®¸\n<option value=\"off\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrowavaupload\"/value=\"$arrowavaupload\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÔÊÐíÉÏ´«×Ô¶¨ÒåÍ·Ïñ£¿</font></td>
+                <font color=#333333>æ˜¯å¦å…è®¸ä¸Šä¼ è‡ªå®šä¹‰å¤´åƒï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrowuserdel\">\n<option value=\"on\">ÔÊÐí\n<option value=\"off\">²»ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"arrowuserdel\">\n<option value=\"on\">å…è®¸\n<option value=\"off\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$arrowuserdel\"/value=\"$arrowuserdel\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÔÊÐí×¢²áÓÃ»§×Ô¼ºËø¶¨»òÉ¾³ý×Ô¼ºµÄÌù×Ó£¿</font></td>
+                <font color=#333333>æ˜¯å¦å…è®¸æ³¨å†Œç”¨æˆ·è‡ªå·±é”å®šæˆ–åˆ é™¤è‡ªå·±çš„è´´å­ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"usereditpost\"><option value=\"yes\">¿ÉÒÔ±à¼­×Ô¼ºµÄÌù×Ó<option value=\"no\">²»¿ÉÒÔ±à¼­×Ô¼ºµÄÌù×Ó</select>\n";
+                $tempoutput = "<select name=\"usereditpost\"><option value=\"yes\">å¯ä»¥ç¼–è¾‘è‡ªå·±çš„è´´å­<option value=\"no\">ä¸å¯ä»¥ç¼–è¾‘è‡ªå·±çš„è´´å­</select>\n";
                 $tempoutput =~ s/value=\"$usereditpost\"/value=\"$usereditpost\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÂÛÌ³ÊÇ·ñÔÊÐí±à¼­£¿(¶ÔÌ³Ö÷¡¢°ßÖñÎÞÐ§)</font></td>
+                <font color=#333333>è®ºå›æ˜¯å¦å…è®¸ç¼–è¾‘ï¼Ÿ(å¯¹å›ä¸»ã€æ–‘ç«¹æ— æ•ˆ)</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"allowamoedit\">\n<option value=\"no\">²»ÔÊÐí\n<option value=\"yes\">ÔÊÐí\n</select>\n";
+                $tempoutput = "<select name=\"allowamoedit\">\n<option value=\"no\">ä¸å…è®¸\n<option value=\"yes\">å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$allowamoedit\"/value=\"$allowamoedit\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>¸±°æÖ÷ÊÇ·ñÔÊÐí±à¼­±¾ÂÛÌ³ÏÂµÄÌû×Ó£¿</font></td>
+                <font color=#333333>å‰¯ç‰ˆä¸»æ˜¯å¦å…è®¸ç¼–è¾‘æœ¬è®ºå›ä¸‹çš„å¸–å­ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"onlineview\">\n<option value=\"1\">ÏÔÊ¾\n<option value=\"0\">²»ÏÔÊ¾\n</select>\n";
+                $tempoutput = "<select name=\"onlineview\">\n<option value=\"1\">æ˜¾ç¤º\n<option value=\"0\">ä¸æ˜¾ç¤º\n</select>\n";
                 $tempoutput =~ s/value=\"$onlineview\"/value=\"$onlineview\" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ä¬ÈÏÊÇ·ñÏÔÊ¾ÔÚÏßÓÃ»§ÏêÏ¸ÁÐ±í£¿</font></td>
+                <font color=#333333>é»˜è®¤æ˜¯å¦æ˜¾ç¤ºåœ¨çº¿ç”¨æˆ·è¯¦ç»†åˆ—è¡¨ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
                 
-               $tempoutput = "<select name=\"advreg\">\n<option value=\"0\">¼ò½àÄ£Ê½\n<option value=\"1\">¸ß¼¶Ä£Ê½\n</select>\n"; 
+               $tempoutput = "<select name=\"advreg\">\n<option value=\"0\">ç®€æ´æ¨¡å¼\n<option value=\"1\">é«˜çº§æ¨¡å¼\n</select>\n"; 
                $tempoutput =~ s/value=\"$advreg\"/value=\"$advreg\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>Ä¬ÈÏ×¢²áÄ£Ê½£¿</font></td> 
+               <font color=#333333>é»˜è®¤æ³¨å†Œæ¨¡å¼ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
                ~; 
 
-		$tempoutput = "<select name=\"advlogin\">\n<option value=\"0\">¼ò½àÄ£Ê½\n<option value=\"1\">¸ß¼¶Ä£Ê½\n</select>\n"; 
+		$tempoutput = "<select name=\"advlogin\">\n<option value=\"0\">ç®€æ´æ¨¡å¼\n<option value=\"1\">é«˜çº§æ¨¡å¼\n</select>\n"; 
                $tempoutput =~ s/value=\"$advlogin\"/value=\"$advlogin\" selected/; 
                print qq~ 
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
-               <font color=#333333>Ä¬ÈÏµÇÂ¼Ä£Ê½£¿</font></td> 
+               <font color=#333333>é»˜è®¤ç™»å½•æ¨¡å¼ï¼Ÿ</font></td> 
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
                ~; 
 
-                $tempoutput = "<select name=\"sendwelcomemessage\">\n<option value=\"yes\">·¢ËÍ\n<option value=\"no\">²»·¢ËÍ\n</select>\n";
+                $tempoutput = "<select name=\"sendwelcomemessage\">\n<option value=\"yes\">å‘é€\n<option value=\"no\">ä¸å‘é€\n</select>\n";
                 $tempoutput =~ s/value=\"$sendwelcomemessage\"/value=\"$sendwelcomemessage" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñ·¢»¶Ó­ÏûÏ¢¸øÐÂ×¢²áÓÃ»§£¿</font></td>
+                <font color=#333333>æ˜¯å¦å‘æ¬¢è¿Žæ¶ˆæ¯ç»™æ–°æ³¨å†Œç”¨æˆ·ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"refreshforum\">\n<option value=\"off\">²»Òª×Ô¶¯Ë¢ÐÂ\n<option value=\"on\">Òª×Ô¶¯Ë¢ÐÂ\n</select>\n";
+                $tempoutput = "<select name=\"refreshforum\">\n<option value=\"off\">ä¸è¦è‡ªåŠ¨åˆ·æ–°\n<option value=\"on\">è¦è‡ªåŠ¨åˆ·æ–°\n</select>\n";
                 $tempoutput =~ s/value=\"$refreshforum\"/value=\"$refreshforum" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·ÖÂÛÌ³ÊÇ·ñ×Ô¶¯Ë¢ÐÂ(ÇëÔÚÏÂÃæÉèÖÃ¼ä¸ôÊ±¼ä)£¿</font></td>
+                <font color=#333333>åˆ†è®ºå›æ˜¯å¦è‡ªåŠ¨åˆ·æ–°(è¯·åœ¨ä¸‹é¢è®¾ç½®é—´éš”æ—¶é—´)ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>×Ô¶¯Ë¢ÐÂÂÛÌ³µÄÊ±¼ä¼ä¸ô(Ãë)<BR>ÅäºÏÉÏÃæ²ÎÊýÒ»ÆðÊ¹ÓÃ</font></td>
+                <font color=#333333>è‡ªåŠ¨åˆ·æ–°è®ºå›çš„æ—¶é—´é—´éš”(ç§’)<BR>é…åˆä¸Šé¢å‚æ•°ä¸€èµ·ä½¿ç”¨</font></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="autofreshtime" value="$autofreshtime" size= 5 maxlength=5>¡¡Ò»°ãÉèÖÃ 5 ·ÖÖÓ£¬¾ÍÊÇ 300 Ãë¡£</td>
+                <input type=text name="autofreshtime" value="$autofreshtime" size= 5 maxlength=5>ã€€ä¸€èˆ¬è®¾ç½® 5 åˆ†é’Ÿï¼Œå°±æ˜¯ 300 ç§’ã€‚</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"editusertitleself\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"on\">ÔÊÐí\n<option value=\"post\">ÔÊÐí£¬µ«ÐèÒª´ïµ½ÏÂÃæµÄ»ý·ÖÊý\n</select>\n";
+                $tempoutput = "<select name=\"editusertitleself\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"on\">å…è®¸\n<option value=\"post\">å…è®¸ï¼Œä½†éœ€è¦è¾¾åˆ°ä¸‹é¢çš„ç§¯åˆ†æ•°\n</select>\n";
                 $tempoutput =~ s/value=\"$editusertitleself\"/value=\"$editusertitleself" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÔÊÐíÓÃ»§×ÔÐÐÐÞ¸Ä¸öÈËÍ·ÏÎ£¿</font></td>
+                <font color=#333333>æ˜¯å¦å…è®¸ç”¨æˆ·è‡ªè¡Œä¿®æ”¹ä¸ªäººå¤´è¡”ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		<tr>
 		<td bgcolor=#FFFFFF colspan=2>
-		<font color=#333333>ÔÊÐí»áÔ±×ÔÐÐÐÞ¸Ä¸öÈËÍ·ÏÎÐèÒª´ïµ½µÄ»ý·ÖÊý</font></td>
+		<font color=#333333>å…è®¸ä¼šå‘˜è‡ªè¡Œä¿®æ”¹ä¸ªäººå¤´è¡”éœ€è¦è¾¾åˆ°çš„ç§¯åˆ†æ•°</font></td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="needpoststitle" value="$needpoststitle" size=5 maxlength=5> ÅäºÏÉÏÒ»¸öµÄÉèÖÃÊ¹ÓÃ</td>
+		<input type=text name="needpoststitle" value="$needpoststitle" size=5 maxlength=5> é…åˆä¸Šä¸€ä¸ªçš„è®¾ç½®ä½¿ç”¨</td>
 		</tr>
 		~;
 
-                $tempoutput = "<select name=\"editjhmpself\">\n<option value=\"off\">²»ÔÊÐí\n<option value=\"system\">ÔÊÐí£¬µ«Ðè´ÓÏµÍ³ÖÐÑ¡Ôñ\n<option value=\"on\">ÔÊÐí\n<option value=\"post\">ÔÊÐí£¬µ«ÐèÒª´ïµ½ÏÂÃæµÄ·¢ÑÔÊý\n</select>\n";
+                $tempoutput = "<select name=\"editjhmpself\">\n<option value=\"off\">ä¸å…è®¸\n<option value=\"system\">å…è®¸ï¼Œä½†éœ€ä»Žç³»ç»Ÿä¸­é€‰æ‹©\n<option value=\"on\">å…è®¸\n<option value=\"post\">å…è®¸ï¼Œä½†éœ€è¦è¾¾åˆ°ä¸‹é¢çš„å‘è¨€æ•°\n</select>\n";
                 $tempoutput =~ s/value=\"$editjhmpself\"/value=\"$editjhmpself" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÔÊÐíÓÃ»§×ÔÐÐÐÞ¸Ä½­ºþÃÅÅÉ£¿</font></td>
+                <font color=#333333>æ˜¯å¦å…è®¸ç”¨æˆ·è‡ªè¡Œä¿®æ”¹æ±Ÿæ¹–é—¨æ´¾ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		<tr>
 		<td bgcolor=#FFFFFF colspan=2>
-		<font color=#333333>ÔÊÐí»áÔ±×ÔÐÐÐÞ¸Ä½­ºþÃÅÅÉÐèÒª´ïµ½µÄ·¢ÑÔÊý</font></td>
+		<font color=#333333>å…è®¸ä¼šå‘˜è‡ªè¡Œä¿®æ”¹æ±Ÿæ¹–é—¨æ´¾éœ€è¦è¾¾åˆ°çš„å‘è¨€æ•°</font></td>
 		<td bgcolor=#FFFFFF>
-		<input type=text name="needpostsjhmp" value="$needpostsjhmp" size=5 maxlength=5> ÅäºÏÉÏÒ»¸öµÄÉèÖÃÊ¹ÓÃ</td>
+		<input type=text name="needpostsjhmp" value="$needpostsjhmp" size=5 maxlength=5> é…åˆä¸Šä¸€ä¸ªçš„è®¾ç½®ä½¿ç”¨</td>
 		</tr>
 		~;
 
-                $tempoutput = "<select name=\"usenoimg\">\n<option value=\"no\">²»Ê¹ÓÃ\n<option value=\"yes\">Ê¹ÓÃ\n</select>\n";
+                $tempoutput = "<select name=\"usenoimg\">\n<option value=\"no\">ä¸ä½¿ç”¨\n<option value=\"yes\">ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$usenoimg\"/value=\"$usenoimg" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÆôÓÃÍ¼Æ¬´íÎóÊ±×Ô¶¯ÐÞÕý£¿</font></td>
+                <font color=#333333>æ˜¯å¦å¯ç”¨å›¾ç‰‡é”™è¯¯æ—¶è‡ªåŠ¨ä¿®æ­£ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"usefastpost\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+                $tempoutput = "<select name=\"usefastpost\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$usefastpost\"/value=\"$usefastpost" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÆôÓÃ¿ìËÙ·¢±íÖ÷Ìâ£¿</font></td>
+                <font color=#333333>æ˜¯å¦å¯ç”¨å¿«é€Ÿå‘è¡¨ä¸»é¢˜ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispquickreply\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+                $tempoutput = "<select name=\"dispquickreply\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$dispquickreply\"/value=\"$dispquickreply" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÊÇ·ñÆôÓÃ¿ìËÙ»Ø¸´£¿</font></td>
+                <font color=#333333>æ˜¯å¦å¯ç”¨å¿«é€Ÿå›žå¤ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"waterwhenguest\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+                $tempoutput = "<select name=\"waterwhenguest\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$waterwhenguest\"/value=\"$waterwhenguest" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>µ±¿ÍÈËä¯ÀÀÊ±£¬×Ô¶¯¼ÓË®Ó¡£¿(Í¬Ê±½«ÎÞ·¨¸´ÖÆÌû×Ó)</font></td>
+                <font color=#333333>å½“å®¢äººæµè§ˆæ—¶ï¼Œè‡ªåŠ¨åŠ æ°´å°ï¼Ÿ(åŒæ—¶å°†æ— æ³•å¤åˆ¶å¸–å­)</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"sendmanageinfo\">\n<option value=\"no\">²»Í¨ÖªÓÃ»§\n<option value=\"yes\">Í¨ÖªÓÃ»§\n</select>\n";
+                $tempoutput = "<select name=\"sendmanageinfo\">\n<option value=\"no\">ä¸é€šçŸ¥ç”¨æˆ·\n<option value=\"yes\">é€šçŸ¥ç”¨æˆ·\n</select>\n";
                 $tempoutput =~ s/value=\"$sendmanageinfo\"/value=\"$sendmanageinfo" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>¹ÜÀíÌû×Ó£¨É¾³ý¡¢ÒÆ¶¯¡¢Ëø¶¨¡¢ÆÁ±ÎµÈ£©ºó£¬<BR>ÊÇ·ñ·¢¶ÌÏûÏ¢Í¨ÖªÓÃ»§£¿</font></td>
+                <font color=#333333>ç®¡ç†å¸–å­ï¼ˆåˆ é™¤ã€ç§»åŠ¨ã€é”å®šã€å±è”½ç­‰ï¼‰åŽï¼Œ<BR>æ˜¯å¦å‘çŸ­æ¶ˆæ¯é€šçŸ¥ç”¨æˆ·ï¼Ÿ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"treeview\">\n<option value=\"no\">Æ½°åÏÔÊ¾Ìù×Ó\n<option value=\"yes\">Ê÷ÐÎÏÔÊ¾Ìù×Ó\n</select>\n";
+                $tempoutput = "<select name=\"treeview\">\n<option value=\"no\">å¹³æ¿æ˜¾ç¤ºè´´å­\n<option value=\"yes\">æ ‘å½¢æ˜¾ç¤ºè´´å­\n</select>\n";
                 $tempoutput =~ s/value=\"$treeview\"/value=\"$treeview" selected/;
                 print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ä¬ÈÏÌû×ÓÏÔÊ¾·ç¸ñ¡£</font></td>
+                <font color=#333333>é»˜è®¤å¸–å­æ˜¾ç¤ºé£Žæ ¼ã€‚</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispjump\">\n<option value=\"yes\">ÏÔÊ¾\n<option value=\"no\">²»ÏÔÊ¾\n</select>\n";
+                $tempoutput = "<select name=\"dispjump\">\n<option value=\"yes\">æ˜¾ç¤º\n<option value=\"no\">ä¸æ˜¾ç¤º\n</select>\n";
                 $tempoutput =~ s/value=\"$dispjump\"/value=\"$dispjump\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333>ÊÇ·ñÏÔÊ¾ÂÛÌ³Ìø×ª</font></td>
+                <font face=å®‹ä½“ color=#333333>æ˜¯å¦æ˜¾ç¤ºè®ºå›è·³è½¬</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispchildforumnum\">\n<option value=\"yes\">ÏÔÊ¾\n<option value=\"no\">²»ÏÔÊ¾\n</select>\n";
+                $tempoutput = "<select name=\"dispchildforumnum\">\n<option value=\"yes\">æ˜¾ç¤º\n<option value=\"no\">ä¸æ˜¾ç¤º\n</select>\n";
                 $tempoutput =~ s/value=\"$dispchildforumnum\"/value=\"$dispchildforumnum\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333>ÊÇ·ñÔÚÊ×Ò³ÃæÏÔÊ¾×ÓÂÛÌ³¸öÊý</font></td>
+                <font face=å®‹ä½“ color=#333333>æ˜¯å¦åœ¨é¦–é¡µé¢æ˜¾ç¤ºå­è®ºå›ä¸ªæ•°</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispview\">\n<option value=\"yes\">ÏÔÊ¾\n<option value=\"no\">²»ÏÔÊ¾\n</select>\n";
+                $tempoutput = "<select name=\"dispview\">\n<option value=\"yes\">æ˜¾ç¤º\n<option value=\"no\">ä¸æ˜¾ç¤º\n</select>\n";
                 $tempoutput =~ s/value=\"$dispview\"/value=\"$dispview\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÊÇ·ñÏÔÊ¾ÂÛÌ³Í¼Àý</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>æ˜¯å¦æ˜¾ç¤ºè®ºå›å›¾ä¾‹</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"addtopictime\">\n<option value=\"no\">²»Ìí¼Ó\n<option value=\"yes\">Ìí¼Ó\n</select>\n";
+                $tempoutput = "<select name=\"addtopictime\">\n<option value=\"no\">ä¸æ·»åŠ \n<option value=\"yes\">æ·»åŠ \n</select>\n";
                 $tempoutput =~ s/value=\"$addtopictime\"/value=\"$addtopictime\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÊÇ·ñ×Ô¶¯ÔÚÖ÷ÌâÇ°Ìí¼ÓÈÕÆÚ£¿</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>æ˜¯å¦è‡ªåŠ¨åœ¨ä¸»é¢˜å‰æ·»åŠ æ—¥æœŸï¼Ÿ</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"abslink\">\n<option value=\"no\">²»Ö±½ÓÏÂÔØ\n<option value=\"yes\">Ö±½ÓÏÂÔØ\n</select>\n";
+                $tempoutput = "<select name=\"abslink\">\n<option value=\"no\">ä¸ç›´æŽ¥ä¸‹è½½\n<option value=\"yes\">ç›´æŽ¥ä¸‹è½½\n</select>\n";
                 $tempoutput =~ s/value=\"$abslink\"/value=\"$abslink\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>Í¼Æ¬¸½¼þÊÇ·ñÊ¹ÓÃÖ±½ÓÏÂÔØ·½Ê½£¿</b>´ËÉèÖÃÖ»Õë¶ÔÍ¼Æ¬£¬Èç¹ûÑ¡Ôñ¡°Ö±½ÓÏÂÔØ¡±£¬ÄÇÃ´·ÀµÁÁ´ºÍÍ¼Æ¬Ë®Ó¡ÉèÖÃ½«ÎÞÐ§£¡</font></td>
+                <font face=å®‹ä½“ color=#333333><b>å›¾ç‰‡é™„ä»¶æ˜¯å¦ä½¿ç”¨ç›´æŽ¥ä¸‹è½½æ–¹å¼ï¼Ÿ</b>æ­¤è®¾ç½®åªé’ˆå¯¹å›¾ç‰‡ï¼Œå¦‚æžœé€‰æ‹©â€œç›´æŽ¥ä¸‹è½½â€ï¼Œé‚£ä¹ˆé˜²ç›—é“¾å’Œå›¾ç‰‡æ°´å°è®¾ç½®å°†æ— æ•ˆï¼</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"pvtdown\">\n<option value=\"yes\">±£»¤\n<option value=\"no\">²»±£»¤\n</select>\n";
+                $tempoutput = "<select name=\"pvtdown\">\n<option value=\"yes\">ä¿æŠ¤\n<option value=\"no\">ä¸ä¿æŠ¤\n</select>\n";
                 $tempoutput =~ s/value=\"$pvtdown\"/value=\"$pvtdown\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÊÇ·ñ±£»¤¸½¼þÏÂÔØµØÖ·£¬·ÀÖ¹µÁÁ´£¿</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>æ˜¯å¦ä¿æŠ¤é™„ä»¶ä¸‹è½½åœ°å€ï¼Œé˜²æ­¢ç›—é“¾ï¼Ÿ</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
@@ -2026,12 +2049,12 @@ else {
 }
 if ($gdfunc eq "1") {
 
-		$tempoutput = "<select name=\"picwater\">\n<option value=\"no\">²»¼ÓË®Ó¡\n<option value=\"yes\">¼ÓÉÏË®Ó¡\n</select>\n";
+		$tempoutput = "<select name=\"picwater\">\n<option value=\"no\">ä¸åŠ æ°´å°\n<option value=\"yes\">åŠ ä¸Šæ°´å°\n</select>\n";
                 $tempoutput =~ s/value=\"$picwater\"/value=\"$picwater\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÉÏ´«µÄ JPG Í¼Æ¬ÊÇ·ñ¼ÓÉÏË®Ó¡</b><BR>Ð¡ÓÚ 200*40 µÄÍ¼Æ¬×Ô¶¯²»¼ÓË®Ó¡</font></td>
+                <font face=å®‹ä½“ color=#333333><b>ä¸Šä¼ çš„ JPG å›¾ç‰‡æ˜¯å¦åŠ ä¸Šæ°´å°</b><BR>å°äºŽ 200*40 çš„å›¾ç‰‡è‡ªåŠ¨ä¸åŠ æ°´å°</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
@@ -2039,12 +2062,12 @@ if ($gdfunc eq "1") {
 
 $watername = "http://bbs.leobbs.com/" if ($watername eq "");
 
-		$tempoutput = "<select name=\"picwaterman\">\n<option value=\"0\">Ö»¶Ô¿ÍÈËÏÔÊ¾\n<option value=\"1\">¶Ô¿ÍÈËºÍÆÕÍ¨ÓÃ»§ÏÔÊ¾\n<option value=\"2\">¶Ô¿ÍÈË¡¢ÆÕÍ¨ÓÃ»§ºÍÈÏÖ¤ÓÃ»§ÏÔÊ¾<option value=\"3\">³ýÁËÌ³Ö÷Íâ£¬ÆäËûÓÃ»§¶¼ÏÔÊ¾\n</select>\n";
+		$tempoutput = "<select name=\"picwaterman\">\n<option value=\"0\">åªå¯¹å®¢äººæ˜¾ç¤º\n<option value=\"1\">å¯¹å®¢äººå’Œæ™®é€šç”¨æˆ·æ˜¾ç¤º\n<option value=\"2\">å¯¹å®¢äººã€æ™®é€šç”¨æˆ·å’Œè®¤è¯ç”¨æˆ·æ˜¾ç¤º<option value=\"3\">é™¤äº†å›ä¸»å¤–ï¼Œå…¶ä»–ç”¨æˆ·éƒ½æ˜¾ç¤º\n</select>\n";
                 $tempoutput =~ s/value=\"$picwaterman\"/value=\"$picwaterman\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÏÔÊ¾Ë®Ó¡¶ÔÏóµÄ¸½¼ÓÉèÖÃ</b><BR>Ö»ÓÐ´ò¿ªË®Ó¡¹¦ÄÜºó£¬´ËÏîÄ¿²ÅÓÐÐ§</font></td>
+                <font face=å®‹ä½“ color=#333333><b>æ˜¾ç¤ºæ°´å°å¯¹è±¡çš„é™„åŠ è®¾ç½®</b><BR>åªæœ‰æ‰“å¼€æ°´å°åŠŸèƒ½åŽï¼Œæ­¤é¡¹ç›®æ‰æœ‰æ•ˆ</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
@@ -2053,17 +2076,17 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 if ($picwaterplace2 eq "yes") { $checked2 = "checked" ; } else { $checked2 = "" ; }
                 if ($picwaterplace3 eq "yes") { $checked3 = "checked" ; } else { $checked3 = "" ; }
                 if ($picwaterplace4 eq "yes") { $checked4 = "checked" ; } else { $checked4 = "" ; }
-		$tempoutput = qq~<input type="checkbox" name="picwaterplace1" value="yes" $checked1> ×óÉÏ½Ç¡¡¡¡<input type="checkbox" name="picwaterplace2" value="yes" $checked2> ×óÏÂ½Ç<BR><input type="checkbox" name="picwaterplace3" value="yes" $checked3> ÓÒÉÏ½Ç¡¡¡¡<input type="checkbox" name="picwaterplace4" value="yes" $checked4> ÓÒÏÂ½Ç<BR>~;
+		$tempoutput = qq~<input type="checkbox" name="picwaterplace1" value="yes" $checked1> å·¦ä¸Šè§’ã€€ã€€<input type="checkbox" name="picwaterplace2" value="yes" $checked2> å·¦ä¸‹è§’<BR><input type="checkbox" name="picwaterplace3" value="yes" $checked3> å³ä¸Šè§’ã€€ã€€<input type="checkbox" name="picwaterplace4" value="yes" $checked4> å³ä¸‹è§’<BR>~;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>Ë®Ó¡ÏÔÊ¾µÄÎ»ÖÃ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>æ°´å°æ˜¾ç¤ºçš„ä½ç½®</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
         <tr>
         <td bgcolor=#FFFFFF colspan=2>
-        <font color=#333333>Í¼Æ¬Ë®Ó¡Ãû³Æ<BR>×¢£ºË®Ó¡Í¼±ØÐëÎª PNG ¸ñÊ½£¬Èç¹ûÁô¿ÕÔòÊ¹ÓÃÎÄ×ÖË®Ó¡<br>ÇëÊäÈëÍ¼Æ¬Ãû³Æ£¬´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ<BR><b>Çë²»Òª°üº¬ URL µØÖ·»ò¾ø¶ÔÂ·¾¶£¡</b></font></td>
+        <font color=#333333>å›¾ç‰‡æ°´å°åç§°<BR>æ³¨ï¼šæ°´å°å›¾å¿…é¡»ä¸º PNG æ ¼å¼ï¼Œå¦‚æžœç•™ç©ºåˆ™ä½¿ç”¨æ–‡å­—æ°´å°<br>è¯·è¾“å…¥å›¾ç‰‡åç§°ï¼Œæ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹<BR><b>è¯·ä¸è¦åŒ…å« URL åœ°å€æˆ–ç»å¯¹è·¯å¾„ï¼</b></font></td>
         <td bgcolor=#FFFFFF>
         <input type=text size=20 name="waterpic" value="$waterpic">
 ~;
@@ -2091,7 +2114,7 @@ document.bbsimg.src = "$imagesurl/myimages/blank.gif";
 }
 }
 </script>
-<select name="image" onChange=select()><option value="">²»Ê¹ÓÃÍ¼Æ¬Ë®Ó¡$myimages</select><BR>
+<select name="image" onChange=select()><option value="">ä¸ä½¿ç”¨å›¾ç‰‡æ°´å°$myimages</select><BR>
 <IMG border=0 name=bbsimg src="$imagesurl/myimages/blank.gif" align="absmiddle" onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333">
 <script>
 if (FORM.waterpic.value != "") {
@@ -2103,7 +2126,7 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
         </tr>
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>ÉÏ´«µÄ JPG Í¼Æ¬ÉÏË®Ó¡µÄÎÄ×Ö<BR>×¢£º<font color=red>²»ÄÜÓÃÖÐÎÄ</font>£¬Ò²²»Òª¹ý³¤£¬·ñÔòÓ°ÏìÐ§¹û<BR>Èç¹ûÉÏÃæÍ¼Æ¬Ë®Ó¡Ãû³Æ´æÔÚ£¬Ôò´ËÉèÖÃÎÞÐ§</font><BR><BR></td>
+                <font color=#333333>ä¸Šä¼ çš„ JPG å›¾ç‰‡ä¸Šæ°´å°çš„æ–‡å­—<BR>æ³¨ï¼š<font color=red>ä¸èƒ½ç”¨ä¸­æ–‡</font>ï¼Œä¹Ÿä¸è¦è¿‡é•¿ï¼Œå¦åˆ™å½±å“æ•ˆæžœ<BR>å¦‚æžœä¸Šé¢å›¾ç‰‡æ°´å°åç§°å­˜åœ¨ï¼Œåˆ™æ­¤è®¾ç½®æ— æ•ˆ</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="watername" value="$watername" size=30></td>
                 </tr>
@@ -2111,313 +2134,313 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
 } else {
 	print qq~<input type=hidden name="picwater" value="no">~;
 }
-		$tempoutput = "<select name=\"wwjf\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+		$tempoutput = "<select name=\"wwjf\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$wwjf\"/value=\"$wwjf\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÊ¹ÓÃÍþÍûÏÞÖÆÖÆ¶È</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦ä½¿ç”¨å¨æœ›é™åˆ¶åˆ¶åº¦</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"cansale\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+                $tempoutput = "<select name=\"cansale\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$cansale\"/value=\"$cansale\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>·ÖÂÛÌ³ÊÇ·ñÊ¹ÓÃÌû×ÓÂòÂôÖÆ¶È</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>åˆ†è®ºå›æ˜¯å¦ä½¿ç”¨å¸–å­ä¹°å–åˆ¶åº¦</b></font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 $tempoutput</td>
                 </tr>
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font face=ËÎÌå color=#333333><b>Ìû×ÓÂòÂô×î´óÊýÄ¿</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>å¸–å­ä¹°å–æœ€å¤§æ•°ç›®</b></font></td>
                <td bgcolor=#FFFFFF valign=middle align=left>
-               <input type=text name="moneymax" value="$moneymax" size=6 maxlength=6> Ä¬ÈÏ 99999£¬×î´ó 999999 </td>
+               <input type=text name="moneymax" value="$moneymax" size=6 maxlength=6> é»˜è®¤ 99999ï¼Œæœ€å¤§ 999999 </td>
                </tr>
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font face=ËÎÌå color=#333333><b>Ìû×ÓÂòÂô½»ÄÉË°ÂÊ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>å¸–å­ä¹°å–äº¤çº³ç¨ŽçŽ‡</b></font></td>
                <td bgcolor=#FFFFFF valign=middle align=left>
                <input type=text name="postcess" value="$postcess" size=5 maxlength=5> %</td>
                </tr>
                ~;
 		
-		$tempoutput = "<select name=\"postjf\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+		$tempoutput = "<select name=\"postjf\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$postjf\"/value=\"$postjf\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÊ¹ÓÃ·¢ÌûÁ¿±êÇ©</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦ä½¿ç”¨å‘å¸–é‡æ ‡ç­¾</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"jfmark\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+		$tempoutput = "<select name=\"jfmark\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$jfmark\"/value=\"$jfmark\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÊ¹ÓÃ»ý·Ö²é¿´±êÇ©</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦ä½¿ç”¨ç§¯åˆ†æŸ¥çœ‹æ ‡ç­¾</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"noviewjf\">\n<option value=\"no\">¿ÉÒÔ½øÈë£¬µ«ÎÞ·¨¿´±£ÃÜµÄÄÚÈÝ\n<option value=\"yes\">ÎÞ·¨½øÈë¸ÃÌû\n</select>\n";
+		$tempoutput = "<select name=\"noviewjf\">\n<option value=\"no\">å¯ä»¥è¿›å…¥ï¼Œä½†æ— æ³•çœ‹ä¿å¯†çš„å†…å®¹\n<option value=\"yes\">æ— æ³•è¿›å…¥è¯¥å¸–\n</select>\n";
                 $tempoutput =~ s/value=\"$noviewjf\"/value=\"$noviewjf\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>µ±Ö÷Ìûº¬ÓÐ»ý·Ö±êÇ©£¬ÄÇÃ´´ï²»µ½»ý·ÖÒªÇóµÄ»áÔ±£®£®£¿</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>å½“ä¸»å¸–å«æœ‰ç§¯åˆ†æ ‡ç­¾ï¼Œé‚£ä¹ˆè¾¾ä¸åˆ°ç§¯åˆ†è¦æ±‚çš„ä¼šå‘˜ï¼Žï¼Žï¼Ÿ</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"hidejf\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+		$tempoutput = "<select name=\"hidejf\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$hidejf\"/value=\"$hidejf\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÊ¹ÓÃ±£ÃÜÌû×Ó±êÇ©</b>£¨»Ø¸´ºó²ÅÄÜ¿´µ½Ìû×ÓÄÚÈÝ£©</font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦ä½¿ç”¨ä¿å¯†å¸–å­æ ‡ç­¾</b>ï¼ˆå›žå¤åŽæ‰èƒ½çœ‹åˆ°å¸–å­å†…å®¹ï¼‰</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"usewm\">\n<option value=\"yes\">Ê¹ÓÃ\n<option value=\"no\">²»Ê¹ÓÃ\n</select>\n";
+		$tempoutput = "<select name=\"usewm\">\n<option value=\"yes\">ä½¿ç”¨\n<option value=\"no\">ä¸ä½¿ç”¨\n</select>\n";
                 $tempoutput =~ s/value=\"$usewm\"/value=\"$usewm\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÊ¹ÓÃ×Ô¶¯Ë®Ó¡</b>£¨Ìû×Ó±êÌâº¬Ô­´´×ÖÑùÊ±×Ô¶¯¼ÓË®Ó¡£©</font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦ä½¿ç”¨è‡ªåŠ¨æ°´å°</b>ï¼ˆå¸–å­æ ‡é¢˜å«åŽŸåˆ›å­—æ ·æ—¶è‡ªåŠ¨åŠ æ°´å°ï¼‰</font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"usecurl\">\n<option value=\"yes\">ÔÊÐí\n<option value=\"no\">²»ÔÊÐí\n</select>\n";
+		$tempoutput = "<select name=\"usecurl\">\n<option value=\"yes\">å…è®¸\n<option value=\"no\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$usecurl\"/value=\"$usecurl\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÔÊÐíÊ¹ÓÃ¼ÓÃÜÁ´½Ó</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦å…è®¸ä½¿ç”¨åŠ å¯†é“¾æŽ¥</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 		
-		$tempoutput = "<select name=\"rssinfo\">\n<option value=\"yes\">ÔÊÐí\n<option value=\"no\">²»ÔÊÐí\n</select>\n";
+		$tempoutput = "<select name=\"rssinfo\">\n<option value=\"yes\">å…è®¸\n<option value=\"no\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$rssinfo\"/value=\"$rssinfo\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÔÊÐíÊ¹ÓÃ RSS ¹¦ÄÜ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦å…è®¸ä½¿ç”¨ RSS åŠŸèƒ½</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 		~;
 		
-		$tempoutput = "<select name=\"magicface\">\n<option value=\"on\">ÔÊÐí\n<option value=\"off\">²»ÔÊÐí\n</select>\n";
+		$tempoutput = "<select name=\"magicface\">\n<option value=\"on\">å…è®¸\n<option value=\"off\">ä¸å…è®¸\n</select>\n";
                 $tempoutput =~ s/value=\"$magicface\"/value=\"$magicface\" selected/;
                 print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font face=ËÎÌå color=#333333><b>ÂÛÌ³ÊÇ·ñÔÊÐíÊ¹ÓÃÄ§·¨±íÇé¹¦ÄÜ</b></font></td>
+                <font face=å®‹ä½“ color=#333333><b>è®ºå›æ˜¯å¦å…è®¸ä½¿ç”¨é­”æ³•è¡¨æƒ…åŠŸèƒ½</b></font></td>
                 <td bgcolor=#FFFFFF>
                 $tempoutput</td>
                 </tr>
 
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
-               <font face=ËÎÌå color=#333333><b>Ò»´Î½±³Í»ý·Ö×î´óÊýÁ¿</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>ä¸€æ¬¡å¥–æƒ©ç§¯åˆ†æœ€å¤§æ•°é‡</b></font></td>
                <td bgcolor=#FFFFFF valign=middle align=left>
-               <input type=text name="max1jf" value="$max1jf" size=3 maxlength=3> Ä¬ÈÏ£º 50</td>
+               <input type=text name="max1jf" value="$max1jf" size=3 maxlength=3> é»˜è®¤ï¼š 50</td>
                </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢±íÖ÷ÌûµÄ×îÐ¡»ý·ÖÊý<BR>Ð¡ÓÚ´Ë»ý·ÖµÄ£¬²»ÄÜ·¢Ìû£¬×¢Òâ£ºÕâ¸öÊý×Ö±ØÐëÊÇ´óÓÚ 0 µÄ¡£</td>
+                <font color=#333333>å‘è¡¨ä¸»å¸–çš„æœ€å°ç§¯åˆ†æ•°<BR>å°äºŽæ­¤ç§¯åˆ†çš„ï¼Œä¸èƒ½å‘å¸–ï¼Œæ³¨æ„ï¼šè¿™ä¸ªæ•°å­—å¿…é¡»æ˜¯å¤§äºŽ 0 çš„ã€‚</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postminjf" value="$postminjf" size=10 maxlength=10>¡¡×¢ÒâÓÃ°ë½Ç£¬Ç°ºó²»ÒªÓÐ¿Õ¸ñ£¬Èç²»ÏëÏÞÖÆ£¬¾ÍÁô¿Õ»òÉè 0 ¡£</td>
+                <input type=text name="postminjf" value="$postminjf" size=10 maxlength=10>ã€€æ³¨æ„ç”¨åŠè§’ï¼Œå‰åŽä¸è¦æœ‰ç©ºæ ¼ï¼Œå¦‚ä¸æƒ³é™åˆ¶ï¼Œå°±ç•™ç©ºæˆ–è®¾ 0 ã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢±í»Ø¸´µÄ×îÐ¡»ý·ÖÊý<BR>Ð¡ÓÚ´Ë»ý·ÖµÄ£¬²»ÄÜ»Ø¸´£¬×¢Òâ£ºÕâ¸öÊý×Ö±ØÐëÊÇ´óÓÚ 0 µÄ¡£</td>
+                <font color=#333333>å‘è¡¨å›žå¤çš„æœ€å°ç§¯åˆ†æ•°<BR>å°äºŽæ­¤ç§¯åˆ†çš„ï¼Œä¸èƒ½å›žå¤ï¼Œæ³¨æ„ï¼šè¿™ä¸ªæ•°å­—å¿…é¡»æ˜¯å¤§äºŽ 0 çš„ã€‚</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="replyminjf" value="$replyminjf" size=10 maxlength=10>¡¡×¢ÒâÓÃ°ë½Ç£¬Ç°ºó²»ÒªÓÐ¿Õ¸ñ£¬Èç²»ÏëÏÞÖÆ£¬¾ÍÁô¿Õ»òÉè 0 ¡£</td>
+                <input type=text name="replyminjf" value="$replyminjf" size=10 maxlength=10>ã€€æ³¨æ„ç”¨åŠè§’ï¼Œå‰åŽä¸è¦æœ‰ç©ºæ ¼ï¼Œå¦‚ä¸æƒ³é™åˆ¶ï¼Œå°±ç•™ç©ºæˆ–è®¾ 0 ã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>·¢ÆðÍ¶Æ±µÄ×îÐ¡»ý·ÖÊý<BR>Ð¡ÓÚ´Ë»ý·ÖµÄ£¬²»ÄÜ·¢Í¶Æ±Ìû£¬×¢Òâ£ºÕâ¸öÊý×Ö±ØÐëÊÇ´óÓÚ 0 µÄ¡£</td>
+                <font color=#333333>å‘èµ·æŠ•ç¥¨çš„æœ€å°ç§¯åˆ†æ•°<BR>å°äºŽæ­¤ç§¯åˆ†çš„ï¼Œä¸èƒ½å‘æŠ•ç¥¨å¸–ï¼Œæ³¨æ„ï¼šè¿™ä¸ªæ•°å­—å¿…é¡»æ˜¯å¤§äºŽ 0 çš„ã€‚</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="pollminjf" value="$pollminjf" size=10 maxlength=10>¡¡×¢ÒâÓÃ°ë½Ç£¬Ç°ºó²»ÒªÓÐ¿Õ¸ñ£¬Èç²»ÏëÏÞÖÆ£¬¾ÍÁô¿Õ»òÉè 0 ¡£</td>
+                <input type=text name="pollminjf" value="$pollminjf" size=10 maxlength=10>ã€€æ³¨æ„ç”¨åŠè§’ï¼Œå‰åŽä¸è¦æœ‰ç©ºæ ¼ï¼Œå¦‚ä¸æƒ³é™åˆ¶ï¼Œå°±ç•™ç©ºæˆ–è®¾ 0 ã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>½øÐÐÍ¶Æ±µÄ×îÐ¡»ý·ÖÊý<BR>Ð¡ÓÚ´Ë»ý·ÖµÄ£¬²»ÄÜ¶ÔÍ¶Æ±Ìû½øÐÐÍ¶Æ±£¬×¢Òâ£ºÕâ¸öÊý×Ö±ØÐëÊÇ´óÓÚ 0 µÄ¡£</td>
+                <font color=#333333>è¿›è¡ŒæŠ•ç¥¨çš„æœ€å°ç§¯åˆ†æ•°<BR>å°äºŽæ­¤ç§¯åˆ†çš„ï¼Œä¸èƒ½å¯¹æŠ•ç¥¨å¸–è¿›è¡ŒæŠ•ç¥¨ï¼Œæ³¨æ„ï¼šè¿™ä¸ªæ•°å­—å¿…é¡»æ˜¯å¤§äºŽ 0 çš„ã€‚</td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="polledminjf" value="$polledminjf" size=10 maxlength=10>¡¡×¢ÒâÓÃ°ë½Ç£¬Ç°ºó²»ÒªÓÐ¿Õ¸ñ£¬Èç²»ÏëÏÞÖÆ£¬¾ÍÁô¿Õ»òÉè 0 ¡£</td>
+                <input type=text name="polledminjf" value="$polledminjf" size=10 maxlength=10>ã€€æ³¨æ„ç”¨åŠè§’ï¼Œå‰åŽä¸è¦æœ‰ç©ºæ ¼ï¼Œå¦‚ä¸æƒ³é™åˆ¶ï¼Œå°±ç•™ç©ºæˆ–è®¾ 0 ã€‚</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ìû×ÓÖÐµÄÇ©ÃûÉÏ·½¼ÓÈëÎÄÕÂ°æÈ¨µÄÎÄ×Ö<BR>Èç¹û²»ÐèÒª£¬ÇëÉèÖÃÎª¿Õ°×</font><BR><BR></td>
+                <font color=#333333>å¸–å­ä¸­çš„ç­¾åä¸Šæ–¹åŠ å…¥æ–‡ç« ç‰ˆæƒçš„æ–‡å­—<BR>å¦‚æžœä¸éœ€è¦ï¼Œè¯·è®¾ç½®ä¸ºç©ºç™½</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
-                <input type=text name="postcopyright" value="$postcopyright" size=30>¡¡<BR>Ä¬ÈÏ£º°æÈ¨ËùÓÐ£¬²»µÃÉÃ×Ô×ªÔØ</td>
+                <input type=text name="postcopyright" value="$postcopyright" size=30>ã€€<BR>é»˜è®¤ï¼šç‰ˆæƒæ‰€æœ‰ï¼Œä¸å¾—æ“…è‡ªè½¬è½½</td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ö÷ÂÛÌ³±êÌâÍ¼Æ¬(Ö§³Ö Flash) <br>´ËÍ¼±ØÐëÔÚ myimages Ä¿Â¼ÏÂ£¬Ö»ÄÜÊÇÃû³Æ£¬²»¿ÉÒÔ¼Ó URL µØÖ·»ò¾ø¶ÔÂ·¾¶</font><BR></td>
+                <font color=#333333>ä¸»è®ºå›æ ‡é¢˜å›¾ç‰‡(æ”¯æŒ Flash) <br>æ­¤å›¾å¿…é¡»åœ¨ myimages ç›®å½•ä¸‹ï¼Œåªèƒ½æ˜¯åç§°ï¼Œä¸å¯ä»¥åŠ  URL åœ°å€æˆ–ç»å¯¹è·¯å¾„</font><BR></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text name="boardlogo" value="$boardlogo"><BR></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333>Ö÷ÂÛÌ³±êÌâ Flash Í¼Æ¬´óÐ¡<BR>(½öµ±±êÌâÍ¼Æ¬ÊÇ Flash Ê±ÓÐÐ§£¬¿ØÖÆÔÚ 160*60 ÒÔÄÚ)<BR></td>
+                <font color=#333333>ä¸»è®ºå›æ ‡é¢˜ Flash å›¾ç‰‡å¤§å°<BR>(ä»…å½“æ ‡é¢˜å›¾ç‰‡æ˜¯ Flash æ—¶æœ‰æ•ˆï¼ŒæŽ§åˆ¶åœ¨ 160*60 ä»¥å†…)<BR></td>
                 <td bgcolor=#FFFFFF>
-                ¿í¶È£º<input type=text name="boardlogow" value="$boardlogow" size=3 maxlength=3>¡¡ ¸ß¶È£º<input type=text name="boardlogoh" value="$boardlogoh" size=3 maxlength=3><BR></td>
+                å®½åº¦ï¼š<input type=text name="boardlogow" value="$boardlogow" size=3 maxlength=3>ã€€ é«˜åº¦ï¼š<input type=text name="boardlogoh" value="$boardlogoh" size=3 maxlength=3><BR></td>
                 </tr>
                <tr>
                <td bgcolor=#EEEEEE align=center colspan=3>
-               <font color=#990000><b><center>×Ô¶¨ÒåÈÏÖ¤ÓÃ»§·ÖÀà(Èç¹û²»ÐèÒª£¬ÇëÈ«²¿Áô¿Õ)</center></b>
+               <font color=#990000><b><center>è‡ªå®šä¹‰è®¤è¯ç”¨æˆ·åˆ†ç±»(å¦‚æžœä¸éœ€è¦ï¼Œè¯·å…¨éƒ¨ç•™ç©º)</center></b>
                </td></tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±Ãû³ÆÒ»</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åç§°ä¸€</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
                <input type=text size=20 name="defrz1" value="$defrz1"></td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÔÚÏßÍ¼ÀýÒ»</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åœ¨çº¿å›¾ä¾‹ä¸€</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline1" value="$defrzonline1" onChange="definerz1.src='$imagesurl/images/'+this.value"> <img id=definerz1 src=$imagesurl/images/$defrzonline1> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzonline1" value="$defrzonline1" onChange="definerz1.src='$imagesurl/images/'+this.value"> <img id=definerz1 src=$imagesurl/images/$defrzonline1> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÍÅ¶ÓÍ¼°¸Ò»</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜å›¢é˜Ÿå›¾æ¡ˆä¸€</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic1" value="$defrzpic1" onChange="definerz11.src='$imagesurl/images/'+this.value"> <img id=definerz11 src=$imagesurl/images/$defrzpic1> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzpic1" value="$defrzpic1" onChange="definerz11.src='$imagesurl/images/'+this.value"> <img id=definerz11 src=$imagesurl/images/$defrzpic1> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±Ãû³Æ¶þ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åç§°äºŒ</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
                <input type=text size=20 name="defrz2" value="$defrz2"></td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÔÚÏßÍ¼Àý¶þ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åœ¨çº¿å›¾ä¾‹äºŒ</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline2" value="$defrzonline2" onChange="definerz2.src='$imagesurl/images/'+this.value"> <img id=definerz2 src=$imagesurl/images/$defrzonline2> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzonline2" value="$defrzonline2" onChange="definerz2.src='$imagesurl/images/'+this.value"> <img id=definerz2 src=$imagesurl/images/$defrzonline2> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÍÅ¶ÓÍ¼°¸¶þ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜å›¢é˜Ÿå›¾æ¡ˆäºŒ</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic2" value="$defrzpic2" onChange="definerz22.src='$imagesurl/images/'+this.value"> <img id=definerz22 src=$imagesurl/images/$defrzpic2> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzpic2" value="$defrzpic2" onChange="definerz22.src='$imagesurl/images/'+this.value"> <img id=definerz22 src=$imagesurl/images/$defrzpic2> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±Ãû³ÆÈý</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åç§°ä¸‰</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
                <input type=text size=20 name="defrz3" value="$defrz3"></td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÔÚÏßÍ¼ÀýÈý</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åœ¨çº¿å›¾ä¾‹ä¸‰</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline3" value="$defrzonline3" onChange="definerz3.src='$imagesurl/images/'+this.value"> <img id=definerz3 src=$imagesurl/images/$defrzonline3> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzonline3" value="$defrzonline3" onChange="definerz3.src='$imagesurl/images/'+this.value"> <img id=definerz3 src=$imagesurl/images/$defrzonline3> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÍÅ¶ÓÍ¼°¸Èý</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜å›¢é˜Ÿå›¾æ¡ˆä¸‰</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic3" value="$defrzpic3" onChange="definerz33.src='$imagesurl/images/'+this.value"> <img id=definerz33 src=$imagesurl/images/$defrzpic3> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzpic3" value="$defrzpic3" onChange="definerz33.src='$imagesurl/images/'+this.value"> <img id=definerz33 src=$imagesurl/images/$defrzpic3> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±Ãû³ÆËÄ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åç§°å››</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
                <input type=text size=20 name="defrz4" value="$defrz4"></td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÔÚÏßÍ¼ÀýËÄ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åœ¨çº¿å›¾ä¾‹å››</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline4" value="$defrzonline4" onChange="definerz4.src='$imagesurl/images/'+this.value"> <img id=definerz4 src=$imagesurl/images/$defrzonline4> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzonline4" value="$defrzonline4" onChange="definerz4.src='$imagesurl/images/'+this.value"> <img id=definerz4 src=$imagesurl/images/$defrzonline4> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÍÅ¶ÓÍ¼°¸ËÄ</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜å›¢é˜Ÿå›¾æ¡ˆå››</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic4" value="$defrzpic4" onChange="definerz44.src='$imagesurl/images/'+this.value"> <img id=definerz44 src=$imagesurl/images/$defrzpic4> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzpic4" value="$defrzpic4" onChange="definerz44.src='$imagesurl/images/'+this.value"> <img id=definerz44 src=$imagesurl/images/$defrzpic4> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±Ãû³ÆÎå</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åç§°äº”</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
                <input type=text size=20 name="defrz5" value="$defrz5"></td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÔÚÏßÍ¼ÀýÎå</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜åœ¨çº¿å›¾ä¾‹äº”</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline5" value="$defrzonline5" onChange="definerz5.src='$imagesurl/images/'+this.value"> <img id=definerz5 src=$imagesurl/images/$defrzonline5> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzonline5" value="$defrzonline5" onChange="definerz5.src='$imagesurl/images/'+this.value"> <img id=definerz5 src=$imagesurl/images/$defrzonline5> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
-               <font face=ËÎÌå color=#333333><b>ÈÏÖ¤»áÔ±ÍÅ¶ÓÍ¼°¸Îå</b></font></td>
+               <font face=å®‹ä½“ color=#333333><b>è®¤è¯ä¼šå‘˜å›¢é˜Ÿå›¾æ¡ˆäº”</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic5" value="$defrzpic5" onChange="definerz55.src='$imagesurl/images/'+this.value"> <img id=definerz55 src=$imagesurl/images/$defrzpic5> ±ØÐë·ÅÖÃÓÚ non-cgi/imagesÏÂ</td>
+               <input type=text size=20 name="defrzpic5" value="$defrzpic5" onChange="definerz55.src='$imagesurl/images/'+this.value"> <img id=definerz55 src=$imagesurl/images/$defrzpic5> å¿…é¡»æ”¾ç½®äºŽ non-cgi/imagesä¸‹</td>
                </tr>
 <tr>
               <td bgcolor=#EEEEEE align=center colspan=3>
-              <font color=#990000><b><center>ÉçÇø°æ¿éÈ¨ÏÞ¹ÜÀí</center></b>
+              <font color=#990000><b><center>ç¤¾åŒºç‰ˆå—æƒé™ç®¡ç†</center></b>
               </td></tr>
 
               <tr>
               <td bgcolor=#FFFFFF>
-              <font face=ËÎÌå color=#333333><b>ÔÊÐí·ÃÎÊÂÛÌ³µÄ³ÉÔ±×é</b><br>ÊÊºÏËùÓÐ°æ¿é£¬ÈçÒªÉèÖÃµ¥¶À°æ¿é£¬Çë½øÈë¡°ÂÛÌ³ÉèÖÃºÍ¹ÜÀí¡±/¡°Ìí¼Ó¸ÃÇø·ç¸ñ¡±<BR>Èç¹û²»ÐèÒªÕâ¸ö¹¦ÄÜ£¬ÇëÈ«²¿²»ÒªÑ¡Ôñ(»òÕßÈ«²¿Ñ¡Ôñ£¬Ð§¹ûÒ»Ñù)£¡</font></td>
+              <font face=å®‹ä½“ color=#333333><b>å…è®¸è®¿é—®è®ºå›çš„æˆå‘˜ç»„</b><br>é€‚åˆæ‰€æœ‰ç‰ˆå—ï¼Œå¦‚è¦è®¾ç½®å•ç‹¬ç‰ˆå—ï¼Œè¯·è¿›å…¥â€œè®ºå›è®¾ç½®å’Œç®¡ç†â€/â€œæ·»åŠ è¯¥åŒºé£Žæ ¼â€<BR>å¦‚æžœä¸éœ€è¦è¿™ä¸ªåŠŸèƒ½ï¼Œè¯·å…¨éƒ¨ä¸è¦é€‰æ‹©(æˆ–è€…å…¨éƒ¨é€‰æ‹©ï¼Œæ•ˆæžœä¸€æ ·)ï¼</font></td>
               <td bgcolor=#FFFFFF colspan=2>~;
-              my $memteam1 = qq~<input type=checkbox name="yxz" value="rz1">$defrz1(ÈÏÖ¤ÓÃ»§)<br>~ if ($defrz1 ne "");
-   my $memteam2 = qq~<input type=checkbox name="yxz" value="rz2">$defrz2(ÈÏÖ¤ÓÃ»§)<br>~ if ($defrz2 ne "");
-   my $memteam3 = qq~<input type=checkbox name="yxz" value="rz3">$defrz3(ÈÏÖ¤ÓÃ»§)<br>~ if ($defrz3 ne "");
-   my $memteam4 = qq~<input type=checkbox name="yxz" value="rz4">$defrz4(ÈÏÖ¤ÓÃ»§)<br>~ if ($defrz4 ne "");
-   my $memteam5 = qq~<input type=checkbox name="yxz" value="rz5">$defrz5(ÈÏÖ¤ÓÃ»§)<br>~ if ($defrz5 ne "");
-              $all=qq~<input type=checkbox name="yxz" value="">¿ÍÈË<br><input type=checkbox name="yxz" value="me">Ò»°ãÓÃ»§<br>$memteam1$memteam2$memteam3$memteam4$memteam5
-<input type=checkbox name="yxz" value="rz">ÈÏÖ¤ÓÃ»§<br>
-<input type=checkbox name="yxz" value="banned">½ûÖ¹´ËÓÃ»§·¢ÑÔ<br>
-<input type=checkbox name="yxz" value="masked">ÆÁ±Î´ËÓÃ»§Ìù×Ó<br>
-<input type=checkbox name="yxz" value="mo">ÂÛÌ³°æÖ÷<br>
-<input type=checkbox name="yxz" value="amo">ÂÛÌ³¸±°æÖ÷<br>
-<input type=checkbox name="yxz" value="cmo">·ÖÀàÇø°æÖ÷<br>
-<input type=checkbox name="yxz" value="smo">ÂÛÌ³×Ü°æÖ÷<br>
-<input type=checkbox name="yxz" value="ad">Ì³Ö÷<br>~;
+              my $memteam1 = qq~<input type=checkbox name="yxz" value="rz1">$defrz1(è®¤è¯ç”¨æˆ·)<br>~ if ($defrz1 ne "");
+   my $memteam2 = qq~<input type=checkbox name="yxz" value="rz2">$defrz2(è®¤è¯ç”¨æˆ·)<br>~ if ($defrz2 ne "");
+   my $memteam3 = qq~<input type=checkbox name="yxz" value="rz3">$defrz3(è®¤è¯ç”¨æˆ·)<br>~ if ($defrz3 ne "");
+   my $memteam4 = qq~<input type=checkbox name="yxz" value="rz4">$defrz4(è®¤è¯ç”¨æˆ·)<br>~ if ($defrz4 ne "");
+   my $memteam5 = qq~<input type=checkbox name="yxz" value="rz5">$defrz5(è®¤è¯ç”¨æˆ·)<br>~ if ($defrz5 ne "");
+              $all=qq~<input type=checkbox name="yxz" value="">å®¢äºº<br><input type=checkbox name="yxz" value="me">ä¸€èˆ¬ç”¨æˆ·<br>$memteam1$memteam2$memteam3$memteam4$memteam5
+<input type=checkbox name="yxz" value="rz">è®¤è¯ç”¨æˆ·<br>
+<input type=checkbox name="yxz" value="banned">ç¦æ­¢æ­¤ç”¨æˆ·å‘è¨€<br>
+<input type=checkbox name="yxz" value="masked">å±è”½æ­¤ç”¨æˆ·è´´å­<br>
+<input type=checkbox name="yxz" value="mo">è®ºå›ç‰ˆä¸»<br>
+<input type=checkbox name="yxz" value="amo">è®ºå›å‰¯ç‰ˆä¸»<br>
+<input type=checkbox name="yxz" value="cmo">åˆ†ç±»åŒºç‰ˆä¸»<br>
+<input type=checkbox name="yxz" value="smo">è®ºå›æ€»ç‰ˆä¸»<br>
+<input type=checkbox name="yxz" value="ad">å›ä¸»<br>~;
               my @yxz = split(/\,/,$yxz);
               foreach(@yxz){
               chomp;
@@ -2430,7 +2453,7 @@ $all
               </tr>
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
-                <input type=submit value="Ìá ½»"></td></form></tr></table></td></tr></table>
+                <input type=submit value="æ äº¤"></td></form></tr></table></td></tr></table>
                 ~;
                 }
                 }

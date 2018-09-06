@@ -626,109 +626,126 @@ close (FILE);
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=      <input type=text size=40 name="plugin33url" value="$plugin33url"></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 35 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 35 Г └Е░█Г╖╟</font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="plugin35name" value="$plugin35name" maxlength=12></td>
                 </tr>
-                
+
+                <tr>
+                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 35 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤35Г └Х©·Ф▌╔</font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="plugin35url" value="$plugin35url"></td>
+                </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=Г─╧<input type=text size=40 name="plugin36url" value="$plugin36url"></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 36 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 36 Г └Е░█Г╖╟</font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="plugin36name" value="$plugin36name" maxlength=12></td>
+                </tr>
+
+                <tr>
+                <td bgcolor=#FFFFFF valign=middle align=left width=40%>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 36 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤36Г └Х©·Ф▌╔</font></td>
+                <td bgcolor=#FFFFFF valign=middle align=left>
+                <input type=text size=40 name="plugin36url" value="$plugin36url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 37 </a></b><br>бшлЁ╡Е╪Ч 37 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 37 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 37 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin37name" value="$plugin37name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 37 URL</b><br>бшлЁ╡Е╪Ч37╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 37 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤37Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin37url" value="$plugin37url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 38 </a></b><br>бшлЁ╡Е╪Ч 38 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 38 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 38 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin38name" value="$plugin38name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 38 URL</b><br>бшлЁ╡Е╪Ч38╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 38 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤38Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin38url" value="$plugin38url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 39 </a></b><br>бшлЁ╡Е╪Ч 39 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 39 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 39 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin39name" value="$plugin39name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 39 URL</b><br>бшлЁ╡Е╪Ч39╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 39 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤39Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin39url" value="$plugin39url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 40 </a></b><br>бшлЁ╡Е╪Ч 40 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 40 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 40 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin40name" value="$plugin40name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 40 URL</b><br>бшлЁ╡Е╪Ч40╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 40 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤40Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin40url" value="$plugin40url"></td>
                 </tr>      
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 41 </a></b><br>бшлЁ╡Е╪Ч 41 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 41 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 41 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin41name" value="$plugin41name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 41 URL</b><br>бшлЁ╡Е╪Ч41╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 41 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤41Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin41url" value="$plugin41url"></td>
                 </tr>
 
 		<tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 42 </a></b><br>бшлЁ╡Е╪Ч 42 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 42 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 42 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin42name" value="$plugin42name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 42 URL</b><br>бшлЁ╡Е╪Ч42╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 42 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤42Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin42url" value="$plugin42url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 43 </a></b><br>бшлЁ╡Е╪Ч 43 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 43 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 43 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin43name" value="$plugin43name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 43 URL</b><br>бшлЁ╡Е╪Ч43╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 43 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤43Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin43url" value="$plugin43url"></td>
                 </tr>
@@ -736,105 +753,105 @@ close (FILE);
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 44 </a></b><br>бшлЁ╡Е╪Ч 44 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 44 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 44 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin44name" value="$plugin44name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 44 URL</b><br>бшлЁ╡Е╪Ч44╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 44 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤44Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin44url" value="$plugin44url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 45 </a></b><br>бшлЁ╡Е╪Ч 45 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 45 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 45 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin45name" value="$plugin45name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 45 URL</b><br>бшлЁ╡Е╪Ч45╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 45 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤45Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin45url" value="$plugin45url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 46 </a></b><br>бшлЁ╡Е╪Ч 46 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 46 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 46 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin46name" value="$plugin46name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 46 URL</b><br>бшлЁ╡Е╪Ч46╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 46 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤46Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin46url" value="$plugin46url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 47 </a></b><br>бшлЁ╡Е╪Ч 47 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 47 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 47 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin47name" value="$plugin47name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 47 URL</b><br>бшлЁ╡Е╪Ч47╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 47 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤47Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin47url" value="$plugin47url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 48 </a></b><br>бшлЁ╡Е╪Ч 48 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 48 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 48 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin48name" value="$plugin48name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 48 URL</b><br>бшлЁ╡Е╪Ч48╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 48 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤48Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin48url" value="$plugin48url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 49 </a></b><br>бшлЁ╡Е╪Ч 49 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 49 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 49 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin49name" value="$plugin49name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 49 URL</b><br>бшлЁ╡Е╪Ч49╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 49 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤49Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin49url" value="$plugin49url"></td>
                 </tr>
                 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#AD0000 ><b>бшлЁ╡Е╪Ч 50 </a></b><br>бшлЁ╡Е╪Ч 50 ╣дцШЁф</font></td>
+                <font face=Е╝▀Д╫⌠ color=#AD0000 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 50 </a></b><br>Х╝╨Е²⌡Ф▐▓Д╩╤ 50 Г └Е░█Г╖╟</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin50name" value="$plugin50name" maxlength=12></td>
                 </tr>
 
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left width=40%>
-                <font face=кнлЕ color=#333333 ><b>бшлЁ╡Е╪Ч 50 URL</b><br>бшлЁ╡Е╪Ч50╣да╛╫с</font></td>
+                <font face=Е╝▀Д╫⌠ color=#333333 ><b>Х╝╨Е²⌡Ф▐▓Д╩╤ 50 URL</b><br>Х╝╨Е²⌡Ф▐▓Д╩╤50Г └Х©·Ф▌╔</font></td>
                 <td bgcolor=#FFFFFF valign=middle align=left>
                 <input type=text size=40 name="plugin50url" value="$plugin50url"></td>
                 </tr>      
 
                <tr>
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-                <input type=submit value="лА╫╩"></form></td></tr></table></td></tr></table>
+                <input type=submit value="Ф▐░Д╨╓"></form></td></tr></table></td></tr></table>
                
                ~;
 

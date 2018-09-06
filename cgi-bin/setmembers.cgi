@@ -308,18 +308,44 @@ foreach(@file){
         	$oooput [<a href=$thisprog?action=viewdelmembers>æŸ¥çœ‹é¢„åˆ é™¤ä¼šå‘˜åˆ—è¡¨</a>]
     	    ~;
 			} 
-			else { #ethod=POST>
+			else { #é åˆªé™¤æœƒå“¡ç‚º 0 æ™‚è‡ªå‹•å–æ¶ˆ 
+			unlink ("${lbdir}data/delmember.cgi"); 
+			print qq~ 
+			é¢„åˆ é™¤æ–‡ä»¶ä¸å­˜åœ¨ï¼Œç°åœ¨å¯ä»¥è¿›è¡Œé¢„åˆ é™¤ã€‚ 
+			~; 
+			} 
+
+	}
+	else {
+    	    print qq~
+        	é¢„åˆ é™¤æ–‡ä»¶ä¸å­˜åœ¨ï¼Œç°åœ¨å¯ä»¥è¿›è¡Œé¢„åˆ é™¤ã€‚
+    	    ~;
+	}
+    print qq~
+    <BR><BR>
+    </td>
+    </tr>
+    ~;
+  }
+    print qq~
+    <tr>
+    <td bgcolor=#FFFFFF colspan=2>
+    <font color=#333333><b>æŸ¥çœ‹ã€ç¼–è¾‘ã€åˆ é™¤ã€ç¦æ­¢ç”¨æˆ·</b><br>
+    ç‚¹å‡»ä¸‹é¢çš„å­—æ¯ä½ å¯ä»¥æŸ¥çœ‹åˆ°ç”¨æˆ·è¯¦ç»†èµ„æ–™ï¼Œ å¹¶å¯ç¼–è¾‘ã€æ”¹å˜ç”¨æˆ·çš„ä¿¡æ¯ã€‚<br>
+    ç¦æ­¢ç”¨æˆ·ï¼šåªè¦ç®€å•çš„ç‚¹å‡»â€œç¼–è¾‘ç”¨æˆ·â€ï¼Œç„¶ååœ¨â€œç”¨æˆ·å±æ€§â€ä¸­é€‰æ‹©â€œç¦æ­¢ç”¨æˆ·â€å°±å¯ä»¥ã€‚<br>
+    åˆ é™¤ç”¨æˆ·ï¼šåªè¦æ‰¾åˆ°ç”¨æˆ·ï¼Œç‚¹å‡»åˆ é™¤å°±å¯ä»¥ã€‚<br>
+	<form action="setmembers.cgi" method=POST>
         <input type=hidden name="action" value="edit">
         <input type=text name="member" size=10 maxlength=16>
-        <input type=submit value="¿ìËÙ¶¨Î»">
+        <input type=submit value="å¿«é€Ÿå®šä½">
         </form>
     
     ~;
     
     print qq~
-    ×¢²áÓÃ»§´óÖÂÁĞ±í£º<br>$tempoutput
-<P><a href=$thisprog?action=viewip>Ñ°ÕÒÒÔÌØ¶¨£É£Ğ×¢²áµÄÓÃ»§</a>
-    <p>×¢²á£É£Ğ´óÖÂÁĞ±í£º<br>$tempoutput2
+    æ³¨å†Œç”¨æˆ·å¤§è‡´åˆ—è¡¨ï¼š<br>$tempoutput
+<P><a href=$thisprog?action=viewip>å¯»æ‰¾ä»¥ç‰¹å®šï¼©ï¼°æ³¨å†Œçš„ç”¨æˆ·</a>
+    <p>æ³¨å†Œï¼©ï¼°å¤§è‡´åˆ—è¡¨ï¼š<br>$tempoutput2
     </td>
     </tr>           
                 
@@ -328,16 +354,16 @@ foreach(@file){
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
     <font color=#333333><BR>
-    <b>×¢ÒâÊÂÏî£º</b><p>
-    Èç¹ûÄúÏ£Íû¸øÄúµÄÓÃ»§Ò»¸ö×Ô¶¨ÒåµÄÍ·ÏÎ£¬Ö»Òª±à¼­Ëû£¨Ëı£©µÄ×ÊÁÏ¡£<br>
-    Õâ¸öÂÛÌ³ÀûÓÃ´¢´æµÄ·¢ÌùÊıÀ´È·¶¨ËûÃÇµÄ³ÉÔ±Éí·İ.<br>
-    Èç¹ûÄúÈÎÃüÒ»¸öÓÃ»§Îª°æÖ÷£¬¶øËû±¾ÉíÈ´Ã»ÓĞ×Ô¶¨ÒåµÄÍ·ÏÎ£¬ÄÇÃ´¾Í»á×Ô¶¯Ìí¼ÓÒ»¸ö°æÖ÷Í·ÏÎ¡£
-    Èç¹ûËûÒÑÓĞ×Ô¶¨ÒåµÄµÈ¼¶£¬ÄÇÃ´ËûµÄÔ­Í·ÏÎ½«±»±£Áô¡£<br>
-    °æÖ÷Ö»ÄÜ¹»¹ÜÀí×Ô¼ºµÄÂÛÌ³£¬µ«ÊÇËûÃÇÒ²¿ÉÒÔÔÚÆäËûÂÛÌ³ÖĞÊ¹ÓÃ #Moderation Mode ÏÂµÄ¹¦ÄÜ¡£<br>
-    ÇëÈ·±£ÄúËùÌáÉıµÄ°æÖ÷ÊÇ¿É¿¿µÄ¡£<br>
-    °æÖ÷Ò²ºÍÌ³Ö÷Ò»Ñù£¬²»ÊÜ¹àË®Ô¤·À»úÖÆÏŞÖÆ¡£<br>
-    Ö»ÓĞÌ³Ö÷²ÅÄÜ¹»½øÈë¹ÜÀíÖĞĞÄ¡£<br><br>
-    Èç¹ûÄã½ûÖ¹ÁËÒ»¸öÓÃ»§£¬ÄÇÃ´Ò²Í¬Ê±½ûÖ¹ÁËÓÃËûÃÇÔ­Ãû³Æ¡¢ÓÊ¼şÖØĞÂ×¢²áµÄ¿ÉÄÜ¡£
+    <b>æ³¨æ„äº‹é¡¹ï¼š</b><p>
+    å¦‚æœæ‚¨å¸Œæœ›ç»™æ‚¨çš„ç”¨æˆ·ä¸€ä¸ªè‡ªå®šä¹‰çš„å¤´è¡”ï¼Œåªè¦ç¼–è¾‘ä»–ï¼ˆå¥¹ï¼‰çš„èµ„æ–™ã€‚<br>
+    è¿™ä¸ªè®ºå›åˆ©ç”¨å‚¨å­˜çš„å‘è´´æ•°æ¥ç¡®å®šä»–ä»¬çš„æˆå‘˜èº«ä»½.<br>
+    å¦‚æœæ‚¨ä»»å‘½ä¸€ä¸ªç”¨æˆ·ä¸ºç‰ˆä¸»ï¼Œè€Œä»–æœ¬èº«å´æ²¡æœ‰è‡ªå®šä¹‰çš„å¤´è¡”ï¼Œé‚£ä¹ˆå°±ä¼šè‡ªåŠ¨æ·»åŠ ä¸€ä¸ªç‰ˆä¸»å¤´è¡”ã€‚
+    å¦‚æœä»–å·²æœ‰è‡ªå®šä¹‰çš„ç­‰çº§ï¼Œé‚£ä¹ˆä»–çš„åŸå¤´è¡”å°†è¢«ä¿ç•™ã€‚<br>
+    ç‰ˆä¸»åªèƒ½å¤Ÿç®¡ç†è‡ªå·±çš„è®ºå›ï¼Œä½†æ˜¯ä»–ä»¬ä¹Ÿå¯ä»¥åœ¨å…¶ä»–è®ºå›ä¸­ä½¿ç”¨ #Moderation Mode ä¸‹çš„åŠŸèƒ½ã€‚<br>
+    è¯·ç¡®ä¿æ‚¨æ‰€æå‡çš„ç‰ˆä¸»æ˜¯å¯é çš„ã€‚<br>
+    ç‰ˆä¸»ä¹Ÿå’Œå›ä¸»ä¸€æ ·ï¼Œä¸å—çŒæ°´é¢„é˜²æœºåˆ¶é™åˆ¶ã€‚<br>
+    åªæœ‰å›ä¸»æ‰èƒ½å¤Ÿè¿›å…¥ç®¡ç†ä¸­å¿ƒã€‚<br><br>
+    å¦‚æœä½ ç¦æ­¢äº†ä¸€ä¸ªç”¨æˆ·ï¼Œé‚£ä¹ˆä¹ŸåŒæ—¶ç¦æ­¢äº†ç”¨ä»–ä»¬åŸåç§°ã€é‚®ä»¶é‡æ–°æ³¨å†Œçš„å¯èƒ½ã€‚
     </td>
     </tr>             
      ~;        
@@ -355,9 +381,9 @@ unless (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>´íÎó£¡</b><p>
+        <b>é”™è¯¯ï¼</b><p>
                     
-        <font color=#333333>ÄãÃ»ÓĞÈ¨ÏŞÊ¹ÓÃÕâ¸ö¹¦ÄÜ£¡</font>
+        <font color=#333333>ä½ æ²¡æœ‰æƒé™ä½¿ç”¨è¿™ä¸ªåŠŸèƒ½ï¼</font>
                     
         </td></tr>
          ~;
@@ -368,8 +394,8 @@ else {
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
-        <b>È¡ÏûÔ¤É¾³ı</b><p>
-        <font color=#333333>Ô¤É¾³ıÒÑ¾­±»È¡Ïû£¡</font>
+        <b>å–æ¶ˆé¢„åˆ é™¤</b><p>
+        <font color=#333333>é¢„åˆ é™¤å·²ç»è¢«å–æ¶ˆï¼</font>
         </td></tr>
          ~;
 }
@@ -396,8 +422,8 @@ sub delnopost
 		print qq~
 <tr><td bgcolor=#FFFFFF align=center colspan=2>
 <font color=#990000>
-<b>¼ÆËãÓÃ»§ÅÅÃû</b><p>
-<font color=#333333>Ô¤É¾³ıÎÄ¼ş´æÔÚ£¬²»¿ÉÖØ¸´Ô¤É¾³ı£¡</font>
+<b>è®¡ç®—ç”¨æˆ·æ’å</b><p>
+<font color=#333333>é¢„åˆ é™¤æ–‡ä»¶å­˜åœ¨ï¼Œä¸å¯é‡å¤é¢„åˆ é™¤ï¼</font>
 </td></tr>~;
 	}
 	else
@@ -491,17 +517,17 @@ sub delnopost
 		if ($sendtoemail ne "" && $emailfunctions eq "on")
 		{
 			$from = "$adminemail_out";
-			$subject = "À´×Ô$boardnameµÄÖØÒªÓÊ¼ş£¡£¡";
+			$subject = "æ¥è‡ª$boardnameçš„é‡è¦é‚®ä»¶ï¼ï¼";
 			$message = "";
 			$message .= "\n";
 			$message .= "$boardname <br>\n";
 			$message .= "$boardurl/leobbs.cgi <br>\n";
 			$message .= "------------------------------------------\n<br><br>\n";
-			$message .= "ÏµÍ³·¢ÏÖÄãÒÑ¾­³¤Ê±¼äÎ´·ÃÎÊ±¾ÂÛÌ³²¢·¢ÑÔÁË£¬ <br>\n";
-			$message .= "ÎªÁËÊÍ·Å¿Õ¼ä£¬ÄãµÄÓÃ»§Ãû½«ÔÚ£³ÈÕºóÉ¾³ı¡£ <br>\n";
-			$message .= "Èç¹ûÄãÏë±£ÁôÄãµÄÓÃ»§Ãû£¬ÇëµÇÂ¼±¾ÂÛÌ³Ò»´Î¡£ <br>\n";
+			$message .= "ç³»ç»Ÿå‘ç°ä½ å·²ç»é•¿æ—¶é—´æœªè®¿é—®æœ¬è®ºå›å¹¶å‘è¨€äº†ï¼Œ <br>\n";
+			$message .= "ä¸ºäº†é‡Šæ”¾ç©ºé—´ï¼Œä½ çš„ç”¨æˆ·åå°†åœ¨ï¼“æ—¥ååˆ é™¤ã€‚ <br>\n";
+			$message .= "å¦‚æœä½ æƒ³ä¿ç•™ä½ çš„ç”¨æˆ·åï¼Œè¯·ç™»å½•æœ¬è®ºå›ä¸€æ¬¡ã€‚ <br>\n";
 			$message .= "------------------------------------------<br>\n";
-			$message .= "LeoBBS ÓÉ www.leobbs.com ÈÙÓş³öÆ·¡£<br>\n";
+			$message .= "LeoBBS ç”± www.leobbs.com è£èª‰å‡ºå“ã€‚<br>\n";
 			&sendmail($from, $from, $sendtoemail, $subject, $message);
 		}
 		
@@ -510,7 +536,7 @@ sub delnopost
 			$step++;
 		print qq~<meta http-equiv="refresh" Content="0; url=$thisprog?action=delnopost&deltime=$indeltime&delposts=$indelposts&dellast=$indellast&delcdrom=$indelcdrom&delusetype=$delusetype&size1=$size1&step=$step&users=$users">
 <tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#333333><br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯Ç°½ø£¬Çë<a href=$thisprog?action=delnopost&deltime=$indeltime&delposts=$indelposts&dellast=$indellast&delcdrom=$indelcdrom&delusetype=$delusetype&size1=$size1&step=$step&users=$users>µã»÷¼ÌĞø</a>
+<font color=#333333><br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‰è¿›ï¼Œè¯·<a href=$thisprog?action=delnopost&deltime=$indeltime&delposts=$indelposts&dellast=$indellast&delcdrom=$indelcdrom&delusetype=$delusetype&size1=$size1&step=$step&users=$users>ç‚¹å‡»ç»§ç»­</a>
 </td></tr>
 ~;
 		}
@@ -518,11 +544,11 @@ sub delnopost
 		{
 			if ($size1 == 0)
 			{
-				$delwarn = "<BR><BR><font color=red><B>µ±Ç°Ã»ÓĞ·ûºÏÉ¾³ıÌõ¼şµÄ×¢²á»áÔ±£¡<B></font>";
+				$delwarn = "<BR><BR><font color=red><B>å½“å‰æ²¡æœ‰ç¬¦åˆåˆ é™¤æ¡ä»¶çš„æ³¨å†Œä¼šå‘˜ï¼<B></font>";
 			}
 			elsif ($emailfunctions ne "on")
 			{
-				$delwarn = "<BR><BR><font color=red><B>ÓÊ¼ş¹¦ÄÜÃ»ÓĞ´ò¿ª£¬ËùÒÔÓÃ»§ÎŞ·¨½ÓÊÕÔ¤É¾³ıĞÅÏ¢£¡<B></font>";
+				$delwarn = "<BR><BR><font color=red><B>é‚®ä»¶åŠŸèƒ½æ²¡æœ‰æ‰“å¼€ï¼Œæ‰€ä»¥ç”¨æˆ·æ— æ³•æ¥æ”¶é¢„åˆ é™¤ä¿¡æ¯ï¼<B></font>";
 			}
 			else
 			{
@@ -533,9 +559,9 @@ sub delnopost
 			print qq~
 <tr><td bgcolor=#FFFFFF align=center colspan=2>
 <font color=#990000>
-<b>¼ÆËãÓÃ»§ÅÅÃû</b><p>
-<font color=#333333>µ±Ç°¹²ÓĞ $size ¸ö×¢²áÓÃ»§£¬ÅÅÃûÊı¾İÒÑ¾­¸üĞÂ£¡</font><BR>
-<font color=#333333>Ô¤É¾³ı $size1 ¸ö×¢²áÓÃ»§£¬ÅÅÃûÊı¾İÒÑ¾­¸üĞÂ£¬£³Ììºó¿ÉÒÔ½øÈë¹ÜÀíÇø½øĞĞÕæÕıÉ¾³ı£¡</font>
+<b>è®¡ç®—ç”¨æˆ·æ’å</b><p>
+<font color=#333333>å½“å‰å…±æœ‰ $size ä¸ªæ³¨å†Œç”¨æˆ·ï¼Œæ’åæ•°æ®å·²ç»æ›´æ–°ï¼</font><BR>
+<font color=#333333>é¢„åˆ é™¤ $size1 ä¸ªæ³¨å†Œç”¨æˆ·ï¼Œæ’åæ•°æ®å·²ç»æ›´æ–°ï¼Œï¼“å¤©åå¯ä»¥è¿›å…¥ç®¡ç†åŒºè¿›è¡ŒçœŸæ­£åˆ é™¤ï¼</font>
 $delwarn
 </td></tr>~;
 		}
@@ -550,9 +576,9 @@ unless (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
                     
-        <b>´íÎó£¡</b><p>
+        <b>é”™è¯¯ï¼</b><p>
                     
-        <font color=#333333>ÄãÃ»ÓĞÈ¨ÏŞÊ¹ÓÃÕâ¸ö¹¦ÄÜ£¡</font>
+        <font color=#333333>ä½ æ²¡æœ‰æƒé™ä½¿ç”¨è¿™ä¸ªåŠŸèƒ½ï¼</font>
                     
         </td></tr>
          ~;
@@ -581,15 +607,15 @@ if ($checkaction eq "yes") {
     my @memfavdir = grep(/^memfav/i, @files);
     $memfavdir = $memfavdir[0];
 $from = "$adminemail_out";
-$subject = "À´×Ô$boardnameµÄÖØÒªÓÊ¼ş£¡£¡";
+$subject = "æ¥è‡ª$boardnameçš„é‡è¦é‚®ä»¶ï¼ï¼";
 $message = "";
 $message .= "\n";
 $message .= "$boardname <br>\n";
 $message .= "$boardurl/leobbs.cgi <br>\n";
 $message .= "------------------------------------------\n<br><br>\n";
-$message .= "ÏµÍ³·¢ÏÖÄãÒÑ¾­³¤Ê±¼äÎ´·ÃÎÊ±¾ÂÛÌ³²¢·¢ÑÔÁË£¬ <br>\n";
-$message .= "ÎªÁËÊÍ·Å¿Õ¼ä£¬ÄãµÄÓÃ»§ÃûÒÑ¾­±»ÍêÈ«É¾³ı¡£ <br>\n";
-$message .= "Äú±»ÊÍ·ÅµÄÓÃ»§ÃûÎª£ºmembername¡£ <br>\n";
+$message .= "ç³»ç»Ÿå‘ç°ä½ å·²ç»é•¿æ—¶é—´æœªè®¿é—®æœ¬è®ºå›å¹¶å‘è¨€äº†ï¼Œ <br>\n";
+$message .= "ä¸ºäº†é‡Šæ”¾ç©ºé—´ï¼Œä½ çš„ç”¨æˆ·åå·²ç»è¢«å®Œå…¨åˆ é™¤ã€‚ <br>\n";
+$message .= "æ‚¨è¢«é‡Šæ”¾çš„ç”¨æˆ·åä¸ºï¼šmembernameã€‚ <br>\n";
 $message .= "------------------------------------------<br>\n";
 $sendtoemail = "";
 
@@ -678,7 +704,7 @@ $sendtoemail = "";
 	$step++;
 	print qq~<meta http-equiv="refresh" Content="0; url=$thisprog?action=delok&checkaction=yes&delno=$delno&step=$step&users=$users">
 <tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#333333><br>¡¡Èç¹ûÄãµÄä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯Ç°½ø£¬Çë<a href=$thisprog?action=delok&checkaction=yes&delno=$delno&step=$step&users=$users>µã»÷¼ÌĞø</a>
+<font color=#333333><br>ã€€å¦‚æœä½ çš„æµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‰è¿›ï¼Œè¯·<a href=$thisprog?action=delok&checkaction=yes&delno=$delno&step=$step&users=$users>ç‚¹å‡»ç»§ç»­</a>
 </td></tr>
 			~;
 
@@ -707,8 +733,8 @@ $sendtoemail = "";
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#333333><b>$delno ¸ö¹ıÆÚ×¢²áÓÃ»§ÒÑ¾­±»ÍêÕûÉ¾³ı<BR>
-        ÓÃ»§¿âÒÑ¾­È«²¿¸üĞÂ</b><br><Br><a href=foruminit.cgi?action=uptop>µãÕâ¶ù¸üĞÂÓÃ»§ÅÅÃûÒ»´Î</a><br>
+        <font color=#333333><b>$delno ä¸ªè¿‡æœŸæ³¨å†Œç”¨æˆ·å·²ç»è¢«å®Œæ•´åˆ é™¤<BR>
+        ç”¨æˆ·åº“å·²ç»å…¨éƒ¨æ›´æ–°</b><br><Br><a href=foruminit.cgi?action=uptop>ç‚¹è¿™å„¿æ›´æ–°ç”¨æˆ·æ’åä¸€æ¬¡</a><br>
         </td></tr>
          ~;
     }
@@ -718,15 +744,15 @@ else {
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>¾¯¸æ£¡£¡</b>
+        <font color=#990000><b>è­¦å‘Šï¼ï¼</b>
         </td></tr>
         
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-        <font color=#333333>ÍêÈ«É¾³ıËùÓĞ·ûºÏÌõ¼şµÄÔ¤É¾³ıÓÃ»§£¬µã»÷ÏÂÃæµÄÁ´½Ó¼ÌĞø¡£<BR>
-        ÔÚÔ¤É¾³ıÆÚ¼ä·ÃÎÊ¹ıÂÛÌ³µÄÓÃ»§²»»á±»É¾³ı<p>
+        <font color=#333333>å®Œå…¨åˆ é™¤æ‰€æœ‰ç¬¦åˆæ¡ä»¶çš„é¢„åˆ é™¤ç”¨æˆ·ï¼Œç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ç»§ç»­ã€‚<BR>
+        åœ¨é¢„åˆ é™¤æœŸé—´è®¿é—®è¿‡è®ºå›çš„ç”¨æˆ·ä¸ä¼šè¢«åˆ é™¤<p>
         <p>
-        >> <a href="$thisprog?action=delok&checkaction=yes">¿ªÊ¼É¾³ı</a> <<
+        >> <a href="$thisprog?action=delok&checkaction=yes">å¼€å§‹åˆ é™¤</a> <<
         </td></tr>
         </table></td></tr></table>
         ~;
@@ -763,11 +789,11 @@ foreach (@membernames) {
     print qq~
     <tr>
     <td bgcolor=#EEEEEE colspan=2><center>
-    <font color=#990000><b>²é¿´ËùÓĞÒÔ "$inletter" ¿ªÍ·µÄÓÃ»§</b><p>
+    <font color=#990000><b>æŸ¥çœ‹æ‰€æœ‰ä»¥ "$inletter" å¼€å¤´çš„ç”¨æˆ·</b><p>
 	<form action="setmembers.cgi" method=POST>
         <input type=hidden name="action" value="edit">
         <input type=text name="member" size=10 maxlength=16>
-        <input type=submit value="¿ìËÙ¶¨Î»">
+        <input type=submit value="å¿«é€Ÿå®šä½">
         </form>
 </center>
     ~;
@@ -829,25 +855,25 @@ chomp @ipfile;
     @iplist = sort(@iplist);
     
     print qq~
-    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>Ñ°ÕÒÒÔÌØ¶¨£É£Ğ×¢²áµÄÓÃ»§</b></font></td></tr>
-    <tr><td bgcolor=#FFFFFF align=left colspan=2>¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡<b>ËµÃ÷:</b><br>
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ÄãÈç¹ûÒªÑ°ÕÒÒ»¸ö IP£¬¿ÉÒÔÖ±½ÓÊäÈë IP µØÖ·ÔÚÕâÀï£¬±ÈÈç£º 202.100.200.100¡£<br>
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Èç¹ûÄãÒªÑ°ÕÒÒ»¸ö C ÀàÍø£¬ÄÇÃ´Äã¿ÉÒÔ²»ÊäÈë IP µÄ×îºóÒ»Î»£¬±ÈÈç£º202.100.200. <br>
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Èç¹ûÄãÒªÑ°ÕÒÒ»¸ö B ÀàÍø£¬ÄÇÃ´Äã¿ÉÒÔ²»ÊäÈë IP µÄ×îºóÁ½Î»£¬±ÈÈç£º202.100. <br>
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡×¢ÒâÉÏÃæµÄĞ´·¨£¬Èç¹ûÑ°ÕÒµÄÊÇÒ»¸ö C Àà»òÕß B ÀàÍø£¬Çë×îºó±£ÁôµãºÅ(.)£¬ÇĞ¼Ç£¡</td></tr>
+    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>å¯»æ‰¾ä»¥ç‰¹å®šï¼©ï¼°æ³¨å†Œçš„ç”¨æˆ·</b></font></td></tr>
+    <tr><td bgcolor=#FFFFFF align=left colspan=2>ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€<b>è¯´æ˜:</b><br>
+ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ä½ å¦‚æœè¦å¯»æ‰¾ä¸€ä¸ª IPï¼Œå¯ä»¥ç›´æ¥è¾“å…¥ IP åœ°å€åœ¨è¿™é‡Œï¼Œæ¯”å¦‚ï¼š 202.100.200.100ã€‚<br>
+ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€å¦‚æœä½ è¦å¯»æ‰¾ä¸€ä¸ª C ç±»ç½‘ï¼Œé‚£ä¹ˆä½ å¯ä»¥ä¸è¾“å…¥ IP çš„æœ€åä¸€ä½ï¼Œæ¯”å¦‚ï¼š202.100.200. <br>
+ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€å¦‚æœä½ è¦å¯»æ‰¾ä¸€ä¸ª B ç±»ç½‘ï¼Œé‚£ä¹ˆä½ å¯ä»¥ä¸è¾“å…¥ IP çš„æœ€åä¸¤ä½ï¼Œæ¯”å¦‚ï¼š202.100. <br>
+ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€æ³¨æ„ä¸Šé¢çš„å†™æ³•ï¼Œå¦‚æœå¯»æ‰¾çš„æ˜¯ä¸€ä¸ª C ç±»æˆ–è€… B ç±»ç½‘ï¼Œè¯·æœ€åä¿ç•™ç‚¹å·(.)ï¼Œåˆ‡è®°ï¼</td></tr>
     <tr>
-    <form action="setmembers.cgi" method=POST><input type=hidden name="action" value="viewip"><td bgcolor=#EEEEEE align=center colspan=2><input type=text name="letter" size20 maxlength=16> <input type=submit value="Ñ°ÕÒÓÃ»§"></td></form></tr>
+    <form action="setmembers.cgi" method=POST><input type=hidden name="action" value="viewip"><td bgcolor=#EEEEEE align=center colspan=2><input type=text name="letter" size20 maxlength=16> <input type=submit value="å¯»æ‰¾ç”¨æˆ·"></td></form></tr>
     <tr>
-    <form action="setmembers.cgi" method=POST><input type=hidden name="action" value="viewip"><input type=hidden name="letter" value="findsame"><td bgcolor=#EEEEEE align=center colspan=2><input type=submit value="Ñ°ÕÒËùÓĞÏàÍ¬£É£ĞµÄÓÃ»§"></td></form></tr>
+    <form action="setmembers.cgi" method=POST><input type=hidden name="action" value="viewip"><input type=hidden name="letter" value="findsame"><td bgcolor=#EEEEEE align=center colspan=2><input type=submit value="å¯»æ‰¾æ‰€æœ‰ç›¸åŒï¼©ï¼°çš„ç”¨æˆ·"></td></form></tr>
     <tr><td bgcolor=#FFFFFF align=center colspan=2 height="20"></td></tr>
-    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>×¢²á£É£Ğ´óÖÂÁĞ±í</b></font></td></tr>
-    <tr><td bgcolor=#FFFFFF align=left colspan=2>¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡~;
+    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>æ³¨å†Œï¼©ï¼°å¤§è‡´åˆ—è¡¨</b></font></td></tr>
+    <tr><td bgcolor=#FFFFFF align=left colspan=2>ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€~;
 
     $nowcount =0;
     foreach (@iplist) {
         	$ipshow=sprintf("% 3s",$_);
         	$ipshow=~s/\s/\&nbsp\;/g;
-            print qq~<br>¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡~ if ($nowcount == int($nowcount/15)*15);
+            print qq~<br>ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€~ if ($nowcount == int($nowcount/15)*15);
             print qq~ <a href="$thisprog?action=viewip&letter=$_">$ipshow</a> ~;
             $nowcount ++;
     }
@@ -856,7 +882,7 @@ chomp @ipfile;
     <tr><td bgcolor=#FFFFFF align=center colspan=2 height="20"></td></tr>~;
     if($inletter ne "findsame"){
     print qq~
-    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>ËùÓĞ£É£ĞÒÔ "$inletters" ¿ªÍ·µÄÓÃ»§</b></font></td></tr>
+    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>æ‰€æœ‰ï¼©ï¼°ä»¥ "$inletters" å¼€å¤´çš„ç”¨æˆ·</b></font></td></tr>
     <tr><td bgcolor=#FFFFFF align=center colspan=2 height="20"></td></tr>
     ~;
 		foreach (@thatiplist) {
@@ -866,9 +892,9 @@ chomp @ipfile;
 			}
     }else{
     print qq~
-    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>ËùÓĞÏàÍ¬£É£ĞµÄÓÃ»§</b></font></td></tr>
-    <tr><td bgcolor=#FFFFFF align=left colspan=2>¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡<b>×¢Òâ:</b><br>
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ÏàÍ¬£É£Ğ²»Ò»¶¨´ú±íÊÇÍ¬Ò»ÈË¡£<br></td></tr>
+    <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>æ‰€æœ‰ç›¸åŒï¼©ï¼°çš„ç”¨æˆ·</b></font></td></tr>
+    <tr><td bgcolor=#FFFFFF align=left colspan=2>ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€<b>æ³¨æ„:</b><br>
+ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ç›¸åŒï¼©ï¼°ä¸ä¸€å®šä»£è¡¨æ˜¯åŒä¸€äººã€‚<br></td></tr>
     ~;
 		while(($ip,$thisiplist)=each(%sameiplist)){
 			my @listofthisip=split(/\,/,$thisiplist);
@@ -876,7 +902,7 @@ chomp @ipfile;
 			next if($listofthisipc <= 1);
 			$listofthisip=join(",",@listofthisip);
     print qq~
-    <tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>£É£ĞÎª "<font color=#990000>$ip</font>" µÄÓÃ»§</b></font></td></tr>
+    <tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>ï¼©ï¼°ä¸º "<font color=#990000>$ip</font>" çš„ç”¨æˆ·</b></font></td></tr>
     <tr><td bgcolor=#FFFFFF colspan=2 align=left>$listofthisip</td></tr>
     <tr><td bgcolor=#FFFFFF> </td><td bgcolor=#FFFFFF> </td></tr>
     ~;
@@ -900,36 +926,36 @@ sub showmember {
     
     ($postdate, $posturl, $posttopic) = split(/\%%%/,$lastpostdate);
     
-    if ($postdate ne "Ã»ÓĞ·¢±í¹ı") {
+    if ($postdate ne "æ²¡æœ‰å‘è¡¨è¿‡") {
         $postdate = &longdate("$postdate");
-        $lastpostdetails = qq~×îºó·¢±í <a href="$posturl">$posttopic</a> ÔÚ $postdate~;
+        $lastpostdetails = qq~æœ€åå‘è¡¨ <a href="$posturl">$posttopic</a> åœ¨ $postdate~;
         }
         else {
-            $lastpostdetails = "Ã»ÓĞ·¢±í¹ı";
+            $lastpostdetails = "æ²¡æœ‰å‘è¡¨è¿‡";
             }
 
     if ($membercode eq "banned") {
-        $unbanlink = qq~ | [<a href="$thisprog?action=unban&member=~ . uri_escape($member) . qq~">È¡Ïû½ûÖ¹·¢ÑÔ</a>]~;
+        $unbanlink = qq~ | [<a href="$thisprog?action=unban&member=~ . uri_escape($member) . qq~">å–æ¶ˆç¦æ­¢å‘è¨€</a>]~;
         }
     $totlepostandreply = $numberofposts+$numberofreplys;
     print qq~
     <tr>
-    <td bgcolor=#EEEEEE colspan=2 align=center><font face=$font color=$fontcolormisc><b><font color=$fonthighlight>"$cleanmember"</b> µÄÏêÏ¸×ÊÁÏ ¡¡ [ <a href="$thisprog?action=edit&member=~ . uri_escape($member) . qq~">±à¼­</a> ] | [ <a href="$thisprog?action=deletemember&member=~ . uri_escape($member) . qq~">É¾³ı</a> ]$unbanlink</font></td></tr>
+    <td bgcolor=#EEEEEE colspan=2 align=center><font face=$font color=$fontcolormisc><b><font color=$fonthighlight>"$cleanmember"</b> çš„è¯¦ç»†èµ„æ–™ ã€€ [ <a href="$thisprog?action=edit&member=~ . uri_escape($member) . qq~">ç¼–è¾‘</a> ] | [ <a href="$thisprog?action=deletemember&member=~ . uri_escape($member) . qq~">åˆ é™¤</a> ]$unbanlink</font></td></tr>
     <tr>
-    <td bgcolor=#FFFFFF width=30%><font color=#333333><b>×¢²áÊ±¼ä£º</b></font></td>
+    <td bgcolor=#FFFFFF width=30%><font color=#333333><b>æ³¨å†Œæ—¶é—´ï¼š</b></font></td>
     <td bgcolor=#FFFFFF><font color=#333333>$joineddate</font></td></tr>
     <tr>
-    <td bgcolor=#FFFFFF width=30%><font color=#333333><b>×¢²á£É£Ğ£º</b></font></td>
-    <td bgcolor=#FFFFFF><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$ipaddress',420,320)" title="LB WHOISĞÅÏ¢"><font color=#333333>$ipaddress</font></span> (<a href="$thisprog?action=viewip&letter=$ipaddress">ÕÒÏàÍ¬£É£ĞµÄÓÃ»§</a>)</td></tr>
+    <td bgcolor=#FFFFFF width=30%><font color=#333333><b>æ³¨å†Œï¼©ï¼°ï¼š</b></font></td>
+    <td bgcolor=#FFFFFF><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$ipaddress',420,320)" title="LB WHOISä¿¡æ¯"><font color=#333333>$ipaddress</font></span> (<a href="$thisprog?action=viewip&letter=$ipaddress">æ‰¾ç›¸åŒï¼©ï¼°çš„ç”¨æˆ·</a>)</td></tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§Í·ÏÎ£º</b></font></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·å¤´è¡”ï¼š</b></font></td>
     <td bgcolor=#FFFFFF><font color=#333333>$membertitle</font></td></tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>×îºó·¢±í£º</b></font></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>æœ€åå‘è¡¨ï¼š</b></font></td>
     <td bgcolor=#FFFFFF><font color=#333333>$lastpostdetails</font></td></tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>·¢±í×ÜÊı£º</b></font></td>
-    <td bgcolor=#FFFFFF><font color=#333333>$totlepostandreply</font> Æª</td></tr>
+    <td bgcolor=#FFFFFF><font color=#333333><b>å‘è¡¨æ€»æ•°ï¼š</b></font></td>
+    <td bgcolor=#FFFFFF><font color=#333333>$totlepostandreply</font> ç¯‡</td></tr>
     <tr>
     <td bgcolor=#FFFFFF>&nbsp;</td>
     <td bgcolor=#FFFFFF>&nbsp;</td></tr>
@@ -1006,7 +1032,7 @@ sub edit {
     }
     $inborn = "$inyear/$inmonth/$inday";
     
-    if ($inborn ne "//") { #¿ªÊ¼×Ô¶¯ÅĞ¶ÏĞÇ×ù
+    if ($inborn ne "//") { #å¼€å§‹è‡ªåŠ¨åˆ¤æ–­æ˜Ÿåº§
     	if ($inmonth eq "01") {
     	    if (($inday >= 1)&&($inday <=19)) {
     	        $inuserxz = "z10";
@@ -1112,7 +1138,7 @@ sub edit {
     if (length($injhmp) > 21) {
         print qq ~
         <tr>
-        <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>½­ºşÃÅÅÉµÄÊäÈëÇë¿ØÖÆÔÚ20¸ö×Ö·û£¨10¸öºº×Ö£©ÄÚ¡£</b></font></td></tr>
+        <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>æ±Ÿæ¹–é—¨æ´¾çš„è¾“å…¥è¯·æ§åˆ¶åœ¨20ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰å†…ã€‚</b></font></td></tr>
         ~;
 	print qq~</td></tr></table></body></html>~;
         exit;
@@ -1120,7 +1146,7 @@ sub edit {
     if (length($inmembertitle) > 21) {
         print qq ~
         <tr>
-        <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>¸öÈËÍ·ÏÎµÄÊäÈëÇë¿ØÖÆÔÚ20¸ö×Ö·û£¨10¸öºº×Ö£©ÄÚ¡£</b></font></td></tr>
+        <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>ä¸ªäººå¤´è¡”çš„è¾“å…¥è¯·æ§åˆ¶åœ¨20ä¸ªå­—ç¬¦ï¼ˆ10ä¸ªæ±‰å­—ï¼‰å†…ã€‚</b></font></td></tr>
         ~;
 	print qq~</td></tr></table></body></html>~;
         exit;
@@ -1128,13 +1154,13 @@ sub edit {
     if (length($inlocation) > 12) {
         print qq ~
         <tr>
-        <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>À´×ÔµÄÊäÈëÇë¿ØÖÆÔÚ12¸ö×Ö·û£¨6¸öºº×Ö£©ÄÚ¡£</b></font></td></tr>
+        <td bgcolor=#FFFFFF align=center colspan=2><font color=#333333><b>æ¥è‡ªçš„è¾“å…¥è¯·æ§åˆ¶åœ¨12ä¸ªå­—ç¬¦ï¼ˆ6ä¸ªæ±‰å­—ï¼‰å†…ã€‚</b></font></td></tr>
         ~;
 	print qq~</td></tr></table></body></html>~;
         exit;
     }
 
-    if ($injhmp eq "") { $jhmp = "ÎŞÃÅÎŞÅÉ"; }
+    if ($injhmp eq "") { $jhmp = "æ— é—¨æ— æ´¾"; }
     else { $jhmp = ($jhmp); }
     if ($inrating eq "") { $inrating = 0; }
     elsif ($inrating > $maxweiwang) { $inrating = $maxweiwang; }
@@ -1159,9 +1185,9 @@ sub edit {
         if ($innewpassword eq "") { $innewpassword = $password; }
         else {
 
-        if ($innewpassword =~ /[^a-zA-Z0-9]/) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>ÃÜÂëÖ»ÔÊĞí´óĞ¡Ğ´×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ£¡£¡</b></td></tr>"; exit; }
-        if ($innewpassword =~ /^lEO/) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>ÃÜÂë²»ÔÊĞíÊÇ lEO ¿ªÍ·£¬Çë¸ü»»£¡£¡</b></td></tr>"; exit; }
-        if (length($innewpassword)<8) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>ÃÜÂëÌ«¶ÌÁË£¬Çë¸ü»»£¡ÃÜÂë±ØĞë 8 Î»ÒÔÉÏ£¡</b></td></tr>"; exit; }
+        if ($innewpassword =~ /[^a-zA-Z0-9]/) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>å¯†ç åªå…è®¸å¤§å°å†™å­—æ¯å’Œæ•°å­—çš„ç»„åˆï¼ï¼</b></td></tr>"; exit; }
+        if ($innewpassword =~ /^lEO/) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>å¯†ç ä¸å…è®¸æ˜¯ lEO å¼€å¤´ï¼Œè¯·æ›´æ¢ï¼ï¼</b></td></tr>"; exit; }
+        if (length($innewpassword)<8) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>å¯†ç å¤ªçŸ­äº†ï¼Œè¯·æ›´æ¢ï¼å¯†ç å¿…é¡» 8 ä½ä»¥ä¸Šï¼</b></td></tr>"; exit; }
 if ($innewpassword ne "") {
     eval {$innewpassword = md5_hex($innewpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$innewpassword = md5_hex($innewpassword);');}
@@ -1170,7 +1196,7 @@ if ($innewpassword ne "") {
     }
     
     if ((($inmembercode eq "ad")||($inmembercode eq "smo")||($inmembercode eq "cmo")||($inmembercode eq "amo")||($inmembercode eq "mo"))&&($oldmembercode eq "smo")) {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>×Ü°ßÖñÎŞÈ¨ÌáÉıÈÎºÎÈËÎªÌ³Ö÷ºÍ°ßÖñ£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>æ€»æ–‘ç«¹æ— æƒæå‡ä»»ä½•äººä¸ºå›ä¸»å’Œæ–‘ç«¹ï¼</b></td></tr>";
             exit;
     }
 
@@ -1189,7 +1215,7 @@ if ($innewpassword ne "") {
             open(FILE,">>$filetoopen");
             print FILE "$ipaddress\t";
             close(FILE);
-            $banresult = "½ûÖ¹ $membername ·¢ÑÔ³É¹¦";
+            $banresult = "ç¦æ­¢ $membername å‘è¨€æˆåŠŸ";
        }
 	if ($oldmembercode eq "smo") {
 $innumberofposts = $numberofposts;
@@ -1214,7 +1240,7 @@ $inawards = $awards;
        	$onlinetime=($inonlinetime =~/[^0-9]/)?$onlinetime:$inonlinetime;
        	my $namenumber = &getnamenumber($memberfiletitle);
 	&checkmemfile($memberfiletitle,$namenumber);
-        unless ((-e "${lbdir}$memdir/$namenumber/$memberfiletitle.cgi")||(-e "${lbdir}$memdir/old/$memberfiletitle.cgi")) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>¸ÃÓÃ»§²»´æÔÚ£¡</b></td></tr>"; exit; }
+        unless ((-e "${lbdir}$memdir/$namenumber/$memberfiletitle.cgi")||(-e "${lbdir}$memdir/old/$memberfiletitle.cgi")) { print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>è¯¥ç”¨æˆ·ä¸å­˜åœ¨ï¼</b></td></tr>"; exit; }
         $filetomake = "$lbdir" . "$memdir/$namenumber/$memberfiletitle.cgi";
         &winlock($filetomake) if ($OS_USED eq "Nt");
         open(FILE, ">$filetomake");
@@ -1241,7 +1267,7 @@ if($oldmembercode ne "smo"){
        open(FILE,">$notshowsignaturefile"); 
        print FILE "$notshowsignaturemember$membername\t"; 
        close(FILE); 
-       $banresult.="<br>ÆÁ±Î $membername Ç©Ãû³É¹¦"; 
+       $banresult.="<br>å±è”½ $membername ç­¾åæˆåŠŸ"; 
        } 
        }else{ 
        if($notshowsignaturemember1 =~/\t$membername\t/){ 
@@ -1249,7 +1275,7 @@ if($oldmembercode ne "smo"){
        open(FILE,">$notshowsignaturefile"); 
        print FILE "$notshowsignaturemember"; 
        close(FILE); 
-       $banresult.="<br>¿ª·Å $membername Ç©Ãû³É¹¦"; 
+       $banresult.="<br>å¼€æ”¾ $membername ç­¾åæˆåŠŸ"; 
        } 
        } 
    }
@@ -1263,7 +1289,7 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
                 print qq~
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=2>
-                <font color=#333333><b>ËùÓĞĞÅÏ¢ÒÑ¾­±£´æ</b><br><br>$banresult<br>
+                <font color=#333333><b>æ‰€æœ‰ä¿¡æ¯å·²ç»ä¿å­˜</b><br><br>$banresult<br>
                 </td></tr>
                 ~;
     
@@ -1317,21 +1343,21 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
             $privateoutput .= qq~<input type="checkbox" name="allow$forumid" value="yes" $checked>$forumname<br>\n~;
             }
             
-    my $memteam1 = qq~<option value="rz1">$defrz1(ÈÏÖ¤ÓÃ»§)~ if ($defrz1 ne "");
-    my $memteam2 = qq~<option value="rz2">$defrz2(ÈÏÖ¤ÓÃ»§)~ if ($defrz2 ne "");
-    my $memteam3 = qq~<option value="rz3">$defrz3(ÈÏÖ¤ÓÃ»§)~ if ($defrz3 ne "");
-    my $memteam4 = qq~<option value="rz4">$defrz4(ÈÏÖ¤ÓÃ»§)~ if ($defrz4 ne "");
-    my $memteam5 = qq~<option value="rz5">$defrz5(ÈÏÖ¤ÓÃ»§)~ if ($defrz5 ne "");
-    $memberstateoutput = qq~<select name="membercode"><option value="me">Ò»°ãÓÃ»§$memteam1$memteam2$memteam3$memteam4$memteam5<option value="rz">ÈÏÖ¤ÓÃ»§<option value="banned">½ûÖ¹´ËÓÃ»§·¢ÑÔ<option value="masked">ÆÁ±Î´ËÓÃ»§Ìù×Ó<option value="mo">ÂÛÌ³°æÖ÷<option value="amo">ÂÛÌ³¸±°æÖ÷<option value="cmo">·ÖÀàÇø°æÖ÷<option value="smo">ÂÛÌ³×Ü°æÖ÷ *<option value="ad">Ì³Ö÷ **</select>~;
+    my $memteam1 = qq~<option value="rz1">$defrz1(è®¤è¯ç”¨æˆ·)~ if ($defrz1 ne "");
+    my $memteam2 = qq~<option value="rz2">$defrz2(è®¤è¯ç”¨æˆ·)~ if ($defrz2 ne "");
+    my $memteam3 = qq~<option value="rz3">$defrz3(è®¤è¯ç”¨æˆ·)~ if ($defrz3 ne "");
+    my $memteam4 = qq~<option value="rz4">$defrz4(è®¤è¯ç”¨æˆ·)~ if ($defrz4 ne "");
+    my $memteam5 = qq~<option value="rz5">$defrz5(è®¤è¯ç”¨æˆ·)~ if ($defrz5 ne "");
+    $memberstateoutput = qq~<select name="membercode"><option value="me">ä¸€èˆ¬ç”¨æˆ·$memteam1$memteam2$memteam3$memteam4$memteam5<option value="rz">è®¤è¯ç”¨æˆ·<option value="banned">ç¦æ­¢æ­¤ç”¨æˆ·å‘è¨€<option value="masked">å±è”½æ­¤ç”¨æˆ·è´´å­<option value="mo">è®ºå›ç‰ˆä¸»<option value="amo">è®ºå›å‰¯ç‰ˆä¸»<option value="cmo">åˆ†ç±»åŒºç‰ˆä¸»<option value="smo">è®ºå›æ€»ç‰ˆä¸» *<option value="ad">å›ä¸» **</select>~;
     
     $memberstateoutput =~ s/value=\"$membercode\"/value=\"$membercode\" selected/g;
         if ($userregistered eq "no") {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>ÎŞ´ËÓÃ»§£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>æ— æ­¤ç”¨æˆ·ï¼</b></td></tr>";
             exit;
         }
     
     if ((($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "amo")||($membercode eq "mo"))&&($oldmembercode eq "smo")) {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>×Ü°ßÖñÎŞÈ¨²é¿´Ì³Ö÷ºÍ°ßÖñ×ÊÁÏ£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>æ€»æ–‘ç«¹æ— æƒæŸ¥çœ‹å›ä¸»å’Œæ–‘ç«¹èµ„æ–™ï¼</b></td></tr>";
             exit;
     }
 $userflag = "blank" if ($userflag eq "");
@@ -1339,106 +1365,106 @@ $flaghtml = qq~
 <script language="javascript">
 function showflag(){document.images.userflags.src="$imagesurl/flags/"+document.creator.userflag.options[document.creator.userflag.selectedIndex].value+".gif";}
 </script>
-<tr><td bgcolor=#ffffff valign=top><font color=#333333><b>ËùÔÚ¹ú¼Ò:</b></td>
+<tr><td bgcolor=#ffffff valign=top><font color=#333333><b>æ‰€åœ¨å›½å®¶:</b></td>
 <td bgcolor=#ffffff>
 <select name="userflag" size=1 onChange="showflag()">
-<option value="blank">±£ÃÜ</option>
-<option value="China">ÖĞ¹ú</option>
-<option value="Angola">°²¸çÀ­</option>
-<option value="Antigua">°²Ìá¹Ï</option>
-<option value="Argentina">°¢¸ùÍ¢</option>
-<option value="Armenia">ÑÇÃÀÄáÑÇ</option>
-<option value="Australia">°Ä´óÀûÑÇ</option>
-<option value="Austria">°ÂµØÀû</option>
-<option value="Bahamas">°Í¹şÂí</option>
-<option value="Bahrain">°ÍÁÖ</option>
-<option value="Bangladesh">ÃÏ¼ÓÀ­</option>
-<option value="Barbados">°Í°Í¶àË¹</option>
-<option value="Belgium">±ÈÀûÊ±</option>
-<option value="Bermuda">°ÙÄ½´ó</option>
-<option value="Bolivia">²£ÀûÎ¬ÑÇ</option>
-<option value="Brazil">°ÍÎ÷</option>
-<option value="Brunei">ÎÄÀ³</option>
-<option value="Canada">¼ÓÄÃ´ó</option>
-<option value="Chile">ÖÇÀû</option>
-<option value="Colombia">¸çÂ×±ÈÑÇ</option>
-<option value="Croatia">¿ËÂŞµØÑÇ</option>
-<option value="Cuba">¹Å°Í</option>
-<option value="Cyprus">ÈûÆÖÂ·Ë¹</option>
-<option value="Czech_Republic">½İ¿ËË¹Âå·¥¿Ë</option>
-<option value="Denmark">µ¤Âó</option>
-<option value="Dominican_Republic">¶àÃ×Äá¼Ó</option>
-<option value="Ecuador">¶ò¹Ï¶à¶û</option>
-<option value="Egypt">°£¼°</option>
-<option value="Estonia">°®É³ÄáÑÇ</option>
-<option value="Finland">·ÒÀ¼</option>
-<option value="France">·¨¹ú</option>
-<option value="Germany">µÂ¹ú</option>
-<option value="Great_Britain">Ó¢¹ú</option>
-<option value="Greece">Ï£À°</option>
-<option value="Guatemala">Î£µØÂíÀ­</option>
-<option value="Honduras">ºé¶¼À­Ë¹</option>
-<option value="Hungary">ĞÙÑÀÀû</option>
-<option value="Iceland">±ùµº</option>
-<option value="India">Ó¡¶È</option>
-<option value="Indonesia">Ó¡¶ÈÄáÎ÷ÑÇ</option>
-<option value="Iran">ÒÁÀÊ</option>
-<option value="Iraq">ÒÁÀ­¿Ë</option>
-<option value="Ireland">°®¶ûÀ¼</option>
-<option value="Israel">ÒÔÉ«ÁĞ</option>
-<option value="Italy">Òâ´óÀû</option>
-<option value="Jamaica">ÑÀÂò¼Ó</option>
-<option value="Japan">ÈÕ±¾</option>
-<option value="Jordan">Ô¼µ©</option>
-<option value="Kazakstan">¹şÈø¿Ë</option>
-<option value="Kenya">¿ÏÄáÑÇ</option>
-<option value="Kuwait">¿ÆÍşÌØ</option>
-<option value="Latvia">À­ÍÑÎ¬ÑÇ</option>
-<option value="Lebanon">Àè°ÍÄÛ</option>
-<option value="Lithuania">Á¢ÌÕÍğ</option>
-<option value="Malaysia">ÂíÀ´Î÷ÑÇ</option>
-<option value="Malawi">ÂíÀ­Î¬</option>
-<option value="Malta">Âí¶úËû</option>
-<option value="Mauritius">Ã«ÀïÇóË¹</option>
-<option value="Morocco">Ä¦Âå¸ç</option>
-<option value="Mozambique">ÄªÉ£±È¿Ë</option>
-<option value="Netherlands">ºÉÀ¼</option>
-<option value="New_Zealand">ĞÂÎ÷À¼</option>
-<option value="Nicaragua">Äá¼ÓÀ­¹Ï</option>
-<option value="Nigeria">ÄáÈÕÀûÑÇ</option>
-<option value="Norway">Å²Íş</option>
-<option value="Pakistan">°Í»ùË¹Ì¹</option>
-<option value="Panama">°ÍÄÃÂí</option>
-<option value="Paraguay">°ÍÀ­¹ç</option>
-<option value="Peru">ÃØÂ³</option>
-<option value="Poland">²¨À¼</option>
-<option value="Portugal">ÆÏÌÑÑÀ</option>
-<option value="Romania">ÂŞÂíÄáÑÇ</option>
-<option value="Russia">¶í¹ú</option>
-<option value="Saudi_Arabia">É³ÌØ°¢À­²®</option>
-<option value="Singapore">ĞÂ¼ÓÆÂ</option>
-<option value="Slovakia">Ë¹Âå·¥¿Ë</option>
-<option value="Slovenia">Ë¹ÂåÎÄÄáÑÇ</option>
-<option value="Solomon_Islands">ËùÂŞÃÅ</option>
-<option value="Somalia">Ë÷ÂíÀï</option>
-<option value="South_Africa">ÄÏ·Ç</option>
-<option value="South_Korea">º«¹ú</option>
-<option value="Spain">Î÷°àÑÀ</option>
-<option value="Sri_Lanka">Ó¡¶È</option>
-<option value="Surinam">ËÕÀïÄÏ</option>
-<option value="Sweden">Èğµä</option>
-<option value="Switzerland">ÈğÊ¿</option>
-<option value="Thailand">Ì©¹ú</option>
-<option value="Trinidad_Tobago">¶à°Í¸ç</option>
-<option value="Turkey">ÍÁ¶úÆä</option>
-<option value="Ukraine">ÎÚ¿ËÀ¼</option>
-<option value="United_Arab_Emirates">°¢À­²®ÁªºÏÇõ³¤¹ú</option>
-<option value="United_States">ÃÀ¹ú</option>
-<option value="Uruguay">ÎÚÀ­¹ç</option>
-<option value="Venezuela">Î¯ÄÚÈğÀ­</option>
-<option value="Yugoslavia">ÄÏË¹À­·ò</option>
-<option value="Zambia">ÔŞ±ÈÑÇ</option>
-<option value="Zimbabwe">½ò°Í²¼Î¤</option>
+<option value="blank">ä¿å¯†</option>
+<option value="China">ä¸­å›½</option>
+<option value="Angola">å®‰å“¥æ‹‰</option>
+<option value="Antigua">å®‰æç“œ</option>
+<option value="Argentina">é˜¿æ ¹å»·</option>
+<option value="Armenia">äºšç¾å°¼äºš</option>
+<option value="Australia">æ¾³å¤§åˆ©äºš</option>
+<option value="Austria">å¥¥åœ°åˆ©</option>
+<option value="Bahamas">å·´å“ˆé©¬</option>
+<option value="Bahrain">å·´æ—</option>
+<option value="Bangladesh">å­ŸåŠ æ‹‰</option>
+<option value="Barbados">å·´å·´å¤šæ–¯</option>
+<option value="Belgium">æ¯”åˆ©æ—¶</option>
+<option value="Bermuda">ç™¾æ…•å¤§</option>
+<option value="Bolivia">ç»åˆ©ç»´äºš</option>
+<option value="Brazil">å·´è¥¿</option>
+<option value="Brunei">æ–‡è±</option>
+<option value="Canada">åŠ æ‹¿å¤§</option>
+<option value="Chile">æ™ºåˆ©</option>
+<option value="Colombia">å“¥ä¼¦æ¯”äºš</option>
+<option value="Croatia">å…‹ç½—åœ°äºš</option>
+<option value="Cuba">å¤å·´</option>
+<option value="Cyprus">å¡æµ¦è·¯æ–¯</option>
+<option value="Czech_Republic">æ·å…‹æ–¯æ´›ä¼å…‹</option>
+<option value="Denmark">ä¸¹éº¦</option>
+<option value="Dominican_Republic">å¤šç±³å°¼åŠ </option>
+<option value="Ecuador">å„ç“œå¤šå°”</option>
+<option value="Egypt">åŸƒåŠ</option>
+<option value="Estonia">çˆ±æ²™å°¼äºš</option>
+<option value="Finland">èŠ¬å…°</option>
+<option value="France">æ³•å›½</option>
+<option value="Germany">å¾·å›½</option>
+<option value="Great_Britain">è‹±å›½</option>
+<option value="Greece">å¸Œè…Š</option>
+<option value="Guatemala">å±åœ°é©¬æ‹‰</option>
+<option value="Honduras">æ´ªéƒ½æ‹‰æ–¯</option>
+<option value="Hungary">åŒˆç‰™åˆ©</option>
+<option value="Iceland">å†°å²›</option>
+<option value="India">å°åº¦</option>
+<option value="Indonesia">å°åº¦å°¼è¥¿äºš</option>
+<option value="Iran">ä¼Šæœ—</option>
+<option value="Iraq">ä¼Šæ‹‰å…‹</option>
+<option value="Ireland">çˆ±å°”å…°</option>
+<option value="Israel">ä»¥è‰²åˆ—</option>
+<option value="Italy">æ„å¤§åˆ©</option>
+<option value="Jamaica">ç‰™ä¹°åŠ </option>
+<option value="Japan">æ—¥æœ¬</option>
+<option value="Jordan">çº¦æ—¦</option>
+<option value="Kazakstan">å“ˆè¨å…‹</option>
+<option value="Kenya">è‚¯å°¼äºš</option>
+<option value="Kuwait">ç§‘å¨ç‰¹</option>
+<option value="Latvia">æ‹‰è„±ç»´äºš</option>
+<option value="Lebanon">é»å·´å«©</option>
+<option value="Lithuania">ç«‹é™¶å®›</option>
+<option value="Malaysia">é©¬æ¥è¥¿äºš</option>
+<option value="Malawi">é©¬æ‹‰ç»´</option>
+<option value="Malta">é©¬è€³ä»–</option>
+<option value="Mauritius">æ¯›é‡Œæ±‚æ–¯</option>
+<option value="Morocco">æ‘©æ´›å“¥</option>
+<option value="Mozambique">è«æ¡‘æ¯”å…‹</option>
+<option value="Netherlands">è·å…°</option>
+<option value="New_Zealand">æ–°è¥¿å…°</option>
+<option value="Nicaragua">å°¼åŠ æ‹‰ç“œ</option>
+<option value="Nigeria">å°¼æ—¥åˆ©äºš</option>
+<option value="Norway">æŒªå¨</option>
+<option value="Pakistan">å·´åŸºæ–¯å¦</option>
+<option value="Panama">å·´æ‹¿é©¬</option>
+<option value="Paraguay">å·´æ‹‰åœ­</option>
+<option value="Peru">ç§˜é²</option>
+<option value="Poland">æ³¢å…°</option>
+<option value="Portugal">è‘¡è„ç‰™</option>
+<option value="Romania">ç½—é©¬å°¼äºš</option>
+<option value="Russia">ä¿„å›½</option>
+<option value="Saudi_Arabia">æ²™ç‰¹é˜¿æ‹‰ä¼¯</option>
+<option value="Singapore">æ–°åŠ å¡</option>
+<option value="Slovakia">æ–¯æ´›ä¼å…‹</option>
+<option value="Slovenia">æ–¯æ´›æ–‡å°¼äºš</option>
+<option value="Solomon_Islands">æ‰€ç½—é—¨</option>
+<option value="Somalia">ç´¢é©¬é‡Œ</option>
+<option value="South_Africa">å—é</option>
+<option value="South_Korea">éŸ©å›½</option>
+<option value="Spain">è¥¿ç­ç‰™</option>
+<option value="Sri_Lanka">å°åº¦</option>
+<option value="Surinam">è‹é‡Œå—</option>
+<option value="Sweden">ç‘å…¸</option>
+<option value="Switzerland">ç‘å£«</option>
+<option value="Thailand">æ³°å›½</option>
+<option value="Trinidad_Tobago">å¤šå·´å“¥</option>
+<option value="Turkey">åœŸè€³å…¶</option>
+<option value="Ukraine">ä¹Œå…‹å…°</option>
+<option value="United_Arab_Emirates">é˜¿æ‹‰ä¼¯è”åˆé…‹é•¿å›½</option>
+<option value="United_States">ç¾å›½</option>
+<option value="Uruguay">ä¹Œæ‹‰åœ­</option>
+<option value="Venezuela">å§”å†…ç‘æ‹‰</option>
+<option value="Yugoslavia">å—æ–¯æ‹‰å¤«</option>
+<option value="Zambia">èµæ¯”äºš</option>
+<option value="Zimbabwe">æ´¥å·´å¸ƒéŸ¦</option>
 </select>
 <img src="$imagesurl/flags/$userflag.gif" name="userflags" border=0 height=14 width=21>
 </td></tr>
@@ -1450,9 +1476,9 @@ $flaghtml =~ s/value=\"$userflag\"/value=\"$userflag\" selected/;
         <SCRIPT language=javascript>
         function showxz(){document.images.userxzs.src="$imagesurl/star/"+document.creator.userxz.options[document.creator.userxz.selectedIndex].value+".gif";}
         </SCRIPT>
-	<tr><td bgcolor=#ffffff valign=top><font color=#333333><b>ËùÊôĞÇ×ù£º</b>ÇëÑ¡ÔñÄãËùÊôµÄĞÇ×ù¡£<br>Èç¹ûÊäÈëÁËÉúÈÕµÄ»°£¬ÄÇÃ´´ËÏîÎŞĞ§£¡</td>
+	<tr><td bgcolor=#ffffff valign=top><font color=#333333><b>æ‰€å±æ˜Ÿåº§ï¼š</b>è¯·é€‰æ‹©ä½ æ‰€å±çš„æ˜Ÿåº§ã€‚<br>å¦‚æœè¾“å…¥äº†ç”Ÿæ—¥çš„è¯ï¼Œé‚£ä¹ˆæ­¤é¡¹æ— æ•ˆï¼</td>
 	<td bgcolor=#ffffff>
-        <SELECT name=\"userxz\" onchange=showxz() size=\"1\"> <OPTION value=blank>±£ÃÜ</OPTION> <OPTION value=\"z1\">°×Ñò×ù(3ÔÂ21--4ÔÂ19ÈÕ)</OPTION> <OPTION value=\"z2\">½ğÅ£×ù(4ÔÂ20--5ÔÂ20ÈÕ)</OPTION> <OPTION value=\"z3\">Ë«×Ó×ù(5ÔÂ21--6ÔÂ21ÈÕ)</OPTION> <OPTION value=\"z4\">¾ŞĞ·×ù(6ÔÂ22--7ÔÂ22ÈÕ)</OPTION> <OPTION value=\"z5\">Ê¨×Ó×ù(7ÔÂ23--8ÔÂ22ÈÕ)</OPTION> <OPTION value=\"z6\">´¦Å®×ù(8ÔÂ23--9ÔÂ22ÈÕ)</OPTION> <OPTION value=\"z7\">Ìì³Ó×ù(9ÔÂ23--10ÔÂ23ÈÕ)</OPTION> <OPTION value=\"z8\">ÌìĞ«×ù(10ÔÂ24--11ÔÂ21ÈÕ)</OPTION> <OPTION value=\"z9\">ÉäÊÖ×ù(11ÔÂ22--12ÔÂ21ÈÕ)</OPTION> <OPTION value=\"z10\">Ä§ôÉ×ù(12ÔÂ22--1ÔÂ19ÈÕ)</OPTION> <OPTION value=\"z11\">Ë®Æ¿×ù(1ÔÂ20--2ÔÂ18ÈÕ)</OPTION> <OPTION value=\"z12\">Ë«Óã×ù(2ÔÂ19--3ÔÂ20ÈÕ)</OPTION></SELECT> <IMG border=0 height=15 name=userxzs src=$imagesurl/star/$userxz.gif width=15 align=absmiddle>
+        <SELECT name=\"userxz\" onchange=showxz() size=\"1\"> <OPTION value=blank>ä¿å¯†</OPTION> <OPTION value=\"z1\">ç™½ç¾Šåº§(3æœˆ21--4æœˆ19æ—¥)</OPTION> <OPTION value=\"z2\">é‡‘ç‰›åº§(4æœˆ20--5æœˆ20æ—¥)</OPTION> <OPTION value=\"z3\">åŒå­åº§(5æœˆ21--6æœˆ21æ—¥)</OPTION> <OPTION value=\"z4\">å·¨èŸ¹åº§(6æœˆ22--7æœˆ22æ—¥)</OPTION> <OPTION value=\"z5\">ç‹®å­åº§(7æœˆ23--8æœˆ22æ—¥)</OPTION> <OPTION value=\"z6\">å¤„å¥³åº§(8æœˆ23--9æœˆ22æ—¥)</OPTION> <OPTION value=\"z7\">å¤©ç§¤åº§(9æœˆ23--10æœˆ23æ—¥)</OPTION> <OPTION value=\"z8\">å¤©èåº§(10æœˆ24--11æœˆ21æ—¥)</OPTION> <OPTION value=\"z9\">å°„æ‰‹åº§(11æœˆ22--12æœˆ21æ—¥)</OPTION> <OPTION value=\"z10\">é­”ç¾¯åº§(12æœˆ22--1æœˆ19æ—¥)</OPTION> <OPTION value=\"z11\">æ°´ç“¶åº§(1æœˆ20--2æœˆ18æ—¥)</OPTION> <OPTION value=\"z12\">åŒé±¼åº§(2æœˆ19--3æœˆ20æ—¥)</OPTION></SELECT> <IMG border=0 height=15 name=userxzs src=$imagesurl/star/$userxz.gif width=15 align=absmiddle>
         </TD></TR>
 	~;
         $xzhtml =~ s/value=\"$userxz\"/value=\"$userxz\" selected/;
@@ -1462,29 +1488,29 @@ $flaghtml =~ s/value=\"$userflag\"/value=\"$userflag\" selected/;
         <SCRIPT language=javascript>
         function showsx(){document.images.usersxs.src="$imagesurl/sx/"+document.creator.usersx.options[document.creator.usersx.selectedIndex].value+".gif";}
         </SCRIPT>
-	<tr><td bgcolor=#ffffff valign=top><font color=#333333><b>ËùÊôÉúĞ¤£º</b>ÇëÑ¡ÔñÄãËùÊôµÄÉúĞ¤¡£</td>
+	<tr><td bgcolor=#ffffff valign=top><font color=#333333><b>æ‰€å±ç”Ÿè‚–ï¼š</b>è¯·é€‰æ‹©ä½ æ‰€å±çš„ç”Ÿè‚–ã€‚</td>
 	<td bgcolor=#ffffff>
-        <SELECT name=\"usersx\" onchange=showsx() size=\"1\"> <OPTION value=blank>±£ÃÜ</OPTION> <OPTION value=\"sx1\">×ÓÊó</OPTION> <OPTION value=\"sx2\">³óÅ£</OPTION> <OPTION value=\"sx3\">Òú»¢</OPTION> <OPTION value=\"sx4\">Ã®ÍÃ</OPTION> <OPTION value=\"sx5\">³½Áú</OPTION> <OPTION value=\"sx6\">ËÈÉß</OPTION> <OPTION value=\"sx7\">ÎçÂí</OPTION> <OPTION value=\"sx8\">Î´Ñò</OPTION> <OPTION value=\"sx9\">Éêºï</OPTION> <OPTION value=\"sx10\">ÓÏ¼¦</OPTION> <OPTION value=\"sx11\">Ğç¹·</OPTION> <OPTION value=\"sx12\">º¥Öí</OPTION></SELECT> <IMG border=0 name=usersxs src=$imagesurl/sx/$usersx.gif align=absmiddle>
+        <SELECT name=\"usersx\" onchange=showsx() size=\"1\"> <OPTION value=blank>ä¿å¯†</OPTION> <OPTION value=\"sx1\">å­é¼ </OPTION> <OPTION value=\"sx2\">ä¸‘ç‰›</OPTION> <OPTION value=\"sx3\">å¯…è™</OPTION> <OPTION value=\"sx4\">å¯å…”</OPTION> <OPTION value=\"sx5\">è¾°é¾™</OPTION> <OPTION value=\"sx6\">å·³è›‡</OPTION> <OPTION value=\"sx7\">åˆé©¬</OPTION> <OPTION value=\"sx8\">æœªç¾Š</OPTION> <OPTION value=\"sx9\">ç”³çŒ´</OPTION> <OPTION value=\"sx10\">é…‰é¸¡</OPTION> <OPTION value=\"sx11\">æˆŒç‹—</OPTION> <OPTION value=\"sx12\">äº¥çŒª</OPTION></SELECT> <IMG border=0 name=usersxs src=$imagesurl/sx/$usersx.gif align=absmiddle>
         </TD></TR>
 	~;
         $sxhtml =~ s/value=\"$usersx\"/value=\"$usersx\" selected/;
         if ($avatars eq "on") {
-	    if (($personalavatar)&&($personalwidth)&&($personalheight)) { #×Ô¶¨ÒåÍ·Ïñ´æÔÚ
+	    if (($personalavatar)&&($personalwidth)&&($personalheight)) { #è‡ªå®šä¹‰å¤´åƒå­˜åœ¨
 	    	$personalavatar =~ s/\$imagesurl/${imagesurl}/o;
 	        if (($personalavatar =~ /\.swf$/i)&&($flashavatar eq "yes")) {
 	            $personalavatar=uri_escape($personalavatar);
-		    $useravatar = qq(<br>&nbsp; <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" WIDTH=$personalwidth HEIGHT=$personalheight><PARAM NAME=MOVIE VALUE=$personalavatar><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><EMBED SRC=$personalavatar WIDTH=$personalwidth HEIGHT=$personalheight PLAY=TRUE LOOP=TRUE QUALITY=HIGH></EMBED></OBJECT>¡¡[ <a href="$thisprog?action=deleteavatar&member=$inmemberencode">É¾ ³ı Í· Ïñ</a> ]);
+		    $useravatar = qq(<br>&nbsp; <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" WIDTH=$personalwidth HEIGHT=$personalheight><PARAM NAME=MOVIE VALUE=$personalavatar><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><EMBED SRC=$personalavatar WIDTH=$personalwidth HEIGHT=$personalheight PLAY=TRUE LOOP=TRUE QUALITY=HIGH></EMBED></OBJECT>ã€€[ <a href="$thisprog?action=deleteavatar&member=$inmemberencode">åˆ  é™¤ å¤´ åƒ</a> ]);
 	        }
 	        else {
 	            $personalavatar=uri_escape($personalavatar);
-		    $useravatar = qq(<br>&nbsp; <img src=$personalavatar border=0 width=$personalwidth height=$personalheight>¡¡[ <a href="$thisprog?action=deleteavatar&member=$inmemberencode">É¾ ³ı Í· Ïñ</a> ]);
+		    $useravatar = qq(<br>&nbsp; <img src=$personalavatar border=0 width=$personalwidth height=$personalheight>ã€€[ <a href="$thisprog?action=deleteavatar&member=$inmemberencode">åˆ  é™¤ å¤´ åƒ</a> ]);
 	        }
 	    }
             elsif (($useravatar ne "noavatar") && ($useravatar)) {
 		$useravatar=uri_escape($useravatar);
                 $useravatar = qq(<br>&nbsp; <img src="$imagesurl/avatars/$useravatar.gif" border=0 $defaultwidth $defaultheight>);
             }
-            else {$useravatar="Ã»ÓĞ"; }
+            else {$useravatar="æ²¡æœ‰"; }
         }
    $inmembert=$inmember;
    $inmembert=~tr/A-Z/a-z/;
@@ -1516,94 +1542,94 @@ $flaghtml =~ s/value=\"$userflag\"/value=\"$userflag\" selected/;
     <input type=hidden name="checkaction" value="yes">
     <input type=hidden name="member" value="$inmember">
     <tr>
-    <td bgcolor=#EEEEEE colspan=2><font color=#333333><b>Òª±à¼­µÄÓÃ»§Ãû³Æ£º </b>$membername</td>
+    <td bgcolor=#EEEEEE colspan=2><font color=#333333><b>è¦ç¼–è¾‘çš„ç”¨æˆ·åç§°ï¼š </b>$membername</td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§Í·ÏÎ£º</b><br>Äú¿ÉÒÔ×Ô¶¨ÒåÒ»¸öÍ·ÏÎ£¬<br>Ä¬ÈÏ Member ±íÊ¾ÎŞÍ·ÏÎ</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·å¤´è¡”ï¼š</b><br>æ‚¨å¯ä»¥è‡ªå®šä¹‰ä¸€ä¸ªå¤´è¡”ï¼Œ<br>é»˜è®¤ Member è¡¨ç¤ºæ— å¤´è¡”</td>
     <td bgcolor=#FFFFFF><input type=text name="membertitle" value="$membertitle" maxlength=20></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>·¢±í×ÜÊı£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>å‘è¡¨æ€»æ•°ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="numberofposts" value="$numberofposts"></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>»Ø¸´×ÜÊı£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>å›å¤æ€»æ•°ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="numberofreplys" value="$numberofreplys"></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>Ìù×Ó±»É¾³ıÊı£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>è´´å­è¢«åˆ é™¤æ•°ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="postdel" value="$postdel"></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÃÜÂë(Èç²»ĞŞ¸ÄÇëÁô¿Õ)£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>å¯†ç (å¦‚ä¸ä¿®æ”¹è¯·ç•™ç©º)ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="password"></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÓÊ¼şµØÖ·/MSNµØÖ·£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>é‚®ä»¶åœ°å€/MSNåœ°å€ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="emailaddress" value="$emailaddress"></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>Ö÷Ò³µØÖ·£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ä¸»é¡µåœ°å€ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="homepage" value="$homepage"></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>OICQ ºÅ£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>OICQ å·ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="oicqnumber" value="$oicqnumber"></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ICQ ºÅ£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ICQ å·ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="icqnumber" value="$icqnumber"></td>
     </tr>$flaghtml<tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>À´×ÔºÎ·½£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>æ¥è‡ªä½•æ–¹ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text size=20 name="location" value="$location" maxlength=12></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>½­ºşÃÅÅÉ:</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>æ±Ÿæ¹–é—¨æ´¾:</b></td>
     <td bgcolor=#FFFFFF><input type=text size=20 name="jhmp" value="$jhmp" maxlength=20></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>¸öÈËÍşÍû:</b></td>
-    <td bgcolor=#FFFFFF><input type=text size=20 name="rating" value="$rating" maxlength=2> (-5 µ½ $maxweiwang Ö®¼ä)</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ä¸ªäººå¨æœ›:</b></td>
+    <td bgcolor=#FFFFFF><input type=text size=20 name="rating" value="$rating" maxlength=2> (-5 åˆ° $maxweiwang ä¹‹é—´)</td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>»ı·Ö:</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ç§¯åˆ†:</b></td>
     <td bgcolor=#FFFFFF><input type=text name="jifen" value="$jifen" maxlength=12 size=12></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>¸öÈËÇ©Ãû£º</b></td>
-    <td bgcolor=#FFFFFF><textarea name="newsignature" cols="60" rows="8">$signature</textarea><br><input type="checkbox" name="notshowsignature" value="yes" $nsscheck>ÆÁ±Î´ËÓÃ»§Ç©Ãû£¿</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ä¸ªäººç­¾åï¼š</b></td>
+    <td bgcolor=#FFFFFF><textarea name="newsignature" cols="60" rows="8">$signature</textarea><br><input type="checkbox" name="notshowsignature" value="yes" $nsscheck>å±è”½æ­¤ç”¨æˆ·ç­¾åï¼Ÿ</td>
     </tr><tr>
 	~;
 
-        $tempoutput = "<select name=\"sex\" size=\"1\"><option value=\"no\">±£ÃÜ </option><option value=\"m\">Ë§¸ç </option><option value=\"f\">ÃÀÅ® </option></select>\n";
+        $tempoutput = "<select name=\"sex\" size=\"1\"><option value=\"no\">ä¿å¯† </option><option value=\"m\">å¸…å“¥ </option><option value=\"f\">ç¾å¥³ </option></select>\n";
         $tempoutput =~ s/value=\"$sex\"/value=\"$sex\" selected/;
 	
     print qq~
 	<tr>
-	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>ĞÔ±ğ£º</b></td>
+	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>æ€§åˆ«ï¼š</b></td>
 	<td bgcolor=#FFFFFF><font color=$fontcolormisc>$tempoutput</font></td>
 	</tr>
 	~;
 
-        $tempoutput = "<select name=\"education\" size=\"1\"><option value=\"±£ÃÜ\">±£ÃÜ </option><option value=\"Ğ¡Ñ§\">Ğ¡Ñ§ </option><option value=\"³õÖĞ\">³õÖĞ </option><option value=\"¸ßÖĞ\">¸ßÖĞ</option><option value=\"ÖĞ×¨\">ÖĞ×¨</option><option value=\"´ó×¨\">´ó×¨</option><option value=\"±¾¿Æ\">±¾¿Æ</option><option value=\"Ë¶Ê¿\">Ë¶Ê¿</option><option value=\"²©Ê¿\">²©Ê¿</option><option value=\"²©Ê¿ºó\">²©Ê¿ºó</option></select>\n";
+        $tempoutput = "<select name=\"education\" size=\"1\"><option value=\"ä¿å¯†\">ä¿å¯† </option><option value=\"å°å­¦\">å°å­¦ </option><option value=\"åˆä¸­\">åˆä¸­ </option><option value=\"é«˜ä¸­\">é«˜ä¸­</option><option value=\"ä¸­ä¸“\">ä¸­ä¸“</option><option value=\"å¤§ä¸“\">å¤§ä¸“</option><option value=\"æœ¬ç§‘\">æœ¬ç§‘</option><option value=\"ç¡•å£«\">ç¡•å£«</option><option value=\"åšå£«\">åšå£«</option><option value=\"åšå£«å\">åšå£«å</option></select>\n";
         $tempoutput =~ s/value=\"$education\"/value=\"$education\" selected/;
 	
     print qq~
 	<tr>
-	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>×î¸ßÑ§Àú£º</b></td>
+	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>æœ€é«˜å­¦å†ï¼š</b></td>
 	<td bgcolor=#FFFFFF><font color=$fontcolormisc>$tempoutput</font></td>
 	</tr>
 	~;
 
-        $tempoutput = "<select name=\"marry\" size=\"1\"><option value=\"±£ÃÜ\">±£ÃÜ </option><option value=\"Î´»é\">Î´»é </option><option value=\"ÒÑ»é\">ÒÑ»é </option><option value=\"Àë»é\">Àë»é </option><option value=\"É¥Å¼\">É¥Å¼ </option></select>\n";
+        $tempoutput = "<select name=\"marry\" size=\"1\"><option value=\"ä¿å¯†\">ä¿å¯† </option><option value=\"æœªå©š\">æœªå©š </option><option value=\"å·²å©š\">å·²å©š </option><option value=\"ç¦»å©š\">ç¦»å©š </option><option value=\"ä¸§å¶\">ä¸§å¶ </option></select>\n";
         $tempoutput =~ s/value=\"$marry\"/value=\"$marry\" selected/;
 	
     print qq~
 	<tr>
-	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>»éÒö×´¿ö£º</b></td>
+	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>å©šå§»çŠ¶å†µï¼š</b></td>
 	<td bgcolor=#FFFFFF><font color=$fontcolormisc>$tempoutput</font></td>
 	</tr>
 	~;
 
-        $tempoutput = "<select name=\"work\" size=\"1\"><option value=\"±£ÃÜ\">±£ÃÜ </option><option value=\"¼ÆËã»úÒµ\">¼ÆËã»úÒµ </option><option value=\"½ğÈÚÒµ\">½ğÈÚÒµ </option><option value=\"ÉÌÒµ\">ÉÌÒµ </option><option value=\"·şÎñĞĞÒµ\">·şÎñĞĞÒµ </option><option value=\"½ÌÓıÒµ\">½ÌÓıÒµ </option><option value=\"Ñ§Éú\">Ñ§Éú </option><option value=\"¹¤³ÌÊ¦\">¹¤³ÌÊ¦ </option><option value=\"Ö÷¹Ü£¬¾­Àí\">Ö÷¹Ü£¬¾­Àí </option><option value=\"Õş¸®²¿ÃÅ\">Õş¸®²¿ÃÅ </option><option value=\"ÖÆÔìÒµ\">ÖÆÔìÒµ </option><option value=\"ÏúÊÛ/¹ã¸æ/ÊĞ³¡\">ÏúÊÛ/¹ã¸æ/ÊĞ³¡ </option><option value=\"Ê§ÒµÖĞ\">Ê§ÒµÖĞ </option></select>\n";
+        $tempoutput = "<select name=\"work\" size=\"1\"><option value=\"ä¿å¯†\">ä¿å¯† </option><option value=\"è®¡ç®—æœºä¸š\">è®¡ç®—æœºä¸š </option><option value=\"é‡‘èä¸š\">é‡‘èä¸š </option><option value=\"å•†ä¸š\">å•†ä¸š </option><option value=\"æœåŠ¡è¡Œä¸š\">æœåŠ¡è¡Œä¸š </option><option value=\"æ•™è‚²ä¸š\">æ•™è‚²ä¸š </option><option value=\"å­¦ç”Ÿ\">å­¦ç”Ÿ </option><option value=\"å·¥ç¨‹å¸ˆ\">å·¥ç¨‹å¸ˆ </option><option value=\"ä¸»ç®¡ï¼Œç»ç†\">ä¸»ç®¡ï¼Œç»ç† </option><option value=\"æ”¿åºœéƒ¨é—¨\">æ”¿åºœéƒ¨é—¨ </option><option value=\"åˆ¶é€ ä¸š\">åˆ¶é€ ä¸š </option><option value=\"é”€å”®/å¹¿å‘Š/å¸‚åœº\">é”€å”®/å¹¿å‘Š/å¸‚åœº </option><option value=\"å¤±ä¸šä¸­\">å¤±ä¸šä¸­ </option></select>\n";
         $tempoutput =~ s/value=\"$work\"/value=\"$work\" selected/;
 	
     print qq~
 	<tr>
-	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>Ö°Òµ×´¿ö£º</b></td>
+	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>èŒä¸šçŠ¶å†µï¼š</b></td>
 	<td bgcolor=#FFFFFF><font color=$fontcolormisc>$tempoutput</font></td>
 	</tr>
 	~;
@@ -1616,8 +1642,8 @@ $flaghtml =~ s/value=\"$userflag\"/value=\"$userflag\" selected/;
 	
  print qq~
 	<tr>
-	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>ÉúÈÕ£º</b>Èç²»ÏëÌîĞ´£¬ÇëÈ«²¿Áô¿Õ¡£</td>
-	<td bgcolor=#FFFFFF><font color=$fontcolormisc><input type="text" name="year" size=4 maxlength=4 value="$year">Äê$tempoutput1ÔÂ$tempoutput2ÈÕ</font></td>
+	<td bgcolor=#FFFFFF><font color=$fontcolormisc><b>ç”Ÿæ—¥ï¼š</b>å¦‚ä¸æƒ³å¡«å†™ï¼Œè¯·å…¨éƒ¨ç•™ç©ºã€‚</td>
+	<td bgcolor=#FFFFFF><font color=$fontcolormisc><input type="text" name="year" size=4 maxlength=4 value="$year">å¹´$tempoutput1æœˆ$tempoutput2æ—¥</font></td>
 	</tr>$xzhtml
         </tr>$sxhtml
 	~;
@@ -1645,30 +1671,30 @@ $flaghtml =~ s/value=\"$userflag\"/value=\"$userflag\" selected/;
 }
 undef @tempawards;
    print qq~
-   <td bgcolor=#FFFFFF><font color=#333333><b>ÂÛÌ³Ñ«ÕÂ£º</b></td>
-   <td bgcolor=#FFFFFF>Ñ«ÕÂÒ»£º
+   <td bgcolor=#FFFFFF><font color=#333333><b>è®ºå›å‹‹ç« ï¼š</b></td>
+   <td bgcolor=#FFFFFF>å‹‹ç« ä¸€ï¼š
    <select name="tuseradd1">
-   <option value="">Ã»ÓĞÑ«ÕÂ
+   <option value="">æ²¡æœ‰å‹‹ç« 
    $awardselect1
-   </select> Ñ«ÕÂ¶ş£º
+   </select> å‹‹ç« äºŒï¼š
    <select name="tuseradd2">
-   <option value="">Ã»ÓĞÑ«ÕÂ
+   <option value="">æ²¡æœ‰å‹‹ç« 
    $awardselect2
-   </select><br>Ñ«ÕÂÈı£º
+   </select><br>å‹‹ç« ä¸‰ï¼š
    <select name="tuseradd3">
-   <option value="">Ã»ÓĞÑ«ÕÂ
+   <option value="">æ²¡æœ‰å‹‹ç« 
    $awardselect3
-   </select> Ñ«ÕÂËÄ£º
+   </select> å‹‹ç« å››ï¼š
    <select name="tuseradd4">
-   <option value="">Ã»ÓĞÑ«ÕÂ
+   <option value="">æ²¡æœ‰å‹‹ç« 
    $awardselect4
-   </select><br>Ñ«ÕÂÎå£º
+   </select><br>å‹‹ç« äº”ï¼š
    <select name="tuseradd5">
-   <option value="">Ã»ÓĞÑ«ÕÂ
+   <option value="">æ²¡æœ‰å‹‹ç« 
    $awardselect5
-   </select> Ñ«ÕÂÁù£º
+   </select> å‹‹ç« å…­ï¼š
    <select name="tuseradd6">
-   <option value="">Ã»ÓĞÑ«ÕÂ
+   <option value="">æ²¡æœ‰å‹‹ç« 
    $awardselect6
     </select></td>
    </tr><tr>
@@ -1676,10 +1702,10 @@ undef @tempawards;
     $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 
     print qq~
-    <td bgcolor=#FFFFFF><font color=#333333><b>¶îÍâ½ğÇ®£º</b></td>
-    <td bgcolor=#FFFFFF><input type=text name="mymoney" value="$mymoney" maxlength=12 size=12> Ä¿Ç°ÏÖ½ğ£º$mymoney1 $moneyname</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>é¢å¤–é‡‘é’±ï¼š</b></td>
+    <td bgcolor=#FFFFFF><input type=text name="mymoney" value="$mymoney" maxlength=12 size=12> ç›®å‰ç°é‡‘ï¼š$mymoney1 $moneyname</td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>·ÃÎÊ´ÎÊı£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>è®¿é—®æ¬¡æ•°ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="visitno" value="$visitno" maxlength=7 size=7></td>
     </tr><tr>
     ~;
@@ -1691,46 +1717,46 @@ undef @tempawards;
    $joineddate = &dateformat($joineddate);
    if ($lastgone ne "") {$lastgone   = &dateformat($lastgone); } else {$lastgone = $joineddate; }
    print qq~
-    <td bgcolor=#FFFFFF><font color=#333333><b>Ê±²î£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>æ—¶å·®ï¼š</b></td>
     <td bgcolor=#FFFFFF>$tempoutput</td>
     </tr><tr>
-    <td bgcolor=#FFFFFF colspan=2><font color=#333333><b>Ë½ÓĞÂÛÌ³·ÃÎÊÈ¨ÏŞ£º</b><br>
+    <td bgcolor=#FFFFFF colspan=2><font color=#333333><b>ç§æœ‰è®ºå›è®¿é—®æƒé™ï¼š</b><br>
     $privateoutput</td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§ÀàĞÍ£º</b><br>×¢Òâ£ºÌ³Ö÷ÎªÂÛÌ³¹ÜÀíÔ±£¬ÓĞ¾ø¶Ô¸ßµÄÈ¨ÏŞ¡£<br>ËùÒÔÎñ±ØÉÙÌí¼Ó´ËÀàĞÍµÄÓÃ»§¡£<br>×Ü°æÖ÷ÔÚÈÎºÎÂÛÌ³¶¼¾ßÓĞ°æÖ÷È¨ÏŞ£¬<br>ÔÚ¹ÜÀíÖĞĞÄÖ»ÓĞÒ»¶¨È¨ÏŞ¡£</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·ç±»å‹ï¼š</b><br>æ³¨æ„ï¼šå›ä¸»ä¸ºè®ºå›ç®¡ç†å‘˜ï¼Œæœ‰ç»å¯¹é«˜çš„æƒé™ã€‚<br>æ‰€ä»¥åŠ¡å¿…å°‘æ·»åŠ æ­¤ç±»å‹çš„ç”¨æˆ·ã€‚<br>æ€»ç‰ˆä¸»åœ¨ä»»ä½•è®ºå›éƒ½å…·æœ‰ç‰ˆä¸»æƒé™ï¼Œ<br>åœ¨ç®¡ç†ä¸­å¿ƒåªæœ‰ä¸€å®šæƒé™ã€‚</td>
     <td bgcolor=#FFFFFF>$memberstateoutput</td>
     </tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>×¢²áÊ±¼ä£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>æ³¨å†Œæ—¶é—´ï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>$joineddate</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>×¢²áÊ±µÄ IP µØÖ·£º</b></td>
-    <td bgcolor=#FFFFFF><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$ipaddress',420,320)" title="LB WHOISĞÅÏ¢"><font color=#333333>$ipaddress</font></span> (<a href="$thisprog?action=viewip&letter=$ipaddress">ÕÒÏàÍ¬£É£ĞµÄÓÃ»§</a>)</td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>×îºó·ÃÎÊÊ±¼ä£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>æ³¨å†Œæ—¶çš„ IP åœ°å€ï¼š</b></td>
+    <td bgcolor=#FFFFFF><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$ipaddress',420,320)" title="LB WHOISä¿¡æ¯"><font color=#333333>$ipaddress</font></span> (<a href="$thisprog?action=viewip&letter=$ipaddress">æ‰¾ç›¸åŒï¼©ï¼°çš„ç”¨æˆ·</a>)</td></tr>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>æœ€åè®¿é—®æ—¶é—´ï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>$lastgone</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ÔÚÏßÊ±¼ä£º</b></td>
-    <td bgcolor=#FFFFFF><font color=#333333><input type=text size=12 name="onlinetime" value="$onlinetime" maxlength=12> Ãë</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§Í·Ïñ£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>åœ¨çº¿æ—¶é—´ï¼š</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><input type=text size=12 name="onlinetime" value="$onlinetime" maxlength=12> ç§’</font></td></tr>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·å¤´åƒï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>$useravatar</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§¶ÌÑ¶Ï¢£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·çŸ­è®¯æ¯ï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>
-      ÊÕ¼şÏä¹² $inboxmsg Ìõ¡¡[ <a href="$thisprog?action=boxaction&box=inbox&checkaction=delete&member=$inmemberencode">É¾³ıÊÕ¼şÏä</a> ]¡¡[ <a href="$thisprog?action=boxaction&box=inbox&checkaction=viewbox&member=$inmemberencode">¼ìÊÓÊÕ¼şÏä</a> ]<br>
-      ·¢¼şÏä¹² $outboxmsg Ìõ¡¡[ <a href="$thisprog?action=boxaction&box=outbox&checkaction=delete&member=$inmemberencode">É¾³ı·¢¼şÏä</a> ]¡¡[ <a href="$thisprog?action=boxaction&box=outbox&checkaction=viewbox&member=$inmemberencode">¼ìÊÓ·¢¼şÏä</a> ]</font></td></tr>
+      æ”¶ä»¶ç®±å…± $inboxmsg æ¡ã€€[ <a href="$thisprog?action=boxaction&box=inbox&checkaction=delete&member=$inmemberencode">åˆ é™¤æ”¶ä»¶ç®±</a> ]ã€€[ <a href="$thisprog?action=boxaction&box=inbox&checkaction=viewbox&member=$inmemberencode">æ£€è§†æ”¶ä»¶ç®±</a> ]<br>
+      å‘ä»¶ç®±å…± $outboxmsg æ¡ã€€[ <a href="$thisprog?action=boxaction&box=outbox&checkaction=delete&member=$inmemberencode">åˆ é™¤å‘ä»¶ç®±</a> ]ã€€[ <a href="$thisprog?action=boxaction&box=outbox&checkaction=viewbox&member=$inmemberencode">æ£€è§†å‘ä»¶ç®±</a> ]</font></td></tr>
 
     <input type=hidden name="joineddate" value="$joineddate1">
     <tr>
-    <td colspan=2 bgcolor=#FFFFFF align=center>[ <a href="$thisprog?action=deletemember&member=$inmemberencode">É¾ ³ı ´Ë ÓÃ »§</a> ]</td>
+    <td colspan=2 bgcolor=#FFFFFF align=center>[ <a href="$thisprog?action=deletemember&member=$inmemberencode">åˆ  é™¤ æ­¤ ç”¨ æˆ·</a> ]</td>
     </tr>
     <tr>
-    <td colspan=2 bgcolor=#EEEEEE align=center><input type=submit value="Ìá ½»" name=submit></form></td>
+    <td colspan=2 bgcolor=#EEEEEE align=center><input type=submit value="æ äº¤" name=submit></form></td>
     </tr>
     ~;
   }
   else {
-    my $memteam1 = qq~<option value="rz1">$defrz1(ÈÏÖ¤ÓÃ»§)~ if ($defrz1 ne "");
-    my $memteam2 = qq~<option value="rz2">$defrz2(ÈÏÖ¤ÓÃ»§)~ if ($defrz2 ne "");
-    my $memteam3 = qq~<option value="rz3">$defrz3(ÈÏÖ¤ÓÃ»§)~ if ($defrz3 ne "");
-    my $memteam4 = qq~<option value="rz4">$defrz4(ÈÏÖ¤ÓÃ»§)~ if ($defrz4 ne "");
-    my $memteam5 = qq~<option value="rz5">$defrz5(ÈÏÖ¤ÓÃ»§)~ if ($defrz5 ne "");
-    $memberstateoutput = qq~<select name="membercode"><option value="me">Ò»°ãÓÃ»§$memteam1$memteam2$memteam3$memteam4$memteam5<option value="rz">ÈÏÖ¤ÓÃ»§<option value="banned">½ûÖ¹´ËÓÃ»§·¢ÑÔ<option value="masked">ÆÁ±Î´ËÓÃ»§Ìù×Ó</select>~;
+    my $memteam1 = qq~<option value="rz1">$defrz1(è®¤è¯ç”¨æˆ·)~ if ($defrz1 ne "");
+    my $memteam2 = qq~<option value="rz2">$defrz2(è®¤è¯ç”¨æˆ·)~ if ($defrz2 ne "");
+    my $memteam3 = qq~<option value="rz3">$defrz3(è®¤è¯ç”¨æˆ·)~ if ($defrz3 ne "");
+    my $memteam4 = qq~<option value="rz4">$defrz4(è®¤è¯ç”¨æˆ·)~ if ($defrz4 ne "");
+    my $memteam5 = qq~<option value="rz5">$defrz5(è®¤è¯ç”¨æˆ·)~ if ($defrz5 ne "");
+    $memberstateoutput = qq~<select name="membercode"><option value="me">ä¸€èˆ¬ç”¨æˆ·$memteam1$memteam2$memteam3$memteam4$memteam5<option value="rz">è®¤è¯ç”¨æˆ·<option value="banned">ç¦æ­¢æ­¤ç”¨æˆ·å‘è¨€<option value="masked">å±è”½æ­¤ç”¨æˆ·è´´å­</select>~;
     $memberstateoutput =~ s/value=\"$membercode\"/value=\"$membercode\" selected/g;
     ($year, $month, $day) = split(/\//, $born);
     if ($lastgone ne "") {$lastgone   = &dateformat($lastgone); } else {$lastgone = $joineddate; }
@@ -1766,51 +1792,51 @@ undef @tempawards;
     <input type=hidden name="jifen" value="$jifen">
 
     <tr>
-    <td bgcolor=#EEEEEE colspan=2><font color=#333333><b>Òª±à¼­µÄÓÃ»§Ãû³Æ£º </b>$membername</td>
+    <td bgcolor=#EEEEEE colspan=2><font color=#333333><b>è¦ç¼–è¾‘çš„ç”¨æˆ·åç§°ï¼š </b>$membername</td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§Í·ÏÎ£º</b><br>Äú¿ÉÒÔ×Ô¶¨ÒåÒ»¸öÍ·ÏÎ£¬<br>Ä¬ÈÏ Member ±íÊ¾ÎŞÍ·ÏÎ</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·å¤´è¡”ï¼š</b><br>æ‚¨å¯ä»¥è‡ªå®šä¹‰ä¸€ä¸ªå¤´è¡”ï¼Œ<br>é»˜è®¤ Member è¡¨ç¤ºæ— å¤´è¡”</td>
     <td bgcolor=#FFFFFF><input type=text name="membertitle" value="$membertitle" maxlength=20></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÃÜÂë(Èç²»ĞŞ¸ÄÇëÁô¿Õ)£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>å¯†ç (å¦‚ä¸ä¿®æ”¹è¯·ç•™ç©º)ï¼š</b></td>
     <td bgcolor=#FFFFFF><input type=text name="password"></td>
     </tr>
     <tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>½­ºşÃÅÅÉ:</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>æ±Ÿæ¹–é—¨æ´¾:</b></td>
     <td bgcolor=#FFFFFF><input type=text size=20 name="jhmp" value="$jhmp" maxlength=20></td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>¸öÈËÍşÍû:</b></td>
-    <td bgcolor=#FFFFFF><input type=text size=20 name="rating" value="$rating" maxlength=2> (-5 µ½ $maxweiwang Ö®¼ä)</td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ä¸ªäººå¨æœ›:</b></td>
+    <td bgcolor=#FFFFFF><input type=text size=20 name="rating" value="$rating" maxlength=2> (-5 åˆ° $maxweiwang ä¹‹é—´)</td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>¸öÈËÇ©Ãû£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ä¸ªäººç­¾åï¼š</b></td>
     <td bgcolor=#FFFFFF><textarea name="newsignature" cols="60" rows="8">$signature</textarea></td>
     </tr><tr>
     ~;
    $joineddate = &dateformat($joineddate);
    print qq~
-    <td bgcolor=#FFFFFF colspan=2><font color=#333333><b>Ë½ÓĞÂÛÌ³·ÃÎÊÈ¨ÏŞ£º</b><br>
+    <td bgcolor=#FFFFFF colspan=2><font color=#333333><b>ç§æœ‰è®ºå›è®¿é—®æƒé™ï¼š</b><br>
     $privateoutput</td>
     </tr><tr>
-    <td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§ÀàĞÍ£º</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·ç±»å‹ï¼š</b></td>
     <td bgcolor=#FFFFFF>$memberstateoutput</td>
     </tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>×¢²áÊ±¼ä£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>æ³¨å†Œæ—¶é—´ï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>$joineddate</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>×¢²áÊ±µÄ IP µØÖ·£º</b></td>
-    <td bgcolor=#FFFFFF><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$ipaddress',420,320)" title="LB WHOISĞÅÏ¢"><font color=#333333>$ipaddress</font></span> (<a href="$thisprog?action=viewip&letter=$ipaddress">ÕÒÏàÍ¬£É£ĞµÄÓÃ»§</a>)</td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>×îºó·ÃÎÊÊ±¼ä£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>æ³¨å†Œæ—¶çš„ IP åœ°å€ï¼š</b></td>
+    <td bgcolor=#FFFFFF><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$ipaddress',420,320)" title="LB WHOISä¿¡æ¯"><font color=#333333>$ipaddress</font></span> (<a href="$thisprog?action=viewip&letter=$ipaddress">æ‰¾ç›¸åŒï¼©ï¼°çš„ç”¨æˆ·</a>)</td></tr>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>æœ€åè®¿é—®æ—¶é—´ï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>$lastgone</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ÔÚÏßÊ±¼ä£º</b></td>
-    <td bgcolor=#FFFFFF><font color=#333333><input type=text size=10 name="onlinetime" value="$onlinetime" maxlength=10> Ãë</font></td></tr>
-    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ÓÃ»§Í·Ïñ£º</b></td>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>åœ¨çº¿æ—¶é—´ï¼š</b></td>
+    <td bgcolor=#FFFFFF><font color=#333333><input type=text size=10 name="onlinetime" value="$onlinetime" maxlength=10> ç§’</font></td></tr>
+    <tr><td bgcolor=#FFFFFF><font color=#333333><b>ç”¨æˆ·å¤´åƒï¼š</b></td>
     <td bgcolor=#FFFFFF><font color=#333333>$useravatar</font></td></tr>
     <tr>
-    <td colspan=2 bgcolor=#FFFFFF align=center>[ <a href="$thisprog?action=deletemember&member=$inmemberencode">É¾ ³ı ´Ë ÓÃ »§</a> ]</td>
+    <td colspan=2 bgcolor=#FFFFFF align=center>[ <a href="$thisprog?action=deletemember&member=$inmemberencode">åˆ  é™¤ æ­¤ ç”¨ æˆ·</a> ]</td>
     </tr>
 
     <tr>
-    <td colspan=2 bgcolor=#EEEEEE align=center><input type=submit value="Ìá ½»" name=submit></form></td>
+    <td colspan=2 bgcolor=#EEEEEE align=center><input type=submit value="æ äº¤" name=submit></form></td>
     </tr>
     ~;
   	
@@ -1829,11 +1855,11 @@ sub deletemember {
     my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $bankadd1, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 
     if ((($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "amo")||($membercode eq "mo"))&&($oldmembercode eq "smo")) {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>×Ü°ßÖñÎŞÈ¨É¾³ıÌ³Ö÷ºÍ°ßÖñ×ÊÁÏ£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>æ€»æ–‘ç«¹æ— æƒåˆ é™¤å›ä¸»å’Œæ–‘ç«¹èµ„æ–™ï¼</b></td></tr>";
             exit;
     }
     if ($inmembername eq $inmember) {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>×Ô¼º²»ÄÜÉ¾³ı×Ô¼ºµÄ×ÊÁÏÓ´£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>è‡ªå·±ä¸èƒ½åˆ é™¤è‡ªå·±çš„èµ„æ–™å“Ÿï¼</b></td></tr>";
             exit;
     }
 
@@ -2018,7 +2044,7 @@ if ($checkaction eq "yes") {
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#333333><b>ÓÃ»§ÒÑ¾­´ÓÊı¾İ¿âÖĞÍêÈ«É¾³ıÁË</b>
+        <font color=#333333><b>ç”¨æˆ·å·²ç»ä»æ•°æ®åº“ä¸­å®Œå…¨åˆ é™¤äº†</b>
         </td></tr>
          ~;
 
@@ -2034,13 +2060,13 @@ else {
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#990000><b>¾¯¸æ£¡£¡</b>
+        <font color=#990000><b>è­¦å‘Šï¼ï¼</b>
         </td></tr>
         
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-        <font color=#333333>Ö»ÓĞµã»÷ÏÂÃæµÄÁ´½Ó²Å¿ÉÒÔÉ¾³ıÓÃ»§<b>"$cleanedmember"</b><p>
-        >> <a href="$thisprog?action=deletemember&checkaction=yes&member=$inmember">É¾³ıÓÃ»§</a> <<
+        <font color=#333333>åªæœ‰ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥æ‰å¯ä»¥åˆ é™¤ç”¨æˆ·<b>"$cleanedmember"</b><p>
+        >> <a href="$thisprog?action=deletemember&checkaction=yes&member=$inmember">åˆ é™¤ç”¨æˆ·</a> <<
         </td></tr>
         </table></td></tr></table>
         ~;
@@ -2053,7 +2079,7 @@ sub unban {
         &getmember("$inmember");
     
     if ($membercode ne "banned") {
-            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>$inmember Ã»ÓĞ±»½ûÖ¹·¢ÑÔ°¡£¡</b></td></tr>";
+            print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>$inmember æ²¡æœ‰è¢«ç¦æ­¢å‘è¨€å•Šï¼</b></td></tr>";
             exit;
     }
 
@@ -2101,7 +2127,7 @@ sub unban {
         print qq~
         <tr>
         <td bgcolor=#EEEEEE align=center colspan=2>
-        <font color=#333333><b>$membername ÒÑ¾­È¡Ïû½ûÖ¹·¢ÑÔ</b>
+        <font color=#333333><b>$membername å·²ç»å–æ¶ˆç¦æ­¢å‘è¨€</b>
         </td></tr>
         ~;
 
@@ -2113,8 +2139,8 @@ print qq~
 <tr> 
 <td bgcolor=#FFFFFF align=center colspan=2> 
 <font color=#990000> 
-<b>´íÎó</b><p> 
-<font color=#333333>ÄãÃ»ÓĞÈ¨ÏŞÊ¹ÓÃÕâ¸ö¹¦ÄÜ£¡</font> 
+<b>é”™è¯¯</b><p> 
+<font color=#333333>ä½ æ²¡æœ‰æƒé™ä½¿ç”¨è¿™ä¸ªåŠŸèƒ½ï¼</font> 
 </td> 
 </tr> 
 ~; 
@@ -2142,7 +2168,7 @@ $username=~ s/.cgi//isg;
 &getmember("$username");
 $membername = $username if ($membername eq "");
 print qq~ 
-<td width=10%><a href="setmembers.cgi?action=undelmember&undelname=$membername" title="½«»áÔ± $membername ´ÓÔ¤É¾³ıÖĞÈ¡Ïû">$membername</a></td>~; ### ß@ĞĞ×òÌìÅªåeÒÑĞŞ¸Ä , Ö®Ç°ÓĞĞŞ¸Äß^µÄÈËÕˆ¸üĞÂÒ»ÏÂ 
+<td width=10%><a href="setmembers.cgi?action=undelmember&undelname=$membername" title="å°†ä¼šå‘˜ $membername ä»é¢„åˆ é™¤ä¸­å–æ¶ˆ">$membername</a></td>~; ### é€™è¡Œæ˜¨å¤©å¼„éŒ¯å·²ä¿®æ”¹ , ä¹‹å‰æœ‰ä¿®æ”¹éçš„äººè«‹æ›´æ–°ä¸€ä¸‹ 
 } 
 $i++; 
 if ($i / 5 eq int($i/5)) {print qq~</tr><tr>~; 
@@ -2150,7 +2176,7 @@ if ($i / 5 eq int($i/5)) {print qq~</tr><tr>~;
 } 
 print qq~</table> 
 <br><br> 
-<b><center>¹²ÓĞ $i Ãû»áÔ±·ûºÏÔ¤É¾³ı×Ê¸ñ</center></b><br> 
+<b><center>å…±æœ‰ $i åä¼šå‘˜ç¬¦åˆé¢„åˆ é™¤èµ„æ ¼</center></b><br> 
 </td></tr> 
 ~; 
 } 
@@ -2161,8 +2187,8 @@ print qq~
 <tr> 
 <td bgcolor=#FFFFFF align=center colspan=2> 
 <font color=#990000> 
-<b>´íÎó</b><p> 
-<font color=#333333>ÄãÃ»ÓĞÈ¨ÏŞÊ¹ÓÃÕâ¸ö¹¦ÄÜ£¡</font> 
+<b>é”™è¯¯</b><p> 
+<font color=#333333>ä½ æ²¡æœ‰æƒé™ä½¿ç”¨è¿™ä¸ªåŠŸèƒ½ï¼</font> 
 </td> 
 </tr> 
 ~; 
@@ -2200,7 +2226,7 @@ $i++;
 close(FILE); 
 print qq~</table> 
 <br><br> 
-<b><center>»áÔ± $undelname ÒÑ´ÓÔ¤É¾³ıÃûµ¥ÖĞÈ¡Ïû</center></b><br> 
+<b><center>ä¼šå‘˜ $undelname å·²ä»é¢„åˆ é™¤åå•ä¸­å–æ¶ˆ</center></b><br> 
 </td></tr> 
 ~; 
 } 
@@ -2210,24 +2236,24 @@ sub boxaction {
    $oldmembercode = $membercode;
    &getmember("$inmember");
    if ((($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "amo")||($membercode eq "mo"))&&($oldmembercode eq "smo")) {
-           print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>×Ü°ßÖñÎŞÈ¨²é¿´Ì³Ö÷ºÍ°ßÖñ×ÊÁÏ£¡</b></td></tr>";
+           print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>æ€»æ–‘ç«¹æ— æƒæŸ¥çœ‹å›ä¸»å’Œæ–‘ç«¹èµ„æ–™ï¼</b></td></tr>";
            exit;
    }
    $inmembert=$inmember;
    $inmembert=~tr/A-Z/a-z/;
    if($box eq "inbox"){
    $filepath = "${lbdir}$msgdir/in/$inmembert\_msg.cgi";
-   $boxname = "ÊÕ¼şÏä";
+   $boxname = "æ”¶ä»¶ç®±";
    }else{
    $filepath = "${lbdir}$msgdir/out/$inmembert\_out.cgi";
-   $boxname = "·¢¼şÏä";
+   $boxname = "å‘ä»¶ç®±";
    }
    if($checkaction eq "delete"){
    unlink $filepath;
     print qq~
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#333333><b>ÓÃ»§$boxnameÒÑ¾­É¾³ıÁË</b>
+    <font color=#333333><b>ç”¨æˆ·$boxnameå·²ç»åˆ é™¤äº†</b>
     </td></tr>
     ~;
    }else{
@@ -2244,7 +2270,7 @@ therange.execCommand("Copy")}
 </script>
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
-    <font color=#333333><b>ÓÃ»§$boxnameµÄÑ¶Ï¢</b></td></tr>
+    <font color=#333333><b>ç”¨æˆ·$boxnameçš„è®¯æ¯</b></td></tr>
     <tr>
     <form name="form2"><td bgcolor=#FFFFFF align=center colspan=2>
     <TEXTAREA name=inpost rows=12 style="width:90%">~;
@@ -2252,7 +2278,7 @@ $current_time=localtime;
 foreach (@messanges) {
 $messangeswords = $_;
 ($usrname, $msgread, $msgtime, $msgtitle, $msgwords) = split(/\t/,$_);
-$usrname =~ s/^£ª£££¡£¦£ª//isg;
+$usrname =~ s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//isg;
 $usrname =~ s/ /\_/g;
 $usrname =~ tr/A-Z/a-z/;
 $msgwords =~ s/\r//ig;
@@ -2263,15 +2289,15 @@ $msgwords =~ s/<br>/\n/g;
 $msgwords =~ s/<p>/\n/g;
 $msgtime = $msgtime + ($timedifferencevalue*3600) + ($timezone*3600);
 $msgtime = &dateformat("$msgtime");
-    print qq~[ÊÕ·¢¶ÔÏó]£º$usrname\n[ÊÕ·¢Ê±¼ä]£º$msgtime\n[¶ÌĞÅ±êÌâ]£º$msgtitle\n[¶ÌĞÅÄÚÈİ]£º$msgwords\n\n~;
+    print qq~[æ”¶å‘å¯¹è±¡]ï¼š$usrname\n[æ”¶å‘æ—¶é—´]ï¼š$msgtime\n[çŸ­ä¿¡æ ‡é¢˜]ï¼š$msgtitle\n[çŸ­ä¿¡å†…å®¹]ï¼š$msgwords\n\n~;
 }
-    print qq~</TEXTAREA><br>>> <a href="javascript:HighlightAll('form2.inpost')">¸´ÖÆµ½¼ôÌù°å <<</a></td></form></tr>~;
+    print qq~</TEXTAREA><br>>> <a href="javascript:HighlightAll('form2.inpost')">å¤åˆ¶åˆ°å‰ªè´´æ¿ <<</a></td></form></tr>~;
    }
 
 
 }
 
-sub updateallsave #ÀûÓÃ±ä»¯Á¿À´¸üĞÂ×ÜÁ¿ĞÅÏ¢
+sub updateallsave #åˆ©ç”¨å˜åŒ–é‡æ¥æ›´æ–°æ€»é‡ä¿¡æ¯
 {
 	my ($callusers, $callsaves) = @_;
 
