@@ -23,6 +23,8 @@ $skin = "leobbs" if ($skin eq "");
 
 sub dofilter {
     my $infiltermessage=shift;
+	
+    return $infiltermessage;
     
     if (open (FILE, "${lbdir}data/wordfilter.cgi")) {
 	$wordfilter = <FILE>;
@@ -101,11 +103,11 @@ sub title {
   if ($showskin ne "off") {
     eval{ require "${lbdir}data/skinselect.pl"; };
     if ($@) { 
-    	require "${lbdir}dorepireskin.pl";
-	print header();
-	print "<script language='javascript'>javascript:this.location.reload()</script>";
-        print "页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv='refresh' content='3;'>";
-	exit;
+    	require "dorepireskin.pl";
+		print header();
+		print "<script language='javascript'>javascript:this.location.reload()</script>";
+    	print "页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv='refresh' content='3;'>";
+		exit;
     }
   } else { $userskins=""; $skinselect=""; }
 
