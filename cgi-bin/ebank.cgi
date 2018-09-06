@@ -635,11 +635,38 @@ sub btrans #è½¬å¸
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&rn;
-}
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œè½¬è´¦") unless(-e "$filetoopens.lck");
 
-sub btrans #æme¸ø $btransuser£¬½»ÄÉÊÖĞø·Ñ $banktranscharge $moneyname£¬Í¬Ê±½áËã×ª³ö·½½áËãÀûÏ¢ $mysaveaccrual $moneyname£¬×ªÈë·½½áËãÀûÏ¢ $tmysaveaccrual $moneyname¡£×ªÕË¸½ÑÔ£º$btransmessage</font>");
-	&printjump("×ªÕÊ³É¹¦");
+	$btransuser =~ s/ /\_/sg;
+	$btransuser =~ tr/A-Z/a-z/;
+	&myerror("é“¶è¡Œé”™è¯¯&è‡ªå·±ç»™è‡ªå·±è½¬ä»€ä¹ˆå¸ï¼") if ($btransuser eq $cleanmembername);
+	$btransmessage = &unHTML($btransmessage);
+
+	&getmember($btransuser);
+	&myerror("é“¶è¡Œé”™è¯¯&è½¬å¸å¯¹è±¡ç”¨æˆ·ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
+	my ($tmystatus, $tmysaves, $tmysavetime, $tmyloan, $tmyloantime, $tmyloanrating, $tbankadd1, $tbankadd2, $tbankadd3, $tbankadd4, $tbankadd5) = split(/,/, $ebankdata);
+	&myerror("é“¶è¡Œé”™è¯¯&è½¬å¸å¯¹è±¡ç”¨æˆ·å¹¶æ²¡æœ‰åœ¨æœ¬è¡Œå¼€æˆ·ï¼ä½ å¯ä»¥è€ƒè™‘ä½¿ç”¨æ±‡æ¬¾ä¸šåŠ¡ã€‚") if ($tmystatus eq "");
+	&myerror("é“¶è¡Œé”™è¯¯&å¯¹æ–¹è´¦æˆ·å·²ç»è¢«å†»ç»“ï¼Œæ— æ³•ç»™ä»–æ±‡æ¬¾ï¼") if ($tmystatus == -1 || $membercode eq "banned" || $membercode eq "masked");
+	my $tmysavedays = &getbetween($tmysavetime, $currenttime);
+	my $tmysaveaccrual = int($tmysaves * $banksaverate * $tmysavedays);
+
+	&updateuserinfo($cleanmembername, 0, 0, "nochange", $mysaveaccrual - $btransmoney - $banktranscharge, $currenttime, 0, "nochange", 0, "yes");
+	&updateuserinfo($btransuser, 0, 0, "nochange", $tmysaveaccrual + $btransmoney, $currenttime, 0, "nochange", 0, "no");
+	&updateallsave(0, $mysaveaccrual + $tmysaveaccrual - $banktranscharge);	
+
+	&bankmessage($btransuser, "è½¬å¸é€šçŸ¥", "ã€€ã€€$inmembername å‘ä½ åœ¨æœ¬è¡Œçš„å¸æˆ·é‡Œè½¬å…¥äº† $btransmoney $moneynameå­˜æ¬¾ï¼Œç°åœ¨å·²ç»åˆ°å¸ï¼Œè¯·æŸ¥æ”¶ï¼<br>ã€€ã€€è½¬è´¦é™„è¨€ï¼š<font color=green>$btransmessage</font>ã€‚");
+
+	&logpriviate("ç»“æ¯", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
+	&logpriviate("è½¬å¸æ‰‹ç»­è´¹", -$banktranscharge, $mysaves + $mysaveaccrual - $banktranscharge);
+	&logpriviate("è½¬å‡ºåˆ°$btransuser", -$btransmoney, $mysaves + $mysaveaccrual - $banktranscharge - $btransmoney);
+	&order($cleanmembername, $mysaves + $mysaveaccrual - $banktranscharge - $btransmoney, $btransuser, $tmysaves + $tmysaveaccrual + $btransmoney);
+
+	$cleanmembername = $btransuser;
+	&logpriviate("ç»“æ¯", $tmysaveaccrual, $tmysaves + $tmysaveaccrual) if ($tmysaveaccrual != 0);
+	&logpriviate("ä»$inmembernameè½¬å…¥", $btransmoney, $tmysaves + $tmysaveaccrual + $btransmoney);
+
+	&logaction($inmembername, "<font color=green>è½¬å‡ºå­˜æ¬¾ $btransmoney $moneynameç»™ $btransuserï¼Œäº¤çº³æ‰‹ç»­è´¹ $banktranscharge $moneynameï¼ŒåŒæ—¶ç»“ç®—è½¬å‡ºæ–¹ç»“ç®—åˆ©æ¯ $mysaveaccrual $moneynameï¼Œè½¬å…¥æ–¹ç»“ç®—åˆ©æ¯ $tmysaveaccrual $moneynameã€‚è½¬è´¦é™„è¨€ï¼š$btransmessage</font>");
+	&printjump("è½¬å¸æˆåŠŸ");
 	return;
 }
 
@@ -650,71 +677,71 @@ sub post
 	my $postmessage = $query->param('postmessage');
 	my $getpass = $query->param('getpass');
 	$postuser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨»ã¿î£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÔõÃ´»ã¿î£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
-	&myerror("ÒøĞĞ´íÎó&ÄãÊäÈëµÄÈ¡¿îÃÜÂë´íÎó£¡") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•æ±‡æ¬¾ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œæ€ä¹ˆæ±‡æ¬¾ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ è¾“å…¥çš„å–æ¬¾å¯†ç é”™è¯¯ï¼") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&»ã¿î¸½ÑÔÌ«³¤ÁË£¡") if (length($postmessage) > 50);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄĞÅÓÃ¶È£¨ÍşÍû£©²»¹»¸ß£¬ÎŞ·¨Ê¹ÓÃ»ã¿îÒµÎñ£¡") if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo");
-	&myerror("ÒøĞĞ´íÎó&»ã¿îÊı¶îÊäÈë´íÎó£¬Çë¼ì²é£¡") if ($postmoney =~ /[^0-9]/ or $postmoney eq "");
-	my $bankpostcharge = int($bankpostrate * $postmoney + 0.5); #ËÄÉáÎåÈë:)
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&æ±‡æ¬¾é™„è¨€å¤ªé•¿äº†ï¼") if (length($postmessage) > 50);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„ä¿¡ç”¨åº¦ï¼ˆå¨æœ›ï¼‰ä¸å¤Ÿé«˜ï¼Œæ— æ³•ä½¿ç”¨æ±‡æ¬¾ä¸šåŠ¡ï¼") if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo");
+	&myerror("é“¶è¡Œé”™è¯¯&æ±‡æ¬¾æ•°é¢è¾“å…¥é”™è¯¯ï¼Œè¯·æ£€æŸ¥ï¼") if ($postmoney =~ /[^0-9]/ or $postmoney eq "");
+	my $bankpostcharge = int($bankpostrate * $postmoney + 0.5); #å››èˆäº”å…¥:)
 	$bankpostcharge = $bankmindeal if ($bankpostcharge < $bankmindeal);
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÓĞÄÇÃ´¶à´æ¿îÓÃÀ´»ã¿îºÍÖ§¸¶»ã¿î·ÑÓÃ£¬Èç¹û²»Ïú»§£¬ÄãµÄ»§Í·±ØĞëÖÁÉÙ´æÓĞ $bankmindeal $moneyname£¡") if ($postmoney + $bankpostcharge > $mysaves + $mysaveaccrual - $bankmindeal);
-	&myerror("ÒøĞĞ´íÎó&»ã¿îÊı¶î³¬¹ı±¾ĞĞ×î´óµ¥±Ê½»Ò×¶î $bankmaxdeal $moneyname") if ($postmoney > $bankmaxdeal);
-	&myerror("ÒøĞĞ´íÎó&»ã¿îÊı¶îĞ¡ÓÚ±¾ĞĞ×îĞ¡µ¥±Ê½»Ò×¶î $bankmindeal $moneyname") if ($postmoney < $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡æœ‰é‚£ä¹ˆå¤šå­˜æ¬¾ç”¨æ¥æ±‡æ¬¾å’Œæ”¯ä»˜æ±‡æ¬¾è´¹ç”¨ï¼Œå¦‚æœä¸é”€æˆ·ï¼Œä½ çš„æˆ·å¤´å¿…é¡»è‡³å°‘å­˜æœ‰ $bankmindeal $moneynameï¼") if ($postmoney + $bankpostcharge > $mysaves + $mysaveaccrual - $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&æ±‡æ¬¾æ•°é¢è¶…è¿‡æœ¬è¡Œæœ€å¤§å•ç¬”äº¤æ˜“é¢ $bankmaxdeal $moneyname") if ($postmoney > $bankmaxdeal);
+	&myerror("é“¶è¡Œé”™è¯¯&æ±‡æ¬¾æ•°é¢å°äºæœ¬è¡Œæœ€å°å•ç¬”äº¤æ˜“é¢ $bankmindeal $moneyname") if ($postmoney < $bankmindeal);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞ»ã¿î") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œæ±‡æ¬¾") unless(-e "$filetoopens.lck");
 
 	$postuser =~ s/ /\_/sg;
 	$postuser =~ tr/A-Z/a-z/;
-	&myerror("ÒøĞĞ´íÎó&×Ô¼º¸ø×Ô¼º»ã¸öÊ²Ã´¿î£¡") if ($postuser eq $cleanmembername);
+	&myerror("é“¶è¡Œé”™è¯¯&è‡ªå·±ç»™è‡ªå·±æ±‡ä¸ªä»€ä¹ˆæ¬¾ï¼") if ($postuser eq $cleanmembername);
 	$postmessage = &unHTML($postmessage);
 
 	&getmember($postuser);
-	&myerror("ÒøĞĞ´íÎó&»ã¿î¶ÔÏóÓÃ»§²»´æÔÚ£¡") if ($userregistered eq "no");
+	&myerror("é“¶è¡Œé”™è¯¯&æ±‡æ¬¾å¯¹è±¡ç”¨æˆ·ä¸å­˜åœ¨ï¼") if ($userregistered eq "no");
 
 	&updateuserinfo($cleanmembername, 0, 0, "nochange", $mysaveaccrual - $postmoney - $bankpostcharge, $currenttime, 0, "nochange", 0, "yes");
 	&updateuserinfo($postuser, 0, $postmoney, "nochange", 0, "nochange", 0, "nochange", 0, "no");
 	&updateallsave(0, $mysaveaccrual - $postmoney - $bankpostcharge);	
 
-	&bankmessage($postuser, "»ã¿îµ¥", "¡¡¡¡$inmembername ´Ó±¾ĞĞ¸øÄã»ã¼ÄÁË $postmoney $moneynameÏÖ½ğ£¬ÏÖÔÚÒÑ¾­µ½Î»£¬Çë²éÊÕ£¡<br>¡¡¡¡»ã¿î¸½ÑÔ£º<font color=green>$postmessage</font>¡£");
+	&bankmessage($postuser, "æ±‡æ¬¾å•", "ã€€ã€€$inmembername ä»æœ¬è¡Œç»™ä½ æ±‡å¯„äº† $postmoney $moneynameç°é‡‘ï¼Œç°åœ¨å·²ç»åˆ°ä½ï¼Œè¯·æŸ¥æ”¶ï¼<br>ã€€ã€€æ±‡æ¬¾é™„è¨€ï¼š<font color=green>$postmessage</font>ã€‚");
 
-	&logpriviate("½áÏ¢", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
-	&logpriviate("»ã¿îÊÖĞø·Ñ", -$bankpostcharge, $mysaves + $mysaveaccrual - $bankpostcharge);
-	&logpriviate("»ã³öµ½$postuser", -$postmoney, $mysaves + $mysaveaccrual - $bankpostcharge - $postmoney);
-	&logaction($inmembername, "<font color=green>¸øÓÃ»§ $postuser »ã¼ÄÁË$postmoney $moneyname£¬½»ÄÉÊÖĞø·Ñ $bankpostcharge $moneyname£¬Í¬Ê±½áËãÀûÏ¢ $mysaveaccrual $moneyname¡£»ã¿î¸½ÑÔ£º$postmessage</font>");
+	&logpriviate("ç»“æ¯", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
+	&logpriviate("æ±‡æ¬¾æ‰‹ç»­è´¹", -$bankpostcharge, $mysaves + $mysaveaccrual - $bankpostcharge);
+	&logpriviate("æ±‡å‡ºåˆ°$postuser", -$postmoney, $mysaves + $mysaveaccrual - $bankpostcharge - $postmoney);
+	&logaction($inmembername, "<font color=green>ç»™ç”¨æˆ· $postuser æ±‡å¯„äº†$postmoney $moneynameï¼Œäº¤çº³æ‰‹ç»­è´¹ $bankpostcharge $moneynameï¼ŒåŒæ—¶ç»“ç®—åˆ©æ¯ $mysaveaccrual $moneynameã€‚æ±‡æ¬¾é™„è¨€ï¼š$postmessage</font>");
 
 	&order($cleanmembername, $mysaves + $mysaveaccrual - $bankpostcharge - $postmoney);
-	&printjump("»ã¿î³É¹¦");
+	&printjump("æ±‡æ¬¾æˆåŠŸ");
 	return;
 }
 
-sub loan #´û¿î
+sub loan #è´·æ¬¾
 {
 	my $loanrate = $query->param('loanrate');
 	my $loanmoney = $query->param('loanmoney');
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨´û¿î£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬ÔõÃ´´û¿î£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•è´·æ¬¾ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œæ€ä¹ˆè´·æ¬¾ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&´û¿î·şÎñÒÑ¾­±»ĞĞ³¤Í£ÓÃ£¡") if ($bankallowloan ne "yes");
-	&myerror("ÒøĞĞ´íÎó&Äãµ±Ç°»¹ÓĞ´û¿îÃ»ÓĞ»¹Çå£¬²»ÔÊĞíĞÂµÄ´û¿î£¡") if ($myloan);
-	&myerror("ÒøĞĞ´íÎó&µÖÑºÍşÍûÊäÈë´íÎó£¡") if ($loanrate =~ /[^0-9]/ or $loanrate eq "");
-	&myerror("ÒøĞĞ´íÎó&µÖÑºÍşÍûÊäÈë´íÎó£¡") if ($loanrate == 0);
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÓĞÕâÃ´¶àÍşÍûµãÊıÓÃÀ´µÖÑº£¡") if ($loanrate > $rating);
-	&myerror("ÒøĞĞ´íÎó&´û¿î½ğ¶îÊäÈë´íÎó£¡") if ($loanmoney =~ /[^0-9]/ or $loanmoney eq "");
-	&myerror("ÒøĞĞ´íÎó&ÓÃÀ´µÖÑº´û¿îÖµµÄÍşÍûµãÊı²»¹»£¡") if ($loanmoney > $bankrateloan * $loanrate);
-	&myerror("ÒøĞĞ´íÎó&´û¿î½ğ¶î³¬¹ı±¾ĞĞ×î´óµ¥±Ê½»Ò×¶î $bankmaxdeal $moneyname") if ($loanmoney > $bankmaxdeal);
-	&myerror("ÒøĞĞ´íÎó&´û¿î½ğ¶îĞ¡ÓÚ±¾ĞĞ×îĞ¡µ¥±Ê½»Ò×¶î $bankmindeal $moneyname") if ($loanmoney < $bankmindeal);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&è´·æ¬¾æœåŠ¡å·²ç»è¢«è¡Œé•¿åœç”¨ï¼") if ($bankallowloan ne "yes");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ å½“å‰è¿˜æœ‰è´·æ¬¾æ²¡æœ‰è¿˜æ¸…ï¼Œä¸å…è®¸æ–°çš„è´·æ¬¾ï¼") if ($myloan);
+	&myerror("é“¶è¡Œé”™è¯¯&æŠµæŠ¼å¨æœ›è¾“å…¥é”™è¯¯ï¼") if ($loanrate =~ /[^0-9]/ or $loanrate eq "");
+	&myerror("é“¶è¡Œé”™è¯¯&æŠµæŠ¼å¨æœ›è¾“å…¥é”™è¯¯ï¼") if ($loanrate == 0);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡æœ‰è¿™ä¹ˆå¤šå¨æœ›ç‚¹æ•°ç”¨æ¥æŠµæŠ¼ï¼") if ($loanrate > $rating);
+	&myerror("é“¶è¡Œé”™è¯¯&è´·æ¬¾é‡‘é¢è¾“å…¥é”™è¯¯ï¼") if ($loanmoney =~ /[^0-9]/ or $loanmoney eq "");
+	&myerror("é“¶è¡Œé”™è¯¯&ç”¨æ¥æŠµæŠ¼è´·æ¬¾å€¼çš„å¨æœ›ç‚¹æ•°ä¸å¤Ÿï¼") if ($loanmoney > $bankrateloan * $loanrate);
+	&myerror("é“¶è¡Œé”™è¯¯&è´·æ¬¾é‡‘é¢è¶…è¿‡æœ¬è¡Œæœ€å¤§å•ç¬”äº¤æ˜“é¢ $bankmaxdeal $moneyname") if ($loanmoney > $bankmaxdeal);
+	&myerror("é“¶è¡Œé”™è¯¯&è´·æ¬¾é‡‘é¢å°äºæœ¬è¡Œæœ€å°å•ç¬”äº¤æ˜“é¢ $bankmindeal $moneyname") if ($loanmoney < $bankmindeal);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞ´û¿î") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œè´·æ¬¾") unless(-e "$filetoopens.lck");
 
 	&updateuserinfo($cleanmembername, 0, $loanmoney, "nochange", 0, "nochange", $loanmoney, $currenttime, $loanrate, "yes");
 	my $filetomake = $lbdir . "ebankdata/allloan.cgi";
@@ -725,27 +752,27 @@ sub loan #´û¿î
 	close(FILE);
 	&winunlock($filetomake) if ($OS_USED eq "Nt");
 
-	&bankmessage($cleanmembername, "´û¿îÍ¨Öª", "¡¡¡¡ÄãÔÚ±¾ĞĞµÖÑºÁË $loanrate µãÍşÍû´û¿î $loanmoney $moneyname£¬ÏÖÔÚ´û¿îÒÑ¾­·¢·Åµ½ÄãµÄÏÖ½ğ£¬ÇëÔÚ´Ó½ñÌì¿ªÊ¼µÄ $bankloanmaxdays ÌìÒÔÄÚ¼°Ê±¹é»¹´û¿î£¬·ñÔòÓâÆÚÏµÍ³½«×Ô¶¯Ç¿ÖÆÊÕ»Ø´û¿î²¢ÇÒ¿Û³ıÄãµÖÑºµÄÍşÍû¡£");
+	&bankmessage($cleanmembername, "è´·æ¬¾é€šçŸ¥", "ã€€ã€€ä½ åœ¨æœ¬è¡ŒæŠµæŠ¼äº† $loanrate ç‚¹å¨æœ›è´·æ¬¾ $loanmoney $moneynameï¼Œç°åœ¨è´·æ¬¾å·²ç»å‘æ”¾åˆ°ä½ çš„ç°é‡‘ï¼Œè¯·åœ¨ä»ä»Šå¤©å¼€å§‹çš„ $bankloanmaxdays å¤©ä»¥å†…åŠæ—¶å½’è¿˜è´·æ¬¾ï¼Œå¦åˆ™é€¾æœŸç³»ç»Ÿå°†è‡ªåŠ¨å¼ºåˆ¶æ”¶å›è´·æ¬¾å¹¶ä¸”æ‰£é™¤ä½ æŠµæŠ¼çš„å¨æœ›ã€‚");
 
-	&logpriviate("´û¿î", $loanmoney, $mysaves);
-	&logaction($inmembername, "<font color=#ff7777>ÏòÒøĞĞµÖÑºÁË $loanrate µãÍşÍûÉêÇëÁË $loanmoney $moneyname´û¿î£¬ÒÑ·¢·ÅÖÁÆäÏÖ½ğ¡£</font>");
-	&printjump("´û¿î³É¹¦");
+	&logpriviate("è´·æ¬¾", $loanmoney, $mysaves);
+	&logaction($inmembername, "<font color=#ff7777>å‘é“¶è¡ŒæŠµæŠ¼äº† $loanrate ç‚¹å¨æœ›ç”³è¯·äº† $loanmoney $moneynameè´·æ¬¾ï¼Œå·²å‘æ”¾è‡³å…¶ç°é‡‘ã€‚</font>");
+	&printjump("è´·æ¬¾æˆåŠŸ");
 	return;
 }
 
 sub repay
 {
-	&myerror("ÒøĞĞ´íÎó&ÒøĞĞÅÌµã£¬ÔİÊ±Í£Òµ£¬ÎŞ·¨³¥»¹´û¿î£¡") unless ($bankopen eq "on");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÔÚ±¾ÒøĞĞ¿ª¹ı»§£¬»¹Ê²Ã´´û¿î£¿") unless ($mystatus);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÕÊ»§±»ÔİÊ±¶³½á£¬ÇëÓëĞĞ³¤ÁªÏµ£¡") if ($mystatus == -1);
+	&myerror("é“¶è¡Œé”™è¯¯&é“¶è¡Œç›˜ç‚¹ï¼Œæš‚æ—¶åœä¸šï¼Œæ— æ³•å¿è¿˜è´·æ¬¾ï¼") unless ($bankopen eq "on");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡åœ¨æœ¬é“¶è¡Œå¼€è¿‡æˆ·ï¼Œè¿˜ä»€ä¹ˆè´·æ¬¾ï¼Ÿ") unless ($mystatus);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„å¸æˆ·è¢«æš‚æ—¶å†»ç»“ï¼Œè¯·ä¸è¡Œé•¿è”ç³»ï¼") if ($mystatus == -1);
 	@mybankdotimes = split(/\|/, $mybankdotime);
-	&myerror("ÒøĞĞ´íÎó&ÄãÔÚ24Ğ¡Ê±ÄÚµÄ½»Ò×´ÎÊıÒÑ¾­³¬¹ıÁËÔÊĞíµÄ×î´óÖµ $bankmaxdaydo£¡")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
-	&myerror("ÒøĞĞ´íÎó&ÄãÃ»ÓĞ´û¹ı¿î,»¹É¶£¿") unless ($myloan);
-	&myerror("ÒøĞĞ´íÎó&ÄãµÄÏÖ½ğ²»¹»³¥»¹´û¿î£¡") if ($myallmoney < $myloan + $myloanaccrual);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ åœ¨24å°æ—¶å†…çš„äº¤æ˜“æ¬¡æ•°å·²ç»è¶…è¿‡äº†å…è®¸çš„æœ€å¤§å€¼ $bankmaxdaydoï¼")if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ æ²¡æœ‰è´·è¿‡æ¬¾,è¿˜å•¥ï¼Ÿ") unless ($myloan);
+	&myerror("é“¶è¡Œé”™è¯¯&ä½ çš„ç°é‡‘ä¸å¤Ÿå¿è¿˜è´·æ¬¾ï¼") if ($myallmoney < $myloan + $myloanaccrual);
 
 	my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 	$filetoopens = &lockfilename($filetoopens);
-	&whosonline("$inmembername\t$bankname\tnone\tÔÚÒøĞĞ»¹´û") unless(-e "$filetoopens.lck");
+	&whosonline("$inmembername\t$bankname\tnone\tåœ¨é“¶è¡Œè¿˜è´·") unless(-e "$filetoopens.lck");
 
 	&updateuserinfo($cleanmembername, 0, -($myloan + $myloanaccrual), "nochange", 0, "nochange", -$myloan, "", -$myloanrating, "no");
 
@@ -768,15 +795,15 @@ sub repay
 		&winunlock($filetoopen) if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));
 	}
 
-	&logpriviate("»¹´û", $myloan + $myloanaccrual, $mysaves);
-	&logaction($inmembername, "<font color=#ff7777>ÏòÒøĞĞ³¥»¹ÁË $myloan $moneyname´û¿î£¬Ö§¸¶ÀûÏ¢ $myloanaccrual $moneyname¡£</font>");
-	&printjump("»¹´û³É¹¦");
+	&logpriviate("è¿˜è´·", $myloan + $myloanaccrual, $mysaves);
+	&logaction($inmembername, "<font color=#ff7777>å‘é“¶è¡Œå¿è¿˜äº† $myloan $moneynameè´·æ¬¾ï¼Œæ”¯ä»˜åˆ©æ¯ $myloanaccrual $moneynameã€‚</font>");
+	&printjump("è¿˜è´·æˆåŠŸ");
 	return;	
 }
 
-#####ÒÔÏÂÎª¹«ÓÃº¯Êı¶Î
+#####ä»¥ä¸‹ä¸ºå…¬ç”¨å‡½æ•°æ®µ
 
-sub order #ÒøĞĞÅÅĞò³ÌĞò
+sub order #é“¶è¡Œæ’åºç¨‹åº
 {
 	my ($adduser1, $addsave1, $adduser2, $addsave2) = @_;
 	my %ordersaves;
@@ -814,7 +841,7 @@ sub order #ÒøĞĞÅÅĞò³ÌĞò
 	return;
 }
 
-sub getbetween #È¡µÃÁ½¸öÊ±¼äÖ®¼äÏà²îµÄÌìÊı£¨µ÷ÓÃ²ÎÊı£º¿ªÊ¼Ê±¼ä£¬½áÊøÊ±¼ä£©
+sub getbetween #å–å¾—ä¸¤ä¸ªæ—¶é—´ä¹‹é—´ç›¸å·®çš„å¤©æ•°ï¼ˆè°ƒç”¨å‚æ•°ï¼šå¼€å§‹æ—¶é—´ï¼Œç»“æŸæ—¶é—´ï¼‰
 {
 	my ($begintime, $endtime) = @_;
 	my ($tmpsecond, $tmpminute, $tmphour, $tmpday, $tmpmonth, $tmpyear, $tmpwday, $tmpyday, $tmpisdst) = localtime($begintime + $timezone * 3600);
@@ -823,7 +850,7 @@ sub getbetween #È¡µÃÁ½¸öÊ±¼äÖ®¼äÏà²îµÄÌìÊı£¨µ÷ÓÃ²ÎÊı£º¿ªÊ¼Ê±¼ä£¬½áÊøÊ±¼ä£©
 	return $betweendays;
 }
 
-sub getmyfriendlist #È¡µÃÓÃ»§ºÃÓÑÁĞ±í
+sub getmyfriendlist #å–å¾—ç”¨æˆ·å¥½å‹åˆ—è¡¨
 {
 	my $filetoopen = $lbdir . "memfriend/" . $cleanmembername . ".cgi";
 	if (-e $filetoopen)
@@ -836,12 +863,12 @@ sub getmyfriendlist #È¡µÃÓÃ»§ºÃÓÑÁĞ±í
 	chomp(@myfriendlist);
 	foreach (@myfriendlist)
 	{
-		s/^£ª£££¡£¦£ª//sg;
+		s/^ï¼Šï¼ƒï¼ï¼†ï¼Š//sg;
 	}
 	return;
 }
 
-sub bankmessage #¸øÓÃ»§·¢ÒøĞĞ¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£ºÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
+sub bankmessage #ç»™ç”¨æˆ·å‘é“¶è¡ŒçŸ­æ¶ˆæ¯ï¼ˆè°ƒç”¨å‚æ•°ï¼šæ”¶å–äººã€ä¸»é¢˜ã€å†…å®¹ï¼‰
 {
 	my ($receivemember, $topic, $content) = @_;
 	my @filedata;
@@ -855,7 +882,7 @@ sub bankmessage #¸øÓÃ»§·¢ÒøĞĞ¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£ºÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
 		close(FILE);
 	}
 
-	@filedata = ("£ª£££¡£¦£ª$bankname\tno\t$currenttime\t$topic\t$content<br><br>¡¡¡¡¸ĞĞ»Ê¹ÓÃ$banknameµÄÓÅÖÊ·şÎñ¡£<br><br>\n", @filedata);
+	@filedata = ("ï¼Šï¼ƒï¼ï¼†ï¼Š$bankname\tno\t$currenttime\t$topic\t$content<br><br>ã€€ã€€æ„Ÿè°¢ä½¿ç”¨$banknameçš„ä¼˜è´¨æœåŠ¡ã€‚<br><br>\n", @filedata);
 
 	open(FILE, ">$filetomake");
 	flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -869,7 +896,7 @@ sub bankmessage #¸øÓÃ»§·¢ÒøĞĞ¶ÌÏûÏ¢£¨µ÷ÓÃ²ÎÊı£ºÊÕÈ¡ÈË¡¢Ö÷Ìâ¡¢ÄÚÈİ£©
 	return;
 }
 
-sub logaction #¼ÇÂ¼ÒøĞĞÈÕÖ¾£¨µ÷ÓÃ²ÎÊı£º²Ù×÷ÈËÔ±£¬ÈÕÖ¾ÄÚÈİ£©
+sub logaction #è®°å½•é“¶è¡Œæ—¥å¿—ï¼ˆè°ƒç”¨å‚æ•°ï¼šæ“ä½œäººå‘˜ï¼Œæ—¥å¿—å†…å®¹ï¼‰
 {
 	my ($actionmember, $actionretail) = @_;
 
@@ -883,7 +910,7 @@ sub logaction #¼ÇÂ¼ÒøĞĞÈÕÖ¾£¨µ÷ÓÃ²ÎÊı£º²Ù×÷ÈËÔ±£¬ÈÕÖ¾ÄÚÈİ£©
 	return;
 }
 
-sub logpriviate #¼ÇÈë¸öÈË´æÕÛ£¨µ÷ÓÃ²ÎÊı£º½»Ò×¶¯×÷£¬½ğ¶î£¬»§Í·»îÆÚ½áÓà£©
+sub logpriviate #è®°å…¥ä¸ªäººå­˜æŠ˜ï¼ˆè°ƒç”¨å‚æ•°ï¼šäº¤æ˜“åŠ¨ä½œï¼Œé‡‘é¢ï¼Œæˆ·å¤´æ´»æœŸç»“ä½™ï¼‰
 {
 	my ($bankaction, $banknums, $banksavenum) = @_;
 
@@ -916,7 +943,7 @@ sub logpriviate #¼ÇÈë¸öÈË´æÕÛ£¨µ÷ÓÃ²ÎÊı£º½»Ò×¶¯×÷£¬½ğ¶î£¬»§Í·»îÆÚ½áÓà£©
 	return;
 }
 
-sub dooutloan #´¦ÀíÓÃ»§µÄ¹ıÆÚ´û¿î£¨µ÷ÓÃ²ÎÊı£ºÓÃ»§Ãû£©
+sub dooutloan #å¤„ç†ç”¨æˆ·çš„è¿‡æœŸè´·æ¬¾ï¼ˆè°ƒç”¨å‚æ•°ï¼šç”¨æˆ·åï¼‰
 {
 	my $loaner = shift;
 
@@ -966,35 +993,35 @@ sub dooutloan #´¦ÀíÓÃ»§µÄ¹ıÆÚ´û¿î£¨µ÷ÓÃ²ÎÊı£ºÓÃ»§Ãû£©
 	if ($mesloan)
 	{
 		$mesloantime = &shortdate($mesloantime);
-		&logaction("<font color=red>ÒøĞĞ×Ô¶¯´¦Àí³ÌĞò</font>", "<font color=red>$loaner ÓÚ $mesloantime µÖÑº $mesloanrating µãÍşÍû½è´û $mesloan $moneynameÓâÆÚ£¬ÒÑ¿Û³ıµÖÑºÍşÍû£¬²¢ÇÒÇ¿ÖÆ×·»Ø´û¿î¡£</font>");
-		&bankmessage($loaner, "´û¿îÓâÆÚ²»»¹Í¨Öª", "¡¡¡¡ÄãÓÚ $mesloantime ÔÚ±¾ĞĞµÖÑº $mesloanrating µãÍşÍû½è´ûµÄ $mesloan $moneyname¿îÏîÓâÆÚÎ´»¹£¬±¾ĞĞÒÑ°´ÕÕÂÛÌ³ÒøĞĞ·¨¿Û³ıÄãµÖÑºµÄÍşÍûÖµ¡£<br>¡¡¡¡Í¬Ê±ÄãµÄ²»Á¼´û¿îÒ²±»Ç¿ÖÆ×·»Ø£¬¶Ô´ËÊÂ¼ş£¬ÎÒÃÇÉî±íÒÅº¶£¡<br><br>");
+		&logaction("<font color=red>é“¶è¡Œè‡ªåŠ¨å¤„ç†ç¨‹åº</font>", "<font color=red>$loaner äº $mesloantime æŠµæŠ¼ $mesloanrating ç‚¹å¨æœ›å€Ÿè´· $mesloan $moneynameé€¾æœŸï¼Œå·²æ‰£é™¤æŠµæŠ¼å¨æœ›ï¼Œå¹¶ä¸”å¼ºåˆ¶è¿½å›è´·æ¬¾ã€‚</font>");
+		&bankmessage($loaner, "è´·æ¬¾é€¾æœŸä¸è¿˜é€šçŸ¥", "ã€€ã€€ä½ äº $mesloantime åœ¨æœ¬è¡ŒæŠµæŠ¼ $mesloanrating ç‚¹å¨æœ›å€Ÿè´·çš„ $mesloan $moneynameæ¬¾é¡¹é€¾æœŸæœªè¿˜ï¼Œæœ¬è¡Œå·²æŒ‰ç…§è®ºå›é“¶è¡Œæ³•æ‰£é™¤ä½ æŠµæŠ¼çš„å¨æœ›å€¼ã€‚<br>ã€€ã€€åŒæ—¶ä½ çš„ä¸è‰¯è´·æ¬¾ä¹Ÿè¢«å¼ºåˆ¶è¿½å›ï¼Œå¯¹æ­¤äº‹ä»¶ï¼Œæˆ‘ä»¬æ·±è¡¨é—æ†¾ï¼<br><br>");
 	}
 	return;
 }
 
-sub printjump #ÏÔÊ¾LB·ç¸ñÌø×ªÒ³Ãæ£¨µ÷ÓÃ²ÎÊı£ºÒ³ÃæÖ÷Ìâ£©
+sub printjump #æ˜¾ç¤ºLBé£æ ¼è·³è½¬é¡µé¢ï¼ˆè°ƒç”¨å‚æ•°ï¼šé¡µé¢ä¸»é¢˜ï¼‰
 {
 	my $content = shift;
 
 	$output .= qq~
-	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> ¡ú <a href=ebank.cgi>$bankname</a> ¡ú $content</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> â†’ <a href=ebank.cgi>$bankname</a> â†’ $content</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellPadding=6 cellSpacing=1 border=0 width=100%>
-	<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>¸ĞĞ»Ñ¡ÔñÎÒÃÇµÄÓÅÖÊ·şÎñ£¬Äã¸Õ²ÅÔÚÒøĞĞµÄ½»Ò×ÒÑ¾­ÉúĞ§£¡</b></font></td></tr>
-	<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>Èç¹ûä¯ÀÀÆ÷Ã»ÓĞ×Ô¶¯·µ»Ø£¬Çëµã»÷ÏÂÃæµÄÁ´½Ó£¡£º
-		<ul><li><a href=$thisprog>·µ»ØÒøĞĞÓªÒµ´óÌü</a>  $pagestoshow</ul>
+	<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>æ„Ÿè°¢é€‰æ‹©æˆ‘ä»¬çš„ä¼˜è´¨æœåŠ¡ï¼Œä½ åˆšæ‰åœ¨é“¶è¡Œçš„äº¤æ˜“å·²ç»ç”Ÿæ•ˆï¼</b></font></td></tr>
+	<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>å¦‚æœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨è¿”å›ï¼Œè¯·ç‚¹å‡»ä¸‹é¢çš„é“¾æ¥ï¼ï¼š
+		<ul><li><a href=$thisprog>è¿”å›é“¶è¡Œè¥ä¸šå¤§å…</a>  $pagestoshow</ul>
 	</td></tr>
 </table></td></tr>
 </table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
-	$pagetitle = "$boardname - ÔÚÒøĞĞ$content";
+	$pagetitle = "$boardname - åœ¨é“¶è¡Œ$content";
 	return;
 }
 
-sub updateallsave #ÀûÓÃ±ä»¯Á¿À´¸üĞÂ×ÜÁ¿ĞÅÏ¢
+sub updateallsave #åˆ©ç”¨å˜åŒ–é‡æ¥æ›´æ–°æ€»é‡ä¿¡æ¯
 {
 	my ($callusers, $callsaves) = @_;
 
@@ -1025,10 +1052,10 @@ sub updateallsave #ÀûÓÃ±ä»¯Á¿À´¸üĞÂ×ÜÁ¿ĞÅÏ¢
 	return;
 }
 
-sub updateuserinfo #¸üĞÂÓÃ»§ĞÅÏ¢
+sub updateuserinfo #æ›´æ–°ç”¨æˆ·ä¿¡æ¯
 {
 	my ($nametocheck, $crating, $cmoney, $bankstats, $csaves, $savetime, $cloan, $loantime, $cloanrating, $allowcount, $newgetpass) = @_;
-	#ÓÃ»§Ãû£¬ÍşÍû±ä»¯Á¿£¬½ğÇ®±ä»¯Á¿£¬¸üĞÂµÄÒøĞĞÕË»§×´Ì¬(²»±ä»¯ÇëÌî"nochange")£¬´æ¿î±ä»¯Á¿£¬¸üĞÂµÄ´æ¿îÊ±¼ä(²»±ä»¯ÇëÌî"nochange")£¬´û¿î±ä»¯Á¿£¬¸üĞÂµÄ´û¿îÊ±¼ä(²»±ä»¯ÇëÌî"nochange")£¬´û¿îµÖÑºÖµ±ä»¯Á¿£¬ÊÇ·ñ¼ÆÈëÒøĞĞ½»Ò×´ÎÊı£¨¼ÆÈëÎª"yes", ²»¼ÆÈëÎª"no"£©
+	#ç”¨æˆ·åï¼Œå¨æœ›å˜åŒ–é‡ï¼Œé‡‘é’±å˜åŒ–é‡ï¼Œæ›´æ–°çš„é“¶è¡Œè´¦æˆ·çŠ¶æ€(ä¸å˜åŒ–è¯·å¡«"nochange")ï¼Œå­˜æ¬¾å˜åŒ–é‡ï¼Œæ›´æ–°çš„å­˜æ¬¾æ—¶é—´(ä¸å˜åŒ–è¯·å¡«"nochange")ï¼Œè´·æ¬¾å˜åŒ–é‡ï¼Œæ›´æ–°çš„è´·æ¬¾æ—¶é—´(ä¸å˜åŒ–è¯·å¡«"nochange")ï¼Œè´·æ¬¾æŠµæŠ¼å€¼å˜åŒ–é‡ï¼Œæ˜¯å¦è®¡å…¥é“¶è¡Œäº¤æ˜“æ¬¡æ•°ï¼ˆè®¡å…¥ä¸º"yes", ä¸è®¡å…¥ä¸º"no"ï¼‰
 	my $namenumber = &getnamenumber($nametocheck);
 	&checkmemfile($nametocheck,$namenumber);
 
