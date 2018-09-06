@@ -285,7 +285,6 @@ sub dorestore
         </td>
         </tr>          
         
-
                 
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
@@ -308,7 +307,6 @@ sub dorestore
                 <input type=hidden name="totalnum" value="$totalnum">
                 <input type="submit" name="Submit" value="æ¢å¤æ–‡ä»¶é¢„å¤„ç†">
                 <input type="reset" name="Submit2" value="é‡æ–°é€‰æ‹©">
-
     </td>
     </tr>
     </form>
@@ -799,7 +797,6 @@ chdir $lbdir;
 
      
     print qq~
-
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
     <font color=#990000><b>è¯·é€‰æ‹©ä½ è¦å¤‡ä»½çš„å†…å®¹</b>
@@ -859,7 +856,6 @@ chdir $lbdir;
     <p><p>
     </td>
     </tr>
-
 ~;
 }
 sub memberoptions1 {
@@ -1014,14 +1010,74 @@ chdir $lbdir;
 $step="system" if ($step eq "unknow");
 }
 
-if ($dirtoopen[0	
-print qq~
-        <tr>
-       <tr>
-        <td bgcolor=#FFFFFF align=left colspan=2>
-        <font color=#990000>
-                    
-        <b>\n";
+if ($dirtoopen[0]=~m/forum/)
+{
+   $ttotal=0;
+   $atotal=0;
+   @forumtotar=@dirtoopen;
+   foreach $dirtoopen (@dirtoopen){
+    ($a,$b)=split(/m/,$dirtoopen);
+    chdir "$lbdir$dirtoopen";
+    @temp1=glob("*");      
+    if (($dirtoopen=~m/forum/)&&($attachement eq "yes"))
+    {   
+    	chdir "${imagesdir}$usrdir/$b";
+    	# ä¿®æ­£ by maiweb begin
+    	@temp2=glob("$b\_*");     
+    	my @alladad=glob("*");
+    	foreach $adas(@alladad){
+        next if ($adas=~/\_/);
+        @temp223=glob("$adas/*");
+        push(@temp2,@temp223);
+        }# ä¿®æ­£ By maiweb end
+    }
+   chdir $lbdir;
+   open(FILE,">backuptopic_$b.temp");
+   foreach(@temp1)
+        {
+        print FILE "$_";
+        print FILE "\n";
+        }
+   close(FILE);
+   open(FILE,">backupattachement_$b.temp");
+   foreach(@temp2)
+        {
+        print FILE "$_";
+        print FILE "\n";
+        }
+   close(FILE);   
+   ########è®¡ç®—è´´å­å’Œé™„ä»¶æ•°
+   $ttotal=$#temp1+1+$ttotal;
+   $atotal=$#temp2+1+$atotal;
+   
+   @emoticondata=(@emoticondata,"backuptopic_$b.temp");
+   @attachedata=(@attachedata,"backupattachement_$b.temp");
+   @temp1=();
+   @temp2=();
+   $step="topic" if ($step eq "unknow");
+   }
+}
+        
+        chdir $lbdir;
+        
+        if ($#systemdata>=0)
+        {
+        open(FILE,">backupsystem.temp");
+        foreach(@systemdata)
+        {
+        print FILE "$_";
+        print FILE "\n";
+        }
+        close(FILE);
+        }
+        
+        if ($#avatardata>=0)
+        {
+        open(FILE,">backupavatar.temp");
+        foreach(@avatardata)
+        {
+        print FILE "$_";
+        print FILE "\n";
         }
         close(FILE);
         }
@@ -1104,19 +1160,19 @@ print qq~
         
         chdir $imagesdir;
         open (FILE,">tarfilelist.txt");
-        print FILE "±¸·ÝÊ±¼ä£º\t$current_time\n";
-        print FILE "ÎÄ¼þÃû£º\t$tarname\n";
-        print FILE "´Ë´Î±¸·Ý×ÜÎÄ¼þÊý:\t$totalnum\n";     
-        print FILE "ÓÃ»§×ÊÁÏÎÄ¼þÊý:\t$cc\n";
-        print FILE "ÓÃ»§×Ô¶¨ÒåÍ·ÏñÊý:\t$ee\n";
-        print FILE "ÏµÍ³ÅäÖÃÎÄ¼þÊý:\t$dd\n";
-        print FILE "Ìù×ÓÎÄ¼þÊý:\t$bb\n";
-        print FILE "¸½¼þÎÄ¼þÊý:\t$aa\n";
-        print FILE "¶ÌÏûÏ¢·¢¼þÏäÎÄ¼þÊý:\t$ff\n";
-        print FILE "¶ÌÏûÏ¢ÊÕ¼þÏäÎÄ¼þÊý:\t$gg\n";
-        print FILE "\n\n\n";  #ÎªÒÔºóÔ¤Áô
-        print FILE "±¸·ÝµÄÂÛÌ³ÈçÏÂ£º\n";
-#########È¡ÂÛÌ³Ãû
+        print FILE "å¤‡ä»½æ—¶é—´ï¼š\t$current_time\n";
+        print FILE "æ–‡ä»¶åï¼š\t$tarname\n";
+        print FILE "æ­¤æ¬¡å¤‡ä»½æ€»æ–‡ä»¶æ•°:\t$totalnum\n";     
+        print FILE "ç”¨æˆ·èµ„æ–™æ–‡ä»¶æ•°:\t$cc\n";
+        print FILE "ç”¨æˆ·è‡ªå®šä¹‰å¤´åƒæ•°:\t$ee\n";
+        print FILE "ç³»ç»Ÿé…ç½®æ–‡ä»¶æ•°:\t$dd\n";
+        print FILE "è´´å­æ–‡ä»¶æ•°:\t$bb\n";
+        print FILE "é™„ä»¶æ–‡ä»¶æ•°:\t$aa\n";
+        print FILE "çŸ­æ¶ˆæ¯å‘ä»¶ç®±æ–‡ä»¶æ•°:\t$ff\n";
+        print FILE "çŸ­æ¶ˆæ¯æ”¶ä»¶ç®±æ–‡ä»¶æ•°:\t$gg\n";
+        print FILE "\n\n\n";  #ä¸ºä»¥åŽé¢„ç•™
+        print FILE "å¤‡ä»½çš„è®ºå›å¦‚ä¸‹ï¼š\n";
+#########å–è®ºå›å
        open(FILE1, "${lbdir}/data/allforums.cgi");
        flock(FILE1, 1) if ($OS_USED eq "Unix");
        my @forums = <FILE1>;
@@ -1142,7 +1198,7 @@ print qq~
         print FILE "\n";
         }
         }
-        print FILE "ÇëÎñ±Ø±£³Ö°üÎÄ¼þÍêÕû¡£¡£²»Òª¸Ä¶¯±¾ÎÄ¼þ";
+        print FILE "è¯·åŠ¡å¿…ä¿æŒåŒ…æ–‡ä»¶å®Œæ•´ã€‚ã€‚ä¸è¦æ”¹åŠ¨æœ¬æ–‡ä»¶";
         close(FILE);
         chdir $lbdir;
 
@@ -1153,17 +1209,17 @@ print qq~
         </td></tr>
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
-        <font color=red><div align=center>ËùÓÐÎÄ¼þ±¸·Ý×¼±¸½áÊø£¡</div></font>
+        <font color=red><div align=center>æ‰€æœ‰æ–‡ä»¶å¤‡ä»½å‡†å¤‡ç»“æŸï¼</div></font>
        <p>
-       ´Ë´Î±¸·Ý¹²ÓÐ $totalnum ¸öÎÄ¼þ:
+       æ­¤æ¬¡å¤‡ä»½å…±æœ‰ $totalnum ä¸ªæ–‡ä»¶:
        <p>
-       ÓÃ»§×ÊÁÏÎÄ¼þ $cc ¸ö<br>
-       ¶ÌÏûÏ¢·¢¼þÏäÎÄ¼þ $ff ¸ö<br>
-       ¶ÌÏûÏ¢ÊÕ¼þÏäÎÄ¼þ $gg ¸ö<br>
-       ÓÃ»§×Ô¶¨ÒåÍ·Ïñ $ee ¸ö<br>
-       ÏµÍ³ÅäÖÃÎÄ¼þ $dd¸ö<br>
-       Ìù×ÓÎÄ¼þ $bb ¸ö<br>
-       ¸½¼þÎÄ¼þ $aa ¸ö
+       ç”¨æˆ·èµ„æ–™æ–‡ä»¶ $cc ä¸ª<br>
+       çŸ­æ¶ˆæ¯å‘ä»¶ç®±æ–‡ä»¶ $ff ä¸ª<br>
+       çŸ­æ¶ˆæ¯æ”¶ä»¶ç®±æ–‡ä»¶ $gg ä¸ª<br>
+       ç”¨æˆ·è‡ªå®šä¹‰å¤´åƒ $ee ä¸ª<br>
+       ç³»ç»Ÿé…ç½®æ–‡ä»¶ $ddä¸ª<br>
+       è´´å­æ–‡ä»¶ $bb ä¸ª<br>
+       é™„ä»¶æ–‡ä»¶ $aa ä¸ª
        <p>
        <form action="$thisprog" method=post name=form>
        <input type=hidden name="action" value="backup">
@@ -1182,9 +1238,8 @@ print qq~
        <input type=hidden name="currentnum" value="0">
        <input type=hidden name="tarname" value="$tarname">
        <input type=hidden name="attachement" value="$attachement">
-       <input type="submit" name="Submit" value="±¸·ÝÎÄ¼þ">
+       <input type="submit" name="Submit" value="å¤‡ä»½æ–‡ä»¶">
       </p>
-
         </td></tr>
          ~;
         }
@@ -1194,7 +1249,7 @@ print qq~
         print qq~
         <p>
         <div align=center><font color=red>
-        ÇëÖÁÉÙÑ¡ÔñÒ»¸ö±¸·ÝÏîÄ¿.....
+        è¯·è‡³å°‘é€‰æ‹©ä¸€ä¸ªå¤‡ä»½é¡¹ç›®.....
         </font></div>
         </td></tr></tr>
         ~;
@@ -1227,7 +1282,7 @@ print qq~
         @untarname=splice(@filename,$mn);
         
         $currentnum=($#untarname>=0)?$currentnum+$mn:$currentnum+$#filename;
-        chdir "$lbdir$memberdir/old";#ÐÞÕý By maiweb
+        chdir "$lbdir$memberdir/old";#ä¿®æ­£ By maiweb
         
         if ($#filename>=0)
         {
@@ -1249,16 +1304,16 @@ print qq~
         $step="member";
         print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         }
         else
         {
 print qq~
         <p>
-        <font color=red><div align=center>ÓÃ»§×ÊÁÏ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>ç”¨æˆ·èµ„æ–™å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>        
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>        
         ~;
         $step="msgin";    
         $ttarnum=1;
@@ -1315,16 +1370,16 @@ print qq~
         $step="msgin";
         print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         }
         else
         {
 print qq~
         <p>
-        <font color=red><div align=center>¶ÌÏûÏ¢×ÊÁÏ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>çŸ­æ¶ˆæ¯èµ„æ–™å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>        
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>        
         ~;
         $step="msgout";    
         $ttarnum=1;
@@ -1382,16 +1437,16 @@ print qq~
         $step="msgout";
         print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         }
         else
         {
 print qq~
         <p>
-        <font color=red><div align=center>¶ÌÏûÏ¢×ÊÁÏ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>çŸ­æ¶ˆæ¯èµ„æ–™å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>        
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>        
         ~;
         $step="avatar";    
         $ttarnum=1;
@@ -1445,16 +1500,16 @@ print qq~
         $step="avatar";
         print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         }
         else
         {
 print qq~
         <p>
-        <font color=red><div align=center>ÓÃ»§×Ô¶¨ÒåÍ·ÏñÎÄ¼þ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>ç”¨æˆ·è‡ªå®šä¹‰å¤´åƒæ–‡ä»¶å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         $step="system";    
         $ttarnum=1;
@@ -1493,9 +1548,9 @@ print qq~
       
 print qq~
         <p>
-        <font color=red><div align=center>ÏµÍ³ÅäÖÃÎÄ¼þÎÄ¼þ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>ç³»ç»Ÿé…ç½®æ–‡ä»¶æ–‡ä»¶å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
                 
 
@@ -1516,7 +1571,7 @@ print qq~
 
         @untarname=();
         chdir $lbdir;
-     ################# È¡ÎÄ¼þÁÐ±í
+     ################# å–æ–‡ä»¶åˆ—è¡¨
         open(FILE,"backuptopic.temp");
         @filelist=<FILE>;
         chomp @filelist;
@@ -1554,7 +1609,7 @@ print qq~
 
         print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
           } #end if $#untarname>=0
          else
@@ -1576,7 +1631,7 @@ print qq~
         $ttarnum=1;
          print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         }
         else 
@@ -1605,9 +1660,9 @@ print qq~
           	$step="attachement";          
               print qq~
              <p>
-             <font color=red><div align=center>ÂÛÌ³Ìù×Ó×ÊÁÏ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+             <font color=red><div align=center>è®ºå›è´´å­èµ„æ–™å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
              <p>
-             <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+             <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;   
           }
          }
@@ -1618,9 +1673,9 @@ print qq~
         $step="attachement";          
         print qq~
         <p>
-        <font color=red><div align=center>ÂÛÌ³Ìù×Ó×ÊÁÏ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>è®ºå›è´´å­èµ„æ–™å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;       
         }
         chdir $lbdir;
@@ -1679,7 +1734,7 @@ print qq~
         
         print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         } # end untarname>=0
         else
@@ -1701,7 +1756,7 @@ print qq~
         $atarnum=1;
          print qq~
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;
         }
         else 
@@ -1710,9 +1765,9 @@ print qq~
           	$skip="yes";          
               print qq~
              <p>
-             <font color=red><div align=center>ÂÛÌ³Ìù×Ó¸½¼þ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+             <font color=red><div align=center>è®ºå›è´´å­é™„ä»¶å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
              <p>
-             <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+             <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;   
           }
          }
@@ -1725,9 +1780,9 @@ print qq~
         $skip="yes";
         print qq~
         <p>
-        <font color=red><div align=center>ÂÛÌ³Ìù×Ó¸½¼þ±¸·ÝÍê±Ï¡£¡£Çë¼ÌÐø</div></font>
+        <font color=red><div align=center>è®ºå›è´´å­é™„ä»¶å¤‡ä»½å®Œæ¯•ã€‚ã€‚è¯·ç»§ç»­</div></font>
         <p>
-        <div align=center>³ÌÐòÔÚ2Ãë»á×Ô¶¯½øÐÐ£¬Èç¹ûä¯ÀÀÆ÷Ã»ÓÐ×Ô¶¯ÏòÇ°½øÐÐ£¬Çëµã»÷ ¼ÌÐø±¸·ÝÎÄ¼þ °´Å¥</div>
+        <div align=center>ç¨‹åºåœ¨2ç§’ä¼šè‡ªåŠ¨è¿›è¡Œï¼Œå¦‚æžœæµè§ˆå™¨æ²¡æœ‰è‡ªåŠ¨å‘å‰è¿›è¡Œï¼Œè¯·ç‚¹å‡» ç»§ç»­å¤‡ä»½æ–‡ä»¶ æŒ‰é’®</div>
         ~;       
         }
         chdir $lbdir;
@@ -1761,8 +1816,8 @@ COMEON:{
         if (-e "tarfilelist.txt") {unlink("tarfilelist.txt");}
  
  print qq~     
-        <a href=$imagesurl/xq${tarname}.tar>µãÕâ¶ùÏÂÔØµ½±¾µØ</a><br>
-        <a href=$thisprog?action=delete>µãÕâ¶ùÉ¾³ý±¸·Ý<font color=red>Îñ±Ø²Ù×÷</font></a><Br>
+        <a href=$imagesurl/xq${tarname}.tar>ç‚¹è¿™å„¿ä¸‹è½½åˆ°æœ¬åœ°</a><br>
+        <a href=$thisprog?action=delete>ç‚¹è¿™å„¿åˆ é™¤å¤‡ä»½<font color=red>åŠ¡å¿…æ“ä½œ</font></a><Br>
 ~;        
         }
         else
@@ -1773,11 +1828,11 @@ COMEON:{
        
         foreach $fn (@filename)
          {
-             print "<a href=$imagesurl/$fn>ÎÄ¼þ $fn µãÕâ¶ùÏÂÔØµ½±¾µØ</a><br>";
+             print "<a href=$imagesurl/$fn>æ–‡ä»¶ $fn ç‚¹è¿™å„¿ä¸‹è½½åˆ°æœ¬åœ°</a><br>";
          }
          $nn=$#filename+1;
-         print "<p><div align=center><font color=red>¹²ÓÐ $nn ¸öÎÄ¼þ¡£ÇëÏÂÔØºóÍ³Ò»±£¹Ü£¬ÎðË½×Ô¸Ä¶¯ÆäÖÐÄÚÈÝ»òÎÄ¼þÃû¡£»Ö¸´Ê±Ò»²¢ÉÏ´«</font></div><p>";       
-         print "<a href=$thisprog?action=delete>µãÕâ¶ùÉ¾³ý±¸·Ý<font color=red>Îñ±Ø²Ù×÷</font></a><Br>";
+         print "<p><div align=center><font color=red>å…±æœ‰ $nn ä¸ªæ–‡ä»¶ã€‚è¯·ä¸‹è½½åŽç»Ÿä¸€ä¿ç®¡ï¼Œå‹¿ç§è‡ªæ”¹åŠ¨å…¶ä¸­å†…å®¹æˆ–æ–‡ä»¶åã€‚æ¢å¤æ—¶ä¸€å¹¶ä¸Šä¼ </font></div><p>";       
+         print "<a href=$thisprog?action=delete>ç‚¹è¿™å„¿åˆ é™¤å¤‡ä»½<font color=red>åŠ¡å¿…æ“ä½œ</font></a><Br>";
          print qq~</div>~;
         }
         
@@ -1793,7 +1848,7 @@ $percent1=int(100-$percent);
 
 
 print qq~
-       <b>±¸·ÝÖÐ¡£¡£¡£¡£¡£</b><p>
+       <b>å¤‡ä»½ä¸­ã€‚ã€‚ã€‚ã€‚ã€‚</b><p>
        <form action="$thisprog" method=post name=form>
        <input type=hidden name="action" value="backup">
        <input type=hidden name="fn" value="$fn">
@@ -1811,12 +1866,12 @@ print qq~
        <input type=hidden name="currentnum" value="$currentnum">
        <input type=hidden name="totalnum" value="$totalnum">
        <input type=hidden name="attachement" value="$attachement">
-       <div align=center><input type="submit" name="Submit" value="¼ÌÐø±¸·ÝÎÄ¼þ"></div>
+       <div align=center><input type="submit" name="Submit" value="ç»§ç»­å¤‡ä»½æ–‡ä»¶"></div>
        </p>
       
        <div align=center>
-       <b>±¸·Ý½ø¶È</b><br>
-       (±¸·Ý½ø¶ÈÌåÏÖµÄÊÇÒÔ±¸·ÝÎÄ¼þÔÚ×ÜÎÄ¼þÊýÖÐµÄ±ÈÀý,²»ÄÜÒÔ´Ë×÷Îª±¸·Ý»¨·ÑÊ±¼äµÄÍÆ¶Ï)
+       <b>å¤‡ä»½è¿›åº¦</b><br>
+       (å¤‡ä»½è¿›åº¦ä½“çŽ°çš„æ˜¯ä»¥å¤‡ä»½æ–‡ä»¶åœ¨æ€»æ–‡ä»¶æ•°ä¸­çš„æ¯”ä¾‹,ä¸èƒ½ä»¥æ­¤ä½œä¸ºå¤‡ä»½èŠ±è´¹æ—¶é—´çš„æŽ¨æ–­)
        <table width=80% board=0 height=20>
        <tr>
        <td width=$percent% bgcolor=blue></td>
@@ -1858,16 +1913,16 @@ sub delete {
     
     if (-e "${imagesdir}$backupfile") {
      unlink "${imagesdir}$backupfile";
-     print "<tr><td bgcolor=#FFFFFF align=left colspan=2>É¾³ý²ÐÁô±¸·ÝÎÄ¼þ${imagesdir}$backupfile³É¹¦!<br></td></tr>";
+     print "<tr><td bgcolor=#FFFFFF align=left colspan=2>åˆ é™¤æ®‹ç•™å¤‡ä»½æ–‡ä»¶${imagesdir}$backupfileæˆåŠŸ!<br></td></tr>";
     }
 }
 if (-e "${imagesdir}tarfilelist.txt") {
      unlink "${imagesdir}tarfilelist.txt";
-     print "<tr><td bgcolor=#FFFFFF align=left colspan=2>É¾³ý²ÐÁô±¸·ÝÎÄ¼þ${imagesdir}tarfilelist.txt³É¹¦!<br></td></tr>";
+     print "<tr><td bgcolor=#FFFFFF align=left colspan=2>åˆ é™¤æ®‹ç•™å¤‡ä»½æ–‡ä»¶${imagesdir}tarfilelist.txtæˆåŠŸ!<br></td></tr>";
     }
 print qq~
 <tr><td bgcolor=#FFFFFF align=left colspan=2>
-<b>²ÐÁô±¸·ÝÎÄ¼þÒÑ¾­È«²¿É¾³ý!</b>
+<b>æ®‹ç•™å¤‡ä»½æ–‡ä»¶å·²ç»å…¨éƒ¨åˆ é™¤!</b>
 </td></tr>
 ~;
 
