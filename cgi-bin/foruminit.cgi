@@ -491,7 +491,6 @@ sub dogetold {
         </form>
 	为了减少资源占用，请输入每次进行排名的用户数，默认 300，<BR>一般不要超过 600，如果发现进行排名无法正常完成，请尽量减少这个数目，延长排名时间。
 	<BR><BR>
-
         </td></tr>
          ~;
 } # end routine
@@ -537,7 +536,6 @@ sub dogetoldnext {
         >> <a href="$thisprog?action=dogetoldnext&beginone=$lastone&noofone=$noofone">继续进行用户整理</a> <<
 	<meta http-equiv="refresh" content="2; url=$thisprog?action=dogetoldnext&beginone=$lastone&noofone=$noofone">
 	<BR><BR>
-
         </td></tr>
          ~;
      }
@@ -595,7 +593,6 @@ sub dotop {
         </form>
 	为了减少资源占用，请输入每次进行排名的用户数，默认 2000，<BR>一般不要超过 3000，如果发现进行排名无法正常完成，请尽量减少这个数目，延长排名时间。
 	<BR><BR>
-
         </td></tr>
          ~;
 } # end routine
@@ -694,7 +691,6 @@ sub dotopnext {
         >> <a href="$thisprog?action=uptopnext&beginone=$lastone&noofone=$noofone">继续进行排名用户</a> <<
 	<meta http-equiv="refresh" content="2; url=$thisprog?action=uptopnext&beginone=$lastone&noofone=$noofone">
 	<BR><BR>
-
         </td></tr>
          ~;
      }
@@ -952,7 +948,11 @@ $unionoutput1 = "";
 	foreach $lmforum (@lmforums) {
 	    chomp $lmforum;
             next if ($lmforum eq "");
-            ($lmforumname,$lmforumurl,$lmforuminfo,$lmfogn=right><a href=http://bbs.leobbs.com/ target=_blank><img src=$imagesurl/images/leobbs8831.gif width=88 height=31 border=0 title="���ᳬ����̳����������Ӱ�ӡ����֡����簲ȫ��ͼ����������Ϸ��CGI ֪ʶ���ۺ���̳�����������졣����"></a></td></tr></table></td></tr>~ if ($lmlogos ne "");
+            ($lmforumname,$lmforumurl,$lmforuminfo,$lmforumorder,$lmweblogo) = split(/\t/,$lmforum);
+            if (($lmweblogo ne "")&&($lmweblogo ne "http:\/\/")) { $lmlogos .= qq~<a href=$lmforumurl target=_blank onmouseover="document.all.lmforum.stop();" onmouseout="document.all.lmforum.start();"><img src=$lmweblogo width=88 height=31 border=0 title="$lmforumname\n$lmforuminfo"></a> ~; }
+            else { $lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>　~; }
+	}
+	$unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum" id="lmforum"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmlogos</marquee></td><td width=100 align=right><a href=http://bbs.leobbs.com/ target=_blank><img src=$imagesurl/images/leobbs8831.gif width=88 height=31 border=0 title="极酷超级论坛最新软件、影视、音乐、网络安全、图形艺术、游戏、CGI 知识等综合论坛，还可以聊天。。。"></a></td></tr></table></td></tr>~ if ($lmlogos ne "");
 	$unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum1" id="lmforum1"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmtexts</marquee></td></tr></table></td></tr>~ if ($lmtexts ne "");
 
   }
@@ -963,7 +963,7 @@ $unionoutput   =~ s/\(/\\\(/isg;
 $unionoutput   =~ s/\)/\\\)/isg;
 $unionoutput1  =~ s/\(/\\\(/isg;
 $unionoutput1  =~ s/\)/\\\)/isg;
-print FILE qq~if (\$union==0) { \$unionview="��ʾ�����б�"; } else { \$unionview="�ر������б�"; }\n
+print FILE qq~if (\$union==0) { \$unionview="显示联盟列表"; } else { \$unionview="关闭联盟列表"; }\n
 \$output .= qq($unionoutput);\n
 \$output .= qq($unionoutput1) if (\$union == 1);
 ~;
@@ -1014,8 +1014,8 @@ $x = substr($x, 2, 9);
 $usrdir    = "usr$x"      if (rename("$imagesdir$usrdir", "${imagesdir}usr$x"));
 
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>��ҪĿ¼���Ʊ任</b><p>
-<font color=#333333>������ҪĿ¼�����ƶ��Ѿ��仯��ɣ�</font>
+<font color=#990000><b>重要目录名称变换</b><p>
+<font color=#333333>所有重要目录的名称都已经变化完成！</font>
 </td></tr>
 ~;
 
@@ -1030,134 +1030,119 @@ sub dodellock {
 	unlink ("${lbdir}lock/$_");
     }
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>��ʼ�������ļ�</b><p>
-<font color=#333333>���������ļ��Ѿ���ʼ����</font>
+<font color=#990000><b>初始化锁定文件</b><p>
+<font color=#333333>所有锁定文件已经初始化！</font>
 </td></tr>
 ~;
 }
 
 sub doinit  {
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
-<font color=#990000><b>��ʼ����̳����</b><p>
-<font color=#333333>�״�������̳�������У��Ժ������������̳����ͼƬ�ȣ�Ҳ��Ҫ���У�<BR>û���ر�˵���ĳ�ʼ���ǲ��ᶪʧ���ݵģ������ʹ�ã�</font><BR><BR>
+<font color=#990000><b>初始化论坛数据</b><p>
+<font color=#333333>首次运行论坛必须运行，以后如果更新了论坛表情图片等，也需要运行！<BR>没有特别说明的初始化是不会丢失数据的，请放心使用！</font><BR><BR>
 </td></tr>
 <tr>
     <td bgcolor=#FFFFFF colspan=2>
-
-    <font color=#333333>* <b><a href="$thisprog?action=upskinselect">��ʼ����ʼ����̳���ѡ���б�</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    ��ʼ����̳���ѡ���б���ʵ�����Զ����µģ����������������һ�¡����������̳���Ҳ��Ҫ���У�<BR><BR>
+    <font color=#333333>* <b><a href="$thisprog?action=upskinselect">初始化初始化论坛风格选择列表</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    初始化论坛风格选择列表其实不会自动更新的，除非你在这儿更新一下。如果更新论坛风格，也需要运行！<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>1��<b><a href="$thisprog?action=uptop">��ʼ���û�����</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    �û�������ʵ�����Զ����µģ����������������һ�¡�<BR><BR>
-    </td>
-    </tr>
-    
-    <tr>
-    <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>2��<b><a href="$thisprog?action=dogetold">�û���������</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    ���û����ݽ�����������֤��̳�������С�<BR><BR>
-    </td>
-    </tr>
-
-    <tr>
-    <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>3��<b><a href="$thisprog?action=upemot">��ʼ������ͼƬ�� EMOT ͼƬ</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    ����ͼƬ�� EMOT ��ʵ�����Զ����µģ����������������һ�¡�<BR><BR>
+    <font color=#333333>1．<b><a href="$thisprog?action=uptop">初始化用户排名</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    用户排名其实不会自动更新的，除非你在这儿更新一下。<BR><BR>
     </td>
     </tr>
     
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>4��<b><a href="$thisprog?action=upuser">��ʼ���û�ͷ��ͼƬ</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    �û�ͷ����ʵ�����Զ����µģ����������������һ�¡�<BR><BR>
+    <font color=#333333>2．<b><a href="$thisprog?action=dogetold">用户数据整理</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    对用户数据进行整理，保证论坛高速运行。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>5��<b><a href="$thisprog?action=upupload">��ʼ���ļ��ϴ�Ŀ¼���ԣ�</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    ���������̳�޷�����֧�����������ļ��ϴ����ϴ�ͷ���ļ����ļ����ؼ���ʱ�������������ʼ��һ�£��󲿷����ⶼ���Խ��(�����̳���ļ��ϴ������Ļ������������д˲�)��<BR><BR>
+    <font color=#333333>3．<b><a href="$thisprog?action=upemot">初始化表情图片和 EMOT 图片</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    表情图片和 EMOT 其实不会自动更新的，除非你在这儿更新一下。<BR><BR>
     </td>
     </tr>
-
+    
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>6��<b><a href="$thisprog?action=uppost">��ʼ����̳����Ŀ¼�������ļ�����</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    ���������̳��Щ�����޷����¡������޷�������ظ�֮��ʱ�������������ʼ��һ�£��󲿷����ⶼ���Խ��(�����̳�����������Ļ������������д˲�)��<BR><BR>
+    <font color=#333333>4．<b><a href="$thisprog?action=upuser">初始化用户头像图片</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    用户头像其实不会自动更新的，除非你在这儿更新一下。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>7��<b><a href="$thisprog?action=upmessage">��ʼ������ϢĿ¼���ļ�����</a></b>�� <font color=red>(��һ�ΰ�װ���������һ��)</font><br>
-    ���������̳����Ϣ���շ�������ʱ�������������ʼ��һ�£��󲿷����ⶼ���Խ��(�����̳�Ķ���Ϣ�շ������Ļ������������д˲�)��<BR><BR>
+    <font color=#333333>5．<b><a href="$thisprog?action=upupload">初始化文件上传目录属性！</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    如果您的论坛无法正常支持帖子内贴文件上传、上传头像文件、文件下载计数时，可以在这里初始化一下，大部分问题都可以解决(如果论坛的文件上传正常的话，则无须运行此步)。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>8��<b><a href="$thisprog?action=dellock">��ʼ�������ļ�</a></b><br>
-    �����������ļ�Ŀ¼���ж���Ļ���ɾ�������������ļ��Ļ��������������ʼ��һ�¡�<BR><BR>
+    <font color=#333333>6．<b><a href="$thisprog?action=uppost">初始化论坛帖子目录和数据文件属性</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    如果您的论坛有些数据无法更新、帖子无法发表或回复之类时，可以在这里初始化一下，大部分问题都可以解决(如果论坛的数据正常的话，则无须运行此步)。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>9��<b><a href="$thisprog?action=changedir">��ҪĿ¼���Ʊ仯</a></b><br>
-    ��ҪĿ¼�������ڰ�װ֮ʱ���Ѿ��仯���ܣ�Ϊ�˸��ӱ�֤��ȫ�����������������±仯Ŀ¼���ơ�<BR><BR>
+    <font color=#333333>7．<b><a href="$thisprog?action=upmessage">初始化短消息目录和文件属性</a></b>　 <font color=red>(第一次安装后必须运行一次)</font><br>
+    如果您的论坛短消息的收发有问题时，可以在这里初始化一下，大部分问题都可以解决(如果论坛的短消息收发正常的话，则无须运行此步)。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>10��<b><a href="$thisprog?action=uponlineuser" OnClick="return confirm('�˲����ǲ��ɻָ��ģ�ȷ��ô��');">��ʼ������ͳ��</a></b><br>
-    ��������������ͳ�����ݳ����Ļ�(��������ֻ����һ��������)�������������ʼ��һ��(���е��û���ȫ������Ϊ������)��<BR><BR>
+    <font color=#333333>8．<b><a href="$thisprog?action=dellock">初始化锁定文件</a></b><br>
+    如果你的锁定文件目录中有多余的或者删除不掉的锁定文件的话，可以在这里初始化一下。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>11��<b><a href="$thisprog?action=upconter" OnClick="return confirm('�˲����ǲ��ɻָ��ģ�ȷ��ô��');">��ʼ�����ʴ���</a></b><br>
-    �����ķ��ʴ���ͳ�ƺ�����������������ݳ����Ļ�(������ʴ�������1)�������������ʼ��һ��(���ʴ���ͳ�ƺ�������������������)��<BR><BR>
+    <font color=#333333>9．<b><a href="$thisprog?action=changedir">重要目录名称变化</a></b><br>
+    重要目录的名称在安装之时就已经变化保密，为了更加保证安全，您可以在这里重新变化目录名称。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>12��<b><a href="$thisprog?action=shareforums" OnClick="return confirm('�˲����ǲ��ɻָ��ģ�ȷ��ô��');">��ʼ����������</a></b><br>
-    ��������������ɾ���������ǳ����Ļ��������������ʼ��һ�¡�(���е��������ݽ�ȫ����ʧ)<BR><BR>
+    <font color=#333333>10．<b><a href="$thisprog?action=uponlineuser" OnClick="return confirm('此操作是不可恢复的，确定么？');">初始化在线统计</a></b><br>
+    如果你的在线人数统计数据出错的话(比如总是只有你一个人在线)，可以在这里初始化一下(所有的用户将全部被视为不在线)。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>13��<b><a href="$thisprog?action=delxzb" OnClick="return confirm('�˲����ǲ��ɻָ��ģ�ȷ��ô��');">��ʼ��������̳��С�ֱ�</a></b><br>
-    �����Ҫ���������̳��С�ֱ�ʱ�������������ʼ��һ��(���е�С�ֱ���ȫ����ʧ)��<BR><BR>
+    <font color=#333333>11．<b><a href="$thisprog?action=upconter" OnClick="return confirm('此操作是不可恢复的，确定么？');">初始化访问次数</a></b><br>
+    如果你的访问次数统计和最大在线人数等数据出错的话(比如访问次数总是1)，可以在这里初始化一下(访问次数统计和最大在线人数都将清空)。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>14��<b><a href="$thisprog?action=delans" OnClick="return confirm('�˲����ǲ��ɻָ��ģ�ȷ��ô��');">��ʼ��������̳�Ĺ���</a></b><br>
-    �����Ҫ���������̳�Ĺ���ʱ�������������ʼ��һ��(���еĹ��潫ȫ����ʧ)��<BR><BR>
+    <font color=#333333>12．<b><a href="$thisprog?action=shareforums" OnClick="return confirm('此操作是不可恢复的，确定么？');">初始化联盟数据</a></b><br>
+    如果你的联盟数据删除不掉或是出错的话，可以在这里初始化一下。(所有的联盟数据将全部丢失)<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>15��<b><a href="$thisprog?action=delmessage" OnClick="return confirm('�˲����ǲ��ɻָ��ģ�ȷ��ô��');">������ж���Ϣ</a></b><br>
-    �����Ҫ������еĶ���Ϣʱ�������������ʼ��һ��(���еĶ���Ϣ��ȫ����ʧ)��<BR><BR>
+    <font color=#333333>13．<b><a href="$thisprog?action=delxzb" OnClick="return confirm('此操作是不可恢复的，确定么？');">初始化所有论坛的小字报</a></b><br>
+    如果您要清除所有论坛的小字报时，可以在这里初始化一下(所有的小字报将全部丢失)。<BR><BR>
     </td>
     </tr>
-
     <tr>
     <td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333>16��<b><a href="$thisprog?action=delcache">������л���</a></b><br>
-    �����Ҫ������еĻ���ʱ�������������ʼ��һ��(Ϊ�����ϵͳЧ�ʣ����10-20�춨�����һ��)��<BR><BR>
+    <font color=#333333>14．<b><a href="$thisprog?action=delans" OnClick="return confirm('此操作是不可恢复的，确定么？');">初始化所有论坛的公告</a></b><br>
+    如果您要清除所有论坛的公告时，可以在这里初始化一下(所有的公告将全部丢失)。<BR><BR>
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor=#FFFFFF colspan=2>
+    <font color=#333333>15．<b><a href="$thisprog?action=delmessage" OnClick="return confirm('此操作是不可恢复的，确定么？');">清空所有短消息</a></b><br>
+    如果您要清除所有的短消息时，可以在这里初始化一下(所有的短消息将全部丢失)。<BR><BR>
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor=#FFFFFF colspan=2>
+    <font color=#333333>16．<b><a href="$thisprog?action=delcache">清空所有缓存</a></b><br>
+    如果您要清除所有的缓存时，可以在这里初始化一下(为了提高系统效率，最好10-20天定期清空一次)。<BR><BR>
     </td>
     </tr>
          ~;
