@@ -10,13 +10,17 @@
 use strict;
 use warnings;
 my $_bbs_lib_loaded = true;
-$versionnumber = "<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build090208";
+my $versionnumber = "<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build090208";
 
 $ENV{"HTTP_CLIENT_IP"} = '' if ($ENV{"HTTP_CLIENT_IP"} !~ /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
 $ENV{"HTTP_X_FORWARDED_FOR"} = '' if ($ENV{"HTTP_X_FORWARDED_FOR"} !~ /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
 $ENV{'REMOTE_ADDR'} = $ENV{'HTTP_X_FORWARDED_FOR'} if (($ENV{'REMOTE_ADDR'} eq "127.0.0.1")&&($ENV{'HTTP_X_FORWARDED_FOR'} ne "")&&($ENV{'HTTP_X_FORWARDED_FOR'} ne "unknow"));
-$skin = "leobbs" if ($skin eq "");
-
+my $skin = "leobbs" if ($skin eq "");
+my $memdir;
+my $msgdir;
+my $usrdir;
+my $saledir;
+my $wordfilter;
 ($memdir,$msgdir,$usrdir,$saledir) = split (/\|/, getdir());
 &error("有问题&论坛中 cgi-bin 下的 members 目录不存在，请检查后继续！") if($memdir eq "");
 &error("有问题&论坛中 cgi-bin 下的 messages 目录不存在，请检查后继续！") if($msgdir eq "");
@@ -51,6 +55,7 @@ sub dofilter {
     if ($wordfilter) { $tempinfilter1 =~ s/$wordfilter/ *** /isg; }
     if ($tempinfilter1 ne $tempinfilter) { &error("有问题&你所写的内容中也许包含了一些本论坛不允许发布的言论，请仔细检查后，重新发布，谢谢！！"); }
 
+    my $badwords;
     if (open (FILE, "${lbdir}data/badwords.cgi")) {
 	$badwords = <FILE>;
 	close (FILE);
@@ -82,14 +87,14 @@ sub checksearchbot {  #返回 0 = 搜索引擎访问 ，返回 1 = 非搜索引�
 }
 
 sub ipbanned {
-    $inmembername = $query->cookie("amembernamecookie") if ($inmembername eq "");
+    my $inmembername = $query->cookie("amembernamecookie") if ($inmembername eq "");
     $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-    $infilemembername = $inmembername;
+    my $infilemembername = $inmembername;
     $infilemembername =~ s/ /_/g;
     $infilemembername =~ tr/A-Z/a-z/;
     $infilemembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-    $ipaddress     = $ENV{"REMOTE_ADDR"};
-    $trueipaddress = $ENV{"HTTP_CLIENT_IP"};
+    my $ipaddress     = $ENV{"REMOTE_ADDR"};
+    my $trueipaddress = $ENV{"HTTP_CLIENT_IP"};
     $trueipaddress = $ENV{"HTTP_X_FORWARDED_FOR"} if ($trueipaddress eq "" || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./ || $trueipaddress =~ m/a-z/i);
     $trueipaddress = $ipaddress if ($trueipaddress eq "" || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./ || $trueipaddress =~ m/a-z/i);
     $trueipaddress =~ s/\.\.//g;
@@ -733,7 +738,7 @@ exit;
 sub doonoff { #$mainoff 主，$mainonoff　分论坛
     return if ($membercode eq "ad");
     if (($mainoff == 2)&&($mainonoff ne 2)) {
-	$mainoff = 1;
+	my $mainoff = 1;
 	my (undef, undef, $hour, $mday, undef, undef, $wday, undef) = localtime(time + $timezone * 3600);
 	$mainautovalue =~ s/[^\d\-]//sg;
 	my ($starttime, $endtime) = split(/-/, $mainautovalue);
