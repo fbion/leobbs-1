@@ -69,7 +69,7 @@ $max	   = 10 if ($max eq "");        # 默认显示 10 个帖子
 $maxlengths= 30 if ($maxlengths eq "");  # 默认标题最多 30 个字符
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
-print header(-charset=>utf8);
+print header(-charset=>"UTF-8");
 $allstr = "";
 
 foreach $number (@number) {

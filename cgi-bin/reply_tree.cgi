@@ -275,7 +275,7 @@ sub OUTPUT_TREE{
 	my ($title,$output,$err) = @_;
 	chomp $output;
 
-	print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 print <<"HTML";
 <html>

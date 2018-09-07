@@ -64,7 +64,7 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
 @dirdata1 = grep(/^threadages$inforum\_/,@dirdata);
 foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <SCRIPT>
 alert("本区的所有缓存都被清空了！");

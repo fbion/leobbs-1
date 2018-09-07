@@ -153,7 +153,7 @@ foreach (sort (keys %$tags)) {
 $out =~ s/\n//g;
 $out =~ s/\'/\\\'/g;
 }
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print <<"HTML";
 <html>
 <head> 

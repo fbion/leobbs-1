@@ -86,7 +86,7 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
      }
 	}
     &doonoff;  #论坛开放与否
-    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
     $helpurl = &helpfiles("阅读标记");
     $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
@@ -353,7 +353,7 @@ if (!(-e "$filetoopens.lck")) {
 	                        </tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 
 	              ~;
-	             print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	             print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output("$boardname - 在$forumname内查看小字报",\$output);
 
 exit;
@@ -384,7 +384,7 @@ sub del {
 	$output=qq~
 	<script>alert("小字报删除成功！");top.window.close();</script>
 	~;
-	             print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	             print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	             print $output;
 
 exit;

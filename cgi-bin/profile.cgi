@@ -89,7 +89,7 @@ if (($inmembername eq "")&&($action ne "lostpass")&&($action ne "lostpassword")&
     $inmembername = "客人";
     $userregistered = "no";
     if ($dispprofile eq "no") {
-        print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+        print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
         &error("查看会员资料&客人无权查看会员资料！")
     }
 } else {
@@ -127,7 +127,7 @@ if($Mode{$action}) {
     &error("查看资料&请勿非正常访问本程序！");
 }
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output($boardname,\$output);
 exit;
 

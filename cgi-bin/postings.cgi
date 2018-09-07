@@ -67,7 +67,7 @@ if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {requ
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }

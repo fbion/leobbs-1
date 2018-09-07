@@ -80,7 +80,7 @@ if ($memdir ne "")
  {$memberdir=$memdir;} elsif ($memberdir eq "") {$memberdir="members";}
 
 &getadmincheck;
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &admintitle;
         
 &getmember("$inmembername","no");

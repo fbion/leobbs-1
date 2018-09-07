@@ -61,6 +61,6 @@ else {
     $str = qq~<BR>欢迎您<BR>$inmembername<BR><BR><A target=_blank href="$boardurl/leobbs.cgi">进入</A> <A target=_blank href="$boardurl/loginout.cgi">重登录</A> <A href="$boardurl/loginout.cgi?action=logout">退出</A><BR>~;
 }
 
-print header(-charset=>utf8);
+print header(-charset=>"UTF-8");
 print "document.write('$str')\n";
 exit;

@@ -91,12 +91,12 @@ if ($currequip eq '')
     # 如果 Cookie 的值为空，则将相应性别的初始值传递给 $equiplayer
     $equiplayer = $sex eq 'f' ? $fairsex : $mansex if ($equiplayer eq '');
     $equipcookie = cookie(-name => "tempequip", -value => "$equiplayer", -path => "$cookiepath/", -expires => "-1m");
-    print header(-cookie=>[$equipcookie], -charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-cookie=>[$equipcookie], -charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 }
 else
 {
     $output .= qq~<SCRIPT LANGUAGE="JavaScript">document.cookie = "tempequip=" + "$currequip" +"; path=$cookiepath/";</SCRIPT>~ if ($equiplayer eq '');
-    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 }
 
 $tempmembername = $membername;

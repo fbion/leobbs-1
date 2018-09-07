@@ -68,7 +68,7 @@ $inselectstyle   = $skinselected if ($inselectstyle eq "");
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 if (($inforum)  && ($inforum  !~ /^[0-9]+$/)) { &error("普通错误&请不要修改生成的 URL！"); }
 if (($intopic ) && ($intopic  !~ /^[0-9]+$/)) { &error("普通错误&请不要修改生成的 URL！"); }

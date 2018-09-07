@@ -35,7 +35,7 @@ my $thisprog = "checkname.cgi";
 my $query = new LBCGI;
 my $inmembername = $query -> param('name');
 $inmembername = &cleaninput($inmembername);
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $CheckR="";
 $bannedmember = "no";

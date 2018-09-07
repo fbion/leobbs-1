@@ -126,7 +126,7 @@ if ($action eq "login") {
     }
     else {
 
-	print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>登录错误</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>登录错误的可能原因：
@@ -209,7 +209,7 @@ else {
     if ($nodispphoto eq "yes") { $checked4 ="checked"; }
 
 
-    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     if ($inmembername ne "客人") {
       my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
       $filetoopens = &lockfilename($filetoopens);

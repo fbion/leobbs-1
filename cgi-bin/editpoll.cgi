@@ -99,7 +99,7 @@ require "postjs.cgi";
 $maxpoststr = "" if ($maxpoststr eq 0);
 $maxpoststr = 100 if (($maxpoststr < 100)&&($maxpoststr ne ""));
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &moderator("$inforum"); 
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz!~/,$membercode,/);

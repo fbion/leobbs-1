@@ -23,6 +23,6 @@ $output .= qq~<p>
 </td></tr></table></td></tr></table>
 ~;
 $output =~ s/用户资料/警告！/g;
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output($boardname,\$output);
 1;

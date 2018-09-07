@@ -64,7 +64,7 @@ $inselectstyle   = $skinselected if ($inselectstyle eq "");
 if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 if (($inforum  !~ m|([0-9\G]+$)|g) or (!$inforum))  { &error("普通错误&请不要修改生成的 URL！"); }
 if (($prunedays) && ($prunedays !~ /^[0-9]+$/)) { &error("普通错误&请不要修改生成的 URL！"); }
 if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }

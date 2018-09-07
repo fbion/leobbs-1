@@ -80,7 +80,7 @@ if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {requ
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) { &error("普通错误&请不要修改生成的 URL！"); }
 

@@ -62,7 +62,7 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>utf8);
+print header(-charset=>"UTF-8");
 &admintitle;
         
 &getmember("$inmembername","no");

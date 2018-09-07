@@ -13,7 +13,7 @@ $query = new LBCGI;
 require "data/boardinfo.cgi";  
 require "bbs.lib.pl"; 
 require "wap.pl"; 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "<title>生成幸运ID</title>";
 $inmembername   = $query->cookie("amembernamecookie");
 $inpassword     = $query->cookie("apasswordcookie");

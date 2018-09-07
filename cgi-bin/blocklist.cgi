@@ -289,7 +289,7 @@ $output .= qq~
 </html>
 ~;
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "$output";
 } ### end of list
 
@@ -340,7 +340,7 @@ $output = qq~
 </body>
 </html>
 ~;
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "$output";
 exit;
 }

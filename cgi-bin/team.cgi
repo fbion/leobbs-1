@@ -76,18 +76,18 @@ else{
 }
 $inmembercode = $membercode;
 if ($infosopen == 2) {
-    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     &error("查看管理团队&客人无权查看管理团队！") if ($inmembername eq "客人");
     if ($userregistered eq "no") { &error("查看管理团队&你还没注册呢！"); }
     &error("查看管理团队&论坛管理团队只有坛主和版主可以查看！") if (($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo')&&($membercode ne "mo")&&($membercode ne "amo"));
 }
 elsif ($infosopen == 1) {
-    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     &error("查看管理团队&客人无权查看管理团队！") if ($inmembername eq "客人");
     if ($userregistered eq "no") { &error("查看管理团队&你还没注册呢！"); }
 }
 elsif ($infosopen == 3) {
-   print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+   print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
    &error("查看管理团队&客人无权查看管理团队！") if ($inmembername eq "客人");
    if ($userregistered eq "no") { &error("查看管理团队&你还没注册呢！"); }
    &error("查看管理团队&论坛管理团队只有坛主可以查看！") if ($membercode ne "ad");
@@ -465,6 +465,6 @@ $teamguts
 ~;
 
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output("$boardname - 管理团队",\$output);
 exit;

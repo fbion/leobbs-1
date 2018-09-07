@@ -157,7 +157,7 @@ if ($action eq "attach") {
 	exit;
 }
 
-print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 if ($action eq "new")
 {

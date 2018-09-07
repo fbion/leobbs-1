@@ -63,7 +63,7 @@ $maxlength = 20 if ($maxlength eq "");  # 默认标题最多 20 个字符
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
-print header(-charset=>utf8);
+print header(-charset=>"UTF-8");
 if ($inforum !~ /^[0-9]+$/) {
    print "document.write('普通&老大，别乱黑我的程序呀！')\n";
    exit;
