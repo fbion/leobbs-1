@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 if ($inmembername eq "") { $inusername = "客人"; }
 $ipaddress = "$ENV{'REMOTE_ADDR'}($ENV{'HTTP_X_FORWARDED_FOR'} -- $ENV{'HTTP_CLIENT_IP'})";
 $inmembername =~ s/\_/ /g;
