@@ -2,6 +2,7 @@ package TagTables::Exif;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
 
 $VERSION = '1.00';
 

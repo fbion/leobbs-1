@@ -2,6 +2,7 @@ package TagTables::GPS;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
 
 $VERSION = '1.00';
 
