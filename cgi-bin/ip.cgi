@@ -21,6 +21,7 @@ BEGIN {
 
 use strict;
 use warnings;
+use diagnostics;
 use LBCGI;
 require "data/boardinfo.cgi";
 use testinfo qw(ipwhere osinfo browseinfo);

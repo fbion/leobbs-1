@@ -19,6 +19,8 @@ BEGIN {
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
 use IO::Socket;
 require "data/boardinfo.cgi";
