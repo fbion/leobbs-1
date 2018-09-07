@@ -10,7 +10,20 @@
 
 use strict;
 use warnings;
-$output .= qq~
+my $inforum;
+my $tablewidth;
+my $tablebordercolor;
+my $titlecolor;
+my $catbackpic;
+my $fontcolormisc;
+my $miscbackone;
+my $miscbacktwo;
+my $titlefontcolor;
+my $fonthighlight;
+my $inmembername;
+my $forumpassword;
+my $forumname;
+my $output .= qq~
 <form action=forums.cgi method=post>
 <input type=hidden name=forum value=$inforum>
 <input type=hidden name=action value=accessrequired>
