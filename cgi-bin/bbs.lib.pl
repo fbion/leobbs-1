@@ -7,7 +7,7 @@
 #      主页地址： http://www.LeoBBS.com/            #
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
-
+my $_bbs_lib_loaded = true;
 $versionnumber = "<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build090208";
 
 $ENV{"HTTP_CLIENT_IP"} = '' if ($ENV{"HTTP_CLIENT_IP"} !~ /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);

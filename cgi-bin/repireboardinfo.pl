@@ -32,7 +32,6 @@ my @filedata = readdir(DIR);
 closedir (DIR);
 my @countvar = grep(/\.cgi$/i,@filedata);
 $newtotalmembers = @countvar;
-
 open(FILE, ">${lbdir}data/boardstats.cgi");
 print FILE "\$lastregisteredmember = \'nodisplay\'\;\n";
 print FILE "\$totalmembers = \'$newtotalmembers\'\;\n";

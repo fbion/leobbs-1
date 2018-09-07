@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -c
 #####################################################
 #  LEO SuperCool BBS / LeoBBS X / 雷傲极酷超级论坛  #
 #####################################################
@@ -10,6 +10,7 @@
 #####################################################
 
 BEGIN {
+	push @INC, '.';
     $startingtime=(times)[0]+(times)[1];
     foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
     	my $LBPATH = $_;

@@ -29,7 +29,12 @@ require "data/boardinfo.cgi";
 require "cleanolddata.pl";
 eval { require "data/boardstats.cgi"; };
 if ($@) { require "repireboardinfo.pl"; require "data/boardstats.cgi"; }
-require "bbs.lib.pl";
+
+if (defined $_bbs_lib_loaded) {
+    # do nothing
+} else {
+    require "bbs.lib.pl";
+}
 
 
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;');

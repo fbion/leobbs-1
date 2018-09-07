@@ -25,7 +25,15 @@ Build.bat
 
 # Module::Install
 inc/
-
+cgi-bin/data/
+cgi-bin/memfav*
+cgi-bin/ftpdata*
+cgi-bin/members*
+cgi-bin/messages*
+cgi-bin/sale*
+cgi-bin/record*
+cgi-bin/search*
+!non-cgi/usravatars
 # ExtUtils::MakeMaker
 /blib/
 /_eumm/
