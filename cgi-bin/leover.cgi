@@ -10,7 +10,8 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
+    push @INC, '.';
+    my $startingtime=(times)[0]+(times)[1];
     foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
     	my $LBPATH = $_;
     	next if ($LBPATH eq '');
@@ -25,7 +26,7 @@ $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
 require "bbs.lib.pl";
 $|++;
-$query = new LBCGI;
+$query = LBCGI->new;
 print header(-expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "$versionnumber";
 exit;
