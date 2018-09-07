@@ -12,9 +12,9 @@
 BEGIN {
     $startingtime=(times)[0]+(times)[1];
     foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
         unshift(@INC,$LBPATH);
     }
 }
@@ -42,7 +42,7 @@ else {
     $boardurltemp =~ s/http\:\/\/(\S+?)\/(.*)/\/$2/;
     $cookiepath = $boardurltemp;
     $cookiepath =~ s/\/$//;
-#    $cookiepath =~ tr/A-Z/a-z/;
+    #    $cookiepath =~ tr/A-Z/a-z/;
 }
 &ipbanned; #封杀一些 ip
 
@@ -85,16 +85,16 @@ if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie");   }
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if ((!$inmembername) or ($inmembername eq "客人")) { $inmembername = "客人"; }
-  else {
-#    &getmember("$inmembername");
+else {
+    #    &getmember("$inmembername");
     &getmember("$inmembername","no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-     if ($inpassword ne $password) {
-	$namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
+    if ($inpassword ne $password) {
+        $namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
         print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
+    }
     &getlastvisit;
     $forumlastvisit = $lastvisitinfo{$inforum};
     &setlastvisit("$inforum,$currenttime");
@@ -112,7 +112,7 @@ $onlineview = 0 if ($onlineview eq "");
 $onlineview = $onlineview == 1 ? 0 : 1 if ($action eq "onlineview");
 $onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "+30d");
 if ($onlineview == 1) { $onlinetitle="[<a href=$thisprog?action=onlineview&forum=$inforum><font color=$titlefontcolor>关闭详细列表</font></a>]"; }
-                 else { $onlinetitle="[<a href=$thisprog?action=onlineview&forum=$inforum><font color=$titlefontcolor>显示详细列表</font></a>]"; }
+else { $onlinetitle="[<a href=$thisprog?action=onlineview&forum=$inforum><font color=$titlefontcolor>显示详细列表</font></a>]"; }
 
 &moderator("$inforum");
 
@@ -124,7 +124,7 @@ $insidead = "" if (($forumimagead ne "1")&&($useimageadforum eq "0")); $insidead
 
 $inforumcookies = $query->cookie("forumscookies");
 if(",$inforumcookies,"!~/,$inforum,/){
-$inforumcookies .=",$inforum";}
+    $inforumcookies .=",$inforum";}
 my $forumscookie= cookie(-name => "forumscookies" , -value => $inforumcookies, -path => "$cookiepath/" ,  -expires => "+30d");
 print header(-cookie=>[$allowforumcookie, $onlineviewcookie, $tempvisitcookie, $permvisitcookie ,$forumscookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
@@ -137,10 +137,10 @@ if ($allowusers ne ''){
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0 ) {
-	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
-	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
+        require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
+        $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
+        &error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+        &error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
@@ -208,7 +208,7 @@ function O2(id) {window.open("view-$inforum-"+id+".htm");}
 function O5(id1,id2) {window.open("topic-"+id1+"-"+id2+"-.htm");}
 function O6(id1,id2) {window.open("view-"+id1+"-"+id2+".htm");}
 function O3(id1,id2,id3) {window.open("topic-" + id1 + "-" + id2 + "-" + id3 + "-0-last.htm#bottom", "_self");}
-function O4(id) {window.open("forums-"+id+"-0.htm");} 
+function O4(id) {window.open("forums-"+id+"-0.htm");}
 function O9(id) {if(id!="")window.open("profile-"+id+".htm");}
 ~;
 } else {
@@ -218,7 +218,7 @@ function O2(id) {window.open("view.cgi?forum=$inforum&topic="+id);}
 function O5(id1,id2) {window.open("topic.cgi?forum="+id1+"&topic="+id2);}
 function O6(id1,id2) {window.open("view.cgi?forum="+id1+"&topic="+id2);}
 function O3(id1,id2,id3) {window.open("topic.cgi?forum=" + id1 + "&topic=" + id2 + "&start=" + id3 + "&replynum=last#bottom", "_self");}
-function O4(id) {window.open("forums.cgi?forum="+id);} 
+function O4(id) {window.open("forums.cgi?forum="+id);}
 function O9(id) {if(id!="")window.open("profile.cgi?action=show&member="+id);}
 ~;
 }
@@ -228,7 +228,7 @@ var exp = new Date();exp.setTime(exp.getTime() + 30*86400*1000);
 if (screen.width <= 800 ){SetCookie('screenmode','5',exp,"$cookiepath/");}
 if ((screen.width >800 )&&(screen.width<=1024)){SetCookie('screenmode','8',exp,"$cookiepath/");}
 if (screen.width >1024 ){SetCookie('screenmode','10',exp,"$cookiepath/");}
-function SetCookie (name, value) { var argv = SetCookie.arguments;var argc = SetCookie.arguments.length;var expires = (argc > 2) ? argv[2] : null;var path = (argc > 3) ? argv[3] : null;var domain = (argc > 4) ? argv[4] : null;var secure = (argc > 5) ? argv[5] : false; document.cookie = name + "=" + escape (value) + ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + ((path == null) ? "" : ("; path=" + path)) + ((domain == null) ? "" : ("; domain=" + domain)) + ((secure == true) ? "; secure" : ""); } 
+function SetCookie (name, value) { var argv = SetCookie.arguments;var argc = SetCookie.arguments.length;var expires = (argc > 2) ? argv[2] : null;var path = (argc > 3) ? argv[3] : null;var domain = (argc > 4) ? argv[4] : null;var secure = (argc > 5) ? argv[5] : false; document.cookie = name + "=" + escape (value) + ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + ((path == null) ? "" : ("; path=" + path)) + ((domain == null) ? "" : ("; domain=" + domain)) + ((secure == true) ? "; secure" : ""); }
 </script>
 $insidead$insidead1
 ~;
@@ -236,12 +236,12 @@ $insidead$insidead1
 if ($privateforum eq "yes") {
     $rsshtml = "";
     if ($inmembername eq "客人") {
-	print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
-	exit;
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        exit;
     }
     $testentry = cookie("forumsallowed$inforum");
     if ((($testentry eq $forumpass)&&($testentry ne ""))||(($userregistered ne "no")&&($allowedentry{$inforum} eq "yes"))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
-	if ($inpassword ne $password) { &error("进入论坛&密码错误，你不允许进入该论坛！"); }
+        if ($inpassword ne $password) { &error("进入论坛&密码错误，你不允许进入该论坛！"); }
     } else { require "accessform.pl"; }
 }
 
@@ -249,9 +249,9 @@ my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
     if ($privateforum ne "yes") {
-       &whosonline("$inmembername\t$forumname\t$forumname\t查看论坛上的主题");
+        &whosonline("$inmembername\t$forumname\t$forumname\t查看论坛上的主题");
     } else {
-       &whosonline("$inmembername\t$forumname(密)\t$forumname\t查看保密论坛上的主题");
+        &whosonline("$inmembername\t$forumname(密)\t$forumname\t查看保密论坛上的主题");
     }
     undef $memberoutput if ($onlineview != 1);
 } else {
@@ -273,10 +273,10 @@ if ($announcements eq 'yes') {
     if (-e "${lbdir}data/announce$inforum.pl") {
         require "${lbdir}data/announce$inforum.pl";
         $announcedisp =~ s/\$forumfontcolor/$forumfontcolor/isg;
-	$announcedisp =~ s/\$fonthighlight/$fonthighlight/isg;
+        $announcedisp =~ s/\$fonthighlight/$fonthighlight/isg;
     } else {
         $announcedisp=qq~&nbsp;<a href=announcements.cgi?forum=$inforum target=_blank title="当前没有公告"><b>当前没有公告</b></a>~;
-	$announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=分论坛暂时无公告！ width=18>~;
+        $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=分论坛暂时无公告！ width=18>~;
     }
 }
 
@@ -293,7 +293,7 @@ function threadmenu(){var URL = document.jump1.threadages.options[document.jump1
 eval{require "data/fname.pl";};
 my @inforumcookies=split(/\,/,$inforumcookies);
 foreach (@inforumcookies) {
-    chomp ; 
+    chomp ;
     next if ($_ eq '');
     next if ($_ eq $inforum);
     my $a='fname'.$_;
@@ -302,11 +302,11 @@ foreach (@inforumcookies) {
 }
 
 if ($usefake eq "yes") {
-$output.=qq~ <select onchange="if(this.options[this.selectedIndex].value != '')
+    $output.=qq~ <select onchange="if(this.options[this.selectedIndex].value != '')
 window.location=('forums-'+this.options[this.selectedIndex].value+'-0.htm')"><option value=1 style=background-color:\$titlecolor>最近访问的版块...$vist_f</select>
 ~;
 } else {
-$output.=qq~ <select onchange="if(this.options[this.selectedIndex].value != '')
+    $output.=qq~ <select onchange="if(this.options[this.selectedIndex].value != '')
 window.location=('forums.cgi?forum='+this.options[this.selectedIndex].value)"><option value=1 style=background-color:\$titlecolor>最近访问的版块...$vist_f</select>
 ~;
 }
@@ -335,19 +335,19 @@ $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><br>~;
 
 my ($forumrule, $editrule);
 if (-e "${lbdir}boarddata/forumrule$inforum.cgi") {
-   open FILE, "${lbdir}boarddata/forumrule$inforum.cgi";
-   $forumrule = <FILE>;
-   close FILE;
-   require "code.cgi";
-   &lbcode(\$forumrule);
-   my @testforumrule = split(/\<br\>/i,$forumrule);
-   $forumrulelines = @testforumrule;
-   $forumrule = qq~<span style="height:64;overflow:auto;padding:2px;color:#000000;width:100%;text-align:left">$forumrule</span>~ if ($forumrulelines > 5);
+    open FILE, "${lbdir}boarddata/forumrule$inforum.cgi";
+    $forumrule = <FILE>;
+    close FILE;
+    require "code.cgi";
+    &lbcode(\$forumrule);
+    my @testforumrule = split(/\<br\>/i,$forumrule);
+    $forumrulelines = @testforumrule;
+    $forumrule = qq~<span style="height:64;overflow:auto;padding:2px;color:#000000;width:100%;text-align:left">$forumrule</span>~ if ($forumrulelines > 5);
 }
 
 if (($membercode eq "ad")||($membercode eq 'smo')||(",$catemods," =~ /\Q\,$inmembername\,\E/i)||($inmembmod eq "yes")) {
-   $editrule = "<a href='forumrule.cgi?forum=$inforum'><img src='$imagesurl/images/a_edit.gif' border=0></a>";
-   $forumrule = "目前没有论坛规则及重要信息，按<a href='forumrule.cgi?forum=$inforum'>这里</a>新增。" unless $forumrule;
+    $editrule = "<a href='forumrule.cgi?forum=$inforum'><img src='$imagesurl/images/a_edit.gif' border=0></a>";
+    $forumrule = "目前没有论坛规则及重要信息，按<a href='forumrule.cgi?forum=$inforum'>这里</a>新增。" unless $forumrule;
 }
 
 $output .= qq~
@@ -363,15 +363,15 @@ if (($inshow eq 0)&&($#childforum >= 0)) { require "getcforms.pl"; }
 
 if ($startnewthreads ne "onlysub") {  #是纯子论坛，就不做显示
 
-if (($xzbopen ne "no")&&($startnewthreads ne "no")&&($privateforum ne "yes")) { require "forumxzb.pl";}
+    if (($xzbopen ne "no")&&($startnewthreads ne "no")&&($privateforum ne "yes")) { require "forumxzb.pl";}
 
-if (($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
-    $admindisp = $query->cookie('admindisp');
-    $admini = $admindisp eq '' ? '隐藏' : '显示';
-    $admini = qq~<img src=$imagesurl/images/icon.gif width=14> <b><span style=cursor:hand onClick=javascript:showadmini()><font color=$fonthighlight id=admini0 title=设置是否显示版主快速操作栏>$admini版主操作</font></span><span id=admini style="display:$admindisp"></span></b>　~;
-    $multimanage  = qq~<td bgcolor=$titlecolor width=25 align=center $catbackpic><font color=$titlefontcolor><b>选</b></td>~;
-    $multimanageitem = qq~<td align=center><input type="button" name="chkall" value="全选" onclick="CheckAll(this.form)"><input type="button" name="clear2" value="反选" onclick="FanAll(this.form)"><input type="reset" name="Reset" value="重置"><BR><input type=button name=lock value="锁" OnClick="LockThreads(this.form)"><input type="submit" name="delete" value="删" onClick="SetAction('delete')"><input type="submit" name="move" value="移" onClick="SetAction('movetopic')"><input type="button" name="jinghua" value="精" onClick="AddToJingHua(this.form)"></td>~;
-    $output .= qq~<script language="JavaScript">
+    if (($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
+        $admindisp = $query->cookie('admindisp');
+        $admini = $admindisp eq '' ? '隐藏' : '显示';
+        $admini = qq~<img src=$imagesurl/images/icon.gif width=14> <b><span style=cursor:hand onClick=javascript:showadmini()><font color=$fonthighlight id=admini0 title=设置是否显示版主快速操作栏>$admini版主操作</font></span><span id=admini style="display:$admindisp"></span></b>　~;
+        $multimanage  = qq~<td bgcolor=$titlecolor width=25 align=center $catbackpic><font color=$titlefontcolor><b>选</b></td>~;
+        $multimanageitem = qq~<td align=center><input type="button" name="chkall" value="全选" onclick="CheckAll(this.form)"><input type="button" name="clear2" value="反选" onclick="FanAll(this.form)"><input type="reset" name="Reset" value="重置"><BR><input type=button name=lock value="锁" OnClick="LockThreads(this.form)"><input type="submit" name="delete" value="删" onClick="SetAction('delete')"><input type="submit" name="move" value="移" onClick="SetAction('movetopic')"><input type="button" name="jinghua" value="精" onClick="AddToJingHua(this.form)"></td>~;
+        $output .= qq~<script language="JavaScript">
 function CheckAll(form){for (var i=0;i<form.elements.length;i++){var e = form.elements[i];e.checked = true;}}
 function FanAll(form){for (var i=0;i<form.elements.length;i++){var e = form.elements[i];if (e.checked == true){ e.checked = false; }else { e.checked = true;}}}
 function SetAction(A){Action.action.value=A;}
@@ -391,34 +391,34 @@ e.style.display = "";admini0.innerText = "隐藏版主操作";
 }}}
 </script>
 ~;
-}
+    }
 
-my $freshtime= $query->cookie("freshtime");
-if ($freshtime ne "") {
-    $autofreshtime = $freshtime*60-1;
-    $autofreshtime = 300 if ($autofreshtime < 59);
-    $output .= qq~\n<meta http-equiv="refresh" content="$autofreshtime;">~;
-}
-elsif ($refreshforum eq "on") {
-    $autofreshtime = 300 if ($autofreshtime < 59);
-    $output .= qq~\n<meta http-equiv="refresh" content="$autofreshtime;">~;
-}
+    my $freshtime= $query->cookie("freshtime");
+    if ($freshtime ne "") {
+        $autofreshtime = $freshtime*60-1;
+        $autofreshtime = 300 if ($autofreshtime < 59);
+        $output .= qq~\n<meta http-equiv="refresh" content="$autofreshtime;">~;
+    }
+    elsif ($refreshforum eq "on") {
+        $autofreshtime = 300 if ($autofreshtime < 59);
+        $output .= qq~\n<meta http-equiv="refresh" content="$autofreshtime;">~;
+    }
 
-if (($privateforum eq "yes")||($xzbopen eq "no")||($startnewthreads eq "no")||($startnewthreads eq "cert")) { $newthreadbutton3 = ""; }
-  else { $newthreadbutton3 = qq~<a href=xzb.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newxzblogo border=0 alt=张帖一个小字报></a>　~; }
-if ($pollopen eq "no") { $newthreadbutton2 = ""; }
-  else { $newthreadbutton2 = qq~<a href=poll.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a>　~; }
-if ($postopen eq "no") { $newthreadbutton1 = ""; }
-  else { $newthreadbutton1 = qq~<a href=post.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a>　~; }
-if ($payopen eq "no") { $newthreadbutton4 = ""; }
-  else { $newthreadbutton4 = qq~<a href=post.cgi?action=pay&forum=$inforum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~; }
-$newthreadbutton = "$newthreadbutton1$newthreadbutton2$newthreadbutton3$newthreadbutton4";
+    if (($privateforum eq "yes")||($xzbopen eq "no")||($startnewthreads eq "no")||($startnewthreads eq "cert")) { $newthreadbutton3 = ""; }
+    else { $newthreadbutton3 = qq~<a href=xzb.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newxzblogo border=0 alt=张帖一个小字报></a>　~; }
+    if ($pollopen eq "no") { $newthreadbutton2 = ""; }
+    else { $newthreadbutton2 = qq~<a href=poll.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a>　~; }
+    if ($postopen eq "no") { $newthreadbutton1 = ""; }
+    else { $newthreadbutton1 = qq~<a href=post.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a>　~; }
+    if ($payopen eq "no") { $newthreadbutton4 = ""; }
+    else { $newthreadbutton4 = qq~<a href=post.cgi?action=pay&forum=$inforum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~; }
+    $newthreadbutton = "$newthreadbutton1$newthreadbutton2$newthreadbutton3$newthreadbutton4";
 
-if ($startnewthreads ne "no") { $jinghua    =qq~<img src=$imagesurl/images/icon.gif width=14> <a href=jinghua.cgi?action=list&forum=$inforum><font color=$fonthighlight><B>本版精华</B></font></a>&nbsp;~; }
-unless ($look eq "off")       { $lookstyles =qq~<img src=$imagesurl/images/icon.gif width=14> <a href=lookstyles.cgi?forum=$inforum>本版配色</a>&nbsp;~; }
-$forumlog = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=forumlogs.cgi?forum=$inforum><font color=$fonthighlight><B>版务日志</B></font></a>&nbsp;~;
+    if ($startnewthreads ne "no") { $jinghua    =qq~<img src=$imagesurl/images/icon.gif width=14> <a href=jinghua.cgi?action=list&forum=$inforum><font color=$fonthighlight><B>本版精华</B></font></a>&nbsp;~; }
+    unless ($look eq "off")       { $lookstyles =qq~<img src=$imagesurl/images/icon.gif width=14> <a href=lookstyles.cgi?forum=$inforum>本版配色</a>&nbsp;~; }
+    $forumlog = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=forumlogs.cgi?forum=$inforum><font color=$fonthighlight><B>版务日志</B></font></a>&nbsp;~;
 
-$output.=qq~
+    $output.=qq~
 <script language="JavaScript" type="text/javascript">
 function Download(ForumNo,TopicNo,ReplyNo){
 document.Download.forum.value=ForumNo;
@@ -428,8 +428,8 @@ document.Download.submit();
 }
 ~;
 
-if ($usefake eq "yes") {
-$output.=qq~
+    if ($usefake eq "yes") {
+        $output.=qq~
 function makepage(numberofpages,topicid,forumid){
 var j=0;
 if (numberofpages <= 11) {
@@ -448,8 +448,8 @@ j = (i-1) * $maxtopics;
 document.write("<a href=topic-"+forumid+"-"+topicid+"-"+j+"-$inshow-.htm class=ha>"+ i +"</a> ");
 }}}
 ~;
-} else {
-$output.=qq~
+    } else {
+        $output.=qq~
 function makepage(numberofpages,topicid,forumid){
 var j=0;
 if (numberofpages <= 11) {
@@ -468,9 +468,9 @@ j = (i-1) * $maxtopics;
 document.write("<a href=topic.cgi?forum="+forumid+"&topic="+topicid+"&start="+j+"&show=$inshow class=ha>"+ i +"</a> ");
 }}}
 ~;
-}
+    }
 
-$output.=qq~
+    $output.=qq~
 </script>
 <table cellpadding=0 cellspacing=0 width=$tablewidth>
 <tr><td align=center width=2></td><td>$newthreadbutton</td><td align=right colspan=2>$modoutput&nbsp;</td>
@@ -493,52 +493,52 @@ $output.=qq~
 $multimanage</tr></table>
 ~;
 
-if (-e "${lbdir}cache/forumstop$inforum.pl") {
-  eval{ require "${lbdir}cache/forumstop$inforum.pl";};
-  if ($@) { unlink ("${lbdir}cache/forumstop$inforum.pl"); unlink ("${lbdir}cache/plcache$inforum\_0.pl"); require "dotop.pl"; unlink ("${lbdir}cache/forumstoptopic$inforum.pl"); }
-  $jhdata = "" if ($usejhpoint ne "yes");
-} else { require "dotop.pl"; unlink ("${lbdir}cache/forumstoptopic$inforum.pl"); unlink ("${lbdir}cache/plcache$inforum\_0.pl"); }
+    if (-e "${lbdir}cache/forumstop$inforum.pl") {
+        eval{ require "${lbdir}cache/forumstop$inforum.pl";};
+        if ($@) { unlink ("${lbdir}cache/forumstop$inforum.pl"); unlink ("${lbdir}cache/plcache$inforum\_0.pl"); require "dotop.pl"; unlink ("${lbdir}cache/forumstoptopic$inforum.pl"); }
+        $jhdata = "" if ($usejhpoint ne "yes");
+    } else { require "dotop.pl"; unlink ("${lbdir}cache/forumstoptopic$inforum.pl"); unlink ("${lbdir}cache/plcache$inforum\_0.pl"); }
 
-if ($dispabstop ne "0") {
-    @absontop = split(/\_/,$absontopdata);
-    $abstopcount = @absontop;
-    $absontopdata = "\_$absontopdata\_";
-} else {
-    $abstopcount = 0;
-    $absontopdata = "";
-}
+    if ($dispabstop ne "0") {
+        @absontop = split(/\_/,$absontopdata);
+        $abstopcount = @absontop;
+        $absontopdata = "\_$absontopdata\_";
+    } else {
+        $abstopcount = 0;
+        $absontopdata = "";
+    }
 
-if ($dispcattop ne "0") {
-    @catontop = split(/\_/,$catontopdata);
-    $cattopcount = @catontop;
-    $catontopdata = "\_$catontopdata\_";
-} else {
-    $cattopcount = 0;
-    $catontopdata = "";
-}
+    if ($dispcattop ne "0") {
+        @catontop = split(/\_/,$catontopdata);
+        $cattopcount = @catontop;
+        $catontopdata = "\_$catontopdata\_";
+    } else {
+        $cattopcount = 0;
+        $catontopdata = "";
+    }
 
-if ($ontopdata ne "") {
-    @ontop = split(/\_/,$ontopdata);
-    $topcount = @ontop;
-    $ontopdata = "\_$ontopdata\_";
-}
+    if ($ontopdata ne "") {
+        @ontop = split(/\_/,$ontopdata);
+        $topcount = @ontop;
+        $ontopdata = "\_$ontopdata\_";
+    }
 
-if (($inthreadages)&&($inthreadages ne "all"))  { $threadagesstart = "&threadages=$inthreadages"; } else { undef $threadagesstart; }
+    if (($inthreadages)&&($inthreadages ne "all"))  { $threadagesstart = "&threadages=$inthreadages"; } else { undef $threadagesstart; }
 
-if ((-e "${lbdir}cache/plcache$inforum\_$inshow.pl")&&((-M "${lbdir}cache/plcache$inforum\_$inshow.pl") *86400 < 300)&&($threadagesstart eq "")) {
-    open (FILE, "${lbdir}cache/plcache$inforum\_$inshow.pl");
-    $topicpages = <FILE>;
-    chomp $topicpages;
-    ($abstopcount,$cattopcount,$topcount) = split(/\t/,<FILE>);
-    @toptopic = <FILE>;
-    close(FILE);
-    my $topicnum = @toptopic;
-    if ($topicnum < 7) { undef @toptopic; undef $topicpages; unlink ("${lbdir}cache/plcache$inforum\_$inshow.pl"); require "doplcache.pl"; }
-} else {
-    require "doplcache.pl";
-}
+    if ((-e "${lbdir}cache/plcache$inforum\_$inshow.pl")&&((-M "${lbdir}cache/plcache$inforum\_$inshow.pl") *86400 < 300)&&($threadagesstart eq "")) {
+        open (FILE, "${lbdir}cache/plcache$inforum\_$inshow.pl");
+        $topicpages = <FILE>;
+        chomp $topicpages;
+        ($abstopcount,$cattopcount,$topcount) = split(/\t/,<FILE>);
+        @toptopic = <FILE>;
+        close(FILE);
+        my $topicnum = @toptopic;
+        if ($topicnum < 7) { undef @toptopic; undef $topicpages; unlink ("${lbdir}cache/plcache$inforum\_$inshow.pl"); require "doplcache.pl"; }
+    } else {
+        require "doplcache.pl";
+    }
 
-$output .= qq~<script>
+    $output .= qq~<script>
 var ns6=document.getElementById&&!document.all
 var ie=document.all
 var customcollect=new Array()
@@ -570,297 +570,294 @@ window.onload=addSenToEventHandle(window.onload,"init();")
 </script>
 ~;
 
-opendir (DIR, "${imagesdir}$usrdir/$inforum");
-@usruploadfile = readdir(DIR);
-closedir (DIR);
+    opendir (DIR, "${imagesdir}$usrdir/$inforum");
+    @usruploadfile = readdir(DIR);
+    closedir (DIR);
 
-$topiccount = 0;
-$jnum = 0;
-$fnum = 0;
+    $topiccount = 0;
+    $jnum = 0;
+    $fnum = 0;
 
-if ($tablewidth > 100) {
-    if ($tablewidth > 1000) { $topictitlemax = 84; } elsif ($tablewidth > 770) { $topictitlemax = 71; } else { $topictitlemax = 40; }
-} else {
-    if ($screenmode >=10) { $topictitlemax = 84; } elsif ($screenmode >=8) { $topictitlemax = 71; } else { $topictitlemax = 40; }
-}
-
-$threadagelimit = $currenttime - $inthreadages * 86400;
-foreach $topic (@toptopic) {
-    $addonlength = $canusetreeview ne "no" ? 3 : 0;
-    chomp $topic;
-    ($topicid, $forumid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $posticon, $posttemp, $addmetype) = split(/\t/,$topic);
-
-    if ($multimanage eq "") { $multimanagebutton = ""; }
-	              else  { $multimanagebutton = qq~<td bgcolor=$forumcolortwo align=center width=25><input type=checkbox name=topic value=$topicid></td>~; $addonlength += 2.5; }
-
-    if ($forumid eq $inforum) nmode >=10) { $topictitlemax = 84; } elsif ($screenmode >=8) { $topictitlemax = 71; } else { $topictitlemax = 40; }
-}
-
-$threadagelimit = $currenttime - $inthreadages * 86400;
-foreach $topic (@toptopic) {
-    $addonlength = $canusetreeview ne "no" ? 3 : 0;
-    chomp $topic;
-    ($topicid, $forumid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $posticon, $posttemp, $addmetype) = split(/\t/,$topic);
-
-    if ($multimanage eq "") { $multimanagebutton = ""; }
-	              else  { $multimanagebutton = qq~<td bgcolor=$forumcolortwo align=center width=25><input type=checkbox name=topic value=$topicid></td>~; $addonlength += 2.5; }
-
-    if ($forumid eq $inforum) gi?action=catlocktop&forum=$inforum&topic=$topicid><font color=$titlecolor>区固</font></a>|" : "";
-
-    $hllink=($highlight=~m/\_$forumid-$topicid\_/i)?"<a href=postings.cgi?action=lowlight&forum=$forumid&topic=$topicid><font color=$titlecolor>取消加重</font></a>":"<a href=postings.cgi?action=highlight&forum=$forumid&topic=$topicid><font color=$titlecolor>加重</font></a>";
-
-    if (($posticon eq "")||($posticon =~/<br>/i)) {
-        $posticon = int(myrand(23));
-    	$posticon = "0$posticon" if ($posticon<10);
-	$posticon = qq~<img src=$imagesurl/posticons/$posticon.gif border=0 align=absmiddle>~;
-    } else{
-        $posticon = qq~<img src=$imagesurl/posticons/$posticon border=0 align=absmiddle>~;
-    }
-
-    $numberofitems = $threadposts + 1;
-    $numberofpages = $numberofitems / $maxtopics;
-
-    $threadpages = "";
-    if ($numberofitems > $maxtopics) {
-        if ($numberofpages>int($numberofpages)){ $numberofpages = int($numberofpages)+1 ;}
-        $gotoendpost = ($numberofpages-1)*$maxtopics;
-        $pagestoshow = qq~<font color=$forumfontcolor>　　[第 <script>makepage($numberofpages,$topicid,$forumid)</script> 页]</font>~;
+    if ($tablewidth > 100) {
+        if ($tablewidth > 1000) { $topictitlemax = 84; } elsif ($tablewidth > 770) { $topictitlemax = 71; } else { $topictitlemax = 40; }
     } else {
-        $gotoendpost = "0";
-        $pagestoshow = "";
+        if ($screenmode >=10) { $topictitlemax = 84; } elsif ($screenmode >=8) { $topictitlemax = 71; } else { $topictitlemax = 40; }
     }
 
-    if ($inthreadages && ($inthreadages ne "all")&&(($topiccount >= $topcount + $abstopcount + $cattopcount)||($startarray ne 0))) {
-	if ($lastpostdate < $threadagelimit) { last; }
-    }
-    if (!$forumlastvisit) { $forumlastvisit = "0"; }
+    $threadagelimit = $currenttime - $inthreadages * 86400;
+    foreach $topic (@toptopic) {
+        $addonlength = $canusetreeview ne "no" ? 3 : 0;
+        chomp $topic;
+        ($topicid, $forumid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $posticon, $posttemp, $addmetype) = split(/\t/,$topic);
 
-    if ($startedpostdate > $currenttime - 3600 * $newmarktime) { $topnew = " <img src=$imagesurl/images/$skin/$new_blogo absmiddle>";$addonlength +=2; } else { $topnew = ""; }
+        if ($multimanage eq "") { $multimanagebutton = ""; }
+        else  { $multimanagebutton = qq~<td bgcolor=$forumcolortwo align=center width=25><input type=checkbox name=topic value=$topicid></td>~; $addonlength += 2.5; }
 
-    if ((lc($inmembername) eq lc($startedby))&&($nodispown eq "yes")){ $mypost="<img src=$imagesurl/images/$skin/$mypost_blogo title=我发表的主题> "; $addonlength +=2; } else { $mypost=""; }
+        if ($forumid eq $inforum) {
+            if ($jhdata =~ /\_$topicid\_/) {
+                $jhimage  = qq~ <img src=$imagesurl/images/$skin/$new_JH align=absmiddle alt=精华帖子>~;
+                $jhbuttom = qq~<a href=jinghua.cgi?action=del&forum=$inforum&topic=$topicid><font color=$titlecolor>取消精华</font></a>|~;
+            } else { $jhimage=""; $jhbuttom = qq~<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>精</font></a>|~; }
+        }
+        else { $jhimage=""; $jhbuttom=""; }
 
-    $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif border=0>";
+        $abslockbuttom = $membercode eq "ad" ? "<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>总固</font></a>|" : "";
+        $catlockbuttom = $membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i ? "<a href=postings.cgi?action=catlocktop&forum=$inforum&topic=$topicid><font color=$titlecolor>区固</font></a>|" : "";
 
-    if ($inmembername ne "客人") {
-        if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate))    { $topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif border=0>"; }
-        elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate)) { $topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif border=0>"; }
-        elsif (($threadposts <  $hottopicmark) && ($forumlastvisit < $lastpostdate)) { $topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif border=0>"; }
-        elsif (($threadposts <  $hottopicmark) && ($forumlastvisit > $lastpostdate)) { $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif border=0>"; }
-    }
+        $hllink=($highlight=~m/\_$forumid-$topicid\_/i)?"<a href=postings.cgi?action=lowlight&forum=$forumid&topic=$topicid><font color=$titlecolor>取消加重</font></a>":"<a href=postings.cgi?action=highlight&forum=$forumid&topic=$topicid><font color=$titlecolor>加重</font></a>";
 
-    $threadstate = "poll" if (($posticon =~/<br>/i)&&($threadstate eq ""));
-    if (($threadstate eq "poll")||($threadstate eq "pollclosed")) {
-	if (open(FILE, "${lbdir}forum$forumid/$topicid.poll.cgi")) {
-	    my @allpoll = <FILE>;
-            close(FILE);
-	    $size = @allpoll;
+        if (($posticon eq "")||($posticon =~/<br>/i)) {
+            $posticon = int(myrand(23));
+            $posticon = "0$posticon" if ($posticon<10);
+            $posticon = qq~<img src=$imagesurl/posticons/$posticon.gif border=0 align=absmiddle>~;
+        } else{
+            $posticon = qq~<img src=$imagesurl/posticons/$posticon border=0 align=absmiddle>~;
+        }
+
+        $numberofitems = $threadposts + 1;
+        $numberofpages = $numberofitems / $maxtopics;
+
+        $threadpages = "";
+        if ($numberofitems > $maxtopics) {
+            if ($numberofpages>int($numberofpages)){ $numberofpages = int($numberofpages)+1 ;}
+            $gotoendpost = ($numberofpages-1)*$maxtopics;
+            $pagestoshow = qq~<font color=$forumfontcolor>　　[第 <script>makepage($numberofpages,$topicid,$forumid)</script> 页]</font>~;
         } else {
-       	    $size = 0;
-	}
-    }
-    if ($threadstate eq "closed") { $topicicon = "<img src=$imagesurl/images/$skin/topiclocked3.gif border=0>"; }
-    elsif ($threadstate eq "poll") {
-        if ($size >= $hotpollmark) { $topicicon = "<img src=$imagesurl/images/$skin/closedbhot.gif border=0>"; }
-	                      else { $topicicon = "<img src=$imagesurl/images/$skin/closedb.gif border=0>"; }
-    }
-    elsif ($threadstate eq "pollclosed") { $topicicon = "<img src=$imagesurl/images/$skin/closedb1.gif border=0>"; }
-
-    if ($lastpostdate ne "") {
-	$lastpostdate = $lastpostdate + $addtimes;
-	$lastpostdate = &dateformatshort("$lastpostdate");
-    }
-    else { $lastpostdate = qq~没有~; }
-    
-	if ($addtopictime eq "yes") {
-	    my $topictime = &dispdate($startedpostdate + $addtimes);
-	    $topictitle = "[$topictime] $topictitle";
-	}
-
-    $startedpostdate  = $startedpostdate + $addtimes;
-    $startedlongdate  = &dateformat("$startedpostdate");
-    $startedpostdate  = qq~$startedlongdate~;
-
-    $posttemp         = "(无内容)" if ($posttemp eq "");
-
-    $topictitletemp   = &lbhz($topictitle,$topictitlemax-6);
-
-    $highlightstyle = $topiccount < $abstopcount && $startarray == 0 ? qq~style="color:$color_of_absontop; font-weight:900"~ : $topiccount < $abstopcount + $cattopcount && $startarray == 0 ? qq~style="color:$color_of_quontop; font-weight:900"~ : $topiccount < $abstopcount + $cattopcount + $topcount && $startarray == 0 ? qq~style="color:$color_of_ontop; font-weight:900"~ : $highlight =~ m/\_$forumid-$topicid\_/ ? qq~style="color:$color_of_hightopic; font-weight:600"~ : "";
-
-    $topictitle = qq~<a href=topic.cgi?forum=$forumid&topic=$topicid&show=$inshow title="$topictitle \n发布时间： $startedpostdate \n最后回复： $posttemp "$highlightstyle t>$topictitletemp</a>~;
-
-    if ($lastposter) {
-	if ($lastposter=~/\(客\)/) {
-       	    $lastposter=~s/\(客\)//isg;
-	    $lastposter = qq~<font color=$postfontcolorone title=此为未注册用户>$lastposter</font>~;
-	}
-	else {
-	    my $lastposterfilename = $lastposter;
-	    $lastposterfilename =~ s/ /\_/isg;
-	    $lastposterfilename =~ tr/A-Z/a-z/;
-	    $lastposter = qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($lastposterfilename) . qq~')">$lastposter</span>~;
-	}
-    }
-    else {$lastposter = qq~--------~;}
-
-    if ($topicdescription) {
-	my $topicdescriptiontemp = $topicdescription;
-	$topicdescriptiontemp =~s/\s*(.*?)\s*\<a \s*(.*?)\s*\>\s*(.*?)\s*\<\/a\>/$3/isg;
-	$topicdescriptiontemp =~s/\<\/a\>//isg;
-	if (length($topicdescriptiontemp) > ($topictitlemax-4)) {
-	    $topicdescriptiontemp=&lbhz("$topicdescriptiontemp",$topictitlemax);
-	    $topicdescription =~s/\<a \s*(.*?)\s*\>\s*(.*?)\s*\<\/a\>/\<a $1\>$topicdescriptiontemp\<\/a\>/isg;
+            $gotoendpost = "0";
+            $pagestoshow = "";
         }
-    	$topicdescription = qq~<br>　　-=> $topicdescription~;
-    }
-    
-    if (($topiccount >= $abstopcount + $cattopcount)||($startarray ne 0)||($forumid eq $inforum)) {
-      my @usruploadfile = grep(/^$inforum\_$topicid(\.|\_)/,@usruploadfile);
-      if ($#usruploadfile >= 0 || $addmetype ne "") {
-        my @files = grep(/^$inforum\_$topicid\./,@usruploadfile);
-        if ($#files >= 0 || $addmetype ne "") {
-            if ($addmetype eq "") {
-	        my $usrfilename = $files[0]; chomp $usrfilename;
-	        ($up_name, $up_ext) = split(/\./,$usrfilename);
-	    } else {
-	    	$up_ext = $addmetype;
-	    }
-	    $up_ext =~ tr/A-Z/a-z/;
-            $filetype = "unknow";
-            $filetype = $up_ext if (-e "${imagesdir}icon/$up_ext.gif");
-             
-            if (($up_ext eq 'jpg')||($up_ext eq 'gif')||($up_ext eq 'bmp')||($up_ext eq 'png')) { $topictitle ="<img src=$imagesurl/icon/$filetype.gif width=16 alt=\"该主题含有 $filetype 格式的图片\" border=0 align=absmiddle></a> ".$topictitle; }
-	        elsif ($up_ext eq "swf") { $topictitle ="<img src=$imagesurl/icon/$filetype.gif width=16 alt=\"该主题含有 $filetype 格式的动画\" border=0 align=absmiddle></a> ".$topictitle; }
-	    else {
-	        $topictitle ="<img src=$imagesurl/icon/$filetype.gif width=16 align=absmiddle alt=\"该主题含有“$filetype”类型的附件\" border=0></a> ".$topictitle;
-	    }
-            $addonlength += 4;
+
+        if ($inthreadages && ($inthreadages ne "all")&&(($topiccount >= $topcount + $abstopcount + $cattopcount)||($startarray ne 0))) {
+            if ($lastpostdate < $threadagelimit) { last; }
         }
-      }
-    }
-    if ($numberofpages == 0) { $pagestoshowtemp1 = 0; } elsif ($numberofpages > 11) { $pagestoshowtemp1 = 41; } else { $pagestoshowtemp1 = int($numberofpages)*3.3+7; }
-    $totlelength = $pagestoshowtemp1 + length($topictitletemp) + 3 + $addonlength; #标题栏的总长度
+        if (!$forumlastvisit) { $forumlastvisit = "0"; }
 
-    if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
-    	if ($membercode ne "amo") {
-	    $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|$jhbuttom$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$inforum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
-	} else {
-	    $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$inforum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
-	}
-    }
-    elsif ((lc($inmembername) eq lc($startedby)) && ($inmembername !~ /^客人/)) {
-	if ($arrowuserdel eq "on") {
-           $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>快速操作： ~;
-           $admini .= qq~| <a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁定此帖，不允许别人回复</font></a> ~ unless ($threadstate eq "closed");
-           $admini .= qq~| <a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删除此帖</font></a> |</font>&nbsp;</DIV>~;
-	}
-	else { undef $admini; }
-    }
-    else { undef $admini; }
-    if (($startarray eq 0)&&($topiccount < $topcount + $abstopcount + $cattopcount)) {
-        if ($topiccount < $abstopcount) {
-    	    if ($membercode eq "ad") {
-	        $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=absunlocktop&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>取消总固顶</font></a>|<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$forumid&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
-            } else { undef $admini; }
-            $topicicon = "<img src=$imagesurl/images/$skin/abstop.gif border=0>";
-            $topictitle =~ s/\&nbsp\;\"\>/\&nbsp\;\" target=\_blank\>/isg;
-            $pagestoshow =~ s/ class=ha\>/ target=\_blank class=ha\>/isg;
-            $topictitle = "<font color=$color_of_absontop><B>[公告]</B></font> $topictitle";
-            if ($abstopshake eq "1") { $topictitle = "<span id=jiggle$jnum class=jc>$topictitle</span>";$jnum++;}
-	    elsif ($abstopshake eq "2") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=0 flashcolor=$color_of_absontop>/s;$fnum++;}
-	    elsif ($abstopshake eq "3") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=1 flashcolor=#cccccc>/s;$fnum++;}
-            $totlelength = $totlelength + 5;
-            $multimanagebutton = "<td bgcolor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
+        if ($startedpostdate > $currenttime - 3600 * $newmarktime) { $topnew = " <img src=$imagesurl/images/$skin/$new_blogo absmiddle>";$addonlength +=2; } else { $topnew = ""; }
+
+        if ((lc($inmembername) eq lc($startedby))&&($nodispown eq "yes")){ $mypost="<img src=$imagesurl/images/$skin/$mypost_blogo title=我发表的主题> "; $addonlength +=2; } else { $mypost=""; }
+
+        $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif border=0>";
+
+        if ($inmembername ne "客人") {
+            if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate))    { $topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif border=0>"; }
+            elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate)) { $topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif border=0>"; }
+            elsif (($threadposts <  $hottopicmark) && ($forumlastvisit < $lastpostdate)) { $topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif border=0>"; }
+            elsif (($threadposts <  $hottopicmark) && ($forumlastvisit > $lastpostdate)) { $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif border=0>"; }
         }
-        elsif ($topiccount < $cattopcount + $abstopcount) {
-            if ($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) {
-                $admini = qq~<div id=admini style="display:$admindisp" align=right><font color=$titlecolor>|<a href=postings.cgi?action=catunlocktop&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>取消区固顶</font></a>|$abslockbuttom<a href=postings.cgi?action=catlocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$forumid&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</div>~;
-            } else { $admini = ""; }
-            $topicicon = "<img src=$imagesurl/images/$skin/lockcattop.gif border=0>";
-            $topictitle =~ s/\ \;\"\>/\ \;\" target=\_blank\>/isg;
-            if ($cattopshake eq "1") { $topictitle = "<span id=jiggle$jnum class=jc>$topictitle</span>";$jnum++;}
-	    elsif ($cattopshake eq "2") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=0 flashcolor=$color_of_quontop>/s;$fnum++;}
-	    elsif ($cattopshake eq "3") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=1 flashcolor=#cccccc>/s;$fnum++;}
-            $pagestoshow =~ s/ class=ha\>/ target=\_blank class=ha\>/isg;
-            $multimanagebutton = "<td bgColor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
+
+        $threadstate = "poll" if (($posticon =~/<br>/i)&&($threadstate eq ""));
+        if (($threadstate eq "poll")||($threadstate eq "pollclosed")) {
+            if (open(FILE, "${lbdir}forum$forumid/$topicid.poll.cgi")) {
+                my @allpoll = <FILE>;
+                close(FILE);
+                $size = @allpoll;
+            } else {
+                $size = 0;
+            }
         }
-        elsif ($topiccount < $topcount + $abstopcount + $cattopcount) {
-    	    if (($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {
-	        $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=unlocktop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>取消固顶</font></a>|$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
-      	    } else { undef $admini; }
-            $topicicon = "<img src=$imagesurl/images/$skin/locktop.gif border=0>";
-            $multimanagebutton = "<td bgcolor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
-            if ($topshake eq "1") { $topictitle = "<span id=jiggle$jnum class=jc>$topictitle</span>";$jnum++;}
-	    elsif ($topshake eq "2") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=0 flashcolor=$color_of_ontop>/s;$fnum++;}
-	    elsif ($topshake eq "3") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=1 flashcolor=#cccccc>/s;$fnum++;}
+        if ($threadstate eq "closed") { $topicicon = "<img src=$imagesurl/images/$skin/topiclocked3.gif border=0>"; }
+        elsif ($threadstate eq "poll") {
+            if ($size >= $hotpollmark) { $topicicon = "<img src=$imagesurl/images/$skin/closedbhot.gif border=0>"; }
+            else { $topicicon = "<img src=$imagesurl/images/$skin/closedb.gif border=0>"; }
         }
-    }
-    $topictitle = "$mypost$topictitle";
-    $topictitle .= $topnew;
-    $topictitle .= $jhimage;
-    $topictitle=$topictitle."<BR>" if ($totlelength > $topictitlemax+7);
+        elsif ($threadstate eq "pollclosed") { $topicicon = "<img src=$imagesurl/images/$skin/closedb1.gif border=0>"; }
 
-#    if ($threadviews > 9999) { $threadviewstemp = "<font color=$forumfontcolor title=点击：$threadviews>>Max</font>"; } else { $threadviewstemp = "<font color=$forumfontcolor>$threadviews</font>"; }
-#    if ($threadposts > 9999) { $threadpoststemp = "<font color=$forumfontcolor title=回复：$threadposts>>Max</font>"; } else { $threadpoststemp = "<font color=$forumfontcolor>$threadposts</font>"; }
+        if ($lastpostdate ne "") {
+            $lastpostdate = $lastpostdate + $addtimes;
+            $lastpostdate = &dateformatshort("$lastpostdate");
+        }
+        else { $lastpostdate = qq~没有~; }
 
-if ($threadposts < 1000 && $threadviews < 1000) { $threadposts = "$threadposts "; $threadviews = " $threadviews"; }
+        if ($addtopictime eq "yes") {
+            my $topictime = &dispdate($startedpostdate + $addtimes);
+            $topictitle = "[$topictime] $topictitle";
+        }
 
-    $startedbyfilename = $startedby;
-    $startedbyfilename =~ s/ /\_/isg;
-    $startedbyfilename =~ tr/A-Z/a-z/;
+        $startedpostdate  = $startedpostdate + $addtimes;
+        $startedlongdate  = &dateformat("$startedpostdate");
+        $startedpostdate  = qq~$startedlongdate~;
 
-    if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=60 TITLE="回复：$threadposts 篇\n点击：$threadviews 次"><font color=$forumfontcolor>共 $size 票</font></td>~; } else { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=60><font color=$forumfontcolor>$threadposts<font color=$fonthighlight>/</font>$threadviews</td>~; }
-    if ($startedby=~/\(客\)/) { $startedby=~s/\(客\)//isg; $startedby=qq~<font color=$postfontcolorone title=此为未注册用户>$startedby</font>~; } else { $startedby=qq~<span style=cursor:hand onClick=javascript:O9('~ . uri_escape($startedbyfilename) . qq~')>$startedby</span>~; }
-    if (($startarray eq 0)&&($topiccount < $abstopcount + $cattopcount)) {
-	$topicicontemp = qq~<span style=cursor:hand onClick=javascript:O5($forumid,$topicid)>$topicicon</span>~;
-	$posticontemp  = qq~<span style=cursor:hand onClick=javascript:O6($forumid,$topicid)>$posticon</span>~;
-    }
-    else {
-	$topicicontemp = qq~<span style=cursor:hand onClick=javascript:O1($topicid)>$topicicon</span>~;
-	$posticontemp  = qq~<span style=cursor:hand onClick=javascript:O2($topicid)>$posticon</span>~;
-    }
-    #文章树
-    if ($canusetreeview ne "no") {
-        if ($threadposts > 0) { $nofollow = "cat.gif"; } else { $nofollow = "cat1.gif"; }
-        $id_of_this_topid = sprintf("%04d%05d",$forumid,$topicid);
-        $followImg=qq(<img id=followImg$id_of_this_topid title=展开文章树 style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,'$id_of_this_topid') src=$imagesurl/images/$nofollow width=9 loaded=no nofollow=$threadposts> );
-    }
-    else { undef $followImg; }
+        $posttemp         = "(无内容)" if ($posttemp eq "");
 
-    $output .=qq~<table cellspacing=0 cellpadding=0 width=$tablewidth bordercolor=$tablebordercolor border=1 height=35><tr><td align=center width=30 bgcolor=$forumcolorone>$topicicontemp</td>
+        $topictitletemp   = &lbhz($topictitle,$topictitlemax-6);
+
+        $highlightstyle = $topiccount < $abstopcount && $startarray == 0 ? qq~style="color:$color_of_absontop; font-weight:900"~ : $topiccount < $abstopcount + $cattopcount && $startarray == 0 ? qq~style="color:$color_of_quontop; font-weight:900"~ : $topiccount < $abstopcount + $cattopcount + $topcount && $startarray == 0 ? qq~style="color:$color_of_ontop; font-weight:900"~ : $highlight =~ m/\_$forumid-$topicid\_/ ? qq~style="color:$color_of_hightopic; font-weight:600"~ : "";
+
+        $topictitle = qq~<a href=topic.cgi?forum=$forumid&topic=$topicid&show=$inshow title="$topictitle \n发布时间： $startedpostdate \n最后回复： $posttemp "$highlightstyle t>$topictitletemp</a>~;
+
+        if ($lastposter) {
+            if ($lastposter=~/\(客\)/) {
+                $lastposter=~s/\(客\)//isg;
+                $lastposter = qq~<font color=$postfontcolorone title=此为未注册用户>$lastposter</font>~;
+            }
+            else {
+                my $lastposterfilename = $lastposter;
+                $lastposterfilename =~ s/ /\_/isg;
+                $lastposterfilename =~ tr/A-Z/a-z/;
+                $lastposter = qq~<span style=cursor:hand onClick="javascript:O9('~ . uri_escape($lastposterfilename) . qq~')">$lastposter</span>~;
+            }
+        }
+        else {$lastposter = qq~--------~;}
+
+        if ($topicdescription) {
+            my $topicdescriptiontemp = $topicdescription;
+            $topicdescriptiontemp =~s/\s*(.*?)\s*\<a \s*(.*?)\s*\>\s*(.*?)\s*\<\/a\>/$3/isg;
+            $topicdescriptiontemp =~s/\<\/a\>//isg;
+            if (length($topicdescriptiontemp) > ($topictitlemax-4)) {
+                $topicdescriptiontemp=&lbhz("$topicdescriptiontemp",$topictitlemax);
+                $topicdescription =~s/\<a \s*(.*?)\s*\>\s*(.*?)\s*\<\/a\>/\<a $1\>$topicdescriptiontemp\<\/a\>/isg;
+            }
+            $topicdescription = qq~<br>　　-=> $topicdescription~;
+        }
+
+        if (($topiccount >= $abstopcount + $cattopcount)||($startarray ne 0)||($forumid eq $inforum)) {
+            my @usruploadfile = grep(/^$inforum\_$topicid(\.|\_)/,@usruploadfile);
+            if ($#usruploadfile >= 0 || $addmetype ne "") {
+                my @files = grep(/^$inforum\_$topicid\./,@usruploadfile);
+                if ($#files >= 0 || $addmetype ne "") {
+                    if ($addmetype eq "") {
+                        my $usrfilename = $files[0]; chomp $usrfilename;
+                        ($up_name, $up_ext) = split(/\./,$usrfilename);
+                    } else {
+                        $up_ext = $addmetype;
+                    }
+                    $up_ext =~ tr/A-Z/a-z/;
+                    $filetype = "unknow";
+                    $filetype = $up_ext if (-e "${imagesdir}icon/$up_ext.gif");
+
+                    if (($up_ext eq 'jpg')||($up_ext eq 'gif')||($up_ext eq 'bmp')||($up_ext eq 'png')) { $topictitle ="<img src=$imagesurl/icon/$filetype.gif width=16 alt=\"该主题含有 $filetype 格式的图片\" border=0 align=absmiddle></a> ".$topictitle; }
+                    elsif ($up_ext eq "swf") { $topictitle ="<img src=$imagesurl/icon/$filetype.gif width=16 alt=\"该主题含有 $filetype 格式的动画\" border=0 align=absmiddle></a> ".$topictitle; }
+                    else {
+                        $topictitle ="<img src=$imagesurl/icon/$filetype.gif width=16 align=absmiddle alt=\"该主题含有“$filetype”类型的附件\" border=0></a> ".$topictitle;
+                    }
+                    $addonlength += 4;
+                }
+            }
+        }
+        if ($numberofpages == 0) { $pagestoshowtemp1 = 0; } elsif ($numberofpages > 11) { $pagestoshowtemp1 = 41; } else { $pagestoshowtemp1 = int($numberofpages)*3.3+7; }
+        $totlelength = $pagestoshowtemp1 + length($topictitletemp) + 3 + $addonlength; #标题栏的总长度
+
+        if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+            if ($membercode ne "amo") {
+                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|$jhbuttom$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$inforum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
+            } else {
+                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$inforum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
+            }
+        }
+        elsif ((lc($inmembername) eq lc($startedby)) && ($inmembername !~ /^客人/)) {
+            if ($arrowuserdel eq "on") {
+                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>快速操作： ~;
+                $admini .= qq~| <a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁定此帖，不允许别人回复</font></a> ~ unless ($threadstate eq "closed");
+                $admini .= qq~| <a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删除此帖</font></a> |</font>&nbsp;</DIV>~;
+            }
+            else { undef $admini; }
+        }
+        else { undef $admini; }
+        if (($startarray eq 0)&&($topiccount < $topcount + $abstopcount + $cattopcount)) {
+            if ($topiccount < $abstopcount) {
+                if ($membercode eq "ad") {
+                    $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=absunlocktop&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>取消总固顶</font></a>|<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$forumid&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
+                } else { undef $admini; }
+                $topicicon = "<img src=$imagesurl/images/$skin/abstop.gif border=0>";
+                $topictitle =~ s/\&nbsp\;\"\>/\&nbsp\;\" target=\_blank\>/isg;
+                $pagestoshow =~ s/ class=ha\>/ target=\_blank class=ha\>/isg;
+                $topictitle = "<font color=$color_of_absontop><B>[公告]</B></font> $topictitle";
+                if ($abstopshake eq "1") { $topictitle = "<span id=jiggle$jnum class=jc>$topictitle</span>";$jnum++;}
+                elsif ($abstopshake eq "2") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=0 flashcolor=$color_of_absontop>/s;$fnum++;}
+                elsif ($abstopshake eq "3") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=1 flashcolor=#cccccc>/s;$fnum++;}
+                $totlelength = $totlelength + 5;
+                $multimanagebutton = "<td bgcolor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
+            }
+            elsif ($topiccount < $cattopcount + $abstopcount) {
+                if ($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) {
+                    $admini = qq~<div id=admini style="display:$admindisp" align=right><font color=$titlecolor>|<a href=postings.cgi?action=catunlocktop&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>取消区固顶</font></a>|$abslockbuttom<a href=postings.cgi?action=catlocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$forumid&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</div>~;
+                } else { $admini = ""; }
+                $topicicon = "<img src=$imagesurl/images/$skin/lockcattop.gif border=0>";
+                $topictitle =~ s/\ \;\"\>/\ \;\" target=\_blank\>/isg;
+                if ($cattopshake eq "1") { $topictitle = "<span id=jiggle$jnum class=jc>$topictitle</span>";$jnum++;}
+                elsif ($cattopshake eq "2") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=0 flashcolor=$color_of_quontop>/s;$fnum++;}
+                elsif ($cattopshake eq "3") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=1 flashcolor=#cccccc>/s;$fnum++;}
+                $pagestoshow =~ s/ class=ha\>/ target=\_blank class=ha\>/isg;
+                $multimanagebutton = "<td bgColor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
+            }
+            elsif ($topiccount < $topcount + $abstopcount + $cattopcount) {
+                if (($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {
+                    $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=unlocktop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>取消固顶</font></a>|$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
+                } else { undef $admini; }
+                $topicicon = "<img src=$imagesurl/images/$skin/locktop.gif border=0>";
+                $multimanagebutton = "<td bgcolor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
+                if ($topshake eq "1") { $topictitle = "<span id=jiggle$jnum class=jc>$topictitle</span>";$jnum++;}
+                elsif ($topshake eq "2") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=0 flashcolor=$color_of_ontop>/s;$fnum++;}
+                elsif ($topshake eq "3") { $topictitle =~ s/\ t\>/ id=flashlink$fnum flashtype=1 flashcolor=#cccccc>/s;$fnum++;}
+            }
+        }
+        $topictitle = "$mypost$topictitle";
+        $topictitle .= $topnew;
+        $topictitle .= $jhimage;
+        $topictitle=$topictitle."<BR>" if ($totlelength > $topictitlemax+7);
+
+        #    if ($threadviews > 9999) { $threadviewstemp = "<font color=$forumfontcolor title=点击：$threadviews>>Max</font>"; } else { $threadviewstemp = "<font color=$forumfontcolor>$threadviews</font>"; }
+        #    if ($threadposts > 9999) { $threadpoststemp = "<font color=$forumfontcolor title=回复：$threadposts>>Max</font>"; } else { $threadpoststemp = "<font color=$forumfontcolor>$threadposts</font>"; }
+
+        if ($threadposts < 1000 && $threadviews < 1000) { $threadposts = "$threadposts "; $threadviews = " $threadviews"; }
+
+        $startedbyfilename = $startedby;
+        $startedbyfilename =~ s/ /\_/isg;
+        $startedbyfilename =~ tr/A-Z/a-z/;
+
+        if (($threadstate eq "poll")||($threadstate eq "pollclosed")) { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=60 TITLE="回复：$threadposts 篇\n点击：$threadviews 次"><font color=$forumfontcolor>共 $size 票</font></td>~; } else { $outputtemp = qq~<td bgcolor=$forumcolortwo align=center width=60><font color=$forumfontcolor>$threadposts<font color=$fonthighlight>/</font>$threadviews</td>~; }
+        if ($startedby=~/\(客\)/) { $startedby=~s/\(客\)//isg; $startedby=qq~<font color=$postfontcolorone title=此为未注册用户>$startedby</font>~; } else { $startedby=qq~<span style=cursor:hand onClick=javascript:O9('~ . uri_escape($startedbyfilename) . qq~')>$startedby</span>~; }
+        if (($startarray eq 0)&&($topiccount < $abstopcount + $cattopcount)) {
+            $topicicontemp = qq~<span style=cursor:hand onClick=javascript:O5($forumid,$topicid)>$topicicon</span>~;
+            $posticontemp  = qq~<span style=cursor:hand onClick=javascript:O6($forumid,$topicid)>$posticon</span>~;
+        }
+        else {
+            $topicicontemp = qq~<span style=cursor:hand onClick=javascript:O1($topicid)>$topicicon</span>~;
+            $posticontemp  = qq~<span style=cursor:hand onClick=javascript:O2($topicid)>$posticon</span>~;
+        }
+        #文章树
+        if ($canusetreeview ne "no") {
+            if ($threadposts > 0) { $nofollow = "cat.gif"; } else { $nofollow = "cat1.gif"; }
+            $id_of_this_topid = sprintf("%04d%05d",$forumid,$topicid);
+            $followImg=qq(<img id=followImg$id_of_this_topid title=展开文章树 style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,'$id_of_this_topid') src=$imagesurl/images/$nofollow width=9 loaded=no nofollow=$threadposts> );
+        }
+        else { undef $followImg; }
+
+        $output .=qq~<table cellspacing=0 cellpadding=0 width=$tablewidth bordercolor=$tablebordercolor border=1 height=35><tr><td align=center width=30 bgcolor=$forumcolorone>$topicicontemp</td>
 <td width=* class=dp bgColor=$forumcolortwo onmouseover=this.bgColor='$forumcolorone'; onmouseout=this.bgColor='$forumcolortwo';>&nbsp;$posticontemp $followImg<span id=forum>$topictitle$pagestoshow$topicdescription$admini</span></td>
 <td align=center width=78 bgcolor=$forumcolorone>$startedby</td>$outputtemp<td width=193 bgcolor=$forumcolorone>&nbsp;<span style=cursor:hand onClick=javascript:O3($forumid,$topicid,$gotoendpost)>$lastpostdate</span><font color=$fonthighlight> | </font>$lastposter</td>$multimanagebutton</tr></table>
 ~;
 
-    $output .=qq~<table cellspacing=0 width=$tablewidth bordercolor=$tablebordercolor border=1 id=follow$id_of_this_topid style=DISPLAY:none><tr><td id=followTd$id_of_this_topid><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,'$id_of_this_topid')>正在读取，请稍候 ...</DIV></td></tr></table>~ if ($canusetreeview ne "no");
-    $topiccount++;
-}
-$pn = ($inshow/$maxthreads)+1;
-$output .= qq~</tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><table cellpadding=0 cellspacing=2 width=$tablewidth><tr height=4></tr><tr><td>$topicpages，<b>转至</b>：<input type=text name="dshow" size=2 value="$pn"> <input type=button value=Go onClick="Jumptopage(this.form)"><BR> [本版共有主题 <B>$threads</B> 篇，回复 <b>$posts</b> 篇]</td>$multimanageitem</form>~;
+        $output .=qq~<table cellspacing=0 width=$tablewidth bordercolor=$tablebordercolor border=1 id=follow$id_of_this_topid style=DISPLAY:none><tr><td id=followTd$id_of_this_topid><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,'$id_of_this_topid')>正在读取，请稍候 ...</DIV></td></tr></table>~ if ($canusetreeview ne "no");
+        $topiccount++;
+    }
+    $pn = ($inshow/$maxthreads)+1;
+    $output .= qq~</tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><table cellpadding=0 cellspacing=2 width=$tablewidth><tr height=4></tr><tr><td>$topicpages，<b>转至</b>：<input type=text name="dshow" size=2 value="$pn"> <input type=button value=Go onClick="Jumptopage(this.form)"><BR> [本版共有主题 <B>$threads</B> 篇，回复 <b>$posts</b> 篇]</td>$multimanageitem</form>~;
 
-if (($indexforum ne "no")&&($dispjump ne "no")) {
-    require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
-    $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "mo")||($membercode eq "amo"));
-    $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
-    $jumphtml = "<tr><td align=right>$jumphtml</td></form>";
-} else { $jumphtml = ""; }
+    if (($indexforum ne "no")&&($dispjump ne "no")) {
+        require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
+        $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "mo")||($membercode eq "amo"));
+        $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
+        $jumphtml = "<tr><td align=right>$jumphtml</td></form>";
+    } else { $jumphtml = ""; }
 
-$output .= qq~<td align=right><table cellpadding=0 cellspacing=2>~;
-$output .= qq~<tr><td align=right><form action=search.cgi method=post><input type=hidden name=action value=startsearch><input type=hidden name=POST_SEARCH value=topictitle_search><input type=hidden name=NAME_SEARCH value=topictitle_search><input name=SEARCH_STRING value=输入关键字 onfocus="this.value ='';" size=14><select name=TYPE_OF_SEARCH><option value="keyword_search">主题<option value="username_search">作者</select><input type=hidden name=FORUMS_TO_SEARCH value=$inforum> <input type=submit value=搜索></td></form></tr>~ if ($searchopen ne "99");
-$output .= qq~$jumphtml</table></td></tr></table></tr></table><br>~;
+    $output .= qq~<td align=right><table cellpadding=0 cellspacing=2>~;
+    $output .= qq~<tr><td align=right><form action=search.cgi method=post><input type=hidden name=action value=startsearch><input type=hidden name=POST_SEARCH value=topictitle_search><input type=hidden name=NAME_SEARCH value=topictitle_search><input name=SEARCH_STRING value=输入关键字 onfocus="this.value ='';" size=14><select name=TYPE_OF_SEARCH><option value="keyword_search">主题<option value="username_search">作者</select><input type=hidden name=FORUMS_TO_SEARCH value=$inforum> <input type=submit value=搜索></td></form></tr>~ if ($searchopen ne "99");
+    $output .= qq~$jumphtml</table></td></tr></table></tr></table><br>~;
 
-if ($usefastpost ne "no") { require "forumfastpost.pl"; }
+    if ($usefastpost ne "no") { require "forumfastpost.pl"; }
 }
 else {
 
-if (($indexforum ne "no")&&($dispjump ne "no")) {
-    require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
-    $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "mo")||($membercode eq "amo"));
-    $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
-    $jumphtml = "<tr><td align=right>$jumphtml</td></form>";
-} else { $jumphtml = ""; }
+    if (($indexforum ne "no")&&($dispjump ne "no")) {
+        require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
+        $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "mo")||($membercode eq "amo"));
+        $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
+        $jumphtml = "<tr><td align=right>$jumphtml</td></form>";
+    } else { $jumphtml = ""; }
 
-$output .= qq~<table cellpadding=1 cellspacing=0 width=$tablewidth><tr><td align=right>$jumphtml</td></tr></table>~;
-$output .= "<BR><center><font color=$fonthighlight><B>这里是纯子论坛板块，请选择进入相应子论坛</B></font><BR><BR><BR>";
+    $output .= qq~<table cellpadding=1 cellspacing=0 width=$tablewidth><tr><td align=right>$jumphtml</td></tr></table>~;
+    $output .= "<BR><center><font color=$fonthighlight><B>这里是纯子论坛板块，请选择进入相应子论坛</B></font><BR><BR><BR>";
 }
 if (($dispview eq "yes")||(($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo')&&($membercode ne 'amo'))) { require "dodispviewforum.pl"; }
 
