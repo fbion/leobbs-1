@@ -158,7 +158,7 @@ $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" 
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &moderator("$inforum");
 $myinmembmod = $inmembmod;

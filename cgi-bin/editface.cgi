@@ -69,7 +69,7 @@ $admin_user =~ tr/A-Z/a-z/;
 
 &error("$plugname 编辑管理&只有论坛坛主与插件管理员才能进入此区！") if (($membercode ne "ad")&&($admin_user ne "$tempmembername"));
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <html>
 <head>

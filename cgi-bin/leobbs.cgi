@@ -21,6 +21,8 @@ BEGIN {
 }
 
 use LBCGI;
+use strict;
+use warnings;
 $LBCGI::POST_MAX=200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;

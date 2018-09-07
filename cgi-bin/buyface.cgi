@@ -19,6 +19,8 @@ BEGIN {
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
 $LBCGI::POST_MAX=600000;
 $LBCGI::DISABLE_UPLOADS = 1;
@@ -76,7 +78,7 @@ $mymoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno
 $currenttime = time();
 $currenttime = &dateformat("$currenttime");
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <html>
 <head>

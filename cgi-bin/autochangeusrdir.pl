@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 my $x = &myrand(1000000000);
 $x = crypt($x, aun);
 $x =~ s/%([a-fA-F0-9]{2})/pack("C", hex($1))/eg;

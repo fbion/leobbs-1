@@ -19,6 +19,8 @@ BEGIN {
         unshift(@INC, $LBPATH);
     }
 }
+use strict;
+use warnings;
 use LBCGI;
 $LBCGI::POST_MAX = 1024 * 10000;
 $LBCGI::DISABLE_UPLOADS = 0;

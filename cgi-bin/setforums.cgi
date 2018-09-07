@@ -88,7 +88,7 @@ foreach $param(@params) {
     $new_fgheight1        = $PARAM{'fgheight1'};
 
 &getadmincheck;
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &admintitle;
 

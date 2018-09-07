@@ -19,6 +19,8 @@ BEGIN {
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
 $LBCGI::POST_MAX = 1024 * 800;
 $LBCGI::DISABLE_UPLOADS = 0;
@@ -42,7 +44,7 @@ $data = $query->param('data');
 
 &getadmincheck;
 &getmember($inmembername);
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &admintitle;
 if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {

@@ -62,7 +62,7 @@ if ($intopic ne "") {$tmpurl="&topic=$intopic";}
 $gourl1=qq~<meta http-equiv="refresh" content="3; url=$thisprog?action=uppic&forum=$forum$tmpurl"> [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>3 秒钟自动返回</a> ]~;
 $gourl=qq~ [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>按此返回</a> ]~;
 
-print header(-charset=>UTF-8);
+print header(-charset=>utf8);
 
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 $maxupload = 300 if ($maxupload eq "");

@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 unlink("${lbdir}cache/forumstoptopic$inforum.pl") if ((-M "${lbdir}cache/forumstoptopic$inforum.pl") *86400 >= 300);
 if ($abstopcount > 0) {
     foreach (@absontop) {

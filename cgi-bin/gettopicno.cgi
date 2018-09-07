@@ -58,6 +58,6 @@ else {
         $intopic =$2;
     }
 }
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "<script language='javascript'>document.location = 'topic.cgi?forum=$inforum&topic=$intopic&show=$inshow'</script>";
 exit;

@@ -6,6 +6,7 @@
 #####################################################
 
 BEGIN {
+	push @INC, '.';
     $startingtime=(times)[0]+(times)[1];
     foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
     	my $LBPATH = $_;
@@ -16,6 +17,8 @@ BEGIN {
 }
 
 use LBCGI;
+use strict;
+use warnings;
 $LBCGI::POST_MAX=200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
@@ -34,7 +37,7 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &admintitle;
           

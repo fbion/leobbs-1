@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 sub getadmincheck {
     my $currenttime = time;
     $memberfilename = $inmembername;

@@ -19,9 +19,11 @@ BEGIN {
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
 use File::Copy;
-$loadcopymo = 1;
+my $loadcopymo = 1;
 $LBCGI::POST_MAX=500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
@@ -99,7 +101,7 @@ if ($catbackpic ne "")  { $catbackpic  = "background=$imagesurl/images/$skin/$ca
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 if (!$inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
 if (!$inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
@@ -1334,7 +1336,7 @@ fav.checked.value=action;
             $name=~s/[oc]$//;
             $ccates=($_ =~ /o$/)?"关闭":"开放";
             $ncates=($_ =~ /o$/)?"开放中":"关闭中";
-            $output .= qq~
+my            $output .= qq~
             <tr bgColor=$forumcolortwo onmouseover="this.bgColor='$forumcolorone';" onmouseout="this.bgColor='$forumcolortwo';">
             <td width="61%"><img src=$imagesurl/images/folder.gif width=13 height=16 align=absmiddle> <a href="$thisprog?action=show&selectcate=$i"><font color=$fontcolormisc>$name</a> <font color=$fonthighlight>($ncates)</font></font><div align=right>|<a href=javascript:edit($i,'rename')><font color=$titlecolor>更名</a></font>|<a href=javascript:edit($i,'delete')><font color=$titlecolor>删除</a></font>|<a href=javascript:edit($i,'up')><font color=$titlecolor>上移</font></a>|<a href=javascript:edit($i,'down')><font color=$titlecolor>下移</font></a>|<a href=javascript:edit($i,'top')><font color=$titlecolor>顶部</font></a>|<a href=javascript:edit($i,'bottom')><font color=$titlecolor>底部</font></a>|</div></td>
             <td align="center" width="5%">

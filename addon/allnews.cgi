@@ -75,7 +75,7 @@ $name      = 1  if ($name eq "");       # 默认显示发贴人
 $max	   = 10 if ($max eq "");        # 默认显示 10 个帖子
 $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
-print header(-charset=>UTF-8);
+print header(-charset=>utf8);
     $filetoopen = "$lbdir" . "data/recentpost.cgi";
     if (-e $filetoopen) {
 	open(FILE, "$filetoopen");

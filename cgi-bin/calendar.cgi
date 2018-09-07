@@ -19,6 +19,8 @@ BEGIN {
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
 use Time::Local;
 $LBCGI::POST_MAX=500000;

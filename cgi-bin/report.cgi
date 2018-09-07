@@ -75,7 +75,7 @@ $inmessage2 = $inemailmessage.$inoriginalpost.$inpost2;
 $add_user2	= $query -> param('touser1');
 # -- new
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 $inselectstyle   = $query->cookie("selectstyle");
 $inselectstyle   = $skinselected if ($inselectstyle eq "");

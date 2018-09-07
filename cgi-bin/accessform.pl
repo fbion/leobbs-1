@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 $output .= qq~
 <form action=forums.cgi method=post>
 <input type=hidden name=forum value=$inforum>

@@ -123,7 +123,7 @@ else
 }
 
 unlink($ftplockfile);
-print header(-cookie=>[$onlineviewcookie], -charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-cookie=>[$onlineviewcookie], -charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &output("$boardname - FTP 联盟",\$output);
 exit;
 

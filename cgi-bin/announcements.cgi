@@ -19,6 +19,9 @@ BEGIN {
     }
 }
 
+use strict;
+use strict;
+use warnings;
 use LBCGI;
 $LBCGI::POST_MAX=500000;
 $LBCGI::DISABLE_UPLOADS = 1;
@@ -81,7 +84,7 @@ if ((!$inmembername) or ($inmembername eq "客人")) { $inmembername = "客人";
 if ($inforum ne "") { &getoneforum("$inforum"); } else { $inmembmod = "no"; }
 #    &moderator("$inforum");
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &title;
 

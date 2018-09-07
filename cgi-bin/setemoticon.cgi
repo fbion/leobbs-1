@@ -54,7 +54,7 @@ my %Mode = (	'createnew'  => \&createnew,
 	   );
 
 &getadmincheck;
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 &admintitle;
 &getmember("$inmembername","no");
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {

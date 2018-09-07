@@ -128,7 +128,7 @@ if($action eq "set_ad_announce" || $action eq "pcard_status" || $action eq "pcar
 
 #输出：页面资料
 
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 
 &output("$boardname - 论坛版主签到",\$output,'msg');
 
@@ -688,7 +688,7 @@ sub page_error{
 </table>
 </td></tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+	print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 	&output("$boardname - 论坛版主签到",\$output,'msg');
 	exit;
 }

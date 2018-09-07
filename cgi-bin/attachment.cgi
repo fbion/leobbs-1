@@ -19,6 +19,8 @@ BEGIN {
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
@@ -35,7 +37,7 @@ $inforum = $query->param('forum');
 $intopic = $query->param('topic');
 
 if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '' && $pvtdown ne "no"){
-    print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     print qq~<script>alert('请不要盗链$boardname的连接');location.href='topic.cgi?forum=$inforum&topic=$intopic';</script>~;exit;
 }
 
@@ -72,7 +74,7 @@ if (!$inmembername || $inmembername eq "客人")
 {
 	if ($regaccess eq 'on' || $privateforum eq 'yes')
 	{
-		print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+		print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 		print qq~<script language="JavaScript">document.location = "loginout.cgi?forum=$inforum";</script>~;
 		exit;
 	}
@@ -411,7 +413,7 @@ if ($pvtdown ne "no") {
 	print &readattachment ($file, $BOF, $EOF);
 	exit;
 } else {
-    print header(-charset=>UTF-8,-location=>$file2,-cache=>yes);
+    print header(-charset=>utf8,-location=>$file2,-cache=>yes);
     exit;
 }
 exit;	

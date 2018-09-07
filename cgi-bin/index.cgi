@@ -60,12 +60,12 @@ if ($action eq "change_skin") {
 #   $inselectstyle = "" if (lc($inselectstyle) eq "leobbs");
    &error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
    my $selectstylecookie= cookie(-name => "selectstyle" , -value => $inselectstyle, -path => "$cookiepath/");
-   print header(-cookie  =>[$selectstylecookie], -charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+   print header(-cookie  =>[$selectstylecookie], -charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
    print qq ~<script>location.href="$refrashurl";</script>~;
    print qq~页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv="refresh" content="3; url=$refrashurl">~;
    exit;
 }
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print "<script language='javascript'>document.location = 'leobbs.cgi'</script>";
 print qq~页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv="refresh" content="3; url=leobbs.cgi">~;
 exit;

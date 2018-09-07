@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 $mansex = "0-0-0-0-0-0-0-init-init-init-0-init-0-init-init-0-0-0-init-0-0-0-0-0-0-0";
 $fairsex = "0-0-0-0-0-0-0-initf-initf-initf-0-initf-0-initf-initf-0-0-0-initf-0-0-0-0-0-0-0";
 

@@ -1,4 +1,6 @@
-    if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+use strict;
+use warnings;
+if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $postminjf 的才能发言！") if ($postminjf > 0 && $jifen < $postminjf);
     }
 

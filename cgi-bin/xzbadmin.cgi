@@ -142,7 +142,7 @@ my %Mode = (
 	'edit'			=> \&editxzb,		#编辑
 );
 #输出档头
-print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 #验证模式
 if (defined $Mode{$action})
 {	#有该模式

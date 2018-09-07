@@ -7,6 +7,8 @@
 #      主页地址： http://www.LeoBBS.com/            #
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
+use strict;
+use warnings;
 my $_bbs_lib_loaded = true;
 $versionnumber = "<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build090208";
 
@@ -445,7 +447,7 @@ sub whosonline {
 		    if ($savedusername !~ /^客人/) { if ($savehidden ne 1) { $onlineuserlist = "$onlineuserlist$savedusername\_"; } else { $onlineuserlisthidden = "$onlineuserlisthidden$savedusername\_"; } }
                     if ((lc($savedusername) eq lc($tempusername))||(($savedusername eq "客人($ipaddress)")&&($ipall eq $savedipaddress)&&($tempusername =~ /^客人/ || ($where eq "论坛登录" && $where2 eq "登录论坛" && $action eq "login")))) {
                          if ((($currenttime - $savedtime) <= $banfreshtime - 1)&&(($currenttime - $savedtime) >= 0)&&($savedwhere eq $where)&&($savedwhere2 eq $where2)&&(($thisprog eq "post.cgi")||($thisprog eq "leobbs.cgi")||($thisprog eq "forums.cgi")||($thisprog eq "topic.cgi")||($thisprog eq "printpage.cgi")||($thisprog eq "whosonline.cgi"))) {
-                             print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+                             print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
                              print "<BR>服务器忙，请 $banfreshtime 秒后按刷新键继续。<BR><BR>出错原因：你刷新页面过快，或者你打开了过多窗口来浏览本网站。";
                              exit;
                          }
@@ -773,7 +775,7 @@ sub doonoff { #$mainoff 主，$mainonoff　分论坛
 sub error {
     my $errorinfo = shift;
     (my $where, my $errormsg,my $ismsg) = split(/\&/, $errorinfo);
-    print header(-charset=>UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset=>utf8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
     if (! $inmembername) { $inmembername = cookie("amembernamecookie"); }
     $inpassword = cookie("apasswordcookie");
     $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;

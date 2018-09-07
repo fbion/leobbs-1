@@ -51,7 +51,7 @@ $max	= $query -> param('max');
 $max    = &stripMETA("$max");
 $max	= 500 if ($max eq "");        # 默认显示公告的前 500 字符
 
-print header(-charset=>UTF-8);
+print header(-charset=>utf8);
 
     $filetoopen = "$lbdir" . "data/news.cgi";
     if (-e "$filetoopen") {
