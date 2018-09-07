@@ -20,7 +20,6 @@ BEGIN {
 }
 
 use strict;
-use strict;
 use warnings;
 use LBCGI;
 $LBCGI::POST_MAX=500000;
