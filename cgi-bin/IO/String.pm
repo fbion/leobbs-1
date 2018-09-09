@@ -9,6 +9,7 @@ require 5.005_03;
 use strict;
 use vars qw($VERSION $DEBUG $IO_CONSTANTS);
 use warnings;
+use diagnostics;
 $VERSION = "1.01";  # $Date: 2000/01/27 23:12:39 $
 
 use Symbol ();

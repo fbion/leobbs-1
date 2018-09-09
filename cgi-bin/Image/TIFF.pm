@@ -7,6 +7,7 @@ package Image::TIFF;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
 
 $VERSION = '1.00';
 
@@ -278,7 +279,7 @@ my %exif_tags = (
 		2 => "dpm",
 		3 => "dpcm",
 		4 => "dpmm",
-		5 => "dpµm",
+		5 => "dpç¥„",
 	      },
     0xA214 => "SubjectLocation",              # 0x9214    -  -
     0xA215 => "ExposureIndex",                # 0x9215    -  -

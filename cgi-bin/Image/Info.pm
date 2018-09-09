@@ -9,125 +9,120 @@ package Image::Info;
 # modify it under the same terms as Perl itself.
 
 use strict;
+use warnings;
+use diagnostics;
 use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.10';  # $Date: 2002/05/28 23:51:34 $
+$VERSION = '1.10'; # $Date: 2002/05/28 23:51:34 $
 
 require Exporter;
 *import = \&Exporter::import;
 
 @EXPORT_OK = qw(image_info dim html_dim);
 
-sub image_info
-{
-    my($source, %cnf) = @_;
+sub image_info {
+    my ($source, %cnf) = @_;
 
     if (!ref $source) {
         require Symbol;
         my $fh = Symbol::gensym();
         open($fh, $source) || return _os_err("Can't open $source");
-	${*$fh} = $source;  # keep filename in case somebody wants to know
+        ${*$fh} = $source; # keep filename in case somebody wants to know
         binmode($fh);
         $source = $fh;
     }
     elsif (ref($source) eq "SCALAR") {
-	require IO::String;
-	$source = IO::String->new($$source);
+        require IO::String;
+        $source = IO::String->new($$source);
     }
     else {
-	seek($source, 0, 0) or return _os_err("Can't rewind");
+        seek($source, 0, 0) or return _os_err("Can't rewind");
     }
 
     my $head;
     read($source, $head, 32) == 32 or return _os_err("Can't read head");
     if (ref($source) eq "IO::String") {
-	# XXX workaround until we can trap seek() with a tied file handle
-	$source->setpos(0);
+        # XXX workaround until we can trap seek() with a tied file handle
+        $source->setpos(0);
     }
     else {
-	seek($source, 0, 0) or _os_err("Can't rewind");
+        seek($source, 0, 0) or _os_err("Can't rewind");
     }
 
     if (my $format = determine_file_format($head)) {
-	no strict 'refs';
-	my $mod = "Image::Info::$format";
-	my $sub = "$mod\::process_file";
-	my $info = bless [], "Image::Info::Result";
-	eval {
-	    unless (defined &$sub) {
-		eval "require $mod";
-		die $@ if $@;
-		die "$mod did not define &$sub" unless defined &$sub;
-	    }
+        no strict 'refs';
+        my $mod = "Image::Info::$format";
+        my $sub = "$mod\::process_file";
+        my $info = bless [], "Image::Info::Result";
+        eval {
+            unless (defined & $sub) {
+                eval "require $mod";
+                die $@ if $@;
+                die "$mod did not define &$sub" unless defined & $sub;
+            }
 
-	    &$sub($info, $source, \%cnf);
-	    $info->clean_up;
-	};
-	return { error => $@ } if $@;
-	return wantarray ? @$info : $info->[0];
+            &$sub($info, $source, \%cnf);
+            $info->clean_up;
+        };
+        return { error => $@ } if $@;
+        return wantarray ? @$info : $info->[0];
     }
     return { error => "Unrecognized file format" };
 }
 
-sub _os_err
-{
+sub _os_err {
     return { error => "$_[0]: $!",
-	     Errno => $!+0,
-	   };
+        Errno      => $! + 0,
+    };
 }
 
-sub determine_file_format
-{
-   local($_) = @_;
-   return "BMP" if /^BM/;
-   return "GIF" if /^GIF8[79]a/;
-   return "JPEG" if /^\xFF\xD8/;
-   return "PNG" if /^\x89PNG\x0d\x0a\x1a\x0a/;
-   return "PPM" if /^P[1-6]/;;
-   return "SVG" if /^<\?xml/;
-   return "XBM" if /^#define\s+/;
-   return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
-   return undef;
+sub determine_file_format {
+    local ($_) = @_;
+    return "BMP" if /^BM/;
+    return "GIF" if /^GIF8[79]a/;
+    return "JPEG" if /^\xFF\xD8/;
+    return "PNG" if /^\x89PNG\x0d\x0a\x1a\x0a/;
+    return "PPM" if /^P[1-6]/;;
+    return "SVG" if /^<\?xml/;
+    return "XBM" if /^#define\s+/;
+    return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
+    return undef;
 }
 
-sub dim
-{
+sub dim {
     my $img = shift || return;
     my $x = $img->{width} || return;
     my $y = $img->{height} || return;
     wantarray ? ($x, $y) : "${x}x$y";
 }
 
-sub html_dim
-{
-    my($x, $y) = dim(@_);
+sub html_dim {
+    my ($x, $y) = dim(@_);
     return "" unless $x;
     "WIDTH=$x HEIGHT=$y";
 }
 
 package Image::Info::Result;
 
-sub push_info
-{
-    my($self, $n, $key) = splice(@_, 0, 3);
+sub push_info {
+    my ($self, $n, $key) = splice(@_, 0, 3);
     push(@{$self->[$n]{$key}}, @_);
 }
 
-sub clean_up
-{
+sub clean_up {
     my $self = shift;
     for (@$self) {
-	for my $k (keys %$_) {
-	    my $a = $_->{$k};
-	    $_->{$k} = $a->[0] if @$a <= 1;
-	}
+        for my $k (keys %$_) {
+            my $a = $_->{$k};
+            $_->{$k} = $a->[0] if @$a <= 1;
+        }
     }
 }
 
 sub get_info {
-    my($self, $n, $key, $delete) = @_;
+    my ($self, $n, $key, $delete) = @_;
     my $v = $delete ? delete $self->[$n]{$key} : $self->[$n]{$key};
     $v ||= [];
     @$v;
