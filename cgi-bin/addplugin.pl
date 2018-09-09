@@ -10,6 +10,7 @@
 
 use strict;
 use warnings;
+use diagnostics;
 $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin1url" target=_blank><font color=#000000>$plugin1name</font></a>&nbsp;</div>~ if ($plugin1name ne "");
 $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin2url" target=_blank><font color=#000000>$plugin2name</font></a>&nbsp;</div>~ if ($plugin2name ne "");
 $pluginadd .= qq~<div class="menuitems">&nbsp;<a href="$plugin3url" target=_blank><font color=#000000>$plugin3name</font></a>&nbsp;</div>~ if ($plugin3name ne "");

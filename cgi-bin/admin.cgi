@@ -22,6 +22,7 @@ BEGIN {
 &testsystem;
 use strict;
 use warnings;
+use diagnostics;
 use LBCGI;
 $LBCGI::POST_MAX=200000;
 $LBCGI::DISABLE_UPLOADS = 1;

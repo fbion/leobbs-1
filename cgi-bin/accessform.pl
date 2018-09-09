@@ -10,6 +10,7 @@
 
 use strict;
 use warnings;
+use diagnostics;
 my $inforum;
 my $tablewidth;
 my $tablebordercolor;

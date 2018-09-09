@@ -24,7 +24,7 @@ BEGIN {
 }
 
 use strict;
-use strict;
+use diagnostics;
 use warnings;
 use LBCGI;
 use Archive::Tar;
