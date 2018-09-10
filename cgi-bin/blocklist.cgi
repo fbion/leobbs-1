@@ -22,8 +22,10 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use lib ".";
+use lib "./Digest";
+use lib "../addon";
 
-use LBCGI;
 $LBCGI::POST_MAX=500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
@@ -33,10 +35,10 @@ require "bbs.lib.pl";
 
 $|++;
 
-my $query = new LBCGI;
+my $query = LBCGI->new;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-$thisprog = "blocklist.cgi";
+my $thisprog = "blocklist.cgi";
 
 my $action = $query->param('action');
 my $deluser = $query->param('deluser');
@@ -44,7 +46,7 @@ my $adduser = $query->param('adduser');
 my $inmembername = $query->param('membername');
 my $inpassword = $query->param('password');
 if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
+    eval {$inpassword = Digest::MD5::md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
