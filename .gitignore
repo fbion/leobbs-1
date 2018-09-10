@@ -43,4 +43,6 @@ cgi-bin/search*
 /MANIFEST.bak
 /pm_to_blib
 /*.zip
-
+.terraform
+*.tfstate
+*.tfstate.backup
