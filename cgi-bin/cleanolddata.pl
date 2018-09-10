@@ -9,6 +9,8 @@
 #####################################################
 #CGItempXXXXX
 
+use strict;
+use warnings;
 sub cleanolddata {
     my $ctime = time;
     opendir (DIRS, "${lbdir}cache/online");
