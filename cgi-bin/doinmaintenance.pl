@@ -8,9 +8,13 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-    $line1 = &HTML($line1);
-    $line1 =~ s/\n/<BR>/isg;
-    $output .= qq~
+use strict;
+use warnings;
+use diagnostics;
+
+$line1 = &HTML($line1);
+$line1 =~ s/\n/<BR>/isg;
+$output .= qq~
     <BR><BR>
     <center><img src="$imagesurl/myimages/$boardlogo" border=0><BR><BR><BR>
     <TABLE cellSpacing=0 cellPadding=0 width=400 height=350><TR><TD><IMG src=$imagesurl/images/top_l.gif></TD><TD background=$imagesurl/images/top_c.gif></TD><TD><IMG src=$imagesurl/images/top_r.gif></TD></TR><TR><TD vAlign=top background=$imagesurl/images/center_l.gif></TD><TD bgcolor=#fffff1 width=100% height=100% valign=top>
@@ -19,7 +23,7 @@
     <TD vAlign=top background=$imagesurl/images/center_r.gif></TD></TR><TR><TD vAlign=top><IMG src=$imagesurl/images/foot_l1.gif ></TD><TD background=$imagesurl/images/foot_c.gif></TD><TD align=right><IMG src=$imagesurl/images/foot_r.gif></TD></TR></TABLE><BR>
     <br><br><br>
 ~;
-    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    &output("$boardname正在维护中，请稍后再访问...",\$output);
-    exit;
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+&output("$boardname正在维护中，请稍后再访问...", \$output);
+exit;
 1;
