@@ -23,6 +23,7 @@ package UTF8simple;
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 use Carp;
 use vars qw($VERSION);
 

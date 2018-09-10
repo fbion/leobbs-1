@@ -1,3 +1,6 @@
+use warnings;
+use strict;
+use diagnostics;
 $onlinepopup = qq~<script language="JavaScript">
 <!--
 var oPopup = window.createPopup();

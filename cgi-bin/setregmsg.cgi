@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -33,35 +37,35 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-$rules        = $query -> param('therules');
-$action       = $query -> param("action");
-$action       = &cleaninput("$action");
+$rules = $query->param('therules');
+$action = $query->param("action");
+$action = &cleaninput("$action");
 
 $inmembername = cookie("adminname");
-$inpassword   = cookie("adminpass");
+$inpassword = cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-            
-        &getmember("$inmembername","no");
-        if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
-if ($action eq "process") {
-        
+&getmember("$inmembername", "no");
+if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+    if ($action eq "process") {
+
         $rules =~ s/\n\n/\n/ig;
         $rules =~ s/\s+/\n/ig;
 
         $filetomake = "$lbdir" . "data/newusrmsg.dat";
-        open (FILE, ">$filetomake");
+        open(FILE, ">$filetomake");
         print FILE $rules;
-        close (FILE);
-        
+        close(FILE);
+
         if (-e $filetomake && -w $filetomake) {
-                print qq(
+            print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心</b>
                 </td></tr>
@@ -70,9 +74,9 @@ if ($action eq "process") {
                 <font color=#333333><center><b>所有信息已经保存</b></center><br><br>
                 <b>注册欢迎短信息已经保存.目前的注册欢迎短信息正文如下：</b><br><HR><ul>$rules</ul>
                 <HR><br><br><center><a href=$thisprog>再次修改注册欢迎短信息</a></center>);
-                }
-                else {
-                    print qq(
+        }
+        else {
+            print qq(
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                     <b>欢迎来到论坛管理中心</b>
                     </td></tr>
@@ -81,21 +85,20 @@ if ($action eq "process") {
                     <font color=#333333><b>信息无法保存</b><br>文件或者目录不可写。
                     </td></tr></table></td></tr></table>
                     );
-                    }
-                }
-        
+        }
+    }
     else {
-                $filetoopen = "$lbdir" . "data/newusrmsg.dat";
-                open (FILE, "$filetoopen") or $rules = "输入注册欢迎短信息正文内容";
-		sysread(FILE, $rules,(stat(FILE))[7]) if (!$rules);
-                close (FILE);
-	        $rules =~ s/\r//isg;
+        $filetoopen = "$lbdir" . "data/newusrmsg.dat";
+        open(FILE, "$filetoopen") or $rules = "输入注册欢迎短信息正文内容";
+        sysread(FILE, $rules, (stat(FILE))[7]) if (!$rules);
+        close(FILE);
+        $rules =~ s/\r//isg;
 
-		@rules = split(/\n/, $rules);
-		
-                $inmembername =~ s/\_/ /g;
+        @rules = split(/\n/, $rules);
 
-                print qq(
+        $inmembername =~ s/\_/ /g;
+
+        print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 注册欢迎短信息内容设置</b>
                 </td></tr>
@@ -120,12 +123,12 @@ if ($action eq "process") {
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
                 <textarea cols=70 rows=13 wrap="virtual" name="therules">);
-		                foreach (@rules) {
-		                   $rules = $_;
-		                   #$rules =~ s/\n//isg;
-		                   print qq($rules);
-		                }
-		                print qq(</textarea>
+        foreach (@rules) {
+            $rules = $_;
+            #$rules =~ s/\n//isg;
+            print qq($rules);
+        }
+        print qq(</textarea>
                 </td>
                 </tr>
                 
@@ -133,12 +136,12 @@ if ($action eq "process") {
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
                 <input type=submit name=submit value=提交></form></td></tr></table></td></tr></table>
                 );
-                
-        }
-                }
-                else {
-                    &adminlogin;
-                    }
+
+    }
+}
+else {
+    &adminlogin;
+}
 
 print qq~</td></tr></table></body></html>~;
 exit;

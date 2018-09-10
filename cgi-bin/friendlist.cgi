@@ -10,17 +10,22 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
+
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -47,102 +52,105 @@ if ($inpassword ne "") {
 $adduser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\;\\\{\}\'\:\"\,\.\/\<\>\?]//isg;
 $deluser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\;\\\{\}\'\:\"\,\.\/\<\>\?]//isg;
 
-if (! $inmembername) { $inmembername = cookie("amembernamecookie"); }
-if (! $inpassword)   { $inpassword   = cookie("apasswordcookie");   }
+if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
     $userregistered = "no";
     errorbl("请登录后再使用本功能！");
-} else {
-    &getmember("$inmembername","no");
+}
+else {
+    &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($inpassword ne "" && $userregistered eq "no");
     &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password && $userregistered ne "no");
     &action;
 }
 
 sub action {
-if ($action eq "adduser") { &adduser($adduser); }
-elsif ($action eq "deluser") { &deluser($deluser); }
-else { &list; }
+    if ($action eq "adduser") {&adduser($adduser);}
+    elsif ($action eq "deluser") {&deluser($deluser);}
+    else {&list;}
 }
 
 sub adduser {
-errorbl("自己添加自己为好友做什么？") if ($adduser eq $inmembername);
-&getmember($adduser,"no");
-if ($userregistered ne "no") {
+    errorbl("自己添加自己为好友做什么？") if ($adduser eq $inmembername);
+    &getmember($adduser, "no");
+    if ($userregistered ne "no") {
 
-$memberfiletitle = $inmembername;
-$memberfiletitle =~ s/ /_/g;
-$memberfiletitle =~ tr/A-Z/a-z/;
+        $memberfiletitle = $inmembername;
+        $memberfiletitle =~ s/ /_/g;
+        $memberfiletitle =~ tr/A-Z/a-z/;
 
-$deluser =~ s/\+/ /;
+        $deluser =~ s/\+/ /;
 
-$filetomake = "$lbdir" . "memfriend/${memberfiletitle}.cgi";
-if (-e $filetomake) {
-	open(FILE, "$filetomake");
-	@currentlist = <FILE>;
-	close (FILE);
-}
+        $filetomake = "$lbdir" . "memfriend/${memberfiletitle}.cgi";
+        if (-e $filetomake) {
+            open(FILE, "$filetomake");
+            @currentlist = <FILE>;
+            close(FILE);
+        }
 
-unless (grep(/^＊＃！＆＊$adduser$/, @currentlist)) {
-push (@currentlist, $adduser);
-}
+        unless (grep (/^＊＃！＆＊$adduser$/, @currentlist)) {
+            push(@currentlist, $adduser);
+        }
 
-if (open(FILE, ">$filetomake")) {
-flock(FILE, 2) if ($OS_USED eq "Unix");
-foreach $user (@currentlist) {
-	chomp($user);
-	$user =~ s/^＊＃！＆＊//isg;
-	print FILE "＊＃！＆＊$user\n";
-}
-close(FILE);
-}
+        if (open(FILE, ">$filetomake")) {
+            flock(FILE, 2) if ($OS_USED eq "Unix");
+            foreach $user (@currentlist) {
+                chomp($user);
+                $user =~ s/^＊＃！＆＊//isg;
+                print FILE "＊＃！＆＊$user\n";
+            }
+            close(FILE);
+        }
 
-&list;
-} else {
-errorbl("没有该注册用户！");
-}
+        &list;
+    }
+    else {
+        errorbl("没有该注册用户！");
+    }
 } ### end adduser
 
 sub deluser {
 
-$memberfiletitle = $inmembername;
-$memberfiletitle =~ s/ /_/g;
-$memberfiletitle =~ tr/A-Z/a-z/;
+    $memberfiletitle = $inmembername;
+    $memberfiletitle =~ s/ /_/g;
+    $memberfiletitle =~ tr/A-Z/a-z/;
 
-$deluser =~ s/\+/ /;
+    $deluser =~ s/\+/ /;
 
-$filetomake = "$lbdir" . "memfriend/${memberfiletitle}.cgi";
-if (-e $filetomake) {
-	open(FILE, "$filetomake");
-	@currentlist = <FILE>;
-	close (FILE);
-} else {
-	errorbl("你的好友列表为空！");
-}
+    $filetomake = "$lbdir" . "memfriend/${memberfiletitle}.cgi";
+    if (-e $filetomake) {
+        open(FILE, "$filetomake");
+        @currentlist = <FILE>;
+        close(FILE);
+    }
+    else {
+        errorbl("你的好友列表为空！");
+    }
 
-if (open(FILE, ">$filetomake")) {
-flock(FILE, 2) if ($OS_USED eq "Unix");
-foreach $user (@currentlist) {
-	chomp($user);
-	$user =~ s/^＊＃！＆＊//isg;
-	unless ($user eq $deluser) {
-	print FILE "＊＃！＆＊$user\n";
-	}
-}
-close(FILE);
-}
+    if (open(FILE, ">$filetomake")) {
+        flock(FILE, 2) if ($OS_USED eq "Unix");
+        foreach $user (@currentlist) {
+            chomp($user);
+            $user =~ s/^＊＃！＆＊//isg;
+            unless ($user eq $deluser) {
+                print FILE "＊＃！＆＊$user\n";
+            }
+        }
+        close(FILE);
+    }
 
-&list;
+    &list;
 
 } ### end deluser
 
 sub list {
 
-$output .= qq~<html>
+    $output .= qq~<html>
 <head>
 <script type="text/javascript">
 function openScript(url, width, height) {
@@ -183,29 +191,27 @@ function openScript(url, width, height) {
 <table width=100% cellspacing=0 cellpadding=4>
 ~;
 
-$memberfiletitle = $inmembername;
-$memberfiletitle =~ s/ /_/g;
-$memberfiletitle =~ tr/A-Z/a-z/;
+    $memberfiletitle = $inmembername;
+    $memberfiletitle =~ s/ /_/g;
+    $memberfiletitle =~ tr/A-Z/a-z/;
 
-$filetomake = "$lbdir" . "memfriend/${memberfiletitle}.cgi";
-if (-e $filetomake) {
-	open(FILE, "$filetomake");
-	@currentlist = <FILE>;
-	close (FILE);
-}
+    $filetomake = "$lbdir" . "memfriend/${memberfiletitle}.cgi";
+    if (-e $filetomake) {
+        open(FILE, "$filetomake");
+        @currentlist = <FILE>;
+        close(FILE);
+    }
 
+    $colspant = "7";
+    $colspans = "5";
 
+    my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
+    $filetoopens = &lockfilename($filetoopens);
+    if (!(-e "$filetoopens.lck")) {
+        &whosonline("$inmembername\t好友列表\tnone\t查看好友列表\t");
+    }
 
-$colspant = "7";
-$colspans = "5";
-
-my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
-$filetoopens = &lockfilename($filetoopens);
-if (!(-e "$filetoopens.lck")) {
-    &whosonline("$inmembername\t好友列表\tnone\t查看好友列表\t");
-}
-
-$output .= qq~
+    $output .= qq~
 <tr>
 <td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>姓名</b></center></font></td>
 <td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>短消息</b></center></font></td>
@@ -216,42 +222,55 @@ $output .= qq~
 <td bgcolor=$catback><font face="$font" color=$titlefont ><center><b>删除?</b></center></font></td>
 </tr>
 ~;
-$pmnamenumber = 0;
-foreach $user (@currentlist) {
-    chomp $user;
-	$user =~ s/^＊＃！＆＊//isg;
-#    &getmember($user);
-    &getmember("$user","no");
-    $memname = $membername;
-    $memname =~ s/ /+/;
-    $pmname = $membername;
-    $pmname =~ s/ /_/;
-    $duser = $user;
-    $duser =~ s/ /+/;
-$pmnamenumber++;
-    if ($userregistered ne "no") {
+    $pmnamenumber = 0;
+    foreach $user (@currentlist) {
+        chomp $user;
+        $user =~ s/^＊＃！＆＊//isg;
+        #    &getmember($user);
+        &getmember("$user", "no");
+        $memname = $membername;
+        $memname =~ s/ /+/;
+        $pmname = $membername;
+        $pmname =~ s/ /_/;
+        $duser = $user;
+        $duser =~ s/ /+/;
+        $pmnamenumber++;
+        if ($userregistered ne "no") {
 
-	$homepage =~ s/http\:\/\///sg;
+            $homepage =~ s/http\:\/\///sg;
 
-	if ($homepage) { $homepage = qq~<a href="http://$homepage" target="_blank"><img src="$imagesurl/images/homepage.gif" border=0></a>~; } else { $homepage = "N/A"; }
-	$emailaddress = &encodeemail($emailaddress);
-	if ($showemail eq "no"||$emailstatus eq "no"||$emailaddress eq ""||$showemail eq "msn"){
-	    $emailaddress = "未输入" if ($$emailaddress eq "");
-	    $emailaddress = "保密" if ($emailstatus eq "no");
-	    $emailaddress = "保密" if ($showemail eq "no");
-	    $emailaddress = "<a href=mailto:$emailaddress><img border=0 src=$imagesurl/images/msn.gif></a>" if ($showemail eq "msn");
-	}
-	else {$emailaddress = "<a href=mailto:$emailaddress><img border=0 src=$imagesurl/images/email.gif></a>" }
+            if ($homepage) {$homepage = qq~<a href="http://$homepage" target="_blank"><img src="$imagesurl/images/homepage.gif" border=0></a>~;}
+            else {$homepage = "N/A";}
+            $emailaddress = &encodeemail($emailaddress);
+            if ($showemail eq "no" || $emailstatus eq "no" || $emailaddress eq "" || $showemail eq "msn") {
+                $emailaddress = "未输入" if ($$emailaddress eq "");
+                $emailaddress = "保密" if ($emailstatus eq "no");
+                $emailaddress = "保密" if ($showemail eq "no");
+                $emailaddress = "<a href=mailto:$emailaddress><img border=0 src=$imagesurl/images/msn.gif></a>" if ($showemail eq "msn");
+            }
+            else {$emailaddress = "<a href=mailto:$emailaddress><img border=0 src=$imagesurl/images/email.gif></a>"}
 
-	if ($icqnumber) { $icqnumber = qq~<a href="javascript:openScript('misc.cgi?action=icq&UIN=$icqnumber',450,300)"><img src=$imagesurl/images/icq.gif border=0></a>~; } else { $icqnumber = "N/A"; }
-	if ($oicqnumber) { $oicqnumber = qq~<a href="javascript:openScript('http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber',450,200)"><img src="$imagesurl/images/oicq.gif" border=0></a>~; } else { $oicqnumber = "N/A"; }
+            if ($icqnumber) {$icqnumber = qq~<a href="javascript:openScript('misc.cgi?action=icq&UIN=$icqnumber',450,300)"><img src=$imagesurl/images/icq.gif border=0></a>~;}
+            else {$icqnumber = "N/A";}
+            if ($oicqnumber) {$oicqnumber = qq~<a href="javascript:openScript('http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber',450,200)"><img src="$imagesurl/images/oicq.gif" border=0></a>~;}
+            else {$oicqnumber = "N/A";}
 
-    my $membernametemp = "\_$membername\_";
-    if ($onlineuserlist =~ /$membernametemp/i) { $onlineinfo = "该用户目前在线";$onlinepic="online1.gif"; } else { $onlineinfo = "该用户目前不在线";$onlinepic="offline1.gif"; }
-    if (($mymembercode eq "ad")&&($onlineuserlisthidden =~ /$membernametemp/i)) { $onlineinfo = "该用户目前处于隐身状态";$onlinepic="onlinehidden.gif"; }
-    $online = qq~<IMG SRC=$imagesurl/images/$onlinepic width=15 alt=$onlineinfo align=absmiddle>~;
+            my $membernametemp = "\_$membername\_";
+            if ($onlineuserlist =~ /$membernametemp/i) {
+                $onlineinfo = "该用户目前在线";
+                $onlinepic = "online1.gif";
+            }
+            else {
+                $onlineinfo = "该用户目前不在线";
+                $onlinepic = "offline1.gif";
+            }
+            if (($mymembercode eq "ad") && ($onlineuserlisthidden =~ /$membernametemp/i)) {
+                $onlineinfo = "该用户目前处于隐身状态";
+                $onlinepic = "onlinehidden.gif";
+            }
+            $online = qq~<IMG SRC=$imagesurl/images/$onlinepic width=15 alt=$onlineinfo align=absmiddle>~;
 
-	$output .=qq~
+            $output .= qq~
 	<tr>
 	<td bgcolor=$miscbackone>$online <a href="profile.cgi?action=show&member=~ . uri_escape($pmname) . qq~" target=_blank>$user</a></td>
 	<td bgcolor=$miscbackone><center><a href=# onClick="javascript:openScript('messanger.cgi?action=new&touser=~ . uri_escape($pmname) . qq~',600,400)"><img src="$imagesurl/images/message.gif" border=0></a></center></td>
@@ -261,9 +280,9 @@ $pmnamenumber++;
 	<td bgcolor=$miscbackone><center>$homepage</center></td>
 	<td bgcolor=$miscbackone><center><form action=friendlist.cgi method=post name=pm$pmnamenumber><input type=hidden name=action value=deluser><input type=hidden name=deluser value=$duser><a href="javascript:document.pm$pmnamenumber.submit()">删除</a></center></td></form></tr>
 	~;
-    }
-    else {
-	$output .=qq~
+        }
+        else {
+            $output .= qq~
 	<tr>
 	<td bgcolor=$miscbackone>$user (未注册)</td>
 	<td bgcolor=$miscbackone></td>
@@ -274,10 +293,10 @@ $pmnamenumber++;
 	<td bgcolor=$miscbackone><center><form action=friendlist.cgi method=post name=pm$pmnamenumber><input type=hidden name=action value=deluser><input type=hidden name=deluser value=$duser><a href="javascript:document.pm$pmnamenumber.submit()">删除</a></center></td></form></tr>
 	~;
 
+        }
     }
-}
 
-$output .= qq~
+    $output .= qq~
 <tr>
 <form action=friendlist.cgi method=post name=adduser><input type=hidden name=action value=adduser><td bgcolor=$miscbackone><font  color=black >好友姓名:</td><td colspan=$colspans bgcolor=$miscbackone><input type=text size=20 name=adduser></td><td bgcolor=$miscbackone><center><a href="javascript:document.adduser.submit()">增加</a></center></td></form>
 <tr><td bgcolor=$miscbackone colspan=$colspant><center><font  color=black >输入你要想增加的好友姓名，点击增加确认操作！<br><br><a href=javascript:top.close();>[关闭窗口]</a></center></td></tr>
@@ -287,13 +306,13 @@ $output .= qq~
 </html>
 ~;
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-print "$output";
+    print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+    print "$output";
 } ### end of list
 
 sub errorbl {
-$errormsg = shift;
-$output = qq~
+    $errormsg = shift;
+    $output = qq~
 <html>
 <head>
 <title>$inmembername - 好友列表 >> 错误</title>
@@ -338,7 +357,7 @@ $output = qq~
 </body>
 </html>
 ~;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-print "$output";
-exit;
+    print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+    print "$output";
+    exit;
 }

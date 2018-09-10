@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -34,44 +38,41 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-$wordarray     = $query -> param('wordarray');
-$action        = $query -> param("action");
-$action        = &cleaninput("$action");
-
+$wordarray = $query->param('wordarray');
+$action = $query->param("action");
+$action = &cleaninput("$action");
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-            
 
 if ($action eq "process") {
- 
-    &getmember("$inmembername","no");
-        
-    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) { 
- 
 
-	$wordarray =~ s/[\f\n\r]+/\n/ig;
-	$wordarray =~ s/[\r \n]+$/\n/ig;
-	$wordarray =~ s/^[\r\n ]+/\n/ig;
+    &getmember("$inmembername", "no");
+
+    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+        $wordarray =~ s/[\f\n\r]+/\n/ig;
+        $wordarray =~ s/[\r \n]+$/\n/ig;
+        $wordarray =~ s/^[\r\n ]+/\n/ig;
         $wordarray =~ s/\n\n//ig;
         $wordarray =~ s/\n/\&/ig;
 
-        @savedwordarray = split(/\&/,$wordarray);
-        
+        @savedwordarray = split(/\&/, $wordarray);
+
         $filetomake = "$lbdir" . "data/emote.cgi";
-        open (FILE, ">$filetomake");
+        open(FILE, ">$filetomake");
         print FILE $wordarray;
-        close (FILE);
-        
+        close(FILE);
+
         if (-e $filetomake && -w $filetomake) {
-                print qq(
+            print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / EMOTE 设定</b>
                 </td></tr>
@@ -80,17 +81,17 @@ if ($action eq "process") {
                 <font face=宋体 color=#333333><center><b>所有信息已经被成功保存。</b></center><br><br>
                 <b>下列EMOTE被保存！</b><br><br>
                 );
-                
-                foreach (@savedwordarray) {
-                    chomp $_;
-                    ($toemote, $beemote) = split(/\=/,$_);
-                    print qq(所有出现 <b>$toemote</b> 的地方将被 <b>$beemote</b> 替换。<br>);
-                }
-                print qq(
+
+            foreach (@savedwordarray) {
+                chomp $_;
+                ($toemote, $beemote) = split(/\=/, $_);
+                print qq(所有出现 <b>$toemote</b> 的地方将被 <b>$beemote</b> 替换。<br>);
+            }
+            print qq(
                 <br><br><br><center><a href="setemotes.cgi">再次增加EMOTE列表</a></center>);
         }
         else {
-                print qq(
+            print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / EMOTE 设定</b>
                 </td></tr>
@@ -104,27 +105,26 @@ if ($action eq "process") {
     else {
         &adminlogin;
     }
-        
- }
-        
- else {
-        
-        &getmember("$inmembername","no");
-        
-        if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
-                $filetoopen = "$lbdir" . "data/emote.cgi";
-                open (FILE, "$filetoopen");
-                $emote = <FILE> if (!$emote);
-                close (FILE);
-                
-                $emote =~ s/\&/\n/g;
-        	$emote =~ s/\n\n/\n/ig;
-        	$emote =~ s/\f\r//ig;
+}
+else {
 
-                $inmembername =~ s/\_/ /g;
+    &getmember("$inmembername", "no");
 
-                print qq(
+    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+        $filetoopen = "$lbdir" . "data/emote.cgi";
+        open(FILE, "$filetoopen");
+        $emote = <FILE> if (!$emote);
+        close(FILE);
+
+        $emote =~ s/\&/\n/g;
+        $emote =~ s/\n\n/\n/ig;
+        $emote =~ s/\f\r//ig;
+
+        $inmembername =~ s/\_/ /g;
+
+        print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / EMOTE 设定</b>
                 </td></tr>
@@ -163,11 +163,11 @@ if ($action eq "process") {
                 <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
                 <input type=submit name=submit value="提 交"></form></td></tr></table></td></tr></table>
                 );
-                
-                }
-                else {
-                    &adminlogin;
-                    }
-        }
+
+    }
+    else {
+        &adminlogin;
+    }
+}
 print qq~</td></tr></table></body></html>~;
 exit;

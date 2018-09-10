@@ -8,9 +8,12 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-$cookie     = cookie(-name => "lastvisit"    , -value => "$lvisit", -path => "$cookiepath/", -expires => "+30d");
+use warnings;
+use strict;
+use diagnostics;
+$cookie = cookie(-name => "lastvisit", -value => "$lvisit", -path => "$cookiepath/", -expires => "+30d");
 $tempcookie = cookie(-name => "templastvisit", -value => "$lvisit", -path => "$cookiepath/", -expires => "+30d");
-print header(-cookie  =>[$cookie, $tempcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-print qq ~<script>location.href="$thisprog";</script>~;
+print header(-cookie => [ $cookie, $tempcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+print qq~<script>location.href="$thisprog";</script>~;
 exit;
 1;

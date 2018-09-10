@@ -12,6 +12,7 @@ package WebGzip;
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 my $level = 9;
 my $status = undef;

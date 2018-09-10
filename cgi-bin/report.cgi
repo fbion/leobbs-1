@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -34,73 +38,73 @@ $query = new LBCGI;
 
 &ipbanned; #封杀一些 ip
 
-$inforum       = $query -> param('forum');
-$intopic       = $query -> param('topic');
+$inforum = $query->param('forum');
+$intopic = $query->param('topic');
 &error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
-if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
+if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$action          = $query -> param('action');
+$action = $query->param('action');
 
-$insubject       = $query -> param('subject');
-$inemailmessage  = $query -> param('emailmessage');
-$emailtopictitle = $query -> param('emailtopictitle');
-$intouser        = $query -> param('touser');
-$inmembername    = $query -> param('membername');
-$inpassword      = $query -> param('password');
+$insubject = $query->param('subject');
+$inemailmessage = $query->param('emailmessage');
+$emailtopictitle = $query->param('emailtopictitle');
+$intouser = $query->param('touser');
+$inmembername = $query->param('membername');
+$inpassword = $query->param('password');
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-$inmsgtitle	 = $query -> param('subject');
-$inmessage	 = $query -> param('emailmessage');
-$inoriginalpost  = $query -> param('originalpost');
+$inmsgtitle = $query->param('subject');
+$inmessage = $query->param('emailmessage');
+$inoriginalpost = $query->param('originalpost');
 $inpost2 = "<BR><BR><b>贴子原始位置：</b> $boardurl/topic.cgi?forum=$inforum&topic=$intopic<br>";
 
-$insubject           = &cleaninput($insubject);
-$inemailmessage      = &cleaninput($inemailmessage);
-$emailtopictitle     = &cleaninput($emailtopictitle);
-$inforum             = &cleaninput($inforum);
-$inoriginalpost      = &cleaninput($inoriginalpost);
+$insubject = &cleaninput($insubject);
+$inemailmessage = &cleaninput($inemailmessage);
+$emailtopictitle = &cleaninput($emailtopictitle);
+$inforum = &cleaninput($inforum);
+$inoriginalpost = &cleaninput($inoriginalpost);
 
-$inmembername        = &cleaninput($inmembername);
-$inpassword          = &cleaninput($inpassword);
-$inpostno      	     = $query -> param('postno');
+$inmembername = &cleaninput($inmembername);
+$inpassword = &cleaninput($inpassword);
+$inpostno = $query->param('postno');
 
-$inmessage2 = $inemailmessage.$inoriginalpost.$inpost2;
+$inmessage2 = $inemailmessage . $inoriginalpost . $inpost2;
 
 # new
-$add_user2	= $query -> param('touser1');
+$add_user2 = $query->param('touser1');
 # -- new
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if (! $inmembername) { $inmembername = cookie("amembernamecookie"); }
-if (! $inpassword)   { $inpassword   = cookie("apasswordcookie"); }
+if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &error("短消息禁止使用&很抱歉，坛主由于某种原因已禁止所有用户使用短消息功能") if ($allowusemsg eq "off");
-&error("论坛已经关闭&很抱歉，由于论坛暂时关闭，请稍后再来使用短消息，谢谢合作！") if (($mainoff == 1)||($mainonoff == 1));
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+&error("论坛已经关闭&很抱歉，由于论坛暂时关闭，请稍后再来使用短消息，谢谢合作！") if (($mainoff == 1) || ($mainonoff == 1));
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
-        $inmembername = "客人";
-        $userregistered = "no";
-        }
-        else {
-#			&getmember("$inmembername");
-		        &getmember("$inmembername","no");
-			&error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-			if ($inpassword ne $password) { &error("发送报告&你的密码有问题！"); }
-            }
+if ($inmembername eq "" || $inmembername eq "客人") {
+    $inmembername = "客人";
+    $userregistered = "no";
+}
+else {
+    #			&getmember("$inmembername");
+    &getmember("$inmembername", "no");
+    &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
+    if ($inpassword ne $password) {&error("发送报告&你的密码有问题！");}
+}
 
 &title;
 
@@ -117,53 +121,52 @@ $output .= qq~<BR>
 
 if ($action eq "send") {
 
+    #	&getmember("$inmembername");
+    if ($userregistered eq "no") {&error("发送报告&你还没注册呢！");}
+    elsif ($inpassword ne $password) {&error("发送报告&你的密码有问题！");}
+    elsif ($inmembername eq "") {&login("$thisprog?action=reply&touser=$intouser");}
 
-#	&getmember("$inmembername");
-	if ($userregistered eq "no") { &error("发送报告&你还没注册呢！"); }
-	elsif ($inpassword ne $password) { &error("发送报告&你的密码有问题！"); }
-	elsif ($inmembername eq "") { &login("$thisprog?action=reply&touser=$intouser"); }
+    # Check for blanks
 
-	# Check for blanks
+    if ($inmsgtitle eq "") {$blanks = "yes";}
+    if ($inmessage eq "") {$blanks = "yes";}
+    if ($intouser eq "") {$blanks = "yes";}
 
-	if ($inmsgtitle eq "") { $blanks = "yes"; }
-	if ($inmessage eq "")  { $blanks = "yes"; }
-	if ($intouser eq "")   { $blanks = "yes"; }
+    if ($blanks eq "yes") {&error("发送报告&请完整填写表单，不要遗漏！");}
 
-	if ($blanks eq "yes") { &error("发送报告&请完整填写表单，不要遗漏！"); }
+    $memberfilename = $intouser;
+    $memberfilename =~ s/ /\_/g;
+    $memberfilename =~ tr/A-Z/a-z/;
+    $currenttime = time;
+    my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
+    &error("不允许发送短信息&对方设置了短信息免打扰，无法发送！<br>") if (-e $messfilename);
 
-		    $memberfilename = $intouser;
-		    $memberfilename =~ s/ /\_/g;
-		    $memberfilename =~ tr/A-Z/a-z/;
-		    $currenttime = time;
-	my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
-	&error("不允许发送短信息&对方设置了短信息免打扰，无法发送！<br>") if (-e $messfilename);
+    #	            &getmember("$memberfilename");
+    &getmember("$memberfilename", "no");
+    if ($userregistered eq "no") {&error("发送报告&这个版主有问题，请更换一个发送报告！");}
 
-#	            &getmember("$memberfilename");
-		    &getmember("$memberfilename","no");
-        	    if ($userregistered eq "no") {&error("发送报告&这个版主有问题，请更换一个发送报告！");}
+    $filetoopen = "$lbdir" . "$msgdir/in/$memberfilename" . "_msg.cgi";
+    open(FILE, "$filetoopen");
+    @inboxmessages = <FILE>;
+    close(FILE);
 
-		    $filetoopen = "$lbdir". "$msgdir/in/$memberfilename" . "_msg.cgi";
-		    open (FILE, "$filetoopen");
-		    @inboxmessages = <FILE>;
-		    close (FILE);
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    print FILE "＊＃！＆＊$inmembername\tno\t$currenttime\t$inmsgtitle\t$inmessage2\n";
+    foreach $line (@inboxmessages) {
+        chomp $line;
+        print FILE "$line\n";
+    }
+    close(FILE);
 
-		    open (FILE, ">$filetoopen");
-	    	    flock (FILE, 2) if ($OS_USED eq "Unix");
-		    print FILE "＊＃！＆＊$inmembername\tno\t$currenttime\t$inmsgtitle\t$inmessage2\n";
-		    foreach $line (@inboxmessages) {
-			chomp $line;
-			print FILE "$line\n";
-			}
-		    close (FILE);
+    if ($refreshurl == 1) {
+        $relocurl = "topic.cgi?forum=$inforum&topic=$intopic";
+    }
+    else {
+        $relocurl = "forums.cgi?forum=$inforum";
+    }
 
-        if ($refreshurl == 1) {
-	        $relocurl = "topic.cgi?forum=$inforum&topic=$intopic";
-	}
-	else {
-               	$relocurl = "forums.cgi?forum=$inforum";
-        }
-
-            $output .= qq~
+    $output .= qq~
             <tr>
                 <td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>谢谢，$inmembername！已经成功将报告发送给版主了</b></td>
             </tr>
@@ -182,62 +185,62 @@ if ($action eq "send") {
             <meta http-equiv="refresh" content="3; url=$relocurl">
             ~;
 
-
-    } # end action
+} # end action
 
 else {
 
-   $filetoopen = "$lbdir" . "forum$inforum/foruminfo.cgi";
-   open(FILE, "$filetoopen");
-   $forums = <FILE>;
-   close(FILE);
-   ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator ,$htmlstate ,$idmbcodestate ,$privateforum, $startnewthreads ,$lastposter ,$lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc,$forumpass,$hiddenforum,$indexforum,$teamlogo,$teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/,$forums);
+    $filetoopen = "$lbdir" . "forum$inforum/foruminfo.cgi";
+    open(FILE, "$filetoopen");
+    $forums = <FILE>;
+    close(FILE);
+    ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
 
-$filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+    $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
     open(FILE, "$filetoopen");
     flock(FILE, 2);
     $threads = <FILE>;
     close(FILE);
     chomp $threads;
-($membername, $topictitle, $postipaddress, $showemoticons, $showsignature ,$postdate, $post, $posticon) = split(/\t/, $threads);
-$topictitle =~ s/^＊＃！＆＊//;
+    ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post, $posticon) = split(/\t/, $threads);
+    $topictitle =~ s/^＊＃！＆＊//;
 
     $post =~ s/\<p\>/\n\n/g;
     $post =~ s/\<br\>/\n/g;
 
-    $postdate = $postdate + ($timedifferencevalue*3600) + ($timezone*3600);
+    $postdate = $postdate + ($timedifferencevalue * 3600) + ($timezone * 3600);
     $postdate = &dateformat("$postdate");
 
- $rawpost = $post;
-	$rawpost =~ s/\[USECHGFONTE\]//sg;
-	$rawpost =~ s/\[DISABLELBCODE\]//sg;
-	$rawpost =~ s/\[ADMINOPE=(.+?)\]//isg;
-        $rawpost  =~ s/\[ALIPAYE\](.*)\[ALIPAYE\]//isg; 
+    $rawpost = $post;
+    $rawpost =~ s/\[USECHGFONTE\]//sg;
+    $rawpost =~ s/\[DISABLELBCODE\]//sg;
+    $rawpost =~ s/\[ADMINOPE=(.+?)\]//isg;
+    $rawpost =~ s/\[ALIPAYE\](.*)\[ALIPAYE\]//isg;
 
     if ($rawpost =~ /\[POSTISDELETE=(.+?)\]/) {
-    	if ($1 ne " ") { $presult = "<BR>屏蔽理由：$1<BR>"; } else { $presult = "<BR>"; }
+        if ($1 ne " ") {$presult = "<BR>屏蔽理由：$1<BR>";}
+        else {$presult = "<BR>";}
         $rawpost = qq(<br>--------------------------<br><font color=$posternamecolor>此帖子内容已经被单独屏蔽！$presult如有疑问，请联系管理员！</font><br>--------------------------<BR>);
     }
 
     $temppost = qq~原始贴子由 $membername 在 $postdate 发布，内容如下：\[br\]$rawpost~;
 
 
-### print form
-if ($forummoderator eq "") {
-&error("发送报告&本版块没有设置版主！"); }
-else {
-$recipient = $forummoderator }
+    ### print form
+    if ($forummoderator eq "") {
+        &error("发送报告&本版块没有设置版主！");}
+    else {
+        $recipient = $forummoderator}
 
-@recipientname = split(",",$recipient);
+    @recipientname = split(",", $recipient);
 
-$toto = qq~<select name="touser">~;
-foreach (@recipientname) {
-    $toto .= qq~<option value="$_">$_</option>~;
-}
-$toto .= qq~</select>~;
-&getoneforum("$inforum");
+    $toto = qq~<select name="touser">~;
+    foreach (@recipientname) {
+        $toto .= qq~<option value="$_">$_</option>~;
+    }
+    $toto .= qq~</select>~;
+    &getoneforum("$inforum");
 
-&error("发送报告&你就是版主，搞什么飞机？") if (($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes"));
+    &error("发送报告&你就是版主，搞什么飞机？") if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"));
 
     $topictitle = &cleanarea("$topictitle");
 
@@ -274,8 +277,7 @@ $toto .= qq~</select>~;
     		<td colspan=2 bgcolor=$miscbackone align=center><input type=hidden name="emailtopictitle" value="$topictitle"><input type=submit value="发送报告" name="Submit"></table></td></form></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
 
-
 } # end routine.
 
-&output($boardname,\$output);
+&output($boardname, \$output);
 exit;

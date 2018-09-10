@@ -10,18 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
 use LBCGI;
-
-$LBCGI::POST_MAX=500000;
+use diagnostics;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 0;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -34,42 +37,44 @@ $thisprog = "setjhmp.cgi";
 $query = new LBCGI;
 #&ipbanned; #封杀一些 ip
 
-$addme=$query->param('addme');
+$addme = $query->param('addme');
 
-for('action','jhmpid','jhmpname','jhmpstatus','jhmporganiger'){
-	my $theparam = $query->param($_);
+for ('action', 'jhmpid', 'jhmpname', 'jhmpstatus', 'jhmporganiger') {
+    my $theparam = $query->param($_);
     $theparam = &cleaninput("$theparam");
-	${$_} = $theparam;
+    ${$_} = $theparam;
 }
-$checkaction    =  ($query->param('checkaction') eq "yes")?"yes":"no";
+$checkaction = ($query->param('checkaction') eq "yes") ? "yes" : "no";
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 my %Mode = ('createform' => \&createform,
-            'processnew' => \&createaction,
-	    'edit'       => \&editform,
-	    'processedit'=> \&editaction,
-	    'delete'     => \&deleteaction
-	  );
+    'processnew'         => \&createaction,
+    'edit'               => \&editform,
+    'processedit'        => \&editaction,
+    'delete'             => \&deleteaction
+);
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
-&getmember("$inmembername","no");
+&getmember("$inmembername", "no");
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
     print qq~
     <tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
     <b>欢迎来到论坛管理中心 / 门派管理器</b>
     </td></tr>~;
-    if ($Mode{$action}) { 
+    if ($Mode{$action}) {
         $Mode{$action}->();
-    } else {
+    }
+    else {
         &jhmplist;
     }
     print qq~</table></td></tr></table>~;
-} else {
+}
+else {
     &adminlogin;
 }
 
@@ -97,10 +102,10 @@ sub jhmplist {
     my @jhmp = <FILE>;
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-	chomp @jhmp;
-	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
+    chomp @jhmp;
+    @jhmp = grep (/^(.+?)\t[1|0]\t/, @jhmp);
 
-	print qq~
+    print qq~
     <tr>
     <td bgcolor=#FFFFFF align=center colspan=2><table width=90% cellspacing="0" cellpadding="2">
 	<tr><td align="center" colspan="4" bgcolor="#EEEEEE">|| <a href="$thisprog?action=createform">增加新门派</a> ||</td></tr>
@@ -108,23 +113,22 @@ sub jhmplist {
 	~;
     $jhmpnum = 0;
     foreach $jhmp (@jhmp) {
-    	chomp $jhmp;
-    	next if($jhmp eq "");
-		($jhmpname, $jhmpstatus, $jhmporganiger) = split(/\t/,$jhmp);
-		$jhmpurl=~s/\\//g;
-		$jhmpnum++;
-		$jhmpstatus=($jhmpstatus)?"开放门派":"隐藏门派";
-		print qq~
+        chomp $jhmp;
+        next if ($jhmp eq "");
+        ($jhmpname, $jhmpstatus, $jhmporganiger) = split(/\t/, $jhmp);
+        $jhmpurl =~ s/\\//g;
+        $jhmpnum++;
+        $jhmpstatus = ($jhmpstatus) ? "开放门派" : "隐藏门派";
+        print qq~
 		<tr><td align="left">　　<b>$jhmpname</b></td><td align="center"><span style="cursor:hand" onClick="javascript:O9('$jhmporganiger')"><font color="#333333"><u>$jhmporganiger</u></font></span></td><td align="center"><u>$jhmpstatus</u></td><td align="center"><a href="$thisprog?action=edit&jhmpid=$jhmpnum">[编辑]</a> <a href="$thisprog?action=delete&jhmpid=$jhmpnum">[删除]</a></td></tr>
 	    ~;
-	}
-    
-    
-	print qq~
+    }
+
+    print qq~
 	<tr><td align="center" colspan="4" bgcolor="#EEEEEE">共有门派 $jhmpnum 个 </td></tr></table>
 	~;
 }
-sub createform{
+sub createform {
     print qq~
     <script language="javascript">
 	function O9(id) {if(id!="")window.open("profile.cgi?action=show&member="+id);}
@@ -168,13 +172,16 @@ sub editform {
     my @jhmp = <FILE>;
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-	chomp @jhmp;
-	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("该门派不存在！"); return;}
-    ($jhmpname,$jhmpstatus,$jhmporganiger) = split(/\t/,$jhmp[$jhmpid-1]);   
-    $jhmpurl=~s/\\//g;
-	$jhmpstatus_select=qq(<option value="1">开放，允许自由加入</option><option value="0">隐藏，不允许自由加入</option>);
-	$jhmpstatus_select=~s/ value="$jhmpstatus">/ value="$jhmpstatus" selected>/;
+    chomp @jhmp;
+    @jhmp = grep (/^(.+?)\t[1|0]\t/, @jhmp);
+    unless (defined $jhmp[$jhmpid - 1]) {
+        &errorout("该门派不存在！");
+        return;
+    }
+    ($jhmpname, $jhmpstatus, $jhmporganiger) = split(/\t/, $jhmp[$jhmpid - 1]);
+    $jhmpurl =~ s/\\//g;
+    $jhmpstatus_select = qq(<option value="1">开放，允许自由加入</option><option value="0">隐藏，不允许自由加入</option>);
+    $jhmpstatus_select =~ s/ value="$jhmpstatus">/ value="$jhmpstatus" selected>/;
     print qq~
     <script language="javascript">
 	function O9(id) {if(id!="")window.open("profile.cgi?action=show&member="+id);}
@@ -212,35 +219,44 @@ sub editform {
     ~;
 }
 sub createaction {
-    if ($jhmpname eq "" || $jhmporganiger eq ""){&errorout("门派名称及创立人不能为空！"); return;}
-    if(length($jhmpname)>21) {&errorout("江湖门派过长，请不要超过20个字符（10个汉字）！"); return;}
-    $jhmpstatus=($jhmpstatus)?1:0;
+    if ($jhmpname eq "" || $jhmporganiger eq "") {
+        &errorout("门派名称及创立人不能为空！");
+        return;
+    }
+    if (length($jhmpname) > 21) {
+        &errorout("江湖门派过长，请不要超过20个字符（10个汉字）！");
+        return;
+    }
+    $jhmpstatus = ($jhmpstatus) ? 1 : 0;
     $filetoopen = "$lbdir" . "data/jhmp.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
     my @jhmp = <FILE>;
     close(FILE);
-	chomp @jhmp;
-	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-	@exisjhmp = grep(/^$jhmpname\t[1|0]\t/,@jhmp);
-    if (@exisjhmp){&errorout("该门派名称已被使用！"); return;}
-	
+    chomp @jhmp;
+    @jhmp = grep (/^(.+?)\t[1|0]\t/, @jhmp);
+    @exisjhmp = grep (/^$jhmpname\t[1|0]\t/, @jhmp);
+    if (@exisjhmp) {
+        &errorout("该门派名称已被使用！");
+        return;
+    }
+
     open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
     print FILE "########################################\n";
     print FILE "# LeoBBS auto-generated config file    #\n";
     print FILE "# Do not change anything in this file! #\n";
     print FILE "########################################\n";
-	foreach $jhmp (@jhmp) {
-    next if ($jhmp eq "");
-	chomp $jhmp;
-    print FILE "$jhmp\n";
+    foreach $jhmp (@jhmp) {
+        next if ($jhmp eq "");
+        chomp $jhmp;
+        print FILE "$jhmp\n";
     }
     print FILE "$jhmpname\t$jhmpstatus\t$jhmporganiger\t\n";
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    
+
     print qq~
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
@@ -255,42 +271,52 @@ sub createaction {
     ~;
 }
 sub editaction {
-    if ($jhmpname eq "" || $jhmporganiger eq ""){&errorout("门派名称及创立人不能为空！"); return;}
-    if(length($jhmpname)>21) {&errorout("江湖门派过长，请不要超过20个字符（10个汉字）！"); return;}
-    $jhmpstatus=($jhmpstatus)?1:0;
+    if ($jhmpname eq "" || $jhmporganiger eq "") {
+        &errorout("门派名称及创立人不能为空！");
+        return;
+    }
+    if (length($jhmpname) > 21) {
+        &errorout("江湖门派过长，请不要超过20个字符（10个汉字）！");
+        return;
+    }
+    $jhmpstatus = ($jhmpstatus) ? 1 : 0;
     $filetoopen = "$lbdir" . "data/jhmp.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
     my @jhmp = <FILE>;
     close(FILE);
-	chomp @jhmp;
-	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("该门派不存在！"); return;}
-	@exisjhmp = grep(/^$jhmpname\t[1|0]\t/,@jhmp);
-#    if (@exisjhmp){&errorout("该门派名称已被使用！"); return;}
-    
-    open(FILE,">$filetoopen");
-    flock(FILE,2) if ($OS_USED eq "Unix");
+    chomp @jhmp;
+    @jhmp = grep (/^(.+?)\t[1|0]\t/, @jhmp);
+    unless (defined $jhmp[$jhmpid - 1]) {
+        &errorout("该门派不存在！");
+        return;
+    }
+    @exisjhmp = grep (/^$jhmpname\t[1|0]\t/, @jhmp);
+    #    if (@exisjhmp){&errorout("该门派名称已被使用！"); return;}
+
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
     print FILE "########################################\n";
     print FILE "# LeoBBS auto-generated config file    #\n";
     print FILE "# Do not change anything in this file! #\n";
     print FILE "########################################\n";
-	$jhmpnum = 0;
-	foreach $jhmp (@jhmp) {
-    next if ($jhmp eq "");
-	chomp $jhmp;
-    $jhmpnum ++;
-		if ($jhmpid eq $jhmpnum) {
-	($oldjhmpname,undef,undef)=split(/\t/,$jhmp);
-    print FILE "$jhmpname\t$jhmpstatus\t$jhmporganiger\t\n";
-		} else {
-	print FILE "$jhmp\n";
-		}
-	}
+    $jhmpnum = 0;
+    foreach $jhmp (@jhmp) {
+        next if ($jhmp eq "");
+        chomp $jhmp;
+        $jhmpnum++;
+        if ($jhmpid eq $jhmpnum) {
+            ($oldjhmpname, undef, undef) = split(/\t/, $jhmp);
+            print FILE "$jhmpname\t$jhmpstatus\t$jhmporganiger\t\n";
+        }
+        else {
+            print FILE "$jhmp\n";
+        }
+    }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    
+
     print qq~
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
@@ -304,19 +330,22 @@ sub editaction {
     ~;
 }
 sub deleteaction {
-	if($checkaction ne "yes"){
-    $filetoopen = "$lbdir" . "data/jhmp.cgi";
-    &winlock($filetoopen) if ($OS_USED eq "Nt");
-    open(FILE, "$filetoopen");
-    flock(FILE, 1) if ($OS_USED eq "Unix");
-    my @jhmp = <FILE>;
-    close(FILE);
-    &winunlock($filetoopen) if ($OS_USED eq "Nt");
-	chomp @jhmp;
-	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("该门派不存在！"); return;}
-    ($jhmpname,$jhmpstatus,$jhmporganiger) = split(/\t/,$jhmp[$jhmpid-1]);   
-    print qq~
+    if ($checkaction ne "yes") {
+        $filetoopen = "$lbdir" . "data/jhmp.cgi";
+        &winlock($filetoopen) if ($OS_USED eq "Nt");
+        open(FILE, "$filetoopen");
+        flock(FILE, 1) if ($OS_USED eq "Unix");
+        my @jhmp = <FILE>;
+        close(FILE);
+        &winunlock($filetoopen) if ($OS_USED eq "Nt");
+        chomp @jhmp;
+        @jhmp = grep (/^(.+?)\t[1|0]\t/, @jhmp);
+        unless (defined $jhmp[$jhmpid - 1]) {
+            &errorout("该门派不存在！");
+            return;
+        }
+        ($jhmpname, $jhmpstatus, $jhmporganiger) = split(/\t/, $jhmp[$jhmpid - 1]);
+        print qq~
     <tr>
     <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
     <font color=#990000><b>警告！！</b>
@@ -332,8 +361,8 @@ sub deleteaction {
     <td bgcolor=#FFFFFF align="center" height="100" valign="bottom" colspan=2>-- <a href="$thisprog">返回</a> --</td>
     </tr>
     ~;
-    return;
-	}
+        return;
+    }
     $filetoopen = "$lbdir" . "data/jhmp.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
@@ -341,27 +370,31 @@ sub deleteaction {
     my @jhmp = <FILE>;
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-	chomp @jhmp;
-	@jhmp = grep(/^(.+?)\t[1|0]\t/,@jhmp);
-    unless (defined $jhmp[$jhmpid-1]){&errorout("该门派不存在！"); return;}
+    chomp @jhmp;
+    @jhmp = grep (/^(.+?)\t[1|0]\t/, @jhmp);
+    unless (defined $jhmp[$jhmpid - 1]) {
+        &errorout("该门派不存在！");
+        return;
+    }
 
-    open(FILE,">$filetoopen");
+    open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
     print FILE "########################################\n";
     print FILE "# LeoBBS auto-generated config file    #\n";
     print FILE "# Do not change anything in this file! #\n";
     print FILE "########################################\n";
-	$jhmpnum = 0;
-	foreach $jhmp (@jhmp) {
-    next if ($jhmp eq "");
-	chomp $jhmp;
-    $jhmpnum ++;
-		if ($jhmpid eq $jhmpnum) {
-	($oldjhmpname,undef,undef)=split(/\t/,$jhmp);
-		}else{
-	print FILE "$jhmp\n";
-		}
-	}
+    $jhmpnum = 0;
+    foreach $jhmp (@jhmp) {
+        next if ($jhmp eq "");
+        chomp $jhmp;
+        $jhmpnum++;
+        if ($jhmpid eq $jhmpnum) {
+            ($oldjhmpname, undef, undef) = split(/\t/, $jhmp);
+        }
+        else {
+            print FILE "$jhmp\n";
+        }
+    }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
@@ -377,9 +410,9 @@ sub deleteaction {
     </tr>
     ~;
 }
-sub errorout{
-	#sub errorout v2.0
-	my $errormsg=shift;
+sub errorout {
+    #sub errorout v2.0
+    my $errormsg = shift;
     print qq~
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>

@@ -23,6 +23,7 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 use LBCGI;
 use IO::Socket;
 require "data/boardinfo.cgi";

@@ -10,21 +10,23 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -39,62 +41,60 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = new LBCGI;
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-	@params = $query->param;
-	foreach $param(@params) {
-		$theparam = $query->param($param);
-        	$theparam = &cleaninput("$theparam");
-		$PARAM{$param} = $theparam;
-	    }
+@params = $query->param;
+foreach $param (@params) {
+    $theparam = $query->param($param);
+    $theparam = &cleaninput("$theparam");
+    $PARAM{$param} = $theparam;
+}
 
+$action = $PARAM{'action'};
+$forumid = $PARAM{'forum'};
+$new_forumname = $PARAM{'forumname'};
+$new_forumurl = $PARAM{'forumurl'};
+$new_foruminfo = $PARAM{'foruminfo'};
+$new_forumorder = $PARAM{'forumorder'};
+$new_weblogo = $PARAM{'weblogo'};
+$checkaction = $PARAM{'checkaction'};
+$oldforum = $PARAM{'oldforum'};
+$oforumname = $PARAM{'oforumname'};
 
-
-    $action      =  $PARAM{'action'};
-    $forumid     =  $PARAM{'forum'};
-    $new_forumname   =  $PARAM{'forumname'};
-    $new_forumurl    =  $PARAM{'forumurl'};
-    $new_foruminfo   =  $PARAM{'foruminfo'};
-    $new_forumorder  =  $PARAM{'forumorder'};
-    $new_weblogo     =  $PARAM{'weblogo'}; 
-    $checkaction     =  $PARAM{'checkaction'};
-    $oldforum        =  $PARAM{'oldforum'};
-    $oforumname	     =  $PARAM{'oforumname'};
-    
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-        
-&getmember("$inmembername","no");
-        
-        if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) { #s1
-            
-            my %Mode = ( 
-            'addforum'            =>    \&addforum,
-            'processnew'          =>    \&createforum,
-            'edit'                =>    \&editform,
-            'doedit'              =>    \&doedit,       
-            'order'               =>    \&orderform,
-            'reorder'             =>    \&reorderformnow,
-            );
 
+&getmember("$inmembername", "no");
 
-            if($Mode{$action}) { 
-               $Mode{$action}->();
-               }
-                elsif (($action eq "delete") && ($checkaction ne "yes")) { &warning; }
-                elsif (($action eq "delete") && ($checkaction eq "yes")) { &deleteforum; }
-                else { &forumlist; }
-            
-            } #e1
-                
-                else {
-                    &adminlogin;
-                    }
-        
+if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+    #s1
+
+    my %Mode = (
+        'addforum'   => \&addforum,
+        'processnew' => \&createforum,
+        'edit'       => \&editform,
+        'doedit'     => \&doedit,
+        'order'      => \&orderform,
+        'reorder'    => \&reorderformnow,
+    );
+
+    if ($Mode{$action}) {
+        $Mode{$action}->();
+    }
+    elsif (($action eq "delete") && ($checkaction ne "yes")) {&warning;}
+    elsif (($action eq "delete") && ($checkaction eq "yes")) {&deleteforum;}
+    else {&forumlist;}
+
+} #e1
+
+else {
+    &adminlogin;
+}
+
 
 ##################################################################################
 sub reorderformnow {
@@ -105,38 +105,40 @@ sub reorderformnow {
     my @forums = <FILE>;
     close(FILE);
     $forumnamenum = 0;
-    foreach $forum (@forums) { #start foreach @forums
+    foreach $forum (@forums) {
+        #start foreach @forums
         chomp $forum;
-	next if ($forum eq "");
-	$forumnamenum++;
-        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/,$forum);
-	next if ($forumname eq "");
-	if ($forumnamenum eq $oldforum) {
-	    $holdforuminfo = $forum;
-	    last;
-	}
+        next if ($forum eq "");
+        $forumnamenum++;
+        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/, $forum);
+        next if ($forumname eq "");
+        if ($forumnamenum eq $oldforum) {
+            $holdforuminfo = $forum;
+            last;
+        }
     } # end foreach (@forums)
 
     open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
     $forumnamenum = 0;
-    foreach $forum (@forums) { #start foreach @forums
+    foreach $forum (@forums) {
+        #start foreach @forums
         chomp $forum;
-	next if ($forum eq "");
-	$forumnamenum ++;
-        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/,$forum);
-	next if ($forumname eq "");
-    	next if ($forumnamenum eq $oldforum);
-	print FILE "$forum\n";
-	if ($forumnamenum eq $forumid) {
-	    print FILE "$holdforuminfo\n";
-	}
+        next if ($forum eq "");
+        $forumnamenum++;
+        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/, $forum);
+        next if ($forumname eq "");
+        next if ($forumnamenum eq $oldforum);
+        print FILE "$forum\n";
+        if ($forumnamenum eq $forumid) {
+            print FILE "$holdforuminfo\n";
+        }
 
     } # end foreach (@forums)
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-                print qq~
+    print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 联盟论坛排序名称结果</b>
                 </td></tr>
@@ -145,7 +147,7 @@ sub reorderformnow {
                 <font color=#333333><b>所有信息已经成功保存</b>
                 </td></tr></table></td></tr></table>
                 ~;
-&outunion;
+    &outunion;
 }
 
 sub orderform {
@@ -158,7 +160,7 @@ sub orderform {
     在此您可以将联盟论坛重新排序。</td></tr>
     ~;
 
-         print qq~
+    print qq~
             <tr>
             <td bgcolor=#FFFFFF colspan=3 ><font face=宋体 color=#333333><hr noshade>
             </td></tr>
@@ -177,25 +179,26 @@ sub orderform {
     @forums = <FILE>;
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-$forumnamenum = 0;
-    foreach $forum (@forums) { #start foreach @forums
+    $forumnamenum = 0;
+    foreach $forum (@forums) {
+        #start foreach @forums
         chomp $forum;
-	next if ($forum eq "");
-	$forumnamenum++;
-        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/,$forum);
-	next if ($forumname eq "");
-    	next if ($forumnamenum eq $forumid);
-         print qq~
+        next if ($forum eq "");
+        $forumnamenum++;
+        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/, $forum);
+        next if ($forumname eq "");
+        next if ($forumnamenum eq $forumid);
+        print qq~
 	<option value=\"$forumnamenum\"> $forumname\n
 	~;
 
     } # end foreach (@forums)
-         print qq~</select> 下面。
+    print qq~</select> 下面。
                    </td></tr>
                     <tr>
                     <td bgcolor=#EEEEEE>
                     <BR>　　　<input type=submit value="提 交"></td></form></tr></table></td></tr></table>~;
-    
+
 } # end routine.
 
 sub forumlist {
@@ -219,16 +222,17 @@ sub forumlist {
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    foreach $forum (@forums) { #start foreach @forums
+    foreach $forum (@forums) {
+        #start foreach @forums
         chomp $forum;
-	next if ($forum eq "");
-        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/,$forum);
+        next if ($forum eq "");
+        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/, $forum);
         $rearrange = ("$forumname\t$forumurl\t$foruminfo\t$forumorder\t$weblogo");
-        push (@rearrangedforums, $rearrange);
+        push(@rearrangedforums, $rearrange);
 
     } # end foreach (@forums)
 
-         print qq~
+    print qq~
             <tr>
             <td bgcolor=#FFFFFF colspan=3 ><font face=宋体 color=#333333><hr noshade>
             </td></tr>
@@ -240,23 +244,24 @@ sub forumlist {
        ~;
     @finalsortedforums = @rearrangedforums;
     $forumnamenum = 0;
-    foreach $sortedforums (@finalsortedforums) { #start foreach @finalsortedforums
+    foreach $sortedforums (@finalsortedforums) {
+        #start foreach @finalsortedforums
 
-        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/,$sortedforums);
+        ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/, $sortedforums);
         $forumnamenum++;
         my $uriforumname = &uri_escape($forumname);
-               print qq~
+        print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=宋体 color=#333333>
                 <b>联盟论坛名称</b>： $forumname<BR><b>联盟论坛 URL</b>： $forumurl<br><b>联盟论坛LOGO</b>： $weblogo<br><b>联盟论坛简介</b>： $foruminfo<br>
                 <br><a href="$thisprog?action=edit&forum=$forumnamenum">编辑此联盟论坛</a> | <font face=宋体 color=#333333><a href="$thisprog?action=delete&forum=$forumnamenum&oforumname=$uriforumname">删除此联盟论坛</a> | <font face=宋体 color=#333333><a href="$thisprog?action=order&forum=$forumnamenum&oforumname=$uriforumname">区内排序联盟论坛</a> </font></td>
                 </font></td></tr>
                 ~;
-       
-            } # end foreach
-    
-               
-        print qq~
+
+    } # end foreach
+
+
+    print qq~
         <td bgcolor=#FFFFFF colspan=3 ><font face=宋体 color=#333333><hr noshade>
         </td></tr>
              <tr>
@@ -264,19 +269,18 @@ sub forumlist {
        <a href="$thisprog?action=addforum">增加新的联盟论坛</a></font></td>
             </td></tr>
         </tr></table></td></tr></table>~;
-    
+
 } # end routine.
 
 sub addforum {
 
-        print qq~
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 增加联盟论坛</b>
         </td></tr>
         ~;
 
- 
-        print qq~
+    print qq~
         
                      
         <form action="$thisprog" method="post">
@@ -313,7 +317,7 @@ sub addforum {
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
         <input type=submit value="提 交"></form></td></tr></table></td></tr></table>
         ~;
-        
+
 } # end route   
 
 
@@ -321,33 +325,33 @@ sub addforum {
 ######## Subroutes ( Create Forum )
 
 
-sub createforum {   
-		
-		&errorout("对不起，论坛名字过长，请控制在 20 个汉字内！") if (length($new_forumname) >40);
-		&errorout("论坛描述不能空！！") if ($new_foruminfo eq "");
-                $new_forumurl=~s ! !!ig;
-		&errorout("论坛地址不能空！！") if ($new_forumurl eq "");
-                $filetoopen = "$lbdir" . "data/shareforums.cgi";
-	        &winlock($filetoopen) if ($OS_USED eq "Nt");
-                open(FILE, "$filetoopen");
-  	        flock(FILE, 1) if ($OS_USED eq "Unix");
-                my @forums = <FILE>;
-                close(FILE);
-	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
+sub createforum {
 
-                # Create a new number for the new forum folder, and files.
+    &errorout("对不起，论坛名字过长，请控制在 20 个汉字内！") if (length($new_forumname) > 40);
+    &errorout("论坛描述不能空！！") if ($new_foruminfo eq "");
+    $new_forumurl =~ s! !!ig;
+    &errorout("论坛地址不能空！！") if ($new_forumurl eq "");
+    $filetoopen = "$lbdir" . "data/shareforums.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    my @forums = <FILE>;
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-                open(FILE, ">$filetoopen");
-                flock(FILE, 2) if ($OS_USED eq "Unix");
-                foreach $line (@forums) {
-                    chomp $line;
-                    print FILE "$line\n";
-                    }
-                print FILE "$new_forumname\t$new_forumurl\t$new_foruminfo\t$new_forumorder\t$new_weblogo\t";
-                close(FILE);
-	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
-                
-                print qq~
+    # Create a new number for the new forum folder, and files.
+
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    foreach $line (@forums) {
+        chomp $line;
+        print FILE "$line\n";
+    }
+    print FILE "$new_forumname\t$new_forumurl\t$new_foruminfo\t$new_forumorder\t$new_weblogo\t";
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+
+    print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 增加联盟论坛结果</b>
                 </td></tr>
@@ -356,21 +360,21 @@ sub createforum {
                 <font face=宋体 color=#333333>
                 ~;
 
-                print "<b>详细资料</b><p>\n";
-                print "<ul>\n";
-               
-                print "新联盟论坛 <B>$new_forumname</b> 已经建立！";
-                               
-                print "</ul></td></tr></table></td></tr></table>\n";
-&outunion;
+    print "<b>详细资料</b><p>\n";
+    print "<ul>\n";
+
+    print "新联盟论坛 <B>$new_forumname</b> 已经建立！";
+
+    print "</ul></td></tr></table></td></tr></table>\n";
+    &outunion;
 } ######## end routine
-        
+
 ##################################################################################
 ######## Subroutes ( Warning of Delete Forum )  
 
 sub warning { #start
 
-        print qq~
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 删除联盟论坛</b>
         </td></tr>
@@ -387,37 +391,37 @@ sub warning { #start
         </table></td></tr></table>
         
         ~;
-        
+
 } # end routine     
-        
+
 ##################################################################################
 ######## Subroutes ( Deletion of a Forum )  
 
-sub deleteforum { #start
+sub deleteforum {
+    #start
 
-         $filetoopen = "$lbdir" . "data/shareforums.cgi";
-         &winlock($filetoopen) if ($OS_USED eq "Nt");
-         open(FILE,"$filetoopen");
-         flock(FILE, 1) if ($OS_USED eq "Unix");
-         my @forums = <FILE>;
-         close(FILE);
+    $filetoopen = "$lbdir" . "data/shareforums.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    my @forums = <FILE>;
+    close(FILE);
 
-         open(FILE,">$filetoopen");
-         flock(FILE,2) if ($OS_USED eq "Unix");
-         $forumname = 0;
-         foreach $forum (@forums) {
-         chomp $forum;
-	 next if ($forum eq "");
-	 $forumname ++;
-                unless ($forumid eq $forumname) {
-                    print FILE "$forum\n";
-                    }
-                }
-         close(FILE);
-         &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    $forumname = 0;
+    foreach $forum (@forums) {
+        chomp $forum;
+        next if ($forum eq "");
+        $forumname++;
+        unless ($forumid eq $forumname) {
+            print FILE "$forum\n";
+        }
+    }
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-       
-                    print qq~
+    print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                     <b>欢迎来到论坛管理中心 / 删除联盟论坛结果</b>
                     </td></tr>
@@ -431,29 +435,28 @@ sub deleteforum { #start
                                     
                     </td></tr></table></td></tr></table>
                     ~;
-&outunion;
+    &outunion;
 
 } # routine ends
 
 ######## Subroutes ( Editing of a Forum )   
 sub editform {
 
-        
-        # Grab the line to edit.
-        
-         $filetoopen = "$lbdir" . "data/shareforums.cgi";
-         &winlock($filetoopen) if ($OS_USED eq "Nt");
-         open(FILE,"$filetoopen");
-         flock(FILE, 2) if ($OS_USED eq "Unix");
-         @forums = <FILE>;
-         close(FILE);
-         &winunlock($filetoopen) if ($OS_USED eq "Nt");
-         ($forumname,$forumurl,$foruminfo,$forumorder,$weblogo) = split(/\t/,$forums[$forumid-1]);   
-         
-# Present the form to be filled in
+    # Grab the line to edit.
+
+    $filetoopen = "$lbdir" . "data/shareforums.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    @forums = <FILE>;
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    ($forumname, $forumurl, $foruminfo, $forumorder, $weblogo) = split(/\t/, $forums[$forumid - 1]);
+
+    # Present the form to be filled in
 
 
-        print qq~
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 编辑联盟论坛</b>
         </td></tr>
@@ -495,7 +498,7 @@ sub editform {
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
         <input type=submit value="提 交"></form></td></tr></table></td></tr></table>
         ~;
-        
+
 } # end route   
 
 ##################################################################################
@@ -503,51 +506,50 @@ sub editform {
 
 
 sub doedit {
-        
-        # Grab the line to edit.
-	
-	&errorout("对不起，论坛名字过长，请控制在 20 个汉字内！") if (length($new_forumname) >40);
-	&errorout("论坛描述不能空！！") if ($new_foruminfo eq "");
 
-         $new_forumurl=~s ! !!ig;
- 	 &errorout("论坛地址不能空！！") if ($new_forumurl eq "");
-         
-         $filetoopen = "$lbdir" . "data/shareforums.cgi";
-         &winlock($filetoopen) if ($OS_USED eq "Nt");
-	 open(FILE,"$filetoopen");
-         flock(FILE, 1) if ($OS_USED eq "Unix");
-         my @forums = <FILE>;
-         close(FILE);
+    # Grab the line to edit.
 
-               # Time to process the forms
+    &errorout("对不起，论坛名字过长，请控制在 20 个汉字内！") if (length($new_forumname) > 40);
+    &errorout("论坛描述不能空！！") if ($new_foruminfo eq "");
 
-                $editedline = "$new_forumname\t$new_forumurl\t$new_foruminfo\t$new_forumorder\t$new_weblogo\t";
-                chomp $editedline;
+    $new_forumurl =~ s! !!ig;
+    &errorout("论坛地址不能空！！") if ($new_forumurl eq "");
 
-                # Lets re-open the file
-                
-                
-                # Lets remake the file...
-                
-                $filetoopen = "$lbdir" . "data/shareforums.cgi";
-                open(FILE,">$filetoopen");
-                flock(FILE,2) if ($OS_USED eq "Unix");
-                $tempforumid = 0;
-                foreach $forum (@forums) {
-                chomp $forum;
-                $tempforumid ++;
-                    if ($tempforumid eq $forumid) {
-                        print FILE "$editedline\n";
-                        }
-                        else {
-                            print FILE "$forum\n";
-                            }
-                    }
-                close (FILE);
-	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    $filetoopen = "$lbdir" . "data/shareforums.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    my @forums = <FILE>;
+    close(FILE);
+
+    # Time to process the forms
+
+    $editedline = "$new_forumname\t$new_forumurl\t$new_foruminfo\t$new_forumorder\t$new_weblogo\t";
+    chomp $editedline;
+
+    # Lets re-open the file
 
 
-                 print qq~
+    # Lets remake the file...
+
+    $filetoopen = "$lbdir" . "data/shareforums.cgi";
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    $tempforumid = 0;
+    foreach $forum (@forums) {
+        chomp $forum;
+        $tempforumid++;
+        if ($tempforumid eq $forumid) {
+            print FILE "$editedline\n";
+        }
+        else {
+            print FILE "$forum\n";
+        }
+    }
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+
+    print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 编辑联盟论坛结果</b>
                 </td></tr>
@@ -557,16 +559,15 @@ sub doedit {
                 
                 </td></tr></table></td></tr></table>
                 ~;
-                &outunion;
-            } # end routine
-
+    &outunion;
+} # end routine
 
 
 print qq~</td></tr></table></body></html>~;
 exit;
 
 sub errorout {
-                print qq~
+    print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 发生错误</b>
                 </td></tr>
@@ -576,21 +577,21 @@ sub errorout {
                 <font face=宋体 color=#333333><b>$_[0]</b>
                 </td></tr></table></td></tr></table>
                 ~;
-exit;	
+    exit;
 }
 
 sub outunion {
 
-if (open(SFFILE,"${lbdir}data/shareforums.cgi")) {
-#    flock(SFFILE, 1) if ($OS_USED eq "Unix");
-    @lmforums = <SFFILE>;
-    close(SFFILE);
-    $lmforums = @lmforums;
-}
-$uniontitle="<font color=$fontcolormisc>（共有 $lmforums 个联盟论坛）</font>";
-$unionoutput = "";
-  if (($lmforums ne "")&&($lmforums > 0)) {
-    $unionoutput .= qq~
+    if (open(SFFILE, "${lbdir}data/shareforums.cgi")) {
+        #    flock(SFFILE, 1) if ($OS_USED eq "Unix");
+        @lmforums = <SFFILE>;
+        close(SFFILE);
+        $lmforums = @lmforums;
+    }
+    $uniontitle = "<font color=$fontcolormisc>（共有 $lmforums 个联盟论坛）</font>";
+    $unionoutput = "";
+    if (($lmforums ne "") && ($lmforums > 0)) {
+        $unionoutput .= qq~
 <tr><td bgcolor=\$titlecolor colspan=2  \$catbackpic>
 <font color=\$titlefontcolor><b>-=> 联盟论坛 $uniontitle</b>　 [<a href=leobbs.cgi?action=union><font color=$fontcolormisc>\$unionview</font></a>]　 [<span style="cursor:hand" onClick="javascript:openScript('lmcode.cgi',480,240)">论坛联盟代码</span>]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span style="font-family:webdings;font-size:13px;"> 
@@ -601,42 +602,44 @@ $unionoutput = "";
 </span>&nbsp;[滚动方向控制按钮]
 </td></tr>~;
 
-$unionoutput1 = "";
-	$lmtexts = "";
-	$lmlogos = "";
-	foreach $lmforum (@lmforums) {
-	    chomp $lmforum;
+        $unionoutput1 = "";
+        $lmtexts = "";
+        $lmlogos = "";
+        foreach $lmforum (@lmforums) {
+            chomp $lmforum;
             next if ($lmforum eq "");
-            ($lmforumname,$lmforumurl,$lmforuminfo,$lmforumorder,$lmweblogo) = split(/\t/,$lmforum);
-            if (($lmweblogo ne "")&&($lmweblogo ne "http:\/\/")) { $lmlogos .= qq~<a href=$lmforumurl target=_blank onmouseover="document.all.lmforum.stop();" onmouseout="document.all.lmforum.start();"><img src=$lmweblogo width=88 height=31 border=0 title="$lmforumname\n$lmforuminfo"></a> ~; }
-            else { $lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>　~; }
-	}
-	if ($lmlogos ne "") {
-	    $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=\$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=680 height=1><BR><marquee name="lmforum" id="lmforum">$lmlogos</marquee></td></tr></table></td></tr>~;
-	} else {
-	    $unionoutput1 .= qq~<tr style=display:none><td colspan=2 height=0><marquee name="lmforum" id="lmforum"></marquee></td></tr>~;
-	}
-	if ($lmtexts ne "") {
-	    $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=\$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=680 height=1><BR><marquee name="lmforum1" id="lmforum1">$lmtexts</marquee></td></tr></table></td></tr>~;
-	} else {
-	    $unionoutput1 .= qq~<tr style=display:none><td colspan=2 height=0><marquee name="lmforum1" id="lmforum1"></marquee></td></tr>~;
-	}
+            ($lmforumname, $lmforumurl, $lmforuminfo, $lmforumorder, $lmweblogo) = split(/\t/, $lmforum);
+            if (($lmweblogo ne "") && ($lmweblogo ne "http:\/\/")) {$lmlogos .= qq~<a href=$lmforumurl target=_blank onmouseover="document.all.lmforum.stop();" onmouseout="document.all.lmforum.start();"><img src=$lmweblogo width=88 height=31 border=0 title="$lmforumname\n$lmforuminfo"></a> ~;}
+            else {$lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>　~;}
+        }
+        if ($lmlogos ne "") {
+            $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=\$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=680 height=1><BR><marquee name="lmforum" id="lmforum">$lmlogos</marquee></td></tr></table></td></tr>~;
+        }
+        else {
+            $unionoutput1 .= qq~<tr style=display:none><td colspan=2 height=0><marquee name="lmforum" id="lmforum"></marquee></td></tr>~;
+        }
+        if ($lmtexts ne "") {
+            $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=\$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=680 height=1><BR><marquee name="lmforum1" id="lmforum1">$lmtexts</marquee></td></tr></table></td></tr>~;
+        }
+        else {
+            $unionoutput1 .= qq~<tr style=display:none><td colspan=2 height=0><marquee name="lmforum1" id="lmforum1"></marquee></td></tr>~;
+        }
 
-  }
+    }
 
-mkdir ("${lbdir}cache", 0777) if (!(-e "${lbdir}cache"));
-open (FILE, ">${lbdir}data/unionoutput.pl");
-$unionoutput =~ s/(\\|\"|\'|\@|\~)/\\$1/isg;
-$unionoutput   =~ s/\(/\\\(/isg;
-$unionoutput   =~ s/\)/\\\)/isg;
-$unionoutput1 =~ s/(\\|\"|\'|\@|\~)/\\$1/isg;
-$unionoutput1  =~ s/\(/\\\(/isg;
-$unionoutput1  =~ s/\)/\\\)/isg;
-print FILE qq~if (\$union==0) { \$unionview="显示联盟列表"; } else { \$unionview="关闭联盟列表"; }\n
+    mkdir("${lbdir}cache", 0777) if (!(-e "${lbdir}cache"));
+    open(FILE, ">${lbdir}data/unionoutput.pl");
+    $unionoutput =~ s/(\\|\"|\'|\@|\~)/\\$1/isg;
+    $unionoutput =~ s/\(/\\\(/isg;
+    $unionoutput =~ s/\)/\\\)/isg;
+    $unionoutput1 =~ s/(\\|\"|\'|\@|\~)/\\$1/isg;
+    $unionoutput1 =~ s/\(/\\\(/isg;
+    $unionoutput1 =~ s/\)/\\\)/isg;
+    print FILE qq~if (\$union==0) { \$unionview="显示联盟列表"; } else { \$unionview="关闭联盟列表"; }\n
 \$output .= qq($unionoutput);\n
 \$output .= qq($unionoutput1) if (\$union == 1);
 ~;
-print FILE "1;\n";
-close (FILE);
+    print FILE "1;\n";
+    close(FILE);
 
 }

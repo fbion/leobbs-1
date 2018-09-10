@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -33,21 +37,20 @@ $thisprog = "setcss.cgi";
 
 $query = new LBCGI;
 
-$action              = $query -> param('action');
-$oldmembersdir       = $query -> param('oldmembersdir');
-$membersdir          = $query -> param('membersdir');
+$action = $query->param('action');
+$oldmembersdir = $query->param('oldmembersdir');
+$membersdir = $query->param('membersdir');
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername","no");
-
+&getmember("$inmembername", "no");
 
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
@@ -184,10 +187,10 @@ if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq
 </form>
                 ~;
 
-            }
-            else {
-                 &adminlogin;
-                 }
+}
+else {
+    &adminlogin;
+}
 
 print qq~</td></tr></table></body></html>~;
 exit;

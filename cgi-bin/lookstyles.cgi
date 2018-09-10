@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=20000;
+$LBCGI::POST_MAX = 20000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -31,65 +35,63 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $thisprog = "lookstyles.cgi";
 
-    $query = new LBCGI;
+$query = new LBCGI;
 
-	@params = $query->param;
-	foreach $param(@params) {
-		$theparam = $query->param($param);
-        $theparam = &cleaninput("$theparam");
-		$PARAM{$param} = $theparam;
-	    }
+@params = $query->param;
+foreach $param (@params) {
+    $theparam = $query->param($param);
+    $theparam = &cleaninput("$theparam");
+    $PARAM{$param} = $theparam;
+}
 
-
-
-$action      =  $PARAM{'action'};
-$inforum     =  $PARAM{'forum'};
+$action = $PARAM{'action'};
+$inforum = $PARAM{'forum'};
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
-if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
+if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-$inmembername        = $query -> param("membername");
-$inpassword          = $query -> param("password");
-$action              = &cleaninput("$action");
-$inmembername        = &cleaninput("$inmembername");
-$inpassword          = &cleaninput("$inpassword");
+$inmembername = $query->param("membername");
+$inpassword = $query->param("password");
+$action = &cleaninput("$action");
+$inmembername = &cleaninput("$inmembername");
+$inpassword = &cleaninput("$inpassword");
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie"); }
+if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-    if ($inmembername eq "" || $inmembername eq "客人" ) { $inmembername = "客人"; }
-    else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+if ($inmembername eq "" || $inmembername eq "客人") {$inmembername = "客人";}
+else {
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-        }   
+}
 &getoneforum("$inforum");
 
 &mischeader("本版配色列表");
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 
 &error("本版配色&对不起，本版块不允许查看配色！") if ($look eq "off");
 
 if ($privateforum ne "yes") {
-    	&whosonline("$inmembername\t$forumname\tboth\t查看论坛$forumname的配色\t");
-    }
-    else {
-	&whosonline("$inmembername\t$forumname(密)\tboth\t查看保密论坛$forumname的配色\t");
-    }
+    &whosonline("$inmembername\t$forumname\tboth\t查看论坛$forumname的配色\t");
+}
+else {
+    &whosonline("$inmembername\t$forumname(密)\tboth\t查看保密论坛$forumname的配色\t");
+}
 
 $output .= qq~
 <BR><SCRIPT>valigntop()</SCRIPT>
@@ -433,10 +435,9 @@ $output .= qq~
                 </tr>
                
               
-                ~;             
-
+                ~;
 
 $output .= qq~</td></tr></table><SCRIPT>valignend()</SCRIPT><br><br></body></html>~;
-&output("查看$forumname的配色",\$output);
+&output("查看$forumname的配色", \$output);
 exit;
 

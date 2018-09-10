@@ -8,10 +8,13 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use warnings;
+use strict;
+use diagnostics;
 sub sendtoposter {
-    my ($senduser,$sendto, $moveto,$action,$forum,$topic,$topictitle,$sendly) = @_;
+    my ($senduser, $sendto, $moveto, $action, $forum, $topic, $topictitle, $sendly) = @_;
     $sendly = "<BR>理由：<font color=red>$sendly</font><BR>" if ($sendly ne "" && $sendly ne " ");
-    $topictitle=~s/＊＃！＆＊//;
+    $topictitle =~ s/＊＃！＆＊//;
     $topictitle = "按此查看" if ($topictitle eq "");
     my $memberfilename = $sendto;
     $memberfilename =~ s/ /\_/g;
@@ -20,15 +23,15 @@ sub sendtoposter {
     my $filetoopen = "${lbdir}$msgdir/in/$memberfilename" . "_msg.cgi";
     $filetoopen = &stripMETA($filetoopen);
     &winlock($filetoopen) if ($OS_USED eq "Nt");
-    open (FILE, "$filetoopen");
-    flock (FILE, 1) if ($OS_USED eq "Unix");
-    sysread(FILE, my $inboxmessages,(stat(FILE))[7]);
-    close (FILE);
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    sysread(FILE, my $inboxmessages, (stat(FILE))[7]);
+    close(FILE);
     $inboxmessages =~ s/\r//isg;
 
     $topictitle = "<a href=topic.cgi?forum=$forum&topic=$topic target=_blank>$topictitle</a>";
-    open (FILE, ">$filetoopen");
-    flock (FILE, 2) if ($OS_USED eq "Unix");
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
     if ($action eq "move") {
         print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 移至 $moveto <br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
     }
@@ -51,7 +54,7 @@ sub sendtoposter {
         print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 屏蔽。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
     }
     print FILE "$inboxmessages\n";
-    close (FILE);
+    close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 }
 1;

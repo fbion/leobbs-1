@@ -23,6 +23,7 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 use LBCGI;
 $LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
@@ -91,10 +92,10 @@ if (($inmembername eq "") || ($inmembername eq "客人")) { #客人
     &error("普通错误&只限会员进入！");                             #禁止进入
 }
 else {
-                                       #会员
+    #会员
     &getmember("$inmembername", "no"); #读取帐号资料
-    if ($userregistered eq "no") { #未注册帐号
-        &error("普通错误&此用户根本不存在！");  #禁止进入
+    if ($userregistered eq "no") {     #未注册帐号
+        &error("普通错误&此用户根本不存在！");      #禁止进入
     }
     if ($inpassword ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
@@ -155,11 +156,11 @@ sub toppage {
     my @xzbdata = ();                                #初始化
     open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
     while (my $line = <FILE>) {
-                               #每次读取一行内容 loop 1
+        #每次读取一行内容 loop 1
         chomp $line;           #去掉换行符
         push(@xzbdata, $line); #放进结果 ARRAY
-    } #loop 1 end
-    close(FILE); #关闭文件
+    }                          #loop 1 end
+    close(FILE);               #关闭文件
 
     #页面输出
     $output .= qq~<p>
@@ -230,7 +231,7 @@ sub toppage {
 		</td>
 	</tr>~;
         $i++; #编号递增
-    } #loop 1 end
+    }         #loop 1 end
     #页面输出
     $output .= qq~
 	</table>
@@ -263,17 +264,17 @@ sub editxzb {
     my $xzbno = 0;
     open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
     while (my $line = <FILE>) {
-                                                                            #每次读取一行内容 loop 1
+        #每次读取一行内容 loop 1
         chomp $line;                                                        #去掉换行符
         my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
-        if ($posttime eq $xzbid) { #就是这个
-            $findresult = $xzbno;  #激活找寻结果
+        if ($posttime eq $xzbid) {                                          #就是这个
+            $findresult = $xzbno;                                           #激活找寻结果
         }
         elsif ($findresult == -1) { #不是的时候
             $xzbno++;               #编号递增
         }
         push(@xzbdata, $line); #放进数据 ARRAY
-    } #loop 1 end
+    }                          #loop 1 end
     close(FILE);
     if ($findresult == -1) {       #找不到
         &error("编辑小字报&找不到目标小字报！"); #输出错误页
@@ -376,14 +377,14 @@ sub editxzb {
         #编辑处理
         my $newfile = ''; #初始化文件
         foreach my $line (@xzbdata) {
-                                                                                #每次读取一行内容 loop 1
+            #每次读取一行内容 loop 1
             chomp $line;                                                        #去掉换行符
             my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
             if ($posttime eq $xzbid) {                                          #编辑目标
                 $line = "＃—＃—·\t$inpost\t$inmembername\t$message\t$posttime\t"; #新行
             }
-            $newfile .= $line . "\n"; #放入新文件内
-        } #loop 1 end
+            $newfile .= $line . "\n";                          #放入新文件内
+        }                                                      #loop 1 end
         open(FILE, '>' . "${lbdir}boarddata/xzb$inforum.cgi"); #开启只写文件
         print FILE $newfile;                                   #写入新文件内容
         close(FILE);                                           #关闭文件
@@ -422,15 +423,15 @@ sub deletexzb {
     my $xzbidcount = 0;
     my $novalue = ''; # HIDDEN 的输入栏
     if ($xzbid ne "") {
-                                           #有定义第一个 ID
+        #有定义第一个 ID
         @noarray = $query->param('xzbid'); #所有 ID
         foreach my $xzbid (@noarray) {
-                                                                                            #处理所有 ID loop 1
+            #处理所有 ID loop 1
             $novalue .= '<input type="hidden" name="xzbid" value="' . $xzbid . '">' . "\n"; #增加栏位
             $nohash{$xzbid} = $xzbid;                                                       #放入 HASH
             $xzbidcount++;                                                                  #数目递增
-        } #loop 1 end
-        chomp $novalue; #去除最後换行
+        }                                                                                   #loop 1 end
+        chomp $novalue;                                                                     #去除最後换行
     }
     if ($xzbidcount == 0) {        #没选任何小字报
         &error("删除小字报&没有选任何小字报！"); #输出错误页
@@ -477,16 +478,16 @@ $novalue
         my $delbyte = '';                                #删除的字节
         open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
         while (my $line = <FILE>) {
-                                                                                #每次读取一行内容 loop 1
+            #每次读取一行内容 loop 1
             chomp $line;                                                        #去掉换行符
             my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
             if (($line eq "") || (defined $nohash{$posttime})) {
-                                           #空白行或删除目录
+                #空白行或删除目录
                 $delbyte += length($line); #加上删除的字节
                 next;                      #跳过
             }
-            $newfile .= $line . "\n"; #放入新文件内
-        } #loop 1 end
+            $newfile .= $line . "\n";                          #放入新文件内
+        }                                                      #loop 1 end
         close(FILE);                                           #关闭文件
         open(FILE, '>' . "${lbdir}boarddata/xzb$inforum.cgi"); #开启只写文件
         print FILE $newfile;                                   #写入新文件内容
@@ -528,16 +529,16 @@ sub deleteoverxzb {
     #读取超时资料
     my @delxzbid = (); #初始化
     if ($checked ne 'yes') {
-                                                         #未进行确认
+        #未进行确认
         open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
         while (my $line = <FILE>) {
-                                                                                #每次读取一行内容 loop 1
+            #每次读取一行内容 loop 1
             chomp $line;                                                        #去掉换行符
             my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
-            if ($currenttime - $posttime > 3600 * 48) { #超过４８小时
-                push(@delxzbid, $posttime);             #放到需删 ID
+            if ($currenttime - $posttime > 3600 * 48) {                         #超过４８小时
+                push(@delxzbid, $posttime);                                     #放到需删 ID
             }
-        } #loop 1 end
+        }            #loop 1 end
         close(FILE); #关闭文件
     }
     else {                                  #已进行确认
@@ -558,8 +559,8 @@ sub deleteoverxzb {
         $novalue .= '<input type="hidden" name="xzbid" value="' . $xzbid . '">' . "\n"; #增加栏位
         $nohash{$xzbid} = $xzbid;                                                       #放入 HASH
         $xzbidcount++;                                                                  #数目递增
-    } #loop 1 end
-    chomp $novalue; #去除最後换行
+    }                                                                                   #loop 1 end
+    chomp $novalue;                                                                     #去除最後换行
 
     if ($checked ne 'yes') { #未进行确认
         #页面输出

@@ -10,17 +10,22 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use strict;
+use warnings;
+use diagnostics;
+
 use LBCGI;
-$LBCGI::POST_MAX=800000;
+$LBCGI::POST_MAX = 800000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -34,9 +39,10 @@ $thisprog = "face.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
 $query = new LBCGI;
-if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
+if ($COOKIE_USED eq 2 && $mycookiepath ne "") {$cookiepath = $mycookiepath;}
+elsif ($COOKIE_USED eq 1) {$cookiepath = "";}
 else {
-    $boardurltemp =$boardurl;
+    $boardurltemp = $boardurl;
     $boardurltemp =~ s/http\:\/\/(\S+?)\/(.*)/\/$2/;
     $cookiepath = $boardurltemp;
     $cookiepath =~ s/\/$//;
@@ -45,36 +51,37 @@ else {
 &ipbanned; #封杀一些 ip
 
 $inmembername = $query->cookie("amembernamecookie");
-$inpassword   = $query->cookie("apasswordcookie");
+$inpassword = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     &error("不能进入 $plugname &你目前的身份是访客，请先登陆!");
     exit;
-} else {
-    &getmember("$inmembername","no");
+}
+else {
+    &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-     if ($inpassword ne $password) {
-	$namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    if ($inpassword ne $password) {
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
+    }
 }
 
 &error("暂时关闭&$plugname维护中，请稍后访问，如果你是管理员，请进入 <a href=setface.cgi>后台管理</a> 开启！") if ($close_plug eq 'close');
 
-&error("普通错误&你的社区性别为保密，不能进入本系统，请<a href=profile.cgi?action=modify>先修改你的个人资料</a>！") if(($sex eq 'no')||($sex eq ''));
+&error("普通错误&你的社区性别为保密，不能进入本系统，请<a href=profile.cgi?action=modify>先修改你的个人资料</a>！") if (($sex eq 'no') || ($sex eq ''));
 
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 &title;
 
@@ -84,19 +91,17 @@ $tempmembername =~ tr/A-Z/a-z/;
 
 $equiplayer = $query->cookie("tempequip");
 
-&readface("$tempmembername",0);
+&readface("$tempmembername", 0);
 
-if ($currequip eq '')
-{
+if ($currequip eq '') {
     # 如果 Cookie 的值为空，则将相应性别的初始值传递给 $equiplayer
     $equiplayer = $sex eq 'f' ? $fairsex : $mansex if ($equiplayer eq '');
     $equipcookie = cookie(-name => "tempequip", -value => "$equiplayer", -path => "$cookiepath/", -expires => "-1m");
-    print header(-cookie=>[$equipcookie], -charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-cookie => [ $equipcookie ], -charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 }
-else
-{
+else {
     $output .= qq~<SCRIPT LANGUAGE="JavaScript">document.cookie = "tempequip=" + "$currequip" +"; path=$cookiepath/";</SCRIPT>~ if ($equiplayer eq '');
-    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 }
 
 $tempmembername = $membername;
@@ -106,7 +111,7 @@ $tempmembername =~ tr/A-Z/a-z/;
 $admin_user =~ s/ /\_/g;
 $admin_user =~ tr/A-Z/a-z/;
 
-$adminbar = qq~ <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>后台管理</a>]~ if (($membercode eq "ad")||($admin_user eq $tempmembername));
+$adminbar = qq~ <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>后台管理</a>]~ if (($membercode eq "ad") || ($admin_user eq $tempmembername));
 $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 $output .= qq~
 <!--3FACE V4.0 Powered By CPower-->
@@ -133,7 +138,7 @@ function openCart()
 <tr><td align=left>您目前的现金为：$mymoney1 $moneyname</td><td align=right><B><a href="$thisprog?action=mylog&id=1">系统记录</a> | <a href="$thisprog?action=perset">个人设置</a> | <a href="$thisprog?action=mybureau">我的衣柜</a> | <a href="$thisprog?action=splist">商品</a> | <a href="javascript:openCart()">购物袋</a></B>&nbsp;</td>
 </tr></table></td></tr><tr bgcolor=$miscbackone><td width=150 valign=top>
 <DIV id=Show style='padding:0;position:relative;top:0;left:0;width:140;height:226'></div>~;
-$output .= qq~<DIV align=center id=rein><a href=$thisprog?action=init>恢复原始状态</a></DIV>~ if($filenobeling ne '1');
+$output .= qq~<DIV align=center id=rein><a href=$thisprog?action=init>恢复原始状态</a></DIV>~ if ($filenobeling ne '1');
 $output .= qq~
 <SCRIPT>
 <!--
@@ -160,91 +165,86 @@ addItemQuantity(par1,par2,par3,par4);
 <SCRIPT language="javaScript" type="text/javascript" SRC="$imagesurl/face/js/3face.js"></SCRIPT>
 </td><td valign=top width=*>~;
 
-$action = $query -> param('action');
+$action = $query->param('action');
 
-my %Mode = ('splist'=> \&splist,'mylog'=> \&mylog,'mybureau'=> \&mybureau,'init'=> \&init_face,'cleanall'=> \&cleanall_face,'perset'=> \&perset,'bag'=> \&bag);
+my %Mode = ('splist' => \&splist, 'mylog' => \&mylog, 'mybureau' => \&mybureau, 'init' => \&init_face, 'cleanall' => \&cleanall_face, 'perset' => \&perset, 'bag' => \&bag);
 
-if ($Mode{$action})
-{$Mode{$action} -> () ;}
-else
-{&facehelp;}
+if ($Mode{$action}) {$Mode{$action}->();}
+else {&facehelp;}
 
-    my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
-    $filetoopens = &lockfilename($filetoopens);
-    if (!(-e "$filetoopens.lck")) {
-	&whosonline("$membername\t$plugname\tnone\t查看、购买商品\t");
-    }
+my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
+$filetoopens = &lockfilename($filetoopens);
+if (!(-e "$filetoopens.lck")) {
+    &whosonline("$membername\t$plugname\tnone\t查看、购买商品\t");
+}
 
 $output .= qq~</td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 
-sub init_face
-{   # 恢复原始状态
+sub init_face { # 恢复原始状态
     $output .= qq~<SCRIPT LANGUAGE="JavaScript">document.cookie = "tempequip=" + "$currequip" +"; path=$cookiepath/";</SCRIPT><meta http-equiv="refresh" content="0; url=$thisprog">~;
 }
 
-sub cleanall_face
-{   # 清空资料
-	$nametocheck = $membername;
-	my $nametochecktemp = $membername;
-	$nametocheck =~ s/ /\_/g;
-	$nametocheck =~ tr/A-Z/a-z/;
-        $nametocheck =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-	my $namenumber = &getnamenumber($nametocheck);
-	&checkmemfile($nametocheck,$namenumber);
-        my $filetoopen = "${lbdir}$memdir/$namenumber/$nametocheck.cgi";
-	if (-e $filetoopen) {
-	    &winlock($filetoopen) if ($OS_USED eq "Nt");
-	    open(FILE6,"+<$filetoopen");
-	    flock (FILE6, 2) if ($OS_USED eq "Unix");
-            my $filedata = <FILE6>;
-	    chomp($filedata);
-	    (my $membername, my $password, my $membertitle, my $membercode, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber ,my $location ,my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag,my  $userxz, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno,my  $useradd04,my  $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel,my  $chattime, my $jhmp,my $jhcount,my $ebankdata,my $onlinetime,my $userquestion,my $awards,my $jifen,my $userface, my $soccerdata, my $useradd5) = split(/\t/,$filedata);
-	    $userface = "";
-            $lastgone = time;
-	    if (($membername ne "")&&($password ne "")) {
-	      seek(FILE6,0,0);
-	      print FILE6 "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
-	      close(FILE6);
-	      if (open(FILE6,">${lbdir}$memdir/old/$nametocheck.cgi")) {
-	          print FILE6 "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
-	          close(FILE6);
-	      }
-	    } else {
+sub cleanall_face {
+    # 清空资料
+    $nametocheck = $membername;
+    my $nametochecktemp = $membername;
+    $nametocheck =~ s/ /\_/g;
+    $nametocheck =~ tr/A-Z/a-z/;
+    $nametocheck =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+    my $namenumber = &getnamenumber($nametocheck);
+    &checkmemfile($nametocheck, $namenumber);
+    my $filetoopen = "${lbdir}$memdir/$namenumber/$nametocheck.cgi";
+    if (-e $filetoopen) {
+        &winlock($filetoopen) if ($OS_USED eq "Nt");
+        open(FILE6, "+<$filetoopen");
+        flock(FILE6, 2) if ($OS_USED eq "Unix");
+        my $filedata = <FILE6>;
+        chomp($filedata);
+        (my $membername, my $password, my $membertitle, my $membercode, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userxz, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $userquestion, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
+        $userface = "";
+        $lastgone = time;
+        if (($membername ne "") && ($password ne "")) {
+            seek(FILE6, 0, 0);
+            print FILE6 "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+            close(FILE6);
+            if (open(FILE6, ">${lbdir}$memdir/old/$nametocheck.cgi")) {
+                print FILE6 "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
                 close(FILE6);
-	    }
-	    &winunlock($filetoopen) if ($OS_USED eq "Nt");
-	}
+            }
+        }
+        else {
+            close(FILE6);
+        }
+        &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    }
     $output .= qq~<script>document.cookie = "tempequip=" + "" +"; path=$cookiepath/";</script><meta http-equiv="refresh" content="0; url=$thisprog">~;
 }
 
 
-sub facehelp
-{
+sub facehelp {
     my $filetoopen = "$lbdir" . "face/face.dat";
-    open (FILE, "$filetoopen");
+    open(FILE, "$filetoopen");
     my @helpdata = <FILE>;
-    close (FILE);
+    close(FILE);
 
     $output .= qq~<table cellspacing=1 cellpadding=5 width=100% bgcolor=$tablebordercolor border=0 align="center">
 <tr align=center bgcolor=$miscbackone><td><B>欢迎您使用雷傲超级论坛形象系统！</B></td></tr>
 <tr bgcolor=$miscbacktwo><td valign=top>@helpdata</td></tr></table>~;
 }
 
-sub perset	# 个人设置
+sub perset # 个人设置
 {
-    if($allequip eq '')
-    {
-	$output .=qq~<font color=red size=3><b>非常抱歉，您的虚拟形象数据不存在，请购买相应的商品！</b></font>~;
-	return;
+    if ($allequip eq '') {
+        $output .= qq~<font color=red size=3><b>非常抱歉，您的虚拟形象数据不存在，请购买相应的商品！</b></font>~;
+        return;
     }
-    my $setok = $query -> param('setok');
+    my $setok = $query->param('setok');
 
-    if($setok ne "y")
-    {
-	$tempoutput = "<input type=radio name=loadface value=\"y\"> 虚拟形象做为论坛头像　<input type=radio name=loadface value=\"n\"> 论坛普通形象(查看个人资料时候显示)";
-	$tempoutput =~ s/value=\"$loadface\"/value=\"$loadface\" checked/;
+    if ($setok ne "y") {
+        $tempoutput = "<input type=radio name=loadface value=\"y\"> 虚拟形象做为论坛头像　<input type=radio name=loadface value=\"n\"> 论坛普通形象(查看个人资料时候显示)";
+        $tempoutput =~ s/value=\"$loadface\"/value=\"$loadface\" checked/;
 
-	$output .= qq~
+        $output .= qq~
 	<table cellspacing=1 cellpadding=5 width=90% bgcolor=$tablebordercolor border=0 align="center">
 	<form action="$thisprog" method="post" name="FORM">
 	<input type=hidden name="action" value="perset">
@@ -258,34 +258,31 @@ sub perset	# 个人设置
 	<tr align=middle bgcolor=$miscbacktwo><td colspan="2"><input type=submit value="我 要 修 改"> <input type=reset value=重　置></td></tr>
 	</form>
 	</table>~;
-	return;
+        return;
     }
-    else
-    {
-	my $newloadface = $query -> param('loadface');
-	$newloadface    = &cleanarea("$newloadface");
+    else {
+        my $newloadface = $query->param('loadface');
+        $newloadface = &cleanarea("$newloadface");
 
- 	if($newloadface eq $loadface)
-	{
-	    $output .= qq~<meta http-equiv="refresh" content="0; url=$thisprog?action=perset">~;
-	    return;
-	}
- 	&error("个人设置&请选择是否要开启虚拟形象！") if($newloadface eq "");
+        if ($newloadface eq $loadface) {
+            $output .= qq~<meta http-equiv="refresh" content="0; url=$thisprog?action=perset">~;
+            return;
+        }
+        &error("个人设置&请选择是否要开启虚拟形象！") if ($newloadface eq "");
 
-	&upplugdata("$tempmembername","$currequip|$allequip|$newloadface","");
-	$tempmembername1 = $tempmembername;
-	$tempmembername1 =~ s/ /\_/g;
-	$tempmembername1 =~ tr/A-Z/a-z/;
-        unlink ("${lbdir}cache/myinfo/$tempmembername1.pl");
-        unlink ("${lbdir}cache/meminfo/$tempmembername1.pl");
+        &upplugdata("$tempmembername", "$currequip|$allequip|$newloadface", "");
+        $tempmembername1 = $tempmembername;
+        $tempmembername1 =~ s/ /\_/g;
+        $tempmembername1 =~ tr/A-Z/a-z/;
+        unlink("${lbdir}cache/myinfo/$tempmembername1.pl");
+        unlink("${lbdir}cache/meminfo/$tempmembername1.pl");
 
-	$output .= qq~<script>alert("个人设置更改成功！");</script><meta http-equiv="refresh" content="0; url=$thisprog?action=perset">~;
-	return;
+        $output .= qq~<script>alert("个人设置更改成功！");</script><meta http-equiv="refresh" content="0; url=$thisprog?action=perset">~;
+        return;
     }
 }
 
-sub splist
-{
+sub splist {
     $output .= qq~
 <SCRIPT language="javaScript" src="$imagesurl/face/js/search.js"></SCRIPT>
 <SCRIPT language="javaScript" src="$imagesurl/face/js/catemenu.js" id='VIEW'></SCRIPT>
@@ -459,38 +456,34 @@ function SPInfo(Page)	// (页数)
 }
 
 
-sub mybureau
-{
-    if($allequip eq '')
-    {
-	$output .=qq~<font color=red size=3><b>您的衣柜还没有任何物品！</b></font>~;
-	return;
+sub mybureau {
+    if ($allequip eq '') {
+        $output .= qq~<font color=red size=3><b>您的衣柜还没有任何物品！</b></font>~;
+        return;
     }
-    for($i=1;$i<26;$i++)
-    {
-	@tempsp=split(/\_/,@buy_sp[$i]);
-	next if(@tempsp eq "");
-	for($j=0;$j<@tempsp;$j++)
-	{
-	    ($info1,$info2)=split(/\,/,@tempsp[$j]);	# 商品ID、是否装备
-###
-	    $/="";
-	    my $filetoopen = "$lbdir" . "face/wpdata/$i.pl";
-	    open(FILE,"$filetoopen");
-	    my $sort=<FILE>;
-	    close(FILE);
-	    $/="\n";
-	    my $info3 = 1;
-	    $info3 = 0 if($sort !~ /$info1\t(.*)/);	# 找不到指定的商品ID
+    for ($i = 1; $i < 26; $i++) {
+        @tempsp = split(/\_/, @buy_sp[$i]);
+        next if (@tempsp eq "");
+        for ($j = 0; $j < @tempsp; $j++) {
+            ($info1, $info2) = split(/\,/, @tempsp[$j]); # 商品ID、是否装备
+            ###
+            $/ = "";
+            my $filetoopen = "$lbdir" . "face/wpdata/$i.pl";
+            open(FILE, "$filetoopen");
+            my $sort = <FILE>;
+            close(FILE);
+            $/ = "\n";
+            my $info3 = 1;
+            $info3 = 0 if ($sort !~ /$info1\t(.*)/); # 找不到指定的商品ID
 
-	    my ($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
-###
-	    $ladesign = $info2 eq 'Y' ? 1 : 0 ;
-	    $outinfo .=qq~'$sp_name|$info3|$sp_fitherd|$sp_graphic|$sp_sxgraphic||$j|$sp_money|',~;
-	    $outinfo1 .=qq~'$ladesign',~;
-	    $outinfo2 .=qq~'$i',~;
-	    $outinfo3 .=qq~'$info1',~;
-	}
+            my ($sp_name, $sp_money, $x, $sp_wear, $sp_fitherd, $sp_graphic, $sp_sxgraphic, $sp_suit, $sp_suitid) = split(/\t/, $1);
+            ###
+            $ladesign = $info2 eq 'Y' ? 1 : 0;
+            $outinfo .= qq~'$sp_name|$info3|$sp_fitherd|$sp_graphic|$sp_sxgraphic||$j|$sp_money|',~;
+            $outinfo1 .= qq~'$ladesign',~;
+            $outinfo2 .= qq~'$i',~;
+            $outinfo3 .= qq~'$info1',~;
+        }
     }
 
     chop($outinfo);
@@ -498,7 +491,7 @@ sub mybureau
     chop($outinfo2);
     chop($outinfo3);
 
-    $output .=qq~
+    $output .= qq~
 <script>
 document.cookie = "tempequip=" + "$currequip" +"; path=$cookiepath/";
 Fitting("$currequip",Show);
@@ -635,70 +628,62 @@ function DispInfo(Sign)
 </table>~;
 }
 
-sub mylog
-{
-    my $logid = $query -> param('id');
+sub mylog {
+    my $logid = $query->param('id');
 
     $output .= qq~
 <table cellspacing=1 cellpadding=3 width=98% bgcolor=$tablebordercolor border=0 align=center>
 <tr align=center><td colspan=6 bgcolor=$miscbacktwo><b><a href=$thisprog?action=mylog&id=1>购买记录</a> <a href=$thisprog?action=mylog&id=2>赠送记录</a> <a href=$thisprog?action=mylog&id=3>获赠记录</a></b></td></tr></table>~;
 
     my $filetoopen = "$lbdir" . "face/log/$tempmembername.pl";
-    return if (!( -e "$filetoopen")); # 如果不存在
+    return if (!(-e "$filetoopen")); # 如果不存在
 
-    open(FILE,"$filetoopen");
-    my @mylog=<FILE>;
+    open(FILE, "$filetoopen");
+    my @mylog = <FILE>;
     close(FILE);
 
     $output .= qq~<table cellspacing=1 cellpadding=3 width=98% bgcolor=$tablebordercolor border=0 align=center>~;
 
-    if($logid eq '1')
-    {
-	foreach (@mylog) 
-	{
-	    ($log_id,$sp_name,$sp_num,$sp_money,$log_time,$other_1,$other_2)=split(/\t/,$_);
-	    if($log_id eq '1')	# 如果找到记录类型
-	    {
-		$loghead = "购买记录";
-		$logcon .= qq~<tr align=center bgcolor=$miscbackone><td>$log_time</td><td>$sp_name</td><td>$sp_num</td><td>$sp_money</td><td>&nbsp;</td><td>&nbsp;</td></tr>~;
-	    }
-	}
+    if ($logid eq '1') {
+        foreach (@mylog) {
+            ($log_id, $sp_name, $sp_num, $sp_money, $log_time, $other_1, $other_2) = split(/\t/, $_);
+            if ($log_id eq '1') # 如果找到记录类型
+            {
+                $loghead = "购买记录";
+                $logcon .= qq~<tr align=center bgcolor=$miscbackone><td>$log_time</td><td>$sp_name</td><td>$sp_num</td><td>$sp_money</td><td>&nbsp;</td><td>&nbsp;</td></tr>~;
+            }
+        }
     }
-    if($logid eq '2')
-    {
-	foreach (@mylog) 
-	{
-	    ($log_id,$sp_name,$sp_num,$sp_money,$log_time,$other_1,$other_2)=split(/\t/,$_);
-	    if($log_id eq '2')	# 如果找到记录类型
-	    {
-		$loghead = "赠送记录";
-		$zengname = "赠送给";
-		$zengly = "赠送留言";
-		$logcon .= qq~<tr align=center bgcolor=$miscbackone><td>$log_time</td><td>$sp_name</td><td>$sp_num</td><td>$sp_money</td><td>$other_1</td><td>$other_2</td></tr>~;
-	    }
-	}
+    if ($logid eq '2') {
+        foreach (@mylog) {
+            ($log_id, $sp_name, $sp_num, $sp_money, $log_time, $other_1, $other_2) = split(/\t/, $_);
+            if ($log_id eq '2') # 如果找到记录类型
+            {
+                $loghead = "赠送记录";
+                $zengname = "赠送给";
+                $zengly = "赠送留言";
+                $logcon .= qq~<tr align=center bgcolor=$miscbackone><td>$log_time</td><td>$sp_name</td><td>$sp_num</td><td>$sp_money</td><td>$other_1</td><td>$other_2</td></tr>~;
+            }
+        }
     }
-    if($logid eq '3')
-    {
-	foreach (@mylog) 
-	{
-	    ($log_id,$sp_name,$sp_num,$sp_money,$log_time,$other_1,$other_2)=split(/\t/,$_);
-	    if($log_id eq '3')	# 如果找到记录类型
-	    {
-		$loghead = "获赠记录";
-		$zengname = "赠送人";
-		$zengly = "赠送人留言";
-		$logcon .= qq~<tr align=center bgcolor=$miscbackone><td>$log_time</td><td>$sp_name</td><td>$sp_num</td><td>$sp_money</td><td>$other_1</td><td>$other_2</td></tr>~;
-	    }
-	}
+    if ($logid eq '3') {
+        foreach (@mylog) {
+            ($log_id, $sp_name, $sp_num, $sp_money, $log_time, $other_1, $other_2) = split(/\t/, $_);
+            if ($log_id eq '3') # 如果找到记录类型
+            {
+                $loghead = "获赠记录";
+                $zengname = "赠送人";
+                $zengly = "赠送人留言";
+                $logcon .= qq~<tr align=center bgcolor=$miscbackone><td>$log_time</td><td>$sp_name</td><td>$sp_num</td><td>$sp_money</td><td>$other_1</td><td>$other_2</td></tr>~;
+            }
+        }
     }
-    if($logid ne '')
-    {
-	$output .=qq~
+    if ($logid ne '') {
+        $output .= qq~
 	<tr align=center><td colspan=6 bgcolor=$miscbackone><font color=$titlefontcolor>$loghead</font></td></tr>
 	<tr align=center bgcolor=$miscbacktwo><td>发生时间</td><td>$loghead物品</td><td>数量</td><td>价格</td><td>$zengname</td><td>$zengly</td></tr>$logcon~;
     }
-    $output .=qq~</table>~;
+    $output .= qq~</table>~;
 }
 
-&output("$plugname",\$output);
+&output("$plugname", \$output);

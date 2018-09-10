@@ -19,6 +19,7 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 use LBCGI;
 $query = new LBCGI;
 $LBCGI::POST_MAX = 2000;

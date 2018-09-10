@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
 use LBCGI;
-$LBCGI::POST_MAX=50000;
+use diagnostics;
+$LBCGI::POST_MAX = 50000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 $query = new LBCGI;
@@ -35,35 +39,34 @@ $|++;
 $thisprog = "newstyles.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-	@params = $query->param;
-	foreach (@params) {
-		$theparam = $query->param($_);
-	$theparam =~ s/\\/\\\\/g;
-        $theparam =~ s/\@/\\\@/g;
-        $theparam =~ s/"//g;
-        $theparam = &unHTML("$theparam");
-		${$_} = $theparam;
-        if ($_ ne 'action') {
-        	$_ =~ s/[\n\r]//isg;
-        	$theparam =~ s/[\n\r]//isg;
-            $printme .= "\$" . "$_ = \'$theparam\'\;\n" if ($_ ne "");
-            }
-	}
+@params = $query->param;
+foreach (@params) {
+    $theparam = $query->param($_);
+    $theparam =~ s/\\/\\\\/g;
+    $theparam =~ s/\@/\\\@/g;
+    $theparam =~ s/"//g;
+    $theparam = &unHTML("$theparam");
+    ${$_} = $theparam;
+    if ($_ ne 'action') {
+        $_ =~ s/[\n\r]//isg;
+        $theparam =~ s/[\n\r]//isg;
+        $printme .= "\$" . "$_ = \'$theparam\'\;\n" if ($_ ne "");
+    }
+}
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername","no");
-        
+&getmember("$inmembername", "no");
 
 if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
-            
+
     if ($action eq "delstyle") {
         print qq~
         <tr>
@@ -82,8 +85,8 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
     }
     elsif ($action eq "delstyleok") {
         $filetomake = "$lbdir" . "data/skin/$skinname.cgi";
-    	unlink $filetomake;
-                    print qq~
+        unlink $filetomake;
+        print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                     <b>欢迎来到论坛管理中心 / 风格删除</b>
                     </td></tr>
@@ -94,26 +97,25 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                     ~;
 
     }
-
     elsif ($action eq "process") {
 
-        $savename=$query->param('savename');
-        if ($savename eq "") {$savename=$query->param('skin')}
+        $savename = $query->param('savename');
+        if ($savename eq "") {$savename = $query->param('skin')}
 
         $printme .= "1\;\n";
-	$printme =~ s/\$skin.+?\n/\$skin = \"$savename\";\n/isg;
+        $printme =~ s/\$skin.+?\n/\$skin = \"$savename\";\n/isg;
 
         $filetomake = "$lbdir" . "data/skin/$savename.cgi";
 
         &winlock($filetomake) if ($OS_USED eq "Nt");
-        open(FILE,">$filetomake");
-        flock(FILE,2) if ($OS_USED eq "Unix");
+        open(FILE, ">$filetomake");
+        flock(FILE, 2) if ($OS_USED eq "Unix");
         print FILE "$printme";
         close(FILE);
         &winunlock($filetomake) if ($OS_USED eq "Nt");
 
         if (-e $filetomake && -w $filetomake) {
-                print qq~
+            print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 风格设置</b>
                 </td></tr>
@@ -121,10 +123,9 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                 <td bgcolor=#EEEEEE colspan=2>
                 <font color=#333333><center><b>所有设置已经成功保存！</b><br><br>
                 </center></td></tr></table></td></tr></table>~;
-                }
-
-                else {
-                    print qq~
+        }
+        else {
+            print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                     <b>欢迎来到论坛管理中心 / 风格设置</b>
                     </td></tr>
@@ -133,33 +134,33 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                     <font color=#333333><b>所有信息没有保存</b><br>文件或者目录不可写，请设置属性为 777 ！
                     </td></tr></table></td></tr></table>
                     ~;
-                    }
-        
+        }
+
+    }
+    else {
+        if ($action ne "") {
+            $stylefile = "$lbdir" . "data/skin/$action.cgi";
+            if (-e $stylefile) {
+                require $stylefile;
             }
-            else {
-                if ($action ne ""){
-                $stylefile = "$lbdir" . "data/skin/$action.cgi";
-                if (-e $stylefile) {
-         	require $stylefile;
-                }
-                }
-        
+        }
+
         $dirtoopen = "$lbdir" . "data/skin";
-        opendir (DIR, "$dirtoopen"); 
+        opendir(DIR, "$dirtoopen");
         @dirdata = readdir(DIR);
-        closedir (DIR);
-        my $myskin="";
-        @thd = grep(/\.cgi$/,@dirdata);
+        closedir(DIR);
+        my $myskin = "";
+        @thd = grep (/\.cgi$/, @dirdata);
         $topiccount = @thd;
-        @thd=sort @thd;
-        for (my $i=0;$i<$topiccount;$i++){
-       	$thd[$i]=~s /\.cgi//isg;
-        $myskin.=qq~<option value="$thd[$i]">皮肤 [ $thd[$i] ]~;
+        @thd = sort @thd;
+        for (my $i = 0; $i < $topiccount; $i++) {
+            $thd[$i] =~ s/\.cgi//isg;
+            $myskin .= qq~<option value="$thd[$i]">皮肤 [ $thd[$i] ]~;
         }
         $myskin =~ s/value=\"$action\"/value=\"$action\" selected/;
-                $inmembername =~ s/\_/ /g;
-	$skinname=$query->param('action');
-                print qq~
+        $inmembername =~ s/\_/ /g;
+        $skinname = $query->param('action');
+        print qq~
                 <tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 风格设置</b>
                 </td></tr>
@@ -252,9 +253,9 @@ obj2.style.backgroundColor=arr;
                 <font color=#333333>主字体外观</font></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"font\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋\">仿宋\n<option value=\"楷体\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
-                $tempoutput =~ s/value=\"$font\"/value=\"$font\" selected/;
-                print qq~
+        $tempoutput = "<select name=\"font\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋\">仿宋\n<option value=\"楷体\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
+        $tempoutput =~ s/value=\"$font\"/value=\"$font\" selected/;
+        print qq~
                 $tempoutput</td>
                 </tr>
                 
@@ -279,9 +280,9 @@ obj2.style.backgroundColor=arr;
                 <font color=#333333>查看时发表者名称字体</font></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"posternamefont\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋\">仿宋\n<option value=\"楷体\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
-                $tempoutput =~ s/value=\"$posternamefont\"/value=\"$posternamefont\" selected/;
-                print qq~
+        $tempoutput = "<select name=\"posternamefont\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋\">仿宋\n<option value=\"楷体\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
+        $tempoutput =~ s/value=\"$posternamefont\"/value=\"$posternamefont\" selected/;
+        print qq~
                 $tempoutput</td>
                 
                 <tr>
@@ -612,11 +613,11 @@ obj2.style.backgroundColor=arr;
 <b>另存为风格名称</b> <input type=text name=savename size=16> (如不填写则为修改该配色)<br>
                 <input type=submit value="确 定">　<input type=button value="取 消"></td></form></tr></table></td></tr></table>
                 ~;
-                }
-                }
-                else {
-                    &adminlogin;
-                    }
-        
+    }
+}
+else {
+    &adminlogin;
+}
+
 print qq~</td></tr></table></body></html>~;
 exit;

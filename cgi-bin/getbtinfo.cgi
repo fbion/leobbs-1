@@ -10,14 +10,19 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
+
+use warnings;
+use strict;
+use diagnostics;
 
 use BTINFO;
 use LBCGI;
@@ -33,9 +38,9 @@ $thisprog = "getbtinfo.cgi";
 use LBCGI;
 $query = new LBCGI;
 #&ipbanned;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-$forum  = $query->param("forum");
+$forum = $query->param("forum");
 $inforum = $forum;
 &error("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
 $intopic = $query->param("topic");
@@ -43,75 +48,75 @@ $intopic = $query->param("topic");
 
 $filename = $query->param('filename');
 $filename =~ s/[\a\f\n\e\0\r\t\*\\\/\,\|\<\>\?\.]//isg;
-if ($intopic ne "") { $tmptopic = $intopic%100; $filename = "$tmptopic/$filename"; }
+if ($intopic ne "") {
+    $tmptopic = $intopic % 100;
+    $filename = "$tmptopic/$filename";
+}
 &error("打开文件&该 BitTorrent 文件不存在！！") unless (-e "${imagesdir}$usrdir/$inforum/$filename.torrent");
 
 my $btinfofile = "${imagesdir}$usrdir/$inforum/$filename.torrent.btfile";
 my $filetoopens = &lockfilename($btinfofile);
 unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 33);
-unless ((!(-e "$filetoopens.lck")) && -e $btinfofile && (-M $btinfofile) * 86400 < 180)
-{
-	&winlock($btinfofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
-	open(FILE, $btinfofile);
-	my $btfileinfo = <FILE>;
-	my $hash = <FILE>;
-	my $seedinfo = <FILE>;
-	close(FILE);
-	chomp($btfileinfo);
-	chomp($hash);
-	chomp($seedinfo);
-	(my $announce, undef) = split(/\|/, $seedinfo);
-	if ($hash eq "")
-	{
-		$/ = "";
-		open(FILE, "${imagesdir}$usrdir/$inforum/$filename.torrent");
-		binmode(FILE);
-		my $upfilecontent = <FILE>;
-		close(FILE);
-		$/ = "\n";
-		$btfileinfo = process_file($upfilecontent);
-		($btfileinfo, $hash, $announce) = split(/\n/, $btfileinfo);
-	}
-	my $seedinfo = output_torrent_data($hash, $announce);
-	$btinfo = "$btfileinfo\n$hash\n$announce\|$seedinfo";
+unless ((!(-e "$filetoopens.lck")) && -e $btinfofile && (-M $btinfofile) * 86400 < 180) {
+    &winlock($btinfofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
+    open(FILE, $btinfofile);
+    my $btfileinfo = <FILE>;
+    my $hash = <FILE>;
+    my $seedinfo = <FILE>;
+    close(FILE);
+    chomp($btfileinfo);
+    chomp($hash);
+    chomp($seedinfo);
+    (my $announce, undef) = split(/\|/, $seedinfo);
+    if ($hash eq "") {
+        $/ = "";
+        open(FILE, "${imagesdir}$usrdir/$inforum/$filename.torrent");
+        binmode(FILE);
+        my $upfilecontent = <FILE>;
+        close(FILE);
+        $/ = "\n";
+        $btfileinfo = process_file($upfilecontent);
+        ($btfileinfo, $hash, $announce) = split(/\n/, $btfileinfo);
+    }
+    my $seedinfo = output_torrent_data($hash, $announce);
+    $btinfo = "$btfileinfo\n$hash\n$announce\|$seedinfo";
 
-	open(FILE, ">$btinfofile");
-	print FILE $btinfo;
-	close(FILE);
-	&winunlock($btinfofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
+    open(FILE, ">$btinfofile");
+    print FILE $btinfo;
+    close(FILE);
+    &winunlock($btinfofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 }
-else
-{
-	$/ = "";
-	open(FILE, $btinfofile);
-	$btinfo = <FILE>;
-	close(FILE);
-	$/ = "\n";
-	chomp($btinfo);
-	my ($btfileinfo, $hash, $seedinfo) = split(/\n/, $btinfo);
-	($announce, $seeds, $leeches, $downloaded) = split (/\|/, $seedinfo);
-	if ((($seeds eq "")||($seeds eq "未知"))&&($announce ne "")) {
-	  eval("use BTINFO;");
-	  if ($@ eq "") {
-	    my $seedinfo = output_torrent_data($hash, $announce);
-	    $btinfo = "$btfileinfo\n$hash\n$announce\|$seedinfo";
-	    ($announce, $seeds, $leeches, $downloaded) = split (/\|/, $seedinfo);
-	    if (($seeds ne "")&&($seeds ne "未知")) {
-	        open(FILE, ">$btinfofile");
-	        print FILE $btinfo;
-	        close(FILE);
-	    }
-	  }
-	}
+else {
+    $/ = "";
+    open(FILE, $btinfofile);
+    $btinfo = <FILE>;
+    close(FILE);
+    $/ = "\n";
+    chomp($btinfo);
+    my ($btfileinfo, $hash, $seedinfo) = split(/\n/, $btinfo);
+    ($announce, $seeds, $leeches, $downloaded) = split(/\|/, $seedinfo);
+    if ((($seeds eq "") || ($seeds eq "未知")) && ($announce ne "")) {
+        eval("use BTINFO;");
+        if ($@ eq "") {
+            my $seedinfo = output_torrent_data($hash, $announce);
+            $btinfo = "$btfileinfo\n$hash\n$announce\|$seedinfo";
+            ($announce, $seeds, $leeches, $downloaded) = split(/\|/, $seedinfo);
+            if (($seeds ne "") && ($seeds ne "未知")) {
+                open(FILE, ">$btinfofile");
+                print FILE $btinfo;
+                close(FILE);
+            }
+        }
+    }
 }
 
 my ($btfileinfo, undef, $seedinfo) = split(/\n/, $btinfo);
 
-($announce, $seeds, $leeches, $downloaded) = split (/\|/, $seedinfo);
+($announce, $seeds, $leeches, $downloaded) = split(/\|/, $seedinfo);
 if ($seeds eq "") {
-	$seeds = "未知";
-	$leeches = "未知";
-	$downloaded = "未知";
+    $seeds = "未知";
+    $leeches = "未知";
+    $downloaded = "未知";
 }
 
 print qq~

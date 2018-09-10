@@ -12,19 +12,22 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
 use strict;
 use warnings;
+use diagnostics;
+
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -53,27 +56,28 @@ if ($inpassword ne "") {
 }
 
 $inselectstyle = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-require "${lbdir}data/skin/${inselectstyle}.cgi" if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi"));
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+require "${lbdir}data/skin/${inselectstyle}.cgi" if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi"));
 $catbackpic = "background=$imagesurl/images/$skin/$catbackpic" if $catbackpic;
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 $inmembername = $query->cookie("amembernamecookie") unless $inmembername;
 $inpassword = $query->cookie("apasswordcookie") unless $inpassword;
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
-} else {
-    &getmember("$inmembername","no");
+}
+else {
+    &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
     if ($inpassword ne $password) {
-	    $namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-        $passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名称不相符，请重新登入！");
     }
 }
@@ -84,7 +88,8 @@ if ($inmembername eq "" || $inmembername eq "客人" ) {
 
 if ($action ne "edit") {
     &ShowForm();
-}else {
+}
+else {
     &Edit();
 }
 
@@ -122,22 +127,23 @@ sub ShowForm {
 sub Edit {
     &mischeader("编辑论坛规则及重要信息");
 
-    &error("权限不足&您不是本论坛坛主或版主，或是您的密码错误！") unless ((($membercode eq "ad")||($membercode eq 'smo')||(",$catemods," =~ /\Q\,$inmembername\,\E/i)||($inmembmod eq "yes"))&&($inpassword eq $password));
+    &error("权限不足&您不是本论坛坛主或版主，或是您的密码错误！") unless ((($membercode eq "ad") || ($membercode eq 'smo') || (",$catemods," =~ /\Q\,$inmembername\,\E/i) || ($inmembmod eq "yes")) && ($inpassword eq $password));
 
     my $forumrule = $query->param('forumrule');
-       $forumrule = &cleaninput("$forumrule");
-       $forumrule =~ s/\n/<br>/isg;
-       $forumrule =~ s/<p>/<br><br>/isg;
-       $forumrule =~ s/<br><br><br>/<br>/isg;
-       $forumrule =~ s/<br>$//ig;
+    $forumrule = &cleaninput("$forumrule");
+    $forumrule =~ s/\n/<br>/isg;
+    $forumrule =~ s/<p>/<br><br>/isg;
+    $forumrule =~ s/<br><br><br>/<br>/isg;
+    $forumrule =~ s/<br>$//ig;
 
     if ($forumrule) {
         open FILE, ">${lbdir}boarddata/forumrule$inforum.cgi";
         print FILE $forumrule;
         close FILE;
-    }else {
+    }
+    else {
         # 反正都没有论坛规则及重要信息，倒不如整个档案删除，减少一次档案读取。
-    	unlink "${lbdir}boarddata/forumrule$inforum.cgi";
+        unlink "${lbdir}boarddata/forumrule$inforum.cgi";
     }
 
     require "recooper.pl";

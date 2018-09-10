@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -34,80 +38,79 @@ $thisprog = "settemplate.cgi";
 $query = new LBCGI;
 #&ipbanned; #封杀一些 ip
 
-$process = $query ->param("process");
-$action  = $query ->param("action");
+$process = $query->param("process");
+$action = $query->param("action");
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 if ($process ne "preview template") {
-   &admintitle;
+    &admintitle;
 }
 
-&getmember("$inmembername","no");
-        
-        
+&getmember("$inmembername", "no");
+
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
-   print qq(
+    print qq(
    <tr><td bgcolor=#2159C9><font face=宋体 color=#FFFFFF>
    <b>欢迎来到论坛管理中心 / 编辑论坛模板</b>
    </td></tr>);
 
-unless(defined($process)) {
+    unless (defined($process)) {
 
-   $templatefile = "$lbdir" . "data/template/$skin.cgi";
+        $templatefile = "$lbdir" . "data/template/$skin.cgi";
 
-   if (-e $templatefile) {
-      open (TEMPLATE, "$templatefile");
-      local $/ = undef;
-      $template_data = <TEMPLATE>;
-      close (TEMPLATE);
-      }
-      else {
-         print qq(<tr><td><font face="宋体" color="#FF0000">
+        if (-e $templatefile) {
+            open(TEMPLATE, "$templatefile");
+            local $/ = undef;
+            $template_data = <TEMPLATE>;
+            close(TEMPLATE);
+        }
+        else {
+            print qq(<tr><td><font face="宋体" color="#FF0000">
                   <b>不能够找到模板文件</b><br>
                   请确定文件 '$skin.cgi' 在 *.cgi 程序目录下的 'data/template' 目录中！
                   </td></tr></table></td></tr></table></body></html>);
-         exit;
-         } # end is it there
+            exit;
+        } # end is it there
 
-   unless (-w $templatefile) {
-         print qq(<tr><td><font face="宋体" color="#FF0000">
+        unless (-w $templatefile) {
+            print qq(<tr><td><font face="宋体" color="#FF0000">
                   <b>不能够写入模板文件</b><br><br>
                   请确定 'data/template/$skin.cgi' 文件的属性设置成了 666 ！
                   </td></tr></table></td></tr></table></body></html>);
-         exit;
-         }
-      
+            exit;
+        }
 
-   # If we're here, lets print out the template....
 
-   ($non_editable, $user_editable) = split(/\<!--end Java-->/, $template_data);
+        # If we're here, lets print out the template....
 
-   $non_editable =~ s/</&lt;/g;
-   $non_editable =~ s/>/&gt;/g;
-   $non_editable =~ s/\"/&quot;/g;
-   $non_editable =~ s/\n\n/\n/ig;
-   $non_editable =~ s/[\f\n\r]+/\n/ig;
-   $non_editable =~ s/[\r \n]+$/\n/ig;
-   $non_editable =~ s/^[\r\n ]+/\n/ig;
-   $non_editable =~ s/\s+$//ig;
+        ($non_editable, $user_editable) = split(/\<!--end Java-->/, $template_data);
 
-   $user_editable =~ s/</&lt;/g;
-   $user_editable =~ s/>/&gt;/g;
-   $user_editable =~ s/\"/&quot;/g;
-   $user_editable =~ s/\n\n/\n/ig;
-   $user_editable =~ s/[\f\n\r]+/\n/ig;
-   $user_editable =~ s/[\r \n]+$/\n/ig;
-   $user_editable =~ s/^[\r\n ]+/\n/ig;
-   $user_editable =~ s/\s+$//ig;
+        $non_editable =~ s/</&lt;/g;
+        $non_editable =~ s/>/&gt;/g;
+        $non_editable =~ s/\"/&quot;/g;
+        $non_editable =~ s/\n\n/\n/ig;
+        $non_editable =~ s/[\f\n\r]+/\n/ig;
+        $non_editable =~ s/[\r \n]+$/\n/ig;
+        $non_editable =~ s/^[\r\n ]+/\n/ig;
+        $non_editable =~ s/\s+$//ig;
 
-   print qq(
+        $user_editable =~ s/</&lt;/g;
+        $user_editable =~ s/>/&gt;/g;
+        $user_editable =~ s/\"/&quot;/g;
+        $user_editable =~ s/\n\n/\n/ig;
+        $user_editable =~ s/[\f\n\r]+/\n/ig;
+        $user_editable =~ s/[\r \n]+$/\n/ig;
+        $user_editable =~ s/^[\r\n ]+/\n/ig;
+        $user_editable =~ s/\s+$//ig;
+
+        print qq(
    <tr>
    <td colspan=2>
    <form action="$thisprog" method=POST name="the_form">
@@ -135,38 +138,38 @@ unless(defined($process)) {
    </td>
    </tr>
    );
-   } # end if def(process)
+    } # end if def(process)
 
-   else {
+    else {
 
-      $template_info = $query -> param("template_info");
-      $header_info   = $query -> param("non_editable");
+        $template_info = $query->param("template_info");
+        $header_info = $query->param("non_editable");
 
-      $header_info =~ s/&lt;/</g;
-      $header_info =~ s/&gt;/>/g;
-      $header_info =~ s/&quot;/\"/g;
-      $header_info =~ s/\n\n/\n/ig;
-      $header_info =~ s/[\f\n\r]+/\n/ig;
-      $header_info =~ s/[\r\n ]+$/\n/ig;
-      $header_info =~ s/^[\r\n ]+/\n/ig;
-      $header_info =~ s/\s+$//ig;
+        $header_info =~ s/&lt;/</g;
+        $header_info =~ s/&gt;/>/g;
+        $header_info =~ s/&quot;/\"/g;
+        $header_info =~ s/\n\n/\n/ig;
+        $header_info =~ s/[\f\n\r]+/\n/ig;
+        $header_info =~ s/[\r\n ]+$/\n/ig;
+        $header_info =~ s/^[\r\n ]+/\n/ig;
+        $header_info =~ s/\s+$//ig;
 
-      $template_info =~ s/&lt;/</g;
-      $template_info =~ s/&gt;/>/g;
-      $template_info =~ s/&quot;/\"/g;
-      $template_info =~ s/\n\n/\n/ig;
-      $template_info =~ s/[\f\n\r]+/\n/ig;
-      $template_info =~ s/[\r \n]+$/\n/ig;
-      $template_info =~ s/^[\r\n ]+/\n/ig;
-      $template_info =~ s/\s+$//ig;
+        $template_info =~ s/&lt;/</g;
+        $template_info =~ s/&gt;/>/g;
+        $template_info =~ s/&quot;/\"/g;
+        $template_info =~ s/\n\n/\n/ig;
+        $template_info =~ s/[\f\n\r]+/\n/ig;
+        $template_info =~ s/[\r \n]+$/\n/ig;
+        $template_info =~ s/^[\r\n ]+/\n/ig;
+        $template_info =~ s/\s+$//ig;
 
-      if ($process eq "preview template") {
+        if ($process eq "preview template") {
 
-         print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+            print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-	 &title;
+            &title;
 
-         $temp_board = qq(
+            $temp_board = qq(
          <table width=$tablewidth border=1 align=center><tr><td>
          $output
          <br><br><br><br><br>
@@ -186,38 +189,35 @@ unless(defined($process)) {
          </font></td></tr></table>
          <p></td></tr></table></body></html>);
 
-         $template_info =~ s/\$lbboard_main/$temp_board\n/sg;
+            $template_info =~ s/\$lbboard_main/$temp_board\n/sg;
 
-         print $header_info;
-         print $template_info;
+            print $header_info;
+            print $template_info;
 
-      }
+        }
+        else {
 
-      else {
+            $templatefile = "$lbdir" . "data/template/$skin.cgi";
 
-         $templatefile = "$lbdir" . "data/template/$skin.cgi";
+            &winlock($templatefile) if ($OS_USED eq "Nt");
+            open(TEMPLATE, ">$templatefile");
+            flock(TEMPLATE, 2) if ($OS_USED eq "Unix");
+            print TEMPLATE "$header_info\n";
+            print TEMPLATE "<!--end Java-->\n";
+            print TEMPLATE $template_info;
+            close(TEMPLATE);
+            &winunlock($templatefile) if ($OS_USED eq "Nt");
 
-        &winlock($templatefile) if ($OS_USED eq "Nt");
-         open (TEMPLATE, ">$templatefile");
-         flock (TEMPLATE, 2) if ($OS_USED eq "Unix");
-         print TEMPLATE "$header_info\n";
-         print TEMPLATE "<!--end Java-->\n";
-         print TEMPLATE $template_info;
-         close (TEMPLATE);
-        &winunlock($templatefile) if ($OS_USED eq "Nt");
+            print "<tr><td><font face=宋体><b>所有模板信息已经写入</b></font></td></tr>";
+        }
 
-         
-         print "<tr><td><font face=宋体><b>所有模板信息已经写入</b></font></td></tr>";
-         }
+    }
 
-      }
+} # end if logged in
 
+else {
+    &adminlogin;
+}
 
-   } # end if logged in
-
-   else {
-      &adminlogin;
-      }
-                
-   print qq(</table></td></tr></table></td></tr></table></body></html>) if ($process ne "preview template");
-   exit;
+print qq(</table></td></tr></table></td></tr></table></body></html>) if ($process ne "preview template");
+exit;

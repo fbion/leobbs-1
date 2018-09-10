@@ -20,6 +20,7 @@ require "wap.pl";
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 use LBCGI;
 $query = new LBCGI;

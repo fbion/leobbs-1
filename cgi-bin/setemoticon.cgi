@@ -10,18 +10,22 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
 
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 0;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -32,31 +36,31 @@ $|++;
 $thisprog = "setemoticon.cgi";
 $query = new LBCGI;
 
-$addme=$query->param('addme');
+$addme = $query->param('addme');
 
-for('action','emoticonid','emoticonname','emoticonurl','emoticoninfo') {
+for ('action', 'emoticonid', 'emoticonname', 'emoticonurl', 'emoticoninfo') {
     my $theparam = $query->param($_);
     $theparam = &cleaninput("$theparam");
     ${$_} = $theparam;
 }
-$checkaction  =  ($query->param('checkaction') eq "yes") ? "yes" : "no";
+$checkaction = ($query->param('checkaction') eq "yes") ? "yes" : "no";
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword   =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-my %Mode = (	'createnew'  => \&createnew,
-		'processnew' => \&createaction,
-		'edit'       => \&editemot,
-		'editaction' => \&editaction,
-		'delete'     => \&deleteaction
-	   );
+my %Mode = ('createnew' => \&createnew,
+    'processnew'        => \&createaction,
+    'edit'              => \&editemot,
+    'editaction'        => \&editaction,
+    'delete'            => \&deleteaction
+);
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
-&getmember("$inmembername","no");
+&getmember("$inmembername", "no");
 if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
     print qq~
     <tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
@@ -64,14 +68,16 @@ if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq
     </td></tr>~;
     if ($Mode{$action}) {
         $Mode{$action}->();
-    } else {
+    }
+    else {
         &emoticonlist;
     }
     print qq~</table></td></tr></table>~;
-} else {
+}
+else {
     &adminlogin;
 }
-    
+
 sub emoticonlist {
     print qq~<tr><td bgcolor=#EEEEEE align=center colspan=2>
     <font color=#990000><b>注意事项</b>
@@ -104,28 +110,28 @@ sub emoticonlist {
 
     $emoticonnum = 0;
     foreach $emoticon (@emoticons) {
-    	chomp $emoticon;
-    	next if ($emoticon eq "");
-	($emoticonname, $emoticonurl, $emoticoninfo) = split(/\t/,$emoticon);
-	$emoticonurl=~s/\\//g;
-	$emoticonnum++;
-	print qq~<tr><td align="left">　　<img src="$imagesurl/emoticons/$emoticonname" align="absmiddle" border=0>$emoticonname</td><td align="right"><input type="text" value="$emoticonurl" maxlength="10" style="width:100%"></td><td align="right"><input type="text" value="$emoticoninfo"  style="width:100%"></td><td align="center"><a href="$thisprog?action=edit&emoticonid=$emoticonnum">[编辑]</a> <a href="$thisprog?action=delete&emoticonid=$emoticonnum">[删除]</a></td></tr>\n~;
+        chomp $emoticon;
+        next if ($emoticon eq "");
+        ($emoticonname, $emoticonurl, $emoticoninfo) = split(/\t/, $emoticon);
+        $emoticonurl =~ s/\\//g;
+        $emoticonnum++;
+        print qq~<tr><td align="left">　　<img src="$imagesurl/emoticons/$emoticonname" align="absmiddle" border=0>$emoticonname</td><td align="right"><input type="text" value="$emoticonurl" maxlength="10" style="width:100%"></td><td align="right"><input type="text" value="$emoticoninfo"  style="width:100%"></td><td align="center"><a href="$thisprog?action=edit&emoticonid=$emoticonnum">[编辑]</a> <a href="$thisprog?action=delete&emoticonid=$emoticonnum">[删除]</a></td></tr>\n~;
     }
     print qq~<tr><td align="center" colspan="4" bgcolor="#EEEEEE">共有 EMOT 图片 $emoticonnum 个 </td></tr></table>~;
 }
 
 sub createnew {
-    opendir (DIR, "${imagesdir}emoticons");
+    opendir(DIR, "${imagesdir}emoticons");
     @emoticon = readdir(DIR);
-    closedir (DIR);
+    closedir(DIR);
     chomp @emoticon;
-    @emoticon = grep(/.[gif|jpg|png|bmp]$/,@emoticon);
+    @emoticon = grep (/.[gif|jpg|png|bmp]$/, @emoticon);
     @emoticon = sort @emoticon;
-    $emoticon = join("\t",@emoticon);
-    $emoticon=~s/^\t//;
-    $emoticon="<option>".$emoticon."</option>";
-    $emoticon=~s/\t/<\/option><option>/isg;
-    $emoticon=~s/<option><\/option>//isg;
+    $emoticon = join("\t", @emoticon);
+    $emoticon =~ s/^\t//;
+    $emoticon = "<option>" . $emoticon . "</option>";
+    $emoticon =~ s/\t/<\/option><option>/isg;
+    $emoticon =~ s/<option><\/option>//isg;
     print qq~
 <script>
 function selectimg(oj,fm) {
@@ -163,25 +169,25 @@ function selectimg(oj,fm) {
 sub editemot {
     $filetoopen = "$lbdir" . "data/emoticons.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
-    open(FILE,"$filetoopen");
+    open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
     my @emoticons = <FILE>;
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    ($emoticonname,$emoticonurl,$emoticoninfo) = split(/\t/,$emoticons[$emoticonid-1]);   
-    $emoticonurl=~s/\\//g;
-    opendir (DIR, "${imagesdir}emoticons");
+    ($emoticonname, $emoticonurl, $emoticoninfo) = split(/\t/, $emoticons[$emoticonid - 1]);
+    $emoticonurl =~ s/\\//g;
+    opendir(DIR, "${imagesdir}emoticons");
     @emoticon = readdir(DIR);
-    closedir (DIR);
+    closedir(DIR);
     chomp @emoticon;
-    @emoticon = grep(/.[gif|jpg|png|bmp]$/,@emoticon);
+    @emoticon = grep (/.[gif|jpg|png|bmp]$/, @emoticon);
     @emoticon = sort @emoticon;
-    $emoticon = join("\t",@emoticon);
-    $emoticon=~s/^\t//;
-    $emoticon="<option>".$emoticon."</option>";
-    $emoticon=~s/\t/<\/option><option>/isg;
-    $emoticon=~s/<option><\/option>//isg;
-    $emoticon=~s/<option>$emoticonname<\/option>/<option selected>$emoticonname<\/option>/;
+    $emoticon = join("\t", @emoticon);
+    $emoticon =~ s/^\t//;
+    $emoticon = "<option>" . $emoticon . "</option>";
+    $emoticon =~ s/\t/<\/option><option>/isg;
+    $emoticon =~ s/<option><\/option>//isg;
+    $emoticon =~ s/<option>$emoticonname<\/option>/<option selected>$emoticonname<\/option>/;
     print qq~
 <script>
 function selectimg(oj,fm){
@@ -223,10 +229,16 @@ function selectimg(oj,fm){
     ~;
 }
 
-sub createaction {   
-    if ($emoticonname eq "" || $emoticonurl eq ""){&errorout(" EMOT 图片名称及表情转换代码不能为空！"); return;}
-    $emoticonurl=&decode($emoticonurl);
-    if ($errorout == 1){&errorout("表情转换代码不容许使用英文,数字和符号以外的字串！");return;}
+sub createaction {
+    if ($emoticonname eq "" || $emoticonurl eq "") {
+        &errorout(" EMOT 图片名称及表情转换代码不能为空！");
+        return;
+    }
+    $emoticonurl = &decode($emoticonurl);
+    if ($errorout == 1) {
+        &errorout("表情转换代码不容许使用英文,数字和符号以外的字串！");
+        return;
+    }
     $filetoopen = "$lbdir" . "data/emoticons.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
@@ -236,16 +248,16 @@ sub createaction {
 
     open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
-	foreach $emoticon (@emoticons) {
-    next if ($emoticon eq "");
-	chomp $emoticon;
-    print FILE "$emoticon\n";
+    foreach $emoticon (@emoticons) {
+        next if ($emoticon eq "");
+        chomp $emoticon;
+        print FILE "$emoticon\n";
     }
     print FILE "$emoticonname\t$emoticonurl\t$emoticoninfo\t\n";
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
     &doemote;
-    
+
     print qq~
     <tr>
     <td bgcolor=#FFFFFF valign=middle align=left colspan=2>
@@ -259,29 +271,36 @@ sub createaction {
     </tr>
     ~;
 }
-sub editaction {   
-    if ($emoticonname eq "" || $emoticonurl eq ""){&errorout(" EMOT 图片名称及表情转换代码不能为空！"); return;}
-    $emoticonurl=&decode($emoticonurl);
-    if ($errorout == 1){&errorout("表情转换代码不容许使用英文,数字和符号以外的字串！");return;}
+sub editaction {
+    if ($emoticonname eq "" || $emoticonurl eq "") {
+        &errorout(" EMOT 图片名称及表情转换代码不能为空！");
+        return;
+    }
+    $emoticonurl = &decode($emoticonurl);
+    if ($errorout == 1) {
+        &errorout("表情转换代码不容许使用英文,数字和符号以外的字串！");
+        return;
+    }
     $filetoopen = "$lbdir" . "data/emoticons.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
     my @emoticons = <FILE>;
     close(FILE);
-    open(FILE,">$filetoopen");
-    flock(FILE,2) if ($OS_USED eq "Unix");
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
     $emoticonnum = 0;
     foreach $emoticon (@emoticons) {
         next if ($emoticon eq "");
-	chomp $emoticon;
-        $emoticonnum ++;
-	if ($emoticonid eq $emoticonnum) {
-	    ($oldemoticonname,undef,undef)=split(/\t/,$emoticon);
-	    print FILE "$emoticonname\t$emoticonurl\t$emoticoninfo\t\n";
-	} else {
-	    print FILE "$emoticon\n";
-	}
+        chomp $emoticon;
+        $emoticonnum++;
+        if ($emoticonid eq $emoticonnum) {
+            ($oldemoticonname, undef, undef) = split(/\t/, $emoticon);
+            print FILE "$emoticonname\t$emoticonurl\t$emoticoninfo\t\n";
+        }
+        else {
+            print FILE "$emoticon\n";
+        }
     }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
@@ -301,7 +320,7 @@ sub editaction {
 }
 
 sub deleteaction {
-    if($checkaction ne "yes") {
+    if ($checkaction ne "yes") {
         print qq~<tr>
     <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
     <font color=#990000><b>警告！！</b>
@@ -320,23 +339,24 @@ sub deleteaction {
     }
     $filetoopen = "$lbdir" . "data/emoticons.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
-    open(FILE,"$filetoopen");
+    open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
     my @emoticons = <FILE>;
     close(FILE);
 
-    open(FILE,">$filetoopen");
-    flock(FILE,2) if ($OS_USED eq "Unix");
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
     $emoticonnum = 0;
     foreach $emoticon (@emoticons) {
         next if ($emoticon eq "");
-	chomp $emoticon;
-        $emoticonnum ++;
-	if ($emoticonid eq $emoticonnum) {
-	    ($oldemoticonname,undef,undef)=split(/\t/,$emoticon);
-	} else {
-	    print FILE "$emoticon\n";
-	}
+        chomp $emoticon;
+        $emoticonnum++;
+        if ($emoticonid eq $emoticonnum) {
+            ($oldemoticonname, undef, undef) = split(/\t/, $emoticon);
+        }
+        else {
+            print FILE "$emoticon\n";
+        }
     }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
@@ -355,8 +375,8 @@ sub deleteaction {
     ~;
 }
 
-sub errorout{
-    my($errortype,$errormsg)=@_;
+sub errorout {
+    my ($errortype, $errormsg) = @_;
     print qq~
     <tr>
     <td bgcolor=#EEEEEE align=center colspan=2>
@@ -367,22 +387,24 @@ sub errorout{
     ~;
 }
 
-sub decode{
-    my $str=shift;
-    my @strarr = split(//,$str);
+sub decode {
+    my $str = shift;
+    my @strarr = split(//, $str);
     chomp @strarr;
     my $strlen = length($str);
-    $str="";
+    $str = "";
     for ($i = 0; $i < $strlen; $i++) {
-    	my $binchar = vec($str, $i, 8);
-    	if($binchar > 126){
-    	    $errorout=1;last;
-    	}
-	if ($strarr[$i] =~/[^a-zA-Z0-9]/) {
-	    $str.="\\$strarr[$i]";
-	} else {
-	    $str.=$strarr[$i];
-	}
+        my $binchar = vec($str, $i, 8);
+        if ($binchar > 126) {
+            $errorout = 1;
+            last;
+        }
+        if ($strarr[$i] =~ /[^a-zA-Z0-9]/) {
+            $str .= "\\$strarr[$i]";
+        }
+        else {
+            $str .= $strarr[$i];
+        }
     }
     return $str;
 }
@@ -390,12 +412,12 @@ sub doemote {
     $subsmilecode = '';
     open(FILE, "${lbdir}data/emoticons.cgi");
     my @emoticonsdata = <FILE>;
-    close (FILE);
+    close(FILE);
     foreach (@emoticonsdata) {
-	chomp;
-	next if ($_ eq "");
-	my ($emoticonname, $emoticonurl, $emoticoninfo) = split(/\t/, $_);
-	$subsmilecode .= "\$\$post =~ s/(^|\\s|\\>|\\;)$emoticonurl(\\s|\$|\\<)/\$1<img src=\${imagesurl}\\/emoticons\\/$emoticonname alt=\"$emoticoninfo\">\$2/isg;\n";
+        chomp;
+        next if ($_ eq "");
+        my ($emoticonname, $emoticonurl, $emoticoninfo) = split(/\t/, $_);
+        $subsmilecode .= "\$\$post =~ s/(^|\\s|\\>|\\;)$emoticonurl(\\s|\$|\\<)/\$1<img src=\${imagesurl}\\/emoticons\\/$emoticonname alt=\"$emoticoninfo\">\$2/isg;\n";
     }
 
     open(FILE, ">${lbdir}data/emoticons.pl");

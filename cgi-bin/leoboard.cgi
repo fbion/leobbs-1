@@ -10,15 +10,19 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	next if ($_ eq '');
-    	s/\\/\//g; s/\/[^\/]+$//o;
-        unshift(@INC,$_);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        next if ($_ eq '');
+        s/\\/\//g;
+        s/\/[^\/]+$//o;
+        unshift(@INC, $_);
     }
 }
 
+use warnings;
+use strict;
 use LBCGI;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+use diagnostics;
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print "<script language='javascript'>document.location = 'leobbs.cgi'</script>";
 exit;

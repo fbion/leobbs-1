@@ -11,22 +11,26 @@
 
 BEGIN {
     push @INC, '.';
-    my $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    my $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
 require "bbs.lib.pl";
 $|++;
 $query = LBCGI->new;
-print header(-expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print "$versionnumber";
 exit;

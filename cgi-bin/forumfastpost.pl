@@ -8,36 +8,43 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-$maxpoststr = "" if ($maxpoststr eq 0);
-$maxpoststr = 100 if (($maxpoststr < 100)&&($maxpoststr ne ""));
-    if ($startnewthreads eq "no")        { $startthreads = "在此论坛中新的主题和帖子回复只能由坛主、版主发表！"; }
-    elsif ($startnewthreads eq "follow") { $startthreads = "在此论坛中新的主题只能由坛主、版主发表！普通会员只可以跟帖！"; }
-    elsif ($startnewthreads eq "all")    { $startthreads = "任何人均可以发表和回复主题，未注册用户发帖密码请留空！"; }
-    elsif ($startnewthreads eq "cert")   { $startthreads = "在此论坛中新的主题只能由坛主、版主、认证的会员发表！"; }
-    else { $startthreads = "所有注册会员均可以发表和回复主题！"; }
+use warnings;
+use strict;
+use diagnostics;
 
-    if ($emailfunctions eq "on") {
-	if ($innotify eq "yes") { $requestnotify = " checked"; } else { $requestnotify = ""; }
-	$requestnotify = qq~&nbsp;<input type=checkbox name="notify" value="yes"$requestnotify>有回复时使用邮件通知您？<br>~;
-    }
-    if ($emoticons eq "on") {
-       $emoticonslink = qq~<li><span style=cursor:hand onClick="javascript:openScript('$miscprog?action=showsmilies',300,350)">允许<B>使用</B>表情字符转换</span>~;
-       $emoticonsbutton =qq~&nbsp;<input type=checkbox name="inshowemoticons" value="yes" checked>您是否希望<b>使用</b>表情字符转换？<br>~;
-    }
-    $maxpoststr = "(帖子中最多包含 <B>$maxpoststr</B> 个字符)" if ($maxpoststr ne "");
+$maxpoststr = "" if ($maxpoststr eq 0);
+$maxpoststr = 100 if (($maxpoststr < 100) && ($maxpoststr ne ""));
+if ($startnewthreads eq "no") {$startthreads = "在此论坛中新的主题和帖子回复只能由坛主、版主发表！";}
+elsif ($startnewthreads eq "follow") {$startthreads = "在此论坛中新的主题只能由坛主、版主发表！普通会员只可以跟帖！";}
+elsif ($startnewthreads eq "all") {$startthreads = "任何人均可以发表和回复主题，未注册用户发帖密码请留空！";}
+elsif ($startnewthreads eq "cert") {$startthreads = "在此论坛中新的主题只能由坛主、版主、认证的会员发表！";}
+else {$startthreads = "所有注册会员均可以发表和回复主题！";}
+
+if ($emailfunctions eq "on") {
+    if ($innotify eq "yes") {$requestnotify = " checked";}
+    else {$requestnotify = "";}
+    $requestnotify = qq~&nbsp;<input type=checkbox name="notify" value="yes"$requestnotify>有回复时使用邮件通知您？<br>~;
+}
+if ($emoticons eq "on") {
+    $emoticonslink = qq~<li><span style=cursor:hand onClick="javascript:openScript('$miscprog?action=showsmilies',300,350)">允许<B>使用</B>表情字符转换</span>~;
+    $emoticonsbutton = qq~&nbsp;<input type=checkbox name="inshowemoticons" value="yes" checked>您是否希望<b>使用</b>表情字符转换？<br>~;
+}
+$maxpoststr = "(帖子中最多包含 <B>$maxpoststr</B> 个字符)" if ($maxpoststr ne "");
 if ($canchgfont ne "no") {
     $fontpost = qq~&nbsp;<input type=checkbox name="inshowchgfont" value="yes">使用字体转换？<br>~;
-} else {
+}
+else {
     undef $fontpost;
 }
 
 if ($idmbcodestate eq "on") {
     $idmbcodestates = qq~&nbsp;<input type=checkbox name="uselbcode" value="yes" checked>使用 LeoBBS 标签？<BR>~;
-} else {
+}
+else {
     $idmbcodestates = "";
 }
 
-    $output .= qq~<script>
+$output .= qq~<script>
 function HighlightAll(theField) {
 var tempval=eval("document."+theField)
 tempval.focus()
@@ -62,7 +69,7 @@ function DoTitle(addTitle) { var revisedTitle;var currentTitle = document.FORM.i
 <td bgcolor=$miscbacktwo valign=top>&nbsp;<font color=$fontcolormisc><b>选项</b>　~;
 
 if ($magicface ne 'off') {
-$output .= qq~
+    $output .= qq~
 <style>
 .gray	{cursor: hand; filter:gray}
 </style>
@@ -82,13 +89,13 @@ $output .= qq~
 $requestnotify$emoticonsbutton$fontpost</center>
 <td bgcolor=$miscbacktwo>　<TEXTAREA cols=80 name=inpost rows=9 wrap="soft" onkeydown=ctlent()>$inpost</TEXTAREA><br></td></tr>~;
 
-    if (($arrowupload ne "off")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) {
+if (($arrowupload ne "off") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
     $uploadreqire = "" if ($uploadreqire <= 0);
     $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
-	$output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
-        $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
-    }
-    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=Submit value="发 表 新 主 题" name=Submit onClick="return clckcntr();">　　<input type=button value='预 览 内 容' name=Button onclick=gopreview()>　　<input type="reset" name="Clear" value="清 除"></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT></form>
+    $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
+    $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
+}
+$output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=Submit value="发 表 新 主 题" name=Submit onClick="return clckcntr();">　　<input type=button value='预 览 内 容' name=Button onclick=gopreview()>　　<input type="reset" name="Clear" value="清 除"></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT></form>
 <form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$inforum"></form>
 <script>
 function gopreview(){

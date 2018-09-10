@@ -8,12 +8,16 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use warnings;
+use strict;
+use diagnostics;
+
 require "${lbdir}data/outputbutton.pl" if (-e "${lbdir}data/outputbutton.pl");
 $outputbutton =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if ($disphideboard eq "yes");
 $outputbutton =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
 
-if ($query->cookie("selectstyle")) { $inselectstyle = $query->cookie("selectstyle"); }
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
+if ($query->cookie("selectstyle")) {$inselectstyle = $query->cookie("selectstyle");}
+$inselectstyle = $skinselected if ($inselectstyle eq "");
 
 $output .= qq~<tr><td bgcolor=$titlecolor colspan=3 $catbackpic><font color=$titlefontcolor><B>-=> 快速登录入口</B>　 [ 来自：$trueipaddress，$fromwhere1 。系统：$osinfo，$browseinfo ]</td></tr>
 <script>

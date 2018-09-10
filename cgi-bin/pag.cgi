@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 use VISITFORUM qw(getlastvisit setlastvisit);
@@ -33,105 +37,106 @@ $|++;
 $thisprog = "pag.cgi";
 $query = new LBCGI;
 
-$inforum        = $query -> param('forum');
-$intopic        = $query -> param('topic');
-$email        = $query -> param('email');
+$inforum = $query->param('forum');
+$intopic = $query->param('topic');
+$email = $query->param('email');
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
-if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
+if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
+if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
-	    if ($regaccess eq "on" && &checksearchbot) {
-	    	print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-	    	print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
-	    	exit;
-	    }
+    if ($regaccess eq "on" && &checksearchbot) {
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        exit;
+    }
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
 }
 else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if (($allowedentry{$inforum} eq "yes")||($membercode eq "ad")||($membercode eq 'smo')) { $allowed = "yes"; } else { $allowed = "no"; }
-#        &getmemberstime("$inmembername");
-        &getlastvisit;
-        $forumlastvisit = $lastvisitinfo{$inforum};
-        $currenttime = time;
-        &setlastvisit("$inforum,$currenttime");
-    }
+    if (($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo')) {$allowed = "yes";}
+    else {$allowed = "no";}
+    #        &getmemberstime("$inmembername");
+    &getlastvisit;
+    $forumlastvisit = $lastvisitinfo{$inforum};
+    $currenttime = time;
+    &setlastvisit("$inforum,$currenttime");
+}
 
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-    &getoneforum("$inforum");
+&getoneforum("$inforum");
 
-    $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
-    &winlock($filetoopen) if ($OS_USED eq "Nt");
-    open(FILE, "$filetoopen");
-    flock(FILE, 1) if ($OS_USED eq "Unix");
-    @threads = <FILE>;
-    close(FILE);
-    &winunlock($filetoopen) if ($OS_USED eq "Nt");
-    ($trash, $topictitle, $trash) = split(/\t/, @threads[0]);
-    $topictitle =~ s/^＊＃！＆＊//;
+$filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+&winlock($filetoopen) if ($OS_USED eq "Nt");
+open(FILE, "$filetoopen");
+flock(FILE, 1) if ($OS_USED eq "Unix");
+@threads = <FILE>;
+close(FILE);
+&winunlock($filetoopen) if ($OS_USED eq "Nt");
+($trash, $topictitle, $trash) = split(/\t/, @threads[0]);
+$topictitle =~ s/^＊＃！＆＊//;
 
-	if ($addtopictime eq "yes") {
-	    my $topictime = &dispdate($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
-	    $topictitle = "[$topictime] $topictitle";
-	}
+if ($addtopictime eq "yes") {
+    my $topictime = &dispdate($postdate + ($timedifferencevalue * 3600) + ($timezone * 3600));
+    $topictitle = "[$topictime] $topictitle";
+}
 
-    $postdate = &dateformat($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
+$postdate = &dateformat($postdate + ($timedifferencevalue * 3600) + ($timezone * 3600));
 
-if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "客人"))&&($userincert eq "no")) { &error("进入论坛&你一般会员不允许进入此论坛！"); }
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz!~/,$membercode,/);
-if ($allowusers ne ''){
+if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
+if ($allowusers ne '') {
     &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
-    if ($enterminmony > 0 || $enterminjf > 0 ) {
-	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
-	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
+    if ($enterminmony > 0 || $enterminjf > 0) {
+        require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
+        $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
+        &error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+        &error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
-    if (($privateforum eq "yes") && ($allowed ne "yes")) {
-        &error("进入私密论坛&对不起，你无权访问这个论坛！");
-    }
-    else {
-      my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
-      $filetoopens = &lockfilename($filetoopens);
-      if (!(-e "$filetoopens.lck")) {
+if (($privateforum eq "yes") && ($allowed ne "yes")) {
+    &error("进入私密论坛&对不起，你无权访问这个论坛！");
+}
+else {
+    my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
+    $filetoopens = &lockfilename($filetoopens);
+    if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
             &whosonline("$inmembername\t$forumname\tboth\t打包邮递贴子<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
         }
         else {
             &whosonline("$inmembername\t$forumname(密)\tboth\t打包邮递贴子保密贴子\t");
         }
-      }
     }
-if ($emailfunctions eq "off") { &error("打包邮递&非常抱歉，论坛的发送邮件功能已经关闭！");  }
+}
+if ($emailfunctions eq "off") {&error("打包邮递&非常抱歉，论坛的发送邮件功能已经关闭！");}
 
-    if ($email){
-        if ($email !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("打包邮递&错误的邮件地址！"); }
-        $email =~ s/[\a\f\n\e\0\r\t\`\~\!\$\%\^\&\*\(\)\=\+\\\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
-        $output .= qq~
+if ($email) {
+    if ($email !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) {&error("打包邮递&错误的邮件地址！");}
+    $email =~ s/[\a\f\n\e\0\r\t\`\~\!\$\%\^\&\*\(\)\=\+\\\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
+    $output .= qq~
         <html><head><title>$boardname</title>
 	<style>
 		A:visited {	TEXT-DECORATION: none	}
@@ -174,22 +179,22 @@ if ($emailfunctions eq "off") { &error("打包邮递&非常抱歉，论坛的发
 
     ~;
     foreach $line (@threads) {
-        ($postermembername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post) = split(/\t/,$line);
+        ($postermembername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post) = split(/\t/, $line);
         $post = "<font color=red>屏蔽帖子不能打包<\/font>" if ($post =~ /\[POSTISDELETE=(.+?)\]/isg);
-        $post =~ s/\[hide\](.*)\[\/hide\]/<font color=red>隐藏内容不能打包<\/font>/isg; 
-		$post="<font color=red>加密贴子不能打包<\/font>" if ($post=~/LBHIDDEN\[(.*?)\]LBHIDDEN/isg || $post=~/LBSALE\[(.*?)\]LBSALE/isg);
-		$post =~ s/\[post=(.+?)\](.+?)\[\/post\]/<font color=red>加密贴子不能打包<\/font>/isg;
-		$post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]/<font color=red>加密贴子不能打包<\/font>/isg;
-	$post =~ s/\[watermark\](.+?)\[\/watermark\]/<font color=red>加水印内容不能打包<\/font>/isg;
-	$post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[加密连结\]/isg if ($usecurl ne "no");
-        $post  =~ s/\[ALIPAYE\](.*)\[ALIPAYE\]//isg; 
+        $post =~ s/\[hide\](.*)\[\/hide\]/<font color=red>隐藏内容不能打包<\/font>/isg;
+        $post = "<font color=red>加密贴子不能打包<\/font>" if ($post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/isg || $post =~ /LBSALE\[(.*?)\]LBSALE/isg);
+        $post =~ s/\[post=(.+?)\](.+?)\[\/post\]/<font color=red>加密贴子不能打包<\/font>/isg;
+        $post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]/<font color=red>加密贴子不能打包<\/font>/isg;
+        $post =~ s/\[watermark\](.+?)\[\/watermark\]/<font color=red>加水印内容不能打包<\/font>/isg;
+        $post =~ s/\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/\[加密连结\]/isg if ($usecurl ne "no");
+        $post =~ s/\[ALIPAYE\](.*)\[ALIPAYE\]//isg;
 
-	&lbcode(\$post);
+        &lbcode(\$post);
 
         $post =~ s/&lt\;/\</g;
         $post =~ s/&gt\;/\>/g;
         $post =~ s/&quot\;/\"/g;
-        $postdate = &dateformat($postdate + ($timedifferencevalue*3600) + ($timezone*3600));
+        $postdate = &dateformat($postdate + ($timedifferencevalue * 3600) + ($timezone * 3600));
 
         $output .= qq~ 
         <hr><br>
@@ -206,7 +211,8 @@ if ($emailfunctions eq "off") { &error("打包邮递&非常抱歉，论坛的发
     &sendmail($adminemail_out, $adminemail_in, $email, $subject, $output);
     print "<center><br><b>邮递贴子完毕!</b><br><br><a href=javascript:top.window.close()>关闭窗口</a><script>top.window.close()</script></center>";
     exit;
-}else {
+}
+else {
     $output .= qq~
     <br><p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -228,5 +234,5 @@ if ($emailfunctions eq "off") { &error("打包邮递&非常抱歉，论坛的发
     </tr><tr>
     <td colspan=2 bgcolor=$miscbacktwo align=center><input type=submit value="发 送" name="Submit"></table></td></form></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
-    &output("$boardname - 帖子打包",\$output,"msg");
+    &output("$boardname - 帖子打包", \$output, "msg");
 }

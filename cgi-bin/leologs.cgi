@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+use diagnostics;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -33,28 +37,27 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-$action        = $query -> param("action");
-$action        = &cleaninput("$action");
+$action = $query->param("action");
+$action = &cleaninput("$action");
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-            
 
 if ($action eq "process") {
-        
-        &getmember("$inmembername","no");
-        
-                if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) { 
-           $filetoopen = "$lbdir" . "data/baddel.cgi";
-           unlink $filetoopen;
-           print qq~
+
+    &getmember("$inmembername", "no");
+
+    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+        $filetoopen = "$lbdir" . "data/baddel.cgi";
+        unlink $filetoopen;
+        print qq~
            <tr><td bgcolor=#2159C9"><font color=#FFFFFF>
 		<b>欢迎来到论坛管理中心 / 删除日志</b>
 		</td></tr>
@@ -64,23 +67,22 @@ if ($action eq "process") {
 		</td></tr>
 		<tr><td align=center><br><br>安全日志已经删除!</td></tr>
            ~;
-         
-                }
-        
-        }
-        
-    else {
-        
-        &getmember("$inmembername","no");
-        
-        if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
-                $filetoopen = "$lbdir" . "data/baddel.cgi";
-                open (FILE, "$filetoopen");
-                @baddel = <FILE>;
-                close (FILE);
-                
-                print qq(
+    }
+
+}
+else {
+
+    &getmember("$inmembername", "no");
+
+    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+        $filetoopen = "$lbdir" . "data/baddel.cgi";
+        open(FILE, "$filetoopen");
+        @baddel = <FILE>;
+        close(FILE);
+
+        print qq(
                 <tr><td bgcolor=#2159C9" colspan=6><font color=#FFFFFF>
 		<b>欢迎来到论坛管理中心 / 删除日志</b>
 		</td></tr>
@@ -90,23 +92,23 @@ if ($action eq "process") {
 		</td></tr>
 		<tr><td>操作者</td><td>密码</td><td>IP地址</td><td>代理IP</td><td>操作论坛</td><td>操作时间</td></tr>
 		);
-		foreach (@baddel){
-		(my $name, my $pass, my $ip, my $proxy, my $forums,my $oldtime) = split(/\t/,$_);
-		&getoneforum($forums);
-		print qq~
+        foreach (@baddel) {
+            (my $name, my $pass, my $ip, my $proxy, my $forums, my $oldtime) = split(/\t/, $_);
+            &getoneforum($forums);
+            print qq~
 		<tr><td>$name</td><td>$pass</td><td>$ip</td><td>$proxy</td><td>$forumname [ID:$forums]</td><td>$oldtime</td></tr>
 		~;
-		}
-                print qq~
+        }
+        print qq~
                 <tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=6><br>
 		<font color=#333333><b><a href=$thisprog?action=process>删除安全日志</a></b>
 		</td></tr>
                 ~;
-                }
-                else {
-                    &adminlogin;
-                    }
-        }
+    }
+    else {
+        &adminlogin;
+    }
+}
 print qq~</td></tr></table></body></html>~;
 exit;

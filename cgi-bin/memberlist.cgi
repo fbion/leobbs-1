@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -35,94 +39,96 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = new LBCGI;
 &ipbanned; #封杀一些 ip
 
-$topanzahl       = $hottopicmark;       #显示发贴前多少名？显示最新多少个加入的用户？
-$startseite      = "1";         	#默认排序:  1->发贴数, 2->前N名, 3->用户名, 4->注册日期
-$memberproseite  = $maxthreads; 	#每页显示用户数
-if (! $inmembername) { $inmembername = cookie("amembernamecookie"); }
-if (! $inpassword)   { $inpassword   = cookie("apasswordcookie");   }
+$topanzahl = $hottopicmark;    #显示发贴前多少名？显示最新多少个加入的用户？
+$startseite = "1";             #默认排序:  1->发贴数, 2->前N名, 3->用户名, 4->注册日期
+$memberproseite = $maxthreads; #每页显示用户数
+if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
-   $inmembername = "客人";
+if ($inmembername eq "" || $inmembername eq "客人") {
+    $inmembername = "客人";
 }
 
-$inselectstyle  = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 if ($infosopen == 2) {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("查看会员列表&客人无权查看会员列表！") if ($inmembername eq "客人");
-    if ($userregistered eq "no") { &error("查看会员列表&你还没注册呢！"); }
-    elsif ($inpassword ne $password) { &error("查看会员列表&你的密码有问题！"); }
-    &error("查看会员列表&论坛会员列表只有坛主和版主可以查看！") if (($membercode ne "ad")&&($membercode ne 'amo')&&($membercode ne 'smo')&&($membercode ne 'cmo')&&($membercode ne "mo"));
+    if ($userregistered eq "no") {&error("查看会员列表&你还没注册呢！");}
+    elsif ($inpassword ne $password) {&error("查看会员列表&你的密码有问题！");}
+    &error("查看会员列表&论坛会员列表只有坛主和版主可以查看！") if (($membercode ne "ad") && ($membercode ne 'amo') && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne "mo"));
 }
 elsif ($infosopen == 3) {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("查看会员列表&客人无权查看会员列表！") if ($inmembername eq "客人");
-    if ($userregistered eq "no") { &error("查看会员列表&你还没注册呢！"); }
-    elsif ($inpassword ne $password) { &error("查看会员列表&你的密码有问题！"); }
+    if ($userregistered eq "no") {&error("查看会员列表&你还没注册呢！");}
+    elsif ($inpassword ne $password) {&error("查看会员列表&你的密码有问题！");}
     &error("查看会员列表&论坛会员列表只有坛主可以查看！") if ($membercode ne "ad");
 }
 elsif ($infosopen == 1) {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("查看会员列表&客人无权查看会员列表！") if ($inmembername eq "客人");
-    if ($userregistered eq "no") { &error("查看会员列表&你还没注册呢！"); }
-    elsif ($inpassword ne $password) { &error("查看会员列表&你的密码有问题！"); }
+    if ($userregistered eq "no") {&error("查看会员列表&你还没注册呢！");}
+    elsif ($inpassword ne $password) {&error("查看会员列表&你的密码有问题！");}
 }
 else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
 }
 &title;
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-&whosonline("$inmembername\t用户列表\tboth\t查看用户列表\t");
+    &whosonline("$inmembername\t用户列表\tboth\t查看用户列表\t");
 }
-open (FILE, "${lbdir}data/lbmember.cgi");
-sysread(FILE, $totlemembertemp,(stat(FILE))[7]);
-close (FILE);
+open(FILE, "${lbdir}data/lbmember.cgi");
+sysread(FILE, $totlemembertemp, (stat(FILE))[7]);
+close(FILE);
 $totlemembertemp =~ s/\r//isg;
-@file = split (/\n/, $totlemembertemp);
-$totlemembertemp=@file;
+@file = split(/\n/, $totlemembertemp);
+$totlemembertemp = @file;
 $query = new LBCGI;
-$L = $query -> param ("L");
-if($L){
-$pagel="&L=$L";
-$LL=lc($L) if($L ne "*");
-@CCfile=@file;@file=();
-if($L eq "*"){
-@file=grep(/^[^a-zA-Z]/,@CCfile);
-}else{
-@file=grep(/^[$L|$LL]/,@CCfile);
-}
+$L = $query->param("L");
+if ($L) {
+    $pagel = "&L=$L";
+    $LL = lc($L) if ($L ne "*");
+    @CCfile = @file;
+    @file = ();
+    if ($L eq "*") {
+        @file = grep (/^[^a-zA-Z]/, @CCfile);
+    }
+    else {
+        @file = grep (/^[$L|$LL]/, @CCfile);
+    }
 }
 foreach $line (@file) {
-@tmpuserdetail = split (/\t/, $line);
-chomp @tmpuserdetail;
-if ($tmpuserdetail[1] eq banned) {push (@banned, "$tmpuserdetail[0]"); }
-push (@cgi, "$tmpuserdetail[0]");
-$postundmember {"$tmpuserdetail[0]"} = $tmpuserdetail[2];
-$datumundmember {"$tmpuserdetail[0]"} = $tmpuserdetail[3];
-$moneymember {"$tmpuserdetail[0]"} = $tmpuserdetail[5];
-$jhmember {"$tmpuserdetail[0]"} = $tmpuserdetail[6] if ($tmpuserdetail[6] > 0);
-$jfmember {"$tmpuserdetail[0]"} = $tmpuserdetail[7] if ($tmpuserdetail[7] > 0);
+    @tmpuserdetail = split(/\t/, $line);
+    chomp @tmpuserdetail;
+    if ($tmpuserdetail[1] eq banned) {push(@banned, "$tmpuserdetail[0]");}
+    push(@cgi, "$tmpuserdetail[0]");
+    $postundmember{"$tmpuserdetail[0]"} = $tmpuserdetail[2];
+    $datumundmember{"$tmpuserdetail[0]"} = $tmpuserdetail[3];
+    $moneymember{"$tmpuserdetail[0]"} = $tmpuserdetail[5];
+    $jhmember{"$tmpuserdetail[0]"} = $tmpuserdetail[6] if ($tmpuserdetail[6] > 0);
+    $jfmember{"$tmpuserdetail[0]"} = $tmpuserdetail[7] if ($tmpuserdetail[7] > 0);
 }
-@cgi=sort(@cgi);
-@sortiert = reverse sort { $postundmember{$a} <=> $postundmember{$b} } keys(%postundmember);
-@sortiert1 = sort { $datumundmember{$a} <=> $datumundmember{$b} } keys(%datumundmember);
+@cgi = sort (@cgi);
+@sortiert = reverse sort {$postundmember{$a} <=> $postundmember{$b}} keys(%postundmember);
+@sortiert1 = sort {$datumundmember{$a} <=> $datumundmember{$b}} keys(%datumundmember);
 @sortiert2 = reverse(@sortiert1);
-@sortiert3 = reverse sort { $moneymember{$a} <=> $moneymember{$b} } keys(%moneymember);
-@sortiert4 = reverse sort { $jhmember{$a} <=> $jhmember{$b} } keys(%jhmember);
-@sortiert5 = reverse sort { $jfmember{$a} <=> $jfmember{$b} } keys(%jfmember);
+@sortiert3 = reverse sort {$moneymember{$a} <=> $moneymember{$b}} keys(%moneymember);
+@sortiert4 = reverse sort {$jhmember{$a} <=> $jhmember{$b}} keys(%jhmember);
+@sortiert5 = reverse sort {$jfmember{$a} <=> $jfmember{$b}} keys(%jfmember);
 
 $output .= qq~<br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看到本站所有注册会员的列表和详细信息以及发帖排名情况</td></tr></table>
@@ -130,19 +136,18 @@ $output .= qq~<br>
 <p>
 ~;
 read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
-$a = $query -> param ("a");
-$buffer=~s/\&L=(\S+?)//isg;
-$searchmembername = $query -> param ("searchmember"); 
+$a = $query->param("a");
+$buffer =~ s/\&L=(\S+?)//isg;
+$searchmembername = $query->param("searchmember");
 $searchmembername = &cleaninput($searchmembername);
 $searchmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]//isg;
-if ($searchmembername  ne "") { 
-$a = 0; 
-&searchmember} 
+if ($searchmembername ne "") {
+    $a = 0;
+    &searchmember
+}
 
-if ($a eq '' && $buffer eq '')
-{$buffer = "a=$startseite";}
-else
-{($buffer = "$buffer") || ($buffer = "a=$a");}
+if ($a eq '' && $buffer eq '') {$buffer = "a=$startseite";}
+else {($buffer = "$buffer") || ($buffer = "a=$a");}
 if ($buffer eq 'a=1') {&Postsortiert}
 elsif ($buffer eq 'a=2') {&Topten}
 elsif ($buffer eq 'a=3') {&Namensortiert}
@@ -155,7 +160,7 @@ elsif ($buffer eq 'a=9') {&jfum}
 
 sub jhum {
     $query = new LBCGI;
-    $inpage = $query -> param ("page");
+    $inpage = $query->param("page");
     if ($inpage eq "") {$inpage = 1;}
     $a = 8;
     $Listenname = "以精华数排序";
@@ -163,26 +168,26 @@ sub jhum {
     @memberarray = @sortiert4;
     &splitting;
     foreach $member (@sortiert4[$startmember ... $endmember]) {
-        $member =~s/ /_/g;
-        $member =~s/_/\_/g;
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
         $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
             $memberdaten = <FILE>;
             close(FILE);
             &Listing(2);
-	}
+        }
     }
     $output .= qq~</table>~;
 }
 
 sub moneyum {
     $query = new LBCGI;
-    $inpage = $query -> param ("page");
+    $inpage = $query->param("page");
     if ($inpage eq "") {$inpage = 1;}
     $a = 7;
     $Listenname = "以金钱排序";
@@ -190,78 +195,78 @@ sub moneyum {
     @memberarray = @sortiert3;
     &splitting;
     foreach $member (@sortiert3[$startmember ... $endmember]) {
-        $member =~s/ /_/g;
-        $member =~s/_/\_/g;
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
         $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
             $memberdaten = <FILE>;
             close(FILE);
             &Listing(1);
-	}
+        }
     }
     $output .= qq~</table>~;
 }
 
 sub Namensortiert {
     $query = new LBCGI;
-    $inpage = $query -> param ("page");
-    if ($inpage eq "") { $inpage = 1; }
-	$a = 3;
-	@memberarray = @cgi;
-	&splitting;
-	$Listenname = "以用户名排序";
-	&Tabellenanfang;
-	foreach $member (@cgi[$startmember ... $endmember]) {
-	    $member =~s/ /_/g;
-            $member =~ tr/A-Z/a-z/;
-            $member =~s/_/\_/g;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
-		$memberdaten = <FILE>;
-		close(FILE);
-		&Listing;
-	    }
-	}
-	$output .= qq~</table>~;
+    $inpage = $query->param("page");
+    if ($inpage eq "") {$inpage = 1;}
+    $a = 3;
+    @memberarray = @cgi;
+    &splitting;
+    $Listenname = "以用户名排序";
+    &Tabellenanfang;
+    foreach $member (@cgi[$startmember ... $endmember]) {
+        $member =~ s/ /_/g;
+        $member =~ tr/A-Z/a-z/;
+        $member =~ s/_/\_/g;
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
+            $memberdaten = <FILE>;
+            close(FILE);
+            &Listing;
+        }
+    }
+    $output .= qq~</table>~;
 }
 sub banned {
     $query = new LBCGI;
-    $inpage = $query -> param ("page");
-    if ($inpage eq "") { $inpage = 1; }
-	$a = 6;
-	@memberarray = @banned;
-	&splitting;
-	$Listenname = "被禁止发言的";
-	&Tabellenanfang;
-	foreach $member (@banned[$startmember ... $endmember]) {
-	    $member =~s/ /_/g;
-	    $member =~s/_/\_/g;
-            $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
-		$memberdaten = <FILE>;
-		close(FILE);
-		&Listing;
-	    }
-	}
-	$output .= qq~</table>~;
+    $inpage = $query->param("page");
+    if ($inpage eq "") {$inpage = 1;}
+    $a = 6;
+    @memberarray = @banned;
+    &splitting;
+    $Listenname = "被禁止发言的";
+    &Tabellenanfang;
+    foreach $member (@banned[$startmember ... $endmember]) {
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
+        $member =~ tr/A-Z/a-z/;
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
+            $memberdaten = <FILE>;
+            close(FILE);
+            &Listing;
+        }
+    }
+    $output .= qq~</table>~;
 }
 
-sub searchmember { 
-        $output .= qq~<SCRIPT>valigntop()</SCRIPT>
+sub searchmember {
+    $output .= qq~<SCRIPT>valigntop()</SCRIPT>
            <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center> 
           <tr>     
           <td> 
@@ -279,61 +284,61 @@ sub searchmember {
           </td> 
           </table></td></tr></table>
           <meta http-equiv="refresh" content="3; url=profile.cgi?action=show&member=~ . uri_escape($searchmembername) . qq~"> 
-          ~; 
-          } 
+          ~;
+}
 
 
 sub Postsortiert {
-	$query = new LBCGI;
-    $inpage = $query -> param ("page");
-    if ($inpage eq "") { $inpage = 1; }
-	$a = 1;
-	@memberarray = @sortiert;
-	&splitting;
-	$Listenname = "以发贴总数排序";
-	&Tabellenanfang;
-	foreach $member (@sortiert[$startmember ... $endmember]) {
-	    $member =~s/ /_/g;
-	    $member =~s/_/\_/g;
-            $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
-		$memberdaten = <FILE>;
-		close(FILE);
-		&Listing;
-	    }
-	}
-	$output .= qq~</table>~;
+    $query = new LBCGI;
+    $inpage = $query->param("page");
+    if ($inpage eq "") {$inpage = 1;}
+    $a = 1;
+    @memberarray = @sortiert;
+    &splitting;
+    $Listenname = "以发贴总数排序";
+    &Tabellenanfang;
+    foreach $member (@sortiert[$startmember ... $endmember]) {
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
+        $member =~ tr/A-Z/a-z/;
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
+            $memberdaten = <FILE>;
+            close(FILE);
+            &Listing;
+        }
+    }
+    $output .= qq~</table>~;
 
 }
 sub Topten {
     $Listenname = "发贴总数前 $topanzahl 名";
     &Tabellenanfang;
-    @sortiert = splice(@sortiert,0,$topanzahl);
+    @sortiert = splice(@sortiert, 0, $topanzahl);
     foreach $member (@sortiert) {
-        $member =~s/ /_/g;
-        $member =~s/_/\_/g;
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
         $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
-        $memberdaten = <FILE>;
-        close(FILE);
-        &Listing;
-    }
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
+            $memberdaten = <FILE>;
+            close(FILE);
+            &Listing;
+        }
     }
     $output .= qq~</table>~;
 }
 sub datum {
     $query = new LBCGI;
-    $inpage = $query -> param ("page");
+    $inpage = $query->param("page");
     if ($inpage eq "") {$inpage = 1;}
     $a = 4;
     $Listenname = "以注册时间排序";
@@ -341,19 +346,19 @@ sub datum {
     @memberarray = @sortiert1;
     &splitting;
     foreach $member (@sortiert1[$startmember ... $endmember]) {
-        $member =~s/ /_/g;
-        $member =~s/_/\_/g;
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
         $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
             $memberdaten = <FILE>;
             close(FILE);
             &Listing;
-	}
+        }
     }
     $output .= qq~</table>~;
 }
@@ -361,49 +366,49 @@ sub redatum {
     $Listenname = "最新 $topanzahl 名注册用户";
     &Tabellenanfang;
     @memberarray = @sortiert2;
-    @sortiert2 = splice(@sortiert2,0,$topanzahl);
+    @sortiert2 = splice(@sortiert2, 0, $topanzahl);
     foreach $member (@sortiert2) {
-            $member =~s/ /_/g;
-            $member =~s/_/\_/g;
-            $member =~ tr/A-Z/a-z/;
-	    my $namenumber = &getnamenumber($member);
-	    &checkmemfile($member,$namenumber);
-            $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-            $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-	    if (-e "$usrfile") {
-		open(FILE, "$usrfile" );
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
+        $member =~ tr/A-Z/a-z/;
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
             $memberdaten = <FILE>;
             close(FILE);
             &Listing;
-	}
+        }
     }
     $output .= qq~</table>~;
 }
 sub jfum {
-   $query = new LBCGI;
-   $inpage = $query -> param ("page");
-   if ($inpage eq "") {$inpage = 1;}
-   $a = 9;
-   $Listenname = "以积分排序";
-   &Tabellenanfang(3);
-   @memberarray = @sortiert5;
-   &splitting;
-   foreach $member (@sortiert5[$startmember ... $endmember]) {
-       $member =~s/ /_/g;
-       $member =~s/_/\_/g;
-       $member =~ tr/A-Z/a-z/;
-   my $namenumber = &getnamenumber($member);
-   &checkmemfile($member,$namenumber);
-       $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
-       $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
-   if (-e "$usrfile") {
-   open(FILE, "$usrfile" );
-           $memberdaten = <FILE>;
-           close(FILE);
-           &Listing(3);
-   }
-   }
-   $output .= qq~</table>~;
+    $query = new LBCGI;
+    $inpage = $query->param("page");
+    if ($inpage eq "") {$inpage = 1;}
+    $a = 9;
+    $Listenname = "以积分排序";
+    &Tabellenanfang(3);
+    @memberarray = @sortiert5;
+    &splitting;
+    foreach $member (@sortiert5[$startmember ... $endmember]) {
+        $member =~ s/ /_/g;
+        $member =~ s/_/\_/g;
+        $member =~ tr/A-Z/a-z/;
+        my $namenumber = &getnamenumber($member);
+        &checkmemfile($member, $namenumber);
+        $usrfile = "${lbdir}$memdir/$namenumber/$member.cgi";
+        $usrfile = "${lbdir}$memdir/old/$member.cgi" unless (-e $usrfile);
+        if (-e "$usrfile") {
+            open(FILE, "$usrfile");
+            $memberdaten = <FILE>;
+            close(FILE);
+            &Listing(3);
+        }
+    }
+    $output .= qq~</table>~;
 }
 
 sub Tabellenanfang {
@@ -432,54 +437,56 @@ sub Tabellenanfang {
 	用户： <input type=text name="searchmember">		<input type=submit value="查 找">
 	</td></form></tr>
 ~;
-    @L=("*","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","All");
-    $output.=qq~<tr bgcolor=$forumcolorone><td colspan="10"><table cellpadding=1 cellspacing=1 border=0 width=100%><tr bgcolor=$forumcolorone>~;
-    for($i=0;$i<28;$i++){
-    	if(($L eq lc($L[$i]))||(($L eq "")&&($L[$i] eq "All"))){
-    $output.=qq~<td width="3%" align="center" bgcolor="$forumcolorone">[$L[$i]]</td>~;
-    	}elsif($L[$i] eq "All"){
-    $output.=qq~<td width="3%" align="center" bgcolor="$forumcolortwo"><a href="memberlist.cgi?a=$a" target="_self">$L[$i]</a></td>~;
-    	}else{
-    $output.=qq~<td width="3%" align="center" bgcolor="$forumcolortwo"><a href="memberlist.cgi?a=$a&L=$L[$i]" target="_self">$L[$i]</a></td>~;
-    	}
+    @L = ("*", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "All");
+    $output .= qq~<tr bgcolor=$forumcolorone><td colspan="10"><table cellpadding=1 cellspacing=1 border=0 width=100%><tr bgcolor=$forumcolorone>~;
+    for ($i = 0; $i < 28; $i++) {
+        if (($L eq lc($L[$i])) || (($L eq "") && ($L[$i] eq "All"))) {
+            $output .= qq~<td width="3%" align="center" bgcolor="$forumcolorone">[$L[$i]]</td>~;
+        }
+        elsif ($L[$i] eq "All") {
+            $output .= qq~<td width="3%" align="center" bgcolor="$forumcolortwo"><a href="memberlist.cgi?a=$a" target="_self">$L[$i]</a></td>~;
+        }
+        else {
+            $output .= qq~<td width="3%" align="center" bgcolor="$forumcolortwo"><a href="memberlist.cgi?a=$a&L=$L[$i]" target="_self">$L[$i]</a></td>~;
+        }
     }
-    $output.=qq~</tr></table></td></tr>~;
+    $output .= qq~</tr></table></td></tr>~;
     if ($xiaoguo eq "") {
-        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>发贴总数</b></td></font></tr>~;
+        $output .= qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>发贴总数</b></td></font></tr>~;
     }
     elsif ($xiaoguo eq "1") {
-        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>现金数</b></td></font></tr>~;
+        $output .= qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>现金数</b></td></font></tr>~;
     }
     elsif ($xiaoguo eq "2") {
-        $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>精华贴数</b></td></font></tr>~;
+        $output .= qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>精华贴数</b></td></font></tr>~;
     }
     elsif ($xiaoguo eq "3") {
-       $output.=qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>积分数</b></td></font></tr>~;
-   }
+        $output .= qq~<tr bgcolor=$titlecolor><td align=center $catbackpic><b>用户名</b></td><td align=center $catbackpic><b>Email</b></td><td align=center $catbackpic><b>ICQ</b></td><td align=center $catbackpic><b>OICQ</b></td><td align=center $catbackpic><b>主页</b></td><td align=center $catbackpic><b>短消息</td><td align=center $catbackpic><b>最后发贴</td><td align=center $catbackpic><b>注册时间</b></td><td align=center $catbackpic><b>等级状态</b></td><td align=center $catbackpic><b>积分数</b></td></font></tr>~;
+    }
 
 }
 
 sub Listing {
     $xiaoguo = shift;
-    @memberdaten = split(/\t/,$memberdaten);
-    $name        = $memberdaten[0];
-    $status      = $memberdaten[2];
-    $anzahl      = $memberdaten[4];
-    ($anzahl1, $anzahl2) = split(/\|/,$anzahl);
+    @memberdaten = split(/\t/, $memberdaten);
+    $name = $memberdaten[0];
+    $status = $memberdaten[2];
+    $anzahl = $memberdaten[4];
+    ($anzahl1, $anzahl2) = split(/\|/, $anzahl);
     $postdel = $memberdaten[31];
-    $jifen      = $memberdaten[45];
+    $jifen = $memberdaten[45];
 
-	if ($jifen eq "") {
-		$jifen = $anzahl1 * $ttojf + $anzahl2 * $rtojf - $postdel * $deltojf;
-  }
+    if ($jifen eq "") {
+        $jifen = $anzahl1 * $ttojf + $anzahl2 * $rtojf - $postdel * $deltojf;
+    }
 
     $anzahl = $anzahl1 + $anzahl2;
-    $email       = $memberdaten[5];
-    $home        = $memberdaten[8];
-    $oicqnumber     = $memberdaten[9];
-    $icq         = $memberdaten[10];
-    $date        = $memberdaten[13] + ($memberdaten[16] * 3600) + ($timezone * 3600);
-    $rang        = $memberdaten[3];
+    $email = $memberdaten[5];
+    $home = $memberdaten[8];
+    $oicqnumber = $memberdaten[9];
+    $icq = $memberdaten[10];
+    $date = $memberdaten[13] + ($memberdaten[16] * 3600) + ($timezone * 3600);
+    $rang = $memberdaten[3];
     $emailstatus = $memberdaten[6];
     $emailstatus = "no" if ($dispmememail eq "no");
     next if ($name eq "");
@@ -489,128 +496,195 @@ sub Listing {
     $visitno = $memberdaten[27];
 
     ($postdate, $posturl, $posttopic) = split(/\%%%/, $memberdaten[14]);
-    if (($postdate ne "没有发表过")&&($postdate ne "")) {
+    if (($postdate ne "没有发表过") && ($postdate ne "")) {
         $postdate = $postdate + ($userdetail[16] * 3600) + ($timezone * 3600);
-        $lastpostdate = &longdate ("$postdate");
-        $lastposttime = &longdate ("$postdate");
+        $lastpostdate = &longdate("$postdate");
+        $lastposttime = &longdate("$postdate");
         $posttopic =~ s/^＊＃！＆＊//;
-	$lastpostdetails = qq~<a href=$posturl><img border=0 src=$imagesurl/images/openfold.gif alt=$posttopic></a>~;
+        $lastpostdetails = qq~<a href=$posturl><img border=0 src=$imagesurl/images/openfold.gif alt=$posttopic></a>~;
     }
-    else{$lastpostdetails = "没有";}
-    $date = &longdate($date + ($memberdaten[16]*3600) + ($timezone*3600));
-    $postundmember {"$name"} = $anzahl;
-    if (($icq) && ($icq =~ /[0-9]/)){
-	$icqgraphic = qq~<a href="javascript:openScript('misc.cgi?action=icq&UIN=$icq',450,300)"><img src=$imagesurl/images/icq.gif border=0 width=16 height=16></a>~;
+    else {$lastpostdetails = "没有";}
+    $date = &longdate($date + ($memberdaten[16] * 3600) + ($timezone * 3600));
+    $postundmember{"$name"} = $anzahl;
+    if (($icq) && ($icq =~ /[0-9]/)) {
+        $icqgraphic = qq~<a href="javascript:openScript('misc.cgi?action=icq&UIN=$icq',450,300)"><img src=$imagesurl/images/icq.gif border=0 width=16 height=16></a>~;
     }
-    else{$icqgraphic = "没有";}
+    else {$icqgraphic = "没有";}
 
-    if (($home eq "http://") || ($home eq "")) { $home = "没有"; }
-    else{
-	$home = "<a href=$home target=_blank><img border=0 src=$imagesurl/images/homepage.gif></a>"
+    if (($home eq "http://") || ($home eq "")) {$home = "没有";}
+    else {
+        $home = "<a href=$home target=_blank><img border=0 src=$imagesurl/images/homepage.gif></a>"
     }
 
-    if ($oicqnumber) { $oicqgraphic = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank><img src=$imagesurl/images/oicq.gif alt="查看 OICQ:$oicqnumber 的资料" border=0 width=16 height=16></a>~; }
-    else{$oicqgraphic = "没有";}
+    if ($oicqnumber) {$oicqgraphic = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank><img src=$imagesurl/images/oicq.gif alt="查看 OICQ:$oicqnumber 的资料" border=0 width=16 height=16></a>~;}
+    else {$oicqgraphic = "没有";}
     $email = &encodeemail($email);
-    if ($email eq "" || $emailstatus eq "no" || $emailstatus eq "msn" || $emailstatus eq "popo"){
-	$email = "没有" if ($email eq "");
-	$email = "保密" if ($emailstatus eq "no");
-	$email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/msn.gif></a>" if ($emailstatus eq "msn");
-	$email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/popo.gif></a>" if ($emailstatus eq "popo");
+    if ($email eq "" || $emailstatus eq "no" || $emailstatus eq "msn" || $emailstatus eq "popo") {
+        $email = "没有" if ($email eq "");
+        $email = "保密" if ($emailstatus eq "no");
+        $email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/msn.gif></a>" if ($emailstatus eq "msn");
+        $email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/popo.gif></a>" if ($emailstatus eq "popo");
     }
-    else {$email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/email.gif></a>" }
-        if ($jifen >= $mpostmarkmax)   { $mtitle = $mtitlemax; $membergraphic = $mgraphicmax; }
-        elsif ($jifen >= $mpostmark19) { $mtitle = $mtitle19;  $membergraphic = $mgraphic19; }
-        elsif ($jifen >= $mpostmark18) { $mtitle = $mtitle18;  $membergraphic = $mgraphic18; }
-        elsif ($jifen >= $mpostmark17) { $mtitle = $mtitle17;  $membergraphic = $mgraphic17; }
-        elsif ($jifen >= $mpostmark16) { $mtitle = $mtitle16;  $membergraphic = $mgraphic16; }
-        elsif ($jifen >= $mpostmark15) { $mtitle = $mtitle15;  $membergraphic = $mgraphic15; }
-        elsif ($jifen >= $mpostmark14) { $mtitle = $mtitle14;  $membergraphic = $mgraphic14; }
-        elsif ($jifen >= $mpostmark13) { $mtitle = $mtitle13;  $membergraphic = $mgraphic13; }
-        elsif ($jifen >= $mpostmark12) { $mtitle = $mtitle12;  $membergraphic = $mgraphic12; }
-        elsif ($jifen >= $mpostmark11) { $mtitle = $mtitle11;  $membergraphic = $mgraphic11; }
-        elsif ($jifen >= $mpostmark10) { $mtitle = $mtitle10;  $membergraphic = $mgraphic10; }
-        elsif ($jifen >= $mpostmark9)  { $mtitle = $mtitle9;   $membergraphic = $mgraphic9; }
-        elsif ($jifen >= $mpostmark8)  { $mtitle = $mtitle8;   $membergraphic = $mgraphic8; }
-        elsif ($jifen >= $mpostmark7)  { $mtitle = $mtitle7;   $membergraphic = $mgraphic7; }
-        elsif ($jifen >= $mpostmark6)  { $mtitle = $mtitle6;   $membergraphic = $mgraphic6; }
-        elsif ($jifen >= $mpostmark5)  { $mtitle = $mtitle5;   $membergraphic = $mgraphic5; }
-        elsif ($jifen >= $mpostmark4)  { $mtitle = $mtitle4;   $membergraphic = $mgraphic4; }
-        elsif ($jifen >= $mpostmark3)  { $mtitle = $mtitle3;   $membergraphic = $mgraphic3; }
-        elsif ($jifen >= $mpostmark2)  { $mtitle = $mtitle2;   $membergraphic = $mgraphic2; }
-        elsif ($jifen >= $mpostmark1)  { $mtitle = $mtitle1;   $membergraphic = $mgraphic1; }
-        else { $mtitle = $mtitle0; $mgraphic0 ="none.gif" if ($mgraphic0 eq ""); $membergraphic = $mgraphic0; }
-        if($rang eq "ad") {
-        	$mtitle = $adtitle if ($adtitle ne "");
-        	$membergraphic = "$admingraphic" if ($admingraphic ne "");
-        }
-        elsif ($rang eq "mo") {
-        	$mtitle = $motitle if ($motitle ne "");
-        	$membergraphic = "$modgraphic" if ($modgraphic ne "");
-        }
-        elsif ($rang eq "amo") {
-        	$mtitle = $amotitle if ($amotitle ne "");
-        	$membergraphic = "$amodgraphic" if ($amodgraphic ne "");
-        }
-        elsif ($rang eq "cmo") {
-        	$mtitle = $cmotitle if ($cmotitle ne "");
-        	$membergraphic = "$cmodgraphic" if ($cmodgraphic ne "");
-        }
-        elsif ($rang eq "smo") {
-        	$mtitle = $smotitle if ($smotitle ne "");
-        	$membergraphic = "$smodgraphic" if ($smodgraphic ne "");
-        }
-        elsif ($rang eq "banned") {
-        	$mtitle = "已被禁止发言";
-        	$membergraphic = "";
-        }
-        elsif ($rang eq "masked") {
-        	$mtitle = "发言已被屏蔽";
-        	$membergraphic = "";
-        }
+    else {$email = "<a href=mailto:$email><img border=0 src=$imagesurl/images/email.gif></a>"}
+    if ($jifen >= $mpostmarkmax) {
+        $mtitle = $mtitlemax;
+        $membergraphic = $mgraphicmax;
+    }
+    elsif ($jifen >= $mpostmark19) {
+        $mtitle = $mtitle19;
+        $membergraphic = $mgraphic19;
+    }
+    elsif ($jifen >= $mpostmark18) {
+        $mtitle = $mtitle18;
+        $membergraphic = $mgraphic18;
+    }
+    elsif ($jifen >= $mpostmark17) {
+        $mtitle = $mtitle17;
+        $membergraphic = $mgraphic17;
+    }
+    elsif ($jifen >= $mpostmark16) {
+        $mtitle = $mtitle16;
+        $membergraphic = $mgraphic16;
+    }
+    elsif ($jifen >= $mpostmark15) {
+        $mtitle = $mtitle15;
+        $membergraphic = $mgraphic15;
+    }
+    elsif ($jifen >= $mpostmark14) {
+        $mtitle = $mtitle14;
+        $membergraphic = $mgraphic14;
+    }
+    elsif ($jifen >= $mpostmark13) {
+        $mtitle = $mtitle13;
+        $membergraphic = $mgraphic13;
+    }
+    elsif ($jifen >= $mpostmark12) {
+        $mtitle = $mtitle12;
+        $membergraphic = $mgraphic12;
+    }
+    elsif ($jifen >= $mpostmark11) {
+        $mtitle = $mtitle11;
+        $membergraphic = $mgraphic11;
+    }
+    elsif ($jifen >= $mpostmark10) {
+        $mtitle = $mtitle10;
+        $membergraphic = $mgraphic10;
+    }
+    elsif ($jifen >= $mpostmark9) {
+        $mtitle = $mtitle9;
+        $membergraphic = $mgraphic9;
+    }
+    elsif ($jifen >= $mpostmark8) {
+        $mtitle = $mtitle8;
+        $membergraphic = $mgraphic8;
+    }
+    elsif ($jifen >= $mpostmark7) {
+        $mtitle = $mtitle7;
+        $membergraphic = $mgraphic7;
+    }
+    elsif ($jifen >= $mpostmark6) {
+        $mtitle = $mtitle6;
+        $membergraphic = $mgraphic6;
+    }
+    elsif ($jifen >= $mpostmark5) {
+        $mtitle = $mtitle5;
+        $membergraphic = $mgraphic5;
+    }
+    elsif ($jifen >= $mpostmark4) {
+        $mtitle = $mtitle4;
+        $membergraphic = $mgraphic4;
+    }
+    elsif ($jifen >= $mpostmark3) {
+        $mtitle = $mtitle3;
+        $membergraphic = $mgraphic3;
+    }
+    elsif ($jifen >= $mpostmark2) {
+        $mtitle = $mtitle2;
+        $membergraphic = $mgraphic2;
+    }
+    elsif ($jifen >= $mpostmark1) {
+        $mtitle = $mtitle1;
+        $membergraphic = $mgraphic1;
+    }
+    else {
+        $mtitle = $mtitle0;
+        $mgraphic0 = "none.gif" if ($mgraphic0 eq "");
+        $membergraphic = $mgraphic0;
+    }
+    if ($rang eq "ad") {
+        $mtitle = $adtitle if ($adtitle ne "");
+        $membergraphic = "$admingraphic" if ($admingraphic ne "");
+    }
+    elsif ($rang eq "mo") {
+        $mtitle = $motitle if ($motitle ne "");
+        $membergraphic = "$modgraphic" if ($modgraphic ne "");
+    }
+    elsif ($rang eq "amo") {
+        $mtitle = $amotitle if ($amotitle ne "");
+        $membergraphic = "$amodgraphic" if ($amodgraphic ne "");
+    }
+    elsif ($rang eq "cmo") {
+        $mtitle = $cmotitle if ($cmotitle ne "");
+        $membergraphic = "$cmodgraphic" if ($cmodgraphic ne "");
+    }
+    elsif ($rang eq "smo") {
+        $mtitle = $smotitle if ($smotitle ne "");
+        $membergraphic = "$smodgraphic" if ($smodgraphic ne "");
+    }
+    elsif ($rang eq "banned") {
+        $mtitle = "已被禁止发言";
+        $membergraphic = "";
+    }
+    elsif ($rang eq "masked") {
+        $mtitle = "发言已被屏蔽";
+        $membergraphic = "";
+    }
 
-        if ($membergraphic) { $membergraphic = "<img src=$imagesurl/images/$membergraphic border=0>"; }
-	$memberfilename = $name;
-	$memberfilename =~ y/ /_/;
-	$memberfilename =~ tr/A-Z/a-z/;
-	$message = "<a href=javascript:openScript('messanger.cgi?action=new&touser=$memberfilename',600,400)><img src=$imagesurl/images/message.gif border=0></a>";
-	if ($xiaoguo eq "1") {
-	    $anzahl = $anzahl1 * $addmoney + $anzahl2 * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	}
-	elsif ($xiaoguo eq "2") {
-	    $anzahl = $jhcount;
-	}
-	elsif ($xiaoguo eq "3") {
-	   $anzahl = $jifen;
-	}
-	$output .= qq~<tr bgcolor=$forumcolortwo><td>&nbsp;<a href=profile.cgi?action=show&member=~ . uri_escape($memberfilename) . qq~>$name</a></td><td align=center $memberdaten[7]>$email</td><td align=center>$icqgraphic</td><td align=center>$oicqgraphic</td><td align=center>$home</td><td align=center>$message</td><td align=center>$lastpostdetails</td><td align=center>$date</td><td align=center>$mtitle<br>$membergraphic</td><td align=center>$anzahl</td></tr>~;
+    if ($membergraphic) {$membergraphic = "<img src=$imagesurl/images/$membergraphic border=0>";}
+    $memberfilename = $name;
+    $memberfilename =~ y/ /_/;
+    $memberfilename =~ tr/A-Z/a-z/;
+    $message = "<a href=javascript:openScript('messanger.cgi?action=new&touser=$memberfilename',600,400)><img src=$imagesurl/images/message.gif border=0></a>";
+    if ($xiaoguo eq "1") {
+        $anzahl = $anzahl1 * $addmoney + $anzahl2 * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
+    }
+    elsif ($xiaoguo eq "2") {
+        $anzahl = $jhcount;
+    }
+    elsif ($xiaoguo eq "3") {
+        $anzahl = $jifen;
+    }
+    $output .= qq~<tr bgcolor=$forumcolortwo><td>&nbsp;<a href=profile.cgi?action=show&member=~ . uri_escape($memberfilename) . qq~>$name</a></td><td align=center $memberdaten[7]>$email</td><td align=center>$icqgraphic</td><td align=center>$oicqgraphic</td><td align=center>$home</td><td align=center>$message</td><td align=center>$lastpostdetails</td><td align=center>$date</td><td align=center>$mtitle<br>$membergraphic</td><td align=center>$anzahl</td></tr>~;
 
 }
 sub splitting {
-	$prrepages= 12;
+    $prrepages = 12;
     $totalpages = @memberarray / $memberproseite;
-    ($pagenumbers, $decimal) = split (/\./, $totalpages);
+    ($pagenumbers, $decimal) = split(/\./, $totalpages);
     if ($decimal > 0) {$pagenumbers++;}
 
-    $currentpage = int(($inpage-1) / $prrepages) + 1;
+    $currentpage = int(($inpage - 1) / $prrepages) + 1;
 
-    $pagelinks =qq~本排名共有 $pagenumbers 页　~;
-#$mypage-- if ($mypage eq $inpage); 
-    if ($currentpage > 1){ $mypage = ($currentpage-1)*$prrepages; $pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$mypage$pagel>上一组</a>] ~;}
+    $pagelinks = qq~本排名共有 $pagenumbers 页　~;
+    #$mypage-- if ($mypage eq $inpage);
+    if ($currentpage > 1) {
+        $mypage = ($currentpage - 1) * $prrepages;
+        $pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$mypage$pagel>上一组</a>] ~;
+    }
 
-    for ($page=$mypage+1;$page<$mypage+$prrepages+1;$page++){
-        if ($page<=$pagenumbers){
-          if ($inpage ne $page) {$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$page$pagel>第$page页</a>] ~; }
-	    else{$pagelinks .= qq~[<B>第$page页</B>] ~;}
+    for ($page = $mypage + 1; $page < $mypage + $prrepages + 1; $page++) {
+        if ($page <= $pagenumbers) {
+            if ($inpage ne $page) {$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$page$pagel>第$page页</a>] ~;}
+            else {$pagelinks .= qq~[<B>第$page页</B>] ~;}
         }
     }
-    $nextpage=$currentpage*$prrepages+1;
-    if ($pagenumbers> $nextpage){$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$nextpage$pagel>下一组</a>] ~;}
+    $nextpage = $currentpage * $prrepages + 1;
+    if ($pagenumbers > $nextpage) {$pagelinks .= qq~[<a href=memberlist.cgi?a=$a&page=$nextpage$pagel>下一组</a>] ~;}
     if ($totalpages <= 1) {$pagelinks = qq~~;}
 
     $startmember = ($inpage - 1) * $memberproseite;
     $endmember = $startmember + $memberproseite - 1;
-    if ($endmember > (@memberarray-1)) {$endmember = @memberarray - 1;}
+    if ($endmember > (@memberarray - 1)) {$endmember = @memberarray - 1;}
 
 }
 $output .= qq~</td></tr></table><SCRIPT>valignend()</SCRIPT><p>~;
@@ -623,6 +697,6 @@ $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 bor
 </table></td>
 </tr>
 </table><SCRIPT>valignend()</SCRIPT></center>~ if ($pagelinks ne "");
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - 用户列表",\$output);
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+&output("$boardname - 用户列表", \$output);
 exit;

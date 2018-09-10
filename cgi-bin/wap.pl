@@ -16,6 +16,7 @@ $mastnum2 = 340; #单独主题每页现实的长度
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 use UTF8simple;
 $uref = new UTF8simple;

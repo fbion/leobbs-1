@@ -10,24 +10,28 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=1024*150;
+$LBCGI::POST_MAX = 1024 * 150;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
 require "data/styles.cgi";
 require "admin.lib.pl";
 require "bbs.lib.pl";
-require "code.cgi"; 
+require "code.cgi";
 $|++;
 
 $thisprog = "setawards.cgi";
@@ -37,54 +41,52 @@ $query = new LBCGI;
 &ipbanned; #封杀一些 ip
 
 @params = $query->param;
-	foreach $param(@params) {
-		$theparam = $query->param($param);
-        	$theparam = &cleaninput("$theparam");
-		$PARAM{$param} = $theparam;
-	    }
+foreach $param (@params) {
+    $theparam = $query->param($param);
+    $theparam = &cleaninput("$theparam");
+    $PARAM{$param} = $theparam;
+}
 
+$action = $PARAM{'action'};
+$awardid = $PARAM{'award'};
+$new_awardname = $PARAM{'awardname'};
+$new_awardurl = $PARAM{'awardurl'};
+$new_awardinfo = $PARAM{'awardinfo'};
+$new_awardorder = $PARAM{'awardorder'};
+$new_weblogo = $PARAM{'weblogo'};
+$checkaction = $PARAM{'checkaction'};
+$oldaward = $PARAM{'oldaward'};
+$oawardname = $PARAM{'oawardname'};
+$action = &unHTML("$action");
 
-    $action          =  $PARAM{'action'};
-    $awardid         =  $PARAM{'award'};
-    $new_awardname   =  $PARAM{'awardname'};
-    $new_awardurl    =  $PARAM{'awardurl'};
-    $new_awardinfo   =  $PARAM{'awardinfo'};
-    $new_awardorder  =  $PARAM{'awardorder'};
-    $new_weblogo     =  $PARAM{'weblogo'}; 
-    $checkaction     =  $PARAM{'checkaction'};
-    $oldaward        =  $PARAM{'oldaward'};
-    $oawardname	     =  $PARAM{'oawardname'};
-    $action          = &unHTML("$action");
-    
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8");
+print header(-charset => "UTF-8");
 &admintitle;
-        
-&getmember("$inmembername","no");
-        
-if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) { 
-            
-           my %Mode = ( 
 
-            'addaward'            =>    \&addaward,
-            'processnew'          =>    \&createaward,
-            'edit'                =>    \&editaward,
-            'doedit'              =>    \&doedit,       
-             );
+&getmember("$inmembername", "no");
 
+if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
-            if($Mode{$action}) {$Mode{$action}->();}
-            elsif (($action eq "delete") && ($checkaction ne "yes")) { &warning; }
-            elsif (($action eq "delete") && ($checkaction eq "yes")) { &deleteaward; }
-            else { &awardlist; }            
-            }                
+    my %Mode = (
+
+        'addaward'   => \&addaward,
+        'processnew' => \&createaward,
+        'edit'       => \&editaward,
+        'doedit'     => \&doedit,
+    );
+
+    if ($Mode{$action}) {$Mode{$action}->();}
+    elsif (($action eq "delete") && ($checkaction ne "yes")) {&warning;}
+    elsif (($action eq "delete") && ($checkaction eq "yes")) {&deleteaward;}
+    else {&awardlist;}
+}
 else {&adminlogin;}
-        
+
 sub awardlist {
     $highest = 0;
     print qq~
@@ -106,16 +108,17 @@ sub awardlist {
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    foreach $award (@awards) { #start foreach @awards
+    foreach $award (@awards) {
+        #start foreach @awards
         chomp $award;
-	next if ($award eq "");
-        ($awardname, $awardurl, $awardinfo, $awardorder, $awardpic) = split(/\t/,$award);
+        next if ($award eq "");
+        ($awardname, $awardurl, $awardinfo, $awardorder, $awardpic) = split(/\t/, $award);
         $rearrange = ("$awardname\t$awardurl\t$awardinfo\t$awardorder\t$awardpic");
-        push (@rearrangedawards, $rearrange);
+        push(@rearrangedawards, $rearrange);
 
     } # end foreach (@awards)
 
-         print qq~
+    print qq~
             <tr>
             <td bgcolor=#FFFFFF colspan=3 ><font face=宋体 color=#333333><hr noshade>
             </td></tr>
@@ -127,23 +130,24 @@ sub awardlist {
        ~;
     @finalsortedawards = @rearrangedawards;
     $awardnamenum = 0;
-    foreach $sortedawards (@finalsortedawards) { #start foreach @finalsortedawards
+    foreach $sortedawards (@finalsortedawards) {
+        #start foreach @finalsortedawards
 
-        ($awardname, $awardurl, $awardinfo, $awardorder, $awardpic) = split(/\t/,$sortedawards);
+        ($awardname, $awardurl, $awardinfo, $awardorder, $awardpic) = split(/\t/, $sortedawards);
         $awardnamenum++;
-       
-               print qq~
+
+        print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=3 align=left><hr noshade width=70%><font face=宋体 color=#333333>
                 <b>社区勋章名称</b>： $awardname<BR><b>社区勋章图片</b>： <img src=$imagesurl/awards/$awardpic><br><b>社区勋章简介</b>： $awardinfo<br>
                 <br><a href="$thisprog?action=edit&award=$awardnamenum">编辑此社区勋章</a> | <font face=宋体 color=#333333><a href="$thisprog?action=delete&award=$awardnamenum&oawardname=$awardname">删除此社区勋章</a> </td>
                 </font></td></tr>
                 ~;
-       
-            } # end foreach
-    
-               
-        print qq~
+
+    } # end foreach
+
+
+    print qq~
         <td bgcolor=#FFFFFF colspan=3 ><font face=宋体 color=#333333><hr noshade>
         </td></tr>
              <tr>
@@ -151,19 +155,18 @@ sub awardlist {
        <a href="$thisprog?action=addaward">增加新的社区勋章</a></font></td>
             </td></tr>
         </tr></table></td></tr></table>~;
-    
+
 } # end routine.
 
 sub addaward {
 
-        print qq~
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 增加社区勋章</b>
         </td></tr>
         ~;
 
- 
-        print qq~
+    print qq~
         
                      
         <form action="$thisprog" method="post">
@@ -194,35 +197,35 @@ sub addaward {
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
         <input type=submit value="提 交"></form></td></tr></table></td></tr></table>
         ~;
-        
+
 }
 
-sub createaward {   
-		
-		&errorout("对不起，论坛名字过长，请控制在 20 个汉字内！") if (length($new_awardname) >40);
-		&errorout("奖励描述不能空！！") if ($new_awardinfo eq "");
-                
-                $filetoopen = "$lbdir" . "data/cityawards.cgi";
-	        &winlock($filetoopen) if ($OS_USED eq "Nt");
-                open(FILE, "$filetoopen");
-  	        flock(FILE, 1) if ($OS_USED eq "Unix");
-                my @awards = <FILE>;
-                close(FILE);
-	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
+sub createaward {
 
-                # Create a new number for the new award folder, and files.
+    &errorout("对不起，论坛名字过长，请控制在 20 个汉字内！") if (length($new_awardname) > 40);
+    &errorout("奖励描述不能空！！") if ($new_awardinfo eq "");
 
-                open(FILE, ">$filetoopen");
-                flock(FILE, 2) if ($OS_USED eq "Unix");
-                foreach $line (@awards) {
-                    chomp $line;
-                    print FILE "$line\n";
-                    }
-                print FILE "$new_awardname\t$new_awardurl\t$new_awardinfo\t$new_awardorder\t$new_weblogo\t";
-                close(FILE);
-	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
-                
-                print qq~
+    $filetoopen = "$lbdir" . "data/cityawards.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    my @awards = <FILE>;
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+
+    # Create a new number for the new award folder, and files.
+
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    foreach $line (@awards) {
+        chomp $line;
+        print FILE "$line\n";
+    }
+    print FILE "$new_awardname\t$new_awardurl\t$new_awardinfo\t$new_awardorder\t$new_weblogo\t";
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+
+    print qq~
                 <tr><td bgcolor=#2159C9" colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 增加社区勋章结果</b>
                 </td></tr>
@@ -231,18 +234,18 @@ sub createaward {
                 <font face=宋体 color=#333333>
                 ~;
 
-                print "<b>详细资料</b><p>\n";
-                print "<ul>\n";
-               
-                print "新社区勋章 <B>$new_awardname</b> 已经建立！";
-                print "<a href=\"$thisprog?action=awardlist\">返回</a> ";             
-                print "</ul></td></tr></table></td></tr></table>\n";
+    print "<b>详细资料</b><p>\n";
+    print "<ul>\n";
+
+    print "新社区勋章 <B>$new_awardname</b> 已经建立！";
+    print "<a href=\"$thisprog?action=awardlist\">返回</a> ";
+    print "</ul></td></tr></table></td></tr></table>\n";
 
 }
 
 sub warning { #start
 
-        print qq~
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 删除社区勋章</b>
         </td></tr>
@@ -260,33 +263,32 @@ sub warning { #start
         </table></td></tr></table>
         
         ~;
-        
+
 }
 sub deleteaward {
 
-         $filetoopen = "$lbdir" . "data/cityawards.cgi";
-         &winlock($filetoopen) if ($OS_USED eq "Nt");
-         open(FILE,"$filetoopen");
-         flock(FILE, 1) if ($OS_USED eq "Unix");
-         my @awards = <FILE>;
-         close(FILE);
+    $filetoopen = "$lbdir" . "data/cityawards.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    my @awards = <FILE>;
+    close(FILE);
 
-         open(FILE,">$filetoopen");
-         flock(FILE,2) if ($OS_USED eq "Unix");
-         $awardname = 0;
-         foreach $award (@awards) {
-         chomp $award;
-	 next if ($award eq "");
-	 $awardname ++;
-                unless ($awardid eq $awardname) {
-                    print FILE "$award\n";
-                    }
-                }
-         close(FILE);
-         &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    $awardname = 0;
+    foreach $award (@awards) {
+        chomp $award;
+        next if ($award eq "");
+        $awardname++;
+        unless ($awardid eq $awardname) {
+            print FILE "$award\n";
+        }
+    }
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-       
-                    print qq~
+    print qq~
                     <tr><td bgcolor=#2159C9" colspan=2><font face=宋体 color=#FFFFFF>
                     <b>欢迎来到论坛管理中心 / 删除社区勋章结果</b>
                     </td></tr>
@@ -302,21 +304,20 @@ sub deleteaward {
                     <center>>> <a href=\"$thisprog?action=awardlist\">从这里返回</a> <<</center></td></tr></table>
                     ~;
 
-
 }
 
 sub editaward {
 
-         $filetoopen = "$lbdir" . "data/cityawards.cgi";
-         &winlock($filetoopen) if ($OS_USED eq "Nt");
-         open(FILE,"$filetoopen");
-         flock(FILE, 2) if ($OS_USED eq "Unix");
-         @awards = <FILE>;
-         close(FILE);
-         &winunlock($filetoopen) if ($OS_USED eq "Nt");
-         ($awardname,$awardurl,$awardinfo,$awardorder,$awardpic) = split(/\t/,$awards[$awardid-1]);   
-         
-        print qq~
+    $filetoopen = "$lbdir" . "data/cityawards.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    @awards = <FILE>;
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    ($awardname, $awardurl, $awardinfo, $awardorder, $awardpic) = split(/\t/, $awards[$awardid - 1]);
+
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 编辑社区勋章</b>
         </td></tr>
@@ -351,43 +352,42 @@ sub editaward {
         <td bgcolor=#FFFFFF valign=middle align=center colspan=2>
         <input type=submit value="提 交"></form></td></tr></table></td></tr></table>
         ~;
-        
+
 }
 
 sub doedit {
-        
-	&errorout("对不起，奖励名字过长，请控制在 20 个汉字内！") if (length($new_awardname) >40);
-	&errorout("奖励描述不能空！！") if ($new_awardinfo eq "");
-       
-         $filetoopen = "$lbdir" . "data/cityawards.cgi";
-         &winlock($filetoopen) if ($OS_USED eq "Nt");
-	 open(FILE,"$filetoopen");
-         flock(FILE, 1) if ($OS_USED eq "Unix");
-         my @awards = <FILE>;
-         close(FILE);
 
-                $editedline = "$new_awardname\t$new_awardurl\t$new_awardinfo\t$new_awardorder\t$new_weblogo\t";
-                chomp $editedline;
+    &errorout("对不起，奖励名字过长，请控制在 20 个汉字内！") if (length($new_awardname) > 40);
+    &errorout("奖励描述不能空！！") if ($new_awardinfo eq "");
 
-                $filetoopen = "$lbdir" . "data/cityawards.cgi";
-                open(FILE,">$filetoopen");
-                flock(FILE,2) if ($OS_USED eq "Unix");
-                $tempawardid = 0;
-                foreach $award (@awards) {
-                chomp $award;
-                $tempawardid ++;
-                    if ($tempawardid eq $awardid) {
-                        print FILE "$editedline\n";
-                        }
-                        else {
-                            print FILE "$award\n";
-                            }
-                    }
-                close (FILE);
-	        &winunlock($filetoopen) if ($OS_USED eq "Nt");
+    $filetoopen = "$lbdir" . "data/cityawards.cgi";
+    &winlock($filetoopen) if ($OS_USED eq "Nt");
+    open(FILE, "$filetoopen");
+    flock(FILE, 1) if ($OS_USED eq "Unix");
+    my @awards = <FILE>;
+    close(FILE);
 
+    $editedline = "$new_awardname\t$new_awardurl\t$new_awardinfo\t$new_awardorder\t$new_weblogo\t";
+    chomp $editedline;
 
-                 print qq~
+    $filetoopen = "$lbdir" . "data/cityawards.cgi";
+    open(FILE, ">$filetoopen");
+    flock(FILE, 2) if ($OS_USED eq "Unix");
+    $tempawardid = 0;
+    foreach $award (@awards) {
+        chomp $award;
+        $tempawardid++;
+        if ($tempawardid eq $awardid) {
+            print FILE "$editedline\n";
+        }
+        else {
+            print FILE "$award\n";
+        }
+    }
+    close(FILE);
+    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+
+    print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 编辑社区勋章结果</b>
                 </td></tr>
@@ -399,8 +399,8 @@ sub doedit {
                 <center><a href=\"$thisprog?action=awardlist\">返回</a></center> 
                 </td></tr></table>
                 ~;
-                
-            }
+
+}
 
 
 
@@ -408,7 +408,7 @@ print qq~</td></tr></table></body></html>~;
 exit;
 
 sub errorout {
-                print qq~
+    print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 发生错误</b>
                 </td></tr>
@@ -418,5 +418,5 @@ sub errorout {
                 <font face=宋体 color=#333333><b>$_[0]</b>
                 </td></tr></table></td></tr></table>
                 ~;
-exit;	
+    exit;
 }

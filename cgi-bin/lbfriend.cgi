@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 use MAILPROG qw(sendmail);
@@ -32,56 +36,56 @@ $|++;
 $thisprog = "lbfriend.cgi";
 $query = new LBCGI;
 &ipbanned; #封杀一些 ip
-$inforum         = $query -> param('forum');
-$intopic         = $query -> param('topic');
-$action          = $query -> param('action');
-$inrealname      = $query -> param('realname');
-$intoname        = $query -> param('toname');
-$infromemail     = $query -> param('fromemail');
-$intoemail       = $query -> param('toemail');
-$insubject       = $query -> param('subject');
-$inemailmessage  = $query -> param('emailmessage');
-$emailtopictitle = $query -> param('emailtopictitle');
-$inrealname          = &cleaninput($inrealname);
-$insubject           = &cleaninput($insubject);
-$inemailmessage      = &cleaninput($inemailmessage);
-$emailtopictitle     = &cleaninput($emailtopictitle);
+$inforum = $query->param('forum');
+$intopic = $query->param('topic');
+$action = $query->param('action');
+$inrealname = $query->param('realname');
+$intoname = $query->param('toname');
+$infromemail = $query->param('fromemail');
+$intoemail = $query->param('toemail');
+$insubject = $query->param('subject');
+$inemailmessage = $query->param('emailmessage');
+$emailtopictitle = $query->param('emailtopictitle');
+$inrealname = &cleaninput($inrealname);
+$insubject = &cleaninput($insubject);
+$inemailmessage = &cleaninput($inemailmessage);
+$emailtopictitle = &cleaninput($emailtopictitle);
 &error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 $inmembername = $query->cookie("amembernamecookie");
-$inpassword   = $query->cookie("apasswordcookie");
+$inpassword = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
-	    if ($regaccess eq "on" && &checksearchbot) {
-	    	print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-	    	print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
-	    	exit;
-	    }
+    if ($regaccess eq "on" && &checksearchbot) {
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        exit;
+    }
 }
 else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
-    $mymembercode=$membercode;
-    $myrating=$rating;
-     if ($inpassword ne $password) {
-	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
+    $mymembercode = $membercode;
+    $myrating = $rating;
+    if ($inpassword ne $password) {
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
-    &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
     }
-if ($emailfunctions ne "on") { &error("发邮件给朋友&对不起，论坛管理员没有将邮件功能打开！"); }
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) { require "${lbdir}data/skin/${inselectstyle}.cgi"; }
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+    &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
+}
+if ($emailfunctions ne "on") {&error("发邮件给朋友&对不起，论坛管理员没有将邮件功能打开！");}
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &title;
 $output .= qq~
 <br>
@@ -94,44 +98,45 @@ $output .= qq~
       <td>
       <table cellpadding=6 cellspacing=1 width=100%>
 ~;
-    &getoneforum("$inforum");
-    if (($allowedentry{$inforum} eq "yes")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; } else { $allowed = "no"; }
-    if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $membercode !~ /^rz/)||($inmembername eq "客人"))&&($userincert eq "no")) { &error("进入论坛&你一般会员不允许进入此论坛！"); }
+&getoneforum("$inforum");
+if (($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+else {$allowed = "no";}
+if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
 
-    if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("进入私密论坛&对不起，你无权访问这个论坛！");}
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz!~/,$membercode,/);
-    if ($allowusers ne ''){
-	&error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
-    }
+if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("进入私密论坛&对不起，你无权访问这个论坛！");}
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
+if ($allowusers ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+}
 
-  if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
-    if ($enterminmony > 0 || $enterminjf > 0 ) {
-	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
-	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
+    if ($enterminmony > 0 || $enterminjf > 0) {
+        require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
+        $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
+        &error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+        &error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
-  }
-    
-  if ($action eq "send") {
+}
+
+if ($action eq "send") {
     $blankfields = "";
-    if(!$inrealname)        { $blankfields = "yes"; }
-    elsif(!$intoname)       { $blankfields = "yes"; }
-    elsif(!$intoemail)      { $blankfields = "yes"; }
-    elsif(!$infromemail)    { $blankfields = "yes"; }
-    elsif(!$insubject)      { $blankfields = "yes"; }
-    elsif(!$inemailmessage) { $blankfields = "yes"; }
-    
+    if (!$inrealname) {$blankfields = "yes";}
+    elsif (!$intoname) {$blankfields = "yes";}
+    elsif (!$intoemail) {$blankfields = "yes";}
+    elsif (!$infromemail) {$blankfields = "yes";}
+    elsif (!$insubject) {$blankfields = "yes";}
+    elsif (!$inemailmessage) {$blankfields = "yes";}
+
     if ($blankfields) {
         &error("发邮件给朋友&请输入所有内容然后发送！");
     }
-    
-    if ($infromemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("发邮件给朋友&错误的邮件地址！"); }
-    if ($intoemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("发邮件给朋友&错误的邮件地址！"); }
+
+    if ($infromemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) {&error("发邮件给朋友&错误的邮件地址！");}
+    if ($intoemail !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) {&error("发邮件给朋友&错误的邮件地址！");}
 
     my $temp = &dofilter("$insubject\t$inemailmessage\t$emailtopictitle");
-    ($insubject,$inemailmessage,$emailtopictitle) = split(/\t/,$temp);
+    ($insubject, $inemailmessage, $emailtopictitle) = split(/\t/, $temp);
 
     $to = $intoemail;
     $from = $infromemail;
@@ -149,7 +154,7 @@ $output .= qq~
     $message .= "---------------------------------------------------------------------\n<br><br>\n";
     $message .= "提示：您没有必要回复这封邮件，这只是论坛的内容通知。\n<br><br>\n";
     $message .= "---------------------------------------------------------------------<br>\n";
-                
+
     &sendmail($from, $from, $to, $subject, $message);
     $output .= qq~
         <tr>
@@ -174,16 +179,16 @@ else {
     open(FILE, "$filetoopen");
     $allthreads = <FILE>;
     close(FILE);
-    
-    ($topicid, $topictitle, $no, $no, $no ,$no, $startedby, $startedpostdate, $no) = split(/\t/,$allthreads);
+
+    ($topicid, $topictitle, $no, $no, $no, $no, $startedby, $startedpostdate, $no) = split(/\t/, $allthreads);
 
     $topictitle = &cleanarea("$topictitle");
     $topictitle =~ s/^＊＃！＆＊//;
 
-	if ($addtopictime eq "yes") {
-	    my $topictime = &dispdate($startedpostdate + ($timedifferencevalue*3600) + ($timezone*3600));
-	    $topictitle = "[$topictime] $topictitle";
-	}
+    if ($addtopictime eq "yes") {
+        my $topictime = &dispdate($startedpostdate + ($timedifferencevalue * 3600) + ($timezone * 3600));
+        $topictitle = "[$topictime] $topictitle";
+    }
 
     $output .= qq~
     <form action="$thisprog" method=post>
@@ -219,4 +224,4 @@ else {
 <SCRIPT>valignend()</SCRIPT>
     ~;
 }
-&output($boardname,\$output);
+&output($boardname, \$output);

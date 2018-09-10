@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -34,48 +38,48 @@ $thisprog = "setmembertitles.cgi";
 
 $query = new LBCGI;
 
-	@params = $query->param;
-	foreach (@params) {
-		$theparam = $query->param($_);
-	$theparam =~ s/\\/\\\\/g;
-        $theparam =~ s/\@/\\\@/g;
-        $theparam =~ s/"//g;
-        $theparam =~ s/'//g;
-        $theparam = &unHTML("$theparam");
-		${$_} = $theparam;
-        if ($_ ne 'action') {
-            $printme .= "\$" . "$_ = \'$theparam\'\;\n";
-            }
-	}
+@params = $query->param;
+foreach (@params) {
+    $theparam = $query->param($_);
+    $theparam =~ s/\\/\\\\/g;
+    $theparam =~ s/\@/\\\@/g;
+    $theparam =~ s/"//g;
+    $theparam =~ s/'//g;
+    $theparam = &unHTML("$theparam");
+    ${$_} = $theparam;
+    if ($_ ne 'action') {
+        $printme .= "\$" . "$_ = \'$theparam\'\;\n";
+    }
+}
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
-          
+
 if ($action eq "process") {
-        &getmember("$inmembername","no");
-        
-        if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) { 
-        	
+    &getmember("$inmembername", "no");
+
+    if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+
         $endprint = "1\;\n";
 
         $filetomake = "$lbdir" . "data/membertitles.cgi";
 
         &winlock($filetomake) if ($OS_USED eq "Nt");
-        open(FILE,">$filetomake");
-        flock(FILE,2) if ($OS_USED eq "Unix");
+        open(FILE, ">$filetomake");
+        flock(FILE, 2) if ($OS_USED eq "Unix");
         print FILE "$printme";
         print FILE $endprint;
         close(FILE);
         &winunlock($filetomake) if ($OS_USED eq "Nt");
-        
+
         if (-e $filetomake && -w $filetomake) {
-                 print qq~
+            print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 用户等级</b>
                 </td></tr>
@@ -84,10 +88,9 @@ if ($action eq "process") {
                 <font face=宋体 color=#333333><b>所有信息已保存</b>
                 </td></tr></table></td></tr></table>
                 ~;
-            }
-
+        }
         else {
-                print qq~
+            print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心</b>
                 </td></tr>
@@ -96,25 +99,23 @@ if ($action eq "process") {
                 <font face=宋体 color=#333333><b>所有的信息没有保存</b><br>有文件或目录为不可写，请设置属性 777 ！
                 </td></tr></table></td></tr></table>
                 ~;
-            }
-        
-   }
+        }
 
-   else {
-       &adminlogin;
-   }
-        
+    }
+    else {
+        &adminlogin;
+    }
+
 }
-        
 else {
-        
-        &getmember("$inmembername","no");
-        
-                if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) { 
-                
-                $inmembername =~ s/\_/ /g;
-                
-                print qq~
+
+    &getmember("$inmembername", "no");
+
+    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+        $inmembername =~ s/\_/ /g;
+
+        print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体 color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 用户等级</b>
                 </td></tr>
@@ -782,13 +783,13 @@ else {
                 <td bgcolor=#EEEEEE valign=middle align=center colspan=2>
                 <input type=submit name=submit value="提 交"></td></form></tr></table></td></tr></table>
                 ~;
-                
-                }
-                else {
-                    &adminlogin;
-                    }
-        
-        }
-        
+
+    }
+    else {
+        &adminlogin;
+    }
+
+}
+
 print qq~</td></tr></table></body></html>~;
 exit;

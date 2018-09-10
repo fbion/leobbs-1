@@ -6,20 +6,22 @@
 #####################################################
 
 BEGIN {
-	push @INC, '.';
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    push @INC, '.';
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
 use LBCGI;
 use strict;
 use warnings;
-$LBCGI::POST_MAX=200000;
+use diagnostics;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -32,29 +34,29 @@ $thisprog = "indexshow.cgi";
 $query = new LBCGI;
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-          
-    &getmember("$inmembername","no");
-    if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
-    	for('allnews','news','newsjh','mainlogin','showmem','info','getanc','getanc2')
-    	{
-    		if(!(-e "${lbdir}$_.cgi")){$$_=0;}else{$$_=1;}
-    	$a.="var $_ = $$_;\n";
-    	}
-    	
-    	require "${lbdir}data/outputbutton.pl" if (-e "${lbdir}data/outputbutton.pl");
-		$outputbutton =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg;
-		$outputbutton =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg;
-    	$outputbutton =~s/"//isg;
-    	$outputbutton =~s/\n//isg;
-print qq~<script>
+
+&getmember("$inmembername", "no");
+if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    for ('allnews', 'news', 'newsjh', 'mainlogin', 'showmem', 'info', 'getanc', 'getanc2') {
+        if (!(-e "${lbdir}$_.cgi")) {$$_ = 0;}
+        else {$$_ = 1;}
+        $a .= "var $_ = $$_;\n";
+    }
+
+    require "${lbdir}data/outputbutton.pl" if (-e "${lbdir}data/outputbutton.pl");
+    $outputbutton =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg;
+    $outputbutton =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg;
+    $outputbutton =~ s/"//isg;
+    $outputbutton =~ s/\n//isg;
+    print qq~<script>
 var realurl = '';
 $a
 	function selcolor(obj2){
@@ -217,9 +219,9 @@ $a
 <br>
 <button type=submit name=tj disabled>生成代码</button> <button name=copy onClick=HighlightAll('FORM.outScript')>拷贝代码</button>
 </form><p><br><br></p><p align=center>&copy CopyRight By Maiweb 2005-08-05</p></td></tr>~;
-	}
-	else {
-	    &adminlogin;
-	}
+}
+else {
+    &adminlogin;
+}
 print qq~</td></tr></table></body></html>~;
 exit;

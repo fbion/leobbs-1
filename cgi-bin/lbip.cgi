@@ -10,17 +10,19 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
 use strict;
 use warnings;
+use diagnostics;
 use LBCGI;
 require "data/boardinfo.cgi";
 require "data/styles.cgi";
@@ -29,35 +31,39 @@ $|++;
 use testinfo qw(ipwhere);
 
 my $queryme = new LBCGI;
-my $inmembername   = $queryme->cookie("amembernamecookie");
-my $inpassword     = $queryme->cookie("apasswordcookie");
+my $inmembername = $queryme->cookie("amembernamecookie");
+my $inpassword = $queryme->cookie("apasswordcookie");
 my $password;
 my $userregistered;
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-my $query = $queryme -> param('q');
+my $query = $queryme->param('q');
 if ((!$inmembername) or ($inmembername eq "客人")) {
     $inmembername = "客人";
 }
 else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
-    &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");  
+    &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
 my $membercode;
-if (($membercode ne "ad")&&($membercode ne "smo")){
-    &error("普通错误&你不是本论坛的坛主或总斑竹，所以不能使用该功能！") ;
+if (($membercode ne "ad") && ($membercode ne "smo")) {
+    &error("普通错误&你不是本论坛的坛主或总斑竹，所以不能使用该功能！");
 }
 
-if (($query ne "")&&($query !~ /^[0-9\.]+$/)) {
-    &error("普通错误&请不要胡乱使用本功能！") ;
+if (($query ne "") && ($query !~ /^[0-9\.]+$/)) {
+    &error("普通错误&请不要胡乱使用本功能！");
 }
 my $fromwhere;
 my $EXP_MODE;
 my $CACHE_MODES;
-if ($query ne "") { $fromwhere = &ipwhere("$query"); $fromwhere = "ＩＰ: $query\n<BR>来自: $fromwhere\n<BR><BR>如果对结果有疑问，请<a href=whois.cgi?query=$query>按此使用 NIC 数据库查询</a>！"} else { $fromwhere = "没有IP数据,我查什么啊!"; }
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+if ($query ne "") {
+    $fromwhere = &ipwhere("$query");
+    $fromwhere = "ＩＰ: $query\n<BR>来自: $fromwhere\n<BR><BR>如果对结果有疑问，请<a href=whois.cgi?query=$query>按此使用 NIC 数据库查询</a>！"
+}
+else {$fromwhere = "没有IP数据,我查什么啊!";}
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print $fromwhere;
 exit;

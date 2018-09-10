@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -34,21 +38,22 @@ $thisprog = "loginout.cgi";
 $query = new LBCGI;
 &ipbanned; #封杀一些 ip
 
-if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
+if ($COOKIE_USED eq 2 && $mycookiepath ne "") {$cookiepath = $mycookiepath;}
+elsif ($COOKIE_USED eq 1) {$cookiepath = "";}
 else {
-    $boardurltemp =$boardurl;
+    $boardurltemp = $boardurl;
     $boardurltemp =~ s/http\:\/\/(\S+?)\/(.*)/\/$2/;
     $cookiepath = $boardurltemp;
     $cookiepath =~ s/\/$//;
-#    $cookiepath =~ tr/A-Z/a-z/;
+    #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inforum  = $query -> param('forum');
+$inforum = $query->param('forum');
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
-if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
+if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-for ('inmembername','inpassword','action','CookieDate','onlineview','viewMode','nodispavatar',
-'nodispsign','nodispphoto','freshtime','hidden','selectstyle','tanchumsg') {
+for ('inmembername', 'inpassword', 'action', 'CookieDate', 'onlineview', 'viewMode', 'nodispavatar',
+    'nodispsign', 'nodispphoto', 'freshtime', 'hidden', 'selectstyle', 'tanchumsg') {
     next unless defined $_;
     next if $_ eq 'SEND_MAIL';
     $tp = $query->param($_);
@@ -58,21 +63,21 @@ for ('inmembername','inpassword','action','CookieDate','onlineview','viewMode','
 $hidden = 0 if ($canhidden eq "no");
 $CookieDate = "+1d" if ($CookieDate eq "");
 
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie");   }
+if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
@@ -80,8 +85,8 @@ if ($inmembername eq "" || $inmembername eq "客人") {
 }
 else {
     &error("用户登陆&对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]这类字符！") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
-    &getmember("$inmembername","no");
-    &error("用户登录&对不起,用户名和密码输入错误！") if (($inpassword ne $password)&&($action ne "logout"));
+    &getmember("$inmembername", "no");
+    &error("用户登录&对不起,用户名和密码输入错误！") if (($inpassword ne $password) && ($action ne "logout"));
     $inmembername = $membername;
 }
 $memberfilename = $inmembername;
@@ -99,9 +104,10 @@ $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 
 if ($action eq "login") {
     &cleanolddata;
     if (($userregistered ne "no") && ($inpassword eq $password)) {
-	&whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
-	if ($inforum eq "") { $refrashurl = "leobbs.cgi"; } else { $refrashurl = "forums.cgi?forum=$inforum"; }
-	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>感谢你登录 $inmembername</b></font></td></tr>
+        &whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
+        if ($inforum eq "") {$refrashurl = "leobbs.cgi";}
+        else {$refrashurl = "forums.cgi?forum=$inforum";}
+        $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>感谢你登录 $inmembername</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
 具体情况：<ul><li><a href="$refrashurl">进入论坛</a>
 <meta http-equiv="refresh" content="3; url=$refrashurl">
@@ -109,124 +115,143 @@ if ($action eq "login") {
 <SCRIPT>valignend()</SCRIPT>
 ~;
 
-	if ($boarddispsign eq "no") { $nodispsign="yes"; } else { $nodispsign="no" if !($nodispsign); } 
-        	
-	$namecookie        = cookie(-name => "amembernamecookie", -value => "$inmembername", -path => "$cookiepath/", -expires => "$CookieDate");
-	$passcookie        = cookie(-name => "apasswordcookie",   -value => "$inpassword",   -path => "$cookiepath/", -expires => "$CookieDate");
-	$onlineviewcookie  = cookie(-name => "onlineview",        -value => "$onlineview",   -path => "$cookiepath/", -expires => "$CookieDate");
-	$viewcookie        = cookie(-name => "viewMode",          -value => "$viewMode",     -path => "$cookiepath/", -expires => "$CookieDate");
-	$freshtimecookie   = cookie(-name => "freshtime",         -value => "$freshtime",    -path => "$cookiepath/", -expires => "$CookieDate");
-	$selectstylecookie = cookie(-name => "selectstyle",       -value => "$selectstyle",  -path => "$cookiepath/", -expires => "$CookieDate");
-	$tanchumsgcookie   = cookie(-name => "tanchumsg",         -value => "$tanchumsg",    -path => "$cookiepath/", -expires => "$CookieDate");
-	$nodisp            = cookie(-name => "nodisp",            -value => "$nodispavatar|$nodispsign|$nodispphoto", -path => "$cookiepath/", -expires => "$CookieDate");
+        if ($boarddispsign eq "no") {$nodispsign = "yes";}
+        else {$nodispsign = "no" if !($nodispsign);}
 
+        $namecookie = cookie(-name => "amembernamecookie", -value => "$inmembername", -path => "$cookiepath/", -expires => "$CookieDate");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "$inpassword", -path => "$cookiepath/", -expires => "$CookieDate");
+        $onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "$CookieDate");
+        $viewcookie = cookie(-name => "viewMode", -value => "$viewMode", -path => "$cookiepath/", -expires => "$CookieDate");
+        $freshtimecookie = cookie(-name => "freshtime", -value => "$freshtime", -path => "$cookiepath/", -expires => "$CookieDate");
+        $selectstylecookie = cookie(-name => "selectstyle", -value => "$selectstyle", -path => "$cookiepath/", -expires => "$CookieDate");
+        $tanchumsgcookie = cookie(-name => "tanchumsg", -value => "$tanchumsg", -path => "$cookiepath/", -expires => "$CookieDate");
+        $nodisp = cookie(-name => "nodisp", -value => "$nodispavatar|$nodispsign|$nodispphoto", -path => "$cookiepath/", -expires => "$CookieDate");
 
-  	print header(-cookie=>[$onlineviewcookie,$threadcookie,$viewcookie, $nodisp, $freshtimecookie, $selectstylecookie, $tanchumsgcookie, $namecookie,$passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+        print header(-cookie => [ $onlineviewcookie, $threadcookie, $viewcookie, $nodisp, $freshtimecookie, $selectstylecookie, $tanchumsgcookie, $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
     }
     else {
 
-	print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+        print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-	$output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>登录错误</b></font></td></tr>
+        $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>登录错误</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>登录错误的可能原因：
 <ul><li>密码错误<li>用户名错误<li>您不是<a href=register.cgi?forum=$inforum>注册</a>用户</ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
 }
 elsif ($action eq "logout") {
-   &cleanolddata1;
-   if ($inmembername ne "" && $inmembername ne "客人") {
-    $filetoopen = "$lbdir" . "data/onlinedata.cgi";
-    my $filetoopens = &lockfilename($filetoopen);
-    if (!(-e "$filetoopens.lck")) {
-	&winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
-	open(FILE,"$filetoopen");
-	flock(FILE, 1) if ($OS_USED eq "Unix");
-	sysread(FILE, my $onlinedata,(stat(FILE))[7]);
-	close(FILE);
-	$onlinedata =~ s/\r//isg;
+    &cleanolddata1;
+    if ($inmembername ne "" && $inmembername ne "客人") {
+        $filetoopen = "$lbdir" . "data/onlinedata.cgi";
+        my $filetoopens = &lockfilename($filetoopen);
+        if (!(-e "$filetoopens.lck")) {
+            &winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
+            open(FILE, "$filetoopen");
+            flock(FILE, 1) if ($OS_USED eq "Unix");
+            sysread(FILE, my $onlinedata, (stat(FILE))[7]);
+            close(FILE);
+            $onlinedata =~ s/\r//isg;
 
-	if (length($onlinedata) >= 80) {
-	    my $inmembername1 = $inmembername;
-   	    $inmembername1 =~ s/\|/\\\|/isg;
-   	    $onlinedata =~ s/(.*)(^|\n)$inmembername1\t(.*?)(\n|$)(.*)/$1$2$5/i;
-	    ($savedcometime, $savedtime, undef) = split(/\t/, $3);
-	    open(ONLINEFILE,">$filetoopen");
-            flock(ONLINEFILE, 2) if ($OS_USED eq "Unix");
-            print ONLINEFILE "$onlinedata";
-	    close(ONLINEFILE);
-	}
-	else { unlink("$filetoopen"); }
-	&winunlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
-	require "douplogintime.pl";
-        &uplogintime("$inmembername","")
+            if (length($onlinedata) >= 80) {
+                my $inmembername1 = $inmembername;
+                $inmembername1 =~ s/\|/\\\|/isg;
+                $onlinedata =~ s/(.*)(^|\n)$inmembername1\t(.*?)(\n|$)(.*)/$1$2$5/i;
+                ($savedcometime, $savedtime, undef) = split(/\t/, $3);
+                open(ONLINEFILE, ">$filetoopen");
+                flock(ONLINEFILE, 2) if ($OS_USED eq "Unix");
+                print ONLINEFILE "$onlinedata";
+                close(ONLINEFILE);
+            }
+            else {unlink("$filetoopen");}
+            &winunlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
+            require "douplogintime.pl";
+            &uplogintime("$inmembername", "")
+        }
+        else {
+            unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 30);
+        }
     }
-    else {
-    	unlink ("$filetoopens.lck") if ((-M "$filetoopens.lck") *86400 > 30);
-    }
-   }
     $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>您现在已经退出论坛</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
 具体选项：<ul><li><a href="leobbs.cgi">返回论坛</a><li><a href=javascript:close();>关闭您的浏览器</a></ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 ~;
 
-	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        $trashcookie       = cookie(-name => "templastvisit",     -value => "", -path => "$cookiepath/");
-        $onlineviewcookie  = cookie(-name => "onlineview",        -value => "", -path => "$cookiepath/");
-        $viewcookie        = cookie(-name => "viewMode",          -value => "", -path => "$cookiepath/");
-        $nodisp            = cookie(-name => "nodisp",            -value => "", -path => "$cookiepath/");
-        $freshtimecookie   = cookie(-name => "freshtime",         -value => "", -path => "$cookiepath/");
-        $selectstylecookie = cookie(-name => "$selectstyle",      -value => "", -path => "$cookiepath/");
-        $tanchumsgcookie   = cookie(-name => "$tanchumsg",        -value => "", -path => "$cookiepath/");
-       	$banfreshcookie    = cookie(-name => "banfresh"         , -value => "", -path => "$cookiepath/");
-	$treeviewcookie    = cookie(-name => "treeview"         , -value => "", -path => "$cookiepath/");
-	$tecookie	   = cookie(-name => "catlog"           , -value => "", -path => "$cookiepath/");
+    $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+    $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+    $trashcookie = cookie(-name => "templastvisit", -value => "", -path => "$cookiepath/");
+    $onlineviewcookie = cookie(-name => "onlineview", -value => "", -path => "$cookiepath/");
+    $viewcookie = cookie(-name => "viewMode", -value => "", -path => "$cookiepath/");
+    $nodisp = cookie(-name => "nodisp", -value => "", -path => "$cookiepath/");
+    $freshtimecookie = cookie(-name => "freshtime", -value => "", -path => "$cookiepath/");
+    $selectstylecookie = cookie(-name => "$selectstyle", -value => "", -path => "$cookiepath/");
+    $tanchumsgcookie = cookie(-name => "$tanchumsg", -value => "", -path => "$cookiepath/");
+    $banfreshcookie = cookie(-name => "banfresh", -value => "", -path => "$cookiepath/");
+    $treeviewcookie = cookie(-name => "treeview", -value => "", -path => "$cookiepath/");
+    $tecookie = cookie(-name => "catlog", -value => "", -path => "$cookiepath/");
 
-
-        print header(-cookie=>[$banfreshcookie, $treeviewcookie, $tecookie, $namecookie, $passcookie, $trashcookie,$onlineviewcookie,$viewcookie, $nodisp, $freshtimecookie, $selectstylecookie, $tanchumsgcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-cookie => [ $banfreshcookie, $treeviewcookie, $tecookie, $namecookie, $passcookie, $trashcookie, $onlineviewcookie, $viewcookie, $nodisp, $freshtimecookie, $selectstylecookie, $tanchumsgcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 }
 else {
-    if ($query->cookie("selectstyle")) { $inselectstyle = $query->cookie("selectstyle"); }
-    $inselectstyle   = $skinselected if ($inselectstyle eq "");
-    if ($query->cookie("viewMode") ne "")  { $checked ="checked"; $checked1 =""; } else { $checked1 ="checked"; $checked =""; }
-    if ($query->cookie("tanchumsg") eq "") { $tcchecked ="checked"; $tcchecked1 =""; } else { $tcchecked1 ="checked"; $tcchecked =""; }
-    if (($query->cookie("onlineview") == 1)||($query->cookie("onlineview") eq "")) { $online ="checked"; $online1 =""; } else { $online1 ="checked"; $online =""; }
-    $nodisp = $query->cookie("nodisp");
-    ($nodispavatar, $nodispsign, $nodispphoto)  = split(/\|/,$nodisp);
-    if ($nodispavatar eq "yes"){ $checked2 ="checked" ; }
-
-    if ($boarddispsign eq "no") { $checked3 ="checked disabled"; }
-    elsif ($boarddispsign eq "noselect" && $nodispsign eq "")    { $checked3 ="checked"; }
-    elsif ($boarddispsign eq "noselect" && $nodispsign eq "yes") { $checked3 ="checked"; }
-    elsif ($boarddispsign eq "noselect" && $nodispsign eq "no")  { $checked3 ="" ;       }
-    elsif ($boarddispsign eq "yes" && $nodispsign eq "")         { $checked3 ="";        }
-    elsif ($boarddispsign eq "yes" && $nodispsign eq "yes")      { $checked3 ="checked"; }	
-    elsif ($boarddispsign eq "yes" && $nodispsign eq "no")       { $checked3 ="";        }	
-
-    if ($nodispphoto eq "yes") { $checked4 ="checked"; }
-
-
-    print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    if ($inmembername ne "客人") {
-      my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
-      $filetoopens = &lockfilename($filetoopens);
-      if (!(-e "$filetoopens.lck")) {
-	&whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
-      }
+    if ($query->cookie("selectstyle")) {$inselectstyle = $query->cookie("selectstyle");}
+    $inselectstyle = $skinselected if ($inselectstyle eq "");
+    if ($query->cookie("viewMode") ne "") {
+        $checked = "checked";
+        $checked1 = "";
     }
-    opendir (DIR, "${lbdir}data/skin");
+    else {
+        $checked1 = "checked";
+        $checked = "";
+    }
+    if ($query->cookie("tanchumsg") eq "") {
+        $tcchecked = "checked";
+        $tcchecked1 = "";
+    }
+    else {
+        $tcchecked1 = "checked";
+        $tcchecked = "";
+    }
+    if (($query->cookie("onlineview") == 1) || ($query->cookie("onlineview") eq "")) {
+        $online = "checked";
+        $online1 = "";
+    }
+    else {
+        $online1 = "checked";
+        $online = "";
+    }
+    $nodisp = $query->cookie("nodisp");
+    ($nodispavatar, $nodispsign, $nodispphoto) = split(/\|/, $nodisp);
+    if ($nodispavatar eq "yes") {$checked2 = "checked";}
+
+    if ($boarddispsign eq "no") {$checked3 = "checked disabled";}
+    elsif ($boarddispsign eq "noselect" && $nodispsign eq "") {$checked3 = "checked";}
+    elsif ($boarddispsign eq "noselect" && $nodispsign eq "yes") {$checked3 = "checked";}
+    elsif ($boarddispsign eq "noselect" && $nodispsign eq "no") {$checked3 = "";}
+    elsif ($boarddispsign eq "yes" && $nodispsign eq "") {$checked3 = "";}
+    elsif ($boarddispsign eq "yes" && $nodispsign eq "yes") {$checked3 = "checked";}
+    elsif ($boarddispsign eq "yes" && $nodispsign eq "no") {$checked3 = "";}
+
+    if ($nodispphoto eq "yes") {$checked4 = "checked";}
+
+    print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+    if ($inmembername ne "客人") {
+        my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
+        $filetoopens = &lockfilename($filetoopens);
+        if (!(-e "$filetoopens.lck")) {
+            &whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
+        }
+    }
+    opendir(DIR, "${lbdir}data/skin");
     @skindata = readdir(DIR);
-    closedir (DIR);
-    my $myskin="";
-    @skindata = grep(/\.cgi$/,@skindata);
+    closedir(DIR);
+    my $myskin = "";
+    @skindata = grep (/\.cgi$/, @skindata);
     $topiccount = @skindata;
-    @skindata=sort @skindata;
-    for (my $i=0;$i<$topiccount;$i++){
-        $skindata[$i]=~s /\.cgi//isg;
-        $myskin.=qq~<option value="$skindata[$i]">[ $skindata[$i] ]</option>~;
+    @skindata = sort @skindata;
+    for (my $i = 0; $i < $topiccount; $i++) {
+        $skindata[$i] =~ s/\.cgi//isg;
+        $myskin .= qq~<option value="$skindata[$i]">[ $skindata[$i] ]</option>~;
     }
     if ($canhidden ne "no") {
         $userhidden = qq~<tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>论坛隐身</b><BR>请选择你的登录显示方式，可以适当保密你的隐私。</font></td>
@@ -237,9 +262,9 @@ else {
                 </td></tr>
     ~;
     }
-    else { $userhidden = ""; }
-$helpurl = &helpnewfiles("快速登录");
-$helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
+    else {$userhidden = "";}
+    $helpurl = &helpnewfiles("快速登录");
+    $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
     $output .= qq~
     <tr>
@@ -264,14 +289,16 @@ $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></spa
                 </font>
                 </td></tr>
 </table></td></tr></table>
-~; 
-if ($advlogin == 1) { 
-$advloginout = "true"; 
-$advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv() checked><span id="advance">关闭高级登录选项</a></span> </td><td width=50%><input type=submit value="登 录" name=submit></td>~;} 
-else { 
-$advloginout = "none"; 
-$advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv()><span id="advance">显示高级登录选项</a></span> </td><td width=50%><input type=submit value="登 录" name=submit></td>~;} 
-$output .=qq~ 
+~;
+    if ($advlogin == 1) {
+        $advloginout = "true";
+        $advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv() checked><span id="advance">关闭高级登录选项</a></span> </td><td width=50%><input type=submit value="登 录" name=submit></td>~;
+    }
+    else {
+        $advloginout = "none";
+        $advmode = qq~<td width=50%><INPUT id=advcheck name=advshow type=checkbox value=1 onclick=showadv()><span id="advance">显示高级登录选项</a></span> </td><td width=50%><input type=submit value="登 录" name=submit></td>~;
+    }
+    $output .= qq~
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center id=adv style="DISPLAY: $advloginout">
  <tr><td>
     <table cellpadding=4 cellspacing=1 width=100%>
@@ -301,7 +328,7 @@ $output .=qq~
                 </td></tr>
 		   <tr>
 ~;
-if ($showskin ne "off") {$output.=qq~
+    if ($showskin ne "off") {$output .= qq~
     <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>风格设定</b> 请选择你的论坛风格。</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
 		  <select name="selectstyle">
@@ -311,7 +338,7 @@ if ($showskin ne "off") {$output.=qq~
         </font>
         </td></tr>
 ~;}
-$output.=qq~
+    $output .= qq~
     <td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>有短消息是否弹出？</b> <BR>（如果管理员设置了不弹出则此选择无效）</font></td>
     <td bgcolor=$miscbackone valign=middle><font class='misc'>
                 <input type="radio" class=1 name="tanchumsg" value="" $tcchecked id=16> <label for=16>弹出短消息窗口</label><br>
@@ -355,5 +382,5 @@ $advmode</form></tr></table></td></tr></table><BR><BR>
 $inselectstyle =~ s/\(/\\(/isg;
 $inselectstyle =~ s/\)/\\)/isg;
 $output =~ s/option value=\"$inselectstyle\"/option value=\"$inselectstyle\" selected/;
-&output("$boardname - 登录/退出",\$output);
+&output("$boardname - 登录/退出", \$output);
 exit;

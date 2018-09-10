@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -31,10 +35,10 @@ $|++;
 $thisprog = "remmail.cgi";
 
 $query = new LBCGI;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 @params = $query->param;
-foreach $param(@params) {
+foreach $param (@params) {
     $theparam = $query->param($param);
     $theparam = &unHTML("$theparam");
     ${$param} = $theparam;
@@ -43,37 +47,36 @@ foreach $param(@params) {
 $inmembername = $query->cookie("amembernamecookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $member =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$member = "" if (length($member)>16);
+$member = "" if (length($member) > 16);
 
 if (lc($inmembername) eq lc($member)) {
- $filetoopen = "$lbdir" . "data/remmem.cgi";
- open (FILE,"$filetoopen");
- flock (FILE,2);
-  @members = <FILE>;
- close (FILE);
+    $filetoopen = "$lbdir" . "data/remmem.cgi";
+    open(FILE, "$filetoopen");
+    flock(FILE, 2);
+    @members = <FILE>;
+    close(FILE);
 
-foreach $removed (@members) {
- chomp($removed);
- if ($removed eq $member) {
-  $output = qq~
+    foreach $removed (@members) {
+        chomp($removed);
+        if ($removed eq $member) {
+            $output = qq~
    <tr bgcolor="#FFFFFF">
    <td align="center">
    你好，$member：你已经退出 LeoBBS 邮件列表了。
    </td>
    </tr>
   ~;
-  &displayoutput;
- }
-}
+            &displayoutput;
+        }
+    }
 
+    $filetoopen = "$lbdir" . "data/remmem.cgi";
+    open(FILE, ">>$filetoopen");
+    print FILE "$member\n";
+    close(FILE);
 
-$filetoopen = "$lbdir" . "data/remmem.cgi";
-open (FILE,">>$filetoopen");
- print FILE "$member\n";
-close (FILE);
-
-$adminemail_out = &encodeemail($adminemail_out);
-$output = qq~
+    $adminemail_out = &encodeemail($adminemail_out);
+    $output = qq~
  <tr bgcolor="#FFFFFF">
  <td align="center">
  你好，$member：你已经退出 LeoBBS 邮件列表了。
@@ -81,11 +84,12 @@ $output = qq~
  </td>
  </tr>
 ~;
-&displayoutput;
+    &displayoutput;
 
-} else {
+}
+else {
 
-$output = qq~
+    $output = qq~
  <tr bgcolor="#FFFFFF">
  <td align="center">
  对不起，你的 Cookie 不匹配。<br>如果你想退出此邮件列表，那么必须首先登录论坛。
@@ -93,12 +97,12 @@ $output = qq~
  </td>
  </tr>
 ~;
-&displayoutput;
+    &displayoutput;
 }
 
 sub displayoutput {
 
-print qq~
+    print qq~
  <html>
  <head>
  <title></title>
@@ -112,5 +116,5 @@ print qq~
  </table>
  </body>
  </html>~;
-exit;
+    exit;
 }

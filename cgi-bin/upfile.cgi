@@ -24,6 +24,7 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 use LBCGI;
 $LBCGI::POST_MAX = 40000000;

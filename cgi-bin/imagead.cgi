@@ -8,6 +8,10 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use warnings;
+use strict;
+use diagnostics;
+
 $insidead = qq~<script>
 var mvtLight="$adimage"
 var mvtWidth=$adimagewidth
@@ -17,9 +21,9 @@ brOK=navigator.javaEnabled()?true:false
 ns4=(document.layers)?true:false
 ie4=(document.all)?true:false
 ~;
-if (($adimage ne "")&&($adimage =~ /\.swf$/i)) {$insidead.=qq~document.write('<div id="mvt" style="position:absolute; width:40; height:60; z-index:9;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width=$adimagewidth height=$adimageheight><param name=movie value="$adimage"><param name=quality value=high><\/object><\/div>');~}
-else {$insidead.=qq~if(ns4){document.write('<layer id="mvt" width=120 height=60;"><a href="'+mvtLink+'" target=_blank><img src="'+mvtLight+'" onmouseover=stopme("mvt") onmouseout=movechip("mvt") border=0 width="'+mvtWidth+'" height="'+mvtHeight+'"><\/a><\/layer>');}else{document.write('<div id="mvt" style="position:absolute; width:40; height:60; z-index:9; filter: Alpha(Opacity=80)"><a href="'+mvtLink+'" target=_blank><img src="'+mvtLight+'" onmouseover=stopme("mvt") onmouseout=movechip("mvt") border=0 width="'+mvtWidth+'" height="'+mvtHeight+'"><\/a><\/div>');}~;}
-$insidead.=qq~
+if (($adimage ne "") && ($adimage =~ /\.swf$/i)) {$insidead .= qq~document.write('<div id="mvt" style="position:absolute; width:40; height:60; z-index:9;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width=$adimagewidth height=$adimageheight><param name=movie value="$adimage"><param name=quality value=high><\/object><\/div>');~}
+else {$insidead .= qq~if(ns4){document.write('<layer id="mvt" width=120 height=60;"><a href="'+mvtLink+'" target=_blank><img src="'+mvtLight+'" onmouseover=stopme("mvt") onmouseout=movechip("mvt") border=0 width="'+mvtWidth+'" height="'+mvtHeight+'"><\/a><\/layer>');}else{document.write('<div id="mvt" style="position:absolute; width:40; height:60; z-index:9; filter: Alpha(Opacity=80)"><a href="'+mvtLink+'" target=_blank><img src="'+mvtLight+'" onmouseover=stopme("mvt") onmouseout=movechip("mvt") border=0 width="'+mvtWidth+'" height="'+mvtHeight+'"><\/a><\/div>');}~;}
+$insidead .= qq~
 var vmin=4; var vmax=10; var vr=4; var timer1;
 function Chip(chipname,width,height){ this.named=chipname; this.vx=vmin+vmax*Math.random(); this.vy=vmin+vmax*Math.random(); this.w=width; this.h=height; this.xx=0; this.yy=0; this.timer1=null; }
 function movechip(chipname) {
@@ -41,9 +45,9 @@ var sgHeight=$adimageheight1
 var sgLink="$adimagelink1"
 var sgNS=(document.layers)?true:false
 ~;
-if (($adimage1 ne "")&&($adimage1 =~ /\.swf$/i)) {$insidead1.=qq~document.write('<DIV ID="Corner" STYLE="position:absolute; width:$adimagewidth1; height:$adimageheight1; z-index:9"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width=$adimagewidth1 height=$adimageheight1><param name=movie value="$adimage1"><param name=quality value=high><\/object><\/div>')~;}
-else {$insidead1.=qq~if(sgNS){document.write('<LAYER ID="Corner" WIDTH='+sgWidth+' HEIGHT='+sgHeight+'><A href="'+sgLink+'" target=_blank><IMG src="'+sgImg+'" BORDER=0 WIDTH="'+sgWidth+'" HEIGHT="'+sgHeight+'"></A></LAYER>');}else{document.write('<DIV ID="Corner" STYLE="position:absolute; width:'+sgWidth+'; height:'+sgHeight+'; z-index:9; filter: Alpha(Opacity=70)"><A href="'+sgLink+'" target=_blank><IMG src="'+sgImg+'" BORDER=0 WIDTH="'+sgWidth+'" HEIGHT="'+sgHeight+'"></A></DIV>');}~;};
-$insidead1.=qq~
+if (($adimage1 ne "") && ($adimage1 =~ /\.swf$/i)) {$insidead1 .= qq~document.write('<DIV ID="Corner" STYLE="position:absolute; width:$adimagewidth1; height:$adimageheight1; z-index:9"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width=$adimagewidth1 height=$adimageheight1><param name=movie value="$adimage1"><param name=quality value=high><\/object><\/div>')~;}
+else {$insidead1 .= qq~if(sgNS){document.write('<LAYER ID="Corner" WIDTH='+sgWidth+' HEIGHT='+sgHeight+'><A href="'+sgLink+'" target=_blank><IMG src="'+sgImg+'" BORDER=0 WIDTH="'+sgWidth+'" HEIGHT="'+sgHeight+'"></A></LAYER>');}else{document.write('<DIV ID="Corner" STYLE="position:absolute; width:'+sgWidth+'; height:'+sgHeight+'; z-index:9; filter: Alpha(Opacity=70)"><A href="'+sgLink+'" target=_blank><IMG src="'+sgImg+'" BORDER=0 WIDTH="'+sgWidth+'" HEIGHT="'+sgHeight+'"></A></DIV>');}~;};
+$insidead1 .= qq~
 function StayCorner(){var sgTop;var sgLeft
 if(sgNS){sgTop  = pageYOffset+window.innerHeight-document.Corner.document.height-10;sgLeft = pageXOffset+window.innerWidth-document.Corner.document.width-10;document.Corner.top  = sgTop;document.Corner.left = sgLeft;}else{
 sgTop  = document.body.scrollTop+document.body.clientHeight-document.all.Corner.offsetHeight-30;sgLeft = document.body.scrollLeft+document.body.clientWidth-document.all.Corner.offsetWidth-5;Corner.style.top  = sgTop;Corner.style.left = sgLeft;}

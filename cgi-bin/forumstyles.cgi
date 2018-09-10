@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -37,61 +41,61 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = new LBCGI;
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 @params = $query->param;
-foreach $param(@params) {
+foreach $param (@params) {
     $theparam = $query->param($param);
 
-        if (($_ eq 'maintopicad')||($_ eq 'replytopicad')) {
-	    $theparam =~ s/[\f\n\r]+/\n/ig;
-	    $theparam =~ s/[\r \n]+$/\n/ig;
-	    $theparam =~ s/^[\r\n ]+/\n/ig;
-            $theparam =~ s/\n\n/\n/ig;
-            $theparam =~ s/\n/\[br\]/ig;
-            $theparam =~ s/ \&nbsp;/  /g
-	}
+    if (($_ eq 'maintopicad') || ($_ eq 'replytopicad')) {
+        $theparam =~ s/[\f\n\r]+/\n/ig;
+        $theparam =~ s/[\r \n]+$/\n/ig;
+        $theparam =~ s/^[\r\n ]+/\n/ig;
+        $theparam =~ s/\n\n/\n/ig;
+        $theparam =~ s/\n/\[br\]/ig;
+        $theparam =~ s/ \&nbsp;/  /g
+    }
 
     $theparam = &unHTML("$theparam");
 
-        if ($_ eq "footmark" || $_ eq "headmark" || $_ eq "adfoot" || $_ eq "adscript") {
-	    $theparam =~ s/[\f\n\r]+/\n/ig;
-	    $theparam =~ s/[\r \n]+$/\n/ig;
-	    $theparam =~ s/^[\r\n ]+/\n/ig;
-            $theparam =~ s/\n\n/\n/ig;
-            $theparam =~ s/\n/\[br\]/ig;
-            $theparam =~ s/ \&nbsp;/  /g
-	}
+    if ($_ eq "footmark" || $_ eq "headmark" || $_ eq "adfoot" || $_ eq "adscript") {
+        $theparam =~ s/[\f\n\r]+/\n/ig;
+        $theparam =~ s/[\r \n]+$/\n/ig;
+        $theparam =~ s/^[\r\n ]+/\n/ig;
+        $theparam =~ s/\n\n/\n/ig;
+        $theparam =~ s/\n/\[br\]/ig;
+        $theparam =~ s/ \&nbsp;/  /g
+    }
     $PARAM{$param} = $theparam;
 }
 
-$action      =  $PARAM{'action'};
-$inforum     =  $PARAM{'forum'};
-$incategory  =  $PARAM{'category'};
+$action = $PARAM{'action'};
+$inforum = $PARAM{'forum'};
+$incategory = $PARAM{'category'};
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername","no");
+&getmember("$inmembername", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) { #s1
+if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+    #s1
 
-            my %Mode = (
-            'style'               =>    \&styleform,
-            'dostyle'             =>    \&dostyle,
-            );
+    my %Mode = (
+        'style'   => \&styleform,
+        'dostyle' => \&dostyle,
+    );
 
-
-    if($Mode{$action}) {
+    if ($Mode{$action}) {
         $Mode{$action}->();
     }
     else {
 
-    if ($action eq "delstyle") {
-        print qq~
+        if ($action eq "delstyle") {
+            print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                     <b>欢迎来到论坛管理中心 / 分论坛风格删除</b>
                     </td></tr>
@@ -108,13 +112,13 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         </td></tr>
         </table></td></tr></table>
         ~;
-    }
-    elsif ($action eq "delstyleok") {
-        $filetomake = "$lbdir" . "data/style$inforum.cgi";
-    	unlink $filetomake;
-        $filetomake = "${imagesdir}css/style$inforum.cgi";
-    	unlink $filetomake;
-                    print qq~
+        }
+        elsif ($action eq "delstyleok") {
+            $filetomake = "$lbdir" . "data/style$inforum.cgi";
+            unlink $filetomake;
+            $filetomake = "${imagesdir}css/style$inforum.cgi";
+            unlink $filetomake;
+            print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                     <b>欢迎来到论坛管理中心 / 分论坛风格删除</b>
                     </td></tr>
@@ -124,9 +128,9 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                     </td></tr></table></td></tr></table>
                     ~;
 
+        }
+
     }
-    	
-   }
 }
 else {
     &adminlogin;
@@ -139,44 +143,43 @@ exit;
 
 sub styleform {
 
-        if ($incategory ne "main"){
-         $filerequire = "$lbdir" . "data/style${inforum}.cgi";
+    if ($incategory ne "main") {
+        $filerequire = "$lbdir" . "data/style${inforum}.cgi";
         if (-e $filerequire) {
-         	require $filerequire;
-                }
-        if ($incategory ne ""){
-        $stylefile = "$lbdir" . "data/skin/$incategory.cgi";
-                if (-e $stylefile) {
-         	require $stylefile;
+            require $filerequire;
         }
+        if ($incategory ne "") {
+            $stylefile = "$lbdir" . "data/skin/$incategory.cgi";
+            if (-e $stylefile) {
+                require $stylefile;
+            }
         }
-        }
+    }
 
+    $dirtoopen = "$lbdir" . "data/skin";
+    opendir(DIR, "$dirtoopen");
+    @dirdata = readdir(DIR);
+    closedir(DIR);
+    my $myskin = "";
+    @thd = grep (/\.cgi$/, @dirdata);
+    $topiccount = @thd;
+    @thd = sort @thd;
+    for (my $i = 0; $i < $topiccount; $i++) {
+        $thd[$i] =~ s/\.cgi//isg;
+        $myskin .= qq~<option value="$thd[$i]">皮肤 [ $thd[$i] ]~;
+    }
+    $myskin =~ s/value=\"$skinselected\"/value=\"$skinselected\" selected/;
 
-        $dirtoopen = "$lbdir" . "data/skin";
-        opendir (DIR, "$dirtoopen");
-        @dirdata = readdir(DIR);
-        closedir (DIR);
-        my $myskin="";
-        @thd = grep(/\.cgi$/,@dirdata);
-        $topiccount = @thd;
-        @thd=sort @thd;
-        for (my $i=0;$i<$topiccount;$i++){
-       	$thd[$i]=~s /\.cgi//isg;
-        $myskin.=qq~<option value="$thd[$i]">皮肤 [ $thd[$i] ]~;
-        }
-        $myskin =~ s/value=\"$skinselected\"/value=\"$skinselected\" selected/;
+    &getoneforum("$inforum");
 
-&getoneforum("$inforum");
+    $footmark =~ s/\[br\]/\n/isg;
+    $headmark =~ s/\[br\]/\n/isg;
+    $adfoot =~ s/\[br\]/\n/isg;
+    $adscript =~ s/\[br\]/\n/isg;
+    $maintopicad =~ s/\[br\]/\n/isg;
+    $replytopicad =~ s/\[br\]/\n/isg;
 
-	$footmark   =~ s/\[br\]/\n/isg;
-	$headmark   =~ s/\[br\]/\n/isg;
-	$adfoot   =~ s/\[br\]/\n/isg;
-	$adscript   =~ s/\[br\]/\n/isg;
-	$maintopicad   =~ s/\[br\]/\n/isg;
-	$replytopicad   =~ s/\[br\]/\n/isg;
-
-print qq~
+    print qq~
         <tr><td bgcolor=#2159C9 colspan=3><font color=#FFFFFF>
         <b>欢迎来到论坛管理中心 / 编辑分论坛皮肤风格</b>
         </td></tr>
@@ -212,9 +215,9 @@ print qq~
                 </font></td>
                 </tr>
                 ~;
-                $tempoutput1 = "<select name=\"mainonoff\">\n<option value=\"0\">论坛开放\n<option value=\"1\">论坛关闭\n<option value=\"2\">自动定期开放\n</select>\n";
-                $tempoutput1 =~ s/value=\"$mainonoff\"/value=\"$mainonoff\" selected/;
-                print qq~
+    $tempoutput1 = "<select name=\"mainonoff\">\n<option value=\"0\">论坛开放\n<option value=\"1\">论坛关闭\n<option value=\"2\">自动定期开放\n</select>\n";
+    $tempoutput1 =~ s/value=\"$mainonoff\"/value=\"$mainonoff\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40% colspan=2>
                 <font face=宋体 color=#333333 ><b>论坛状态</b></font></td>
@@ -222,9 +225,9 @@ print qq~
                 $tempoutput1</td>
                 </tr>
                 ~;
-	$tempoutput1 = "<select name=\"mainauto1\">\n<option value=\"day\">每天\n<option value=\"week\">每星期\n<option value=\"month\">每月\n</select>\n";
-	$tempoutput1 =~ s/value=\"$mainauto1\"/value=\"$mainauto1\" selected/;
-	print qq~
+    $tempoutput1 = "<select name=\"mainauto1\">\n<option value=\"day\">每天\n<option value=\"week\">每星期\n<option value=\"month\">每月\n</select>\n";
+    $tempoutput1 =~ s/value=\"$mainauto1\"/value=\"$mainauto1\" selected/;
+    print qq~
               <tr>
               <td bgcolor=#FFFFFF width=40% colspan=2>
               <font face=宋体 color=#333333 ><b>自动开放论坛于</b><br>(只有选择自动定期开放此项有效)</font></td>
@@ -238,9 +241,9 @@ print qq~
                 <textarea name="line1" cols="40">$line1</textarea><BR><BR></td>
                 </tr>
 		~;
-               $tempoutput = "<select name=\"usesuperannounce\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n"; 
-               $tempoutput =~ s/value=\"$usesuperannounce\"/value=\"$usesuperannounce\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"usesuperannounce\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$usesuperannounce\"/value=\"$usesuperannounce\" selected/;
+    print qq~
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font face=宋体 color=#333333><b>是否使用论坛超级公告</b></font></td> 
@@ -257,12 +260,12 @@ print qq~
                 </tr>
 		~;
 
-               $tempoutput = "<select name=\"superannouncedisp\">\n<option value=\"oncepersession\">每个进程只显示一次\n<option value=\"always\">总是显示\n<option value=\"2\">50%显示几率\n<option value=\"3\">33%显示几率\n<option value=\"4\">25%显示几率\n<option value=\"10\">10%显示几率\n<option value=\"20\">5%显示几率\n<option value=\"50\">2%显示几率\n<option value=\"100\">1%显示几率\n</select>\n"; 
-               $tempoutput =~ s/value=\"$superannouncedisp\"/value=\"$superannouncedisp\" selected/; 
+    $tempoutput = "<select name=\"superannouncedisp\">\n<option value=\"oncepersession\">每个进程只显示一次\n<option value=\"always\">总是显示\n<option value=\"2\">50%显示几率\n<option value=\"3\">33%显示几率\n<option value=\"4\">25%显示几率\n<option value=\"10\">10%显示几率\n<option value=\"20\">5%显示几率\n<option value=\"50\">2%显示几率\n<option value=\"100\">1%显示几率\n</select>\n";
+    $tempoutput =~ s/value=\"$superannouncedisp\"/value=\"$superannouncedisp\" selected/;
 
-               $tempoutput1 = "<select name=\"superannouncehide\">\n<option value=\"yes\">二十秒后自动隐藏\n<option value=\"no\">一直显示\n</select>\n"; 
-               $tempoutput1 =~ s/value=\"$superannouncehide\"/value=\"$superannouncehide\" selected/; 
-               print qq~ 
+    $tempoutput1 = "<select name=\"superannouncehide\">\n<option value=\"yes\">二十秒后自动隐藏\n<option value=\"no\">一直显示\n</select>\n";
+    $tempoutput1 =~ s/value=\"$superannouncehide\"/value=\"$superannouncehide\" selected/;
+    print qq~
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font face=宋体 color=#333333><b>论坛超级公告选项</b></font></td> 
@@ -317,9 +320,9 @@ print qq~
                 <font color=#333333>是否显示原版页眉</font></td>
                 <td bgcolor=#FFFFFF>
 		~;
-                $tempoutput = "<select name=\"usetopm\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select><p>\n";
-                $tempoutput =~ s/value=\"$usetopm\"/value=\"$usetopm\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"usetopm\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select><p>\n";
+    $tempoutput =~ s/value=\"$usetopm\"/value=\"$usetopm\" selected/;
+    print qq~
                 $tempoutput</td>
 		</tr>
 
@@ -379,9 +382,9 @@ obj2.style.backgroundColor=arr;
 <font color=#333333>主字体外观</font></td>
 <td bgcolor=#FFFFFF>
 ~;
-$tempoutput = "<select name=\"font\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_UTF-8\">仿宋\n<option value=\"楷体_UTF-8\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
-$tempoutput =~ s/value=\"$font\"/value=\"$font\" selected/;
-print qq~
+    $tempoutput = "<select name=\"font\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_UTF-8\">仿宋\n<option value=\"楷体_UTF-8\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
+    $tempoutput =~ s/value=\"$font\"/value=\"$font\" selected/;
+    print qq~
 $tempoutput</td>
 </tr>
 
@@ -407,9 +410,9 @@ $tempoutput</td>
 <font color=#333333>查看时发表者名称字体</font></td>
 <td bgcolor=#FFFFFF>
 ~;
-$tempoutput = "<select name=\"posternamefont\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_UTF-8\">仿宋\n<option value=\"楷体_UTF-8\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
-$tempoutput =~ s/value=\"$posternamefont\"/value=\"$posternamefont\" selected/;
-print qq~
+    $tempoutput = "<select name=\"posternamefont\">\n<option value=\"宋体\">宋体\n<option value=\"仿宋_UTF-8\">仿宋\n<option value=\"楷体_UTF-8\">楷体\n<option value=\"黑体\">黑体\n<option value=\"隶书\">隶书\n<option value=\"幼圆\">幼圆\n</select><p>\n";
+    $tempoutput =~ s/value=\"$posternamefont\"/value=\"$posternamefont\" selected/;
+    print qq~
 $tempoutput</td>
 
 <tr>
@@ -747,9 +750,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-			   $tempoutput = "<select name=\"usehigest\"><option value=\"yes\">突出<option value=\"no\">不突出</select>\n"; 
-               $tempoutput =~ s/value=\"$usehigest\"/value=\"$usehigest\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"usehigest\"><option value=\"yes\">突出<option value=\"no\">不突出</select>\n";
+    $tempoutput =~ s/value=\"$usehigest\"/value=\"$usehigest\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -763,22 +766,22 @@ $tempoutput</td>
                <td bgcolor=#FFFFFF> 
                <input type=text name="higestcolor" value="$higestcolor" size=7 maxlength=7 onclick="javascript:selcolor(this,higestcolor)" style="cursor:hand;background-color:$higestcolor">  默认：#0000FF</td> 
                </tr> 
-               ~; 
+               ~;
 
-               $tempoutput = "<select name=\"higestsize\">\n<option value=\"3\">3\n<option value=\"4\">4\n<option value=\"5\">5\n<option value=\"6\">6\n</select>\n"; 
-               $tempoutput =~ s/value=\"$higestsize\"/value=\"$higestsize\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"higestsize\">\n<option value=\"3\">3\n<option value=\"4\">4\n<option value=\"5\">5\n<option value=\"6\">6\n</select>\n";
+    $tempoutput =~ s/value=\"$higestsize\"/value=\"$higestsize\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font color=#333333>突出最高票数的顶目的文字大小</font></td> 
                <td bgcolor=#FFFFFF>$tempoutput  默认：3</td> 
                </tr> 
-               ~; 
+               ~;
 
-                $tempoutput = "<select name=\"arrawpostpic\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawpostpic\"/value=\"$arrawpostpic\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawpostpic\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawpostpic\"/value=\"$arrawpostpic\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
                 <font color=#990000><b><center>LeoBBS 标签设置</center></b>(坛主和版主不受此限)<br>
@@ -793,9 +796,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-	        $tempoutput = "<select name=\"arrawpostflash\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawpostflash\"/value=\"$arrawpostflash\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawpostflash\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawpostflash\"/value=\"$arrawpostflash\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>贴子中是否允许 Flash？</font></td>
@@ -805,9 +808,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-	        $tempoutput = "<select name=\"arrawpostreal\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawpostreal\"/value=\"$arrawpostreal\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawpostreal\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawpostreal\"/value=\"$arrawpostreal\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>贴子中是否允许 Real 文件？</font></td>
@@ -817,9 +820,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-	        $tempoutput = "<select name=\"arrawpostmedia\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawpostmedia\"/value=\"$arrawpostmedia\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawpostmedia\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawpostmedia\"/value=\"$arrawpostmedia\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>贴子中是否允许 Media 文件？</font></td>
@@ -829,9 +832,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-	            $tempoutput = "<select name=\"arrawpostsound\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawpostsound\"/value=\"$arrawpostsound\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawpostsound\"><option value=\"off\">不允许<option value=\"on\" >允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawpostsound\"/value=\"$arrawpostsound\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>贴子中是否允许声音文件？</font></td>
@@ -841,9 +844,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawautoplay\">\n<option value=\"1\">允许\n<option value=\"0\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$arrawautoplay\"/value=\"$arrawautoplay\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawautoplay\">\n<option value=\"1\">允许\n<option value=\"0\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$arrawautoplay\"/value=\"$arrawautoplay\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -853,9 +856,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrawpostfontsize\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawpostfontsize\"/value=\"$arrawpostfontsize\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawpostfontsize\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawpostfontsize\"/value=\"$arrawpostfontsize\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>贴子中是否允许改变文字大小？</font></td>
@@ -864,10 +867,10 @@ $tempoutput</td>
 		         </td>
                 </tr>
 		~;
-		
-                $tempoutput = "<select name=\"openiframe\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>\n";
-                $tempoutput =~ s/value=\"$openiframe\"/value=\"$openiframe\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"openiframe\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>\n";
+    $tempoutput =~ s/value=\"$openiframe\"/value=\"$openiframe\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333>论坛是否允许 Iframe 标签</font></td>
@@ -875,10 +878,10 @@ $tempoutput</td>
                 $tempoutput</td>
                 </tr>
                 ~;
-                
-		$tempoutput = "<select name=\"arrawsignpic\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawsignpic\"/value=\"$arrawsignpic\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"arrawsignpic\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawsignpic\"/value=\"$arrawsignpic\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>签名中是否允许贴图？</font></td>
@@ -887,9 +890,9 @@ $tempoutput</td>
                 </td>
                 </tr>
                 ~;
-		$tempoutput = "<select name=\"arrawsignflash\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawsignflash\"/value=\"$arrawsignflash\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawsignflash\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawsignflash\"/value=\"$arrawsignflash\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>签名中是否允许 Flash？</font></td>
@@ -899,10 +902,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-
-		$tempoutput = "<select name=\"arrawsignsound\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawsignsound\"/value=\"$arrawsignsound\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawsignsound\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawsignsound\"/value=\"$arrawsignsound\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>签名中是否允许声音？</font></td>
@@ -911,9 +913,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"arrawsignfontsize\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
-                $tempoutput =~ s/value=\"$arrawsignfontsize\"/value=\"$arrawsignfontsize\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrawsignfontsize\"><option value=\"off\">不允许<option value=\"on\">允许</select>\n";
+    $tempoutput =~ s/value=\"$arrawsignfontsize\"/value=\"$arrawsignfontsize\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>签名中是否允许改变文字大小？</font></td>
@@ -934,9 +936,9 @@ $tempoutput</td>
                 <font color=#333333>是否启用缩略图模式</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = qq~<select name=imgslt><option value="">不启用</option><option value="Disp">启用</option></select>~;
-                $tempoutput =~ s/value=\"$imgslt\"/value=\"$imgslt\" selected/;
-                print qq~
+    $tempoutput = qq~<select name=imgslt><option value="">不启用</option><option value="Disp">启用</option></select>~;
+    $tempoutput =~ s/value=\"$imgslt\"/value=\"$imgslt\" selected/;
+    print qq~
                 $tempoutput
                 </td>
                 </tr>
@@ -960,9 +962,9 @@ $tempoutput</td>
                 <font color=#333333>缩略图每行数量</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = qq~<select name=sltnoperline><option value="1">1</option><option value="2>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>~;
-                $tempoutput =~ s/value=\"$sltnoperline\"/value=\"$sltnoperline\" selected/;
-                print qq~
+    $tempoutput = qq~<select name=sltnoperline><option value="1">1</option><option value="2>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>~;
+    $tempoutput =~ s/value=\"$sltnoperline\"/value=\"$sltnoperline\" selected/;
+    print qq~
                 $tempoutput
                 </td>
                 </tr>
@@ -1063,9 +1065,9 @@ $tempoutput</td>
                 <font color=#333333>贴子文字显示大小</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = qq~<select name=postfontsize><option value="12">默认</option><option value="15">稍大</option><option value="18">普通</option><option value="21">较大</option><option value="24">很大</option><option value="30">最大</option></select>~;
-                $tempoutput =~ s/value=\"$postfontsize\"/value=\"$postfontsize\" selected/;
-                print qq~
+    $tempoutput = qq~<select name=postfontsize><option value="12">默认</option><option value="15">稍大</option><option value="18">普通</option><option value="21">较大</option><option value="24">很大</option><option value="30">最大</option></select>~;
+    $tempoutput =~ s/value=\"$postfontsize\"/value=\"$postfontsize\" selected/;
+    print qq~
                 $tempoutput
                 </td>
                 </tr>
@@ -1075,9 +1077,9 @@ $tempoutput</td>
                 <font color=#333333>贴子段落间距调整</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"paraspace\">\n<option value=\"130\">默认间距<option value=\"100\">单倍行距<option value=\"150\">1.5倍行距<option value=\"200\">双倍行距";
-                $tempoutput =~ s/value=\"$paraspace\"/value=\"$paraspace\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"paraspace\">\n<option value=\"130\">默认间距<option value=\"100\">单倍行距<option value=\"150\">1.5倍行距<option value=\"200\">双倍行距";
+    $tempoutput =~ s/value=\"$paraspace\"/value=\"$paraspace\" selected/;
+    print qq~
                 $tempoutput
                 </td>
                 </tr>
@@ -1085,10 +1087,10 @@ $tempoutput</td>
                 <font color=#333333>贴子字间距调整</font><BR><BR></td>
                 <td bgcolor=#FFFFFF>
                 ~;
-                $tempoutput = "<select name=\"wordspace\">\n<option value=\"0\">默认间距<option value=\"-1\">紧缩<option value=\"+2\">扩充<option value=\"+4\">加宽";
-                $wordspace =~ s/\+/\\+/;
-                $tempoutput =~ s/value=\"$wordspace\"/value=\"$wordspace\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"wordspace\">\n<option value=\"0\">默认间距<option value=\"-1\">紧缩<option value=\"+2\">扩充<option value=\"+4\">加宽";
+    $wordspace =~ s/\+/\\+/;
+    $tempoutput =~ s/value=\"$wordspace\"/value=\"$wordspace\" selected/;
+    print qq~
                 $tempoutput
                 </td>
                 </tr>
@@ -1100,10 +1102,10 @@ $tempoutput</td>
                 <input type=text name="maxlistpost" value="$maxlistpost" size=2 maxlength=2>　一般 5 -- 8 个左右啦</td>
                 </tr>
 		~;
-               
-               $tempoutput = "<select name=\"dispabstop\">\n<option value=\"1\">显示\n<option value=\"0\">不显示\n</select>\n"; 
-               $tempoutput =~ s/value=\"$dispabstop\"/value=\"$dispabstop\" selected/; 
-               print qq~ 
+
+    $tempoutput = "<select name=\"dispabstop\">\n<option value=\"1\">显示\n<option value=\"0\">不显示\n</select>\n";
+    $tempoutput =~ s/value=\"$dispabstop\"/value=\"$dispabstop\" selected/;
+    print qq~
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font face=宋体 color=#333333><b>是否允许显示总固顶？</b></font></td> 
@@ -1118,9 +1120,9 @@ $tempoutput</td>
               </tr>
 		~;
 
-               $tempoutput = "<select name=\"abstopshake\">\n<option value=\"\">不采用任何方式\n<option value=\"1\">晃动\n<option value=\"2\">变色\n<option value=\"3\">反色\n</select>\n"; 
-               $tempoutput =~ s/value=\"$abstopshake\"/value=\"$abstopshake\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"abstopshake\">\n<option value=\"\">不采用任何方式\n<option value=\"1\">晃动\n<option value=\"2\">变色\n<option value=\"3\">反色\n</select>\n";
+    $tempoutput =~ s/value=\"$abstopshake\"/value=\"$abstopshake\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1129,10 +1131,10 @@ $tempoutput</td>
                $tempoutput</td> 
                </tr> 
 		~;
-               
-               $tempoutput = "<select name=\"dispcattop\">\n<option value=\"1\">显示\n<option value=\"0\">不显示\n</select>\n"; 
-               $tempoutput =~ s/value=\"$dispcattop\"/value=\"$dispcattop\" selected/; 
-               print qq~ 
+
+    $tempoutput = "<select name=\"dispcattop\">\n<option value=\"1\">显示\n<option value=\"0\">不显示\n</select>\n";
+    $tempoutput =~ s/value=\"$dispcattop\"/value=\"$dispcattop\" selected/;
+    print qq~
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font face=宋体 color=#333333><b>是否允许显示区固顶？</b></font></td> 
@@ -1147,9 +1149,9 @@ $tempoutput</td>
               </tr>
 		~;
 
-               $tempoutput = "<select name=\"cattopshake\">\n<option value=\"\">不采用任何方式\n<option value=\"1\">晃动\n<option value=\"2\">变色\n<option value=\"3\">反色\n</select>\n"; 
-               $tempoutput =~ s/value=\"$cattopshake\"/value=\"$cattopshake\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"cattopshake\">\n<option value=\"\">不采用任何方式\n<option value=\"1\">晃动\n<option value=\"2\">变色\n<option value=\"3\">反色\n</select>\n";
+    $tempoutput =~ s/value=\"$cattopshake\"/value=\"$cattopshake\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1172,9 +1174,9 @@ $tempoutput</td>
               </tr>
 		~;
 
-               $tempoutput = "<select name=\"topshake\">\n<option value=\"\">不采用任何方式\n<option value=\"1\">晃动\n<option value=\"2\">变色\n<option value=\"3\">反色\n</select>\n"; 
-               $tempoutput =~ s/value=\"$topshake\"/value=\"$topshake\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"topshake\">\n<option value=\"\">不采用任何方式\n<option value=\"1\">晃动\n<option value=\"2\">变色\n<option value=\"3\">反色\n</select>\n";
+    $tempoutput =~ s/value=\"$topshake\"/value=\"$topshake\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1203,9 +1205,9 @@ $tempoutput</td>
                 <input type=text name="maxpollitem" value="$maxpollitem" size=2 maxlength=2>　请设置 5 - 50 之间</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"emoticons\">\n<option value=\"off\">不使用\n<option value=\"on\">使用\n</select>\n";
-                $tempoutput =~ s/value=\"$emoticons\"/value=\"$emoticons\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"emoticons\">\n<option value=\"off\">不使用\n<option value=\"on\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$emoticons\"/value=\"$emoticons\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>是否使用表情字符转换？</font></td>
@@ -1213,9 +1215,9 @@ $tempoutput</td>
                 $tempoutput</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"canchgfont\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$canchgfont\"/value=\"$canchgfont\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"canchgfont\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$canchgfont\"/value=\"$canchgfont\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>是否使用文字字体转换？</font></td>
@@ -1228,12 +1230,12 @@ $tempoutput</td>
                 <font color=#990000><b><center>广告设置</center></b><br>
                 </td></tr>
 		~;
-	$adscript   =~ s/\[br\]/\n/isg;
-	$adfoot   =~ s/\[br\]/\n/isg;
+    $adscript =~ s/\[br\]/\n/isg;
+    $adfoot =~ s/\[br\]/\n/isg;
 
-               $tempoutput = "<select name=\"useadscript\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n"; 
-               $tempoutput =~ s/value=\"$useadscript\"/value=\"$useadscript\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"useadscript\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$useadscript\"/value=\"$useadscript\" selected/;
+    print qq~
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font face=宋体 color=#333333><b>是否使用论坛广告</b></font></td> 
@@ -1249,10 +1251,10 @@ $tempoutput</td>
                 </td>
                 </tr>
 		~;
-               
-               $tempoutput = "<select name=\"useadfoot\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n"; 
-               $tempoutput =~ s/value=\"$useadfoot\"/value=\"$useadfoot\" selected/; 
-               print qq~ 
+
+    $tempoutput = "<select name=\"useadfoot\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$useadfoot\"/value=\"$useadfoot\" selected/;
+    print qq~
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
                <font face=宋体 color=#333333><b>是否使用论坛尾部代码</b></font></td> 
@@ -1268,10 +1270,10 @@ $tempoutput</td>
                 </td>
                 </tr>
 		~;
-               
-               $tempoutput = "<select name=\"forumimagead\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
-               $tempoutput =~ s/value=\"$forumimagead\"/value=\"$forumimagead\" selected/;
-               print qq~
+
+    $tempoutput = "<select name=\"forumimagead\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$forumimagead\"/value=\"$forumimagead\" selected/;
+    print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
                <font face=宋体 color=#333333><b>是否使用分论坛浮动广告</b></font></td>
@@ -1308,9 +1310,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-               $tempoutput = "<select name=\"useimageadtopic\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
-               $tempoutput =~ s/value=\"$useimageadtopic\"/value=\"$useimageadtopic\" selected/;
-               print qq~
+    $tempoutput = "<select name=\"useimageadtopic\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$useimageadtopic\"/value=\"$useimageadtopic\" selected/;
+    print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
                <font face=宋体 color=#333333><b>查看此分论坛的贴子时是否<BR>使用此浮动广告</b></font></td>
@@ -1318,10 +1320,10 @@ $tempoutput</td>
                $tempoutput如果上面设置了<BR>分论坛不使用浮动广告的话，此选项无效<BR><BR></td>
                </tr>
 		~;
-        
-               $tempoutput = "<select name=\"forumimagead1\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
-               $tempoutput =~ s/value=\"$forumimagead1\"/value=\"$forumimagead1\" selected/;
-               print qq~
+
+    $tempoutput = "<select name=\"forumimagead1\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$forumimagead1\"/value=\"$forumimagead1\" selected/;
+    print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
                <font face=宋体 color=#333333><b>是否使用分论坛右下固定广告</b></font></td>
@@ -1358,9 +1360,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-               $tempoutput = "<select name=\"useimageadtopic1\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
-               $tempoutput =~ s/value=\"$useimageadtopic1\"/value=\"$useimageadtopic1\" selected/;
-               print qq~
+    $tempoutput = "<select name=\"useimageadtopic1\">\n<option value=\"0\">不使用\n<option value=\"1\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$useimageadtopic1\"/value=\"$useimageadtopic1\" selected/;
+    print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
                <font face=宋体 color=#333333><b>查看此分论坛的贴子时是否<BR>使用此右下固定广告</b></font></td>
@@ -1400,10 +1402,9 @@ $tempoutput</td>
 </tr>
 ~;
 
-
-$tempoutput = "<select name=\"pagechange\">\n<option value=\"no\">NO\n<option value=\"yes\">YES\n</select>\n";
-$tempoutput =~ s/value=\"$pagechange\"/value=\"$pagechange\" selected/;
-print qq~
+    $tempoutput = "<select name=\"pagechange\">\n<option value=\"no\">NO\n<option value=\"yes\">YES\n</select>\n";
+    $tempoutput =~ s/value=\"$pagechange\"/value=\"$pagechange\" selected/;
+    print qq~
 <tr>
 <td bgcolor=#FFFFFF colspan=2>
 <font color=#333333><b>调入页面时是否使用特效?</b><br>IE 4.0 以上版本浏览器有效</font></td>
@@ -1412,7 +1413,7 @@ $tempoutput</td>
 </tr>
 ~;
 
-$tempoutput = "<select name=\"cinoption\">\n
+    $tempoutput = "<select name=\"cinoption\">\n
 <option value=\"0\">盒状收缩\n
 <option value=\"1\">盒状放射\n
 <option value=\"2\">圆形收缩\n
@@ -1438,8 +1439,8 @@ $tempoutput = "<select name=\"cinoption\">\n
 <option value=\"22\">随机垂直线条\n
 <option value=\"23\">随机(上面任何一种)\n
 </select>\n";
-$tempoutput =~ s/value=\"$cinoption\"/value=\"$cinoption\" selected/;
-print qq~
+    $tempoutput =~ s/value=\"$cinoption\"/value=\"$cinoption\" selected/;
+    print qq~
 <tr>
 <td bgcolor=#FFFFFF colspan=2>
 <font color=#333333><b>特效类型?</b></font></td>
@@ -1448,7 +1449,7 @@ $tempoutput</td>
 </tr>
 ~;
 
-	print qq~
+    print qq~
                 <tr>
                 <td bgcolor=#EEEEEE align=center colspan=3>
                 <font color=#990000><b><center>其他设置</center></b><br>
@@ -1462,9 +1463,9 @@ $tempoutput</td>
                 </tr>
                  ~;
 
-                $tempoutput = "<select name=\"floodcontrol\"><option value=\"off\">否<option value=\"on\">是</select>\n";
-                $tempoutput =~ s/value=\"$floodcontrol\"/value=\"$floodcontrol\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"floodcontrol\"><option value=\"off\">否<option value=\"on\">是</select>\n";
+    $tempoutput =~ s/value=\"$floodcontrol\"/value=\"$floodcontrol\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40% colspan=2>
                 <font color=#333333><b>是否灌水预防机制？</b><br>强烈推荐使用</font></td>
@@ -1486,10 +1487,10 @@ $tempoutput</td>
                 <input type=text name="newmarktime" value="$newmarktime" size=3 maxlength=3>　一般 12 - 24 小时</td>
                 </tr>
 		~;
-		
-		$tempoutput = "<select name=\"usetodayforumreply\">\n<option value=\"yes\">是的，记录\n<option value=\"no\">不，不记录\n</select>\n";
-                $tempoutput =~ s/value=\"$usetodayforumreply\"/value=\"$usetodayforumreply\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"usetodayforumreply\">\n<option value=\"yes\">是的，记录\n<option value=\"no\">不，不记录\n</select>\n";
+    $tempoutput =~ s/value=\"$usetodayforumreply\"/value=\"$usetodayforumreply\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333><b>分论坛的今日新贴统计是否把回复也记录上</b></font></td>
@@ -1498,9 +1499,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"usejhpoint\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n"; 
-               $tempoutput =~ s/value=\"$usejhpoint\"/value=\"$usejhpoint\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"usejhpoint\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$usejhpoint\"/value=\"$usejhpoint\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1508,11 +1509,11 @@ $tempoutput</td>
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-               ~; 
+               ~;
 
-		$tempoutput = "<select name=\"nodispown\">\n<option value=\"no\">不显示\n<option value=\"yes\">显示\n</select>\n"; 
-               $tempoutput =~ s/value=\"$nodispown\"/value=\"$nodispown\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"nodispown\">\n<option value=\"no\">不显示\n<option value=\"yes\">显示\n</select>\n";
+    $tempoutput =~ s/value=\"$nodispown\"/value=\"$nodispown\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1520,11 +1521,11 @@ $tempoutput</td>
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-               ~; 
+               ~;
 
-		$tempoutput = "<select name=\"canuseview\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n"; 
-               $tempoutput =~ s/value=\"$canuseview\"/value=\"$canuseview\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"canuseview\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$canuseview\"/value=\"$canuseview\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1532,11 +1533,11 @@ $tempoutput</td>
                <td bgcolor=#FFFFFF> 
                $tempoutput</td> 
                </tr> 
-               ~; 
+               ~;
 
-		$tempoutput = "<select name=\"canusetreeview\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n"; 
-               $tempoutput =~ s/value=\"$canusetreeview\"/value=\"$canusetreeview\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"canusetreeview\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$canusetreeview\"/value=\"$canusetreeview\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1546,9 +1547,9 @@ $tempoutput</td>
                </tr> 
                 ~;
 
-               $tempoutput = "<select name=\"useads\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>\n"; 
-               $tempoutput =~ s/value=\"$useads\"/value=\"$useads\" selected/; 
-               print qq~ 
+    $tempoutput = "<select name=\"useads\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>\n";
+    $tempoutput =~ s/value=\"$useads\"/value=\"$useads\" selected/;
+    print qq~
 
                <tr> 
                <td bgcolor=#FFFFFF colspan=2> 
@@ -1557,10 +1558,10 @@ $tempoutput</td>
                $tempoutput</td> 
                </tr> 
 		~;
-		
-                $tempoutput = "<select name=\"look\">\n<option value=\"on\">开放\n<option value=\"off\">不开放\n</select>\n";
-                $tempoutput =~ s/value=\"$look\"/value=\"$look\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"look\">\n<option value=\"on\">开放\n<option value=\"off\">不开放\n</select>\n";
+    $tempoutput =~ s/value=\"$look\"/value=\"$look\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1569,9 +1570,9 @@ $tempoutput</td>
                 $tempoutput</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"wwjf\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$wwjf\"/value=\"$wwjf\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"wwjf\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$wwjf\"/value=\"$wwjf\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>分论坛是否使用威望限制制度</b></font></td>
@@ -1579,9 +1580,9 @@ $tempoutput</td>
                 $tempoutput</td>
                 </tr>
                 ~;
-                $tempoutput = "<select name=\"cansale\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$cansale\"/value=\"$cansale\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"cansale\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$cansale\"/value=\"$cansale\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>分论坛是否使用帖子买卖制度</b></font></td>
@@ -1595,10 +1596,10 @@ $tempoutput</td>
                <input type=text name="postcess" value="$postcess" size=5 maxlength=5> %  : 必须是 1 - 100 之间，不想使用则设置空白</td>
                </tr>
 		~;
-		
-		$tempoutput = "<select name=\"postjf\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$postjf\"/value=\"$postjf\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"postjf\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$postjf\"/value=\"$postjf\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否使用发帖量标签</b></font></td>
@@ -1607,9 +1608,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"jfmark\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$jfmark\"/value=\"$jfmark\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"jfmark\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$jfmark\"/value=\"$jfmark\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否使用积分查看标签</b></font></td>
@@ -1618,9 +1619,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"noviewjf\">\n<option value=\"no\">可以进入，但无法看保密的内容\n<option value=\"yes\">无法进入该帖\n</select>\n";
-                $tempoutput =~ s/value=\"$noviewjf\"/value=\"$noviewjf\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"noviewjf\">\n<option value=\"no\">可以进入，但无法看保密的内容\n<option value=\"yes\">无法进入该帖\n</select>\n";
+    $tempoutput =~ s/value=\"$noviewjf\"/value=\"$noviewjf\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>当主帖含有积分标签，那么达不到积分要求的会员．．？</b></font></td>
@@ -1629,9 +1630,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"hidejf\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$hidejf\"/value=\"$hidejf\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"hidejf\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$hidejf\"/value=\"$hidejf\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否使用保密帖子标签</b>（回复后才能看到帖子内容）</font></td>
@@ -1646,10 +1647,10 @@ $tempoutput</td>
                <input type=text name="max1jf" value="$max1jf" size=3 maxlength=3> 默认： 50</td>
                </tr>
 		~;
-		
-		$tempoutput = "<select name=\"usewm\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$usewm\"/value=\"$usewm\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"usewm\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$usewm\"/value=\"$usewm\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否使用自动水印</b>（帖子标题含原创字样时自动加水印）</font></td>
@@ -1658,9 +1659,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-		$tempoutput = "<select name=\"usecurl\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$usecurl\"/value=\"$usecurl\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"usecurl\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$usecurl\"/value=\"$usecurl\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否允许使用加密链接</b></font></td>
@@ -1668,10 +1669,10 @@ $tempoutput</td>
                 $tempoutput</td>
                 </tr>
 		~;
-		
-		$tempoutput = "<select name=\"magicface\">\n<option value=\"on\">允许\n<option value=\"off\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$magicface\"/value=\"$magicface\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"magicface\">\n<option value=\"on\">允许\n<option value=\"off\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$magicface\"/value=\"$magicface\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否允许使用魔法表情功能</b></font></td>
@@ -1680,9 +1681,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-       		$tempoutput = "<select name=\"announcemove\">\n<option value=\"on\">移动\n<option value=\"off\">不移动\n</select>\n";
-               	$tempoutput =~ s/value=\"$announcemove\"/value=\"$announcemove\" selected/;
-               	print qq~
+    $tempoutput = "<select name=\"announcemove\">\n<option value=\"on\">移动\n<option value=\"off\">不移动\n</select>\n";
+    $tempoutput =~ s/value=\"$announcemove\"/value=\"$announcemove\" selected/;
+    print qq~
 
                	<tr>
                	<td bgcolor=#FFFFFF colspan=2>
@@ -1692,9 +1693,9 @@ $tempoutput</td>
                	</tr>
                	~;
 
-                $tempoutput = "<select name=\"announcements\"><option value=\"no\">不使用<option value=\"yes\">使用</select>\n";
-                $tempoutput =~ s/value=\"$announcements\"/value=\"$announcements\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"announcements\"><option value=\"no\">不使用<option value=\"yes\">使用</select>\n";
+    $tempoutput =~ s/value=\"$announcements\"/value=\"$announcements\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40% colspan=2>
                 <font color=#333333><b>是否使用公告论坛</b></font></td>
@@ -1704,9 +1705,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"refreshurl\"><option value=\"0\">自动返回当前论坛<option value=\"1\">自动返回当前贴子</select>\n";
-                $tempoutput =~ s/value=\"$refreshurl\"/value=\"$refreshurl\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"refreshurl\"><option value=\"0\">自动返回当前论坛<option value=\"1\">自动返回当前贴子</select>\n";
+    $tempoutput =~ s/value=\"$refreshurl\"/value=\"$refreshurl\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF width=40% colspan=2>
                 <font color=#333333><b>发表、回复、编辑贴子后自动转移到？</b></font></td>
@@ -1715,9 +1716,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"payopen\"><option value=\"no\">不允许支付宝交易帖<option value=\"yes\">可以支付宝交易帖</select>\n";
-                $tempoutput =~ s/value=\"$payopen\"/value=\"$payopen\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"payopen\"><option value=\"no\">不允许支付宝交易帖<option value=\"yes\">可以支付宝交易帖</select>\n";
+    $tempoutput =~ s/value=\"$payopen\"/value=\"$payopen\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>打开论坛支付宝交易帖功能？</font></td>
@@ -1726,9 +1727,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"postopen\"><option value=\"yes\">可以发表或回复主题<option value=\"no\">不允许发表或回复主题</select>\n";
-                $tempoutput =~ s/value=\"$postopen\"/value=\"$postopen\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"postopen\"><option value=\"yes\">可以发表或回复主题<option value=\"no\">不允许发表或回复主题</select>\n";
+    $tempoutput =~ s/value=\"$postopen\"/value=\"$postopen\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>打开论坛发表或回复主题功能？</font></td>
@@ -1737,9 +1738,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"pollopen\"><option value=\"yes\">打开投票<option value=\"no\">关闭投票</select>\n";
-                $tempoutput =~ s/value=\"$pollopen\"/value=\"$pollopen\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"pollopen\"><option value=\"yes\">打开投票<option value=\"no\">关闭投票</select>\n";
+    $tempoutput =~ s/value=\"$pollopen\"/value=\"$pollopen\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>打开论坛投票功能？</font></td>
@@ -1748,9 +1749,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"xzbopen\"><option value=\"yes\">打开小字报<option value=\"no\">关闭小字报</select>\n";
-                $tempoutput =~ s/value=\"$xzbopen\"/value=\"$xzbopen\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"xzbopen\"><option value=\"yes\">打开小字报<option value=\"no\">关闭小字报</select>\n";
+    $tempoutput =~ s/value=\"$xzbopen\"/value=\"$xzbopen\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>打开论坛小字报功能？</font></td>
@@ -1772,9 +1773,9 @@ $tempoutput</td>
                </tr>
                ~;
 
-                $tempoutput = "<select name=\"useemote\"><option value=\"yes\">使用<option value=\"no\">不使用</select>\n";
-                $tempoutput =~ s/value=\"$useemote\"/value=\"$useemote\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"useemote\"><option value=\"yes\">使用<option value=\"no\">不使用</select>\n";
+    $tempoutput =~ s/value=\"$useemote\"/value=\"$useemote\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>是否使用 EMOTE 标签？</font></td>
@@ -1783,9 +1784,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"regaccess\"><option value=\"off\">不，允许任何人访问<option value=\"on\">是，必须登录后才能访问</select>\n";
-                $tempoutput =~ s/value=\"$regaccess\"/value=\"$regaccess\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"regaccess\"><option value=\"off\">不，允许任何人访问<option value=\"on\">是，必须登录后才能访问</select>\n";
+    $tempoutput =~ s/value=\"$regaccess\"/value=\"$regaccess\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>论坛只有注册用户可以访问？</font></td>
@@ -1794,9 +1795,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"guestregistered\"><option value=\"on\">可以<option value=\"off\">不能</select>\n";
-		$tempoutput =~ s/value=\"$guestregistered\"/value=\"$guestregistered\" selected/;
-		print qq~
+    $tempoutput = "<select name=\"guestregistered\"><option value=\"on\">可以<option value=\"off\">不能</select>\n";
+    $tempoutput =~ s/value=\"$guestregistered\"/value=\"$guestregistered\" selected/;
+    print qq~
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle align=left  colspan=2>
 		<font face=宋体 color=#333333>客人能否查看贴子内容？</font></td>
@@ -1804,10 +1805,10 @@ $tempoutput</td>
 		$tempoutput</td>
 		</tr>
 		~;
-		
-                $tempoutput = "<select name=\"viewadminlog\">\n<option value=\"0\">允许任何人查看\n<option value=\"1\">只允许注册会员以上级别查看\n<option value=\"2\">只允许认证会员以上级别查看<option value=\"3\">只允许版主以上级别查看</select>\n";
-                $tempoutput =~ s/value=\"$viewadminlog\"/value=\"$viewadminlog\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"viewadminlog\">\n<option value=\"0\">允许任何人查看\n<option value=\"1\">只允许注册会员以上级别查看\n<option value=\"2\">只允许认证会员以上级别查看<option value=\"3\">只允许版主以上级别查看</select>\n";
+    $tempoutput =~ s/value=\"$viewadminlog\"/value=\"$viewadminlog\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>版务日志功能开放方式</font></td>
@@ -1816,9 +1817,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"arrowuserdel\">\n<option value=\"on\">允许\n<option value=\"off\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$arrowuserdel\"/value=\"$arrowuserdel\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrowuserdel\">\n<option value=\"on\">允许\n<option value=\"off\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$arrowuserdel\"/value=\"$arrowuserdel\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1828,9 +1829,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"usereditpost\"><option value=\"yes\">可以编辑自己的贴子<option value=\"no\">不可以编辑自己的贴子</select>\n";
-                $tempoutput =~ s/value=\"$usereditpost\"/value=\"$usereditpost\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"usereditpost\"><option value=\"yes\">可以编辑自己的贴子<option value=\"no\">不可以编辑自己的贴子</select>\n";
+    $tempoutput =~ s/value=\"$usereditpost\"/value=\"$usereditpost\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>论坛是否允许编辑？(对坛主、斑竹无效)</font></td>
@@ -1839,9 +1840,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"allowamoedit\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>\n";
-                $tempoutput =~ s/value=\"$allowamoedit\"/value=\"$allowamoedit\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"allowamoedit\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>\n";
+    $tempoutput =~ s/value=\"$allowamoedit\"/value=\"$allowamoedit\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1851,9 +1852,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-		$tempoutput = "<select name=\"newmsgpop\"><option value=\"off\">不提示<option value=\"popup\">弹出<option value=\"light\">闪烁<option value=\"on\">两者均要</select>\n";
-                $tempoutput =~ s/value=\"$newmsgpop\"/value=\"$newmsgpop\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"newmsgpop\"><option value=\"off\">不提示<option value=\"popup\">弹出<option value=\"light\">闪烁<option value=\"on\">两者均要</select>\n";
+    $tempoutput =~ s/value=\"$newmsgpop\"/value=\"$newmsgpop\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>有新的短消息采用何种提示？</font></td>
@@ -1862,9 +1863,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"pvtip\">\n<option value=\"on\">显示 IP 和鉴定\n<option value=\"off\">保密 IP 和鉴定\n</select>\n";
-                $tempoutput =~ s/value=\"$pvtip\"/value=\"$pvtip\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"pvtip\">\n<option value=\"on\">显示 IP 和鉴定\n<option value=\"off\">保密 IP 和鉴定\n</select>\n";
+    $tempoutput =~ s/value=\"$pvtip\"/value=\"$pvtip\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1874,9 +1875,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"smocanseeip\">\n<option value=\"yes\">有效\n<option value=\"no\">无效\n</select>\n";
-                $tempoutput =~ s/value=\"$smocanseeip\"/value=\"$smocanseeip\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"smocanseeip\">\n<option value=\"yes\">有效\n<option value=\"no\">无效\n</select>\n";
+    $tempoutput =~ s/value=\"$smocanseeip\"/value=\"$smocanseeip\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1893,9 +1894,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"arrowupload\">\n<option value=\"on\">允许\n<option value=\"off\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$arrowupload\"/value=\"$arrowupload\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"arrowupload\">\n<option value=\"on\">允许\n<option value=\"off\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$arrowupload\"/value=\"$arrowupload\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1905,9 +1906,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"allowattachment\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$allowattachment\"/value=\"$allowattachment\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"allowattachment\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$allowattachment\"/value=\"$allowattachment\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -1931,9 +1932,9 @@ $tempoutput</td>
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"addtopictime\">\n<option value=\"no\">不添加\n<option value=\"yes\">添加\n</select>\n";
-                $tempoutput =~ s/value=\"$addtopictime\"/value=\"$addtopictime\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"addtopictime\">\n<option value=\"no\">不添加\n<option value=\"yes\">添加\n</select>\n";
+    $tempoutput =~ s/value=\"$addtopictime\"/value=\"$addtopictime\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>是否自动在主题前添加日期？</b></font></td>
@@ -1942,9 +1943,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"abslink\">\n<option value=\"no\">不直接下载\n<option value=\"yes\">直接下载\n</select>\n";
-                $tempoutput =~ s/value=\"$abslink\"/value=\"$abslink\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"abslink\">\n<option value=\"no\">不直接下载\n<option value=\"yes\">直接下载\n</select>\n";
+    $tempoutput =~ s/value=\"$abslink\"/value=\"$abslink\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>图片附件是否使用直接下载方式？</b>此设置只针对图片，如果选择“直接下载”，那么防盗链和图片水印设置将无效！</font></td>
@@ -1953,9 +1954,9 @@ $tempoutput</td>
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"pvtdown\">\n<option value=\"yes\">保护\n<option value=\"no\">不保护\n</select>\n";
-                $tempoutput =~ s/value=\"$pvtdown\"/value=\"$pvtdown\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"pvtdown\">\n<option value=\"yes\">保护\n<option value=\"no\">不保护\n</select>\n";
+    $tempoutput =~ s/value=\"$pvtdown\"/value=\"$pvtdown\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>是否保护附件下载地址，防止盗链？</b></font></td>
@@ -1964,18 +1965,18 @@ $tempoutput</td>
                 </tr>
 		~;
 
-eval ('use GD;');
-if ($@) {
-    $gdfunc = 0;
-}
-else {
-    $gdfunc = 1;
-}
-if ($gdfunc eq "1") {
+    eval ('use GD;');
+    if ($@) {
+        $gdfunc = 0;
+    }
+    else {
+        $gdfunc = 1;
+    }
+    if ($gdfunc eq "1") {
 
-		$tempoutput = "<select name=\"picwater\">\n<option value=\"no\">不加水印\n<option value=\"yes\">加上水印\n</select>\n";
-                $tempoutput =~ s/value=\"$picwater\"/value=\"$picwater\" selected/;
-                print qq~
+        $tempoutput = "<select name=\"picwater\">\n<option value=\"no\">不加水印\n<option value=\"yes\">加上水印\n</select>\n";
+        $tempoutput =~ s/value=\"$picwater\"/value=\"$picwater\" selected/;
+        print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>上传的 JPG 图片是否加上水印</b><BR>小于 200*40 的图片自动不加水印</font></td>
@@ -1984,11 +1985,11 @@ if ($gdfunc eq "1") {
                 </tr>
 		~;
 
-$watername = "http://bbs.leobbs.com/" if ($watername eq "");
+        $watername = "http://bbs.leobbs.com/" if ($watername eq "");
 
-		$tempoutput = "<select name=\"picwaterman\">\n<option value=\"0\">只对客人显示\n<option value=\"1\">对客人和普通用户显示\n<option value=\"2\">对客人、普通用户和认证用户显示<option value=\"3\">除了坛主外，其他用户都显示\n</select>\n";
-                $tempoutput =~ s/value=\"$picwaterman\"/value=\"$picwaterman\" selected/;
-                print qq~
+        $tempoutput = "<select name=\"picwaterman\">\n<option value=\"0\">只对客人显示\n<option value=\"1\">对客人和普通用户显示\n<option value=\"2\">对客人、普通用户和认证用户显示<option value=\"3\">除了坛主外，其他用户都显示\n</select>\n";
+        $tempoutput =~ s/value=\"$picwaterman\"/value=\"$picwaterman\" selected/;
+        print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>显示水印对象的附加设置</b><BR>只有打开水印功能后，此项目才有效</font></td>
@@ -1996,12 +1997,16 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 $tempoutput</td>
                 </tr>
                 ~;
-                if ($picwaterplace1 eq "yes") { $checked1 = "checked" ; } else { $checked1 = "" ; }
-                if ($picwaterplace2 eq "yes") { $checked2 = "checked" ; } else { $checked2 = "" ; }
-                if ($picwaterplace3 eq "yes") { $checked3 = "checked" ; } else { $checked3 = "" ; }
-                if ($picwaterplace4 eq "yes") { $checked4 = "checked" ; } else { $checked4 = "" ; }
-		$tempoutput = qq~<input type="checkbox" name="picwaterplace1" value="yes" $checked1> 左上角　　<input type="checkbox" name="picwaterplace2" value="yes" $checked2> 左下角<BR><input type="checkbox" name="picwaterplace3" value="yes" $checked3> 右上角　　<input type="checkbox" name="picwaterplace4" value="yes" $checked4> 右下角<BR>~;
-                print qq~
+        if ($picwaterplace1 eq "yes") {$checked1 = "checked";}
+        else {$checked1 = "";}
+        if ($picwaterplace2 eq "yes") {$checked2 = "checked";}
+        else {$checked2 = "";}
+        if ($picwaterplace3 eq "yes") {$checked3 = "checked";}
+        else {$checked3 = "";}
+        if ($picwaterplace4 eq "yes") {$checked4 = "checked";}
+        else {$checked4 = "";}
+        $tempoutput = qq~<input type="checkbox" name="picwaterplace1" value="yes" $checked1> 左上角　　<input type="checkbox" name="picwaterplace2" value="yes" $checked2> 左下角<BR><input type="checkbox" name="picwaterplace3" value="yes" $checked3> 右上角　　<input type="checkbox" name="picwaterplace4" value="yes" $checked4> 右下角<BR>~;
+        print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>水印显示的位置</b></font></td>
@@ -2016,13 +2021,14 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 <input type=text name="watername" value="$watername" size=30></td>
                 </tr>
 		~;
-} else {
-	print qq~<input type=hidden name="picwater" value="no">~;
-}
+    }
+    else {
+        print qq~<input type=hidden name="picwater" value="no">~;
+    }
 
-                $tempoutput = "<select name=\"mastpostatt\">\n<option value=\"no\">可以不带附件\n<option value=\"yes\">必须带附件\n</select>\n";
-                $tempoutput =~ s/value=\"$mastpostatt\"/value=\"$mastpostatt\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"mastpostatt\">\n<option value=\"no\">可以不带附件\n<option value=\"yes\">必须带附件\n</select>\n";
+    $tempoutput =~ s/value=\"$mastpostatt\"/value=\"$mastpostatt\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2053,9 +2059,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
                 ~;
 
-               $tempoutput = "<select name=\"arrawrecordclick\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>";
-               $tempoutput =~ s/value=\"$arrawrecordclick\"/value=\"$arrawrecordclick\" selected/;
-               print qq~
+    $tempoutput = "<select name=\"arrawrecordclick\">\n<option value=\"no\">不允许\n<option value=\"yes\">允许\n</select>";
+    $tempoutput =~ s/value=\"$arrawrecordclick\"/value=\"$arrawrecordclick\" selected/;
+    print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
                <font color=#333333>是否允许记录帖子访问情况</font></td>
@@ -2063,10 +2069,10 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                $tempoutput</td>
                </tr>               
                ~;
-               
-               $tempoutput = "<select name=\"nowater\">\n<option value=\"off\">不允许\n<option value=\"on\">允许\n</select>";
-               $tempoutput =~ s/value=\"$nowater\"/value=\"$nowater\" selected/;
-               print qq~
+
+    $tempoutput = "<select name=\"nowater\">\n<option value=\"off\">不允许\n<option value=\"on\">允许\n</select>";
+    $tempoutput =~ s/value=\"$nowater\"/value=\"$nowater\" selected/;
+    print qq~
                <tr>
                <td bgcolor=#FFFFFF colspan=2>
                <font color=#333333>是否允许发贴者对灌水进行限制</font></td>
@@ -2082,9 +2088,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                </tr>      
                ~;
 
-                $tempoutput = "<select name=\"defaulttopicshow\"><option value=>查看所有的主题<option value=\"1\">查看一天内的主题<option value=\"2\">查看两天内的主题<option value=\"7\">查看一星期内的主题<option value=\"15\">查看半个月内的主题<option value=\"30\">查看一个月内的主题<option value=\"60\">查看两个月内的主题<option value=\"180\">查看半年内的主题</select>\n";
-                $tempoutput =~ s/value=\"$defaulttopicshow\"/value=\"$defaulttopicshow\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"defaulttopicshow\"><option value=>查看所有的主题<option value=\"1\">查看一天内的主题<option value=\"2\">查看两天内的主题<option value=\"7\">查看一星期内的主题<option value=\"15\">查看半个月内的主题<option value=\"30\">查看一个月内的主题<option value=\"60\">查看两个月内的主题<option value=\"180\">查看半年内的主题</select>\n";
+    $tempoutput =~ s/value=\"$defaulttopicshow\"/value=\"$defaulttopicshow\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font color=#333333>默认显示主题数</font></td>
@@ -2093,9 +2099,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"onlineview\">\n<option value=\"1\">显示\n<option value=\"0\">不显示\n</select>\n";
-                $tempoutput =~ s/value=\"$onlineview\"/value=\"$onlineview\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"onlineview\">\n<option value=\"1\">显示\n<option value=\"0\">不显示\n</select>\n";
+    $tempoutput =~ s/value=\"$onlineview\"/value=\"$onlineview\" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2105,9 +2111,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
                 ~;
 
-                $tempoutput = "<select name=\"usefastpost\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$usefastpost\"/value=\"$usefastpost" selected/;
-                print qq~
+    $tempoutput = "<select name=\"usefastpost\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$usefastpost\"/value=\"$usefastpost" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2117,9 +2123,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispquickreply\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$dispquickreply\"/value=\"$dispquickreply" selected/;
-                print qq~
+    $tempoutput = "<select name=\"dispquickreply\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$dispquickreply\"/value=\"$dispquickreply" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2129,9 +2135,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"usenoimg\">\n<option value=\"no\">不使用\n<option value=\"yes\">使用\n</select>\n";
-                $tempoutput =~ s/value=\"$usenoimg\"/value=\"$usenoimg" selected/;
-                print qq~
+    $tempoutput = "<select name=\"usenoimg\">\n<option value=\"no\">不使用\n<option value=\"yes\">使用\n</select>\n";
+    $tempoutput =~ s/value=\"$usenoimg\"/value=\"$usenoimg" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2141,9 +2147,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"waterwhenguest\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
-                $tempoutput =~ s/value=\"$waterwhenguest\"/value=\"$waterwhenguest" selected/;
-                print qq~
+    $tempoutput = "<select name=\"waterwhenguest\">\n<option value=\"yes\">使用\n<option value=\"no\">不使用\n</select>\n";
+    $tempoutput =~ s/value=\"$waterwhenguest\"/value=\"$waterwhenguest" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2153,9 +2159,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispguest\">\n<option value=\"1\">视系统负荷而定\n<option value=\"2\">永远显示\n<option value=\"3\">永远不显示\n</select>\n";
-                $tempoutput =~ s/value=\"$dispguest\"/value=\"$dispguest\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"dispguest\">\n<option value=\"1\">视系统负荷而定\n<option value=\"2\">永远显示\n<option value=\"3\">永远不显示\n</select>\n";
+    $tempoutput =~ s/value=\"$dispguest\"/value=\"$dispguest\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>在线列表中是否显示客人？</b></font></td>
@@ -2164,9 +2170,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"sendmanageinfo\">\n<option value=\"no\">不通知用户\n<option value=\"yes\">通知用户\n</select>\n";
-                $tempoutput =~ s/value=\"$sendmanageinfo\"/value=\"$sendmanageinfo" selected/;
-                print qq~
+    $tempoutput = "<select name=\"sendmanageinfo\">\n<option value=\"no\">不通知用户\n<option value=\"yes\">通知用户\n</select>\n";
+    $tempoutput =~ s/value=\"$sendmanageinfo\"/value=\"$sendmanageinfo" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2176,9 +2182,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"treeview\">\n<option value=\"no\">平板显示贴子\n<option value=\"yes\">树形显示贴子\n</select>\n";
-                $tempoutput =~ s/value=\"$treeview\"/value=\"$treeview" selected/;
-                print qq~
+    $tempoutput = "<select name=\"treeview\">\n<option value=\"no\">平板显示贴子\n<option value=\"yes\">树形显示贴子\n</select>\n";
+    $tempoutput =~ s/value=\"$treeview\"/value=\"$treeview" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2188,9 +2194,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispjump\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select>\n";
-                $tempoutput =~ s/value=\"$dispjump\"/value=\"$dispjump\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"dispjump\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select>\n";
+    $tempoutput =~ s/value=\"$dispjump\"/value=\"$dispjump\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333>是否显示论坛跳转</font></td>
@@ -2199,9 +2205,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"dispview\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select>\n";
-                $tempoutput =~ s/value=\"$dispview\"/value=\"$dispview\" selected/;
-                print qq~
+    $tempoutput = "<select name=\"dispview\">\n<option value=\"yes\">显示\n<option value=\"no\">不显示\n</select>\n";
+    $tempoutput =~ s/value=\"$dispview\"/value=\"$dispview\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>是否显示论坛图例</b></font></td>
@@ -2215,10 +2221,10 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 <input type=text name="postcopyright" value="$postcopyright" size=30>　<BR>默认：版权所有，不得擅自转载</td>
                 </tr>
 		~;
-		
-		$tempoutput = "<select name=\"rssinfo\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
-                $tempoutput =~ s/value=\"$rssinfo\"/value=\"$rssinfo\" selected/;
-                print qq~
+
+    $tempoutput = "<select name=\"rssinfo\">\n<option value=\"yes\">允许\n<option value=\"no\">不允许\n</select>\n";
+    $tempoutput =~ s/value=\"$rssinfo\"/value=\"$rssinfo\" selected/;
+    print qq~
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
                 <font face=宋体 color=#333333><b>论坛是否允许使用 RSS 功能</b></font></td>
@@ -2227,9 +2233,9 @@ $watername = "http://bbs.leobbs.com/" if ($watername eq "");
                 </tr>
 		~;
 
-                $tempoutput = "<select name=\"refreshforum\">\n<option value=\"off\">不要自动刷新\n<option value=\"on\">要自动刷新\n</select>\n";
-                $tempoutput =~ s/value=\"$refreshforum\"/value=\"$refreshforum" selected/;
-                print qq~
+    $tempoutput = "<select name=\"refreshforum\">\n<option value=\"off\">不要自动刷新\n<option value=\"on\">要自动刷新\n</select>\n";
+    $tempoutput =~ s/value=\"$refreshforum\"/value=\"$refreshforum" selected/;
+    print qq~
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
@@ -2314,10 +2320,10 @@ function ClearAllow()
                <textarea name="allowusers" rows=6 cols=40 readonly=true>$allowusers</textarea><br><input type=button value=添加 OnClick="AddAllow();">　<input type=button value=删除 OnClick="DeleteAllow();">　<input type=button value=清除 OnClick="ClearAllow();"></td>
                </tr>~;
 
-		$tempoutput = "<select name=\"forumallowcount\">\n<option value=\"yes\">计入发贴数\n<option value=\"no\">不计入发贴数\n</select>\n";
-              	$tempoutput =~ s/value=\"$forumallowcount\"/value=\"$forumallowcount" selected/;
+    $tempoutput = "<select name=\"forumallowcount\">\n<option value=\"yes\">计入发贴数\n<option value=\"no\">不计入发贴数\n</select>\n";
+    $tempoutput =~ s/value=\"$forumallowcount\"/value=\"$forumallowcount" selected/;
 
-		print qq~
+    print qq~
 		<tr>
               	<td bgcolor=#FFFFFF colspan=2>
               	<font color=#333333>本版发帖是否计入作者发帖数</font></td>
@@ -2326,10 +2332,10 @@ function ClearAllow()
               	</tr>
 		~;
 
-		$tempoutput = "<select name=\"forumreplyallowcount\">\n<option value=\"yes\">计入回复数\n<option value=\"no\">不计入回复数\n</select>\n";
-              	$tempoutput =~ s/value=\"$forumreplyallowcount\"/value=\"$forumreplyallowcount" selected/;
+    $tempoutput = "<select name=\"forumreplyallowcount\">\n<option value=\"yes\">计入回复数\n<option value=\"no\">不计入回复数\n</select>\n";
+    $tempoutput =~ s/value=\"$forumreplyallowcount\"/value=\"$forumreplyallowcount" selected/;
 
-		print qq~
+    print qq~
 		<tr>
               	<td bgcolor=#FFFFFF colspan=2>
               	<font color=#333333>本版回复是否计入作者回复数</font></td>
@@ -2391,9 +2397,9 @@ function ClearAllow()
                 <font color=#333333><b>分论坛背景音乐名称</b>(如果没有请留空)<br>请输入背景音乐名称，背景音乐<BR>应上传于 non-cgi/midi 目录下。<br><b>不要包含 URL 地址或绝对路径！</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=20 name="midiaddr" value="$midiaddr">~;
-                $midiabsaddr = "$imagesdir" . "midi/$midiaddr";
-                print qq~　<EMBED src="$imagesurl/midi/$midiaddr" autostart="false" width=70 height=25 loop="true" align=absmiddle>~ if ((-e "$midiabsaddr")&&($midiaddr ne ""));
-                print qq~
+    $midiabsaddr = "$imagesdir" . "midi/$midiaddr";
+    print qq~　<EMBED src="$imagesurl/midi/$midiaddr" autostart="false" width=70 height=25 loop="true" align=absmiddle>~ if ((-e "$midiabsaddr") && ($midiaddr ne ""));
+    print qq~
                 </td>
 <tr>
               <td bgcolor=#EEEEEE align=center colspan=3>
@@ -2404,12 +2410,12 @@ function ClearAllow()
               <td bgcolor=#FFFFFF>
               <font face=宋体 color=#333333><b>允许访问论坛的成员组</b><br>如果不需要这个功能，请全部不要选择(或者全部选择，效果一样)！</font></td>
               <td bgcolor=#FFFFFF colspan=2>~;
-              my $memteam1 = qq~<input type=checkbox name="yxz" value="rz1">$defrz1(认证用户)<br>~ if ($defrz1 ne "");
-   my $memteam2 = qq~<input type=checkbox name="yxz" value="rz2">$defrz2(认证用户)<br>~ if ($defrz2 ne "");
-   my $memteam3 = qq~<input type=checkbox name="yxz" value="rz3">$defrz3(认证用户)<br>~ if ($defrz3 ne "");
-   my $memteam4 = qq~<input type=checkbox name="yxz" value="rz4">$defrz4(认证用户)<br>~ if ($defrz4 ne "");
-   my $memteam5 = qq~<input type=checkbox name="yxz" value="rz5">$defrz5(认证用户)<br>~ if ($defrz5 ne "");
-              $all=qq~<input type=checkbox name="yxz" value="">客人<br><input type=checkbox name="yxz" value="me">一般用户<br>$memteam1$memteam2$memteam3$memteam4$memteam5
+    my $memteam1 = qq~<input type=checkbox name="yxz" value="rz1">$defrz1(认证用户)<br>~ if ($defrz1 ne "");
+    my $memteam2 = qq~<input type=checkbox name="yxz" value="rz2">$defrz2(认证用户)<br>~ if ($defrz2 ne "");
+    my $memteam3 = qq~<input type=checkbox name="yxz" value="rz3">$defrz3(认证用户)<br>~ if ($defrz3 ne "");
+    my $memteam4 = qq~<input type=checkbox name="yxz" value="rz4">$defrz4(认证用户)<br>~ if ($defrz4 ne "");
+    my $memteam5 = qq~<input type=checkbox name="yxz" value="rz5">$defrz5(认证用户)<br>~ if ($defrz5 ne "");
+    $all = qq~<input type=checkbox name="yxz" value="">客人<br><input type=checkbox name="yxz" value="me">一般用户<br>$memteam1$memteam2$memteam3$memteam4$memteam5
 <input type=checkbox name="yxz" value="rz">认证用户<br>
 <input type=checkbox name="yxz" value="banned">禁止此用户发言<br>
 <input type=checkbox name="yxz" value="masked">屏蔽此用户贴子<br>
@@ -2418,13 +2424,13 @@ function ClearAllow()
 <input type=checkbox name="yxz" value="cmo">分类区版主<br>
 <input type=checkbox name="yxz" value="smo">论坛总版主<br>
 <input type=checkbox name="yxz" value="ad">坛主<br>~;
-              my @yxz = split(/\,/,$yxz);
-              foreach(@yxz){
-              chomp;
-              next if ($_ eq '');
-              $all=~s/<input type=checkbox name="yxz" value="$_"/<input type=checkbox name="yxz" value="$_" checked/g;
-              }
-              print qq~
+    my @yxz = split(/\,/, $yxz);
+    foreach (@yxz) {
+        chomp;
+        next if ($_ eq '');
+        $all =~ s/<input type=checkbox name="yxz" value="$_"/<input type=checkbox name="yxz" value="$_" checked/g;
+    }
+    print qq~
 $all
               </td>
               </tr>
@@ -2438,92 +2444,93 @@ $all
 sub dostyle {
     $filerequire = "$lbdir" . "data/style${inforum}.cgi";
     foreach (@params) {
-	$theparam = $query->param($_);
-	$theparam =~ s/\\/\\\\/g;
+        $theparam = $query->param($_);
+        $theparam =~ s/\\/\\\\/g;
         $theparam =~ s/\@/\\\@/g;
 
-        if (($_ eq 'maintopicad')||($_ eq 'replytopicad')) {
-	    $theparam =~ s/[\f\n\r]+/\n/ig;
-	    $theparam =~ s/[\r \n]+$/\n/ig;
-	    $theparam =~ s/^[\r\n ]+/\n/ig;
+        if (($_ eq 'maintopicad') || ($_ eq 'replytopicad')) {
+            $theparam =~ s/[\f\n\r]+/\n/ig;
+            $theparam =~ s/[\r \n]+$/\n/ig;
+            $theparam =~ s/^[\r\n ]+/\n/ig;
             $theparam =~ s/\n\n/\n/ig;
             $theparam =~ s/\n/\[br\]/ig;
             $theparam =~ s/ \&nbsp;/  /g
-	}
+        }
 
         $theparam = &unHTML("$theparam");
 
         if ($_ eq "footmark" || $_ eq "headmark" || $_ eq "adfoot" || $_ eq "adscript") {
-	    $theparam =~ s/[\f\n\r]+/\n/ig;
-	    $theparam =~ s/[\r \n]+$/\n/ig;
-	    $theparam =~ s/^[\r\n ]+/\n/ig;
+            $theparam =~ s/[\f\n\r]+/\n/ig;
+            $theparam =~ s/[\r \n]+$/\n/ig;
+            $theparam =~ s/^[\r\n ]+/\n/ig;
             $theparam =~ s/\n\n/\n/ig;
             $theparam =~ s/\n/\[br\]/ig;
             $theparam =~ s/ \&nbsp;/  /g;
-	}
+        }
 
+        ${$_} = $theparam;
 
-	${$_} = $theparam;
-	
-        if (($_ ne 'action')&&($_ ne 'forum')&&($_ ne 'yxz')&&($theparam ne "")) {
-        	$_ =~ s/[\a\f\n\e\0\r]//isg;
-        	$theparam =~ s/[\a\f\n\e\0\r]//isg;
-            $printme .= "\$" . "$_ = \"$theparam\"\;\n" if (($_ ne "")&&($theparam ne ""));
+        if (($_ ne 'action') && ($_ ne 'forum') && ($_ ne 'yxz') && ($theparam ne "")) {
+            $_ =~ s/[\a\f\n\e\0\r]//isg;
+            $theparam =~ s/[\a\f\n\e\0\r]//isg;
+            $printme .= "\$" . "$_ = \"$theparam\"\;\n" if (($_ ne "") && ($theparam ne ""));
         }
     }
     $endprint = "1\;\n";
-    open(FILE,">$filerequire");
+    open(FILE, ">$filerequire");
 
-	@yxz = $query -> param('yxz');
-	print FILE "\$yxz=\"";
-	$temp = 0;
-	foreach(@yxz){
-	    chomp;
-	    print FILE ",$_";
-	    $temp=1;
-	}
-	if ($temp eq "1") {
-	    print FILE ",\";\n";
-	} else {
-	    print FILE "\";\n";
-	}
+    @yxz = $query->param('yxz');
+    print FILE "\$yxz=\"";
+    $temp = 0;
+    foreach (@yxz) {
+        chomp;
+        print FILE ",$_";
+        $temp = 1;
+    }
+    if ($temp eq "1") {
+        print FILE ",\";\n";
+    }
+    else {
+        print FILE "\";\n";
+    }
 
     print FILE "$printme";
     print FILE $endprint;
     close(FILE);
 
-opendir (CATDIR, "${lbdir}cache");
-@dirdata = readdir(CATDIR);
-closedir (CATDIR);
-@dirdata1 = grep(/^forumstoptopic$inforum/,@dirdata);
-foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
-@dirdata1 = grep(/^forumshead$inforum/,@dirdata);
-foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
-@dirdata1 = grep(/^forumstitle$inforum/,@dirdata);
-foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
-@dirdata1 = grep(/^forumstopic$inforum/,@dirdata);
-foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
-@dirdata1 = grep(/^plcache$inforum/,@dirdata);
-foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
+    opendir(CATDIR, "${lbdir}cache");
+    @dirdata = readdir(CATDIR);
+    closedir(CATDIR);
+    @dirdata1 = grep (/^forumstoptopic$inforum/, @dirdata);
+    foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
+    @dirdata1 = grep (/^forumshead$inforum/, @dirdata);
+    foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
+    @dirdata1 = grep (/^forumstitle$inforum/, @dirdata);
+    foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
+    @dirdata1 = grep (/^forumstopic$inforum/, @dirdata);
+    foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
+    @dirdata1 = grep (/^plcache$inforum/, @dirdata);
+    foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
 
     if (-e $filerequire && -w $filerequire) {
         print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>欢迎来到论坛管理中心 / 分论坛风格设定</b></td></tr>
 <tr><td bgcolor=#EEEEEE colspan=2><font color=#333333><center><b>以下信息已经成功保存</b><br><br>
 </center>~;
 
-	print "\$yxz=\"";
-	$temp = 0;
-	foreach(@yxz){
-	    chomp;
-	    print ",$_";
-	    $temp=1;
-	}
-	if ($temp eq "1") {
-	    print ",\";<BR>";
-	} else {
-	    print "\";<BR>";
-	}
-	$printme =~ s/\n/\<br>/g;
+        print "\$yxz=\"";
+        $temp = 0;
+        foreach (@yxz) {
+            chomp;
+            print ",$_";
+            $temp = 1;
+        }
+        if ($temp eq "1") {
+            print ",\";<BR>";
+        }
+        else {
+            print "\";<BR>";
+        }
+        $printme =~ s/\n/\<br>/g;
         $printme =~ s/\"//g;
         $printme =~ s/\$//g;
         $printme =~ s/\\\@/\@/g;
@@ -2531,7 +2538,7 @@ foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
         print qq~</td></tr></table></td></tr></table>~;
     }
     else {
-	print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>欢迎来到论坛管理中心 / 分论坛风格设定</b></td></tr>
+        print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>欢迎来到论坛管理中心 / 分论坛风格设定</b></td></tr>
 <tr><td bgcolor=#EEEEEE align=center colspan=2>
 <font color=#333333><b>所有信息没有保存</b><br>文件或者目录不可写<br>请检测你的 data 目录和 styles*.cgi 文件的属性！
 </td></tr></table></td></tr></table>

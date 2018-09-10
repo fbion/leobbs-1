@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -33,27 +37,25 @@ $thisprog = "setipbans.cgi";
 
 $query = new LBCGI;
 
-$wordarray     = $query -> param('wordarray');
-$action        = $query -> param("action");
-$action        = &cleaninput("$action");
-
+$wordarray = $query->param('wordarray');
+$action = $query->param("action");
+$action = &cleaninput("$action");
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-            
 
 if ($action eq "process") {
-        
-        &getmember("$inmembername","no");
-        
-                if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) { 
+
+    &getmember("$inmembername", "no");
+
+    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
         $wordarray =~ s/\s+/\n/ig;
         $wordarray =~ s/\n\n/\n/ig;
@@ -63,21 +65,20 @@ if ($action eq "process") {
         $wordarray2display =~ s/\n/<br>/g;
 
         $filetomake = "$lbdir" . "data/ipbans.cgi";
-        open (FILE, ">$filetomake");
+        open(FILE, ">$filetomake");
         print FILE $wordarray;
-        close (FILE);
+        close(FILE);
 
-    opendir (DIRS, "${lbdir}cache/id");
-    my @files = readdir(DIRS);
-    closedir (DIRS);
-    foreach (@files) {
-    	$_ =~ s/\.cgi//isg;
-    	unlink ("${lbdir}cache/id/$_\.cgi");
-    }
-
+        opendir(DIRS, "${lbdir}cache/id");
+        my @files = readdir(DIRS);
+        closedir(DIRS);
+        foreach (@files) {
+            $_ =~ s/\.cgi//isg;
+            unlink("${lbdir}cache/id/$_\.cgi");
+        }
 
         if (-e $filetomake && -w $filetomake) {
-                print qq(
+            print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
 		<b>欢迎来到论坛管理中心 / IP 禁止</b>
 		</td></tr>
@@ -86,12 +87,12 @@ if ($action eq "process") {
 		<font color=#333333><center><b>所有的信息已经保存</b></center><br><br>
 		<b>你已经对下列 IP 进行了处理（第一个字符是 - 的为禁止）</b><br><br>
 		);
-                    print qq(<b>$wordarray2display</b><br>);
-                print qq(
+            print qq(<b>$wordarray2display</b><br>);
+            print qq(
                 <br><br><br><center><a href="setipbans.cgi">再次增加一些禁止的 IP</a></center>);
-                }
-                else {
-                    print qq(
+        }
+        else {
+            print qq(
                     <tr><td bgcolor=#2159C9" colspan=2><font color=#FFFFFF>
 			<b>欢迎来到 LeoBBS 论坛管理中心</b>
 			</td></tr>
@@ -100,22 +101,21 @@ if ($action eq "process") {
 			<font color=#333333><b>所有的信息没有保存</b><br>有文件或目录为不可写，请设置属性 777 ！
                     	</td></tr></table></td></tr></table>
 		     	);
-                    }
-                }
         }
-        
-    else {
-        
-        &getmember("$inmembername","no");
-        
-        if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    }
+}
+else {
 
-                $filetoopen = "$lbdir" . "data/ipbans.cgi";
-                open (FILE, "$filetoopen");
-                @bannedips = <FILE>;
-                close (FILE);
-                
-                print qq(
+    &getmember("$inmembername", "no");
+
+    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+        $filetoopen = "$lbdir" . "data/ipbans.cgi";
+        open(FILE, "$filetoopen");
+        @bannedips = <FILE>;
+        close(FILE);
+
+        print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
 		<b>欢迎来到论坛管理中心 / IP 禁止</b>
 		</td></tr>
@@ -192,25 +192,25 @@ if ($action eq "process") {
 		<tr>
 		<td bgcolor=#FFFFFF valign=middle align=center colspan=2>
 		<textarea cols=60 rows=22  name="wordarray">);
-		                foreach (@bannedips) {
-		                   $singleip = $_;
-		                   chomp $_;
-		                   next if ($_ eq "");
-		                   #$singleip =~ s/\n\s/\n/g;
-		                   print qq($singleip);
-		                }
-		                print qq(</textarea><BR>
+        foreach (@bannedips) {
+            $singleip = $_;
+            chomp $_;
+            next if ($_ eq "");
+            #$singleip =~ s/\n\s/\n/g;
+            print qq($singleip);
+        }
+        print qq(</textarea><BR>
 		</td>
 		</tr>
 		<tr>
 		<td bgcolor=#EEEEEE valign=middle align=center colspan=2>
 		<input type=submit name=submit value=提交></td></form></tr></table></td></tr></table>
 );
-                
-                }
-                else {
-                    &adminlogin;
-                    }
-        }
+
+    }
+    else {
+        &adminlogin;
+    }
+}
 print qq~</td></tr></table></body></html>~;
 exit;

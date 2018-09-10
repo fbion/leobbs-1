@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -31,53 +35,52 @@ $|++;
 $thisprog = "setallowemail.cgi";
 $query = new LBCGI;
 
-
-$action       = ($query -> param('action') ne "")?'process':'toppage';
-$wordarray    = $query -> param('wordarray');
-$select_type  = ($query -> param('select_type') eq "allow")?'allow':'ban';
+$action = ($query->param('action') ne "") ? 'process' : 'toppage';
+$wordarray = $query->param('wordarray');
+$select_type = ($query->param('select_type') eq "allow") ? 'allow' : 'ban';
 
 $inmembername = $query->cookie('adminname');
-$inpassword   = $query->cookie('adminpass');
+$inpassword = $query->cookie('adminpass');
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-
 
 my %Mode = ('process' => \&process);
 
 #################--- Main program ---###################
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
-&getmember("$inmembername","no");
-	if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
-		print qq~
+&getmember("$inmembername", "no");
+if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    print qq~
 		<tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
 		<b>欢迎来到论坛管理中心 / 限制(允许)可注册邮箱</b>
 		</td></tr>~;
-		if($Mode{$action}) { 
-			$Mode{$action}->();
-		} else {
-			&toppage;
-		}
-		print qq~</td></tr></table></td></tr></table>~;
-	} else {
-		&adminlogin;
-	}
-sub toppage{
-	$allowmail = "";
-	$filetoopen = "$lbdir" . "data/allow_email.cgi";
-	open (FILE, "$filetoopen");
-	$allowtype = <FILE>;
-	$allowmail = <FILE>;
-	close (FILE);
-	chomp $allowtype;
-	chomp $allowmail;
-	$allowmail =~s/\t/\n/g;
-	$allowmail =~s/ //g;
-	$allowtype = ($allowtype eq "allow")?'allow':'ban';
-	$select_type{$allowtype} = ' checked';
-	
-	
-	print qq~
+    if ($Mode{$action}) {
+        $Mode{$action}->();
+    }
+    else {
+        &toppage;
+    }
+    print qq~</td></tr></table></td></tr></table>~;
+}
+else {
+    &adminlogin;
+}
+sub toppage {
+    $allowmail = "";
+    $filetoopen = "$lbdir" . "data/allow_email.cgi";
+    open(FILE, "$filetoopen");
+    $allowtype = <FILE>;
+    $allowmail = <FILE>;
+    close(FILE);
+    chomp $allowtype;
+    chomp $allowmail;
+    $allowmail =~ s/\t/\n/g;
+    $allowmail =~ s/ //g;
+    $allowtype = ($allowtype eq "allow") ? 'allow' : 'ban';
+    $select_type{$allowtype} = ' checked';
+
+    print qq~
 	<form action="$thisprog" method="post">
 	<tr>
 	<td bgcolor="#EEEEEE" align="center" colspan="2">
@@ -119,21 +122,21 @@ sub toppage{
 	</form>
 	~;
 }
-sub process{
-	$output_text = ($select_type eq "allow")?'只能使用这些邮箱注册':'使用这些邮箱注册不能注册';
-	$select_type .= "\n";
-	$wordarray .= "\n";
-	$wordarray =~ s/[\a\f\e\0\r\t ]//isg;
-	$wordarray =~ s/\r\n/\n/ig;
-	$wordarray =~ s/\n+/\n/ig;
-	$wordarray =~ s/\n/\t/isg;
-	$filetoopen = "$lbdir" . "data/allow_email.cgi";
-	open (FILE, ">$filetoopen");
-	print FILE $select_type;
-	print FILE $wordarray;
-	close (FILE);
-	
-	print qq~
+sub process {
+    $output_text = ($select_type eq "allow") ? '只能使用这些邮箱注册' : '使用这些邮箱注册不能注册';
+    $select_type .= "\n";
+    $wordarray .= "\n";
+    $wordarray =~ s/[\a\f\e\0\r\t ]//isg;
+    $wordarray =~ s/\r\n/\n/ig;
+    $wordarray =~ s/\n+/\n/ig;
+    $wordarray =~ s/\n/\t/isg;
+    $filetoopen = "$lbdir" . "data/allow_email.cgi";
+    open(FILE, ">$filetoopen");
+    print FILE $select_type;
+    print FILE $wordarray;
+    close(FILE);
+
+    print qq~
 	<tr>
 	<td bgcolor="#EEEEEE" align="center" colspan="2">
 	<font color="#333333"><b>邮箱限制已经保存</b>
@@ -150,12 +153,12 @@ sub process{
 	<tr><td>
 	<ol>
 	~;
-	@savedwordarray = split(/\t/,$wordarray);
-	foreach $word(@savedwordarray) {
-		chomp $word;
-		print qq~<li>$word~;
-	}
-	print qq~
+    @savedwordarray = split(/\t/, $wordarray);
+    foreach $word (@savedwordarray) {
+        chomp $word;
+        print qq~<li>$word~;
+    }
+    print qq~
 	</ol></td></tr>
 	</table>
 	</td>

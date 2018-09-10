@@ -8,10 +8,13 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-if (($arrawpostreal eq "on")||($membercode eq 'mo' ||$membercode eq 'amo'|| $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo'))  { $realimg =qq(<img onclick=real() src=$imagesurl/btg/rm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 Real 音/视频" width=23 height=22> )}
-    else  {$realimg=qq(　　)};
-if (($arrawpostmedia eq "on")||($membercode eq 'mo'||$membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) { $wmimg =qq(<img onclick=wm() src=$imagesurl/btg/wm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 WM 类音/视频" width=23 height=22> )}
-    else {$wmimg=qq(　　)};
+use warnings;
+use strict;
+use diagnostics;
+if (($arrawpostreal eq "on") || ($membercode eq 'mo' || $membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) {$realimg = qq(<img onclick=real() src=$imagesurl/btg/rm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 Real 音/视频" width=23 height=22> )}
+else {$realimg = qq(　　)};
+if (($arrawpostmedia eq "on") || ($membercode eq 'mo' || $membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) {$wmimg = qq(<img onclick=wm() src=$imagesurl/btg/wm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 WM 类音/视频" width=23 height=22> )}
+else {$wmimg = qq(　　)};
 $insidejs = qq~
 <script>
 function replac(){

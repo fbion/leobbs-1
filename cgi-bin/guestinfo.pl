@@ -8,9 +8,12 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-$membercode{"客人"}  = "no";
-$membertitle{"客人"} ="　　 -* 未注册 *-";
-$rating{"客人"}      = "未知";
+use warnings;
+use strict;
+use diagnostics;
+$membercode{"客人"} = "no";
+$membertitle{"客人"} = "　　 -* 未注册 *-";
+$rating{"客人"} = "未知";
 $membergraphic{"客人"} = "";
 $useravatar{"客人"} = "<BR>";
 $posterfontcolor{"客人"} = "$posternamecolor";

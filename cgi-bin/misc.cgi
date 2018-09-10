@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+use diagnostics;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -32,24 +36,24 @@ $thisprog = "misc.cgi";
 $query = new LBCGI;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-$UIN     = $query -> param('UIN');
-$UIN     = &cleaninput("$UIN");
+$UIN = $query->param('UIN');
+$UIN = &cleaninput("$UIN");
 $UIN =~ s/[^0-9]//isg;
-$action  = $query -> param('action');
-$action  = &cleaninput("$action");
+$action = $query->param('action');
+$action = &cleaninput("$action");
 
-if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
+if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$inselectstyle  = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人" ) { $inmembername = "客人"; }
+if ($inmembername eq "" || $inmembername eq "客人") {$inmembername = "客人";}
 if ($action eq "showsmilies") {
     $output = qq~ 
 <p>
@@ -72,16 +76,16 @@ if ($action eq "showsmilies") {
                 </td>
                 </tr>
     ~;
-    
-        open (FILE, "$lbdir/data/lbemot.cgi");
-	my @emoticondata = <FILE>;
-	close (FILE);
-	chomp @emoticondata;
-        
+
+    open(FILE, "$lbdir/data/lbemot.cgi");
+    my @emoticondata = <FILE>;
+    close(FILE);
+    chomp @emoticondata;
+
     foreach $picture (@emoticondata) {
-	$smileyname = $picture;
-	$smileyname =~ s/\.gif//g;
-	$output .= qq~
+        $smileyname = $picture;
+        $smileyname =~ s/\.gif//g;
+        $output .= qq~
 	<tr>
 	<td bgcolor=$miscbackone align=center>
 	<font color=$fontcolormisc>:$smileyname:</font>
@@ -102,12 +106,12 @@ if ($action eq "showsmilies") {
 }
 elsif ($action eq "showmagicface") {
     $CountLength = 0;
-    opendir(DIR,"$imagesdir/MagicFace/gif/");
+    opendir(DIR, "$imagesdir/MagicFace/gif/");
     @files = readdir(DIR);
     closedir(DIR);
-    @numbers = grep(/\.gif$/i,@files);
+    @numbers = grep (/\.gif$/i, @files);
     $CountLength = @numbers;
-    
+
     $output = qq~ 
 <script>
 function MM_showHideLayers() {
@@ -660,7 +664,7 @@ elsif ($action eq "lbcode") {
     ~;
 }
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-    &output("$boardname - 帮助",\$output,"msg");
+&output("$boardname - 帮助", \$output, "msg");
 exit;

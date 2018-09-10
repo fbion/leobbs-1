@@ -10,20 +10,22 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -34,15 +36,15 @@ $|++;
 $thisprog = "help.cgi";
 $query = new LBCGI;
 
-$inadmin                = $query -> param('admin');
-$innew                = $query -> param('helpnew');
-$action                 = $query -> param('action');
-$inhelpon               = $query -> param('helpon');
-$inadminmodpass         = $query -> param("adminmodpass");
-$inadminmodname         = $query -> param("adminmodname");
-$inadminmodpass         = &cleaninput($inadminmodpass);
-$inadminmodname         = &cleaninput($inadminmodname);
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inadminmodname =~ m/\//)||($inadminmodname =~ m/\\/)||($inadminmodname =~ m/\.\./));
+$inadmin = $query->param('admin');
+$innew = $query->param('helpnew');
+$action = $query->param('action');
+$inhelpon = $query->param('helpon');
+$inadminmodpass = $query->param("adminmodpass");
+$inadminmodname = $query->param("adminmodname");
+$inadminmodpass = &cleaninput($inadminmodpass);
+$inadminmodname = &cleaninput($inadminmodname);
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inadminmodname =~ m/\//) || ($inadminmodname =~ m/\\/) || ($inadminmodname =~ m/\.\./));
 $inadminmodname =~ s/\///g;
 $inadminmodname =~ s/\.\.//g;
 $inadminmodname =~ s/\\//g;
@@ -52,11 +54,11 @@ if ($inadminmodpass ne "") {
     unless ($@) {$inadminmodpass = "lEO$inadminmodpass";}
 }
 
-$inselectstyle  = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 $inhelpon = &cleaninput($inhelpon);
 $inhelpon =~ s/\///g;
@@ -75,30 +77,30 @@ $cleanadminname = $inadmin;
 $cleanadminname =~ s/\_/ /g;
 $cleannewname = $innew;
 $cleannewname =~ s/\_/ /g;
-if (($number) && ($number !~ /^[0-9]+$/)) { &error("普通错误&请不要修改生成的 URL！"); }
-if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-if (! $inpassword) { $inpassword = $query->cookie("apasswordcookie"); }
+if (($number) && ($number !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
+if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-if (! $inadminmodname) { $inadminmodname = $inmembername; }
-if (! $inadminmodpass) { $inadminmodpass = $inpassword; }
+if (!$inadminmodname) {$inadminmodname = $inmembername;}
+if (!$inadminmodpass) {$inadminmodpass = $inpassword;}
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
 }
 else {
-	&getmember("$inmembername","no");
-     if ($inpassword ne $password) {
-	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    &getmember("$inmembername", "no");
+    if ($inpassword ne $password) {
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
-	&error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
+    }
+    &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-    if ($inhelpon) {
-        $output .= qq~<p>
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+if ($inhelpon) {
+    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
               <tr>
@@ -113,17 +115,17 @@ print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES")
                        <font face="$font" color=$fontcolormisc>
                        <b>关于$cleanhelpname的帮助：</b><p>
 	~;
-        $filetoopen = "$lbdir" . "help/$inhelpon.dat";
-        $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
-        open (FILE, "$filetoopen");
-        sysread(FILE, $helpdata,(stat(FILE))[7]);
-        close (FILE);
-	$helpdata =~ s/\r//isg;
+    $filetoopen = "$lbdir" . "help/$inhelpon.dat";
+    $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
+    open(FILE, "$filetoopen");
+    sysread(FILE, $helpdata, (stat(FILE))[7]);
+    close(FILE);
+    $helpdata =~ s/\r//isg;
 
-            $output .= $helpdata;
-    }
-    elsif ($innew) {
-        $output .= qq~<p>
+    $output .= $helpdata;
+}
+elsif ($innew) {
+    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
               <tr>
@@ -138,23 +140,23 @@ print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES")
                        <font face="$font" color=$fontcolormisc>
                        <b>关于$cleannewname的帮助：</b><p>
 	~;
-        $filetoopen = "$lbdir" . "help/$cleannewname.pl";
-        $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
-        open (FILE, "$filetoopen");
-        sysread(FILE, $helpdata,(stat(FILE))[7]);
-        close (FILE);
-	$helpdata =~ s/\r//isg;
+    $filetoopen = "$lbdir" . "help/$cleannewname.pl";
+    $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
+    open(FILE, "$filetoopen");
+    sysread(FILE, $helpdata, (stat(FILE))[7]);
+    close(FILE);
+    $helpdata =~ s/\r//isg;
 
-            $output .= $helpdata;
-    }
-    elsif ($action eq "login") {
+    $output .= $helpdata;
+}
+elsif ($action eq "login") {
 
-            &getmember("$inadminmodname","no");
+    &getmember("$inadminmodname", "no");
 
-            unless ($membercode eq "ad" ||($membercode eq 'smo')|| $membercode eq "cmo" || $membercode eq "amo" || $membercode eq "mo") { &messangererror("查看帮助&您没有权限查看此文件！"); }
-            if ($inadminmodpass ne $password) { &messangererror("查看帮助&您的密码错误！"); }
+    unless ($membercode eq "ad" || ($membercode eq 'smo') || $membercode eq "cmo" || $membercode eq "amo" || $membercode eq "mo") {&messangererror("查看帮助&您没有权限查看此文件！");}
+    if ($inadminmodpass ne $password) {&messangererror("查看帮助&您的密码错误！");}
 
-            $output .= qq~<p>
+    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
                <tr>
@@ -169,28 +171,28 @@ print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES")
                       <font face="$font" color=$fontcolormisc>
                       <b>　　坛主/版主帮助文件</b><p>
              ~;
-            $dirtoopen = "$lbdir" . "help";
-            opendir (DIR, "$dirtoopen");
-            @dirdata = readdir(DIR);
-            closedir (DIR);
-            @sorteddirdata = grep(/cgi$/,@dirdata);
-            @newdirdata = sort alphabetically(@sorteddirdata);
+    $dirtoopen = "$lbdir" . "help";
+    opendir(DIR, "$dirtoopen");
+    @dirdata = readdir(DIR);
+    closedir(DIR);
+    @sorteddirdata = grep (/cgi$/, @dirdata);
+    @newdirdata = sort alphabetically(@sorteddirdata);
 
-            foreach (@newdirdata) {
-                chomp $_;
-                $filename = $_;
-                $filename =~ s/\.cgi$//g;
-                $cleanname = $filename;
-                $cleanname =~ s/\_/ /g;
-                $cleannamefile = uri_escape($cleanname);
-                $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;关于<a href="$thisprog?admin=$cleannamefile" target="_self"><b>$cleanname</b></a>的帮助<p>~;
-            }
-	}
-        elsif ($inadmin) {
-	    &getmember("$inmembername","no");
-            unless ($membercode eq "ad" || $membercode eq 'smo'|| $membercode eq 'cmo'|| $membercode eq 'amo'|| $membercode eq "mo") { &messangererror("查看帮助&您没有权限查看此文件！"); }
-            if ($inpassword ne $password) { &messangererror("查看帮助&您的密码错误！"); }
-	    $output .= qq~<p>
+    foreach (@newdirdata) {
+        chomp $_;
+        $filename = $_;
+        $filename =~ s/\.cgi$//g;
+        $cleanname = $filename;
+        $cleanname =~ s/\_/ /g;
+        $cleannamefile = uri_escape($cleanname);
+        $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;关于<a href="$thisprog?admin=$cleannamefile" target="_self"><b>$cleanname</b></a>的帮助<p>~;
+    }
+}
+elsif ($inadmin) {
+    &getmember("$inmembername", "no");
+    unless ($membercode eq "ad" || $membercode eq 'smo' || $membercode eq 'cmo' || $membercode eq 'amo' || $membercode eq "mo") {&messangererror("查看帮助&您没有权限查看此文件！");}
+    if ($inpassword ne $password) {&messangererror("查看帮助&您的密码错误！");}
+    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
 		<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
                  <tr>
@@ -206,18 +208,18 @@ print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES")
                       <b>关于$cleanadminname的帮助</b><p>
             ~;
 
-	    $filetoopen = "$lbdir" . "help/$inadmin.cgi";
-            $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
-            open (FILE, "$filetoopen");
-            @helpdata = <FILE>;
-            close (FILE);
+    $filetoopen = "$lbdir" . "help/$inadmin.cgi";
+    $filetoopen =~ s/[<>\^\(\)\{\}\a\f\n\e\0\r\"\`\&\;\*\?]//g;
+    open(FILE, "$filetoopen");
+    @helpdata = <FILE>;
+    close(FILE);
 
-	    foreach (@helpdata) {
-                $output .= $_;
-            }
-        }
-        else {
-	    $output .= qq~<p>
+    foreach (@helpdata) {
+        $output .= $_;
+    }
+}
+else {
+    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
               <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
                 <tr>
@@ -236,39 +238,39 @@ print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES")
                             
             ~;
 
-            $dirtoopen = "$lbdir" . "help";
-            opendir (DIR, "$dirtoopen");
-            @dirdata = readdir(DIR);
-            closedir (DIR);
-            @sorteddirdata = grep(/dat$/,@dirdata);
-            @newdirdata = sort alphabetically(@sorteddirdata);
+    $dirtoopen = "$lbdir" . "help";
+    opendir(DIR, "$dirtoopen");
+    @dirdata = readdir(DIR);
+    closedir(DIR);
+    @sorteddirdata = grep (/dat$/, @dirdata);
+    @newdirdata = sort alphabetically(@sorteddirdata);
 
-            foreach (@newdirdata) {
-                chomp $_;
-                $filename = $_;
-                $filename =~ s/\.dat$//g;
-                $cleanname = $filename;
-                $cleanname =~ s/\_/ /g;
-                $cleannamefile = uri_escape($cleanname);
-                $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;关于<a href="$thisprog?helpon=$cleannamefile" target="_self"><b>$cleanname</b></a>的帮助<p>~;
-            }
-	    $output .= qq~</td>~;
-	}
+    foreach (@newdirdata) {
+        chomp $_;
+        $filename = $_;
+        $filename =~ s/\.dat$//g;
+        $cleanname = $filename;
+        $cleanname =~ s/\_/ /g;
+        $cleannamefile = uri_escape($cleanname);
+        $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;关于<a href="$thisprog?helpon=$cleannamefile" target="_self"><b>$cleanname</b></a>的帮助<p>~;
+    }
+    $output .= qq~</td>~;
+}
 
 $output .= qq~</tr><tr><td bgcolor=$miscbackone valign=middle align=center colspan=2><font face="$font" color=$fontcolormisc>~;
-    if ($passwordverification eq "yes") { $passwordverification = "是必需的"; }
-    else { $passwordverification = "不是必需的"; }
+if ($passwordverification eq "yes") {$passwordverification = "是必需的";}
+else {$passwordverification = "不是必需的";}
 
-    if ($emailfunctions ne "on") { $emailfunctions = "关闭"; }
+if ($emailfunctions ne "on") {$emailfunctions = "关闭";}
 
-    if ($emoticons eq "on") {
-	$emoticons = "使用";
-        $emoticonslink = qq~| 查看<a href=javascript:openScript('misc.cgi?action=showsmilies',300,350)>表情转换</a>~;
-    }
-    else { $emoticons = "没有使用"; }
-    $output .= qq~<p><br><br>查看<a href=\"$thisprog\" target=\"_self\">所有的帮助文件</a> $emoticonslink | 查看 <a href=\"javascript:openScript('misc.cgi?action=lbcode',300,350)\">LeoBBS 标签</a> | 查看 <a href=\"javascript:openScript('lookemotes.cgi?action=style',300,350)\">EMOTE 标签</a><BR><BR>~;
+if ($emoticons eq "on") {
+    $emoticons = "使用";
+    $emoticonslink = qq~| 查看<a href=javascript:openScript('misc.cgi?action=showsmilies',300,350)>表情转换</a>~;
+}
+else {$emoticons = "没有使用";}
+$output .= qq~<p><br><br>查看<a href=\"$thisprog\" target=\"_self\">所有的帮助文件</a> $emoticonslink | 查看 <a href=\"javascript:openScript('misc.cgi?action=lbcode',300,350)\">LeoBBS 标签</a> | 查看 <a href=\"javascript:openScript('lookemotes.cgi?action=style',300,350)\">EMOTE 标签</a><BR><BR>~;
 
-    $output .= qq~
+$output .= qq~
     </td></tr>
     <tr>
     <td bgcolor=$miscbacktwo align=center colspan=2><font face="$font" color=$fontcolormisc><b>论坛常规信息</b><br><br>
@@ -287,11 +289,11 @@ $output .= qq~</tr><tr><td bgcolor=$miscbackone valign=middle align=center colsp
     </table></td></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
 
-    &output("$boardname - 帮助",\$output,"msg");
+&output("$boardname - 帮助", \$output, "msg");
 
 sub messangererror {
     my $errorinfo = shift;
-    (my $where,my $errormsg) = split(/\&/, $errorinfo);
+    (my $where, my $errormsg) = split(/\&/, $errorinfo);
     $output = qq~<p><SCRIPT>valigntop()</SCRIPT>
       <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 	<tr>
@@ -316,5 +318,5 @@ sub messangererror {
                 </td></tr>
                 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
-    &output("$boardname - 帮助",\$output,"msg");
+    &output("$boardname - 帮助", \$output, "msg");
 }

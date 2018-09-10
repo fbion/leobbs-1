@@ -8,21 +8,27 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use warnings;
+use strict;
+use diagnostics;
+
 $maxpoststr = "" if ($maxpoststr eq 0);
-$maxpoststr = 100 if (($maxpoststr < 100)&&($maxpoststr ne ""));
-if ($emoticons eq "on") { $emoticonslink = qq~<input CHECKED name=inshowemoticons type=checkbox value=yes>使用表情字符转换？~; }
+$maxpoststr = 100 if (($maxpoststr < 100) && ($maxpoststr ne ""));
+if ($emoticons eq "on") {$emoticonslink = qq~<input CHECKED name=inshowemoticons type=checkbox value=yes>使用表情字符转换？~;}
 if ($emailfunctions eq "on") {
-    if ($innotify eq "yes") { $requestnotify = qq~<input name=notify type=checkbox value=yes checked>有回复时使用邮件通知您？<br>~; }
-	               else { $requestnotify = qq~<input name=notify type=checkbox value=yes>有回复时使用邮件通知您？<br>~;}
+    if ($innotify eq "yes") {$requestnotify = qq~<input name=notify type=checkbox value=yes checked>有回复时使用邮件通知您？<br>~;}
+    else {$requestnotify = qq~<input name=notify type=checkbox value=yes>有回复时使用邮件通知您？<br>~;}
 }
 if ($canchgfont ne "no") {
     $fontpost = qq~<input type=checkbox name="inshowchgfont" value="yes">使用字体转换？<br>~;
-} else {
+}
+else {
     undef $fontpost;
 }
 if ($idmbcodestate eq "on") {
     $idmbcodestates = qq~<input type=checkbox name="uselbcode" value="yes" checked>使用 LeoBBS 标签？<BR>~;
-} else {
+}
+else {
     $idmbcodestates = "";
 }
 
@@ -38,17 +44,17 @@ $output .= qq~<form action=post.cgi method=post name="FORM" enctype="multipart/f
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>输入用户名和密码:</b></font></td><td bgcolor=$miscbackone> <font color=$fontcolormisc><b>用户名</b>: <input type=text name=membername> <span onclick="javascript:location.href='register.cgi?forum=$inforum'" style=cursor:hand>没有注册？</span>　<b>密码:</b> <input type=password name=password> <a href=profile.cgi?action=lostpass style=cursor:help>忘记密码？</a></font></td></tr>
 ~;
 
-if (($allowattachment ne "no")||($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")) {
+if (($allowattachment ne "no") || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes")) {
     $uploadreqire = "" if ($uploadreqire <= 0);
     $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
-	$output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
-        $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone colspan=2> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font></font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
+    $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
+    $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone colspan=2> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font></font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
 }
 $output .= qq~
 <tr><td bgcolor=$miscbacktwo valign=top><font color=$fontcolormisc><b>选项</b>　~;
 
 if ($magicface ne 'off') {
-$output .= qq~
+    $output .= qq~
 <style>
 .gray	{cursor: hand; filter:gray}
 </style>

@@ -14,6 +14,7 @@ use strict;
 use vars qw(@ISA @EXPORT);
 use warnings;
 use diagnostics;
+use diagnostics;
 
 require Exporter;
 @ISA = qw(Exporter);

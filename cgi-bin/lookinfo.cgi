@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=20000;
+$LBCGI::POST_MAX = 20000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -34,67 +38,65 @@ $|++;
 $thisprog = "lookinfo.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-    $query = new LBCGI;
+$query = new LBCGI;
 
-	@params = $query->param;
-	foreach $param(@params) {
-		$theparam = $query->param($param);
-        $theparam = &cleaninput("$theparam");
-		$PARAM{$param} = $theparam;
-	    }
+@params = $query->param;
+foreach $param (@params) {
+    $theparam = $query->param($param);
+    $theparam = &cleaninput("$theparam");
+    $PARAM{$param} = $theparam;
+}
 
-
-
-$action      =  $PARAM{'action'};
-$inforum     =  $PARAM{'forum'};
+$action = $PARAM{'action'};
+$inforum = $PARAM{'forum'};
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
-if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
+if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inmember            = $query -> param('member');
-$inmembername        = $query -> param("membername");
-$inpassword          = $query -> param("password");
-$action              = &cleaninput("$action");
-$inmember            = &cleaninput("$inmember");
-$inmembername        = &cleaninput("$inmembername");
-$inpassword          = &cleaninput("$inpassword");
+$inmember = $query->param('member');
+$inmembername = $query->param("membername");
+$inpassword = $query->param("password");
+$action = &cleaninput("$action");
+$inmember = &cleaninput("$inmember");
+$inmembername = &cleaninput("$inmembername");
+$inpassword = &cleaninput("$inpassword");
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-$inselectstyle   = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-    if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-    if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie"); }
+if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
+if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) { $inmembername = "客人"; }
-    else {
-        &getmember("$inmembername","no");
-    }   
+if ($inmembername eq "" || $inmembername eq "客人") {$inmembername = "客人";}
+else {
+    &getmember("$inmembername", "no");
+}
 
 &mischeader("论坛信息");
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-            my %Mode = (             
-            'style'               =>    \&styleform,   
-            );
+my %Mode = (
+    'style' => \&styleform,
+);
 
-            if($Mode{$action}) { 
-               $Mode{$action}->();
-               }
+if ($Mode{$action}) {
+    $Mode{$action}->();
+}
 ##################################################################################
 sub styleform {
-&mischeader("查看论坛信息");
-$mgraphic0 = "none.gif" if ($mgraphic0 eq "");
-$output .= qq~<SCRIPT>valigntop()</SCRIPT>
+    &mischeader("查看论坛信息");
+    $mgraphic0 = "none.gif" if ($mgraphic0 eq "");
+    $output .= qq~<SCRIPT>valigntop()</SCRIPT>
         <table width=$tablewidth border=1 bordercolor=$tablebordercolor align=center cellpadding=5 cellspacing=0 >
         <tr><td bgcolor=$forumcolorone $catbackpic colspan=4 align=center><B>用 户 等 级</B></td><tr>
         <tr><td bgcolor=$forumcolorone><B>级别名称</td><td  bgcolor=$forumcolortwo><B>积分数</td><td bgcolor=$forumcolorone><B>代表图片</td><tr>
@@ -109,63 +111,63 @@ $output .= qq~<SCRIPT>valigntop()</SCRIPT>
 	<tr><td bgcolor=$forumcolorone>$mtitle8</td><td  bgcolor=$forumcolortwo>$mpostmark8</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic8></td><tr>
 	<tr><td bgcolor=$forumcolorone>$mtitle9</td><td  bgcolor=$forumcolortwo>$mpostmark9</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic9></td><tr>
 	~;
-if ($mtitle10 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle10</td><td  bgcolor=$forumcolortwo>$mpostmark10</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic10></td><tr>
+    if ($mtitle10 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle10</td><td  bgcolor=$forumcolortwo>$mpostmark10</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic10></td><tr>
 	~;
-}
-if ($mtitle11 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle11</td><td  bgcolor=$forumcolortwo>$mpostmark11</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic11></td><tr>
+    }
+    if ($mtitle11 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle11</td><td  bgcolor=$forumcolortwo>$mpostmark11</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic11></td><tr>
 	~;
-}
-if ($mtitle12 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle12</td><td  bgcolor=$forumcolortwo>$mpostmark12</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic12></td><tr>
+    }
+    if ($mtitle12 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle12</td><td  bgcolor=$forumcolortwo>$mpostmark12</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic12></td><tr>
 	~;
-}
-if ($mtitle13 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle13</td><td  bgcolor=$forumcolortwo>$mpostmark13</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic13></td><tr>
+    }
+    if ($mtitle13 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle13</td><td  bgcolor=$forumcolortwo>$mpostmark13</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic13></td><tr>
 	~;
-}
-if ($mtitle14 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle14</td><td  bgcolor=$forumcolortwo>$mpostmark14</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic14></td><tr>
+    }
+    if ($mtitle14 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle14</td><td  bgcolor=$forumcolortwo>$mpostmark14</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic14></td><tr>
 	~;
-}
-if ($mtitle15 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle15</td><td  bgcolor=$forumcolortwo>$mpostmark15</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic15></td><tr>
+    }
+    if ($mtitle15 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle15</td><td  bgcolor=$forumcolortwo>$mpostmark15</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic15></td><tr>
 	~;
-}
-if ($mtitle16 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle16</td><td  bgcolor=$forumcolortwo>$mpostmark16</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic16></td><tr>
+    }
+    if ($mtitle16 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle16</td><td  bgcolor=$forumcolortwo>$mpostmark16</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic16></td><tr>
 	~;
-}
-if ($mtitle17 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle17</td><td  bgcolor=$forumcolortwo>$mpostmark17</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic17></td><tr>
+    }
+    if ($mtitle17 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle17</td><td  bgcolor=$forumcolortwo>$mpostmark17</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic17></td><tr>
 	~;
-}
-if ($mtitle18 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle18</td><td  bgcolor=$forumcolortwo>$mpostmark18</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic18></td><tr>
+    }
+    if ($mtitle18 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle18</td><td  bgcolor=$forumcolortwo>$mpostmark18</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic18></td><tr>
 	~;
-}
-if ($mtitle19 ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle19</td><td  bgcolor=$forumcolortwo>$mpostmark19</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic19></td><tr>
+    }
+    if ($mtitle19 ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitle19</td><td  bgcolor=$forumcolortwo>$mpostmark19</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphic19></td><tr>
 	~;
-}
-if ($mtitlemax ne "") {
-	$output .= qq~<tr><td bgcolor=$forumcolorone>$mtitlemax</td><td  bgcolor=$forumcolortwo>$mpostmarkmax</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphicmax></td><tr>
+    }
+    if ($mtitlemax ne "") {
+        $output .= qq~<tr><td bgcolor=$forumcolorone>$mtitlemax</td><td  bgcolor=$forumcolortwo>$mpostmarkmax</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$mgraphicmax></td><tr>
 	~;
-}
-if ($motitle ne "") {
-	$output .= qq~ <tr><td bgcolor=$forumcolorone>$motitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$modgraphic></td><tr>
+    }
+    if ($motitle ne "") {
+        $output .= qq~ <tr><td bgcolor=$forumcolorone>$motitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$modgraphic></td><tr>
 ~;
-}
-if ($cmotitle ne "") {
-	$output .= qq~ <tr><td bgcolor=$forumcolorone>$cmotitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$cmodgraphic></td><tr>
+    }
+    if ($cmotitle ne "") {
+        $output .= qq~ <tr><td bgcolor=$forumcolorone>$cmotitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$cmodgraphic></td><tr>
 ~;
-}
-if ($smotitle ne "") {
-	$output .= qq~ <tr><td bgcolor=$forumcolorone>$smotitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$smodgraphic></td><tr>
+    }
+    if ($smotitle ne "") {
+        $output .= qq~ <tr><td bgcolor=$forumcolorone>$smotitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$smodgraphic></td><tr>
 ~;
-}
-$output .= qq~
+    }
+    $output .= qq~
 	<tr><td bgcolor=$forumcolorone>$adtitle</td><td  bgcolor=$forumcolortwo>不受限制</td><td bgcolor=$forumcolorone><img src=$imagesurl/images/$admingraphic></td><tr>
 </table><SCRIPT>valignend()</SCRIPT><br><br><SCRIPT>valigntop()</SCRIPT>
 <table width=$tablewidth border=1 bordercolor=$tablebordercolor align=center cellpadding=5 cellspacing=0 >
@@ -188,5 +190,5 @@ $output .= qq~
 }
 
 $output .= qq~</body></html>~;
-&output("$boardname - 查看论坛信息",\$output);
+&output("$boardname - 查看论坛信息", \$output);
 exit;

@@ -10,19 +10,23 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
-$LBCGI::HEADERS_ONCE = 1;            
+$LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
 require "data/boardinfo.cgi";
 require "data/leoskin.cgi";
@@ -34,50 +38,46 @@ $thisprog = "setskin.cgi";
 
 $query = new LBCGI;
 
-	@params = $query->param;
-	foreach (@params) {
-		$theparam = $query->param($_);
-	$theparam =~ s/\\/\\\\/g;
-        $theparam =~ s/\@/\\\@/g;
-        $theparam =~ s/\$/\\\$/g;
-        $theparam = &unHTML("$theparam");
-		${$_} = $theparam;
-        if ($_ ne 'action') {
-            $printme .= "\$" . "$_ = \"$theparam\"\;\n";
-            }
-	}
-
+@params = $query->param;
+foreach (@params) {
+    $theparam = $query->param($_);
+    $theparam =~ s/\\/\\\\/g;
+    $theparam =~ s/\@/\\\@/g;
+    $theparam =~ s/\$/\\\$/g;
+    $theparam = &unHTML("$theparam");
+    ${$_} = $theparam;
+    if ($_ ne 'action') {
+        $printme .= "\$" . "$_ = \"$theparam\"\;\n";
+    }
+}
 
 $inmembername = cookie("adminname");
-$inpassword   = cookie("adminpass");
+$inpassword = cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername","no");
-        
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
-            
-             
-    if ($action eq "process") {
+&getmember("$inmembername", "no");
 
+if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+
+
+    if ($action eq "process") {
 
         $printme .= "1\;\n";
 
         $filetomake = "$lbdir" . "data/leoskin.cgi";
 
-        open(FILE,">$filetomake");
-        flock(FILE,2) if ($OS_USED eq "Unix");
+        open(FILE, ">$filetomake");
+        flock(FILE, 2) if ($OS_USED eq "Unix");
         print FILE "$printme";
         close(FILE);
-        
-         
-        
+
         if (-e $filetomake && -w $filetomake) {
-                print qq~
+            print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体  color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 论坛插件设定</b>
                 </td></tr>
@@ -85,20 +85,19 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                 <td bgcolor=#EEEEEE valign=middle colspan=2>
                 <font face=宋体 color=#333333 ><center><b>所有的信息已经保存</b><br><br>
                 </center>~;
-                $printme =~ s/\n/\<br>/g;
-                $printme =~ s/\"//g;
-                $printme =~ s/\$//g;
-                $printme =~ s/\\\@/\@/g;
-                $printme =~ s/1\;//g;
-                print $printme;
+            $printme =~ s/\n/\<br>/g;
+            $printme =~ s/\"//g;
+            $printme =~ s/\$//g;
+            $printme =~ s/\\\@/\@/g;
+            $printme =~ s/1\;//g;
+            print $printme;
 
-                print qq~
+            print qq~
                 </td></tr></table></td></tr></table>
                 ~;
-                }
-
-                else {
-                    print qq~
+        }
+        else {
+            print qq~
                     <tr><td bgcolor=#2159C9" colspan=2><font face=宋体  color=#FFFFFF>
                     <b>欢迎来到 LeoBBS 论坛管理中心</b>
                     </td></tr>
@@ -107,13 +106,13 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                     <font color=#333333><b>所有的信息没有保存</b><br>有文件或目录为不可写，请设置属性 777 ！
                     </td></tr></table></td></tr></table>
                     ~;
-                    }
-        
-            }
-            else {
-                $inmembername =~ s/\_/ /g;
-                
-                               print qq~
+        }
+
+    }
+    else {
+        $inmembername =~ s/\_/ /g;
+
+        print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体  color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 论坛插件设定</b>
                 </td></tr>
@@ -278,13 +277,12 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
                
                ~;
 
-                            
-                }
-            }
-            else {
-                 &adminlogin;
-                 }
-      
+    }
+}
+else {
+    &adminlogin;
+}
+
 print qq~</td></tr></table></body></html>~;
 exit;
 

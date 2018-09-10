@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use warnings;
+use strict;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "admin.lib.pl";
@@ -32,41 +36,40 @@ $thisprog = "noreg.cgi";
 
 $query = new LBCGI;
 
-$userarray     = $query -> param('userarray');
-$action        = $query -> param("action");
-$action        = &cleaninput("$action");
-
+$userarray = $query->param('userarray');
+$action = $query->param("action");
+$action = &cleaninput("$action");
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-            
+
 if ($action eq "process") {
-    &getmember("$inmembername","no");
-    if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    &getmember("$inmembername", "no");
+    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
 
-	$userarray .= "\n";
-	$userarray =~ s/\t//isg;
-	$userarray =~ s/\r\n/\n/ig;
-	$userarray =~ s/\n+/\n/ig;
-	$userarray =~ s/\n/\t/isg;
+        $userarray .= "\n";
+        $userarray =~ s/\t//isg;
+        $userarray =~ s/\r\n/\n/ig;
+        $userarray =~ s/\n+/\n/ig;
+        $userarray =~ s/\n/\t/isg;
 
-        @saveduserarray = split(/\t/,$userarray);
+        @saveduserarray = split(/\t/, $userarray);
         $userarray =~ s/\*\[\]\(\)\.\?\+\=\|//isg;
         $filetomake = "$lbdir" . "data/noreglist.cgi";
-        open (FILE, ">$filetomake");
+        open(FILE, ">$filetomake");
         print FILE $userarray;
-        close (FILE);
-        
+        close(FILE);
+
         if (-e $filetomake && -w $filetomake) {
-                
-		print qq(
+
+            print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心</b>
                 </td></tr>
@@ -75,15 +78,15 @@ if ($action eq "process") {
                 <font color=#333333><center><b>所有的信息已经保存</b></center><br><br>
                 <b>你已经保留了下列用户名，这些用户名将不允许被申请。</b><br><br>
                 );
-                
-                foreach $user(@saveduserarray) {
-                    chomp $user;
-                    print qq($user<br>);
-                }
-                print qq(<br><br><br><center><a href="noreg.cgi">保留更多的用户名</a></center>);
-	}
+
+            foreach $user (@saveduserarray) {
+                chomp $user;
+                print qq($user<br>);
+            }
+            print qq(<br><br><br><center><a href="noreg.cgi">保留更多的用户名</a></center>);
+        }
         else {
-		print qq(
+            print qq(
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                     <b>欢迎来到论坛管理中心</b>
                     </td></tr>
@@ -92,7 +95,7 @@ if ($action eq "process") {
                     <font color=#333333><b>所有的信息没有保存</b><br>有文件或目录为不可写，请设置属性 777 ！
                     </td></tr></table></td></tr></table>
                 );
-	}
+        }
     }
     else {
         &adminlogin;
@@ -100,18 +103,18 @@ if ($action eq "process") {
 
 }
 else {
-        
-        &getmember("$inmembername","no");
-        if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
-		$badusers = "";
-                $filetoopen = "$lbdir" . "data/noreglist.cgi";
-                open (FILE, "$filetoopen");
-                $badusers = <FILE>;
-                close (FILE);
-                
-                $badusers =~ s/\t/\n/g;
 
-                print qq(
+    &getmember("$inmembername", "no");
+    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+        $badusers = "";
+        $filetoopen = "$lbdir" . "data/noreglist.cgi";
+        open(FILE, "$filetoopen");
+        $badusers = <FILE>;
+        close(FILE);
+
+        $badusers =~ s/\t/\n/g;
+
+        print qq(
                 <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
                 <b>欢迎来到论坛管理中心 / 保留特殊用户名</b>
                 </td></tr>
@@ -141,11 +144,11 @@ else {
                 <td bgcolor=#EEEEEE align=center colspan=2>
                 <input type=submit name=submit value="提 交"></td></form></tr></table></td></tr></table>
                 );
-                
-	}
-	else {
-	    &adminlogin;
-	}
+
+    }
+    else {
+        &adminlogin;
+    }
 }
 print qq~</td></tr></table></body></html>~;
 exit;
