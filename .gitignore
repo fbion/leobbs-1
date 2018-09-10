@@ -46,3 +46,4 @@ cgi-bin/search*
 .terraform
 *.tfstate
 *.tfstate.backup
+*.lock.info
