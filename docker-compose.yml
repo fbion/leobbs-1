@@ -2,14 +2,10 @@
 version: "3.3"
 services:
   leobbs:
-      image: netroby/docker-apache-perl
+      build: .
       ports:
          - "4321:80"
       restart: always
-      volumes:
-         - ./:/var/www/html:rw
-         - ./etc/leobbs.conf:/etc/apache2/sites-enabled/localhost.conf
-      command: /usr/sbin/apache2ctl -D FOREGROUND
       networks:
         default:
 networks:
