@@ -24,3 +24,12 @@ terraform taint null_resource.web
 terraform apply  -auto-approve tf
 
 ```
+
+## Carton
+
+If you using Carton as perl packages management. You may want to run 
+```bash
+Carton install
+Carton run morbo .\main.pl
+
+```

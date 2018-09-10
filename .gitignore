@@ -47,3 +47,5 @@ cgi-bin/search*
 *.tfstate
 *.tfstate.backup
 *.lock.info
+local/
+*.snapshot
