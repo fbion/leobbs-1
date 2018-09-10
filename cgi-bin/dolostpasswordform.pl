@@ -8,11 +8,15 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-    $helpurl = &helpfiles("遗忘密码");
-    $helpurl = qq~$helpurl<img src="$imagesurl/images/$skin/help_b.gif" border=0></a>~;
+use strict;
+use warnings;
+use diagnostics;
 
-    $output =~ s/\ 用户资料/\ 忘记论坛密码/g;
-    $output .= qq~<p>
+$helpurl = &helpfiles("遗忘密码");
+$helpurl = qq~$helpurl<img src="$imagesurl/images/$skin/help_b.gif" border=0></a>~;
+
+$output =~ s/\ 用户资料/\ 忘记论坛密码/g;
+$output .= qq~<p>
 <tr><td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center>
 <form action=$thisprog method=post>
 <input type=hidden name=action value=sendpassword>

@@ -7,11 +7,17 @@
 #      主页地址： http://www.LeoBBS.com/            #
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
+use strict;
+use warnings;
+use diagnostics;
+
 sub superanndo {
-$superannounce=&HTML($superannounce); $superannounce =~ s/\n/<BR>/isg; $superannounce =~ s/\t/\n/isg;
-$superannouncedisp = "oncepersession" if ($superannouncedisp eq "");
-$superannouncehide = "yes" if ($superannouncehide eq "");
-$output .= qq~
+    $superannounce = &HTML($superannounce);
+    $superannounce =~ s/\n/<BR>/isg;
+    $superannounce =~ s/\t/\n/isg;
+    $superannouncedisp = "oncepersession" if ($superannouncedisp eq "");
+    $superannouncehide = "yes" if ($superannouncehide eq "");
+    $output .= qq~
 <style type="text/css">
 #fadeinbox{position:absolute;width:350px;left:0;top:-400px;border:2px $titleborder;background-color:$menubackground;padding:4px;z-index:100;visibility:hidden;}
 </style>

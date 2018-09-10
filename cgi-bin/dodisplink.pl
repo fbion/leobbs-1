@@ -8,7 +8,10 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-    $links = &HTML("$links");
+use warnings;
+use strict;
+use diagnostics;
+$links = &HTML("$links");
     $output .= qq~
 <img src=$imagesurl/images/none.gif height=5><br>
 <SCRIPT>valigntop()</SCRIPT>
