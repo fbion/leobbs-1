@@ -9,3 +9,18 @@ Then you can run
 docker-compose up --build
 
 ```
+
+## Terraform
+
+For first run
+```bash
+terraform init tf
+terraform apply  -auto-approve tf 
+
+```
+For second run
+```bash
+terraform taint null_resource.web
+terraform apply  -auto-approve tf
+
+```
