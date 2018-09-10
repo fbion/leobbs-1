@@ -10,7 +10,8 @@
 
 use strict;
 use warnings;
-if ($inmembername eq "") { $inusername = "客人"; }
+use diagnostics;
+if ($inmembername eq "") {$inusername = "客人";}
 $ipaddress = "$ENV{'REMOTE_ADDR'}($ENV{'HTTP_X_FORWARDED_FOR'} -- $ENV{'HTTP_CLIENT_IP'})";
 $inmembername =~ s/\_/ /g;
 
@@ -25,6 +26,6 @@ $output .= qq~<p>
 </td></tr></table></td></tr></table>
 ~;
 $output =~ s/用户资料/警告！/g;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output($boardname,\$output);
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+&output($boardname, \$output);
 1;

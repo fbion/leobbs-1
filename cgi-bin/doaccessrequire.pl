@@ -8,16 +8,20 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
+
 if ($inmembername eq "客人") {
     print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
     exit;
 }
-if ((($userregistered ne "no")&&($allowedentry{$inforum} eq "yes"))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")||(($userregistered ne "no") && ($forumpassword eq $forumpass))) {
+if ((($userregistered ne "no") && ($allowedentry{$inforum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || (($userregistered ne "no") && ($forumpassword eq $forumpass))) {
     $allowforumcookie = cookie(-name => "forumsallowed$inforum", -value => "$forumpass", -path => "$cookiepath/", -expires => "0");
 
-    print header(-cookie=>[$allowforumcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    print header(-cookie => [ $allowforumcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-    print qq ~<script>location.href="$thisprog?forum=$inforum";</script>~;
+    print qq~<script>location.href="$thisprog?forum=$inforum";</script>~;
     exit;
 }
 &error("进入论坛&你不允许进入该论坛！");

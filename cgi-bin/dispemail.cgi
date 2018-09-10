@@ -10,18 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use strict;
+use warnings;
 use LBCGI;
- 
-$LBCGI::POST_MAX=200000;
+
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 
@@ -35,22 +38,22 @@ $thisprog = "dispemail.cgi";
 $query = new LBCGI;
 
 my $allow_eamil_file = "${lbdir}data/allow_email.cgi";
-if(-e $allow_eamil_file){
-	open(AEFILE,$allow_eamil_file);
-	$allowtype = <AEFILE>;
-	$allowmail = <AEFILE>;
-	close(AEFILE);
-	chomp $allowtype;
-	chomp $allowmail;
+if (-e $allow_eamil_file) {
+    open(AEFILE, $allow_eamil_file);
+    $allowtype = <AEFILE>;
+    $allowmail = <AEFILE>;
+    close(AEFILE);
+    chomp $allowtype;
+    chomp $allowmail;
 }
 
-$allowmail =~s/\t+/\t/g;
-$allowmail =~s/^\t//;
-$allowmail =~s/\t$//;
-$allowmail =~s/\t/<br>/g;
+$allowmail =~ s/\t+/\t/g;
+$allowmail =~ s/^\t//;
+$allowmail =~ s/\t$//;
+$allowmail =~ s/\t/<br>/g;
 
 $lbbody = 'topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0"';
-$allowtype_d = ($allowtype eq "allow")?'必需使用下列邮箱才能注册':'不允许使用下列邮箱注册';
+$allowtype_d = ($allowtype eq "allow") ? '必需使用下列邮箱才能注册' : '不允许使用下列邮箱注册';
 
 $output = <<"HTML";
 <table cellpadding=0 cellspacing=0 width=100% height="90%" bgcolor=$tablebordercolor align=center>
@@ -63,6 +66,6 @@ $output = <<"HTML";
 </table><br>
 HTML
 
-print header( -charset => UTF-8 , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-&output("$boardname - 邮箱限制",\$output,'msg');
+print header(-charset => UTF -8, -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+&output("$boardname - 邮箱限制", \$output, 'msg');
 exit;

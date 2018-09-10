@@ -10,12 +10,13 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
@@ -23,7 +24,7 @@ use strict;
 use warnings;
 use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=600000;
+$LBCGI::POST_MAX = 600000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -36,36 +37,38 @@ $|++;
 $query = new LBCGI;
 $thisprog = "buyface.cgi";
 
-if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
+if ($COOKIE_USED eq 2 && $mycookiepath ne "") {$cookiepath = $mycookiepath;}
+elsif ($COOKIE_USED eq 1) {$cookiepath = "";}
 else {
-    $boardurltemp =$boardurl;
+    $boardurltemp = $boardurl;
     $boardurltemp =~ s/http\:\/\/(\S+?)\/(.*)/\/$2/;
     $cookiepath = $boardurltemp;
     $cookiepath =~ s/\/$//;
 }
 
 $inmembername = $query->cookie("amembernamecookie");
-$inpassword   = $query->cookie("apasswordcookie");
+$inpassword = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $action = $query->param('action');
 
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~  m/\//)||($inmembername =~ m/\\/)||($inmembername =~ m/\.\./));
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
+if ($inmembername eq "" || $inmembername eq "客人") {
     &error("不能进入 $plugname &你目前的身份是访客，请先登陆!");
     exit;
-} else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+}
+else {
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-     if ($inpassword ne $password) {
-	$namecookie  = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie  = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    if ($inpassword ne $password) {
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
+    }
 }
 
 $tempmembername = $inmembername;
@@ -74,12 +77,12 @@ $tempmembername =~ tr/A-Z/a-z/;
 
 $mymoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 
-&readface("$tempmembername",0);
+&readface("$tempmembername", 0);
 
 $currenttime = time();
 $currenttime = &dateformat("$currenttime");
 
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print qq~
 <html>
 <head>
@@ -96,101 +99,92 @@ TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: 宋体; FONT-SIZE: 9pt}
 </head>
 <body bgcolor="#ffffff" topmargin=0 leftmargin=0>~;
 
-my %Mode = ('buy' => \&buy_sp,'save' => \&savesp,'bag' => \&bag,'delsp' => \&delsp,'zeng' => \&zengsp,'zengok' => \&zengok);
+my %Mode = ('buy' => \&buy_sp, 'save' => \&savesp, 'bag' => \&bag, 'delsp' => \&delsp, 'zeng' => \&zengsp, 'zengok' => \&zengok);
 
-if ($Mode{$action})
-{
-$Mode{$action} -> ();
+if ($Mode{$action}) {
+    $Mode{$action}->();
 }
-else{&error("$plugname&老大，别乱黑我的程序呀！！");}
+else {&error("$plugname&老大，别乱黑我的程序呀！！");}
 
-sub buy_sp
-{
+sub buy_sp {
     $cartLength = $query->cookie("cartLength");
-    &errorout("购物商品&当前的购物袋为空！&1") if(($cartLength eq '')||($cartLength eq '0'));
+    &errorout("购物商品&当前的购物袋为空！&1") if (($cartLength eq '') || ($cartLength eq '0'));
 
-    for ($i = 0; $i < $cartLength; $i++)
-    {
-	$itemsinfo = $query->cookie("items[$i]");
-	($name,$sort_id,$id,$buy_num,$x,$x)=split(/\|/,$itemsinfo);
-###
-	$/="";
-	my $filetoopen = "$lbdir" . "face/wpdata/$sort_id.pl";
-	&errorout("购物商品&商品类别的文件不存在！&1") if (!( -e "$filetoopen")); # 如果不存在文件
-	open(FILE,"$filetoopen");
-	my $sort=<FILE>;
-	close(FILE);
-	$/="\n";
+    for ($i = 0; $i < $cartLength; $i++) {
+        $itemsinfo = $query->cookie("items[$i]");
+        ($name, $sort_id, $id, $buy_num, $x, $x) = split(/\|/, $itemsinfo);
+        ###
+        $/ = "";
+        my $filetoopen = "$lbdir" . "face/wpdata/$sort_id.pl";
+        &errorout("购物商品&商品类别的文件不存在！&1") if (!(-e "$filetoopen")); # 如果不存在文件
+        open(FILE, "$filetoopen");
+        my $sort = <FILE>;
+        close(FILE);
+        $/ = "\n";
 
-	&errorout("购物商品&非常抱歉，$name 商品在数据库中不存在！&1") if($sort !~ /$id\t(.*)/); # 找到指定的商品ID
-        ($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
+        &errorout("购物商品&非常抱歉，$name 商品在数据库中不存在！&1") if ($sort !~ /$id\t(.*)/); # 找到指定的商品ID
+        ($sp_name, $sp_money, $x, $sp_wear, $sp_fitherd, $sp_graphic, $sp_sxgraphic, $sp_suit, $sp_suitid) = split(/\t/, $1);
 
-###
-	for($j=0;$j<$buy_num;$j++)
-	{
-	    $array1{$sort_id} .= "$id,N\_";	# 保存格式
-	}
-	$array2{$sort_id} += "$buy_num";					# 关联数组格式：类别号、数量
-	$array3{$id} = "1\t$sp_name\t$buy_num\t$sp_money\t$currenttime\t\t\n";	# 记录个人购买信息
+        ###
+        for ($j = 0; $j < $buy_num; $j++) {
+            $array1{$sort_id} .= "$id,N\_"; # 保存格式
+        }
+        $array2{$sort_id} += "$buy_num";                                       # 关联数组格式：类别号、数量
+        $array3{$id} = "1\t$sp_name\t$buy_num\t$sp_money\t$currenttime\t\t\n"; # 记录个人购买信息
     }
 
     @array2 = keys(%array2);
 
-    for($i=0;$i<@array2;$i++)
-    {
-	$aaaa = @array2[$i];
-	@tempnum = split(/\_/,@buy_sp[$aaaa]);
-	$tempnum = @tempnum;
-	$temp = $tempnum + $array2{$aaaa};
-	&errorout("购物商品&非常抱歉，相同的商品数量超出规定值：$samnum 件(含已购买的)！&1") if($temp > $samnum);
+    for ($i = 0; $i < @array2; $i++) {
+        $aaaa = @array2[$i];
+        @tempnum = split(/\_/, @buy_sp[$aaaa]);
+        $tempnum = @tempnum;
+        $temp = $tempnum + $array2{$aaaa};
+        &errorout("购物商品&非常抱歉，相同的商品数量超出规定值：$samnum 件(含已购买的)！&1") if ($temp > $samnum);
     }
 
-    $TotalCost = $query->cookie("totalCost");	# 获取总价格
+    $TotalCost = $query->cookie("totalCost"); # 获取总价格
     &errorout("购物商品&非常抱歉，您的现金不够支付购物袋的商品！&1") if ($mymoney < $TotalCost);
 
     @array1 = keys(%array1);
 
-    for($i=0;$i<@array1;$i++)
-    {
-	$aaaa = @array1[$i];
-	@buy_sp[$aaaa] = @buy_sp[$aaaa] ne '' ? "@buy_sp[$aaaa]_$array1{$aaaa}" : "$array1{$aaaa}";
-	chop(@buy_sp[$aaaa]);
+    for ($i = 0; $i < @array1; $i++) {
+        $aaaa = @array1[$i];
+        @buy_sp[$aaaa] = @buy_sp[$aaaa] ne '' ? "@buy_sp[$aaaa]_$array1{$aaaa}" : "$array1{$aaaa}";
+        chop(@buy_sp[$aaaa]);
     }
 
-    for($i=1;$i<26;$i++)
-    {
-	$newdata .= "@buy_sp[$i]-";
+    for ($i = 1; $i < 26; $i++) {
+        $newdata .= "@buy_sp[$i]-";
     }
     chop($newdata);
 
-    &upplugdata("$tempmembername","$currequip|$newdata|$loadface","-$TotalCost");
+    &upplugdata("$tempmembername", "$currequip|$newdata|$loadface", "-$TotalCost");
 
-##### 统计使用数
+    ##### 统计使用数
     $filetoopen = "$lbdir" . "face/totaluser.cgi";
-    open(FILE,"$filetoopen");
-    my $totaluser=<FILE>;
+    open(FILE, "$filetoopen");
+    my $totaluser = <FILE>;
     close(FILE);
-    if($totaluser !~ /$tempmembername\t/)
-    {
-	open(FILE, ">>$filetoopen");
-	print FILE "$tempmembername\t";
-	close(FILE);
+    if ($totaluser !~ /$tempmembername\t/) {
+        open(FILE, ">>$filetoopen");
+        print FILE "$tempmembername\t";
+        close(FILE);
     }
-#####
+    #####
 
     $filetoopen = "$lbdir" . "face/log/$tempmembername.pl";
-    open(FILE,"$filetoopen");
-    my @mylog=<FILE>;
+    open(FILE, "$filetoopen");
+    my @mylog = <FILE>;
     open(FILE, ">$filetoopen");
     @array3 = values(%array3);
-    foreach (@array3)
-    {
-	print FILE $_;
+    foreach (@array3) {
+        print FILE $_;
     }
 
-    foreach $z (@mylog){
-	$a=$a+1;
-	if ($a < $lognum){print FILE "$z";}
+    foreach $z (@mylog) {
+        $a = $a + 1;
+        if ($a < $lognum) {print FILE "$z";}
     }
     close(FILE);
 
@@ -216,92 +210,82 @@ self.close();
 </SCRIPT>~;
 }
 
-sub savesp
-{
+sub savesp {
     &errorout("保存失败&你的虚拟形象数据不存在，保存失败&1！") if ($userface eq '');
 
-    my $spsort1	= $query->cookie("_SortArray");	# 分类号
-    my $spid1	= $query->cookie("_SPIDArray");	# 商品ID号
-    my $spstate1= $query->cookie("_StateArray");# 商品状态
-    my @SPSort = split(/\,/,$spsort1);
-    my @SPID = split(/\,/,$spid1);
-    my @SPState = split(/\,/,$spstate1);
+    my $spsort1 = $query->cookie("_SortArray");   # 分类号
+    my $spid1 = $query->cookie("_SPIDArray");     # 商品ID号
+    my $spstate1 = $query->cookie("_StateArray"); # 商品状态
+    my @SPSort = split(/\,/, $spsort1);
+    my @SPID = split(/\,/, $spid1);
+    my @SPState = split(/\,/, $spstate1);
 
-    for($i=0;$i<@SPSort;$i++)
-    {
-	$SPINFO{@SPSort[$i]} .= "@SPID[$i]-@SPState[$i]|";
+    for ($i = 0; $i < @SPSort; $i++) {
+        $SPINFO{@SPSort[$i]} .= "@SPID[$i]-@SPState[$i]|";
     }
 
-    for($i=1;$i<26;$i++)
-    {
-	@tempsp=split(/\_/,@buy_sp[$i]);
-	next if(@tempsp eq "");
+    for ($i = 1; $i < 26; $i++) {
+        @tempsp = split(/\_/, @buy_sp[$i]);
+        next if (@tempsp eq "");
 
-	$/="";
-	my $filetoopen = "$lbdir" . "face/wpdata/$i.pl";
-	open(FILE,"$filetoopen");
-	my $sort=<FILE>;
-	close(FILE);
-	$/="\n";
-	$temp1 = 0;
-	$tempdata = '';
-	for($j=0;$j<@tempsp;$j++)
-	{
-	    my ($info1,$info2)=split(/\,/,@tempsp[$j]);
-	    my $ladesign = $info2 eq 'Y' ? 1 : 0 ;
-	    $spsort2 .= qq~$i,~;
-	    $spid2 .= qq~$info1,~;
-	    $spstate2 .= qq~$ladesign,~;
+        $/ = "";
+        my $filetoopen = "$lbdir" . "face/wpdata/$i.pl";
+        open(FILE, "$filetoopen");
+        my $sort = <FILE>;
+        close(FILE);
+        $/ = "\n";
+        $temp1 = 0;
+        $tempdata = '';
+        for ($j = 0; $j < @tempsp; $j++) {
+            my ($info1, $info2) = split(/\,/, @tempsp[$j]);
+            my $ladesign = $info2 eq 'Y' ? 1 : 0;
+            $spsort2 .= qq~$i,~;
+            $spid2 .= qq~$info1,~;
+            $spstate2 .= qq~$ladesign,~;
 
-	    if($SPINFO{$i} ne '')
-	    {
-		my @temparray = split(/\|/,$SPINFO{$i});
-		my ($tempid,$tempstate) = split(/\-/,@temparray[$j]);
-		my $ladesign = $tempstate eq '1' ? 'Y' : 'N';
-		$info2 = $ladesign if($tempid eq $info1);
-		$tempdata .= qq~$info1,$info2\_~;
-	    }
-###
-	    if($sort =~ /$info1\t(.*)/)
-	    {
-	        my ($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
+            if ($SPINFO{$i} ne '') {
+                my @temparray = split(/\|/, $SPINFO{$i});
+                my ($tempid, $tempstate) = split(/\-/, @temparray[$j]);
+                my $ladesign = $tempstate eq '1' ? 'Y' : 'N';
+                $info2 = $ladesign if ($tempid eq $info1);
+                $tempdata .= qq~$info1,$info2\_~;
+            }
+            ###
+            if ($sort =~ /$info1\t(.*)/) {
+                my ($sp_name, $sp_money, $x, $sp_wear, $sp_fitherd, $sp_graphic, $sp_sxgraphic, $sp_suit, $sp_suitid) = split(/\t/, $1);
 
-	        if($info2 eq 'Y')
-	        {
-		    $sp_graphic =~s /\.gif//;
-		    @currequip[$i] = $sp_graphic;
-		    $temp1 = 1;
-	        }
-	        else
-	        {
-		     next if($temp1 eq '1');
-		     if(($i eq '7')||($i eq '8')||($i eq '9')||($i eq '11')||($i eq '13')||($i eq '14')||($i eq '18'))
-		     {
-			@currequip[$i] = $sex eq 'f' ? "initf" : "init";
-		     }
-		     else
-		     {
-			@currequip[$i] = 0;
-		     }
-		}
-	    }
-###
-	}
-	chop($tempdata);
-	$outinfo .= qq~$tempdata-~;
+                if ($info2 eq 'Y') {
+                    $sp_graphic =~ s/\.gif//;
+                    @currequip[$i] = $sp_graphic;
+                    $temp1 = 1;
+                }
+                else {
+                    next if ($temp1 eq '1');
+                    if (($i eq '7') || ($i eq '8') || ($i eq '9') || ($i eq '11') || ($i eq '13') || ($i eq '14') || ($i eq '18')) {
+                        @currequip[$i] = $sex eq 'f' ? "initf" : "init";
+                    }
+                    else {
+                        @currequip[$i] = 0;
+                    }
+                }
+            }
+            ###
+        }
+        chop($tempdata);
+        $outinfo .= qq~$tempdata-~;
     }
     chop($spsort2);
     chop($spid2);
     chop($spstate2);
     chop($outinfo);
 
-    &errorout("保存失败&请不要乱来&1！") if(($spsort1 ne $spsort2) || ($spid1 ne $spid2));
-    &errorout("保存失败&系统发现您的装备状态没有改变，并不需要保存！&1") if($spstate1 eq $spstate2);
+    &errorout("保存失败&请不要乱来&1！") if (($spsort1 ne $spsort2) || ($spid1 ne $spid2));
+    &errorout("保存失败&系统发现您的装备状态没有改变，并不需要保存！&1") if ($spstate1 eq $spstate2);
 
-    $newequip = join('-',@currequip);
-    &upplugdata("$tempmembername","$newequip|$outinfo|$loadface","");
+    $newequip = join('-', @currequip);
+    &upplugdata("$tempmembername", "$newequip|$outinfo|$loadface", "");
 
-print qq~
+    print qq~
 <SCRIPT LANGUAGE="JavaScript">
 document.cookie = "_SortArray=" + "" +"; path=$cookiepath/";
 document.cookie = "_SPIDArray=" + "" +"; path=$cookiepath/";
@@ -313,8 +297,8 @@ self.close();
     exit;
 }
 
-sub bag
-{ # 购物袋
+sub bag {
+    # 购物袋
     print qq~
 <SCRIPT>
 function openCart() 
@@ -526,37 +510,33 @@ totalCost = getCookie('totalCost');
 </td>
 </tr>
 </table>~;
-exit;
+    exit;
 }
 
-sub delsp
-{
-    $class	= $query -> param('class');	# 商品类别号
-    $id		= $query -> param('id');	# 商品ID号
+sub delsp {
+    $class = $query->param('class'); # 商品类别号
+    $id = $query->param('id');       # 商品ID号
 
-    @tempsp = split(/\_/, @buy_sp[$class]);	# 将商品图片分开，使之与商品数量对应
+    @tempsp = split(/\_/, @buy_sp[$class]); # 将商品图片分开，使之与商品数量对应
 
-    ($info1,$info2)=split(/\,/,@tempsp[$id]);
-    &errorout("丢弃失败&你是否已经丢弃了该商品？&1") if(@tempsp[$id] eq '');
-    &errorout("丢弃失败&该商品正在装备中，不能进行丢弃操作！&1") if($info2 eq 'Y');
+    ($info1, $info2) = split(/\,/, @tempsp[$id]);
+    &errorout("丢弃失败&你是否已经丢弃了该商品？&1") if (@tempsp[$id] eq '');
+    &errorout("丢弃失败&该商品正在装备中，不能进行丢弃操作！&1") if ($info2 eq 'Y');
 
-
-    for($i=0;$i<@tempsp;$i++)
-    {
-	$newid .= qq~@tempsp[$i]_~ if($i ne $id);
+    for ($i = 0; $i < @tempsp; $i++) {
+        $newid .= qq~@tempsp[$i]_~ if ($i ne $id);
     }
     chop($newid);
     @buy_sp[$class] = $newid;
 
-    for($i=1;$i<26;$i++)
-    {
-	$newdata .= "@buy_sp[$i]-";
+    for ($i = 1; $i < 26; $i++) {
+        $newdata .= "@buy_sp[$i]-";
     }
     chop($newdata);
 
-    &upplugdata("$tempmembername","$currequip|$newdata|$loadface","");
+    &upplugdata("$tempmembername", "$currequip|$newdata|$loadface", "");
 
-print qq~
+    print qq~
 <SCRIPT LANGUAGE="JavaScript">
 document.cookie = "tempequip=" + "$currequip" +"; path=$cookiepath/";
 opener.location.reload();
@@ -567,58 +547,54 @@ self.close();
     exit;
 }
 
-sub zengsp
-{
-    $class      = $query -> param('class');		# 商品类别文件
-    $id	        = $query -> param('id');		# 商品的ID号
+sub zengsp {
+    $class = $query->param('class'); # 商品类别文件
+    $id = $query->param('id');       # 商品的ID号
 
-    @tempsp = split(/\_/, @buy_sp[$class]);		# 将商品图片分开，使之与商品数量对应
+    @tempsp = split(/\_/, @buy_sp[$class]); # 将商品图片分开，使之与商品数量对应
 
-    ($info1,$info2)=split(/\,/,@tempsp[$id]);
+    ($info1, $info2) = split(/\,/, @tempsp[$id]);
 
-    &errorout("赠送商品&建立页面出错，指定的商品号有误&1！") if(@tempsp[$id] eq '');
-    &errorout("赠送商品&该商品装备中，必须卸下才能赠送，如果商品\\n已经卸下，您是否忘记点击 '保存当前形象' 了？&1") if($info2 eq 'Y');
+    &errorout("赠送商品&建立页面出错，指定的商品号有误&1！") if (@tempsp[$id] eq '');
+    &errorout("赠送商品&该商品装备中，必须卸下才能赠送，如果商品\\n已经卸下，您是否忘记点击 '保存当前形象' 了？&1") if ($info2 eq 'Y');
 
-###
-    $/="";
+    ###
+    $/ = "";
     my $filetoopen = "$lbdir" . "face/wpdata/$class.pl";
-    open(FILE,"$filetoopen");
-    my $sort=<FILE>;
+    open(FILE, "$filetoopen");
+    my $sort = <FILE>;
     close(FILE);
-    $/="\n";
+    $/ = "\n";
 
-    if($sort =~ /$info1\t(.*)/)	# 找到指定的商品ID
+    if ($sort =~ /$info1\t(.*)/) # 找到指定的商品ID
     {
-	($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
-	&errorout("赠送商品&小气鬼，免费商品不能赠送给朋友的！&1") if($sp_money eq '0');
-	$fitherd = "男" if($sp_fitherd eq 'm');
-	$fitherd = "女" if($sp_fitherd eq 'f');
-	$fitherd = "通用" if($sp_fitherd eq 't');
+        ($sp_name, $sp_money, $x, $sp_wear, $sp_fitherd, $sp_graphic, $sp_sxgraphic, $sp_suit, $sp_suitid) = split(/\t/, $1);
+        &errorout("赠送商品&小气鬼，免费商品不能赠送给朋友的！&1") if ($sp_money eq '0');
+        $fitherd = "男" if ($sp_fitherd eq 'm');
+        $fitherd = "女" if ($sp_fitherd eq 'f');
+        $fitherd = "通用" if ($sp_fitherd eq 't');
     }
-    else
-    {
-	&errorout("赠送商品&建立页面出错，此商品已经不存在，请丢弃此商品！&1");
+    else {
+        &errorout("赠送商品&建立页面出错，此商品已经不存在，请丢弃此商品！&1");
     }
-###
-## 好友列表 ###
-    if (open(FILE, "${lbdir}memfriend/$tempmembername.cgi"))
-    {
-	$/="";
-	my $currentlist = <FILE>;
-	close(FILE);
-	$/="\n";
-	@currentlist = split (/\n/, $currentlist);
+    ###
+    ## 好友列表 ###
+    if (open(FILE, "${lbdir}memfriend/$tempmembername.cgi")) {
+        $/ = "";
+        my $currentlist = <FILE>;
+        close(FILE);
+        $/ = "\n";
+        @currentlist = split(/\n/, $currentlist);
     }
 
     my $friendlist = qq~<select name=friends onchange="myfriend();"><option style=background-color:$miscbacktwo>好友列表</option>~;
 
-    foreach (@currentlist)
-    {
-	chomp;
-	s/^＊＃！＆＊//isg;
-	$friendlist .= qq~<option value="$_">$_</option>~;
+    foreach (@currentlist) {
+        chomp;
+        s/^＊＃！＆＊//isg;
+        $friendlist .= qq~<option value="$_">$_</option>~;
     }
-## 结束 ##
+    ## 结束 ##
 
     print qq~<SCRIPT>
 function checkzeng()
@@ -674,14 +650,13 @@ function myfriend()
 </table>~;
 }
 
-sub zengok
-{
-    $class	= $query -> param('class');	# 商品类别号
-    $id		= $query -> param('id');	# 商品ID号
-    $zengname	= $query -> param('zengname');	# 赠送人名称
-    $zengname	= &cleanarea("$zengname");
-    $zengly	= $query -> param('zengly');	# 给赠送人留言
-    $zengly	= &cleanarea("$zengly");
+sub zengok {
+    $class = $query->param('class');       # 商品类别号
+    $id = $query->param('id');             # 商品ID号
+    $zengname = $query->param('zengname'); # 赠送人名称
+    $zengname = &cleanarea("$zengname");
+    $zengly = $query->param('zengly'); # 给赠送人留言
+    $zengly = &cleanarea("$zengly");
 
     $zengname = &unHTML("$zengname");
     $zengname =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -689,93 +664,89 @@ sub zengok
     $zengname =~ tr/A-Z/a-z/;
 
     my $namenumber = &getnamenumber($zengname);
-    &checkmemfile($zengname,$namenumber);
+    &checkmemfile($zengname, $namenumber);
     my $filetoopen = "${lbdir}$memdir/$namenumber/$zengname.cgi";
-    &errorout("赠送商品&非常抱歉，社区中不存在此用户名！&0") unless(-e $filetoopen);
-    &errorout("赠送商品&你头脑还清醒吗？怎么能给自己赠送？！！&0") if($tempmembername eq $zengname);
+    &errorout("赠送商品&非常抱歉，社区中不存在此用户名！&0") unless (-e $filetoopen);
+    &errorout("赠送商品&你头脑还清醒吗？怎么能给自己赠送？！！&0") if ($tempmembername eq $zengname);
 
-    @tempsp = split(/\_/, @buy_sp[$class]);			# 将商品图片分开，使之与商品数量对应
-    &errorout("赠送商品&非常抱歉，你的赠送商品选择错误！&1") if(@tempsp[$id] eq '');
-    ($info1,$info2)=split(/\,/,@tempsp[$id]);
+    @tempsp = split(/\_/, @buy_sp[$class]); # 将商品图片分开，使之与商品数量对应
+    &errorout("赠送商品&非常抱歉，你的赠送商品选择错误！&1") if (@tempsp[$id] eq '');
+    ($info1, $info2) = split(/\,/, @tempsp[$id]);
 
-###
-    $/="";
+    ###
+    $/ = "";
     my $filetoopen = "$lbdir" . "face/wpdata/$class.pl";
-    open(FILE,"$filetoopen");
-    my $sort=<FILE>;
+    open(FILE, "$filetoopen");
+    my $sort = <FILE>;
     close(FILE);
-    $/="\n";
+    $/ = "\n";
 
-    if($sort =~ /$info1\t(.*)/)	# 找到指定的商品ID
+    if ($sort =~ /$info1\t(.*)/) # 找到指定的商品ID
     {
-	($sp_name,$sp_money,$x,$sp_wear,$sp_fitherd,$sp_graphic,$sp_sxgraphic,$sp_suit,$sp_suitid)=split(/\t/,$1);
+        ($sp_name, $sp_money, $x, $sp_wear, $sp_fitherd, $sp_graphic, $sp_sxgraphic, $sp_suit, $sp_suitid) = split(/\t/, $1);
     }
-    else
-    {
-	&errorout("赠送商品&建立页面出错，此商品已经不存在，请丢弃此商品！&1");
+    else {
+        &errorout("赠送商品&建立页面出错，此商品已经不存在，请丢弃此商品！&1");
     }
-###
+    ###
 
-    for($i=0;$i<@tempsp;$i++)
-    {
-	$newid .= qq~@tempsp[$i]_~ if($i ne $id);
+    for ($i = 0; $i < @tempsp; $i++) {
+        $newid .= qq~@tempsp[$i]_~ if ($i ne $id);
     }
     chop($newid);
     @buy_sp[$class] = $newid;
 
-    for($i=1;$i<26;$i++)
-    {
-	$newdata .= "@buy_sp[$i]-";
+    for ($i = 1; $i < 26; $i++) {
+        $newdata .= "@buy_sp[$i]-";
     }
     chop($newdata);
 
-    &upplugdata("$tempmembername","$currequip|$newdata|$loadface","");
-#####
+    &upplugdata("$tempmembername", "$currequip|$newdata|$loadface", "");
+    #####
 
-    my $filetoopen = "$lbdir" . "face/log/$tempmembername.pl";	# 写入用户记录文件：类型为 1
-    open(FILE,"$filetoopen");
-    my @mylog=<FILE>;
+    my $filetoopen = "$lbdir" . "face/log/$tempmembername.pl"; # 写入用户记录文件：类型为 1
+    open(FILE, "$filetoopen");
+    my @mylog = <FILE>;
     close(FILE);
 
     open(FILE, ">$filetoopen");
     print FILE "2\t$sp_name\t1\t$sp_money\t$currenttime\t$zengname\t$zengly\n";
 
-    foreach $m (@mylog){
-	$a=$a+1;
-	if ($a < $lognum){print FILE "$m";}
+    foreach $m (@mylog) {
+        $a = $a + 1;
+        if ($a < $lognum) {print FILE "$m";}
     }
     close(FILE);
-######
+    ######
 
-    my $filetoopen = "$lbdir" . "face/log/$zengname.pl";	# 写入用户记录文件：类型为 1
-    open(FILE,"$filetoopen");
-    my @mylog=<FILE>;
+    my $filetoopen = "$lbdir" . "face/log/$zengname.pl"; # 写入用户记录文件：类型为 1
+    open(FILE, "$filetoopen");
+    my @mylog = <FILE>;
     open(FILE, ">$filetoopen");
     print FILE "3\t$sp_name\t1\t$sp_money\t$currenttime\t$tempmembername\t$zengly\n";
 
-    foreach $z (@mylog){
-	$a=$a+1;
-	if ($a < $lognum){print FILE "$z";}
+    foreach $z (@mylog) {
+        $a = $a + 1;
+        if ($a < $lognum) {print FILE "$z";}
     }
     close(FILE);
 
     my $mcon = qq~你的朋友 <font color=blue>$tempmembername</font> 给你送了一件商品： $sp_name ，并想对你说： <font color=blue>$zengly</font><BR><BR><a href=face.cgi?action=mybureau target=_blank>查看您的虚拟形象</a>~;
-    &write_messages("$tempmembername","$zengname","虚拟形象赠送讯息","$mcon");
+    &write_messages("$tempmembername", "$zengname", "虚拟形象赠送讯息", "$mcon");
 
-######
+    ######
 
-    &readface("$zengname",1);
+    &readface("$zengname", 1);
 
     @buy_sp[$class] = @buy_sp[$class] ne '' ? "@buy_sp[$class]_$info1,N" : "$info1,N";
 
     $newdata = '';
-    for($i=1;$i<26;$i++)
-    {
-	$newdata .= "@buy_sp[$i]-";
+    for ($i = 1; $i < 26; $i++) {
+        $newdata .= "@buy_sp[$i]-";
     }
     chop($newdata);
 
-    &upplugdata("$zengname","$currequip|$newdata|$loadface","");
+    &upplugdata("$zengname", "$currequip|$newdata|$loadface", "");
     print qq~<SCRIPT>opener.location.reload();setTimeout("self.close()",100);alert("商品赠送成功！");</SCRIPT>~;
     exit;
 }

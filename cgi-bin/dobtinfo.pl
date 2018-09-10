@@ -8,6 +8,10 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
+
 $addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext><img src=$imagesurl/icon/$filetype.gif border=0 width=16><a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext>该主题有一个 BitTorrent 格式的文件，按此下载</a> (共 $fileinfo[7] 字节)<br>~;
 
 open(FILE, "${imagesdir}$usrdir/$inforum/$up_name.$up_ext.btfile");

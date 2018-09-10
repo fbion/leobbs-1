@@ -10,6 +10,8 @@
 
 use strict;
 use warnings;
+use diagnostics;
+
 &winlock("${lbdir}data/counter.cgi") if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
 if (-e "${lbdir}data/counter.cgi") {
     open(FILE, "+<${lbdir}data/counter.cgi");

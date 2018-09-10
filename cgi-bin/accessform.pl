@@ -39,6 +39,6 @@ my $output .= qq~
 <tr height=28><td bgcolor=$miscbackone colspan=2 align=center><font color=$fontcolormisc>如果你确认输入了正确的密码，但还是无法登录的话，请刷新此页面(或者再次按登录键一次)。</td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name=submit value="登  录"></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT></form>
 ~;
-&output("$forumname",\$output);
+&output("$forumname", \$output);
 exit;
 1;

@@ -10,6 +10,8 @@
 
 use strict;
 use warnings;
+use diagnostics;
+
 sub getadmincheck {
     my $currenttime = time;
     $memberfilename = $inmembername;
@@ -18,23 +20,26 @@ sub getadmincheck {
     $memberfilename = "${lbdir}verifynum/login/$memberfilename.cgi";
 
     if (-e $memberfilename) {
-        open (FILE, "$memberfilename");
+        open(FILE, "$memberfilename");
         my $logintime = <FILE>;
         close(FILE);
         chomp $logintime;
-        if ($currenttime > $logintime + 900 ) { # 管理员登录如果15分钟未做任何操作，需要重新登录
-            unlink ("$memberfilename");
-	    print "Set-Cookie: adminpass=\"\"\n";
-	    $inpassword = "";
-        } else {
-	    open (FILE, ">$memberfilename");
-	    print FILE "$currenttime\n";
-	    close(FILE);
+        if ($currenttime > $logintime + 900) {
+            # 管理员登录如果15分钟未做任何操作，需要重新登录
+            unlink("$memberfilename");
+            print "Set-Cookie: adminpass=\"\"\n";
+            $inpassword = "";
         }
-        
-    } else {
+        else {
+            open(FILE, ">$memberfilename");
+            print FILE "$currenttime\n";
+            close(FILE);
+        }
+
+    }
+    else {
         print "Set-Cookie: adminpass=\"\"\n";
-	$inpassword = "";
+        $inpassword = "";
     }
 }
 
@@ -43,18 +48,19 @@ sub adminlogin {
     if ($useverify eq "yes") {
 
         if ($verifyusegd ne "no") {
-	    eval ('use GD;');
-	    if ($@) {
+            eval ('use GD;');
+            if ($@) {
                 $verifyusegd = "no";
             }
         }
         if ($verifyusegd eq "no") {
-	    $houzhui = "bmp";
-        } else {
-	    $houzhui = "png";
+            $houzhui = "bmp";
         }
-        
-    	require 'verifynum.cgi';
+        else {
+            $houzhui = "png";
+        }
+
+        require 'verifynum.cgi';
     }
     $loginprog = $thisprog if ($loginprog eq "");
     print qq~
@@ -70,8 +76,8 @@ sub adminlogin {
 <tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>请输入您的密码</font></td>
 <td bgcolor=#FFFFFF valign=middle><input type=password name=password maxlength=20></td></tr>
 ~;
-print qq~<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>请输入右边图片的数字</font></td><td bgcolor=#FFFFFF valign=middle><input type=hidden name=sessionid value="$sessionid"><input type=text name="verifynum" size=4 maxlength=4>　　<img src=$imagesurl/verifynum/$sessionid.$houzhui border=0 align=absmiddle> 如果看不清，请刷新本页</td></tr>~ if ($useverify eq "yes");
-print qq~<tr><td bgcolor=#FFFFFF valign=middle colspan=2 align=center><BR><input type=submit name=submit value="登 录"></form></td></tr>
+    print qq~<tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>请输入右边图片的数字</font></td><td bgcolor=#FFFFFF valign=middle><input type=hidden name=sessionid value="$sessionid"><input type=text name="verifynum" size=4 maxlength=4>　　<img src=$imagesurl/verifynum/$sessionid.$houzhui border=0 align=absmiddle> 如果看不清，请刷新本页</td></tr>~ if ($useverify eq "yes");
+    print qq~<tr><td bgcolor=#FFFFFF valign=middle colspan=2 align=center><BR><input type=submit name=submit value="登 录"></form></td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle align=left colspan=2><font color=#555555>
 <blockquote><b>请注意:</b><p><b>只有论坛的坛主才能登录论坛管理中心。未经过授权的尝试登录行为将会被记录在案！</b><p>在进入论坛管理中心前，请确定你的浏览器打开了 Cookie 选项。<br> Cookie 只会存在于当前的浏览器进程中。为了安全起见，当你关闭了浏览器后，Cookie 会失效并被自动删除。</blockquote>
 </td></tr></table></td></tr></table>
@@ -290,13 +296,14 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
 	    </TD></TR></TABLE>
 </td></tr>
     ~;
-    
-    if (-e "${lbdir}data/leoskin.cgi"){
-	eval { require "${lbdir}data/leoskin.cgi"; };
-	if ($@) {
-	} else {
-	    if ($skin1name ne ""){
-	        print qq~
+
+    if (-e "${lbdir}data/leoskin.cgi") {
+        eval {require "${lbdir}data/leoskin.cgi";};
+        if ($@) {
+        }
+        else {
+            if ($skin1name ne "") {
+                print qq~
 <tr><td bgcolor=#799ae1>
 <TABLE align=left cellPadding=0 cellSpacing=0 width=200>
         <TBODY>
@@ -306,19 +313,19 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
         <TR>
           <TD>
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
-	~;    
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin1url">$skin1name</a></TD></TR>~ if ($skin1name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin2url">$skin2name</a></TD></TR>~ if ($skin2name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin3url">$skin3name</a></TD></TR>~ if ($skin3name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin4url">$skin4name</a></TD></TR>~ if ($skin4name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin5url">$skin5name</a></TD></TR>~ if ($skin5name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin6url">$skin6name</a></TD></TR>~ if ($skin6name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin7url">$skin7name</a></TD></TR>~ if ($skin7name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin8url">$skin8name</a></TD></TR>~ if ($skin8name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin9url">$skin9name</a></TD></TR>~ if ($skin9name ne "");
-        print qq~<TR><TD height=18>&nbsp;>> <a href="$skin10url">$skin10name</a></TD></TR>~ if ($skin10name ne "");
-        print qq~</TABLE></TD></TR></TABLE></td></tr>~;
-	    }
+	~;
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin1url">$skin1name</a></TD></TR>~ if ($skin1name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin2url">$skin2name</a></TD></TR>~ if ($skin2name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin3url">$skin3name</a></TD></TR>~ if ($skin3name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin4url">$skin4name</a></TD></TR>~ if ($skin4name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin5url">$skin5name</a></TD></TR>~ if ($skin5name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin6url">$skin6name</a></TD></TR>~ if ($skin6name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin7url">$skin7name</a></TD></TR>~ if ($skin7name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin8url">$skin8name</a></TD></TR>~ if ($skin8name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin9url">$skin9name</a></TD></TR>~ if ($skin9name ne "");
+                print qq~<TR><TD height=18>&nbsp;>> <a href="$skin10url">$skin10name</a></TD></TR>~ if ($skin10name ne "");
+                print qq~</TABLE></TD></TR></TABLE></td></tr>~;
+            }
         }
     }
 

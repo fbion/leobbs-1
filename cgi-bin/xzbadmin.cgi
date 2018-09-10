@@ -10,12 +10,13 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
@@ -23,7 +24,7 @@ use strict;
 use warnings;
 use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -32,150 +33,136 @@ require "code.cgi";
 require "bbs.lib.pl";
 require "postjs.cgi";
 $|++;
-$thisprog	= "xzbadmin.cgi";
-$query		= new LBCGI;
+$thisprog = "xzbadmin.cgi";
+$query = new LBCGI;
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-if (int($hownews) < 50)
-{	#字数预设值
-	$hownews = 100;
+if (int($hownews) < 50) { #字数预设值
+    $hownews = 100;
 }
 #取得数据
-for ('forum','membername','password','action','inpost','message','xzbid','checked') {
+for ('forum', 'membername', 'password', 'action', 'inpost', 'message', 'xzbid', 'checked') {
     next unless defined $_;
     $tp = $query->param($_);
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$inforum		= $forum;
-if (($inforum eq "")||($inforum !~ /^[0-9]+$/))
-{	#验证分论坛编号
-	&error("普通错误&老大，别乱黑我的程序呀！");
+$inforum = $forum;
+if (($inforum eq "") || ($inforum !~ /^[0-9]+$/)) { #验证分论坛编号
+    &error("普通错误&老大，别乱黑我的程序呀！");
 }
-if (-e "${lbdir}data/style${inforum}.cgi")
-{	#读取专属风格
-	require "${lbdir}data/style${inforum}.cgi";
+if (-e "${lbdir}data/style${inforum}.cgi") { #读取专属风格
+    require "${lbdir}data/style${inforum}.cgi";
 }
-$inmembername	= $membername;			#转换变数
-$inpassword	= $password;
+$inmembername = $membername; #转换变数
+$inpassword = $password;
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-$currenttime	= time;
-$inmembername	= &stripMETA($inmembername);
+$currenttime = time;
+$inmembername = &stripMETA($inmembername);
 
 #个人风格
-$inselectstyle	= $query->cookie("selectstyle");	#读取资料
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./))
-{	#个人风格不正确
-	&error("普通错误&老大，别乱黑我的程序呀！");	#输出错误页
+$inselectstyle = $query->cookie("selectstyle"); #读取资料
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./)) { #个人风格不正确
+    &error("普通错误&老大，别乱黑我的程序呀！");                                                             #输出错误页
 }
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi"))
-{	#有指定个人风格
-	require "${lbdir}data/skin/${inselectstyle}.cgi";	#读取个人风格
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) { #有指定个人风格
+    require "${lbdir}data/skin/${inselectstyle}.cgi";                          #读取个人风格
 }
 #会员帐号
-if ($inmembername eq "")
-{	#没提供会员名称
-	$inmembername	= $query->cookie("amembernamecookie");	#从 COOKIE 读取
+if ($inmembername eq "") {                               #没提供会员名称
+    $inmembername = $query->cookie("amembernamecookie"); #从 COOKIE 读取
 }
-if ($inpassword eq "")
-{	#没提供密码
-	$inpassword		= $query->cookie("apasswordcookie");	#从 COOKIE 读取
+if ($inpassword eq "") {                             #没提供密码
+    $inpassword = $query->cookie("apasswordcookie"); #从 COOKIE 读取
 }
-$inmembername	=~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;	#字串处理
-$inpassword		=~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg; #字串处理
+$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 #检查帐号
-if (($inmembername eq "")||($inmembername eq "客人"))
-{	#客人
-	&error("普通错误&只限会员进入！");	#禁止进入
+if (($inmembername eq "") || ($inmembername eq "客人")) { #客人
+    &error("普通错误&只限会员进入！");                             #禁止进入
 }
-else
-{	#会员
-	&getmember("$inmembername","no");	#读取帐号资料
-	if ($userregistered eq "no")
-	{	#未注册帐号
-		&error("普通错误&此用户根本不存在！");				#禁止进入
-	}
-     if ($inpassword ne $password) {
-	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-        &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
-}
-$addtimes		= ($timedifferencevalue + $timezone)*3600;	#时差
-#论坛状态
-&doonoff;  #论坛开放与否
-
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz!~/,$membercode,/);
-    if ($allowusers ne '') {
-	&error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /\Q,$inmembername,\E/i);
+else {
+                                       #会员
+    &getmember("$inmembername", "no"); #读取帐号资料
+    if ($userregistered eq "no") { #未注册帐号
+        &error("普通错误&此用户根本不存在！");  #禁止进入
     }
+    if ($inpassword ne $password) {
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+        &error("普通错误&密码与用户名不相符，请重新登录！");
+    }
+}
+$addtimes = ($timedifferencevalue + $timezone) * 3600; #时差
+#论坛状态
+&doonoff; #论坛开放与否
+
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
+if ($allowusers ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /\Q,$inmembername,\E/i);
+}
 
 #读取分论坛资料
-my $forumdata	= "${lbdir}forum${inforum}/foruminfo.cgi";
-if (-e $forumdata)
-{	#找到该分论坛资料
-	&getoneforum("$inforum");							#读取资料
+my $forumdata = "${lbdir}forum${inforum}/foruminfo.cgi";
+if (-e $forumdata) {          #找到该分论坛资料
+    &getoneforum("$inforum"); #读取资料
 }
-else
-{	#找不到资料
-	&error("普通错误&老大，别乱黑我的程序呀！");	#输出错误页
+else {                           #找不到资料
+    &error("普通错误&老大，别乱黑我的程序呀！"); #输出错误页
 }
 #验证权限
-if (($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"))
-{	#有权限的人：坛主，总版主，版主栏中的
-	&error("删除小字报&你没权力删除！");					#输出错误页
+if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) { #有权限的人：坛主，总版主，版主栏中的
+    &error("删除小字报&你没权力删除！");                                                    #输出错误页
 }
 #说明连结
-$helpurl		= &helpfiles("阅读标记");
-$helpurl		= qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
+$helpurl = &helpfiles("阅读标记");
+$helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 #指定模式
 my %Mode = (
-	'delete'		=> \&deletexzb,		#删除
-	'deleteover'	=> \&deleteoverxzb,	#删除 2
-	'edit'			=> \&editxzb,		#编辑
+    'delete'     => \&deletexzb,     #删除
+    'deleteover' => \&deleteoverxzb, #删除 2
+    'edit'       => \&editxzb,       #编辑
 );
 #输出档头
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 #验证模式
-if (defined $Mode{$action})
-{	#有该模式
-	$Mode{$action}->();		#执行模式
+if (defined $Mode{$action}) { #有该模式
+    $Mode{$action}->();       #执行模式
 }
-else
-{	#没有该模式
-	&toppage;				#执行预设模式 -> 首页
+else {        #没有该模式
+    &toppage; #执行预设模式 -> 首页
 }
 #输出页面
-&output("$forumname - 小字报管理",\$output);
+&output("$forumname - 小字报管理", \$output);
 #处理结束
 exit;
 #模式内容
-sub toppage
-{	#模式 -> 首页
-	#输出页面头
-	&mischeader("小字报管理");
-	#读取资料
-	my @xzbdata = ();								#初始化
-	open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#开启文件
-	while (my $line = <FILE>)
-	{	#每次读取一行内容 loop 1
-		chomp $line;			#去掉换行符
-		push(@xzbdata,$line);	#放进结果 ARRAY
-	}#loop 1 end
-	close(FILE);									#关闭文件
+sub toppage {
+    #模式 -> 首页
+    #输出页面头
+    &mischeader("小字报管理");
+    #读取资料
+    my @xzbdata = ();                                #初始化
+    open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+    while (my $line = <FILE>) {
+                               #每次读取一行内容 loop 1
+        chomp $line;           #去掉换行符
+        push(@xzbdata, $line); #放进结果 ARRAY
+    } #loop 1 end
+    close(FILE); #关闭文件
 
-	#页面输出
-	$output .= qq~<p>
+    #页面输出
+    $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post" id="1">
@@ -203,24 +190,25 @@ sub toppage
 			<font color="$titlefontcolor"><b>选</b></font>
 		</td>
 	</tr>~;
-	#输出数据
-	my $i = 0;	#编号
-	foreach my $line(@xzbdata)
-	{	#回圈处理数据 loop 1
-		#   没用   , 标题   , 发布者  , 内容 , 发布时间
-		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#分割数据
-		#背景色
-		if ($i%2 == 0) {
-			$postbackcolor = $postcolorone;
-		} else {
-			$postbackcolor = $postcolortwo;
-		}
-		my $admini		= qq~<div align="right"><font color="$titlecolor">|<a href="$thisprog?action=edit&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">编辑</font></a>|<a href="$thisprog?action=delete&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">删除</font></a>|</font></div>~;		#管理连结
-		my $postdate		= &dateformat($posttime+$addtimes);						#发布时间
-		my $msgbytes	= length($msg);												#字节数
-		my $startedby	= uri_escape($postid);		#会员名
-		$iuu = $i + 1;
-		$output .= qq~
+    #输出数据
+    my $i = 0; #编号
+    foreach my $line (@xzbdata) {
+        #回圈处理数据 loop 1
+        #   没用   , 标题   , 发布者  , 内容 , 发布时间
+        my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
+        #背景色
+        if ($i % 2 == 0) {
+            $postbackcolor = $postcolorone;
+        }
+        else {
+            $postbackcolor = $postcolortwo;
+        }
+        my $admini = qq~<div align="right"><font color="$titlecolor">|<a href="$thisprog?action=edit&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">编辑</font></a>|<a href="$thisprog?action=delete&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">删除</font></a>|</font></div>~; #管理连结
+        my $postdate = &dateformat($posttime + $addtimes);                                                                                                                                                                                                                                            #发布时间
+        my $msgbytes = length($msg);                                                                                                                                                                                                                                                                  #字节数
+        my $startedby = uri_escape($postid);                                                                                                                                                                                                                                                          #会员名
+        $iuu = $i + 1;
+        $output .= qq~
 	<tr>
 		<td bgcolor="$postbackcolor" width="7%" align="center">
 			<font color="$postfontcolorone">No.<i>$iuu</i></font>
@@ -241,10 +229,10 @@ sub toppage
 			<input type="checkbox" name="xzbid" value="$posttime">
 		</td>
 	</tr>~;
-		$i++;																		#编号递增
-	}#loop 1 end
-	#页面输出
-	$output .= qq~
+        $i++; #编号递增
+    } #loop 1 end
+    #页面输出
+    $output .= qq~
 	</table>
 	</td>
 </tr>
@@ -265,44 +253,41 @@ sub toppage
 </form id="2 end">
 </table><BR>~;
 }
-sub editxzb
-{	#模式 -> 编辑
-	#输出页面头
-	&mischeader("编辑小字报");
-	#找寻要编辑的小字报
-	my $findresult	= -1;	#初始化
-	my @xzbdata		= ();
-	my $xzbno		= 0;
-	open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#开启文件
-	while (my $line = <FILE>)
-	{	#每次读取一行内容 loop 1
-		chomp $line;															#去掉换行符
-		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);	#分割数据
-		if ($posttime eq $xzbid)
-		{	#就是这个
-			$findresult = $xzbno;		#激活找寻结果
-		}
-		elsif ($findresult == -1)
-		{	#不是的时候
-			$xzbno++;				#编号递增
-		}
-		push(@xzbdata,$line);													#放进数据 ARRAY
-	}#loop 1 end
-	close(FILE);
-	if ($findresult == -1)
-	{	#找不到
-		&error("编辑小字报&找不到目标小字报！");										#输出错误页
-	}
-	if ($checked ne 'yes')
-	{	#未进行确认
-		#目前数据
-		#   没用   , 标题   , 发布者  , 内容 , 发布时间
-		my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$xzbdata[$xzbno]);	#分割数据
-	    $msg =~ s/\<p\>/\n\n/ig;															#字串处理
-	    $msg =~ s/\<br\>/\n/ig;
-		my $startedby	=  uri_escape($postid);				#会员名
-		#页面输出
-		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
+sub editxzb {
+    #模式 -> 编辑
+    #输出页面头
+    &mischeader("编辑小字报");
+    #找寻要编辑的小字报
+    my $findresult = -1; #初始化
+    my @xzbdata = ();
+    my $xzbno = 0;
+    open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+    while (my $line = <FILE>) {
+                                                                            #每次读取一行内容 loop 1
+        chomp $line;                                                        #去掉换行符
+        my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
+        if ($posttime eq $xzbid) { #就是这个
+            $findresult = $xzbno;  #激活找寻结果
+        }
+        elsif ($findresult == -1) { #不是的时候
+            $xzbno++;               #编号递增
+        }
+        push(@xzbdata, $line); #放进数据 ARRAY
+    } #loop 1 end
+    close(FILE);
+    if ($findresult == -1) {       #找不到
+        &error("编辑小字报&找不到目标小字报！"); #输出错误页
+    }
+    if ($checked ne 'yes') {
+        #未进行确认
+        #目前数据
+        #   没用   , 标题   , 发布者  , 内容 , 发布时间
+        my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $xzbdata[$xzbno]); #分割数据
+        $msg =~ s/\<p\>/\n\n/ig;                                                       #字串处理
+        $msg =~ s/\<br\>/\n/ig;
+        my $startedby = uri_escape($postid); #会员名
+        #页面输出
+        $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post" id="1">
 <input type="hidden" name="action" value="edit">
@@ -375,39 +360,35 @@ sub editxzb
 	</td>
 </tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	}
-	else
-	{	#已进行确认
-		#驗證處理
-		if ($inpost eq "")
-		{
-			&error("编辑小字报&必须输入标题！");									#输出错误页
-		}
-		elsif (length($inpost) > 82)
-		{
-			&error("编辑小字报&标题过长！");										#输出错误页
-		}
-		elsif (length($message) > $hownews)
-		{
-			&error("编辑小字报&内容过长！");										#输出错误页
-		}
-		#编辑处理
-		my $newfile	= '';									#初始化文件
-		foreach my $line (@xzbdata)
-		{	#每次读取一行内容 loop 1
-			chomp $line;			#去掉换行符
-			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#分割数据
-			if($posttime eq $xzbid)
-			{	#编辑目标
-				$line = "＃—＃—·\t$inpost\t$inmembername\t$message\t$posttime\t";	#新行
-			}
-			$newfile .= $line."\n";														#放入新文件内
-		}#loop 1 end
-		open(FILE,'>'."${lbdir}boarddata/xzb$inforum.cgi");	#开启只写文件
-		print FILE $newfile;								#写入新文件内容
-		close(FILE);										#关闭文件
-		#页面输出
-		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
+    }
+    else {
+        #已进行确认
+        #驗證處理
+        if ($inpost eq "") {
+            &error("编辑小字报&必须输入标题！"); #输出错误页
+        }
+        elsif (length($inpost) > 82) {
+            &error("编辑小字报&标题过长！"); #输出错误页
+        }
+        elsif (length($message) > $hownews) {
+            &error("编辑小字报&内容过长！"); #输出错误页
+        }
+        #编辑处理
+        my $newfile = ''; #初始化文件
+        foreach my $line (@xzbdata) {
+                                                                                #每次读取一行内容 loop 1
+            chomp $line;                                                        #去掉换行符
+            my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
+            if ($posttime eq $xzbid) {                                          #编辑目标
+                $line = "＃—＃—·\t$inpost\t$inmembername\t$message\t$posttime\t"; #新行
+            }
+            $newfile .= $line . "\n"; #放入新文件内
+        } #loop 1 end
+        open(FILE, '>' . "${lbdir}boarddata/xzb$inforum.cgi"); #开启只写文件
+        print FILE $newfile;                                   #写入新文件内容
+        close(FILE);                                           #关闭文件
+        #页面输出
+        $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="get">
 <input type="hidden" name="forum" value="$inforum">
@@ -429,37 +410,35 @@ sub editxzb
 </tr>
 </form>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	}
+    }
 }
-sub deletexzb
-{	#模式 -> 删除
-	#输出页面头
-	&mischeader("删除小字报");
-	#读取复选数据
-	my @noarray		= ();	#初始化
-	my %nohash		= ();
-	my $xzbidcount	= 0;
-	my $novalue		= '';	# HIDDEN 的输入栏
-	if ($xzbid ne "")
-	{	#有定义第一个 ID
-		@noarray = $query->param('xzbid');	#所有 ID
-		foreach my $xzbid(@noarray)
-		{	#处理所有 ID loop 1
-			$novalue .= '<input type="hidden" name="xzbid" value="'.$xzbid.'">'."\n";	#增加栏位
-			$nohash{$xzbid} = $xzbid;													#放入 HASH
-			$xzbidcount++;																#数目递增
-		}#loop 1 end 
-		chomp $novalue;						#去除最後换行
-	}
-	if ($xzbidcount == 0)
-	{	#没选任何小字报
-		&error("删除小字报&没有选任何小字报！");			#输出错误页
-	}
+sub deletexzb {
+    #模式 -> 删除
+    #输出页面头
+    &mischeader("删除小字报");
+    #读取复选数据
+    my @noarray = (); #初始化
+    my %nohash = ();
+    my $xzbidcount = 0;
+    my $novalue = ''; # HIDDEN 的输入栏
+    if ($xzbid ne "") {
+                                           #有定义第一个 ID
+        @noarray = $query->param('xzbid'); #所有 ID
+        foreach my $xzbid (@noarray) {
+                                                                                            #处理所有 ID loop 1
+            $novalue .= '<input type="hidden" name="xzbid" value="' . $xzbid . '">' . "\n"; #增加栏位
+            $nohash{$xzbid} = $xzbid;                                                       #放入 HASH
+            $xzbidcount++;                                                                  #数目递增
+        } #loop 1 end
+        chomp $novalue; #去除最後换行
+    }
+    if ($xzbidcount == 0) {        #没选任何小字报
+        &error("删除小字报&没有选任何小字报！"); #输出错误页
+    }
 
-	if ($checked ne 'yes')
-	{	#未进行确认
-		#页面输出
-		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
+    if ($checked ne 'yes') { #未进行确认
+        #页面输出
+        $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post" id="1">
 <input type="hidden" name="action" value="delete">
@@ -490,30 +469,30 @@ $novalue
 	</td>
 </tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	}
-	else
-	{	#已进行确认
-		#删除处理
-		my $newfile	= '';									#初始化文件
-		my $delbyte	= '';									#删除的字节
-		open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");		#开启文件
-		while (my $line = <FILE>)
-		{	#每次读取一行内容 loop 1
-			chomp $line;			#去掉换行符
-			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);		#分割数据
-			if(($line eq "") || (defined $nohash{$posttime}))
-			{	#空白行或删除目录
-				$delbyte += length($line);	#加上删除的字节
-				next;						#跳过
-			}
-			$newfile .= $line."\n";														#放入新文件内
-		}#loop 1 end
-		close(FILE);										#关闭文件
-		open(FILE,'>'."${lbdir}boarddata/xzb$inforum.cgi");	#开启只写文件
-		print FILE $newfile;								#写入新文件内容
-		close(FILE);										#关闭文件
-		#页面输出
-		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
+    }
+    else {
+        #已进行确认
+        #删除处理
+        my $newfile = '';                                #初始化文件
+        my $delbyte = '';                                #删除的字节
+        open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+        while (my $line = <FILE>) {
+                                                                                #每次读取一行内容 loop 1
+            chomp $line;                                                        #去掉换行符
+            my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
+            if (($line eq "") || (defined $nohash{$posttime})) {
+                                           #空白行或删除目录
+                $delbyte += length($line); #加上删除的字节
+                next;                      #跳过
+            }
+            $newfile .= $line . "\n"; #放入新文件内
+        } #loop 1 end
+        close(FILE);                                           #关闭文件
+        open(FILE, '>' . "${lbdir}boarddata/xzb$inforum.cgi"); #开启只写文件
+        print FILE $newfile;                                   #写入新文件内容
+        close(FILE);                                           #关闭文件
+        #页面输出
+        $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="get">
 <input type="hidden" name="forum" value="$inforum">
@@ -540,56 +519,51 @@ $novalue
 </tr>
 </form>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	}
+    }
 }
-sub deleteoverxzb
-{	#模式 -> 删除 2
-	#输出页面头
-	&mischeader("删除小字报");
-	#读取超时资料
-	my @delxzbid	= ();	#初始化
-	if($checked ne 'yes')
-	{	#未进行确认
-		open(FILE,"${lbdir}boarddata/xzb$inforum.cgi");	#开启文件
-		while (my $line = <FILE>)
-		{	#每次读取一行内容 loop 1
-			chomp $line;															#去掉换行符
-			my ($nouse , $title , $postid , $msg , $posttime) = split(/\t/,$line);	#分割数据
-			if ($currenttime-$posttime > 3600*48)
-			{	#超过４８小时
-				push(@delxzbid,$posttime);		#放到需删 ID
-			}
-		}#loop 1 end
-		close(FILE);									#关闭文件
-	}
-	else
-	{	#已进行确认
-		@delxzbid = $query->param('xzbid');				#需删 ID
-	}
-	if (@delxzbid == 0)
-	{	#没任何小字报需要删
-		&error("删除小字报&没有小字报需要删除！");			#输出错误页
-	}
-	#读取复选数据
-	my %nohash		= ();
-	my $xzbidcount	= 0;
-	my $novalue		= '';	# HIDDEN 的输入栏
-	foreach my $xzbid(@delxzbid)
-	{	#处理所有 ID loop 1
-		unless ($currenttime-$posttime > 3600*48)
-		{	#再检查时间，不通过
-			next;		#跳过
-		}
-		$novalue .= '<input type="hidden" name="xzbid" value="'.$xzbid.'">'."\n";	#增加栏位
-		$nohash{$xzbid} = $xzbid;													#放入 HASH
-		$xzbidcount++;																#数目递增
-	}#loop 1 end 
-	chomp $novalue;						#去除最後换行
-	
-	if ($checked ne 'yes')
-	{	#未进行确认
-		#页面输出
-		$output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
+sub deleteoverxzb {
+    #模式 -> 删除 2
+    #输出页面头
+    &mischeader("删除小字报");
+    #读取超时资料
+    my @delxzbid = (); #初始化
+    if ($checked ne 'yes') {
+                                                         #未进行确认
+        open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+        while (my $line = <FILE>) {
+                                                                                #每次读取一行内容 loop 1
+            chomp $line;                                                        #去掉换行符
+            my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
+            if ($currenttime - $posttime > 3600 * 48) { #超过４８小时
+                push(@delxzbid, $posttime);             #放到需删 ID
+            }
+        } #loop 1 end
+        close(FILE); #关闭文件
+    }
+    else {                                  #已进行确认
+        @delxzbid = $query->param('xzbid'); #需删 ID
+    }
+    if (@delxzbid == 0) {           #没任何小字报需要删
+        &error("删除小字报&没有小字报需要删除！"); #输出错误页
+    }
+    #读取复选数据
+    my %nohash = ();
+    my $xzbidcount = 0;
+    my $novalue = ''; # HIDDEN 的输入栏
+    foreach my $xzbid (@delxzbid) {
+        #处理所有 ID loop 1
+        unless ($currenttime - $posttime > 3600 * 48) { #再检查时间，不通过
+            next;                                       #跳过
+        }
+        $novalue .= '<input type="hidden" name="xzbid" value="' . $xzbid . '">' . "\n"; #增加栏位
+        $nohash{$xzbid} = $xzbid;                                                       #放入 HASH
+        $xzbidcount++;                                                                  #数目递增
+    } #loop 1 end
+    chomp $novalue; #去除最後换行
+
+    if ($checked ne 'yes') { #未进行确认
+        #页面输出
+        $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post">
 <input type="hidden" name="action" value="delete">
@@ -614,5 +588,5 @@ $novalue
 </tr>
 </form>
 </table><SCRIPT>valignend()</SCRIPT>~;
-	}
+    }
 }
