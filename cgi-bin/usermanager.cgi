@@ -10,17 +10,22 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use strict;
+use warnings;
+use diagnostics;
+
 use LBCGI;
-$LBCGI::POST_MAX=200000;
+$LBCGI::POST_MAX = 200000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 require "data/boardinfo.cgi";
@@ -32,52 +37,50 @@ $|++;
 $thisprog = "usermanager.cgi";
 $query = new LBCGI;
 
-$action          = $query -> param('action');
-$usertype        = $query -> param('usertype');
-$action          = &unHTML("$action");
+$action = $query->param('action');
+$usertype = $query->param('usertype');
+$action = &unHTML("$action");
 
 $inmembername = $query->cookie("adminname");
-$inpassword   = $query->cookie("adminpass");
+$inpassword = $query->cookie("adminpass");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
-        
-&getmember("$inmembername","no");
-        
-        
-        if ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
-            
-            print qq~
+
+&getmember("$inmembername", "no");
+
+if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+
+    print qq~
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
             <b>欢迎来到论坛管理中心 / 用户分类管理</b>
             </td></tr>
             ~;
-            
-            my %Mode = ( 
-            'search' =>    \&searchusers,
-            );
 
+    my %Mode = (
+        'search' => \&searchusers,
+    );
 
-            if($Mode{$action}) { 
-               $Mode{$action}->();
-            }
-            else { &searchoptions; }
-            
-            print qq~</table></td></tr></table>~;
-        }
-        else {
-            &adminlogin;
-        }
-        
+    if ($Mode{$action}) {
+        $Mode{$action}->();
+    }
+    else {&searchoptions;}
+
+    print qq~</table></td></tr></table>~;
+}
+else {
+    &adminlogin;
+}
+
 sub searchoptions {
-       my $memteam1 = qq~<option value="rz1">$defrz1(认证用户)</option>~ if ($defrz1 ne "");
-       my $memteam2 = qq~<option value="rz2">$defrz2(认证用户)</option>~ if ($defrz2 ne "");
-       my $memteam3 = qq~<option value="rz3">$defrz3(认证用户)</option>~ if ($defrz3 ne "");
-       my $memteam4 = qq~<option value="rz4">$defrz4(认证用户)</option>~ if ($defrz4 ne "");
-       my $memteam5 = qq~<option value="rz5">$defrz5(认证用户)</option>~ if ($defrz5 ne "");
+    my $memteam1 = qq~<option value="rz1">$defrz1(认证用户)</option>~ if ($defrz1 ne "");
+    my $memteam2 = qq~<option value="rz2">$defrz2(认证用户)</option>~ if ($defrz2 ne "");
+    my $memteam3 = qq~<option value="rz3">$defrz3(认证用户)</option>~ if ($defrz3 ne "");
+    my $memteam4 = qq~<option value="rz4">$defrz4(认证用户)</option>~ if ($defrz4 ne "");
+    my $memteam5 = qq~<option value="rz5">$defrz5(认证用户)</option>~ if ($defrz5 ne "");
 
     print qq~
         <tr>
@@ -99,11 +102,11 @@ sub searchoptions {
         <p><input type="submit" value='确定'></p></div></form>
 	</td></tr>
         ~;
-        }
+}
 
 sub searchusers {
-	unless ((($membercode eq "ad")||($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
-       print qq~
+    unless ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+        print qq~
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
@@ -114,10 +117,10 @@ sub searchusers {
                     
         </td></tr>
          ~;
-        }
+    }
 
-        if ($usertype eq ""){
-	print qq~
+    if ($usertype eq "") {
+        print qq~
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#990000>
@@ -128,36 +131,36 @@ sub searchusers {
                     
         </td></tr>
          ~;
-         }
-         else {
-	print qq~
+    }
+    else {
+        print qq~
         <tr>
         <td bgcolor=#FFFFFF colspan=2><br>
          ~;
 
-	$filetoopen = "$lbdir" . "data/lbmember.cgi";
-        open(FILE,"$filetoopen");
-        flock (FILE, 1) if ($OS_USED eq "Unix");
+        $filetoopen = "$lbdir" . "data/lbmember.cgi";
+        open(FILE, "$filetoopen");
+        flock(FILE, 1) if ($OS_USED eq "Unix");
         @memberfiles = <FILE>;
         close(FILE);
-	$i=0;
+        $i = 0;
         foreach $memtypedata (@memberfiles) {
-	chomp $memtypedata;
-        ($username, $membertype) = split(/\t/,$memtypedata);
+            chomp $memtypedata;
+            ($username, $membertype) = split(/\t/, $memtypedata);
 
-       if ($membertype eq $usertype) {
-       print qq~
+            if ($membertype eq $usertype) {
+                print qq~
        <a href="setmembers.cgi?action=edit&member=$username">$username</a><br><br>~;
-       $i++;
-       }
-    }
-       print qq~
+                $i++;
+            }
+        }
+        print qq~
        <br><br>
        <b>共找到 $i 位用户</b><br>
        </td></tr>
        ~;
-       }
-     }
+    }
+}
 
 print qq~</td></tr></table></body></html>~;
 exit;

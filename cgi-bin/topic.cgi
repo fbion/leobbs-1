@@ -10,17 +10,21 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
+use strict;
+use warnings;
+use diagnostics;
 use LBCGI;
-$LBCGI::POST_MAX=500000;
+$LBCGI::POST_MAX = 500000;
 $LBCGI::DISABLE_UPLOADS = 1;
 $LBCGI::HEADERS_ONCE = 1;
 use VISITFORUM qw(getlastvisit setlastvisit);
@@ -36,41 +40,46 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-if ($COOKIE_USED eq 2 && $mycookiepath ne "") { $cookiepath = $mycookiepath; } elsif ($COOKIE_USED eq 1) { $cookiepath =""; }
+if ($COOKIE_USED eq 2 && $mycookiepath ne "") {$cookiepath = $mycookiepath;}
+elsif ($COOKIE_USED eq 1) {$cookiepath = "";}
 else {
-    $boardurltemp =$boardurl;
+    $boardurltemp = $boardurl;
     $boardurltemp =~ s/http\:\/\/(\S+?)\/(.*)/\/$2/;
     $cookiepath = $boardurltemp;
     $cookiepath =~ s/\/$//;
-#    $cookiepath =~ tr/A-Z/a-z/;
+    #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$jumpto         = $query -> param('jumpto'); if ($jumpto) { print redirect(-location=>"$jumpto"); exit; }
-$inforum        = $query -> param('forum');
-$intopic        = $query -> param('topic');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic !~ /^[0-9]+$/)||($inforum !~ /^[0-9]+$/));
-if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
-$man  = $query -> param('man');
-$man  = $query->cookie("man") if ($man eq "");
-$man  = "" if ($man eq "[]");
+$jumpto = $query->param('jumpto');
+if ($jumpto) {
+    print redirect(-location => "$jumpto");
+    exit;
+}
+$inforum = $query->param('forum');
+$intopic = $query->param('topic');
+&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic !~ /^[0-9]+$/) || ($inforum !~ /^[0-9]+$/));
+if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
+$man = $query->param('man');
+$man = $query->cookie("man") if ($man eq "");
+$man = "" if ($man eq "[]");
 $man1 = uri_escape($man);
 $mancookie = cookie(-name => "man", -value => "$man1", -path => "$cookiepath/", -expires => "0");
 
-$instart        = $query -> param('start');
-$instart	= 0 if ($instart eq "");
-$inshow         = $query -> param('show');
-$inshow		= 0 if ($inshow eq "");
-$inmax          = $query -> param('max');
-$maxtopics      = 99999 if ($inmax eq "yes");
+$instart = $query->param('start');
+$instart = 0 if ($instart eq "");
+$inshow = $query->param('show');
+$inshow = 0 if ($inshow eq "");
+$inmax = $query->param('max');
+$maxtopics = 99999 if ($inmax eq "yes");
 
-$inselectstyle  = $query->cookie("selectstyle");
-$inselectstyle   = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~  m/\//)||($inselectstyle =~ m/\\/)||($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$inselectstyle = $query->cookie("selectstyle");
+$inselectstyle = $skinselected if ($inselectstyle eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
+if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-$instart = int($instart/$maxtopics+0.5)*$maxtopics;
-$action     = $query -> param('action');
-$action     = &stripMETA("$action");
+$instart = int($instart / $maxtopics + 0.5) * $maxtopics;
+$action = $query->param('action');
+$action = &stripMETA("$action");
 my $onlineview1 = $query->cookie("onlineview");
 $onlineview = $onlineview1 if ($onlineview1 ne "");
 $onlineview = 0 if ($onlineview eq "");
@@ -78,49 +87,57 @@ $onlineview = $onlineview == 1 ? 0 : 1 if ($action eq "onlineview");
 $onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "+30d");
 $onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview&forum=$inforum&topic=$intopic&start=$instart&show=$inshow><font color=$titlefontcolor>关闭详细列表</font></a>]" : "[<a href=$thisprog?action=onlineview&forum=$inforum&topic=$intopic&start=$instart&show=$inshow><font color=$titlefontcolor>显示详细列表</font></a>]";
 
-if ((($forumimagead eq "1")&&($useimageadtopic eq "1"))||(($forumimagead1 eq "1")&&($useimageadtopic1 eq "1"))) { require "${lbdir}imagead.cgi"; }
+if ((($forumimagead eq "1") && ($useimageadtopic eq "1")) || (($forumimagead1 eq "1") && ($useimageadtopic1 eq "1"))) {require "${lbdir}imagead.cgi";}
 
-$inmembername   = $query->cookie("amembernamecookie");
-$inpassword     = $query->cookie("apasswordcookie");
+$inmembername = $query->cookie("amembernamecookie");
+$inpassword = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $nodisp = $query->cookie("nodisp");
-($nodispavatar, $nodispsign, $nodispphoto)  = split(/\|/,$nodisp);
-if ($boarddispsign eq "no") { $nodispsign="yes"; } else { if (!($nodispsign)) { if ($boarddispsign eq "noselect") { $nodispsign="yes"; } else { $nodispsign="no"; } } }
+($nodispavatar, $nodispsign, $nodispphoto) = split(/\|/, $nodisp);
+if ($boarddispsign eq "no") {$nodispsign = "yes";}
+else {if (!($nodispsign)) {if ($boarddispsign eq "noselect") {$nodispsign = "yes";}
+else {$nodispsign = "no";}}}
 
-$treeview1  = $query -> cookie("treeview");
-$treeview   = $treeview1 if ($treeview1 ne "");
-$treeview   = "no" if ($treeview eq "");
+$treeview1 = $query->cookie("treeview");
+$treeview = $treeview1 if ($treeview1 ne "");
+$treeview = "no" if ($treeview eq "");
 
-$changemode = $query -> param('changemode');
-$replynum   = $query -> param('replynum');
-if ($changemode ne "") { $treeview=($treeview eq "yes")?"no":"yes"; }
+$changemode = $query->param('changemode');
+$replynum = $query->param('replynum');
+if ($changemode ne "") {$treeview = ($treeview eq "yes") ? "no" : "yes";}
 
 $screenmode = $query->cookie("screenmode");
 $screenmode = 8 if ($screenmode eq "");
 
 &ipbanned; #封杀一些 ip
-$paraspace = "line-height:$paraspace%"   if ($paraspace ne "130");
+$paraspace = "line-height:$paraspace%" if ($paraspace ne "130");
 $wordspace = "letter-spacing:$wordspace" if ($wordspace ne "0");
-if (($defaultflashwidth eq "")||($defaultflashwidth < 200)||($defaultflashheight eq "")||($defaultflashheight < 100)) {
+if (($defaultflashwidth eq "") || ($defaultflashwidth < 200) || ($defaultflashheight eq "") || ($defaultflashheight < 100)) {
     $defaultflashwidth = 410;
     $defaultflashheight = 280;
 }
 
 $currenttime = time;
 
-if ((!$inmembername) or ($inmembername eq "客人")) { $inmembername = "客人"; $myrating= "-1"; $mymembercode="no"; $jifen = -1; &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");}
+if ((!$inmembername) or ($inmembername eq "客人")) {
+    $inmembername = "客人";
+    $myrating = "-1";
+    $mymembercode = "no";
+    $jifen = -1;
+    &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
+}
 else {
-    &getmember("$inmembername","no");
-    $mymembercode=$membercode;
-    $myrating=$rating;
-     if ($inpassword ne $password) {
-	$namecookie        = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-	$passcookie        = cookie(-name => "apasswordcookie",   -value => "", -path => "$cookiepath/");
-        print header(-cookie=>[$namecookie, $passcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+    &getmember("$inmembername", "no");
+    $mymembercode = $membercode;
+    $myrating = $rating;
+    if ($inpassword ne $password) {
+        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
-     }
+    }
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
     &getlastvisit;
     $forumlastvisit = $lastvisitinfo{$inforum};
@@ -131,160 +148,168 @@ $testentry = $query->cookie("forumsallowed$inforum");
 &getoneforum("$inforum");
 $myinmembmod = $inmembmod;
 
-if (($allowedentry{$inforum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($inmembmod eq "yes")||($membercode eq 'smo')) { $allowed = "yes"; } else { $allowed  = "no"; }
+if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
+else {$allowed = "no";}
 
-$addtimes = ($timedifferencevalue + $timezone)*3600;
+$addtimes = ($timedifferencevalue + $timezone) * 3600;
 $myrating = -6 if ($myrating eq "");
-if (($privateforum eq "yes" && $allowed ne "yes")) { &error("进入私有论坛&对不起，您没有权限进入该私有论坛！"); }
-if (($startnewthreads eq "cert")&&(($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/)||($inmembername eq "客人"))&&($userincert eq "no")) { &error("进入论坛&你一般会员不允许进入此论坛！"); }
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz!~/,$membercode,/);
-if ($allowusers ne ''){
+if (($privateforum eq "yes" && $allowed ne "yes")) {&error("进入私有论坛&对不起，您没有权限进入该私有论坛！");}
+if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
+if ($allowusers ne '') {
     &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
 }
 
 if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
-    if ($enterminmony > 0 || $enterminjf > 0 ) {
-	require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
-	$mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-	&error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
-	&error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
+    if ($enterminmony > 0 || $enterminjf > 0) {
+        require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
+        $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
+        &error("进入论坛&你不允许进入该论坛，你的金钱为 $mymoney1，而本论坛只有金钱大于等于 $enterminmony 的才能进入！") if ($enterminmony > 0 && $mymoney1 < $enterminmony);
+        &error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
 
-$treeviewcookie  = cookie(-name => "treeview" , -value => "$treeview", -path => "$cookiepath/" , -expires => "+30d");
+$treeviewcookie = cookie(-name => "treeview", -value => "$treeview", -path => "$cookiepath/", -expires => "+30d");
 
-print header(-cookie=>[$treeviewcookie, $onlineviewcookie,$mancookie, $tempvisitcookie, $permvisitcookie] , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-cookie => [ $treeviewcookie, $onlineviewcookie, $mancookie, $tempvisitcookie, $permvisitcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-$defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" );
+$defaultsmilewidth = "width=$defaultsmilewidth" if ($defaultsmilewidth ne "");
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
 if (open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi")) {
-    sysread(FILE, my $threads,(stat(FILE))[7]);
+    sysread(FILE, my $threads, (stat(FILE))[7]);
     close(FILE);
     $threads =~ s/\r//isg;
     @threads = split(/\n/, $threads);
     $numberofitems = @threads;
 
     if ($man ne '') {
-	my $i;
-	foreach (@threads) {
-	    chomp;
-	    $i++;
-	    push(@threads1,"$i\t$_\n") if ($_=~/^$man\t/i);
+        my $i;
+        foreach (@threads) {
+            chomp;
+            $i++;
+            push(@threads1, "$i\t$_\n") if ($_ =~ /^$man\t/i);
         }
-	$numberofitems = @threads1;
+        $numberofitems = @threads1;
     }
 
-} else {
+}
+else {
     unlink("${lbdir}forum$inforum/$intopic.pl");
     &error("打开主题&这个主题不存在！可能已经被删除！");
 }
 
 if ($mymembercode eq "ad" or $mymembercode eq "smo" or $myinmembmod eq "yes") {
     $viewhide = 1;
-} else {
+}
+else {
     $viewhide = 0;
-    if ($hidejf eq "yes" ) { 
-	my @viewhide=grep(/^$inmembername\t/i,@threads);
-	$viewhide=@viewhide;
-	$viewhide=1 if ($viewhide >= 1);
+    if ($hidejf eq "yes") {
+        my @viewhide = grep (/^$inmembername\t/i, @threads);
+        $viewhide = @viewhide;
+        $viewhide = 1 if ($viewhide >= 1);
     }
 }
-$StartCheck=$numberofposts+$numberofreplys;
+$StartCheck = $numberofposts + $numberofreplys;
 
-if ($catbackpic ne "")  { $catbackpic = "background=$imagesurl/images/$skin/$catbackpic"; }
+if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-    my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
-    &winlock($filetoopen) if ($OS_USED eq "Nt");
-    open(FILE, "$filetoopen");
+my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+&winlock($filetoopen) if ($OS_USED eq "Nt");
+open(FILE, "$filetoopen");
+flock(FILE, 2) if ($OS_USED eq "Unix");
+my $topicinfo = <FILE>;
+close(FILE);
+chomp $topicinfo;
+$topicinfo =~ s/[\a\f\n\e\0\r]//isg;
+($topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $posticon, $inposttemp, $addmetype) = split(/\t/, $topicinfo);
+if (($topictitle eq "") || ($startedby eq "") || ($startedpostdate eq "") || ($threadposts eq "") || ($threadposts > 1000000)) {
+    require "dorepiretopic.pl";
+}
+else {
+    $posticon =~ s/\s//isg;
+    if ($posticon =~ /<br>/i) {$posticon = "<br>";}
+    $threadviews = ($threadposts + 1) * 8 if ($threadviews eq "");
+}
+$threadviews++;
+
+if ($topictitle ne "") {
+    open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
-    my $topicinfo = <FILE>;
+    print FILE "$topicid\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$inposttemp\t$addmetype\t";
     close(FILE);
-    chomp $topicinfo;
-    $topicinfo =~ s/[\a\f\n\e\0\r]//isg;
-    ($topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $posticon, $inposttemp, $addmetype) = split (/\t/,$topicinfo);
-    if (($topictitle eq "")||($startedby eq "")||($startedpostdate eq "")||($threadposts eq "")||($threadposts > 1000000)) {
-	require "dorepiretopic.pl";
-    }
-    else {
-	$posticon =~ s/\s//isg;
-	if ($posticon =~/<br>/i) { $posticon = "<br>"; }
-        $threadviews = ($threadposts+1) * 8 if ($threadviews eq "");
-    }
-    $threadviews ++;
+}
+&winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    if ($topictitle ne "") {
-        open(FILE, ">$filetoopen");
-        flock(FILE, 2) if ($OS_USED eq "Unix");
-        print FILE "$topicid\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$inposttemp\t$addmetype\t";
-        close(FILE);
-    }
-    &winunlock($filetoopen) if ($OS_USED eq "Nt");
+if ($treeview eq "yes") {$viewstyle = "&nbsp;<a href=topic.cgi?forum=$inforum&topic=$intopic&changemode=1&show=$inshow><img src=$imagesurl/images/flatview.gif width=40 height=12 border=0 alt=平板显示贴子></a>";}
+else {$viewstyle = "&nbsp;<a href=topic.cgi?forum=$inforum&topic=$intopic&changemode=1&show=$inshow><img src=$imagesurl/images/treeview.gif width=40 height=12 border=0 alt=树形显示贴子></a>";}
+if ($postopen eq "no") {$newthreadbutton = "";}
+else {$newthreadbutton = qq~<a href=post.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a> ~;}
+if ($pollopen eq "no") {$newpollbutton = "";}
+else {$newpollbutton = qq~<a href=poll.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a> ~;}
+if ($payopen eq "no") {$newpaybutton = "";}
+else {$newpaybutton = qq~<a href=post.cgi?action=pay&forum=$inforum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~;}
 
-if ($treeview eq "yes") { $viewstyle="&nbsp;<a href=topic.cgi?forum=$inforum&topic=$intopic&changemode=1&show=$inshow><img src=$imagesurl/images/flatview.gif width=40 height=12 border=0 alt=平板显示贴子></a>"; }
-                   else { $viewstyle="&nbsp;<a href=topic.cgi?forum=$inforum&topic=$intopic&changemode=1&show=$inshow><img src=$imagesurl/images/treeview.gif width=40 height=12 border=0 alt=树形显示贴子></a>"; }
-if ($postopen eq "no") { $newthreadbutton = ""; } else { $newthreadbutton = qq~<a href=post.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a> ~; }
-if ($pollopen eq "no") { $newpollbutton = "";   } else { $newpollbutton   = qq~<a href=poll.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a> ~; }
-if ($payopen eq "no")  { $newpaybutton  = "";   } else { $newpaybutton    = qq~<a href=post.cgi?action=pay&forum=$inforum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~; }
-
-if (($threadstate ne "closed")&&($threadstate ne "pollclosed")&&($postopen ne "no")) {
+if (($threadstate ne "closed") && ($threadstate ne "pollclosed") && ($postopen ne "no")) {
     $newreplybutton = qq~<a href=post.cgi?action=reply&forum=$inforum&topic=$intopic><img src=$imagesurl/images/$skin/$newreplylogo border=0 alt=回复贴子></a> ~;
     $replynow = qq~<a href=post.cgi?action=reply&forum=$inforum&topic=$intopic><img src=$imagesurl/images/replynow.gif border=0 alt=回复贴子 width=16>回复</a>　~;
 }
-else { $replynow=""; $newreplybutton=""; }
+else {
+    $replynow = "";
+    $newreplybutton = "";
+}
 
 my $tempnumberofpages = $numberofitems / $maxtopics;
 $numberofpages = int($tempnumberofpages);
 $numberofpages++ if ($numberofpages != $tempnumberofpages);
 
 if ($numberofpages > 1) {
-	$startarray = $instart;
-	$endarray = $instart + $maxtopics - 1;
-	$endarray = $numberofitems - 1 if ($endarray >= $numberofitems);
+    $startarray = $instart;
+    $endarray = $instart + $maxtopics - 1;
+    $endarray = $numberofitems - 1 if ($endarray >= $numberofitems);
 
-	if ($replynum eq "last" && $treeview ne "yes") {
-		$instart = ($numberofpages - 1) * $maxtopics;
-		$startarray = $instart;
-		$endarray = $numberofitems - 1;
-	}
+    if ($replynum eq "last" && $treeview ne "yes") {
+        $instart = ($numberofpages - 1) * $maxtopics;
+        $startarray = $instart;
+        $endarray = $numberofitems - 1;
+    }
 
-	my $currentpage = int($instart / $maxtopics) + 1;
-	my $endstart = ($numberofpages - 1) * $maxtopics;
-	my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=0&show=$inshow title="首 页" ><font face=webdings>9</font></a>~;
-	my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$endstart&show=$inshow title="尾 页" ><font face=webdings>:</font></a>~;
+    my $currentpage = int($instart / $maxtopics) + 1;
+    my $endstart = ($numberofpages - 1) * $maxtopics;
+    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=0&show=$inshow title="首 页" ><font face=webdings>9</font></a>~;
+    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$endstart&show=$inshow title="尾 页" ><font face=webdings>:</font></a>~;
 
-	my $uppage = $currentpage - 1;
-	my $nextpage = $currentpage + 1;
-	my $upstart = $instart - $maxtopics;
-	my $nextstart = $instart + $maxtopics;
-	my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstart&show=$inshow title="第$uppage页"><font face=webdings>7</font></a>~;
-	my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstart&show=$inshow title="第$nextpage页"><font face=webdings>8</font></a>~;
+    my $uppage = $currentpage - 1;
+    my $nextpage = $currentpage + 1;
+    my $upstart = $instart - $maxtopics;
+    my $nextstart = $instart + $maxtopics;
+    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstart&show=$inshow title="第$uppage页"><font face=webdings>7</font></a>~;
+    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstart&show=$inshow title="第$nextpage页"><font face=webdings>8</font></a>~;
 
-	my $tempstep = $currentpage / 7;
-	my $currentstep = int($tempstep);
-	$currentstep++ if ($currentstep != $tempstep);
-	my $upsteppage = ($currentstep - 1) * 7;
-	my $nextsteppage = $currentstep * 7 + 1;
-	my $upstepstart = ($upsteppage - 1) * $maxtopics;
-	my $nextstepstart = ($nextsteppage - 1) * $maxtopics;
-	my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstepstart&show=$inshow class=hb title="第$upsteppage页">←</a> ~;
-	my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstepstart&show=$inshow class=hb title="第$nextsteppage页">→</a> ~;
+    my $tempstep = $currentpage / 7;
+    my $currentstep = int($tempstep);
+    $currentstep++ if ($currentstep != $tempstep);
+    my $upsteppage = ($currentstep - 1) * 7;
+    my $nextsteppage = $currentstep * 7 + 1;
+    my $upstepstart = ($upsteppage - 1) * $maxtopics;
+    my $nextstepstart = ($nextsteppage - 1) * $maxtopics;
+    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstepstart&show=$inshow class=hb title="第$upsteppage页">←</a> ~;
+    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstepstart&show=$inshow class=hb title="第$nextsteppage页">→</a> ~;
 
-	$pages = "";
-	my $currentstart = $upstepstart + $maxtopics;
-	for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++)
-	{
-		last if ($i > $numberofpages);
-		$pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$currentstart&show=$inshow class=hb>$i</a> ~;
-		$currentstart += $maxtopics;
-	}
-	$pages = "<font color=$menufontcolor><b>共 <font color=$fonthighlight>$numberofpages</font> 页</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
+    $pages = "";
+    my $currentstart = $upstepstart + $maxtopics;
+    for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++) {
+        last if ($i > $numberofpages);
+        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$currentstart&show=$inshow class=hb>$i</a> ~;
+        $currentstart += $maxtopics;
+    }
+    $pages = "<font color=$menufontcolor><b>共 <font color=$fonthighlight>$numberofpages</font> 页</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
 }
 else {
-	$startarray = 0;
-	$endarray = $numberofitems - 1;
-	$pages = "<font color=$menufontcolor>该主题只有一页</font><br>";
+    $startarray = 0;
+    $endarray = $numberofitems - 1;
+    $pages = "<font color=$menufontcolor>该主题只有一页</font><br>";
 }
 
 if ($usefake eq "yes") {
@@ -293,14 +318,15 @@ if ($usefake eq "yes") {
     $pages =~ s/topic.cgi\?forum=([0-9]+?)&topic=([0-9]+?)&replynum=([^\"\+\ ]+?)([\ \'\"\>])/topic-$1-$2-0-0-$3.htm$4/isg;
 
     $printpageicon = qq~ <a href=printpage-$inforum-$intopic.htm><img src=$imagesurl/images/printpage.gif border=0 width=16 alt=显示可打印的版本></a>&nbsp;~;
-} else {
+}
+else {
     $printpageicon = qq~ <a href=printpage.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/printpage.gif border=0 width=16 alt=显示可打印的版本></a>&nbsp;~;
 }
 
-$reporticon    = qq~ <a href=report.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/report.gif border=0 width=16 alt=本贴有问题，发送短消息报告给版主></a>&nbsp;~;
-$favicon       = qq~ <a href=fav.cgi?action=add&forum=$inforum&topic=$intopic><img src=$imagesurl/images/fav.gif border=0 width=13 alt=加入个人收藏&关注本贴></a>&nbsp;~;
-if (($privateforum ne "yes")&&($emailfunctions eq "on")) { $sendtofriendicon = qq~ <a href=lbfriend.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/emailtofriend.gif border=0 width=16 alt=发送本页面给朋友></a>&nbsp;~; }
-$pagpageicon   = qq~ <img src=$imagesurl/images/pag.gif border=0 width=16 alt=把本贴打包邮递 style=cursor:hand onClick="javascript:openScript('pag.cgi?forum=$inforum&topic=$intopic',500,400)">&nbsp;~ if ($emailfunctions eq "on");
+$reporticon = qq~ <a href=report.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/report.gif border=0 width=16 alt=本贴有问题，发送短消息报告给版主></a>&nbsp;~;
+$favicon = qq~ <a href=fav.cgi?action=add&forum=$inforum&topic=$intopic><img src=$imagesurl/images/fav.gif border=0 width=13 alt=加入个人收藏&关注本贴></a>&nbsp;~;
+if (($privateforum ne "yes") && ($emailfunctions eq "on")) {$sendtofriendicon = qq~ <a href=lbfriend.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/emailtofriend.gif border=0 width=16 alt=发送本页面给朋友></a>&nbsp;~;}
+$pagpageicon = qq~ <img src=$imagesurl/images/pag.gif border=0 width=16 alt=把本贴打包邮递 style=cursor:hand onClick="javascript:openScript('pag.cgi?forum=$inforum&topic=$intopic',500,400)">&nbsp;~ if ($emailfunctions eq "on");
 $fontsizeselect = qq~<select OnChange="SetPostFont(this.value)"><option value="12">默认</option><option value="15">稍大</option><option value="18">普通</option><option value="21">较大</option><option value="24">很大</option><option value="30">最大</option></select>~;
 $postfontsize1 = $query->cookie("postfontsize");
 $postfontsize1 = $postfontsize if ($postfontsize1 eq "");
@@ -308,44 +334,45 @@ $postfontsize1 = "12" unless ($postfontsize1 =~ /^[0-9]+$/);
 $postfontsize = $postfontsize1;
 $fontsizeselect =~ s/<option value="$postfontsize">/<option value="$postfontsize" selected>/;
 
-$replynum=0 if ($replynum eq "");
-if ($replynum > $numberofitems-1) { $replynum = $numberofitems - 1;};
-if($replynum eq "last" && $treeview ne "yes"){
-   $movetobottom=qq(document.location="#bottom";);
+$replynum = 0 if ($replynum eq "");
+if ($replynum > $numberofitems - 1) {$replynum = $numberofitems - 1;};
+if ($replynum eq "last" && $treeview ne "yes") {
+    $movetobottom = qq(document.location="#bottom";);
 }
 if ($treeview eq "yes") {
-     $replynum   = $instart if (($instart ne "")&&($instart ne "0")&&($replynum ne "last"));
-     $replynum   = $numberofitems - 1 if ($replynum eq "last");
-     $startarray = $replynum;
-     $endarray   = $replynum;
+    $replynum = $instart if (($instart ne "") && ($instart ne "0") && ($replynum ne "last"));
+    $replynum = $numberofitems - 1 if ($replynum eq "last");
+    $startarray = $replynum;
+    $endarray = $replynum;
 }
 
-(my $trash, $topictitle) = split(/\t/,$threads[0]);
+(my $trash, $topictitle) = split(/\t/, $threads[0]);
 $topictitletemp = $topictitle;
 $topictitletemp =~ s/^＊＃！＆＊//;
 
-	if ($addtopictime eq "yes") {
-	    my $topictime = &dispdate($startedpostdate + $addtimes);
-	    $topictitletemp = "[$topictime] $topictitletemp";
-	}
-	
-$topictitletemp =~s/ \(无内容\)$//;
-$topictitletemp =~s/\&\#039\;//isg;
+if ($addtopictime eq "yes") {
+    my $topictime = &dispdate($startedpostdate + $addtimes);
+    $topictitletemp = "[$topictime] $topictitletemp";
+}
+
+$topictitletemp =~ s/ \(无内容\)$//;
+$topictitletemp =~ s/\&\#039\;//isg;
 $topictitletemp = &cleaninput($topictitletemp);
-$bookmarkpage  = qq~ <span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$inforum&topic=$intopic', ' $boardname - $topictitletemp')"><IMG SRC=$imagesurl/images/fav_add1.gif width=15 alt=把本贴加入收藏夹></span>&nbsp;~;
+$bookmarkpage = qq~ <span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$inforum&topic=$intopic', ' $boardname - $topictitletemp')"><IMG SRC=$imagesurl/images/fav_add1.gif width=15 alt=把本贴加入收藏夹></span>&nbsp;~;
 
 &title;
 
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
-if (-e "$filetoopens.lck"){
+if (-e "$filetoopens.lck") {
     $memberoutput = "";
     $membertongji = " <b>由于服务器繁忙，所以本主题的在线数据暂时不提供显示。</b>";
     $onlinetitle = "";
-    unlink ("$filetoopens.lck") if ((-M "$filetoopens.lck") *86400 > 30);
-} else {
-   if ($privateforum ne "yes") { &whosonline("$inmembername\t$forumname\t$forumname<>浏览“$topictitletemp”\t浏览<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitletemp</b></a>\t"); }
-                          else { &whosonline("$inmembername\t$forumname(密)\t$forumname<>topictitletemp(密)\t浏览保密贴子\t"); }
+    unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 30);
+}
+else {
+    if ($privateforum ne "yes") {&whosonline("$inmembername\t$forumname\t$forumname<>浏览“$topictitletemp”\t浏览<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitletemp</b></a>\t");}
+    else {&whosonline("$inmembername\t$forumname(密)\t$forumname<>topictitletemp(密)\t浏览保密贴子\t");}
     $membertongji =~ s/分论坛/主题/o;
     $membertongji =~ s/人在线/人浏览/o;
     undef $memberoutput if ($onlineview != 1);
@@ -353,15 +380,19 @@ if (-e "$filetoopens.lck"){
 
 $output .= qq~<br>~;
 if (-e "${lbdir}cache/forumstopic$inforum.pl") {
-  eval{ require "${lbdir}cache/forumstopic$inforum.pl";};
-  if ($@) { unlink ("${lbdir}cache/forumstopic$inforum.pl"); require "dotopic.pl"; }
-} else { require "dotopic.pl"; }
+    eval {require "${lbdir}cache/forumstopic$inforum.pl";};
+    if ($@) {
+        unlink("${lbdir}cache/forumstopic$inforum.pl");
+        require "dotopic.pl";
+    }
+}
+else {require "dotopic.pl";}
 
-if (($usejhpoint eq "yes")&&($jhdata =~ /\_$topicid\_/)) {
+if (($usejhpoint eq "yes") && ($jhdata =~ /\_$topicid\_/)) {
     $jhimage = qq~ <img src="$imagesurl/images/$skin/$new_JH" align=absmiddle alt=本帖为精华帖子> ~;
 }
 
-my $topictitletempshow = &lbhz($topictitletemp,34);
+my $topictitletempshow = &lbhz($topictitletemp, 34);
 $tempoutput =~ s/topictitletempshow/$topictitletempshow/isg;
 $tempoutput =~ s/jhimage/$jhimage/isg;
 
@@ -378,18 +409,18 @@ if ($usefake eq "yes") {
 }
 
 if ($startarray eq "0" && $arrawrecordclick eq "yes") {
-    my $ipaddress  = $ENV{'REMOTE_ADDR'};
+    my $ipaddress = $ENV{'REMOTE_ADDR'};
     $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
     $trueipaddress = $ipaddress if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
     my $trueipaddress1 = $ENV{'HTTP_CLIENT_IP'};
     $trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
-    open(FILECLICK,">>${lbdir}forum$inforum/$intopic.clk.pl");
-    print FILECLICK  "$inmembername\t$ipaddress\t$trueipaddress\t$currenttime\t\n";
+    open(FILECLICK, ">>${lbdir}forum$inforum/$intopic.clk.pl");
+    print FILECLICK "$inmembername\t$ipaddress\t$trueipaddress\t$currenttime\t\n";
     close(FILECLICK);
 }
 
-$insidead  = "" if (($forumimagead ne "1")&&($useimageadtopic ne "1"));
-$insidead1 = "" if (($forumimagead1 ne "1")&&($useimageadtopic1 ne "1"));
+$insidead = "" if (($forumimagead ne "1") && ($useimageadtopic ne "1"));
+$insidead1 = "" if (($forumimagead1 ne "1") && ($useimageadtopic1 ne "1"));
 if ($threadviews > 0) {
     $threadviewstemp = "◆此帖被阅读 <b>$threadviews</b> 次◆";
     $threadviewstemp = "<a href=dispclick.cgi?forum=$inforum&topic=$intopic title=查看此帖的访问记录 target=_blank>$threadviewstemp</a>" if ($membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes');
@@ -411,7 +442,7 @@ DReply.postno.value+=i+" ";
 DReply.submit();
 }
 </script>
-~ if(($mymembercode eq "ad")||($mymembercode eq 'smo')||($mymembercode eq 'cmo')||($myinmembmod eq "yes"));
+~ if (($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq 'cmo') || ($myinmembmod eq "yes"));
 
 $noimg = qq~
 window.onload=addSenToEventHandle(window.onload,"checkImages();")
@@ -438,9 +469,10 @@ function bbimg(o){var zoom=parseInt(o.style.zoom,10)||100;zoom+=event.wheelDelta
 $movetobottom
 ~;
 if ($usefake eq "yes") {
-$output .= qq~function O9(id) {if(id != "") window.open("profile-"+id+".htm");}~;
-} else {
-$output .= qq~function O9(id) {if(id != "") window.open("profile.cgi?action=show&member="+id);}~;
+    $output .= qq~function O9(id) {if(id != "") window.open("profile-"+id+".htm");}~;
+}
+else {
+    $output .= qq~function O9(id) {if(id != "") window.open("profile.cgi?action=show&member="+id);}~;
 }
 $output .= qq~
 function loadThreadFollow(f_id,t_id,r_id,ftype,fname){
@@ -504,39 +536,40 @@ $output .= qq~$topicad<table cellpadding=1 cellspacing=0 width=$tablewidth align
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td height=1></td></tr></table>
 ~;
 
-if (open (FILE, "${lbdir}FileCount/$inforum/$inforum\_$intopic.pl")) {
-    @usruploaddata =<FILE>;
+if (open(FILE, "${lbdir}FileCount/$inforum/$inforum\_$intopic.pl")) {
+    @usruploaddata = <FILE>;
     close(FILE);
     chomp @usruploaddata;
     my $usruploaddatano1 = @usruploaddata;
-    my @usruploaddata1 = grep(/^$inforum\_$intopic(\.|\_)/,@usruploaddata);
+    my @usruploaddata1 = grep (/^$inforum\_$intopic(\.|\_)/, @usruploaddata);
     my $usruploaddatano2 = @usruploaddata1;
     if (($usruploaddatano1 ne $usruploaddatano2) && ($usruploaddata2 > 0)) {
-        unlink ("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
+        unlink("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
         print "页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv='refresh' content='0;'>";
         exit;
     }
-} else {
-    opendir (USRDIR, "${imagesdir}$usrdir/$inforum");
+}
+else {
+    opendir(USRDIR, "${imagesdir}$usrdir/$inforum");
     @usruploaddata = readdir(USRDIR);
-    closedir (USRDIR);
-    @usruploaddata = grep(/^$inforum\_$intopic(\.|\_)/,@usruploaddata);
+    closedir(USRDIR);
+    @usruploaddata = grep (/^$inforum\_$intopic(\.|\_)/, @usruploaddata);
     chomp @usruploaddata;
-#    open (FILE, ">${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
-#    print FILE join("\n",@usruploaddata);
-#    print FILE "\n" if ($#usruploaddata > 0);
-#    close(FILE);
+    #    open (FILE, ">${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
+    #    print FILE join("\n",@usruploaddata);
+    #    print FILE "\n" if ($#usruploaddata > 0);
+    #    close(FILE);
 }
 $usruploaddata = @usruploaddata;
 if ($usruploaddata > 0) {
-    @usruploaddatareply = grep(/^$inforum\_$intopic\_/,@usruploaddata);
+    @usruploaddatareply = grep (/^$inforum\_$intopic\_/, @usruploaddata);
     $usruploaddatareply = @usruploaddatareply;
 }
 
 $editpostnumber = $startarray + 1;
 $postcountnumber = 0;
 $endarraytemp = $endarray + 1;
-$rn=$startarray;
+$rn = $startarray;
 $postcopyright = "<font color=$fonthighlight>$postcopyright</font><br>" if ($postcopyright ne "");
 $output .= qq~
 <script>
@@ -568,19 +601,20 @@ function SetCookie (name, value) { var argv = SetCookie.arguments;var argc = Set
 ~;
 
 if ($magicface ne 'off') {
-    $output.=qq~
+    $output .= qq~
 <script>
 function MM_showHideLayers() {var i,p,v,obj,args=MM_showHideLayers.arguments;obj=document.getElementById("MagicFace");for (i=0; i<(args.length-2); i+=3) if (obj) { v=args[i+2];if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }obj.visibility=v; }}
 function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" + MagicID + ".swf";document.getElementById("MagicFace").innerHTML = '<object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="500" height="350"><param name="movie" value="'+ MagicFaceUrl +'"><param name="menu" value="false"><param name="quality" value="high"><param name="play" value="false"><param name="wmode" value="transparent"><embed src="' + MagicFaceUrl +'" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="350"></embed></object>';document.getElementById("MagicFace").style.top = (document.body.scrollTop+((document.body.clientHeight-300)/2))+"px";document.getElementById("MagicFace").style.left = (document.body.scrollLeft+((document.body.clientWidth-480)/2))+"px";document.getElementById("MagicFace""500" height="350"><param name="movie" value="'+ MagicFaceUrl +'"><param name="menu" value="false"><param name="quality" value="high"><param name="play" value="false"><param name="wmode" value="transparent"><embed src="' + MagicFaceUrl +'" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="350"></embed></object>';document.getElementById("MagicFace").style.top = (document.body.scrollTop+((document.body.clientHeight-300)/2))+"px";document.getElementById("MagicFace").style.left = (document.body.scrollLeft+((document.body.clientWidth-480)/2))+"px";document.getElementById("MagicFace"ply);
 	    my @downcount      = grep(/$inforum\_$intopic\_$rrn\./,@filedowncount);
-            if ($#usruploaddata1 >= 0) {
-               my $usruploadfile = $usruploaddata1[0]; chomp $usruploadfile;
+            if ($ #usruploaddata1 >= 0) {
+        my $usruploadfile = $usruploaddata1[0]; chomp $usruploadfile;
                ($up_name, $up_ext) = split(/\./,$usruploadfile);
-                $up_ext =~ tr/A-Z/a-z/;
-          	$addmefile =1;
-          	$usruploaddatareply --;
-            }
-	}
+                $up_ext =~
+    tr / A -Z / a -z /;
+    $addmefile = 1;
+    $usruploaddatareply--;
+}
+}
     }
     else {
         my @usruploaddata2 = grep(/^$inforum\_$intopic\./,@usruploaddata);

@@ -10,17 +10,19 @@
 #####################################################
 
 BEGIN {
-    $startingtime=(times)[0]+(times)[1];
-    foreach ($0,$ENV{'PATH_TRANSLATED'},$ENV{'SCRIPT_FILENAME'}){
-    	my $LBPATH = $_;
-    	next if ($LBPATH eq '');
-    	$LBPATH =~ s/\\/\//g; $LBPATH =~ s/\/[^\/]+$//o;
-        unshift(@INC,$LBPATH);
+    $startingtime = (times)[0] + (times)[1];
+    foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
+        my $LBPATH = $_;
+        next if ($LBPATH eq '');
+        $LBPATH =~ s/\\/\//g;
+        $LBPATH =~ s/\/[^\/]+$//o;
+        unshift(@INC, $LBPATH);
     }
 }
 
 use strict;
 use warnings;
+use diagnostics;
 use LBCGI;
 use IO::Socket;
 require "data/boardinfo.cgi";
@@ -29,27 +31,27 @@ require "bbs.lib.pl";
 $|++;
 
 $queryme = new LBCGI;
-$inmembername   = $queryme->cookie("amembernamecookie");
-$inpassword     = $queryme->cookie("apasswordcookie");
+$inmembername = $queryme->cookie("amembernamecookie");
+$inpassword = $queryme->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$query          = $queryme -> param('query');
+$query = $queryme->param('query');
 
-if (($query eq "")||($query !~ /^[0-9\.]+$/)) {
-    &error("普通错误&请不要胡乱使用本功能！") ;
+if (($query eq "") || ($query !~ /^[0-9\.]+$/)) {
+    &error("普通错误&请不要胡乱使用本功能！");
 }
 if ((!$inmembername) or ($inmembername eq "客人")) {
     $inmembername = "客人";
 }
 else {
-#    &getmember("$inmembername");
-    &getmember("$inmembername","no");
+    #    &getmember("$inmembername");
+    &getmember("$inmembername", "no");
     &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
-    &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");  
+    &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
-if (($membercode ne "ad")&&($membercode ne "smo")){
-    &error("普通错误&你不是本论坛的坛主或总斑竹，所以不能使用该功能！") ;
+if (($membercode ne "ad") && ($membercode ne "smo")) {
+    &error("普通错误&你不是本论坛的坛主或总斑竹，所以不能使用该功能！");
 }
 my $host = "sunny.nic.com";
 my $path = "/cgi-bin/whois";
@@ -57,10 +59,10 @@ my $content = "domain=$query";
 my $port = 80;
 my $socketaddr;
 openSock();
-post ($content);
+post($content);
 @wholePage = <SOCK>;
 close SOCK;
-$out = join("",@wholePage);
+$out = join("", @wholePage);
 
 $out =~ s/(.*?)(<pre>)(.+?)(<\/pre>)(.*?)/<pre>$3<\/pre>/isg;
 $out =~ s/<br \/>//isg;
@@ -69,26 +71,26 @@ $out =~ s/<hr>(.*)$//isg;
 $out =~ s/<\/pre>(.*)$//isg;
 $out = "查询间隔太短，无法获取详细信息，请稍后再试！<BR><BR><BR>" if ($out =~ m/Forbidden/);
 $out = qq~LeoBBS WHOIS 详细信息($query)：<BR>数据来源：<a href=http://sunny.nic.com/cgi-bin/whois>NIC Whois</a><BR><BR><BR>~ . $out . "<center><hr width=500><font color=black>版权所有：<a href=http://www.leobbs.com target=_blank>雷傲科技</a> & <a href=http://bbs.leobbs.com target=_blank>雷傲极酷超级论坛</a>　　Copyright 2003-2004<BR>";
-print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
+print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print $out;
 exit;
 
 
 sub openSock {
-$socketaddr= sockaddr_in $port, inet_aton $host or return(1);  
-#print "Connecting to $socketaddr $host, $port";
-socket SOCK, PF_INET, SOCK_STREAM, getprotobyname('tcp') or return(1);
-connect SOCK, $socketaddr or return(1);
-select((select(SOCK), $| = 1)[0]);
-return (0);
+    $socketaddr = sockaddr_in $port, inet_aton $host or return(1);
+    #print "Connecting to $socketaddr $host, $port";
+    socket SOCK, PF_INET, SOCK_STREAM, getprotobyname('tcp') or return(1);
+    connect SOCK, $socketaddr or return(1);
+    select((select(SOCK), $| = 1)[0]);
+    return(0);
 }
- 
+
 sub post {
-my $content = shift @_;
-print SOCK "POST http://$host/$path HTTP/1.0\n";
-print SOCK "Content-type: application/x-www-form-urlencoded\n";
-my $contentLength = length $content;
-print SOCK "Content-length: $contentLength\n";
-print SOCK "\n";
-print SOCK "$content";
+    my $content = shift @_;
+    print SOCK "POST http://$host/$path HTTP/1.0\n";
+    print SOCK "Content-type: application/x-www-form-urlencoded\n";
+    my $contentLength = length $content;
+    print SOCK "Content-length: $contentLength\n";
+    print SOCK "\n";
+    print SOCK "$content";
 }

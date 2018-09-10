@@ -14,6 +14,10 @@ BEGIN {
         unshift(@INC,$LBPATH);
     }
 }
+use strict;
+use warnings;
+use diagnostics;
+
 use LBCGI;
 $query = new LBCGI;
 require "data/boardinfo.cgi";

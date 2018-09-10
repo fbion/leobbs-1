@@ -1,17 +1,20 @@
 #####################################################
-#  LEO SuperCool BBS / LeoBBS X / À×°Á¼«¿á³¬¼¶ÂÛÌ³  #
+#  LEO SuperCool BBS / LeoBBS X / é›·å‚²æžé…·è¶…çº§è®ºå›  #
 #####################################################
-# »ùÓÚÉ½Ó¥(ºý)¡¢»¨ÎÞÈ±ÖÆ×÷µÄ LB5000 XP 2.30 Ãâ·Ñ°æ  #
-#   ÐÂ°æ³ÌÐòÖÆ×÷ & °æÈ¨ËùÓÐ: À×°Á¿Æ¼¼ (C)(R)2004    #
+# åŸºäºŽå±±é¹°(ç³Š)ã€èŠ±æ— ç¼ºåˆ¶ä½œçš„ LB5000 XP 2.30 å…è´¹ç‰ˆ  #
+#   æ–°ç‰ˆç¨‹åºåˆ¶ä½œ & ç‰ˆæƒæ‰€æœ‰: é›·å‚²ç§‘æŠ€ (C)(R)2004    #
 #####################################################
-#      Ö÷Ò³µØÖ·£º http://www.LeoBBS.com/            #
-#      ÂÛÌ³µØÖ·£º http://bbs.LeoBBS.com/            #
+#      ä¸»é¡µåœ°å€ï¼š http://www.LeoBBS.com/            #
+#      è®ºå›åœ°å€ï¼š http://bbs.LeoBBS.com/            #
 #####################################################
 
 package VISITFORUM;
 use strict;
 
 use vars qw(@ISA @EXPORT);
+use warnings;
+use diagnostics;
+
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw(getlastvisit setlastvisit);
@@ -19,14 +22,14 @@ require Exporter;
 sub getlastvisit {
     my $lv = $main::query->cookie("templastvisit");
     unless ($lv) {
-	$lv = $main::query->cookie("lastvisit");
-	$lv = "${main::inforum}-${main::currenttime}--" unless ($lv);
-	$main::tempvisitcookie = main::cookie(-name=>"templastvisit", -path=>"${main::cookiepath}/", -expires=>"+30d", -value=>$lv);
+        $lv = $main::query->cookie("lastvisit");
+        $lv = "${main::inforum}-${main::currenttime}--" unless ($lv);
+        $main::tempvisitcookie = main::cookie(-name => "templastvisit", -path => "${main::cookiepath}/", -expires => "+30d", -value => $lv);
     }
     my @pairs = split(/\--/, $lv);
     foreach (@pairs) {
-	my ($n, $val) = split(/\-/, $_);
-	$main::lastvisitinfo{$n} = $val;
+        my ($n, $val) = split(/\-/, $_);
+        $main::lastvisitinfo{$n} = $val;
     }
     return;
 }
@@ -38,18 +41,18 @@ sub setlastvisit {
     my $u = "0";
     my @pairs = split(/\--/, $main::query->cookie("lastvisit"));
     foreach (@pairs) {
-	my ($n, $val) = split(/\-/, $_);
-	if ($tid eq $n) {
-	    $u = "1";
-	    $val = $tv;
-	}
-	push(@newv, "$n-$val--");
+        my ($n, $val) = split(/\-/, $_);
+        if ($tid eq $n) {
+            $u = "1";
+            $val = $tv;
+        }
+        push(@newv, "$n-$val--");
     }
 
-    push(@newv,"$tid-$tv--") if ($u eq "0" && $tinfo ne "");
+    push(@newv, "$tid-$tv--") if ($u eq "0" && $tinfo ne "");
     my $nfo = join("", @newv);
-    $main::permvisitcookie = main::cookie(-name=>"lastvisit", -value=>$nfo, -path=>"${main::cookiepath}/", -expires => "+30d");
-    $main::tempvisitcookie = main::cookie(-name=>"templastvisit", -value =>$nfo, -expires =>"+30d", -path=>"${main::cookiepath}/") if ($mv eq "1");
+    $main::permvisitcookie = main::cookie(-name => "lastvisit", -value => $nfo, -path => "${main::cookiepath}/", -expires => "+30d");
+    $main::tempvisitcookie = main::cookie(-name => "templastvisit", -value => $nfo, -expires => "+30d", -path => "${main::cookiepath}/") if ($mv eq "1");
     return;
 }
 
