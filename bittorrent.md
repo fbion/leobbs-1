@@ -5,7 +5,7 @@
 .
 
   
-**制作 BitTorrent 下载区的说明：**　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　[**返回上一页**](readme.md)  
+**制作 BitTorrent 下载区的说明：**　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　[**返回上一页**](leobbs.md)  
   
 资料参考网页：[http://bitconjurer.org/BitTorrent/](http://bitconjurer.org/BitTorrent/)  
   
@@ -39,7 +39,7 @@ BT 是一种共享软件，全名叫"BitTorrent",中文全称:"比特流"。由�
 　　这是没有办法的。你可以自己去安装相应的软件来建立自己的 Announce URL，别关闭查询接口就可以了！  
   
 
-[**返 回**](readme.md)
+[**返 回**](leobbs.md)
 
   
   
