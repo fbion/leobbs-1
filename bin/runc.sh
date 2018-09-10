@@ -3,5 +3,7 @@ set -ex
 cd /home/data/www/leobbs
 pwd
 ls -al
+docker-compose pull
 docker-compose down --rmi all -v
-docker-compose up -d --build
+docker-compose build --no-cache  --force-rm
+docker-compose up -d
