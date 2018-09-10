@@ -22,6 +22,8 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+
+use diagnostics;
 use LBCGI;
 require "data/boardinfo.cgi";
 require "data/styles.cgi";

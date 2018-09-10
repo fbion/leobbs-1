@@ -28,6 +28,9 @@ The C<Exif> spec can be found at:
 =cut
 
 use strict;
+use warnings;
+use diagnostics;
+use diagnostics;
 
 my %sof = (
    0xC0 => "Baseline",

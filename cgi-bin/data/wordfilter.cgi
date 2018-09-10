@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 æ´ªå¿—
 æ³•è½®
 è½¬æ³•
@@ -28,9 +30,3 @@ hong-zhi
 hong zhi
 æ´ª zhi
 hong å¿—
-æ³•_·Ù
-ºé´«
-·¨Ê®Ý†Ê®¹¦
-minghui.org
-ºäÕ¨»ú
-Ð¤ÖÐÌØ

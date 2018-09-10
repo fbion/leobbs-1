@@ -23,6 +23,7 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 use LBCGI;
 $LBCGI::DISABLE_UPLOADS = 1;
@@ -299,7 +300,7 @@ if ($picwater eq "yes" && ($fileext eq 'jpg' || $fileext eq 'jpeg' || $fileext e
         if ($imheight > 40 && $imwidth > 200) {
             # 小于 200*40 的图片不加水印
             if ($picwaterplace1 eq "yes") {
-            # 左上角
+                # 左上角
                 $image->string($font, 10, 11, $watername, $txt2);
                 $image->string($font, 11, 11, $watername, $txt2);
                 $image->string($font, 9, 10, $watername, $txt1);

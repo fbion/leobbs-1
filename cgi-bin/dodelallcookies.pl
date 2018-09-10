@@ -8,6 +8,8 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
 $namecookie	   = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
 $passcookie 	   = cookie(-name => "apasswordcookie"  , -value => "", -path => "$cookiepath/");
 $onlineviewcookie  = cookie(-name => "onlineview"       , -value => "", -path => "$cookiepath/");

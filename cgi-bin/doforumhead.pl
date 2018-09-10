@@ -8,15 +8,18 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
 if ($indexforum ne "no") {
-    if ($category=~/childforum-[0-9]+/) {
-	$tempforumno=$category;
-	$tempforumno=~s/childforum-//;
-	open(FILE, "${lbdir}forum$tempforumno/foruminfo.cgi");
-	$forums = <FILE>;
-	close(FILE);
-	(undef, undef, undef, $tempforumname, undef) = split(/\t/,$forums);
-	$addlink  = qq~ → <a href=forums.cgi?forum=$tempforumno>$tempforumname</a>~;
+    if ($category =~ /childforum-[0-9]+/) {
+        $tempforumno = $category;
+        $tempforumno =~ s/childforum-//;
+        open(FILE, "${lbdir}forum$tempforumno/foruminfo.cgi");
+        $forums = <FILE>;
+        close(FILE);
+        (undef, undef, undef, $tempforumname, undef) = split(/\t/, $forums);
+        $addlink = qq~ → <a href=forums.cgi?forum=$tempforumno>$tempforumname</a>~;
     }
     $forumdescription = &HTML("$forumdescription");
     $forumdescription =~ s/<BR>//isg;
@@ -29,19 +32,19 @@ if (!(-e "${lbdir}cache/forumshead$inforum.pl")) {
     $titleoutput =~ s/\$/\\\$/isg;
     $titleoutput =~ s/\@/\\\@/isg;
     $titleoutput =~ s/\\\$/\$/isg;
-    open (FILE, ">${lbdir}cache/forumshead$inforum.pl");
+    open(FILE, ">${lbdir}cache/forumshead$inforum.pl");
     print FILE qq(\$titleoutput = qq~$titleoutput~;\n);
     print FILE "1;\n";
-    close (FILE);
+    close(FILE);
     $titleoutput =~ s/\$/\\\$/isg;
     $titleoutput =~ s/\\\~/~/isg;
     $titleoutput =~ s/\\\$/\$/isg;
     $titleoutput =~ s/\\\@/\@/isg;
     $titleoutput =~ s/\\\\/\\/isg;
 }
-$titleoutput  =~ s/\$uservisitdata/$uservisitdata/isg;
-$titleoutput  =~ s/\$tablewidth/$tablewidth/isg;
-$titleoutput  =~ s/\$navborder/$navborder/isg;
-$titleoutput  =~ s/\$navbackground/$navbackground/isg;
-$titleoutput  =~ s/\$navfontcolor/$navfontcolor/isg;
+$titleoutput =~ s/\$uservisitdata/$uservisitdata/isg;
+$titleoutput =~ s/\$tablewidth/$tablewidth/isg;
+$titleoutput =~ s/\$navborder/$navborder/isg;
+$titleoutput =~ s/\$navbackground/$navbackground/isg;
+$titleoutput =~ s/\$navfontcolor/$navfontcolor/isg;
 1;

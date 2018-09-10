@@ -12,7 +12,7 @@ use warnings;
 use strict;
 use diagnostics;
 $links = &HTML("$links");
-    $output .= qq~
+$output .= qq~
 <img src=$imagesurl/images/none.gif height=5><br>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>

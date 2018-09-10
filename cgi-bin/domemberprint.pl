@@ -8,20 +8,28 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-	   if (($onlinedatanumber >= $arrowonlinemax)&&($arrowonlinemax > 0)&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")) {
-       	      print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
-              print "<BR>服务器忙，已经超出论坛允许的最大在线人数。<BR><BR>目前论坛在线 $onlinedatanumber 人，最大允许同时在线 $arrowonlinemax 人。";
-              exit;
-           }
-	   use testinfo qw(ipwhere osinfo browseinfo);
-	   eval { $osinfo=&osinfo(); };
-    	   if ($@) { $osinfo="Unknow"; }
-	   eval { $browseinfo=&browseinfo(); };
-    	   if ($@) { $browseinfo="Unknow"; }
-           my $fromwhere = &ipwhere("$trueipaddress");
-           my $tempdata = "$tempusername\t$currenttime\t$currenttime\t$where\t$ipall\t$osinfo\t$browseinfo\t$where2\t$fromwhere\t$membercode\t$hidden\t$sex\t" ;
-           $fromwhere1 = $fromwhere;
-           if ($tempusername !~ /^客人/) { require "douplogintime.pl"; &uplogintime("$tempusername","T"); }
-           $tempdata =~ s/[\a\f\n\e\0\r]//isg;
-           push(@onlinedata,$tempdata);
+
+use strict;
+use warnings;
+use diagnostics;
+
+if (($onlinedatanumber >= $arrowonlinemax) && ($arrowonlinemax > 0) && ($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo")) {
+    print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
+    print "<BR>服务器忙，已经超出论坛允许的最大在线人数。<BR><BR>目前论坛在线 $onlinedatanumber 人，最大允许同时在线 $arrowonlinemax 人。";
+    exit;
+}
+use testinfo qw(ipwhere osinfo browseinfo);
+eval {$osinfo = &osinfo();};
+if ($@) {$osinfo = "Unknow";}
+eval {$browseinfo = &browseinfo();};
+if ($@) {$browseinfo = "Unknow";}
+my $fromwhere = &ipwhere("$trueipaddress");
+my $tempdata = "$tempusername\t$currenttime\t$currenttime\t$where\t$ipall\t$osinfo\t$browseinfo\t$where2\t$fromwhere\t$membercode\t$hidden\t$sex\t";
+$fromwhere1 = $fromwhere;
+if ($tempusername !~ /^客人/) {
+    require "douplogintime.pl";
+    &uplogintime("$tempusername", "T");
+}
+$tempdata =~ s/[\a\f\n\e\0\r]//isg;
+push(@onlinedata, $tempdata);
 1;

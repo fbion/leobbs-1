@@ -15,6 +15,8 @@ use warnings;
 use diagnostics;
 
 use diagnostics;
+
+use diagnostics;
 use Socket;
 
 use vars qw(@ISA @EXPORT);

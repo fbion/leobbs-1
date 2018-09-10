@@ -10,6 +10,8 @@
 
 use strict;
 use warnings;
+use diagnostics;
+
 if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
 $testentry = $query->cookie("forumsallowed$inforum");
 if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}

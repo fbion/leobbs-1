@@ -1,6 +1,9 @@
 package Image::Info::XBM;
 $VERSION = '1.03';
 use strict;
+use warnings;
+use diagnostics;
+
 use Image::Xbm;
 
 sub process_file{

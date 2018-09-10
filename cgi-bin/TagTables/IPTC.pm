@@ -2,6 +2,8 @@ package TagTables::IPTC;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
+use diagnostics;
 
 $VERSION = '1.00';
 
@@ -16,7 +18,7 @@ $VERSION = '1.00';
 # main EXIF tag table
 %TagTables::IPTC::Main = (
     0   => {
-        Name => 'IPTCRecordVersion',
+        Name      => 'IPTCRecordVersion',
         PrintConv => '"(Binary data, use -b to extract)"',
     },
     5   => 'ObjectName',
@@ -62,7 +64,7 @@ $VERSION = '1.00';
     120 => 'Caption-Abstract',
     122 => 'Writer-Editor',
     125 => {
-        Name => 'RasterizedCaption',
+        Name      => 'RasterizedCaption',
         PrintConv => '"(Binary data, use -b to extract)"',
     },
     130 => 'ImageType',
@@ -74,22 +76,22 @@ $VERSION = '1.00';
 # get IPTC info
 # Inputs: 0) reference to tag table, 1) data reference, 2) data length
 # Returns: 1 on success, 0 otherwise
-sub ProcessIPTC($$$)
-{
+sub ProcessIPTC($$$) {
     my $tagTablePtr = shift;
     my $dataPt = shift;
     my $dataLen = shift;
     my $success = 0;
-    
+
     # the first field starts with 0x1c, everything before is the header
     my $header;
     if ($$dataPt =~ /\x1c/) {
         $header = $`;
-    } else {
+    }
+    else {
         $header = $$dataPt;
     }
     my $pos = length($header);
-    
+
     # save our IPTC header too
     $pos and ExifTool::FoundTag('IPTC_Header', $header);
 
@@ -97,7 +99,7 @@ sub ProcessIPTC($$$)
         my $buff = substr($$dataPt, $pos, 5);
         my ($id, $type, $tag, $len) = unpack("CCCn", $buff);
         last unless $id == 0x1c and $type == 2;
-        $pos += 5;      # step to after field header
+        $pos += 5; # step to after field header
         if ($pos + $len > $dataLen) {
             $ExifTool::verbose and print "Invalid IPTC entry for tag $tag (len $len)\n";
             $success = 0;
@@ -108,8 +110,8 @@ sub ProcessIPTC($$$)
         $tagInfo or $tagInfo = sprintf("IPTC_%d", $tag);
         ExifTool::FoundTag($tagInfo, $val);
         $success = 1;
-        
-        $pos += $len;   # increment to next field
+
+        $pos += $len; # increment to next field
     }
     return $success;
 }

@@ -1,27 +1,30 @@
 package Image::Info::BMP;
 $VERSION = '1.01';
 use strict;
+use warnings;
+use diagnostics;
 
-sub process_file{
-    my($info, $source, $opts) = @_;
-    my(@comments, @warnings, @header, %info, $buf, $total);
+
+sub process_file {
+    my ($info, $source, $opts) = @_;
+    my (@comments, @warnings, @header, %info, $buf, $total);
 
     read($source, $buf, 54) == 54 or die "Can't reread BMP header: $!";
     @header = unpack("vVv2V2V2v2V2V2V2", $buf);
     $total += length($buf);
 
-    if( $header[9] && $header[9] < 24 ){
-	$info->push_info(0, "color_type" => "Indexed-RGB");
+    if ($header[9] && $header[9] < 24) {
+        $info->push_info(0, "color_type" => "Indexed-RGB");
     }
-    else{
-	$info->push_info(0, "color_type" => "RGB");
+    else {
+        $info->push_info(0, "color_type" => "RGB");
     }
     $info->push_info(0, "file_media_type" => "image/bmp");
-    if( $header[10] == 1 || $header[10] == 2){
-	$info->push_info(0, "file_ext" => "rle");
+    if ($header[10] == 1 || $header[10] == 2) {
+        $info->push_info(0, "file_ext" => "rle");
     }
-    else{
-	$info->push_info(0, "file_ext" => "bmp"); # || dib
+    else {
+        $info->push_info(0, "file_ext" => "bmp"); # || dib
     }
     $info->push_info(0, "height", abs($header[7]));
     $info->push_info(0, "resolution", "$header[12]/$header[13]");
@@ -31,59 +34,59 @@ sub process_file{
 
     $info->push_info(0, "BMP_ColorsImportant", $header[15]);
     $info->push_info(0, "BMP_Origin",
-		     $header[7]>1 ? 1 : 0 );
+        $header[7] > 1 ? 1 : 0);
     $info->push_info(0, "ColorTableSize", $header[14]);
     $info->push_info(0, "Compression", [
-					'none',
-					'RLE8',
-					'RLE4',
-					'BITFIELDS',	#V4
-					'JPEG',		#V5
-					'PNG',		#V5
-					]->[$header[10]]);
+        'none',
+        'RLE8',
+        'RLE4',
+        'BITFIELDS', #V4
+        'JPEG',      #V5
+        'PNG',       #V5
+    ]->[$header[10]]);
     #Version 5 Header ammendements
     # XXX Discard for now, need a test image
-    if( $header[5] > 40 ){
-	read($source, $buf, $header[5]-40);  # XXX test
-	$total += length($buf);
-	my @v5 = unpack("V38", $buf);
-	splice(@v5, 5, 27);
-	$info->push_info(0, "BMP_MaskRed", $v5[0]);
-	$info->push_info(0, "BMP_MaskGreen", $v5[1]);
-	$info->push_info(0, "BMP_MaskBlue", $v5[2]);
-	$info->push_info(0, "BMP_MaskAlpha", $v5[3]);
-#	$info->push_info(0, "BMP_color_type", $v5[4]);
-	$info->push_info(0, "BMP_GammaRed", $v5[5]);
-	$info->push_info(0, "BMP_GammaGreen", $v5[6]);
-	$info->push_info(0, "BMP_GammaBlue", $v5[7]);
+    if ($header[5] > 40) {
+        read($source, $buf, $header[5] - 40); # XXX test
+        $total += length($buf);
+        my @v5 = unpack("V38", $buf);
+        splice(@v5, 5, 27);
+        $info->push_info(0, "BMP_MaskRed", $v5[0]);
+        $info->push_info(0, "BMP_MaskGreen", $v5[1]);
+        $info->push_info(0, "BMP_MaskBlue", $v5[2]);
+        $info->push_info(0, "BMP_MaskAlpha", $v5[3]);
+        #	$info->push_info(0, "BMP_color_type", $v5[4]);
+        $info->push_info(0, "BMP_GammaRed", $v5[5]);
+        $info->push_info(0, "BMP_GammaGreen", $v5[6]);
+        $info->push_info(0, "BMP_GammaBlue", $v5[7]);
     }
-    if( $header[9] < 24 && $opts->{ColorPalette} ){
-	my(@color, @palette);
-	for(my $i=0; $i<$header[14]; $i++){
-	    read($source, $buf, 4) == 4 or die "Can't read: $!";
-	    $total += length($buf);
-	    @color = unpack("C3", $buf);
-	    # Damn M$, BGR instead of RGB
-	    push @palette, sprintf("#%02x%02x%02x",
-				   $color[2], $color[1], $color[0]);
-	}
-	$info->push_info(0, "ColorPalette", @palette);
+    if ($header[9] < 24 && $opts->{ColorPalette}) {
+        my (@color, @palette);
+        for (my $i = 0; $i < $header[14]; $i++) {
+            read($source, $buf, 4) == 4 or die "Can't read: $!";
+            $total += length($buf);
+            @color = unpack("C3", $buf);
+            # Damn M$, BGR instead of RGB
+            push @palette, sprintf("#%02x%02x%02x",
+                $color[2], $color[1], $color[0]);
+        }
+        $info->push_info(0, "ColorPalette", @palette);
     }
 
     #Verify size # XXX Cheat and do -s if it's an actual file?
-    while( read($source, $buf, 1024) ){
-	$total += length($buf);
+    while (read($source, $buf, 1024)) {
+        $total += length($buf);
     }
-    if( $header[1] != $total ){
-	push @warnings, "Size mismatch."
+    if ($header[1] != $total) {
+        push @warnings, "Size mismatch."
     }
 
     for (@comments) {
-	$info->push_info(0, "Comment", $_);
+        $info->push_info(0, "Comment", $_);
     }
 
     for (@warnings) {
-	$info->push_info(0, "Warn", $_);
+        $info->push_info(0, "Warn", $_);
     }
 }
 1;

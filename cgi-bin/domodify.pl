@@ -8,7 +8,11 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-    require "cleanolddata.pl";
+use strict;
+use warnings;
+use diagnostics;
+
+require "cleanolddata.pl";
     &cleanolddata2;
     $helpurl = &helpfiles("遗忘密码");
     $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;

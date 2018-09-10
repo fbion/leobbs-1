@@ -8,6 +8,10 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
+
 sub signlbcode {
     my $signature = shift;
     study($signature);

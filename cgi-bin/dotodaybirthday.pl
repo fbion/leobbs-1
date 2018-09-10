@@ -8,21 +8,25 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
+
 my $lockfile = "$lbdir" . "lock/birthday.lck";
 if (!(-e $lockfile)) {
-    open (LOCKBIRTH, ">$lockfile");
-    close (LOCKBIRTH);
+    open(LOCKBIRTH, ">$lockfile");
+    close(LOCKBIRTH);
 
     undef @birthdaytoday;
-    open (MEMFILE, "${lbdir}data/lbmember3.cgi");
+    open(MEMFILE, "${lbdir}data/lbmember3.cgi");
     my @memberdata = <MEMFILE>;
-    close (MEMFILE);
+    close(MEMFILE);
 
     foreach (@memberdata) {
-    	chomp $_;
-    	(my $users, my $borns) = split(/\t/,$_);
-    	(my $unowy, my $unowm, my $unowd) = split(/\//, $borns);
-    	if (($nowm eq $unowm)&&($nowd eq $unowd)) {
+        chomp $_;
+        (my $users, my $borns) = split(/\t/, $_);
+        (my $unowy, my $unowm, my $unowd) = split(/\//, $borns);
+        if (($nowm eq $unowm) && ($nowd eq $unowd)) {
             my $usersfilename = $users;
             $usersfilename =~ s/ /\_/g;
             $usersfilename =~ tr/A-Z/a-z/;
@@ -31,39 +35,40 @@ if (!(-e $lockfile)) {
             $unowy = $unowy - 1900 if ($unowy > 1900);
             push(@birthdaytoday, "$users\t$usersfilename\t$unowy\t\n");
             if ($sendtobirthday eq "yes") {
-               	open (FILE, "${lbdir}$msgdir/in/${usersfilename}_msg.cgi");
-		sysread(FILE, my $inboxmessages,(stat(FILE))[7]);
-               	close (FILE);
-	        $inboxmessages =~ s/\r//isg;
-               	open (FILE, ">${lbdir}$msgdir/in/${usersfilename}_msg.cgi");
-               	print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t《$boardname》祝您生日快乐！\t今天是您 $unowy 岁生日,《$boardname》祝您生日快乐！\n$inboxmessages";
-                close (FILE);
+                open(FILE, "${lbdir}$msgdir/in/${usersfilename}_msg.cgi");
+                sysread(FILE, my $inboxmessages, (stat(FILE))[7]);
+                close(FILE);
+                $inboxmessages =~ s/\r//isg;
+                open(FILE, ">${lbdir}$msgdir/in/${usersfilename}_msg.cgi");
+                print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t《$boardname》祝您生日快乐！\t今天是您 $unowy 岁生日,《$boardname》祝您生日快乐！\n$inboxmessages";
+                close(FILE);
             }
-    	}
+        }
     }
-    
+
     chomp @birthdaytoday;
     foreach (@birthdaytoday) {
-      	next if ($_ eq "");
-	(my $users,my $usersfilename,my $unowy) = split(/\t/,$_);
-	next if ($users eq "");
-	$birthdayuser .= qq~<span style=cursor:hand onClick=javascript:O9('~ . uri_escape($usersfilename) . qq~') title=祝$unowy岁生日快乐！>$users</span>, ~;
+        next if ($_ eq "");
+        (my $users, my $usersfilename, my $unowy) = split(/\t/, $_);
+        next if ($users eq "");
+        $birthdayuser .= qq~<span style=cursor:hand onClick=javascript:O9('~ . uri_escape($usersfilename) . qq~') title=祝$unowy岁生日快乐！>$users</span>, ~;
     }
     chop $birthdayuser;
     chop $birthdayuser;
     $borncount = @birthdaytoday;
-            
-    open (BDILE, ">${lbdir}data/birthdaytoday.cgi");
+
+    open(BDILE, ">${lbdir}data/birthdaytoday.cgi");
     print BDILE "#$nowtime\n";
     print BDILE qq~$birthdayuser\n~;
     print BDILE qq~$borncount\n~;
-    close (BDILE);
+    close(BDILE);
     unlink($lockfile);
-} else {
-    (my $sec,my $no) = localtime($currenttime);
-    $sec = int($sec/15);
+}
+else {
+    (my $sec, my $no) = localtime($currenttime);
+    $sec = int($sec / 15);
     unlink($lockfile) if ($sec == 2);
-    $birthdayuser="";
-    $borncount=0;
+    $birthdayuser = "";
+    $borncount = 0;
 }
 1;

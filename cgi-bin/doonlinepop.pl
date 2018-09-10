@@ -10,6 +10,8 @@
 
 use strict;
 use warnings;
+use diagnostics;
+
 if ($firstcome ne 'yes') {
     if (@onlinefr) {
         my $onlinefriend = join('　　', @onlinefr);

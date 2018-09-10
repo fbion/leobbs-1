@@ -2,6 +2,8 @@ package TagTables::Pentax;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
+use diagnostics;
 
 $VERSION = '1.00';
 

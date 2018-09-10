@@ -10,12 +10,11 @@ use strict;
 use vars qw($VERSION $DEBUG $IO_CONSTANTS);
 use warnings;
 use diagnostics;
-$VERSION = "1.01";  # $Date: 2000/01/27 23:12:39 $
+$VERSION = "1.01"; # $Date: 2000/01/27 23:12:39 $
 
 use Symbol ();
 
-sub new
-{
+sub new {
     my $class = shift;
     my $self = bless Symbol::gensym(), ref($class) || $class;
     tie *$self, $self;
@@ -23,26 +22,25 @@ sub new
     $self;
 }
 
-sub open
-{
+sub open {
     my $self = shift;
     return $self->new(@_) unless ref($self);
 
     if (@_) {
-	my $bufref = ref($_[0]) ? $_[0] : \$_[0];
-	$$bufref = "" unless defined $$bufref;
-	*$self->{buf} = $bufref;
-    } else {
-	my $buf = "";
-	*$self->{buf} = \$buf;
+        my $bufref = ref($_[0]) ? $_[0] : \$_[0];
+        $$bufref = "" unless defined $$bufref;
+        *$self->{buf} = $bufref;
+    }
+    else {
+        my $buf = "";
+        *$self->{buf} = \$buf;
     }
     *$self->{pos} = 0;
     *$self->{lno} = 0;
     $self;
 }
 
-sub pad
-{
+sub pad {
     my $self = shift;
     my $old = *$self->{pad};
     *$self->{pad} = substr($_[0], 0, 1) if @_;
@@ -50,16 +48,14 @@ sub pad
     $old;
 }
 
-sub dump
-{
+sub dump {
     require Data::Dumper;
     my $self = shift;
-    print Data::Dumper->Dump([$self], ['*self']);
-    print Data::Dumper->Dump([*$self{HASH}], ['$self{HASH}']);
+    print Data::Dumper->Dump([ $self ], [ '*self' ]);
+    print Data::Dumper->Dump([ *$self{HASH} ], [ '$self{HASH}' ]);
 }
 
-sub TIEHANDLE
-{
+sub TIEHANDLE {
     print "TIEHANDLE @_\n" if $DEBUG;
     return $_[0] if ref($_[0]);
     my $class = shift;
@@ -68,13 +64,11 @@ sub TIEHANDLE
     $self;
 }
 
-sub DESTROY
-{
+sub DESTROY {
     print "DESTROY @_\n" if $DEBUG;
 }
 
-sub close
-{
+sub close {
     my $self = shift;
     delete *$self->{buf};
     delete *$self->{pos};
@@ -82,53 +76,50 @@ sub close
     $self;
 }
 
-sub opened
-{
+sub opened {
     my $self = shift;
     defined *$self->{buf};
 }
 
-sub getc
-{
+sub getc {
     my $self = shift;
     my $buf;
     return $buf if $self->read($buf, 1);
     return undef;
 }
 
-sub ungetc
-{
+sub ungetc {
     my $self = shift;
     $self->setpos($self->getpos() - 1)
 }
 
-sub eof
-{
+sub eof {
     my $self = shift;
     length(${*$self->{buf}}) <= *$self->{pos};
 }
 
-sub print
-{
+sub print {
     my $self = shift;
     if (defined $\) {
-	if (defined $,) {
-	    $self->write(join($,, @_).$\);
-	} else {
-	    $self->write(join("",@_).$\);
-	}
-    } else {
-	if (defined $,) {
-	    $self->write(join($,, @_));
-	} else {
-	    $self->write(join("",@_));
-	}
+        if (defined $,) {
+            $self->write(join($,, @_) . $\);
+        }
+        else {
+            $self->write(join("", @_) . $\);
+        }
+    }
+    else {
+        if (defined $,) {
+            $self->write(join($,, @_));
+        }
+        else {
+            $self->write(join("", @_));
+        }
     }
 }
 *printflush = \*print;
 
-sub printf
-{
+sub printf {
     my $self = shift;
     print "PRINTF(@_)\n" if $DEBUG;
     my $fmt = shift;
@@ -136,149 +127,145 @@ sub printf
 }
 
 
-my($SEEK_SET, $SEEK_CUR, $SEEK_END);
+my ($SEEK_SET, $SEEK_CUR, $SEEK_END);
 
-sub _init_seek_constants
-{
+sub _init_seek_constants {
     if ($IO_CONSTANTS) {
-	require IO::Handle;
-	$SEEK_SET = &IO::Handle::SEEK_SET;
-	$SEEK_CUR = &IO::Handle::SEEK_CUR;
-	$SEEK_END = &IO::Handle::SEEK_END;
-    } else {
-	$SEEK_SET = 0;
-	$SEEK_CUR = 1;
-	$SEEK_END = 2;
+        require IO::Handle;
+        $SEEK_SET = &IO::Handle::SEEK_SET;
+        $SEEK_CUR = &IO::Handle::SEEK_CUR;
+        $SEEK_END = &IO::Handle::SEEK_END;
+    }
+    else {
+        $SEEK_SET = 0;
+        $SEEK_CUR = 1;
+        $SEEK_END = 2;
     }
 }
 
 
-sub seek
-{
-    my($self,$off,$whence) = @_;
+sub seek {
+    my ($self, $off, $whence) = @_;
     my $buf = *$self->{buf} || return;
     my $len = length($$buf);
     my $pos = *$self->{pos};
-    
+
     _init_seek_constants() unless defined $SEEK_SET;
-	
-    if    ($whence == $SEEK_SET) { $pos = $off }
-    elsif ($whence == $SEEK_CUR) { $pos += $off }
-    elsif ($whence == $SEEK_END) { $pos = $len + $off }
-    else { die "Bad whence ($whence)" }
+
+    if ($whence == $SEEK_SET) {$pos = $off}
+    elsif ($whence == $SEEK_CUR) {$pos += $off}
+    elsif ($whence == $SEEK_END) {$pos = $len + $off}
+    else {die "Bad whence ($whence)"}
     print "SEEK(POS=$pos,OFF=$off,LEN=$len)\n" if $DEBUG;
 
     $pos = 0 if $pos < 0;
-    $self->truncate($pos) if $pos > $len;  # extend file
+    $self->truncate($pos) if $pos > $len; # extend file
     *$self->{lno} = 0;
     *$self->{pos} = $pos;
 }
 
-sub pos
-{
+sub pos {
     my $self = shift;
     my $old = *$self->{pos};
     if (@_) {
-	my $pos = shift || 0;
-	my $buf = *$self->{buf};
-	my $len = $buf ? length($$buf) : 0;
-	$pos = $len if $pos > $len;
-	*$self->{lno} = 0;
-	*$self->{pos} = $pos;
+        my $pos = shift || 0;
+        my $buf = *$self->{buf};
+        my $len = $buf ? length($$buf) : 0;
+        $pos = $len if $pos > $len;
+        *$self->{lno} = 0;
+        *$self->{pos} = $pos;
     }
     $old;
 }
 
-sub getpos { shift->pos; }
+sub getpos {shift->pos;}
 
 *sysseek = \&seek;
-*setpos  = \&pos;
-*tell    = \&getpos;
+*setpos = \&pos;
+*tell = \&getpos;
 
 
 
-sub getline
-{
+sub getline {
     my $self = shift;
-    my $buf  = *$self->{buf} || return;
-    my $len  = length($$buf);
-    my $pos  = *$self->{pos};
+    my $buf = *$self->{buf} || return;
+    my $len = length($$buf);
+    my $pos = *$self->{pos};
     return if $pos >= $len;
 
-    unless (defined $/) {  # slurp
-	*$self->{pos} = $len;
-	return substr($$buf, $pos);
+    unless (defined $/) {
+        # slurp
+        *$self->{pos} = $len;
+        return substr($$buf, $pos);
     }
 
-    unless (length $/) {  # paragraph mode
-	# XXX slow&lazy implementation using getc()
-	my $para = "";
-	my $eol = 0;
-	my $c;
-	while (defined($c = $self->getc)) {
-	    if ($c eq "\n") {
-		$eol++;
-	    } elsif ($eol > 1) {
-		$self->ungetc($c);
-		last;
-	    }
-	    $para .= $c;
-	}
-	return $para;   # XXX wantarray
+    unless (length $/) {
+        # paragraph mode
+        # XXX slow&lazy implementation using getc()
+        my $para = "";
+        my $eol = 0;
+        my $c;
+        while (defined($c = $self->getc)) {
+            if ($c eq "\n") {
+                $eol++;
+            }
+            elsif ($eol > 1) {
+                $self->ungetc($c);
+                last;
+            }
+            $para .= $c;
+        }
+        return $para; # XXX wantarray
     }
 
-    my $idx = index($$buf,$/,$pos);
+    my $idx = index($$buf, $/, $pos);
     if ($idx < 0) {
-	# return rest of it
-	*$self->{pos} = $len;
-	$. = ++ *$self->{lno};
-	return substr($$buf, $pos);
+        # return rest of it
+        *$self->{pos} = $len;
+        $. = ++*$self->{lno};
+        return substr($$buf, $pos);
     }
     $len = $idx - $pos + length($/);
     *$self->{pos} += $len;
-    $. = ++ *$self->{lno};
+    $. = ++*$self->{lno};
     return substr($$buf, $pos, $len);
 }
 
-sub getlines
-{
+sub getlines {
     die "getlines() called in scalar context\n" unless wantarray;
     my $self = shift;
-    my($line, @lines);
+    my ($line, @lines);
     push(@lines, $line) while defined($line = $self->getline);
     return @lines;
 }
 
-sub READLINE
-{
+sub READLINE {
     goto &getlines if wantarray;
     goto &getline;
 }
 
-sub input_line_number
-{
+sub input_line_number {
     my $self = shift;
     my $old = *$self->{lno};
     *$self->{lno} = shift if @_;
     $old;
 }
 
-sub truncate
-{
+sub truncate {
     my $self = shift;
     my $len = shift || 0;
     my $buf = *$self->{buf};
     if (length($$buf) >= $len) {
-	substr($$buf, $len) = '';
-	*$self->{pos} = $len if $len < *$self->{pos};
-    } else {
-	$$buf .= ($self->pad x ($len - length($$buf)));
+        substr($$buf, $len) = '';
+        *$self->{pos} = $len if $len < *$self->{pos};
+    }
+    else {
+        $$buf .= ($self->pad x ($len - length($$buf)));
     }
     $self;
 }
 
-sub read
-{
+sub read {
     my $self = shift;
     my $buf = *$self->{buf};
     return unless $buf;
@@ -288,16 +275,16 @@ sub read
     my $len = $_[1];
     $len = $rem if $len > $rem;
     if (@_ > 2) { # read offset
-	substr($_[0],$_[2]) = substr($$buf, $pos, $len);
-    } else {
-	$_[0] = substr($$buf, $pos, $len);
+        substr($_[0], $_[2]) = substr($$buf, $pos, $len);
+    }
+    else {
+        $_[0] = substr($$buf, $pos, $len);
     }
     *$self->{pos} += $len;
     return $len;
 }
 
-sub write
-{
+sub write {
     my $self = shift;
     my $buf = *$self->{buf};
     return unless $buf;
@@ -307,17 +294,17 @@ sub write
     my $len = $slen;
     my $off = 0;
     if (@_ > 1) {
-	$len = $_[1] if $_[1] < $len;
-	if (@_ > 2) {
-	    $off = $_[2] || 0;
-	    die "Offset outside string" if $off > $slen;
-	    if ($off < 0) {
-		$off += $slen;
-		die "Offset outside string" if $off < 0;
-	    }
-	    my $rem = $slen - $off;
-	    $len = $rem if $rem < $len;
-	}
+        $len = $_[1] if $_[1] < $len;
+        if (@_ > 2) {
+            $off = $_[2] || 0;
+            die "Offset outside string" if $off > $slen;
+            if ($off < 0) {
+                $off += $slen;
+                die "Offset outside string" if $off < 0;
+            }
+            my $rem = $slen - $off;
+            $len = $rem if $rem < $len;
+        }
     }
     substr($$buf, $pos, $len) = substr($_[0], $off, $len);
     *$self->{pos} += $len;
@@ -327,26 +314,25 @@ sub write
 *sysread = \&read;
 *syswrite = \&write;
 
-sub stat
-{
+sub stat {
     my $self = shift;
     return unless $self->opened;
     return 1 unless wantarray;
     my $len = length ${*$self->{buf}};
 
-    return (
-     undef, undef,  # dev, ino
-     0666,          # filemode
-     1,             # links
-     $>,            # user id
-     $),            # group id
-     undef,         # device id
-     $len,          # size
-     undef,         # atime
-     undef,         # mtime
-     undef,         # ctime
-     512,           # blksize
-     int(($len+511)/512)  # blocks
+    return(
+        undef, undef,           # dev, ino
+        0666,                   # filemode
+        1,                      # links
+        $>,                     # user id
+        $),                     # group id
+        undef,                  # device id
+        $len,                   # size
+        undef,                  # atime
+        undef,                  # mtime
+        undef,                  # ctime
+        512,                    # blksize
+        int(($len + 511) / 512) # blocks
     );
 }
 
@@ -357,30 +343,29 @@ sub blocking {
     $old;
 }
 
-my $notmuch = sub { return };
+my $notmuch = sub {return};
 
-*fileno    = $notmuch;
-*error     = $notmuch;
-*clearerr  = $notmuch; 
-*sync      = $notmuch;
-*flush     = $notmuch;
-*setbuf    = $notmuch;
-*setvbuf   = $notmuch;
+*fileno = $notmuch;
+*error = $notmuch;
+*clearerr = $notmuch;
+*sync = $notmuch;
+*flush = $notmuch;
+*setbuf = $notmuch;
+*setvbuf = $notmuch;
 
-*untaint   = $notmuch;
+*untaint = $notmuch;
 *autoflush = $notmuch;
-*fcntl     = $notmuch;
-*ioctl     = $notmuch;
+*fcntl = $notmuch;
+*ioctl = $notmuch;
 
-*GETC   = \&getc;
-*PRINT  = \&print;
+*GETC = \&getc;
+*PRINT = \&print;
 *PRINTF = \&printf;
-*READ   = \&read;
-*WRITE  = \&write;
-*CLOSE  = \&close;
+*READ = \&read;
+*WRITE = \&write;
+*CLOSE = \&close;
 
-sub string_ref
-{
+sub string_ref {
     my $self = shift;
     *$self->{buf};
 }

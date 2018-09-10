@@ -24,6 +24,8 @@ use strict;
 use warnings;
 use diagnostics;
 
+use diagnostics;
+
 use LBCGI;
 use File::Copy;
 $loadcopymo = 1;

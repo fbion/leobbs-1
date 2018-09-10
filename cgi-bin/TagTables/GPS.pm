@@ -3,6 +3,7 @@ package TagTables::GPS;
 use strict;
 use vars qw($VERSION);
 use warnings;
+use diagnostics;
 
 $VERSION = '1.00';
 
@@ -40,5 +41,4 @@ $VERSION = '1.00';
     0x001E => 'GPSDifferential',
 );
 
-
-1;  #end
+1; #end

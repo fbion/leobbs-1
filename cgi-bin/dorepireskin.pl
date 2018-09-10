@@ -8,22 +8,27 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-opendir (DIR, "${lbdir}data/skin"); 
+use strict;
+use warnings;
+use diagnostics;
+
+opendir(DIR, "${lbdir}data/skin");
 my @dirdata = readdir(DIR);
-closedir (DIR);
-my @skinselectdata = grep(/\.(cgi)$/i,@dirdata);
-map(s/\.cgi$//is, @skinselectdata);
+closedir(DIR);
+my @skinselectdata = grep (/\.(cgi)$/i, @dirdata);
+map (s/\.cgi$//is, @skinselectdata);
 $skincount = @skinselectdata;
 my $userskin = qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin=leobbs"><font color=#000000>默认风格</font></a>&nbsp;</div>~;
-for (my $i=0;$i<$skincount;$i++) {
-    eval{ require "${lbdir}data/skin/$skinselectdata[$i].cgi"; };
+for (my $i = 0; $i < $skincount; $i++) {
+    eval {require "${lbdir}data/skin/$skinselectdata[$i].cgi";};
     next if ($@);
-    if ($cssname ne "") { $skinnames = $cssname; } else { $skinnames = $skinselectdata[$i]; }
+    if ($cssname ne "") {$skinnames = $cssname;}
+    else {$skinnames = $skinselectdata[$i];}
     $skinselectdata[$i] = uri_escape($skinselectdata[$i]);
-    $userskin.= qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin=$skinselectdata[$i]"><font color=#000000>$skinnames</font></a>&nbsp;</div>~ if (lc($skinselectdata[$i]) ne "leobbs");
+    $userskin .= qq~<div class="menuitems">&nbsp;<a href="index.cgi?action=change_skin&thisprog=' + url + '&skin=$skinselectdata[$i]"><font color=#000000>$skinnames</font></a>&nbsp;</div>~ if (lc($skinselectdata[$i]) ne "leobbs");
     $cssname = "";
 }
-eval{ require "${lbdir}data/skin/leobbs.cgi"; };
+eval {require "${lbdir}data/skin/leobbs.cgi";};
 $userskins = qq~
 <script>
 var url = new String (window.document.location);

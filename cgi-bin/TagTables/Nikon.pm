@@ -2,6 +2,8 @@ package TagTables::Nikon;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
+use diagnostics;
 
 $VERSION = '1.00';
 
@@ -31,17 +33,17 @@ $VERSION = '1.00';
     0x0082 => 'AuxiliaryLens',
     0x0085 => 'ManualFocusDistance',
     0x0086 => 'DigitalZoom',
-    0x0088 => { 
-        Name => 'AFFocusPosition',
+    0x0088 => {
+        Name      => 'AFFocusPosition',
         PrintConv => {
-            pack('xCxx',0) => 'Center',
-            pack('xCxx',1) => 'Top',
-            pack('xCxx',2) => 'Bottom',
-            pack('xCxx',3) => 'Left',
-            pack('xCxx',4) => 'Right',
+            pack('xCxx', 0) => 'Center',
+            pack('xCxx', 1) => 'Top',
+            pack('xCxx', 2) => 'Bottom',
+            pack('xCxx', 3) => 'Left',
+            pack('xCxx', 4) => 'Right',
         },
     },
     0x0095 => 'NoiseReduction',
 );
 
-1;  # end
+1; # end

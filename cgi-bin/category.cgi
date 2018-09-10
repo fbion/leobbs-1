@@ -22,6 +22,7 @@ BEGIN {
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 
 use diagnostics;
 use LBCGI;

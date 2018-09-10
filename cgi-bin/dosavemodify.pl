@@ -8,7 +8,11 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
-    if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
+use strict;
+use warnings;
+use diagnostics;
+
+if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
     if ("$oldpassword" eq "") {&error("修改资料&必须输入原来的论坛密码！"); }
     if ($oldpassword ne "") {
         eval {$oldpassword = md5_hex($oldpassword);};

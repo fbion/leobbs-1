@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 $absmaxcantopic = "3";
 $absmaxtoptopic = "3";
 $adminglow = "#9898BA";

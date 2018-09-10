@@ -8,56 +8,67 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
+
 require "rebuildlist.pl";
 
 if ($inshow eq 0) {
-  if ((-e "${lbdir}cache/forumstoptopic$inforum.pl")&&((-M "${lbdir}cache/forumstoptopic$inforum.pl") *86400 < 180)) {
-     eval{ require "${lbdir}cache/forumstoptopic$inforum.pl";};
-     if (($@)||($#toptopic < ($abstopcount + $cattopcount + $topcount - 3))) { unlink ("${lbdir}cache/forumstoptopic$inforum.pl"); unlink ("${lbdir}cache/plcache$inforum\_0.pl"); require "dotoptopic.pl"; }
-  } else { require "dotoptopic.pl"; }
-} else { undef @toptopic; }
+    if ((-e "${lbdir}cache/forumstoptopic$inforum.pl") && ((-M "${lbdir}cache/forumstoptopic$inforum.pl") * 86400 < 180)) {
+        eval {require "${lbdir}cache/forumstoptopic$inforum.pl";};
+        if (($@) || ($#toptopic < ($abstopcount + $cattopcount + $topcount - 3))) {
+            unlink("${lbdir}cache/forumstoptopic$inforum.pl");
+            unlink("${lbdir}cache/plcache$inforum\_0.pl");
+            require "dotoptopic.pl";
+        }
+    }
+    else {require "dotoptopic.pl";}
+}
+else {undef @toptopic;}
 
 $filetoopen = "${lbdir}boarddata/listno$inforum.cgi";
 if (-e $filetoopen) {
     open(FILE, "$filetoopen");
-    sysread(FILE, my $topics,(stat(FILE))[7]);
+    sysread(FILE, my $topics, (stat(FILE))[7]);
     close(FILE);
     $topics =~ s/\r//isg;
-    @topics=split(/\n/,$topics);
+    @topics = split(/\n/, $topics);
 }
-else { &error("打开论坛&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！"); }
+else {&error("打开论坛&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
 
 $numberofitems = @topics;
 
 if ($threadagesstart ne "") {
-  unlink ("${lbdir}cache/threadages$inforum\_$inthreadages.pl") if ((-M "${lbdir}cache/threadages$inforum\_$inthreadages.pl") > 0.5);
-  if (-e "${lbdir}cache/threadages$inforum\_$inthreadages.pl") {
-      open (FILE, "${lbdir}cache/threadages$inforum\_$inthreadages.pl");
-      $numberofitems = <FILE>;
-      close (FILE);
-      chomp $numberofitems;
-  } else {
-    my $threadagelimit = $currenttime - $inthreadages * 86400;
-    my $forumtop = 0 ;
-    my $forumbottom = $numberofitems - 1;
-    while ($forumbottom > $forumtop +1) {
-        my $linenow = int(($forumbottom + $forumtop)/2);
-	my $topic = @topics[$linenow];
-	chomp $topic;
-
-        my $rr = &readthreadpl($inforum,$topic);
-        ($lastpostdate, $no) = split (/\t/,$rr);
-
-	if ($lastpostdate > $threadagelimit) { $forumtop = $linenow; }
-	else { $forumbottom = $linenow; }
+    unlink("${lbdir}cache/threadages$inforum\_$inthreadages.pl") if ((-M "${lbdir}cache/threadages$inforum\_$inthreadages.pl") > 0.5);
+    if (-e "${lbdir}cache/threadages$inforum\_$inthreadages.pl") {
+        open(FILE, "${lbdir}cache/threadages$inforum\_$inthreadages.pl");
+        $numberofitems = <FILE>;
+        close(FILE);
+        chomp $numberofitems;
     }
-    $numberofitems = $forumbottom+1;
-    if (!(-e "${lbdir}cache/threadages$inforum\_$inthreadages.pl")) {
-    	open (FILE, ">${lbdir}cache/threadages$inforum\_$inthreadages.pl");
-        print FILE "$numberofitems\n";
-        close (FILE);
+    else {
+        my $threadagelimit = $currenttime - $inthreadages * 86400;
+        my $forumtop = 0;
+        my $forumbottom = $numberofitems - 1;
+        while ($forumbottom > $forumtop + 1) {
+            my $linenow = int(($forumbottom + $forumtop) / 2);
+            my $topic = @topics[$linenow];
+            chomp $topic;
+
+            my $rr = &readthreadpl($inforum, $topic);
+            ($lastpostdate, $no) = split(/\t/, $rr);
+
+            if ($lastpostdate > $threadagelimit) {$forumtop = $linenow;}
+            else {$forumbottom = $linenow;}
+        }
+        $numberofitems = $forumbottom + 1;
+        if (!(-e "${lbdir}cache/threadages$inforum\_$inthreadages.pl")) {
+            open(FILE, ">${lbdir}cache/threadages$inforum\_$inthreadages.pl");
+            print FILE "$numberofitems\n";
+            close(FILE);
+        }
     }
-  }
 }
 
 my $tempnumberofpages = $numberofitems / $maxthreads;
@@ -93,34 +104,34 @@ if ($numberofpages > 1) {
 
     $topicpages = "";
     my $currentstart = $upstepstart + $maxthreads;
-    for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++)
-    {
-	last if ($i > $numberofpages);
-	$topicpages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=forums.cgi?forum=$inforum&show=$currentstart$threadagesstart class=hb>$i</a> ~;
-	$currentstart += $maxthreads;
+    for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++) {
+        last if ($i > $numberofpages);
+        $topicpages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=forums.cgi?forum=$inforum&show=$currentstart$threadagesstart class=hb>$i</a> ~;
+        $currentstart += $maxthreads;
     }
     $topicpages = "<font color=$menufontcolor>$beginpage $showup \[ $showupstep$topicpages$shownextstep\] $shownext $endpage　 <b>共<font color=$fonthighlight>$numberofpages</font>页</b></font>";
-} else {
+}
+else {
     $startarray = 0;
     $endarray = $numberofitems - 1;
     $topicpages = "<font color=$menufontcolor>本论坛只有一页</font>";
 }
 
-  foreach $topicid (@topics[$startarray ... $endarray]) {
+foreach $topicid (@topics[$startarray ... $endarray]) {
     chomp $topicid;
-    next if (($topicid eq "")||($topicid !~ /^[0-9]+$/));
-    next if (($ontopdata =~ /\_$topicid\_/)||($absontopdata =~ /\_$inforum\|$topicid\_/)||($catontopdata =~ /\_$inforum\|$topicid\_/));
-    my $rr = &readthreadpl($inforum,$topicid);
+    next if (($topicid eq "") || ($topicid !~ /^[0-9]+$/));
+    next if (($ontopdata =~ /\_$topicid\_/) || ($absontopdata =~ /\_$inforum\|$topicid\_/) || ($catontopdata =~ /\_$inforum\|$topicid\_/));
+    my $rr = &readthreadpl($inforum, $topicid);
     if ($rr ne "") {
-	($lastpostdate, my $topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $posticon, $posttemp, $addmetype) = split (/\t/,$rr);
+        ($lastpostdate, my $topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $posticon, $posttemp, $addmetype) = split(/\t/, $rr);
     }
-    else { next; }
-    push (@toptopic, "$topicid\t$inforum\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$posttemp\t$addmetype\n");
-  }
+    else {next;}
+    push(@toptopic, "$topicid\t$inforum\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$posttemp\t$addmetype\n");
+}
 
-  if (($startarray <= $maxthreads*4)&&($threadagesstart eq "")) {
-    if ((!(-e "${lbdir}cache/plcache$inforum\_$startarray.pl"))||((-M "${lbdir}cache/plcache$inforum\_$startarray.pl") *86400 > 120)) {
-        open (FILE, ">${lbdir}cache/plcache$inforum\_$startarray.pl");
+if (($startarray <= $maxthreads * 4) && ($threadagesstart eq "")) {
+    if ((!(-e "${lbdir}cache/plcache$inforum\_$startarray.pl")) || ((-M "${lbdir}cache/plcache$inforum\_$startarray.pl") * 86400 > 120)) {
+        open(FILE, ">${lbdir}cache/plcache$inforum\_$startarray.pl");
         print FILE "$topicpages\n";
         print FILE "$abstopcount\t$cattopcount\t$topcount\t\n";
         foreach (@toptopic) {
@@ -129,5 +140,5 @@ if ($numberofpages > 1) {
         }
         close(FILE);
     }
-  }
+}
 1;

@@ -2,22 +2,24 @@ package TagTables::XMP;
 
 use strict;
 use vars qw($VERSION);
+use warnings;
+use diagnostics;
 
 $VERSION = '1.00';
 
 # XMP tags need only be specified if a conversion or name change is necessary
 %TagTables::XMP::Main = (
-    TableType => 'XMP',
+    TableType         => 'XMP',
     # I'll leave these parameters alone since I don't know what the Photoshop values mean
-    Contrast => { },
-    Saturation => { },
-    Sharpness => { },
-    li => {    # what's up with this name?  I'm guessing this is ISO - PH
+    Contrast          => {},
+    Saturation        => {},
+    Sharpness         => {},
+    li                => { # what's up with this name?  I'm guessing this is ISO - PH
         Name => 'ISO',
     },
-    WhiteBalance => { }, # already converted to ASCII
+    WhiteBalance      => {}, # already converted to ASCII
     ExposureBiasValue => {
-        Name => 'ExposureCompensation',
+        Name      => 'ExposureCompensation',
         PrintConv => 'TagTables::Exif::ConvertFraction($val)',
     },
 );
@@ -31,12 +33,12 @@ foreach (keys %TagTables::Exif::Main) {
     if (ref $tagInfo) {
         ref($tagInfo) eq 'ARRAY' and $tagInfo = $$tagInfo[0];
         $name = $$tagInfo{'Name'};
-    } else {
+    }
+    else {
         $name = $tagInfo;
     }
     next if $TagTables::XMP::Main{$name};
     $TagTables::XMP::Main{$name} = $tagInfo;
 }
 
-
-1;  #end
+1; #end

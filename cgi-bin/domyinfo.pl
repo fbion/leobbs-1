@@ -10,6 +10,8 @@
 
 use strict;
 use warnings;
+use diagnostics;
+
 if ($avatars eq "on") {
     if (($personalavatar) && ($personalwidth) && ($personalheight)) {
         #自定义头像存在

@@ -10,6 +10,8 @@
 
 use strict;
 use warnings;
+use diagnostics;
+
 open(MSGIN, "${lbdir}$msgdir/in/${memberfilename}_msg.cgi");
 sysread(MSGIN, $totalmessages, (stat(MSGIN))[7]);
 close(MSGIN);

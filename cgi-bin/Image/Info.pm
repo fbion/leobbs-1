@@ -11,6 +11,8 @@ package Image::Info;
 use strict;
 use warnings;
 use diagnostics;
+
+use diagnostics;
 use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);

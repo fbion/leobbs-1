@@ -25,6 +25,8 @@ use warnings;
 use diagnostics;
 
 use diagnostics;
+
+use diagnostics;
 use LBCGI;
 use Time::Local;
 $LBCGI::POST_MAX = 500000;

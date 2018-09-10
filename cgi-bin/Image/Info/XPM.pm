@@ -3,21 +3,24 @@ $VERSION = '1.03';
 #Path to X11 RGB database
 $RGBLIB ||= "/usr/X11R6/lib/X11/rgb.txt";
 use strict;
+use warnings;
+use diagnostics;
+
 use Image::Xpm;
 
 
-sub process_file{
-    my($info, $source, $opts) = @_;
-    my(@comments, @warnings, $i);
+sub process_file {
+    my ($info, $source, $opts) = @_;
+    my (@comments, @warnings, $i);
 
-    *Image::Xpm::carp  = sub { push @warnings, @_; };
-    *Image::Xpm::croak = sub { $info->push_info(0, "error", @_); };
-    if( $Image::Xpm::Version cmp '1.08' < 1){
-	push @warnings, "This version of Image::Xpm does not support filehandles or scalar references";
-	$source = $info->get_info(0, "FileName");
+    *Image::Xpm::carp = sub {push @warnings, @_;};
+    *Image::Xpm::croak = sub {$info->push_info(0, "error", @_);};
+    if ($Image::Xpm::Version cmp '1.08' < 1) {
+        push @warnings, "This version of Image::Xpm does not support filehandles or scalar references";
+        $source = $info->get_info(0, "FileName");
     }
-    if( $info->get_info(0, "error") ){
-	return; }
+    if ($info->get_info(0, "error")) {
+        return;}
 
     $i = Image::Xpm->new(-file, $source);
     $info->push_info(0, "color_type" => "Indexed-RGB");
@@ -29,63 +32,63 @@ sub process_file{
     $info->push_info(0, "BitsPerSample" => 8);
     $info->push_info(0, "SamplesPerPixel", 1);
 
-    $info->push_info(0, "XPM_CharactersPerPixel" => $i->get(-cpp) );
+    $info->push_info(0, "XPM_CharactersPerPixel" => $i->get(-cpp));
     # XXX is this always?
     $info->push_info(0, "ColorResolution", 8);
-    $info->push_info(0, "ColorTableSize" => $i->get(-ncolours) );
-    if( $opts->{ColorPalette} ){
-	$info->push_info(0, "ColorPalette" => [keys %{$i->get(-cindex)}] );
+    $info->push_info(0, "ColorTableSize" => $i->get(-ncolours));
+    if ($opts->{ColorPalette}) {
+        $info->push_info(0, "ColorPalette" => [ keys %{$i->get(-cindex)} ]);
     }
-    if( $opts->{L1D_Histogram} ){
-	#Do Histograms
-	my(%RGB, @l1dhist, $R, $G, $B, $color);
-	for(my $y=0; $y<$i->get(-height); $y++){
-	    for(my $x=0; $x<$i->get(-width); $x++){
-		$color = $i->xy($x, $y);
-		if( $color !~ /^#/ ){
-		    unless( exists($RGB{white}) ){
-			local $_;
-			if( open(RGB, $Image::Info::XPM::RGBLIB) ){
-			    while(<RGB>){
-				/(\d+)\s+(\d+)\s+(\d+)\s+(.*)/;
-				$RGB{$4}=[$1,$2,$3];
-			    }
-			}
-			else{
-			    $RGB{white} = "0 but true";
-			    push @warnings, "Unable to open RGB database, you may need to set \$Image::Info::XPM::RGBLIB or define \$RGBLIB in ". __FILE__;
-			}
-		    }
-		    $R = $RGB{$color}->[0];
-		    $G = $RGB{$color}->[1];
-		    $B = $RGB{$color}->[2];
-		}
-		else{
-		    $R = hex(substr($color,1,2));
-		    $G = hex(substr($color,3,2));
-		    $B = hex(substr($color,5,2));
-		}
-		if( $opts->{L1D_Histogram} ){
-		    $l1dhist[(.3*$R + .59*$G + .11*$B)]++;
-		}
-	    }
-	}
-	if( $opts->{L1D_Histogram} ){
-	    $info->push_info(0, "L1D_Histogram", [@l1dhist]);
-	}
+    if ($opts->{L1D_Histogram}) {
+        #Do Histograms
+        my (%RGB, @l1dhist, $R, $G, $B, $color);
+        for (my $y = 0; $y < $i->get(-height); $y++) {
+            for (my $x = 0; $x < $i->get(-width); $x++) {
+                $color = $i->xy($x, $y);
+                if ($color !~ /^#/) {
+                    unless (exists($RGB{white})) {
+                        local $_;
+                        if (open(RGB, $Image::Info::XPM::RGBLIB)) {
+                            while (<RGB>) {
+                                /(\d+)\s+(\d+)\s+(\d+)\s+(.*)/;
+                                $RGB{$4} = [ $1, $2, $3 ];
+                            }
+                        }
+                        else {
+                            $RGB{white} = "0 but true";
+                            push @warnings, "Unable to open RGB database, you may need to set \$Image::Info::XPM::RGBLIB or define \$RGBLIB in " . __FILE__;
+                        }
+                    }
+                    $R = $RGB{$color}->[0];
+                    $G = $RGB{$color}->[1];
+                    $B = $RGB{$color}->[2];
+                }
+                else {
+                    $R = hex(substr($color, 1, 2));
+                    $G = hex(substr($color, 3, 2));
+                    $B = hex(substr($color, 5, 2));
+                }
+                if ($opts->{L1D_Histogram}) {
+                    $l1dhist[(.3 * $R + .59 * $G + .11 * $B)]++;
+                }
+            }
+        }
+        if ($opts->{L1D_Histogram}) {
+            $info->push_info(0, "L1D_Histogram", [ @l1dhist ]);
+        }
     }
-    $info->push_info(0, "HotSpotX" => $i->get(-hotx) );
-    $info->push_info(0, "HotSpotY" => $i->get(-hoty) );
-    $info->push_info(0, 'XPM_Extension-'.ucfirst($i->get(-extname)) => $i->get(-extlines)) if
-	$i->get(-extname);
+    $info->push_info(0, "HotSpotX" => $i->get(-hotx));
+    $info->push_info(0, "HotSpotY" => $i->get(-hoty));
+    $info->push_info(0, 'XPM_Extension-' . ucfirst($i->get(-extname)) => $i->get(-extlines)) if
+        $i->get(-extname);
     push @comments, @{$i->get(-comments)};
 
     for (@comments) {
-	$info->push_info(0, "Comment", $_);
+        $info->push_info(0, "Comment", $_);
     }
-    
+
     for (@warnings) {
-	$info->push_info(0, "Warn", $_);
+        $info->push_info(0, "Warn", $_);
     }
 }
 1;

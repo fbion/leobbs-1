@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 <html>
 <head> 
 <title>$page_title</title>

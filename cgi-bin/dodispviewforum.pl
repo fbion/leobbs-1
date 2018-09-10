@@ -8,12 +8,20 @@
 #      论坛地址： http://bbs.LeoBBS.com/            #
 #####################################################
 
+use strict;
+use warnings;
+use diagnostics;
 if ($inmembername ne "客人") {
-    if (($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo')&&($membercode ne 'amo')) {
-	$deltopicmore1 = qq~论坛选项~;
-	$deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$inforum>批量管理文章</a>~;
-	$deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$inforum>修复这个论坛</a>~;
-    } else { $deltopicmore1=""; $deltopicmore2=""; $deltopicmore3=""; }
+    if (($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo') && ($membercode ne 'amo')) {
+        $deltopicmore1 = qq~论坛选项~;
+        $deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$inforum>批量管理文章</a>~;
+        $deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$inforum>修复这个论坛</a>~;
+    }
+    else {
+        $deltopicmore1 = "";
+        $deltopicmore2 = "";
+        $deltopicmore3 = "";
+    }
 
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellspacing=1 cellpadding=6 width=100%>
@@ -36,7 +44,8 @@ if ($inmembername ne "客人") {
 <td><img src=$imagesurl/images/$skin/closedb.gif> 投票类别的主题</td>
 <td>$deltopicmore3</td></tr></table></td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR>
 ~;
-} else {
+}
+else {
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 width=$tablewidth align=center bgcolor=$tablebordercolor>
 <tr><td><table cellspacing=1 cellpadding=6 width="100%"><tr>
 <td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS 论坛图例</b></font> (<a href=delforumcache.cgi?forum=$inforum title=如果本区有部分数据滞后的话，可以用此功能>更新该区缓存</a>)</td>

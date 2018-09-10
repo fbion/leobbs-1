@@ -2,6 +2,7 @@ package Digest::MD5;
 use strict;
 use warnings;
 use diagnostics;
+use diagnostics;
 use integer;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORTER @EXPORT_OK);

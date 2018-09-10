@@ -25,6 +25,8 @@ use warnings;
 use diagnostics;
 
 use diagnostics;
+
+use diagnostics;
 use LBCGI;
 $LBCGI::POST_MAX = 800000;
 $LBCGI::DISABLE_UPLOADS = 1;

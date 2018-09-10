@@ -2,82 +2,85 @@ package Image::Info::SVG;
 $VERSION = '1.01';
 use strict;
 no strict 'refs';
+use warnings;
+use diagnostics;
+
 use XML::Simple;
 
-sub process_file{
-    my($info, $source) = @_;
-    my(@comments, @warnings, %info, $comment, $img, $imgdata, $xs);
-    local($_);
+sub process_file {
+    my ($info, $source) = @_;
+    my (@comments, @warnings, %info, $comment, $img, $imgdata, $xs);
+    local ($_);
 
-    while(<$source>){
-	if( ! exists($info{standalone}) && /standalone="(.+?)"/ ){
-	    $info{standalone} = $1;
-	}
-	if( /<!--/ .. /-->/ ){
-	    $comment .= $_;
-	}
-	if( /-->/ ){
-	    $comment =~ s/<!--//;
-	    $comment =~ s/-->//;
-	    chomp($comment);
-	    push @comments, $comment;
-	    $comment = '';
-	}
-	$imgdata .= $_;
+    while (<$source>) {
+        if (!exists($info{standalone}) && /standalone="(.+?)"/) {
+            $info{standalone} = $1;
+        }
+        if (/<!--/ .. /-->/) {
+            $comment .= $_;
+        }
+        if (/-->/) {
+            $comment =~ s/<!--//;
+            $comment =~ s/-->//;
+            chomp($comment);
+            push @comments, $comment;
+            $comment = '';
+        }
+        $imgdata .= $_;
     }
-    if( $imgdata =~ /<!DOCTYPE\s+svg\s+.+?\s+"(.+?)">/ ){
-	$info{dtd} = $1;
+    if ($imgdata =~ /<!DOCTYPE\s+svg\s+.+?\s+"(.+?)">/) {
+        $info{dtd} = $1;
     }
-    elsif( $imgdata !~ /<svg/ ){
-	return $info->push_info(0, "error", "Not a valid SVG image");
+    elsif ($imgdata !~ /<svg/) {
+        return $info->push_info(0, "error", "Not a valid SVG image");
     }
 
-    foreach my $pkg ( qw(SelectSaver
-		       IO::File
-		       IO::Seekable
-		       IO::Handle
-		       XML::Parser
-		       XML::Simple) ){
-	*{"${pkg}::carp"}  = sub { push @warnings, @_; };
-	*{"${pkg}::croak"} = sub { $info->push_info(0, "error", @_); };
+    foreach my $pkg (qw(SelectSaver
+        IO::File
+        IO::Seekable
+        IO::Handle
+        XML::Parser
+        XML::Simple)) {
+        *{"${pkg}::carp"} = sub {push @warnings, @_;};
+        *{"${pkg}::croak"} = sub {$info->push_info(0, "error", @_);};
     }
     $xs = new XML::Simple();
     $img = $xs->XMLin($imgdata);
-    if( $info->get_info(0, "error") ){
-	return; }
+    if ($info->get_info(0, "error")) {
+        return;}
 
     $info->push_info(0, "color_type" => "sRGB");
     $info->push_info(0, "file_ext" => "svg");
     # XXX not official type yet, may be image/svg+xml
     $info->push_info(0, "file_media_type" => "image/svg-xml");
     $info->push_info(0, "height", $img->{height});
-#    $info->push_info(0, "resolution", "1/1");
+    #    $info->push_info(0, "resolution", "1/1");
     $info->push_info(0, "width", $img->{width});
-#    $info->push_info(0, "BitsPerSample", 8);
+    #    $info->push_info(0, "BitsPerSample", 8);
     #$info->push_info(0, "SamplesPerPixel", -1);
 
     # XXX Description, title etc. could be tucked away in a <g> :-(
     $info->push_info(0, "ImageDescription", $img->{desc}) if $img->{desc};
-    if( $img->{image} ){
-	if( ref($img->{image}) eq 'ARRAY' ){
-	    foreach my $img (@{$img->{image}}){
-		$info->push_info(0, "SVG_Image", $img->{'xlink:href'});
-	    }
-	}
-	else{
-	    $info->push_info(0, "SVG_Image", $img->{image}->{'xlink:href'});
-	}
+    if ($img->{image}) {
+        if (ref($img->{image}) eq 'ARRAY') {
+            foreach my $img (@{$img->{image}}) {
+                $info->push_info(0, "SVG_Image", $img->{'xlink:href'});
+            }
+        }
+        else {
+            $info->push_info(0, "SVG_Image", $img->{image}->{'xlink:href'});
+        }
     }
     $info->push_info(0, "SVG_StandAlone", $info{standalone});
     $info->push_info(0, "SVG_Title", $img->{title}) if $img->{title};
-    $info->push_info(0, "SVG_Version", $info{dtd}||'unknown');
+    $info->push_info(0, "SVG_Version", $info{dtd} || 'unknown');
 
     for (@comments) {
-	$info->push_info(0, "Comment", $_);
+        $info->push_info(0, "Comment", $_);
     }
-    
+
     for (@warnings) {
-	$info->push_info(0, "Warn", $_);
+        $info->push_info(0, "Warn", $_);
     }
 }
 1;
