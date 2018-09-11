@@ -4,7 +4,7 @@ services:
   leobbs:
       build: .
       ports:
-         - "4321:80"
+         - "4321:3000"
       restart: always
       networks:
         default:

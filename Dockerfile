@@ -1,4 +1,5 @@
-FROM netroby/docker-apache-perl
+FROM perl:latest
 COPY ./ /www/
-COPY ./etc/leobbs.conf /etc/apache2/sites-enabled/localhost.conf
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+RUN  cpanm Mojolicious && cd /www
+WORKDIR /www
+CMD perl ./main.pl daemon
