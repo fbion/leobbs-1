@@ -34,10 +34,10 @@ require "bbs.lib.pl";
 
 $|++;
 
-$thisprog = "whosonline.cgi";
+my $thisprog = "whosonline.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-$query = new LBCGI;
+$query = LBCGI->new;
 &ipbanned; #封杀一些 ip
 
 if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
