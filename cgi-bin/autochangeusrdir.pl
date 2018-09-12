@@ -17,5 +17,5 @@ $x = crypt($x, aun);
 $x =~ s/%([a-fA-F0-9]{2})/pack("C", hex($1))/eg;
 $x =~ s/[^\w\d]//g;
 $x = substr($x, 2, 9);
-$usrdir = "usr$x" if (rename("$imagesdir$usrdir", "${imagesdir}usr$x"));
+my $usrdir = "usr$x" if (rename("$imagesdir$usrdir", "${imagesdir}usr$x"));
 1;

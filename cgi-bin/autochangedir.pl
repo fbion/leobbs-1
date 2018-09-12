@@ -17,8 +17,8 @@ $x = crypt($x, aun);
 $x =~ s/%([a-fA-F0-9]{2})/pack("C", hex($1))/eg;
 $x =~ s/[^\w\d]//g;
 $x = substr($x, 2, 9);
-$memdir = "members$x" if (rename("$lbdir$memdir", "${lbdir}members$x"));
-$msgdir = "messages$x" if (rename("$lbdir$msgdir", "${lbdir}messages$x"));
+my $memdir = "members$x" if (rename("$lbdir$memdir", "${lbdir}members$x"));
+my $msgdir = "messages$x" if (rename("$lbdir$msgdir", "${lbdir}messages$x"));
 
 opendir(DIRS, "$lbdir");
 my @files = readdir(DIRS);

@@ -34,8 +34,8 @@ require "data/styles.cgi";
 require "bbs.lib.pl";
 
 $|++;
-$thisprog = "attachment.cgi";
-$query = new LBCGI;
+my $thisprog = "attachment.cgi";
+my $query = new LBCGI;
 
 $inforum = $query->param('forum');
 $intopic = $query->param('topic');
