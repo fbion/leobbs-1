@@ -69,5 +69,5 @@ $output = <<"HTML";
 HTML
 
 print header(-charset => UTF -8, -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - 邮箱限制", \$output, 'msg');
+&output("$board_name - 邮箱限制", \$output, 'msg');
 exit;

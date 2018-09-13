@@ -55,49 +55,49 @@ if (($in_forum eq "") || ($in_forum !~ /^[0-9]+$/)) { #验证分论坛编号
 if (-e "${lbdir}data/style${inforum}.cgi") { #读取专属风格
     require "${lbdir}data/style${inforum}.cgi";
 }
-$inmembername = $membername; #转换变数
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername; #转换变数
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $currenttime = time;
-$inmembername = &stripMETA($inmembername);
+$in_member_name = &stripMETA($in_member_name);
 
 #个人风格
-$inselectstyle = $query->cookie("selectstyle"); #读取资料
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./)) { #个人风格不正确
+$in_select_style = $query->cookie("selectstyle"); #读取资料
+$in_select_style = $skin_selected if ($in_select_style eq "");
+if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./)) { #个人风格不正确
     &error("普通错误&老大，别乱黑我的程序呀！");                                                             #输出错误页
 }
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) { #有指定个人风格
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) { #有指定个人风格
     require "${lbdir}data/skin/${inselectstyle}.cgi";                          #读取个人风格
 }
 #会员帐号
-if ($inmembername eq "") {                               #没提供会员名称
-    $inmembername = $query->cookie("amembernamecookie"); #从 COOKIE 读取
+if ($in_member_name eq "") {                               #没提供会员名称
+    $in_member_name = $query->cookie("amembernamecookie"); #从 COOKIE 读取
 }
-if ($inpassword eq "") {                             #没提供密码
-    $inpassword = $query->cookie("apasswordcookie"); #从 COOKIE 读取
+if ($in_password eq "") {                             #没提供密码
+    $in_password = $query->cookie("apasswordcookie"); #从 COOKIE 读取
 }
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg; #字串处理
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg; #字串处理
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 #检查帐号
-if (($inmembername eq "") || ($inmembername eq "客人")) { #客人
+if (($in_member_name eq "") || ($in_member_name eq "客人")) { #客人
     &error("普通错误&只限会员进入！");                             #禁止进入
 }
 else {
     #会员
-    &getmember("$inmembername", "no"); #读取帐号资料
+    &getmember("$in_member_name", "no"); #读取帐号资料
     if ($userregistered eq "no") {     #未注册帐号
         &error("普通错误&此用户根本不存在！");      #禁止进入
     }
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -108,9 +108,9 @@ $addtimes = ($timedifferencevalue + $timezone) * 3600; #时差
 #论坛状态
 &doonoff; #论坛开放与否
 
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /\Q,$inmembername,\E/i);
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /\Q,$in_member_name,\E/i);
 }
 
 #读取分论坛资料
@@ -122,7 +122,7 @@ else {                           #找不到资料
     &error("普通错误&老大，别乱黑我的程序呀！"); #输出错误页
 }
 #验证权限
-if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) { #有权限的人：坛主，总版主，版主栏中的
+if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) { #有权限的人：坛主，总版主，版主栏中的
     &error("删除小字报&你没权力删除！");                                                    #输出错误页
 }
 #说明连结
@@ -309,7 +309,7 @@ sub editxzb {
 			<tr>
 				<td>
 					<table cellpadding="3" cellspacing="1" border="0" width="100%">
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 					<tr>
@@ -381,7 +381,7 @@ sub editxzb {
             chomp $line;                                                        #去掉换行符
             my ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $line); #分割数据
             if ($posttime eq $xzbid) {                                          #编辑目标
-                $line = "＃—＃—·\t$inpost\t$inmembername\t$message\t$posttime\t"; #新行
+                $line = "＃—＃—·\t$inpost\t$in_member_name\t$message\t$posttime\t"; #新行
             }
             $newfile .= $line . "\n";                          #放入新文件内
         }                                                      #loop 1 end

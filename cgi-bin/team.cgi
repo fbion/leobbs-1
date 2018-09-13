@@ -52,52 +52,52 @@ else {
     $cookiepath =~ s/\/$//;
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &ipbanned; #封杀一些 ip
 $inpage = $query->param("page");
 if ($inpage eq "") {$inpage = 1;}
-$inpassword =~ s/\t//isg;
+$in_password =~ s/\t//isg;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
 }
-$inmembercode = $membercode;
+$inmembercode = $member_code;
 if ($infosopen == 2) {
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    &error("查看管理团队&客人无权查看管理团队！") if ($inmembername eq "客人");
+    &error("查看管理团队&客人无权查看管理团队！") if ($in_member_name eq "客人");
     if ($userregistered eq "no") {&error("查看管理团队&你还没注册呢！");}
-    &error("查看管理团队&论坛管理团队只有坛主和版主可以查看！") if (($membercode ne "ad") && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo"));
+    &error("查看管理团队&论坛管理团队只有坛主和版主可以查看！") if (($member_code ne "ad") && ($member_code ne 'smo') && ($member_code ne 'cmo') && ($member_code ne "mo") && ($member_code ne "amo"));
 }
 elsif ($infosopen == 1) {
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    &error("查看管理团队&客人无权查看管理团队！") if ($inmembername eq "客人");
+    &error("查看管理团队&客人无权查看管理团队！") if ($in_member_name eq "客人");
     if ($userregistered eq "no") {&error("查看管理团队&你还没注册呢！");}
 }
 elsif ($infosopen == 3) {
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    &error("查看管理团队&客人无权查看管理团队！") if ($inmembername eq "客人");
+    &error("查看管理团队&客人无权查看管理团队！") if ($in_member_name eq "客人");
     if ($userregistered eq "no") {&error("查看管理团队&你还没注册呢！");}
-    &error("查看管理团队&论坛管理团队只有坛主可以查看！") if ($membercode ne "ad");
+    &error("查看管理团队&论坛管理团队只有坛主可以查看！") if ($member_code ne "ad");
 }
 
 $defaultwidth = "width=$defaultwidth" if ($defaultwidth ne "");
@@ -106,7 +106,7 @@ $defaultheight = "height=$defaultheight" if ($defaultheight ne "");
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-    &whosonline("$inmembername\t管理团队\tboth\t查看管理人员名单\t");
+    &whosonline("$in_member_name\t管理团队\tboth\t查看管理人员名单\t");
 }
 
 open(FILE, "$lbdir/data/lbmember.cgi");
@@ -534,7 +534,7 @@ foreach $teammember (@teamlist[$startmember ... $endmember]) {
 $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看到本站所有管理人员的列表及详细信息</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="team.cgi">管理团队</a> → 查看列表<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="team.cgi">管理团队</a> → 查看列表<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -560,5 +560,5 @@ $teamguts
 ~;
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - 管理团队", \$output);
+&output("$board_name - 管理团队", \$output);
 exit;

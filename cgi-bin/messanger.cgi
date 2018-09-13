@@ -48,15 +48,15 @@ $actionto = $query->param("actionto");
 
 $inwhere = $query->param("where");
 $inmsg = $query->param("msg");
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 if ($action eq "send" || $action eq "new") {
@@ -71,25 +71,25 @@ if ($action eq "send" || $action eq "new") {
     $inmessage = &cleaninput($inmessage);
     $inmsgtitle = &cleaninput($inmsgtitle);
 }
-&error("普通错误&老大，别乱黑我的程序呀！") if ($inmembername =~ m/\// || $inmembername =~ m/\\/ || $inmembername =~ m/\.\./);
+&error("普通错误&老大，别乱黑我的程序呀！") if ($in_member_name =~ m/\// || $in_member_name =~ m/\\/ || $in_member_name =~ m/\.\./);
 &error("普通错误&请不要修改生成的 URL！") if ($inmsg =~ /[^0-9]/);
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("普通错误&你还没登录呢？请先登录论坛！&msg");
 }
 else {
-    &getmember($inmembername, "no");
+    &getmember($in_member_name, "no");
     &error("普通错误&此用户根本不存在！&msg") if ($userregistered eq "no");
-    &error("普通错误&密码与用户名不相符，请重新登录！&msg") if ($inpassword ne $password);
+    &error("普通错误&密码与用户名不相符，请重新登录！&msg") if ($in_password ne $password);
 }
 &doonoff; #论坛开放与否
 
 $msgmm = 0 if (($msgmm <= 0) || ($msgmm eq ""));
 $msgmneedmm = "off" if (($msgmm <= 0) || ($msgmm eq ""));
-$msgmneedmm = "off" if (($membercode eq "ad") || ($membercode eq 'smo') || ($membercode eq 'cmo') || ($membercode eq "mo"));
+$msgmneedmm = "off" if (($member_code eq "ad") || ($member_code eq 'smo') || ($member_code eq 'cmo') || ($member_code eq "mo"));
 
 $action = "inbox" if ($action eq "");
-$memberfilename = $inmembername;
+$memberfilename = $in_member_name;
 $memberfilename =~ s/ /\_/g;
 $memberfilename =~ tr/A-Z/a-z/;
 
@@ -161,7 +161,7 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 
 if ($action eq "new") {
     my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
-    &error("不允许发送短信息&您设置了短信息免打扰，这样你是无法接受短消息的，所以你也无法发送短消息！<br><font color=$fonthighlight>请取消短信息免打扰，然后再重新发送短消息！</font><br><br>&msg") if (-e $messfilename && $membercode ne "ad");
+    &error("不允许发送短信息&您设置了短信息免打扰，这样你是无法接受短消息的，所以你也无法发送短消息！<br><font color=$fonthighlight>请取消短信息免打扰，然后再重新发送短消息！</font><br><br>&msg") if (-e $messfilename && $member_code ne "ad");
     $mymoney2 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
     if (($msgmneedmm ne "off") && ($actionto eq "msg")) {
         &error("$moneyname不足&发送短消息需要费用:$msgmm $moneyname，但你只有 $mymoney2 $moneyname　<BR><BR>&msg") if ($mymoney2 < $msgmm);
@@ -273,7 +273,7 @@ function HighlightAll(theField)
         my $boxname = $inwhere eq "inbox" ? "收件箱" : "发件箱";
         $current_time = localtime;
         $output .= qq~
-$boardname中$inmembername的短信息$boxname导出内容
+$board_name中$in_member_name的短信息$boxname导出内容
 (导出时间：$current_time)
 ----------------------------------------
 ~;
@@ -328,22 +328,22 @@ elsif ($action eq "markall") {
 elsif ($action eq "send") {
     &error("出错&请不要用外部连接本程序！") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '') && ($canotherlink ne "yes"));
     &error("普通错误&老大，别乱黑我的程序呀！&msg") if ($intouser =~ m/\// || $intouser =~ m/\\/ || $intouser =~ m/\.\./);
-    &error("短消息&您被禁止发言！&msg") if ($membercode eq "banned" || $membercode eq "masked");
-    if (($onlinetime + $onlinetimeadd) < $onlinemessage && $onlinemessage ne "" && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) {
+    &error("短消息&您被禁止发言！&msg") if ($member_code eq "banned" || $member_code eq "masked");
+    if (($onlinetime + $onlinetimeadd) < $onlinemessage && $onlinemessage ne "" && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) {
         $onlinetime = $onlinetime + $onlinetimeadd;
         &error("短消息&本论坛不允许在线时间少于 $onlinemessage 秒的用户发送短消息！你目前已经在线 $onlinetime 秒！<BR>如果在线时间统计不正确,请重新登陆论坛一次即可解决！&msg");
     }
     my @sendtouserlist = split(/\;/, $intouser);
-    &error("短消息禁止发送&很抱歉，一次群发讯息最高数量是 $maxsend 条！&msg") if (@sendtouserlist > $maxsend && $maxsend =~ /^[0-9]+$/ && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo");
+    &error("短消息禁止发送&很抱歉，一次群发讯息最高数量是 $maxsend 条！&msg") if (@sendtouserlist > $maxsend && $maxsend =~ /^[0-9]+$/ && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo");
     $inbackup = $query->param("backup");
     &error("短消息&没有指定收件人！&msg") if (@sendtouserlist == 0);
 
     $mymoney2 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
-    $msgmm = 0 if (($msgmm < 0) || ($msgmm eq "") || ($membercode eq "ad") || ($membercode eq 'smo') || ($membercode eq 'amo') || ($membercode eq 'cmo') || ($membercode eq "mo"));
+    $msgmm = 0 if (($msgmm < 0) || ($msgmm eq "") || ($member_code eq "ad") || ($member_code eq 'smo') || ($member_code eq 'amo') || ($member_code eq 'cmo') || ($member_code eq "mo"));
     if ($msgmneedmm ne "off") {
         if ($mymoney2 < $msgmm) {&error("$moneyname不足&发送短消息需要费用:$msgmm $moneyname，但你只有$mymoney2 $moneyname　<BR><BR>&msg");}
         else {
-            $cleanmembername = $inmembername;
+            $cleanmembername = $in_member_name;
             $cleanmembername =~ s/ /\_/g;
             $cleanmembername =~ tr/A-Z/a-z/;
             my $namenumber = &getnamenumber($cleanmembername);
@@ -354,7 +354,7 @@ elsif ($action eq "send") {
             if (open(FILE, ">$filetomake")) {
                 flock(FILE, 2) if ($OS_USED eq "Unix");
                 $mymoney = $mymoney - $msgmm;
-                print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+                print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
                 close(FILE);
             }
             &winunlock($filetomake) if ($OS_USED eq "Nt");
@@ -412,7 +412,7 @@ elsif ($action eq "send") {
     undef @NoRegUser;
     undef @Max;
     undef @NoPM;
-    my $noadmin = $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" ? 1 : 0;
+    my $noadmin = $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "amo" && $member_code ne "mo" ? 1 : 0;
     my $currenttime = time;
     foreach (@sendtouserlist) {
         undef @inboxmessages;
@@ -433,7 +433,7 @@ elsif ($action eq "send") {
         }
 
         if ($noadmin) {
-            if ($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $maxmsgno =~ /^[0-9]+$/ && $maxmsgno != 0) {
+            if ($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "amo" && $member_code ne "mo" && $maxmsgno =~ /^[0-9]+$/ && $maxmsgno != 0) {
                 my $filetoopen = "${lbdir}${msgdir}/in/${cleanintouser}_msg.cgi";
                 if (open(FILE, $filetoopen)) {
                     sysread(FILE, my $allmessages, (stat(FILE))[7]);
@@ -454,7 +454,7 @@ elsif ($action eq "send") {
                 $blacklist =~ s/\r//isg;
                 @blacklist = split(/\n/, $blacklist);
                 chomp(@blacklist);
-                if (grep (/^＊＃！＆＊$inmembername$/i, @blacklist)) {
+                if (grep (/^＊＃！＆＊$in_member_name$/i, @blacklist)) {
                     push(@Max, "无法发送短信息给对方-$_已将你纳入其黑名单内，不接受你的任何短信息！");
                     next;
                 }
@@ -492,7 +492,7 @@ elsif ($action eq "send") {
         }
         open(FILE, ">$filetoopen");
         flock(FILE, 2) if ($OS_USED eq "Unix");
-        print FILE "＊＃！＆＊$inmembername\tno\t$currenttime\t$inmsgtitle\t$inmessage\t$attach\n$inboxmessages";
+        print FILE "＊＃！＆＊$in_member_name\tno\t$currenttime\t$inmsgtitle\t$inmessage\t$attach\n$inboxmessages";
         close(FILE);
         &winunlock($filetoopen) if ($OS_USED eq "Nt");
         unlink("${lbdir}cache/mymsg/${cleanintouser}.pl");
@@ -564,7 +564,7 @@ function FanAll(form)
 <form action=$thisprog method=POST>
 <input type=hidden name=where value="outbox">
 <input type=hidden name=action value="delete">
-<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>欢迎使用短消息发送，$inmembername</b></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>欢迎使用短消息发送，$in_member_name</b></td></tr>
 <tr><td bgColor=$miscbackone align=center colSpan=3><a href=$thisprog?action=inbox>$inboxpm</a>　<a href=$thisprog?action=outbox>$outboxpm</a>　<a href=$thisprog?action=new>$newpm</a>　<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>　<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
 <tr>
 <td bgColor=$miscbackone align=center width=20%><font color=$fontcolormisc><b>收件人</b></td>
@@ -654,7 +654,7 @@ function FanAll(form)
 </tr>~;
         $count++;
     }
-    if ($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $maxmsgno != 0) {
+    if ($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "amo" && $member_code ne "mo" && $maxmsgno != 0) {
         $pmpercent = int(($totalinboxmessages / $maxmsgno) * 100);
         if ($pmpercent < 100) {
             $output .= qq~
@@ -685,7 +685,7 @@ elsif ($action eq "outread") {
     $wwjf = "no";
     $hidejf = "no";
     $postjf = "no";
-    $membercode = "no";
+    $member_code = "no";
 
     my ($to, $readstate, $date, $messagetitle, $post, $attach) = split(/\t/, $msgtograb);
     $to =~ s/^＊＃！＆＊//isg;
@@ -734,7 +734,7 @@ elsif ($action eq "outread") {
     $output .= qq~
 <form name=re action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$to"><input type=hidden name=msgtitle value="$remsg"><input type=hidden name=message value="$remodel"></form>
 <form name=fw action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$to"><input type=hidden name=msgtitle value="$fwmsg"><input type=hidden name=message value="$fwmodel"></form>
-<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>欢迎使用短消息接收，$inmembername</b></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=3 $catbackpic height=26><font color=$fontcolormisc><b>欢迎使用短消息接收，$in_member_name</b></td></tr>
 <tr><td bgColor=$miscbackone align=center colSpan=3><a href=$thisprog?action=delete&where=outbox&msg=$inmsg>$deletepm</a>　<a href=$thisprog?action=inbox>$inboxpm</a>　<a href=$thisprog?action=outbox>$outboxpm</a>　<a href=$thisprog?action=new>$newpm</a>　<a href="javascript:document.re.submit()">$replypm</a>　<a href="javascript:document.fw.submit()">$fwpm</a>　<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>　<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
 <tr><td bgColor=$miscbacktwo align=center><font color=$fontcolormisc>在<b>$date</b>，您发送此消息给<b>$to</b>！</td></tr>
 <tr><td bgColor=$miscbackone valign=top><font color=$fontcolormisc>
@@ -781,7 +781,7 @@ elsif ($action eq "read") {
     $wwjf = "no";
     $hidejf = "no";
     $postjf = "no";
-    $membercode = "no";
+    $member_code = "no";
 
     $from =~ s/^＊＃！＆＊//isg;
     $date = $date + ($timedifferencevalue + $timezone) * 3600;
@@ -875,7 +875,7 @@ elsif ($action eq "read") {
     $output .= qq~
 <form name=re action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$from"><input type=hidden name=msgtitle value="$remsg"><input type=hidden name=message value="$remodel"></form>
 <form name=fw action=$thisprog method=POST><input type=hidden name=action value="new"><input type=hidden name=touser value="$from"><input type=hidden name=msgtitle value="$fwmsg"><input type=hidden name=message value="$fwmodel"></form>
-<tr><td bgColor=$miscbacktwo align=center colSpan=2 $catbackpic height=26><font color=$fontcolormisc><b>欢迎使用您的收件箱，$inmembername</b></td></tr>
+<tr><td bgColor=$miscbacktwo align=center colSpan=2 $catbackpic height=26><font color=$fontcolormisc><b>欢迎使用您的收件箱，$in_member_name</b></td></tr>
 <tr><td bgColor=$miscbackone align=center colSpan=2><a href=$thisprog?action=delete&where=inbox&msg=$inmsg>$deletepm</a>　<a href=$thisprog?action=inbox>$inboxpm</a>　<a href=$thisprog?action=outbox>$outboxpm</a>　<a href=$thisprog?action=new>$newpm</a>　<a href="javascript:document.re.submit()">$replypm</a>　<a href="javascript:document.fw.submit()">$fwpm</a>　<a href="javascript:openscript('friendlist.cgi', 420, 320)">$friendpm</a>　<a href="javascript:openscript('blocklist.cgi', 420, 320)">$blockpm</a></td></tr>
 <tr><td bgColor=$miscbacktwo align=center colSpan=2><font color=$fontcolormisc>消息来自<b>$from</b>，发送给您的时间：<b>$date</b></font></td></tr>
 <tr><td bgColor=$miscbackone valign=top colSpan=2><font color=$fontcolormisc>
@@ -964,7 +964,7 @@ elsif ($action eq "delete") {
 elsif ($action eq "disable_pm") {
     my $disable_pm_status = ($query->param('disable_pm_status') eq "开启") ? "开启" : "关闭";
     my $disable_pm_mess = &lbhz(&unHTML($query->param('mess')), 40);
-    my $memberfilename = $inmembername;
+    my $memberfilename = $in_member_name;
     $memberfilename =~ s/ /\_/g;
     $memberfilename =~ tr/A-Z/a-z/;
     my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
@@ -990,7 +990,7 @@ elsif ($action eq "disable_pm") {
 <tr><td bgColor=$miscbackone align=center><font color=$fontcolormisc><b>您已$disable_pm_status免打扰模式。<br><br>自动返回收件箱<br><br></b></td></tr>
 <meta http-equiv="refresh" Content="2; url=$thisprog?action=inbox">~;
 }
-$memberfilename = $inmembername;
+$memberfilename = $in_member_name;
 $memberfilename =~ s/ /\_/g;
 $memberfilename =~ tr/A-Z/a-z/;
 my $messfilename = "${lbdir}${msgdir}/main/${memberfilename}_mian.cgi";
@@ -1033,7 +1033,7 @@ $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><br>
 </form>~;
 
 $output .= "</table></td></tr></table><SCRIPT>valignend()</SCRIPT>";
-&output("$boardname - 短消息", \$output, "msg");
+&output("$board_name - 短消息", \$output, "msg");
 
 sub splitpage {
     $maxthread = 9 if ($maxthread !~ /^[0-9]+$/);

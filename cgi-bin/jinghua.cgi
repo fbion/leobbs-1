@@ -52,12 +52,12 @@ for ('forum', 'topic', 'membername', 'password', 'action', 'checked', 'movetoid'
 }
 $in_forum = $forum;
 $in_topic = $topic;
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 @intopic = split(/ /, $in_topic);
@@ -66,28 +66,28 @@ $in_topic =~ s/ //g;
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 if (($in_forum) && ($in_forum !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
 if (($in_topic) && ($in_topic !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "") {
-    $inmembername = "客人";
+if ($in_member_name eq "") {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -98,11 +98,11 @@ else {
 &getoneforum("$in_forum");
 #&moderator("$in_forum");
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -121,15 +121,15 @@ if ($Mode{$action}) {
 }
 elsif (($in_forum ne "") && ($action eq "list")) {&list;}
 else {&error("普通错误&请以正确的方式访问本程序");}
-&output($boardname, \$output);
+&output($board_name, \$output);
 
 sub add {
     $cleartoedit = "no";
 
     &mischeader("标记精华贴子");
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq "smo") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne "amo") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "smo") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne "amo") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no") {&error("标记精华贴子&您不是本论坛坛主或版主，或者您的密码错误！");}
 
@@ -381,7 +381,7 @@ sub add {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         open(FILE, "${lbdir}data/allforums.cgi");
         my @forums = <FILE>;
         close(FILE);
@@ -391,16 +391,16 @@ sub add {
             chomp $_;
             next if (length("$_") < 30);
             $a = sprintf("%09d", $a);
-            ($movetoforumid, $category, $categoryplace, $forumname, $forumdescription, $noneed, $noneed, $noneed, $noneed, $startnewthreads, $noneed, $noneed, $noneed, $noneed, $noneed, $miscad2, $noneed, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
+            ($movetoforumid, $category, $categoryplace, $forumname, $forumdescription, $noneed, $noneed, $noneed, $noneed, $startnewthreads, $noneed, $noneed, $noneed, $noneed, $noneed, $miscad2, $noneed, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
             $categoryplace = sprintf("%09d", $categoryplace);
-            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$movetoforumid\t$forumgraphic\t$startnewthreads\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$movetoforumid\t$forumgraphic\t$startnewthreads\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
             push(@rearrangedforums, $rearrange);
             $a++;
         }
 
         @finalsortedforums = sort (@rearrangedforums);
         foreach (@finalsortedforums) {
-            ($categoryplace, my $a, $category, $forumname, $forumdescription, $movetoforumid, $forumgraphic, $startnewthreads, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
+            ($categoryplace, my $a, $category, $forumname, $forumdescription, $movetoforumid, $forumgraphic, $startnewthreads, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
 
             if ((($startnewthreads eq "no") || ($startnewthreads eq "cert")) && ($movetoforumid ne $in_forum)) {
                 $jumphtml .= "<option value=\"$movetoforumid\">$forumname\n</option>";
@@ -417,7 +417,7 @@ sub add {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="@intopic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [标记 $in_topic 个精华帖子]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>拷贝一份至精华区：</b></font></td>
@@ -432,9 +432,9 @@ sub add {
 sub del {
     &mischeader("取消精华贴子");
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq "smo") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne "amo") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "smo") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne "amo") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no") {&error("取消精华贴子&您不是本论坛坛主或版主，或者您的密码错误！");}
 
@@ -476,7 +476,7 @@ sub del {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td>
 <table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -486,7 +486,7 @@ sub del {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [取消精华贴子]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -499,17 +499,17 @@ sub del {
 sub list {
     &mischeader("本版精华贴子");
     if ("$privateforum" eq "yes") {
-        if ($inmembername eq "客人") {
+        if ($in_member_name eq "客人") {
             print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
             exit;
         }
-        $testentry = cookie("forumsallowed$in_forum");
-        if ((($testentry eq $forumpass) && ($testentry ne "")) || (($userregistered ne "no") && ($allowedentry{$in_forum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
-            if ($inpassword ne $password) {&error("进入论坛&密码错误，你不允许进入该论坛！");}
+        $test_entry = cookie("forumsallowed$in_forum");
+        if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || (($userregistered ne "no") && ($allowed_entry{$in_forum} eq "yes")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
+            if ($in_password ne $password) {&error("进入论坛&密码错误，你不允许进入该论坛！");}
         }
         else {require "accessform.pl";}
     }
-    if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&一般会员不允许进入此论坛！");}
+    if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "amo" && $member_code ne "mo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("进入论坛&一般会员不允许进入此论坛！");}
 
     $defaultsmilewidth = "width=$defaultsmilewidth" if ($defaultsmilewidth ne "");
     $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
@@ -518,10 +518,10 @@ sub list {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tboth\t查看论坛上的精华贴子\t");
+            &whosonline("$in_member_name\t$forumname\tboth\t查看论坛上的精华贴子\t");
         }
         else {
-            &whosonline("$inmembername\t$forumname(密)\tboth\t查看保密论坛上的精华贴子\t");
+            &whosonline("$in_member_name\t$forumname(密)\tboth\t查看保密论坛上的精华贴子\t");
         }
     }
 
@@ -733,7 +733,7 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
         $totlelength = $counter * 3.3 + $pagestoshowtemp1 + length($topictitletemp) + 4; #标题栏的总长度
         undef $pagestoshowtemp1;
 
-        if (($membercode eq "ad") || ($membercode eq "smo") || ($inmembmod eq "yes")) {
+        if (($member_code eq "ad") || ($member_code eq "smo") || ($inmembmod eq "yes")) {
             $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=del&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>除</font></a>|<a href=jinghua.cgi?action=add&forum=$in_forum&topic=$topicid><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
         }
         else {
@@ -800,7 +800,7 @@ sub UpdateNo {
         $nametocheck =~ s/ /\_/g;
         $nametocheck =~ tr/A-Z/a-z/;
         push(@member_list, $nametocheck);
-        &sendtoposter("$inmembername", "$mn", "", "jinghua", "$fid", "$tid", "$topictitle", "") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($mn)) && ($act eq "+"));
+        &sendtoposter("$in_member_name", "$mn", "", "jinghua", "$fid", "$tid", "$topictitle", "") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($mn)) && ($act eq "+"));
     }
     if ($act eq "+") {
         foreach $mn (@member_list) {
@@ -840,7 +840,7 @@ sub upmember {
         if ((-e $filetoopen) && ($nametocheck !~ /^客人/)) {
             &winlock($filetoopen) if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));
             if (open(FILE, ">$filetoopen")) {
-                print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+                print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
                 close(FILE);
             }
             &winunlock($filetoopen) if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));

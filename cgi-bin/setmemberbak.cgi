@@ -46,10 +46,10 @@ $beginone = &unHTML("$beginone");
 $totolerepire = $query->param('totolerepire');
 $totolerepire = &unHTML("$totolerepire");
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $noofone = 2000 if ($noofone !~ /^[0-9]+$/);
 $beginone = 0 if ($beginone !~ /^[0-9]+$/);
@@ -59,9 +59,9 @@ $totolerepire = 0 if ($totolerepire !~ /^[0-9]+$/);
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
 
     print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>欢迎来到论坛管理中心 / 用户库备份及还原</b></td></tr>~;
     my %Mode = (
@@ -177,7 +177,7 @@ sub restore {
 }
 
 sub restorenext {
-    $memberfiletitle = $inmembername;
+    $memberfiletitle = $in_member_name;
     $memberfiletitle =~ y/ /_/;
     $memberfiletitle =~ tr/A-Z/a-z/;
     $memberfiletitle .= ".cgi";
@@ -221,7 +221,7 @@ sub restorenext {
     else {
         $allusernum--;
         print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2><font color=#990000><b>用户库还原</b><p>
-        <font color=#333333>用户数据已经还原(坛主 $inmembername 数据未更新)，用户备份库中共有 $allusernum 个注册用户！<BR><BR>
+        <font color=#333333>用户数据已经还原(坛主 $in_member_name 数据未更新)，用户备份库中共有 $allusernum 个注册用户！<BR><BR>
         </td></tr>
          ~;
     }
@@ -253,7 +253,7 @@ sub repire {
 }
 
 sub repirenext {
-    $memberfiletitle = $inmembername;
+    $memberfiletitle = $in_member_name;
     $memberfiletitle =~ y/ /_/;
     $memberfiletitle =~ tr/A-Z/a-z/;
     $memberfiletitle .= ".cgi";
@@ -393,7 +393,7 @@ sub memberoptions {
     可以防止用户数据破坏，也可以方便转移用户库数据。<BR>注意：无需时时备份，一般每 3 - 5 日备份一次为宜。<BR><BR></td></tr>
     ~;
     print qq~<tr><td bgcolor=#FFFFFF colspan=2>
-    <font color=#333333><b><a href="$thisprog?action=restore">还原用户数据库</a></b>　<font color=#990000>(为了安全起见，坛主 $inmembername 资料不会还原)</font><br>
+    <font color=#333333><b><a href="$thisprog?action=restore">还原用户数据库</a></b>　<font color=#990000>(为了安全起见，坛主 $in_member_name 资料不会还原)</font><br>
     转移用户库数据后，或者用户数据被破坏，就可以使用此功能把备份的用户库数据全部还原。<BR>
     注意：自备份之后的用户所有更新数据将<font color=#990000><B>全部丢失</B></font>，请慎重使用。<BR><BR>
     </td></tr>

@@ -50,21 +50,21 @@ else {
 
 &ipbanned; #封杀一些 ip
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("不能进入 $plugname &你目前的身份是访客，请先登陆!");
     exit;
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -76,10 +76,10 @@ else {
 
 &error("普通错误&你的社区性别为保密，不能进入本系统，请<a href=profile.cgi?action=modify>先修改你的个人资料</a>！") if (($sex eq 'no') || ($sex eq ''));
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
@@ -111,7 +111,7 @@ $tempmembername =~ tr/A-Z/a-z/;
 $admin_user =~ s/ /\_/g;
 $admin_user =~ tr/A-Z/a-z/;
 
-$adminbar = qq~ <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>后台管理</a>]~ if (($membercode eq "ad") || ($admin_user eq $tempmembername));
+$adminbar = qq~ <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>后台管理</a>]~ if (($member_code eq "ad") || ($admin_user eq $tempmembername));
 $mymoney1 = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 $output .= qq~
 <!--3FACE V4.0 Powered By CPower-->
@@ -127,7 +127,7 @@ function openCart()
 </script>
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以购买、装备、赠送、设置和管理你的虚拟形象</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href=face.cgi>$plugname</a>$adminbar<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href=face.cgi>$plugname</a>$adminbar<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -200,15 +200,15 @@ sub cleanall_face {
         flock(FILE6, 2) if ($OS_USED eq "Unix");
         my $filedata = <FILE6>;
         chomp($filedata);
-        (my $membername, my $password, my $membertitle, my $membercode, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userxz, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $userquestion, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
+        (my $membername, my $password, my $membertitle, my $member_code, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userxz, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $userquestion, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
         $userface = "";
         $lastgone = time;
         if (($membername ne "") && ($password ne "")) {
             seek(FILE6, 0, 0);
-            print FILE6 "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+            print FILE6 "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
             close(FILE6);
             if (open(FILE6, ">${lbdir}$memdir/old/$nametocheck.cgi")) {
-                print FILE6 "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+                print FILE6 "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
                 close(FILE6);
             }
         }

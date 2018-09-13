@@ -44,27 +44,27 @@ else {
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $action = $query->param('action');
 
 if ($action eq "change_skin") {
-    if ($inmembername eq "") {$inmembername = "客人";}
+    if ($in_member_name eq "") {$in_member_name = "客人";}
     else {
-        &getmember("$inmembername", "no");
-        &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
+        &getmember("$in_member_name", "no");
+        &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($in_password ne $password);
         &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
     }
     $refrashurl = $query->param('thisprog');
     $refrashurl = "leobbs.cgi" if ($refrashurl eq "");
     $refrashurl = uri_escape($refrashurl);
-    #   unlink ("${lbdir}cache/myinfo/$inmembername.pl");
-    $inselectstyle = $query->param("skin");
-    #   $inselectstyle = "" if (lc($inselectstyle) eq "leobbs");
-    &error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-    my $selectstylecookie = cookie(-name => "selectstyle", -value => $inselectstyle, -path => "$cookiepath/");
+    #   unlink ("${lbdir}cache/myinfo/$in_member_name.pl");
+    $in_select_style = $query->param("skin");
+    #   $in_select_style = "" if (lc($in_select_style) eq "leobbs");
+    &error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+    my $selectstylecookie = cookie(-name => "selectstyle", -value => $in_select_style, -path => "$cookiepath/");
     print header(-cookie => [ $selectstylecookie ], -charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
     print qq~<script>location.href="$refrashurl";</script>~;
     print qq~页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv="refresh" content="3; url=$refrashurl">~;

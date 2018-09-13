@@ -52,10 +52,10 @@ $instart = int($query->param('start'));
 &ERROROUT("老大，别乱黑我的程序呀！") if (($in_forum !~ /^[0-9]+$/) || ($in_topic !~ /^[0-9]+$/) || ($instart !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $defaultsmilewidth = "width=$defaultsmilewidth" if ($defaultsmilewidth ne "");
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
@@ -67,31 +67,31 @@ $addtimes = ($timedifferencevalue + $timezone) * 3600;
 #取出主題 ID
 $id_of_this_topid = sprintf("%04d%05d", $in_forum, $in_topic);
 #用户资料
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
 $userregistered = "no";
-&ERROROUT("老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
-unless ((!$inmembername) or ($inmembername eq "客人")) {
-    &getmember("$inmembername", "no");
-    $mymembercode = $membercode;
+&ERROROUT("老大，别乱黑我的程序呀！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
+unless ((!$in_member_name) or ($in_member_name eq "客人")) {
+    &getmember("$in_member_name", "no");
+    $mymembercode = $member_code;
     $myrating = $rating;
-    &ERROROUT("密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
+    &ERROROUT("密码与用户名不相符，请重新登录！") if ($in_password ne $password);
 }
 &ERROROUT("会员专用功能，请先登录！") if ($userregistered eq "no");
 #取得分论坛资料
 &getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
-$testentry = cookie("forumsallowed$in_forum");
-if (((($testentry ne $forumpass) || ($testentry eq "")) && ($privateforum eq "yes")) || (($startnewthreads eq "cert") && ($membercode eq "me") && ($userincert eq "no"))) {
-    &ERROROUT("你不允许进入该论坛！") if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes"));
+$test_entry = cookie("forumsallowed$in_forum");
+if (((($test_entry ne $forum_pass) || ($test_entry eq "")) && ($privateforum eq "yes")) || (($startnewthreads eq "cert") && ($member_code eq "me") && ($userincert eq "no"))) {
+    &ERROROUT("你不允许进入该论坛！") if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes"));
 }
 
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &ERROROUT("你不允许进入该论坛！") if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &ERROROUT("你不允许进入该论坛！") if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
 
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &ERROROUT("你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -115,7 +115,7 @@ close(FILE);
 if ($jfmark eq "yes") {
     if ($post1 =~ m/\[jf=(.+?)\](.+?)\[\/jf\]/isg) {
         $jfpost = $1;
-        if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+        if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
         }
         else {
             &ERROROUT("由于主帖中设置有积分标签，所以无法快速查看，请点入后查看此帖，谢谢！") if ($noviewjf eq "yes");
@@ -207,7 +207,7 @@ foreach (@threads[$startarray .. $endarray]) {
     $OUTPUT_TABLE .= &OUTPUT_TABLE($postdata[0], $postdata[5], $postdata[6], $postdata[7]);
 }
 $OUTPUT_TABLE .= qq(<br><br><DIV style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: black 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN-LEFT: 18px; BORDER-LEFT: black 1px solid; WIDTH: 600px; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: lightyellow;text-align:center">[ $pages ]</DIV>);
-OUTPUT_TREE($boardname, $OUTPUT_TABLE, 0);
+OUTPUT_TREE($board_name, $OUTPUT_TABLE, 0);
 
 
 #输出显示
@@ -278,7 +278,7 @@ sub ERROROUT {
     $OUTPUT_TABLE .= qq(<DIV style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: black 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN-LEFT: 18px; BORDER-LEFT: black 1px solid; WIDTH: 240px; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: lightyellow;cursor:hand" onclick="loadThreadFollow($in_forum,$in_topic,'$id_of_this_topid')">$ERROR_MSG</DIV>);
     $OUTPUT_TABLE =~ s/\n//g;
     $OUTPUT_TABLE =~ s/\'/\\\'/g;
-    &OUTPUT_TREE($boardname, $OUTPUT_TABLE, 1);
+    &OUTPUT_TREE($board_name, $OUTPUT_TABLE, 1);
 }
 
 sub OUTPUT_TREE {

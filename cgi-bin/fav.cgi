@@ -79,12 +79,12 @@ $newcate =~ s/system//isg;
 
 $in_forum = $forum;
 $in_topic = $topic;
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $currenttime = time;
@@ -95,10 +95,10 @@ $maxtopics = 25 if ($maxtopics <= 0);
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 $defaultsmilewidth = "width=$defaultsmilewidth" if ($defaultsmilewidth ne "");
@@ -106,17 +106,17 @@ $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne ""
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-$member = $inmembername if ($member eq "");
-if ($inmembername eq "" || $inmembername eq "客人") {
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$member = $in_member_name if ($member eq "");
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("普通错误&客人无权访问个人收藏夹！");
 }
 else {
-    &getmember("$inmembername");
-    if ($inpassword ne $password) {
+    &getmember("$in_member_name");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -128,7 +128,7 @@ else {
 $addtimes = $timedifferencevalue * 3600 + $timezone * 3600;
 $screenmode = $query->cookie("screenmode");
 $screenmode = 8 if ($screenmode eq "");
-$infilemembername = $inmembername;
+$infilemembername = $in_member_name;
 $infilemembername =~ s/ /_/g;
 $infilemembername =~ tr/A-Z/a-z/;
 if (-e "${lbdir}$memfavdir/$infilemembername.cgi") {
@@ -157,21 +157,21 @@ my %Mode = (
 );
 if ($Mode{$action}) {$Mode{$action}->();}
 else {&error("普通错误&请以正确的方式访问本程序");}
-&output("$boardname - 个人收藏", \$output);
+&output("$board_name - 个人收藏", \$output);
 
 sub add {
     $taction = ($mainopen eq "up") ? "提升" : "加入";
     if (($in_topic eq "") && ($in_forum eq "")) {&error("$taction个人收藏&没有指定主题编号和论坛编号！");}
-    #    &getmember("$inmembername");
+    #    &getmember("$in_member_name");
 
-    $testentry = $query->cookie("forumsallowed$in_forum");
+    $test_entry = $query->cookie("forumsallowed$in_forum");
 
     &getoneforum("$in_forum");
-    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
+    if (($allowed_entry{$in_forum} eq "yes") || (($test_entry eq $forum_pass) && ($test_entry ne "")) || ($member_code eq "ad") || ($inmembmod eq "yes") || ($member_code eq 'smo')) {$allowed = "yes";}
     else {$allowed = "no";}
 
     if (($privateforum eq "yes" && $allowed ne "yes")) {&error("$taction个人收藏&对不起，您没有权限收藏这个贴子！");}
-    if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("$taction个人收藏&对不起，您没有权限收藏这个贴子！");}
+    if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("$taction个人收藏&对不起，您没有权限收藏这个贴子！");}
 
     &favmischeader("$taction个人收藏");
     if ($checked eq "yes") {
@@ -312,7 +312,7 @@ sub add {
                 $cateselect = qq(<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>选择加入到哪一个目录</font></td><td bgcolor=$miscbackone><select name="selectcate" style="width:30%">$cate</select></td></tr>);
             }
         }
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~
             <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -326,7 +326,7 @@ sub add {
             <input type=hidden name="forum" value="$in_forum">
             <input type=hidden name="topic" value="$in_topic">
             <font color=$fontcolormisc><b>请输入您的用户名、密码加入个人收藏 </b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>$cateselect
             <tr>
@@ -351,7 +351,7 @@ sub mov {
     else {
         if (($in_topic eq "") && ($in_forum eq "")) {&error("移动个人收藏&没有指定主题编号和论坛编号！");}
     }
-    #    &getmember("$inmembername");
+    #    &getmember("$in_member_name");
 
     &favmischeader("移动个人收藏");
     if ($checked eq "yes") {
@@ -479,7 +479,7 @@ sub mov {
                 $cateselect = qq(<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>选择移动到哪一个目录</font></td><td bgcolor=$miscbackone><select name="selectcate" style="width:30%">$cate</select></td></tr>);
             }
         }
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~
             <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -495,7 +495,7 @@ sub mov {
             <input type=hidden name="mainopen" value="$selectcate">
             <input type=hidden name="selecttopic" value="$selecttopic">
             <font color=$fontcolormisc><b>请输入您的用户名、密码移动个人收藏 </b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>$cateselect
             <tr>
@@ -510,7 +510,7 @@ sub mov {
 } # end
 sub top {
     if (($in_topic eq "") && ($in_forum eq "")) {&error("个人收藏置顶&没有指定主题编号和论坛编号");}
-    #    &getmember("$inmembername");
+    #    &getmember("$in_member_name");
 
     &favmischeader("个人收藏置顶");
     if ($checked eq "yes") {
@@ -573,7 +573,7 @@ sub top {
 
     } # end if clear to edit
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~
             <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -588,7 +588,7 @@ sub top {
             <input type=hidden name="topic" value="$in_topic">
             <input type=hidden name="mainopen" value="$selectcate">
             <font color=$fontcolormisc><b>请输入您的用户名、密码置顶个人收藏 </b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
             <tr>
@@ -609,7 +609,7 @@ sub del {
     else {
         if (($in_topic eq "") && ($in_forum eq "")) {&error("删除个人收藏&没有指定主题编号和论坛编号！");}
     }
-    #        &getmember("$inmembername");
+    #        &getmember("$in_member_name");
 
     &favmischeader("删除个人收藏");
 
@@ -686,7 +686,7 @@ sub del {
 
     } # end if clear to edit
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~
             <SCRIPT>valigntop()</SCRIPT>
             <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -702,7 +702,7 @@ sub del {
             <input type=hidden name="mainopen" value="$selectcate">
             <input type=hidden name="selecttopic" value="$selecttopic">
             <font color=$fontcolormisc><b>请输入您的用户名、密码删除个人收藏</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
             <tr>
@@ -722,7 +722,7 @@ sub list {
     my $namenumber = &getnamenumber($filemembername);
     &checkmemfile($filemembername, $namenumber);
     if ((!(-e "${lbdir}$memdir/$namenumber/$filemembername.cgi")) && (!(-e "${lbdir}$memdir/old/$filemembername.cgi"))) {&error("查看个人收藏&没有该会员！");}
-    #    &getmember("$inmembername");
+    #    &getmember("$in_member_name");
 
     $favfile = (-e "${lbdir}$memfavdir/close/$filemembername.cgi") ? "${lbdir}$memfavdir/close/$filemembername.cgi" : "${lbdir}$memfavdir/open/$filemembername.cgi";
     if ($filemembername eq $infilemembername) {
@@ -730,7 +730,7 @@ sub list {
         $indexname = "个人收藏夹";
     }
     else {
-        if ($favfile eq "${lbdir}$memfavdir/close/$filemembername.cgi") {&error("查看个人收藏&该个人收藏设定保密中，只有他本人可以看！") if ($membercode ne "ad");}
+        if ($favfile eq "${lbdir}$memfavdir/close/$filemembername.cgi") {&error("查看个人收藏&该个人收藏设定保密中，只有他本人可以看！") if ($member_code ne "ad");}
         elsif (!(-e $favfile)) {&error("查看个人收藏&该会员没有个人收藏！");}
         $indexname = " $member 的收藏夹";
         $cleartoedit = "no";
@@ -738,7 +738,7 @@ sub list {
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t个人收藏\tnone\t查看$indexname\t");
+        &whosonline("$in_member_name\t个人收藏\tnone\t查看$indexname\t");
     }
     $topcount = 0;
     $selectcate = 0 if (!$selectcate);
@@ -756,7 +756,7 @@ sub list {
         @catelist = split(/\t/, $catelist);
         foreach (@catelist) {s/^＊＃！＆＊//o;}
         $favdescript = pop(@catelist) if ($catelist[$#catelist] =~ /^\>\>/isg);
-        @catelist = grep (/o$/, @catelist) if ($cleartoedit eq "no" && $membercode ne "ad");
+        @catelist = grep (/o$/, @catelist) if ($cleartoedit eq "no" && $member_code ne "ad");
         chomp @catelist;
         %catetopicc = ();
         $catelist[$selectcate] =~ s/[oc]$//;
@@ -1004,16 +1004,16 @@ $multimanageform
 
         if (!$forumlastvisit) {$forumlastvisit = "0";}
 
-        if ((lc($inmembername) eq lc($startedby)) && ($nodispown eq "yes")) {$mypost = "<img src=$imagesurl/images/$skin/$mypost_blogo title=我发表的主题> "}
+        if ((lc($in_member_name) eq lc($startedby)) && ($nodispown eq "yes")) {$mypost = "<img src=$imagesurl/images/$skin/$mypost_blogo title=我发表的主题> "}
         else {$mypost = ""};
 
         $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif width=14 border=0>";
 
-        if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($inmembername ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif width=14 border=0>";}
-        elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($inmembername ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif width=14 border=0>";}
-        elsif (($threadposts < $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($inmembername ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif width=14 border=0>";}
-        elsif (($threadposts < $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($inmembername ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif width=14 border=0>";}
-        $forumcolorone = $forumcolortwo = $miscbacktwo if (($lastpostdate > $forumlastvisit) && ($inmembername ne "客人"));
+        if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($in_member_name ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif width=14 border=0>";}
+        elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($in_member_name ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif width=14 border=0>";}
+        elsif (($threadposts < $hottopicmark) && ($forumlastvisit < $lastpostdate) && ($in_member_name ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif width=14 border=0>";}
+        elsif (($threadposts < $hottopicmark) && ($forumlastvisit > $lastpostdate) && ($in_member_name ne "客人")) {$topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif width=14 border=0>";}
+        $forumcolorone = $forumcolortwo = $miscbacktwo if (($lastpostdate > $forumlastvisit) && ($in_member_name ne "客人"));
 
         $threadstate = "poll" if (($posticon =~ /<br>/i) && ($threadstate eq ""));
         if (($threadstate eq "poll") || ($threadstate eq "pollclosed")) {
@@ -1109,7 +1109,7 @@ $multimanageform
             $addonlength += 2.5;
         }
         else {
-            $multimanagebutton = qq(<td bgcolor=$forumcolortwo align=center width=35><span style="CURSOR: hand" onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$forumid&topic=$topicid', '$boardname - $topictitle1')"><IMG SRC=$imagesurl/images/fav_add.gif BORDER=0 width=15 height=15 ALT="将本帖添加到收藏夹"></span></td>);
+            $multimanagebutton = qq(<td bgcolor=$forumcolortwo align=center width=35><span style="CURSOR: hand" onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$forumid&topic=$topicid', '$board_name - $topictitle1')"><IMG SRC=$imagesurl/images/fav_add.gif BORDER=0 width=15 height=15 ALT="将本帖添加到收藏夹"></span></td>);
         }
         $topictitle = "$mypost$topictitle";
         $topictitle = $topictitle . "<BR>" if ($totlelength > $topictitlemax + 7);
@@ -1152,7 +1152,7 @@ $outputtemp
     $output .= qq~<td align=right width=30%>$cateoption</td></tr></form></table><br><br>~;
 }
 sub setting {
-    #        &getmember("$inmembername");
+    #        &getmember("$in_member_name");
 
     &favmischeader("个人收藏夹设定");
 
@@ -1339,7 +1339,7 @@ sub setting {
     else {
         $mainopenselect = qq(<option value="on" selected>完全公开</option><option value="off">完全保密</option>);
     }
-    $inmembername =~ s/\_/ /g;
+    $in_member_name =~ s/\_/ /g;
     $cattemplist = join('","', @catelist);
     $output .= qq~
 <script language="JavaScript" type="text/javascript">
@@ -1423,7 +1423,7 @@ sub favmischeader {
     local ($misctype) = shift;
     &title;
     $output .= qq~
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> → <a href=fav.cgi?action=show>个人收藏</a> → $misctype</td><td bgcolor=$navbackground align=right><a href="$thisprog?action=setting">个人收藏夹设定</a></td></tr></table></td></tr></table><BR>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$board_name</a> → <a href=fav.cgi?action=show>个人收藏</a> → $misctype</td><td bgcolor=$navbackground align=right><a href="$thisprog?action=setting">个人收藏夹设定</a></td></tr></table></td></tr></table><BR>
 ~;
 }
 #anthony

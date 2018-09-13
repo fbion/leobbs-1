@@ -22,7 +22,7 @@ sub addadminlog {
     &winlock($filetomake) if ($OS_USED eq "Nt");
     open(FILE, ">>$filetomake");
     flock(FILE, 2) if ($OS_USED eq "Unix");
-    print FILE "$inmembername\t$logtime\t$in_topic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$message\n";
+    print FILE "$in_member_name\t$logtime\t$in_topic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$message\n";
     close(FILE);
     &winunlock($filetomake) if ($OS_USED eq "Nt");
     return;

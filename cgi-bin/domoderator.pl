@@ -18,7 +18,7 @@ close(FILE);
 my @thisforums = grep (/^$in_forum\t/, @forums);
 $inmembmod = "no";
 
-($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums[0]);
+($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums[0]);
 $forummoderator =~ s/\,\,/\,/ig;
 $forummoderator =~ s/\, /\,/ig;
 $forummoderator =~ s/ \,/\,/ig;
@@ -79,13 +79,13 @@ if ($modnumber1 > 0) {
 }
 $modoutput .= "</select>\n" if ($modnumber > 0 || $modnumber1 > 0 || $cmodnumber > 0);
 $forummodnamestemp = ",$forummoderator,$fmod,$catemods,";
-$inmembmod = "yes" if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)));
+$inmembmod = "yes" if ($forummodnamestemp =~ /\Q\,$in_member_name\,\E/i || (($member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)));
 
 my @childforum1 = grep (/^[0-9]+\tchildforum-$in_forum\t/, @forums);
 for ($i = 0; $i <= $#childforum1; $i++) {
     chomp $childforum1[$i];
     next if ($childforum1[$i] eq "");
-    my ($forumid, $category, $categoryplace, $forumname, $forumdescription, $cforummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $tmp, $tmp, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $childforum1[$i]);
+    my ($forumid, $category, $categoryplace, $forumname, $forumdescription, $cforummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $tmp, $tmp, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $childforum1[$i]);
     next if ($category ne "childforum-$in_forum");
 
     $forumdescription = &HTML("$forumdescription");
@@ -220,7 +220,7 @@ sub getmodout {
     return if ($modname eq "");
     my $cleanedmodname = $modname;
     $cleanedmodname =~ s/ /\_/g;
-    #        $inmembmod = "yes" if (lc($inmembername) eq lc($modname) || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($modname eq "全体版主" || $modname eq "全体斑竹")));
+    #        $inmembmod = "yes" if (lc($in_member_name) eq lc($modname) || (($member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && ($modname eq "全体版主" || $modname eq "全体斑竹")));
     if ($modname =~ m/管理员/isg || m/诚聘中/isg || m/暂时空缺/isg || m/版主/isg || m/斑竹/isg || m/坛主/isg) {
         $modoutput .= qq~<option>$modname</option>~;
     }

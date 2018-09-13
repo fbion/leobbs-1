@@ -101,34 +101,34 @@ $otheraction_b = $query->param('otheraction_b'); #其他动作
 $otheraction_b = &cleaninput($otheraction_b);
 $otheraction_c = $query->param('otheraction_c'); #其他动作
 $otheraction_c = &cleaninput($otheraction_c);
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
 
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 #取得会员资料
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-&page_error("普通错误", "老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+&page_error("普通错误", "老大，别乱黑我的程序呀！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
 
-if ((!$inmembername) or ($inmembername eq "客人")) {
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
     &page_error("普通错误", "您不是论坛的管理团队！");
 }
 else {
-    &getmember($inmembername, "no");
-    &page_error("普通错误", "密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
+    &getmember($in_member_name, "no");
+    &page_error("普通错误", "密码与用户名不相符，请重新登录！") if ($in_password ne $password);
     &page_error("普通错误", "用户没有登录或注册！") if ($userregistered eq "no");
-    &page_error("普通错误", "您不是论坛的管理团队！") unless ($membercode eq "ad" || $membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo");
-    $inmembername = $membername;
-    $forum_ad = ($membercode eq "ad") ? 1 : 0;
+    &page_error("普通错误", "您不是论坛的管理团队！") unless ($member_code eq "ad" || $member_code eq "smo" || $member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo");
+    $in_member_name = $membername;
+    $forum_ad = ($member_code eq "ad") ? 1 : 0;
 }
 $addtime = $mytimeadd * 3600 + $timezone * 3600;
 
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
-&whosonline("$inmembername\t版主签到\tboth\t论坛版主签到\t") unless (-e "$filetoopens.lck");
+&whosonline("$in_member_name\t版主签到\tboth\t论坛版主签到\t") unless (-e "$filetoopens.lck");
 
 $today_date = &longdate($currenttime + $addtime);
 $output = "";
@@ -143,7 +143,7 @@ else {
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&output("$boardname - 论坛版主签到", \$output, 'msg');
+&output("$board_name - 论坛版主签到", \$output, 'msg');
 
 sub top_page {
     my ($ad_announce, $ad_ann_date);
@@ -174,17 +174,17 @@ sub top_page {
         $get_today_log =~ s/^\_+//;
         $get_today_log =~ s/\_+$//;
         $get_today_log = "\_$get_today_log\_";
-        $pcard_or_not = 1 if ($get_today_log =~ /\_$inmembername\_/i);
+        $pcard_or_not = 1 if ($get_today_log =~ /\_$in_member_name\_/i);
         $get_today_log_list = $get_today_log;
         $get_today_log_list =~ s/^\_+//;
         $get_today_log_list =~ s/(.+?)\_/<option>$1<\/option>/gi;
     }
     if (!$pcard_or_not && $checkaction eq "pcard") {
         open(FILE, ">>$today_log");
-        print FILE "$inmembername\n";
+        print FILE "$in_member_name\n";
         close(FILE);
         $pcard_or_not = 1;
-        $get_today_log_list .= qq~<option>$inmembername</option>~;
+        $get_today_log_list .= qq~<option>$in_member_name</option>~;
     }
 
     $td_height = ($forum_ad) ? 163 : 238;
@@ -306,7 +306,7 @@ sub pcard_status {
     &page_error("签到记录", "没有任何签到记录！") unless (-e $that_day_log);
 
     if ($otheraction_a eq "search") {
-        $that_day_log = "${prog_dir}$inmembername\_search.cgi";
+        $that_day_log = "${prog_dir}$in_member_name\_search.cgi";
         $checkaction = "搜寻签到记录";
         $checkaction_link = "";
     }
@@ -579,7 +579,7 @@ sub pcard_search_a {
         #開始 SEARCH
         my $i = 0;
         my (@have_pcard, @have_not_pcard);
-        my $search_file = "${prog_dir}$inmembername\_search.cgi";
+        my $search_file = "${prog_dir}$in_member_name\_search.cgi";
         unlink $search_file;
         foreach $log_file (@log_selected) {
             my $log_file_date = substr($log_file, 0, -4);
@@ -639,7 +639,7 @@ sub pcard_search_a {
         #開始 SEARCH
         my $i = 0;
         my (@have_pcard, @have_not_pcard);
-        my $search_file = "${prog_dir}$inmembername\_search.cgi";
+        my $search_file = "${prog_dir}$in_member_name\_search.cgi";
         unlink $search_file;
         foreach $log_file (@log_selected) {
             my $log_file_date = substr($log_file, 0, -4);
@@ -717,7 +717,7 @@ sub page_error {
 </td></tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    &output("$boardname - 论坛版主签到", \$output, 'msg');
+    &output("$board_name - 论坛版主签到", \$output, 'msg');
     exit;
 }
 

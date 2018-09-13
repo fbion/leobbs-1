@@ -32,24 +32,24 @@ require "data/styles.cgi";
 $|++;
 &waptitle;
 
-$show .= qq~<card  title="$boardname">~;
-$inmembername = $query->param('n1');
-if ($inmembername ne '') {
+$show .= qq~<card  title="$board_name">~;
+$in_member_name = $query->param('n1');
+if ($in_member_name ne '') {
     # login
-    $inmembername = $uref->fromUTF8("UTF-8", $inmembername);
-    $inpassword = $query->param('p');
-    if ($inpassword ne "") {
-        eval {$inpassword = md5_hex($inpassword);};
-        if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-        unless ($@) {$inpassword = "lEO$inpassword";}
+    $in_member_name = $uref->fromUTF8("UTF-8", $in_member_name);
+    $in_password = $query->param('p');
+    if ($in_password ne "") {
+        eval {$in_password = md5_hex($in_password);};
+        if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+        unless ($@) {$in_password = "lEO$in_password";}
     }
-    if ($inmembername eq "" || $inmembername eq "客人") {
-        $inmembername = "客人";
+    if ($in_member_name eq "" || $in_member_name eq "客人") {
+        $in_member_name = "客人";
     }
     else {
-        &getmember("$inmembername", "no");
+        &getmember("$in_member_name", "no");
         &errorout("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-        if ($inpassword ne $password) {
+        if ($in_password ne $password) {
             &errorout("普通错误&密码与用户名不相符，请重新登录！");}
     }
     FILE:
@@ -61,7 +61,7 @@ if ($inmembername ne '') {
     if (-e "${lbdir}wap/$x") {goto FILE;}
     my $xh2 = $ENV{'REMOTE_ADDR'};
     open(file, ">${lbdir}wap/$x");
-    print file "$inmembername,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
+    print file "$in_member_name,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
     close(file);
 
     open(file, "${lbdir}wap/all.h");
@@ -72,12 +72,12 @@ if ($inmembername ne '') {
     foreach (@s) {
         chomp;
         my ($n, $s) = split(/\,/, $_);
-        if ($inmembername eq $n) {
+        if ($in_member_name eq $n) {
             unlink "${lbdir}wap/$s";
         }
         else {print file "$_\n";}
     }
-    print file "$inmembername,$x\n";
+    print file "$in_member_name,$x\n";
     close(file);
     $show .= qq~<p>您的幸运ID为：$x,您的IP为：$xh2，请不要泄漏您的幸运ID给任何人！如果您是用手机访问且手机为私有，请把下面进入的首页地址加入书签(书签地址：$boardurl/wap.cgi?lid=$x ，加入之后可免登陆) 。否则请不要加入书签！</p><p><a href="wap.cgi?lid=$x">点击此处进入首页</a></p>~;
     &wapfoot;
@@ -143,8 +143,8 @@ else {
     close(file);
 }
 
-my $r = &msg($inmembername);
-$show .= qq~<p>$inmembername,$boardname欢迎您！<br/><a href="wap_new.cgi?lid=$lid">最新帖子</a><br/><a href="wap_sms.cgi?lid=$lid">短消息</a><br/>$r\n~;
+my $r = &msg($in_member_name);
+$show .= qq~<p>$in_member_name,$board_name欢迎您！<br/><a href="wap_new.cgi?lid=$lid">最新帖子</a><br/><a href="wap_sms.cgi?lid=$lid">短消息</a><br/>$r\n~;
 my @a = split(/\<br>/, $r1);
 my $allfile = @a;
 my $yema = $allfile / $pre_index;

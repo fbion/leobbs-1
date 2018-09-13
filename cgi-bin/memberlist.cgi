@@ -42,54 +42,54 @@ $query = new LBCGI;
 $topanzahl = $hottopicmark;    #显示发贴前多少名？显示最新多少个加入的用户？
 $startseite = "1";             #默认排序:  1->发贴数, 2->前N名, 3->用户名, 4->注册日期
 $memberproseite = $maxthreads; #每页显示用户数
-if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = cookie("amembernamecookie");}
+if (!$in_password) {$in_password = cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 if ($infosopen == 2) {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    &error("查看会员列表&客人无权查看会员列表！") if ($inmembername eq "客人");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    &error("查看会员列表&客人无权查看会员列表！") if ($in_member_name eq "客人");
     if ($userregistered eq "no") {&error("查看会员列表&你还没注册呢！");}
-    elsif ($inpassword ne $password) {&error("查看会员列表&你的密码有问题！");}
-    &error("查看会员列表&论坛会员列表只有坛主和版主可以查看！") if (($membercode ne "ad") && ($membercode ne 'amo') && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne "mo"));
+    elsif ($in_password ne $password) {&error("查看会员列表&你的密码有问题！");}
+    &error("查看会员列表&论坛会员列表只有坛主和版主可以查看！") if (($member_code ne "ad") && ($member_code ne 'amo') && ($member_code ne 'smo') && ($member_code ne 'cmo') && ($member_code ne "mo"));
 }
 elsif ($infosopen == 3) {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    &error("查看会员列表&客人无权查看会员列表！") if ($inmembername eq "客人");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    &error("查看会员列表&客人无权查看会员列表！") if ($in_member_name eq "客人");
     if ($userregistered eq "no") {&error("查看会员列表&你还没注册呢！");}
-    elsif ($inpassword ne $password) {&error("查看会员列表&你的密码有问题！");}
-    &error("查看会员列表&论坛会员列表只有坛主可以查看！") if ($membercode ne "ad");
+    elsif ($in_password ne $password) {&error("查看会员列表&你的密码有问题！");}
+    &error("查看会员列表&论坛会员列表只有坛主可以查看！") if ($member_code ne "ad");
 }
 elsif ($infosopen == 1) {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    &error("查看会员列表&客人无权查看会员列表！") if ($inmembername eq "客人");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    &error("查看会员列表&客人无权查看会员列表！") if ($in_member_name eq "客人");
     if ($userregistered eq "no") {&error("查看会员列表&你还没注册呢！");}
-    elsif ($inpassword ne $password) {&error("查看会员列表&你的密码有问题！");}
+    elsif ($in_password ne $password) {&error("查看会员列表&你的密码有问题！");}
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
 }
 &title;
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-    &whosonline("$inmembername\t用户列表\tboth\t查看用户列表\t");
+    &whosonline("$in_member_name\t用户列表\tboth\t查看用户列表\t");
 }
 open(FILE, "${lbdir}data/lbmember.cgi");
 sysread(FILE, $totlemembertemp, (stat(FILE))[7]);
@@ -132,7 +132,7 @@ foreach $line (@file) {
 
 $output .= qq~<br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看到本站所有注册会员的列表和详细信息以及发帖排名情况</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="memberlist.cgi">用户列表</a> → 查看用户列表/排名<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="memberlist.cgi">用户列表</a> → 查看用户列表/排名<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 ~;
 read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
@@ -698,5 +698,5 @@ $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 bor
 </tr>
 </table><SCRIPT>valignend()</SCRIPT></center>~ if ($pagelinks ne "");
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - 用户列表", \$output);
+&output("$board_name - 用户列表", \$output);
 exit;

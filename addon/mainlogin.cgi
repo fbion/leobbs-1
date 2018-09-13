@@ -41,24 +41,24 @@ $|++;
 $thisprog = "mainlogin.cgi";
 $query = new LBCGI;
 
-if (! $inmembername) { $inmembername = $query->cookie("amembernamecookie"); }
-if (! $inpassword)   { $inpassword   = $query->cookie("apasswordcookie");   }
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (! $in_member_name) { $in_member_name = $query->cookie("amembernamecookie"); }
+if (! $in_password)   { $in_password   = $query->cookie("apasswordcookie");   }
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人" ) {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人" ) {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername");
-    $inmembername = "客人" if ($userregistered eq "no");
+    &getmember("$in_member_name");
+    $in_member_name = "客人" if ($userregistered eq "no");
 }
 
-if ($inmembername eq "客人") {
+if ($in_member_name eq "客人") {
     $str = qq~<FORM name=login action="$boardurl/loginout.cgi" method=post><INPUT type=hidden value=login name=action><INPUT type=hidden name=forum><BR>用户：<INPUT size=10 name=inmembername><BR>密码：<INPUT type=password size=10 name=inpassword><BR>Cookie <SELECT name=CookieDate><OPTION value="0" selected>不保存</OPTION><OPTION value=+1d>保存一天</OPTION><OPTION value=+30d>保存一月</OPTION><OPTION value=+20y>永久保存</OPTION></SELECT><BR><INPUT type=submit value=进入 name=Submit><INPUT type=reset value=取消 name=Submit></FORM><A target=_blank href="$boardurl/leobbs.cgi">参观</A> <A target=_blank href="$boardurl/register.cgi">注册</A> <A target=_blank href="$boardurl/profile.cgi?action=lostpassword">忘记密码</A><BR>~;
 }
 else {
-    $str = qq~<BR>欢迎您<BR>$inmembername<BR><BR><A target=_blank href="$boardurl/leobbs.cgi">进入</A> <A target=_blank href="$boardurl/loginout.cgi">重登录</A> <A href="$boardurl/loginout.cgi?action=logout">退出</A><BR>~;
+    $str = qq~<BR>欢迎您<BR>$in_member_name<BR><BR><A target=_blank href="$boardurl/leobbs.cgi">进入</A> <A target=_blank href="$boardurl/loginout.cgi">重登录</A> <A href="$boardurl/loginout.cgi?action=logout">退出</A><BR>~;
 }
 
 print header(-charset=>"UTF-8");

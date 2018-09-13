@@ -13,11 +13,11 @@ use strict;
 use diagnostics;
 
 $tempaccess = "forumsallowed" . "$in_forum";
-$testentry = $query->cookie("$tempaccess");
-if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+$test_entry = $query->cookie("$tempaccess");
+if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || ($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
 if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("复制帖子&对不起，您不允许复制保密论坛的帖子！");}
-&error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($inmembername eq "客人"));
-&error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($waterwhenguest eq "yes" && $inmembername eq "客人");
+&error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($in_member_name eq "客人"));
+&error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($waterwhenguest eq "yes" && $in_member_name eq "客人");
 
 open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
 my @threads = <FILE>;
@@ -35,7 +35,7 @@ $post =~ s/\<p\>/\n\n/ig;
 $post =~ s/\<br\>/\n/ig;
 
 if (($post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/sg) || ($post =~ /LBSALE\[(.*?)\]LBSALE/sg)) {
-    unless ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($inmembmod eq "yes") || ($myrating >= $1)) {
+    unless ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($inmembmod eq "yes") || ($myrating >= $1)) {
         &error("复制帖子&对不起，您不允许复制保密帖子！");
     }
     else {
@@ -48,15 +48,15 @@ my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
     if ($privateforum ne "yes") {
-        &whosonline("$inmembername\t$forumname\tnone\t复制帖子<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
+        &whosonline("$in_member_name\t$forumname\tnone\t复制帖子<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
     }
     else {
-        &whosonline("$inmembername\t$forumname(密)\tnone\t复制保密帖子\t");
+        &whosonline("$in_member_name\t$forumname(密)\tnone\t复制保密帖子\t");
     }
 }
 
 &getmember($membername, "no");
-&error("复制帖子&对不起，您不允许复制被屏蔽的帖子！") if (($membercode eq "masked") && ($mymembercode ne "ad") && ($mymembercode ne 'smo') && ($inmembmod ne "yes"));
+&error("复制帖子&对不起，您不允许复制被屏蔽的帖子！") if (($member_code eq "masked") && ($mymembercode ne "ad") && ($mymembercode ne 'smo') && ($inmembmod ne "yes"));
 
 $post =~ s/\[post=(.+?)\](.+?)\[\/post\]//isg;
 $post =~ s/\[jf=(.+?)\](.+?)\[\/jf\]//isg;

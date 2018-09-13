@@ -32,10 +32,10 @@ sub lbnocode {
 
     if ($$post =~ /\[ADMINOPE=(.+?)\]/) {
 	while ($$post =~ /\[ADMINOPE=(.+?)\]/g) {
-	    my ($inmembername1,$editmembername1,$ratingname1,$reason1,$thistime1) = split(/\|/,$1);
+	    my ($in_member_name1,$editmembername1,$ratingname1,$reason1,$thistime1) = split(/\|/,$1);
 	    $thistime1 = $thistime1 + ($timedifferencevalue*3600) + ($timezone*3600);
 	    $thistime1 = &dateformatshort($thistime1);
-	    $$post =~ s/\[ADMINOPE=(.+?)\]/<font color=$fonthighlight>-------------------------------------------------------------------<br>$inmembername1 在 $thistime1 由于此帖对 $editmembername1　进行如下操作：<BR>$ratingname1<BR>理由： $reason1<br>-------------------------------------------------------------------<\/font><br><br>/is;
+	    $$post =~ s/\[ADMINOPE=(.+?)\]/<font color=$fonthighlight>-------------------------------------------------------------------<br>$in_member_name1 在 $thistime1 由于此帖对 $editmembername1　进行如下操作：<BR>$ratingname1<BR>理由： $reason1<br>-------------------------------------------------------------------<\/font><br><br>/is;
 	}
     }
 
@@ -91,7 +91,7 @@ $post1<BR>
 
    if ($$post =~ /\[UploadFile.{0,6}=.+?\]/) {
      if ($abslink ne "yes") {
-        if (($nodispphoto ne 'yes' && $arrawpostpic eq 'on') || $membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo') {
+        if (($nodispphoto ne 'yes' && $arrawpostpic eq 'on') || $member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo') {
             if ($imgslt eq "Disp") {
             	$defaultsltwidth = 60 if ($defaultsltwidth eq "");
             	$defaultsltheight = 60 if ($defaultsltheight eq "");
@@ -119,7 +119,7 @@ $post1<BR>
 	}
     } else {
      	my $tmptopic = $in_topic%100;
-        if (($nodispphoto ne 'yes' && $arrawpostpic eq 'on') || $membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo') {
+        if (($nodispphoto ne 'yes' && $arrawpostpic eq 'on') || $member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo') {
             if ($imgslt eq "Disp") {
             	$defaultsltwidth = 60 if ($defaultsltwidth eq "");
             	$defaultsltheight = 60 if ($defaultsltheight eq "");
@@ -147,7 +147,7 @@ $post1<BR>
             $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.(gif|jpg|png|bmp|jpeg)\]/<BR><a href=$imagesurl\/$usrdir\/$in_forum\/$tmptopic\/$1\.$2 target=_blank><img src=$imagesurl\/icon\/$2.gif border=0 width=16><\/a> <a href=$imagesurl\/$usrdir\/$in_forum\/$tmptopic\/$1\.$2 target=_blank>点击显示此主题相关图片<\/a><br>/isg;
 	}
       }	
-	if (($arrawpostflash eq "on") ||($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+	if (($arrawpostflash eq "on") ||($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
 	    $$post =~ s/\[UploadFileDisp=([^\]]+?)\.swf\]/<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$boardurl\/attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&name=$1&type=.swf quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed>/isg;
 	    $$post =~ s/\[UploadFile.{0,6}=([^\\\]]+?)\.swf\]/<br><img src=$imagesurl\/icon\/swf.gif border=0 width=16> 该主题有一个 swf 格式 Flash 动画<br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$boardurl\/attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&name=$1&type=.swf quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl\/images\/fav.gif width=16> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&name=$1&type=.swf target=_blank>全屏观看<\/a> (按右键下载)<br><BR>/isg;
 	} else {

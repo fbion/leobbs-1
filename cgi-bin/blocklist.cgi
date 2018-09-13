@@ -44,31 +44,31 @@ my $thisprog = "blocklist.cgi";
 my $action = $query->param('action');
 my $deluser = $query->param('deluser');
 my $adduser = $query->param('adduser');
-my $inmembername = $query->param('membername');
-my $inpassword = $query->param('password');
-if ($inpassword ne "") {
-    eval {$inpassword = Digest::MD5::md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+my $in_member_name = $query->param('membername');
+my $in_password = $query->param('password');
+if ($in_password ne "") {
+    eval {$in_password = Digest::MD5::md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $adduser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\;\\\{\}\'\:\"\,\.\/\<\>\?]//isg;
 $deluser =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\;\\\{\}\'\:\"\,\.\/\<\>\?]//isg;
 
-if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = cookie("amembernamecookie");}
+if (!$in_password) {$in_password = cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
     errorbl("请登录后再使用本功能！");
 }
 else {
-    &getmember("$inmembername", "no");
-    &error("普通错误&此用户根本不存在！") if ($inpassword ne "" && $userregistered eq "no");
-    &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password && $userregistered ne "no");
+    &getmember("$in_member_name", "no");
+    &error("普通错误&此用户根本不存在！") if ($in_password ne "" && $userregistered eq "no");
+    &error("普通错误&密码与用户名不相符，请重新登录！") if ($in_password ne $password && $userregistered ne "no");
     &action;
 }
 
@@ -79,11 +79,11 @@ sub action {
 }
 
 sub adduser {
-    errorbl("自己添加自己到黑名单做什么？") if ($adduser eq $inmembername);
+    errorbl("自己添加自己到黑名单做什么？") if ($adduser eq $in_member_name);
     &getmember($adduser, "no");
     if ($userregistered ne "no") {
 
-        $memberfiletitle = $inmembername;
+        $memberfiletitle = $in_member_name;
         $memberfiletitle =~ s/ /_/g;
         $memberfiletitle =~ tr/A-Z/a-z/;
 
@@ -119,7 +119,7 @@ sub adduser {
 
 sub deluser {
 
-    $memberfiletitle = $inmembername;
+    $memberfiletitle = $in_member_name;
     $memberfiletitle =~ s/ /_/g;
     $memberfiletitle =~ tr/A-Z/a-z/;
 
@@ -185,16 +185,16 @@ function openScript(url, width, height) {
 		BR	{	FONT-FAMILY: 宋体; FONT-SIZE: 9pt	}
 
 </style>
-<title>$inmembername - 黑名单列表</title>
+<title>$in_member_name - 黑名单列表</title>
 </head>
 <body bgcolor="#D1D9E2"  alink="#333333" vlink="#333333" link="#333333" >
-<center>$inmembername 的黑名单列表</center><br>
+<center>$in_member_name 的黑名单列表</center><br>
 <table width=97% align=center cellspacing=0 cellpadding=1  border=0 bgcolor=#333333>
 		<tr><td>
 <table width=100% cellspacing=0 cellpadding=4 border=0>
 ~;
 
-    $memberfiletitle = $inmembername;
+    $memberfiletitle = $in_member_name;
     $memberfiletitle =~ s/ /_/g;
     $memberfiletitle =~ tr/A-Z/a-z/;
 
@@ -211,7 +211,7 @@ function openScript(url, width, height) {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t黑名单列表\tnone\t查看黑名单列表\t");
+        &whosonline("$in_member_name\t黑名单列表\tnone\t查看黑名单列表\t");
     }
 
     $output .= qq~
@@ -317,7 +317,7 @@ sub errorbl {
     $output = qq~
 <html>
 <head>
-<title>$inmembername - 黑名单列表 >> 错误</title>
+<title>$in_member_name - 黑名单列表 >> 错误</title>
 <meta http-equiv="refresh" content="30;URL=blocklist.cgi">
 <style>
 		A:visited {	TEXT-DECORATION: none	}

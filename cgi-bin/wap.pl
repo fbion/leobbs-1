@@ -47,7 +47,7 @@ sub errorout {
 }
 sub msg {
     my ($memberfilename, $p) = @_;
-    return if ($inmembername eq '客人' || $inmembername eq '');
+    return if ($in_member_name eq '客人' || $in_member_name eq '');
     open(MSGIN, "${lbdir}$msgdir/in/${memberfilename}_msg.cgi");
     sysread(MSGIN, $totalmessages, (stat(MSGIN))[7]);
     close(MSGIN);
@@ -67,15 +67,15 @@ sub check {
         open(file, "${lbdir}wap/$lid");
         my $bf = <file>;
         close(file);
-        ($inmembername, $xh2, $pre, $topicpre, $pre_index, $mastnum, $mastnum2, $city1, $where) = split(/\,/, $bf);
+        ($in_member_name, $xh2, $pre, $topicpre, $pre_index, $mastnum, $mastnum2, $city1, $where) = split(/\,/, $bf);
         if ($xh2 ne $ENV{'REMOTE_ADDR'}) {
-            $inmembername = '客人';
+            $in_member_name = '客人';
             unlink "${lbdir}wap/$lid";
             $lid = 'a';
         }
     }
     else {
-        $inmembername = '客人';
+        $in_member_name = '客人';
         $lid = 'a';
     }
 }

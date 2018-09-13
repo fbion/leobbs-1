@@ -45,10 +45,10 @@ for ('action', 'emoticonid', 'emoticonname', 'emoticonurl', 'emoticoninfo') {
 }
 $checkaction = ($query->param('checkaction') eq "yes") ? "yes" : "no";
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 my %Mode = ('createnew' => \&createnew,
     'processnew'        => \&createaction,
@@ -60,8 +60,8 @@ my %Mode = ('createnew' => \&createnew,
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
-&getmember("$inmembername", "no");
-if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+&getmember("$in_member_name", "no");
+if (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
     print qq~
     <tr><td bgcolor="#2159C9" colspan=2><font color=#FFFFFF>
     <b>欢迎来到论坛管理中心 / 表情转换设置管理器</b>

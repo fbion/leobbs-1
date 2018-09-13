@@ -51,13 +51,13 @@ if ($in_topic !~ /^[0-9]+$/ && $in_topic ne "") {
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 &getoneforum("$in_forum");
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./)) {
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./)) {
     $inpost = "普通错误&老大，别乱黑我的程序呀！";
     $error = 1;
 }
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -77,7 +77,7 @@ if ($end_q_tag ne $srt_q_tag) {
 $postbackcolor = "$postcolorone";
 $postfontcolor = "$postfontcolorone";
 if ($error == 0) {
-    if (($inpost =~ /(\&\#35\;|#)Moderation Mode/i && ($inmembmod eq "yes" || $membercode eq "ad" || $membercode eq "smo")) || $htmlstate eq "on") {
+    if (($inpost =~ /(\&\#35\;|#)Moderation Mode/i && ($inmembmod eq "yes" || $member_code eq "ad" || $member_code eq "smo")) || $htmlstate eq "on") {
         $inpost =~ s/(\&\#35\;|#)Moderation Mode/***** 版主模式 *****\<br\>/g;
         $inpost =~ s/&lt;/</g;
         $inpost =~ s/&gt;/>/g;
@@ -125,5 +125,5 @@ else {
 <tr><td bgcolor=$titlecolor $catbackpic align=center height="20"><font color=$titlefontcolor><a href="javascript:close()">-=> 关闭 <=-</a></td></tr></table></td></table><SCRIPT>valignend()</SCRIPT><p>~;
 }
 
-&output("$boardname - 预览", \$output, "msg");
+&output("$board_name - 预览", \$output, "msg");
 exit;

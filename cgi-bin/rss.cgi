@@ -77,14 +77,14 @@ sub viewall {
     $rssout = qq~Content-type:application/xml\n\n~;
     $rssout .= qq~<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n~;
     $rssout .= qq~<channel>\n~;
-    $rssout .= qq~\t<title><![CDATA[$boardname - 论坛最新贴]]></title>\n~;
+    $rssout .= qq~\t<title><![CDATA[$board_name - 论坛最新贴]]></title>\n~;
     $rssout .= qq~\t<link>$boardurl/leobbs.cgi</link>\n~;
-    $rssout .= qq~\t<description><![CDATA[$boardname 最新 $max 个贴子列表]]></description>\n~;
-    $rssout .= qq~\t<copyright>$boardname</copyright>\n~;
+    $rssout .= qq~\t<description><![CDATA[$board_name 最新 $max 个贴子列表]]></description>\n~;
+    $rssout .= qq~\t<copyright>$board_name</copyright>\n~;
     $rssout .= qq~\t<managingEditor>$adminemail_in</managingEditor>\n~;
     $rssout .= qq~\t<language>zh-cn</language>\n~;
     $rssout .= qq~\t<generator>LEOBBS X -- http://bbs.leobbs.com/</generator>\n~;
-    $rssout .= qq~\t<image><url>$imagesurl/images/lblogo.gif</url>\n<title>$boardname</title>\n<link>$boardurl</link>\n</image>\n~;
+    $rssout .= qq~\t<image><url>$imagesurl/images/lblogo.gif</url>\n<title>$board_name</title>\n<link>$boardurl</link>\n</image>\n~;
 
     if ($rssinfo eq "no") {
         my $addtime = time;
@@ -216,14 +216,14 @@ sub forums {
     $rssout = qq~Content-type:application/xml\n\n~;
     $rssout .= qq~<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n~;
     $rssout .= qq~<channel>\n~;
-    $rssout .= qq~\t<title><![CDATA[$boardname - $forumname 最新贴子]]></title>\n~;
+    $rssout .= qq~\t<title><![CDATA[$board_name - $forumname 最新贴子]]></title>\n~;
     $rssout .= qq~\t<link>$boardurl/forums.cgi&amp;forum=$number</link>\n~;
-    $rssout .= qq~\t<description><![CDATA[$boardname - $forumname 最新 $max 个贴子列表]]></description>\n~;
-    $rssout .= qq~\t<copyright>$boardname</copyright>\n~;
+    $rssout .= qq~\t<description><![CDATA[$board_name - $forumname 最新 $max 个贴子列表]]></description>\n~;
+    $rssout .= qq~\t<copyright>$board_name</copyright>\n~;
     $rssout .= qq~\t<managingEditor>$adminemail_in</managingEditor>\n~;
     $rssout .= qq~\t<language>zh-cn</language>\n~;
     $rssout .= qq~\t<generator>LEOBBS X -- http://bbs.leobbs.com/</generator>\n~;
-    $rssout .= qq~\t<image><url>$imagesurl/images/lblogo.gif</url>\n<title>$boardname</title>\n<link>$boardurl</link>\n</image>~;
+    $rssout .= qq~\t<image><url>$imagesurl/images/lblogo.gif</url>\n<title>$board_name</title>\n<link>$boardurl</link>\n</image>~;
 
     if ($rssinfo eq "no") {
         my $addtime = time;
@@ -241,7 +241,7 @@ sub forums {
         exit;
     }
 
-    if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers ne '') {
+    if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allow_users ne '') {
         my $addtime = time;
         $addtime = $timedifferencevalue * 3600 + $timezone * 3600 + $addtime;
         my $posttime = &dateformat($posttime + $addtime);

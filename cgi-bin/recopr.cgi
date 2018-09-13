@@ -37,17 +37,17 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-$inmembername = $query->cookie("amembernamecookie") if (!$inmembername);
-$inpassword = $query->cookie("apasswordcookie") if (!$inpassword);
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie") if (!$in_member_name);
+$in_password = $query->cookie("apasswordcookie") if (!$in_password);
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("普通错误&你现在的身份是访客，必须登录以后才能查看个人主题！");
 }
 else {
-    &getmember($inmembername, "no");
-    if ($inpassword ne $password) {
+    &getmember($in_member_name, "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -56,10 +56,10 @@ else {
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 opendir(DIRS, "$lbdir");
@@ -89,7 +89,7 @@ $output = qq~<p>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>$mytopics</font></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - 主题关注", \$output, "msg");
+&output("$board_name - 主题关注", \$output, "msg");
 exit;
 
 sub getmytopic {
@@ -98,7 +98,7 @@ sub getmytopic {
         $filetoopen = $lbdir . "data/recentpost.cgi";
     }
     else {
-        my $cleanmembername = $inmembername;
+        my $cleanmembername = $in_member_name;
         $cleanmembername =~ s/ /\_/isg;
         $cleanmembername =~ tr/A-Z/a-z/;
         $filetoopen = $lbdir . "$recorddir/" . $mode . "/" . $cleanmembername . ".cgi";

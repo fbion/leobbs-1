@@ -317,7 +317,7 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
        &error("修改资料&请输入用户名、邮件地址，这些是必需的！");
     }
 
-    $memberfiletitle = $inmembername;
+    $memberfiletitle = $in_member_name;
     $memberfiletitle =~ s/ /\_/isg;
     $memberfiletitle =~ tr/A-Z/a-z/;
     $memberfiletitletemp = unpack("H*","$memberfiletitle");
@@ -368,7 +368,7 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
         my $buffer;
         open (FILE,">${imagesdir}usravatars/$memberfiletitletemp.$fileexp");
         binmode (FILE);
-        while (((read($addme,$buffer,4096)))&&!(($filesize>$maxupload)&&($membercode ne "ad"))) {
+        while (((read($addme,$buffer,4096)))&&!(($filesize>$maxupload)&&($member_code ne "ad"))) {
                print FILE $buffer;
                $filesize=$filesize+4;
          }
@@ -408,9 +408,9 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
     if($newemailaddress !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) { &error("注册&Email 地址非法$newemailaddress！"); }
     $newemailaddress =~ s/[\ \a\f\n\e\0\r\t\`\~\!\#\$\%\^\&\*\(\)\=\+\\\[\]\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
 
-   &getmember("$inmembername");
+   &getmember("$in_member_name");
     
-#    &getmember("$inmembername","no");
+#    &getmember("$in_member_name","no");
 
     if ($newemailaddress ne $emailaddress) {
 	my $charone = substr($newemailaddress, 0, 1);
@@ -435,12 +435,12 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
 	if (($allmemberemails =~ /\n$newemailaddress\t(.+?)\n/i)&&($oneaccountperemail eq "yes")) {
 	   &error("资料修改&对不起，这输入的 Email 已经被注册用户：<u>$1</u> 使用了");
 	}
-	$allmemberemails1 =~ s/$emailaddress\t$inmembername\n//isg;
+	$allmemberemails1 =~ s/$emailaddress\t$in_member_name\n//isg;
 	open(MEMFILE1, ">${lbdir}data/lbemail/$charone1.cgi");
 	print MEMFILE1 "$allmemberemails1";
 	close(MEMFILE1);
 	open(MEMFILE, ">>${lbdir}data/lbemail/$charone.cgi");
-	print MEMFILE "$newemailaddress\t$inmembername\n";
+	print MEMFILE "$newemailaddress\t$in_member_name\n";
 	close(MEMFILE);
    }
    
@@ -455,14 +455,14 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
             foreach (@allmembers) {
                 chomp $_;
                 ($user, $no) = split(/\t/,$_);
-                if (lc($user) eq lc($inmembername)) {
-	            print MEMFILE "$inmembername\t$newborn\t\n" if (($newborn ne "")&&($newborn ne "//"));
+                if (lc($user) eq lc($in_member_name)) {
+	            print MEMFILE "$in_member_name\t$newborn\t\n" if (($newborn ne "")&&($newborn ne "//"));
 	            $writeborn=1;
                 } else {
 	            print MEMFILE "$_\n";
                 }
             }
-	    print MEMFILE "$inmembername\t$newborn\t\n" if (($writeborn==0)&&($newborn ne "")&&($newborn ne "//"));
+	    print MEMFILE "$in_member_name\t$newborn\t\n" if (($writeborn==0)&&($newborn ne "")&&($newborn ne "//"));
             close (MEMFILE);
 	}
 
@@ -477,7 +477,7 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
                 foreach (@birthdaydata) {
                     chomp $_;
                     ($user, $no) = split(/\t/,$_);
-                    next if (lc($user) eq lc($inmembername));
+                    next if (lc($user) eq lc($in_member_name));
 	            print MEMFILE "$_\n";
 	        }
             }
@@ -487,7 +487,7 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
 	if (($newborn ne "")&&($newborn ne "//")) {
 	    $newmonth = int($newmonth);
 	    open (MEMFILE, ">>${lbdir}calendar/borninfo$newmonth.cgi");
-	    print MEMFILE "$inmembername\t$newborn\t\n";
+	    print MEMFILE "$in_member_name\t$newborn\t\n";
 	    close (MEMFILE);
 	}
     }
@@ -506,14 +506,14 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
 
 	$to = $newemailaddress;
 	$from = $adminemail_out;
-	$subject = "您改变了在 $boardname 中注册的邮件地址";
+	$subject = "您改变了在 $board_name 中注册的邮件地址";
 
 	$message .= "\n";
 	$message .= "$homename <br>\n";
 	$message .= "$boardurl/leobbs.cgi\n <br><br>\n <br>\n";
 	$message .= "------------------------------------<br>\n";
 	$message .= "您的用户名、新论坛密码如下：\n <br><br>\n";
-	$message .= "用户名： $inmembername <br>\n";
+	$message .= "用户名： $in_member_name <br>\n";
 	$message .= "新论坛密码： $newpassword\n <br><br>\n <br>\n";
 	$message .= "请注意：用户名和论坛密码区分大小写！\n <br>\n";
 	$message .= "------------------------------------<br>\n";
@@ -545,7 +545,7 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
 	my @JUMP=<FILE>;
 	close(FILE);
 	chomp @JUMP;
-	if($membercode eq "ad" || $membercode eq "smo"){
+	if($member_code eq "ad" || $member_code eq "smo"){
 		@JUMP = grep(/^(.+?)\t[1|0]\t/,@JUMP);
 	}else{
         	@JUMP1 = grep(/^$jhmp\t0\t/,@JUMP);
@@ -562,7 +562,7 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
 	$userquestion = $newuserquestion; 
     }
     
-    if (($inmembername ne "")&&($newpassword ne "")) {
+    if (($in_member_name ne "")&&($newpassword ne "")) {
 	require "dosignlbcode.pl";
 	$signature1=&signlbcode($newsignature); 
 	$newsignature=$newsignature."aShDFSiod".$signature1;
@@ -573,11 +573,11 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
 	if (open(FILE, "+<$filetomake")) {
 	    flock(FILE, 2) if ($OS_USED eq "Unix");
 	    seek(FILE,0,0);
-	    print FILE "$inmembername\t$newpassword\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$newemailaddress\t$newshowemail\t$ipaddress\t$newhomepage\t$newoicqnumber\t$newicqnumber\t$newlocation\t$newinterests\t$joineddate\t$lastpostdate\t$newsignature\t$newtimedifference\t$privateforums\t$inuseravatar\t$inuserflag\t$inuserxz\t$inusersx\t$newpersonalavatar\t$newpersonalwidth\t$newpersonalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$newsex\t$neweducation\t$newmarry\t$newwork\t$newborn\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+	    print FILE "$in_member_name\t$newpassword\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$newemailaddress\t$newshowemail\t$ipaddress\t$newhomepage\t$newoicqnumber\t$newicqnumber\t$newlocation\t$newinterests\t$joineddate\t$lastpostdate\t$newsignature\t$newtimedifference\t$privateforums\t$inuseravatar\t$inuserflag\t$inuserxz\t$inusersx\t$newpersonalavatar\t$newpersonalwidth\t$newpersonalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$newsex\t$neweducation\t$newmarry\t$newwork\t$newborn\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
 	    close(FILE);
 	}
 	if (open(FILE, ">${lbdir}$memdir/old/$memberfiletitle.cgi")) {
-	    print FILE "$inmembername\t$newpassword\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$newemailaddress\t$newshowemail\t$ipaddress\t$newhomepage\t$newoicqnumber\t$newicqnumber\t$newlocation\t$newinterests\t$joineddate\t$lastpostdate\t$newsignature\t$newtimedifference\t$privateforums\t$inuseravatar\t$inuserflag\t$inuserxz\t$inusersx\t$newpersonalavatar\t$newpersonalwidth\t$newpersonalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$newsex\t$neweducation\t$newmarry\t$newwork\t$newborn\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+	    print FILE "$in_member_name\t$newpassword\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$newemailaddress\t$newshowemail\t$ipaddress\t$newhomepage\t$newoicqnumber\t$newicqnumber\t$newlocation\t$newinterests\t$joineddate\t$lastpostdate\t$newsignature\t$newtimedifference\t$privateforums\t$inuseravatar\t$inuserflag\t$inuserxz\t$inusersx\t$newpersonalavatar\t$newpersonalwidth\t$newpersonalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$newsex\t$neweducation\t$newmarry\t$newwork\t$newborn\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
 	    close(FILE);
 	}
 	&winunlock($filetomake) if ($OS_USED eq "Nt");

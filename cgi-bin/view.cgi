@@ -58,10 +58,10 @@ if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum
 
 &error("普通错误&对不起，本论坛不允许新闻方式快速阅读！") if ($canuseview eq "no");
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 &ipbanned;
 
 if ($useadscript ne 0) {
@@ -96,27 +96,27 @@ if ($currenttime - $banfresh - 1 <= $banfreshtime && $backtopic eq $in_topic) {
 
 &getoneforum($in_forum);
 
-if ($inmembername eq "" or $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" or $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $myrating = -1;
     $mymembercode = "no";
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
 }
 else {
-    &getmember($inmembername, "no");
+    &getmember($in_member_name, "no");
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
-    $mymembercode = $membercode;
+    $mymembercode = $member_code;
     $myinmembmod = $inmembmod;
     $myrating = $rating;
     $tempaccess = "forumsallowed" . $in_forum;
-    $testentry = $query->cookie($tempaccess);
-    $allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
+    $test_entry = $query->cookie($tempaccess);
+    $allowed = $allowed_entry{$in_forum} eq "yes" || ($test_entry eq $forum_pass && $test_entry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
     &getlastvisit;
     $forumlastvisit = $lastvisitinfo{$in_forum};
     &setlastvisit("$in_forum,$currenttime");
@@ -125,16 +125,16 @@ else {
 
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
 
-&error("进入会员论坛查看帖子内容&您是客人没有权限进入!") if ($inmembername eq "客人" && $regaccess eq "on" && &checksearchbot);
+&error("进入会员论坛查看帖子内容&您是客人没有权限进入!") if ($in_member_name eq "客人" && $regaccess eq "on" && &checksearchbot);
 &error("进入私有论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq "yes" && $allowed ne "yes");
-if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
+if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
 
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
 
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -190,7 +190,7 @@ if ($mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes") {
 else {
     $viewhide = 0;
     if ($hidejf eq "yes") {
-        my @viewhide = grep (/^$inmembername\t/i, @threads);
+        my @viewhide = grep (/^$in_member_name\t/i, @threads);
         $viewhide = @viewhide;
         $viewhide = 1 if ($viewhide > 1);
     }
@@ -199,7 +199,7 @@ $StartCheck = $numberofposts + $numberofreplys;
 
 ($membername, $topictitle, $postipaddresstemp, $showemoticons, $showsignature, $postdate, $post, $posticon) = split(/\t/, $threads[0]);
 
-if (($inmembername eq "" || $inmembername eq "客人") && ($waterwhenguest eq "yes")) {
+if (($in_member_name eq "" || $in_member_name eq "客人") && ($waterwhenguest eq "yes")) {
     $post = "\[watermark]\n$post\[\/watermark]";
 }
 
@@ -214,7 +214,7 @@ $postdate = &dateformat($postdate + $addtimes);
 &getmember($membername, "no");
 $inmembmod = $forummodnamestemp =~ /\Q,$membername,\E/i ? "yes" : "no";
 
-if ((($post =~ /(\&\#35\;|#)Moderation Mode/i) && ($membercode eq 'mo' || $membercode eq 'amo' || $membercode eq 'cmo' || $membercode eq 'ad' || $membercode eq 'smo')) || $htmlstate eq 'on') {
+if ((($post =~ /(\&\#35\;|#)Moderation Mode/i) && ($member_code eq 'mo' || $member_code eq 'amo' || $member_code eq 'cmo' || $member_code eq 'ad' || $member_code eq 'smo')) || $htmlstate eq 'on') {
     $post =~ s/(\&\#35\;|#)Moderation Mode/***** 版主模式 *****\<BR\>/g;
     $post =~ s/&lt;/</g;
     $post =~ s/&gt;/>/g;
@@ -263,7 +263,7 @@ if ($addmefile == 1) {
 else {
     $addme = "";
 }
-if ($membercode eq "masked") {
+if ($member_code eq "masked") {
     $addme = "";
     $post = qq(<br>------------------------<br><font color=$posternamecolor>此用户的发言已经被屏蔽！<br>如有疑问，请联系管理员！</font><br>------------------------<BR>);
 }
@@ -373,7 +373,7 @@ if ($posticon ne "") {
                             $size++;
                         }
                     }
-                    $showpoll = "true" if ($tmpinmembername eq $inmembername);
+                    $showpoll = "true" if ($tmpinmembername eq $in_member_name);
                 }
                 undef @allpoll;
             }
@@ -423,11 +423,11 @@ if ($posticon ne "") {
             }
             $poll .= "</td></tr><tr><td colspan=$adminviewcolspan><hr size=1 width=100%></td></tr></table>";
 
-            if ($threadstate eq "pollclosed" || $showpoll eq "true" || $inmembername eq "客人") {
-                my $poll1 = "<font color=$fonthighlight>客人不能投票，请注册！</font>" if ($inmembername eq "客人");
+            if ($threadstate eq "pollclosed" || $showpoll eq "true" || $in_member_name eq "客人") {
+                my $poll1 = "<font color=$fonthighlight>客人不能投票，请注册！</font>" if ($in_member_name eq "客人");
                 $poll1 = "<font color=$fonthighlight>谢谢，你已经投过票了！</font>" if ($showpoll eq "true");
                 $poll1 = "<font color=$fonthighlight>对不起，此投票已经关闭！</font>" if ($threadstate eq "pollclosed");
-                $poll = "<br><br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font><br>" if ($PollHidden eq "yes" && $inmembername eq "客人");
+                $poll = "<br><br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font><br>" if ($PollHidden eq "yes" && $in_member_name eq "客人");
                 $poll = "$poll$poll1";
             }
             else {
@@ -435,7 +435,7 @@ if ($posticon ne "") {
                     $poll = "$pollform<br><font color=$fonthighlight>目前暂时没有人投票！</font>";
                 }
                 else {
-                    $poll = "<br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font>" if ($PollHidden eq "yes" && $membername ne $inmembername);
+                    $poll = "<br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font>" if ($PollHidden eq "yes" && $membername ne $in_member_name);
                     $poll = "$pollform$poll";
                 }
             }
@@ -582,7 +582,7 @@ print qq~
 <table cellSpacing=0 cellPadding=0 width=100% border=0 style="table-layout: fixed"><tr>
 <td width=22></td>
 <td valign=top>
-<table cellSpacing=0 cellPadding=0 width=100% border=0><tr><td width=100% bgColor=#49ade9 height=17><font color=#ffffff>&nbsp;&gt;&gt; <a href=leobbs.cgi><font color=#ffffff>$boardname</font></a>／<a href=forums.cgi?forum=$in_forum><font color=#ffffff>$forumname</font></a>／<a href=topic.cgi?forum=$in_forum&topic=$in_topic><font color=#ffffff>$topictitle</font></a></font></td></tr></table>
+<table cellSpacing=0 cellPadding=0 width=100% border=0><tr><td width=100% bgColor=#49ade9 height=17><font color=#ffffff>&nbsp;&gt;&gt; <a href=leobbs.cgi><font color=#ffffff>$board_name</font></a>／<a href=forums.cgi?forum=$in_forum><font color=#ffffff>$forumname</font></a>／<a href=topic.cgi?forum=$in_forum&topic=$in_topic><font color=#ffffff>$topictitle</font></a></font></td></tr></table>
 <span style="font-size: 14px" $postipaddresstemp>
 <br><center><b>$topictitle</b></center><br>
 <span style="font-size: 9pt">(这条文章已经被阅读了 <font color=red>$threadviews</font> 次) 时间：$postdate　来源：$membername</span>
@@ -605,7 +605,7 @@ else {
 ~;
 }
 
-$membercode = "no";
+$member_code = "no";
 for ($i = 1; $i < @threads; $i++) {
     ($membername, $topictitle, $postipaddresstemp, $showemoticons, $showsignature, $postdate, $post, $posticon) = split(/\t/, $threads[$i]);
     $postdate = &dateformat($postdate + $addtimes);

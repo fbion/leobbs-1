@@ -49,23 +49,23 @@ else {
     $cookiepath = $boardurltemp;
 }
 &ipbanned; #封杀一些 IP
-$inselectstyle = $query->cookie('selectstyle');
-&error('普通错误&老大，别乱攻击我的程式呀！') if ($inselectstyle =~ m/\/|\\|\.\./);
-if ($inselectstyle ne '' && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {
+$in_select_style = $query->cookie('selectstyle');
+&error('普通错误&老大，别乱攻击我的程式呀！') if ($in_select_style =~ m/\/|\\|\.\./);
+if ($in_select_style ne '' && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {
     require "${lbdir}data/skin/${inselectstyle}.cgi";
 }
 
-$inmembername = $query->cookie('amembernamecookie');
-$inpassword = $query->cookie('apasswordcookie');
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie('amembernamecookie');
+$in_password = $query->cookie('apasswordcookie');
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq '') {
-    $inmembername = '客人';
+if ($in_member_name eq '') {
+    $in_member_name = '客人';
 }
 else {
-    &getmember($inmembername, 'no');
-    if ($inpassword ne $password) {
+    &getmember($in_member_name, 'no');
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => 'amembernamecookie', -value => '', -path => $cookiepath . '/');
         $passcookie = cookie(-name => 'apasswordcookie', -value => '', -path => $cookiepath . '/');
         print header(-cookie => [ $namecookie, $passcookie ], -expires => $EXP_MODE, -cache => $CACHE_MODES);
@@ -76,10 +76,10 @@ else {
     &getlastvisit;
 }
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $timeadd = $timedifferencevalue * 3600 + $timezone * 3600;
 $currenttime = time;
@@ -117,7 +117,7 @@ $incategory = $query->param('category');
 &error('普通错误&输入有误') if ($incategory !~ /^[0-9]+$/);
 $incategory = sprintf('%09d', $incategory);
 
-if ($membercode !~ /^(ad|(s|c|)mo)$/) {
+if ($member_code !~ /^(ad|(s|c|)mo)$/) {
     &error('普通错误&资料不存在') if ((@rearrangedforums = grep (/^$incategory\t(.*?\t){10}no\t/, @rearrangedforums)) < 1);
 }
 else {
@@ -126,7 +126,7 @@ else {
 
 my $categoryname = $rearrangedforums[0];
 $categoryname =~ s/^(.*?\t){2}(.*?)\t.*?$/$2/;
-&whosonline("$inmembername\t$categoryname\t$categoryname\t查看分类论坛上的分区");
+&whosonline("$in_member_name\t$categoryname\t$categoryname\t查看分类论坛上的分区");
 &mischeader("<a href=$thisprog?category=" . int($incategory) . ">$categoryname</a> → 查看分类论坛上的分区");
 $output .= qq~<style>
 TABLE {BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 1px; }
@@ -152,7 +152,7 @@ foreach (@rearrangedforums) {
         $countcforum = $childforumnums;
         $childforumnums = $childforumnums > 0 ? qq~  <span title="有 $childforumnums 个附属子论坛">[$childforumnums]</span>~ : "";
     }
-    $forumnameadd = "$boardname - $forumname";
+    $forumnameadd = "$board_name - $forumname";
     $forumnameadd =~ s/\&\#039\;/\\\'/g;
     $titleinfos{"$forumname\n"} =~ s/\|/\n/isg;
     my $forumbookmark = qq~<span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$forumid', '$forumnameadd')"><img src=$imagesurl/images/fav_add.gif width=15 alt="将 $forumname 加到我的最爱"></span>~;
@@ -165,7 +165,7 @@ foreach (@rearrangedforums) {
     $todayforumpost = 0 if (($nowtime ne $todayforumposttime) || ($todayforumpost eq ''));
     $todayforumpost += $todayforumpostadds[$forumid] if ($todayforumpostadds[$forumid] ne '');
 
-    if (($lastposttime > $forumlastvisit) && ($inmembername ne "客人") && ($action ne "resetall")) {
+    if (($lastposttime > $forumlastvisit) && ($in_member_name ne "客人") && ($action ne "resetall")) {
         if ($privateforum eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$bm_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
         elsif ($startnewthreads eq "follow") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$pl_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
         elsif ($startnewthreads eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$zg_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
@@ -195,7 +195,7 @@ foreach (@rearrangedforums) {
         $forumlastpost = qq~<BR>&nbsp;没有帖子，或由于服务器<BR>&nbsp;繁忙，数据暂时未知 ...~;
         $lastposter = '';
     }
-    $topictitle = '' unless (($privateforum ne 'yes') || ($membercode =~ /^(ad|smo)$/));
+    $topictitle = '' unless (($privateforum ne 'yes') || ($member_code =~ /^(ad|smo)$/));
     if ($hiddenforum eq 'yes') {
         $hiddeninfo = '  <i>(隐藏)</i>';
     }
@@ -220,7 +220,7 @@ foreach (@rearrangedforums) {
         chomp @childforum;
         foreach (@childforum[0 .. $countcforum - 1]) {
             ($cforumname, $cforumdescription, $cprivateforum, $cstartnewthreads, $clastposter, $clastposttime1, $cthreads, $cposts, $chiddenforum, $cforumid, $modout, $cteam, $cmiscad4, $ctodayforumpost, $cmiscad5) = split(/\t/, $_);
-            next unless (($chiddenforum eq "no") || ($membercode =~ /^(ad|(s|c)mo)$/));
+            next unless (($chiddenforum eq "no") || ($member_code =~ /^(ad|(s|c)mo)$/));
             $cforumnameadd = $cforumname;
             $cforumnameadd1 = $cforumnameadd;
             $cforumnameadd1 =~ s/\'/\\'/g;
@@ -232,7 +232,7 @@ foreach (@rearrangedforums) {
             my ($ctodayforumpost, $ctodayforumposttime) = split(/\|/, $ctodayforumpost);
             $ctodayforumpost = 0 if (($nowtime ne $ctodayforumposttime) || ($ctodayforumpost eq ''));
             ##############
-            if (($clastposttime > $forumlastvisit) && ($inmembername ne '客人')) {
+            if (($clastposttime > $forumlastvisit) && ($in_member_name ne '客人')) {
                 $cposts = qq~<font color=$fonthighlight><b>$cposts</b>~;
                 $cthreads = qq~<font color=$fonthighlight><b>$cthreads</b>~;
             }
@@ -250,8 +250,8 @@ foreach (@rearrangedforums) {
                 $forumlastpost = qq~<BR>&nbsp;没有帖子，或由于服务器<BR>&nbsp;繁忙，数据暂时未知 ...~;
                 $clastposter = '';
             }
-            $topictitle = '' unless ((($cprivateforum ne 'yes') || ($membercode =~ /^(ad|smo)$/)) && ($topictitle));
-            $forumbookmark = qq~<span style=CURSOR: hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$cforumid', '$boardname - $cforumnameadd1')"><img src=$imagesurl/images/fav_add.gif border=0 width=16 alt="将$cforumnameadd加到我的最爱"></span>~;
+            $topictitle = '' unless ((($cprivateforum ne 'yes') || ($member_code =~ /^(ad|smo)$/)) && ($topictitle));
+            $forumbookmark = qq~<span style=CURSOR: hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$cforumid', '$board_name - $cforumnameadd1')"><img src=$imagesurl/images/fav_add.gif border=0 width=16 alt="将$cforumnameadd加到我的最爱"></span>~;
             if ($chiddenforum eq 'yes') {
                 $hiddeninfo = '  <i>(隐藏)</i>';
             }
@@ -276,5 +276,5 @@ foreach (@rearrangedforums) {
 }
 $output .= qq~</td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR>~;
 
-&output($boardname, \$output);
+&output($board_name, \$output);
 exit;

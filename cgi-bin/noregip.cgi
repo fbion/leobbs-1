@@ -40,19 +40,19 @@ $userarray = $query->param('userarray');
 $action = $query->param("action");
 $action = &cleaninput("$action");
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
 if ($action eq "process") {
-    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         $userarray .= "\n";
         $userarray =~ s/\t//isg;
         $userarray =~ s/\r\n/\n/ig;
@@ -88,7 +88,7 @@ if ($action eq "process") {
 
 }
 else {
-    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         open(FILE, "${lbdir}data/baniplist.cgi");
         my $badusers = <FILE>;
         close(FILE);

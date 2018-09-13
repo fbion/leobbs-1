@@ -45,22 +45,22 @@ else {
     $cookiepath =~ s/\/$//;
 }
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("不能进入 $plugname &你目前的身份是访客，请先登陆!");
     exit;
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -74,7 +74,7 @@ $tempmembername =~ tr/A-Z/a-z/;
 $admin_user =~ s/ /\_/g;
 $admin_user =~ tr/A-Z/a-z/;
 
-&error("$plugname 编辑管理&只有论坛坛主与插件管理员才能进入此区！") if (($membercode ne "ad") && ($admin_user ne "$tempmembername"));
+&error("$plugname 编辑管理&只有论坛坛主与插件管理员才能进入此区！") if (($member_code ne "ad") && ($admin_user ne "$tempmembername"));
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print qq~

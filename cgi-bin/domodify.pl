@@ -18,7 +18,7 @@ require "cleanolddata.pl";
     $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
     if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
-    if ("$inpassword" ne "$password") {&error("修改资料&论坛密码错误！请重新登录后修改！"); }
+    if ("$in_password" ne "$password") {&error("修改资料&论坛密码错误！请重新登录后修改！"); }
     if (("$passwordverification" eq "yes") && ("$emailfunctions" ne "off")) {
 	$newpassneeded = "<br><B>如果您修改了邮件地址，一个新的论坛密码将通过邮件发给您。</B>";
 	undef $newpasswordaddon;
@@ -37,7 +37,7 @@ require "cleanolddata.pl";
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t个人资料\tnone\t修改<b>$inmembername</b>的个人资料\t");
+        &whosonline("$in_member_name\t个人资料\tnone\t修改<b>$in_member_name</b>的个人资料\t");
     }
 
     if ($avatars eq "on") {
@@ -57,7 +57,7 @@ require "cleanolddata.pl";
 	$totleavator=@images -1;
         $cleanavatar =  $_;
         $cleanavatar =~ s/\.(gif|jpg)$//i;
-        if (($cleanavatar =~ /admin_/) && ($membercode eq "me")) { next; }
+        if (($cleanavatar =~ /admin_/) && ($member_code eq "me")) { next; }
         if ($cleanavatar eq "$useravatar") {
 	    $selecthtml .= qq~<option value="$cleanavatar" selected>$cleanavatar</option>\n~;
             $currentface = "$cleanavatar";
@@ -241,8 +241,8 @@ if(!document.creator.oldpassword.value){alert('为了安全，请输入目前论
 <form action="$thisprog" method=post name="creator" enctype="multipart/form-data" onsubmit="return chk()">
 <input type=hidden name="action" value="process">
 <input type=hidden name="oldsex" value="$sex">
-<input type=hidden name="membername" value="$inmembername">
-<font color=$fontcolormisc>修改 <font color=$fonthighlight><b>$inmembername</b></font> 的个人资料</td></tr>
+<input type=hidden name="membername" value="$in_member_name">
+<font color=$fontcolormisc>修改 <font color=$fonthighlight><b>$in_member_name</b></font> 的个人资料</td></tr>
 <tr><td bgcolor=$miscbacktwo width=40%><font color=$fonthighlight><b>目前论坛密码：</b> <U>为了安全，请先输入您目前的论坛密码</U></td>
 <td bgcolor=$miscbacktwo width=60%><input type=password name="oldpassword" maxlength=20>　<font color=$fonthighlight>*</td>
 </tr>
@@ -278,7 +278,7 @@ $newpasswordaddon$getpassFORM
 	my @JUMP=<FILE>;
 	close(FILE);
 	chomp @JUMP;
-	if($membercode eq "ad" || $membercode eq "smo"){
+	if($member_code eq "ad" || $member_code eq "smo"){
 	    @JUMP = grep(/^(.+?)\t[1|0]\t/,@JUMP);
 	} else {
             @JUMP1 = grep(/^$jhmp\t0\t/,@JUMP);

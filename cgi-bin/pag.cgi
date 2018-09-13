@@ -47,18 +47,18 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     if ($regaccess eq "on" && &checksearchbot) {
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
@@ -67,12 +67,12 @@ if ($inmembername eq "" || $inmembername eq "客人") {
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if (($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo')) {$allowed = "yes";}
+    if (($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo')) {$allowed = "yes";}
     else {$allowed = "no";}
-    #        &getmemberstime("$inmembername");
+    #        &getmemberstime("$in_member_name");
     &getlastvisit;
     $forumlastvisit = $lastvisitinfo{$in_forum};
     $currenttime = time;
@@ -100,13 +100,13 @@ if ($addtopictime eq "yes") {
 
 $postdate = &dateformat($postdate + ($timedifferencevalue * 3600) + ($timezone * 3600));
 
-if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
 
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -124,10 +124,10 @@ else {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tboth\t打包邮递贴子<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
+            &whosonline("$in_member_name\t$forumname\tboth\t打包邮递贴子<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
         }
         else {
-            &whosonline("$inmembername\t$forumname(密)\tboth\t打包邮递贴子保密贴子\t");
+            &whosonline("$in_member_name\t$forumname(密)\tboth\t打包邮递贴子保密贴子\t");
         }
     }
 }
@@ -137,7 +137,7 @@ if ($email) {
     if ($email !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) {&error("打包邮递&错误的邮件地址！");}
     $email =~ s/[\a\f\n\e\0\r\t\`\~\!\$\%\^\&\*\(\)\=\+\\\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
     $output .= qq~
-        <html><head><title>$boardname</title>
+        <html><head><title>$board_name</title>
 	<style>
 		A:visited {	TEXT-DECORATION: none	}
 		A:active  {	TEXT-DECORATION: none	}
@@ -166,8 +166,8 @@ if ($email) {
     <table cellpadding=0 cellspacing=0 width=90% align=center>
         <tr>
             <td>
-            <p><b>从$boardname打包的主题</b><p>
-            <b>论 坛 名- $boardname</b> ($boardurl/leobbs.cgi)<br>
+            <p><b>从$board_name打包的主题</b><p>
+            <b>论 坛 名- $board_name</b> ($boardurl/leobbs.cgi)<br>
             <b>讨论区名-- $forumname</b> ($boardurl/forums.cgi?forum=$in_forum)<br>
             <b>贴子标题--- $topictitle</b> ($boardurl/topic.cgi?forum=$in_forum&topic=$in_topic)
         </tr>
@@ -204,10 +204,10 @@ if ($email) {
         ~;
     }
     $output .= qq~
-        </td></tr></table><center><hr><b>$boardname<br>&copy; 2000 LeoBBS.com</b></center>
+        </td></tr></table><center><hr><b>$board_name<br>&copy; 2000 LeoBBS.com</b></center>
         </body></html>
     ~;
-    $subject = "从$boardname打包邮递过来的贴子";
+    $subject = "从$board_name打包邮递过来的贴子";
     &sendmail($adminemail_out, $adminemail_in, $email, $subject, $output);
     print "<center><br><b>邮递贴子完毕!</b><br><br><a href=javascript:top.window.close()>关闭窗口</a><script>top.window.close()</script></center>";
     exit;
@@ -234,5 +234,5 @@ else {
     </tr><tr>
     <td colspan=2 bgcolor=$miscbacktwo align=center><input type=submit value="发 送" name="Submit"></table></td></form></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
-    &output("$boardname - 帖子打包", \$output, "msg");
+    &output("$board_name - 帖子打包", \$output, "msg");
 }

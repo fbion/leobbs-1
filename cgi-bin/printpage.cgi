@@ -49,18 +49,18 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $myrating = -1;
     if ($regaccess eq "on" && &checksearchbot) {
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -70,11 +70,11 @@ if ($inmembername eq "" || $inmembername eq "客人") {
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    $mymembercode = $membercode;
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    $mymembercode = $member_code;
     $myrating = $rating;
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -93,20 +93,20 @@ else {
 &doonoff; #论坛开放与否
 
 if ($privateforum eq "yes") {
-    if ($inmembername eq "客人") {
+    if ($in_member_name eq "客人") {
         print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
-    if (($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if (($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     else {$allowed = "no";}
 }
 
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
 
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -132,7 +132,7 @@ if ($addtopictime eq "yes") {
     $topictitle = "[$topictime] $topictitle";
 }
 
-if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
+if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
 
 if (($privateforum eq "yes") && ($allowed ne "yes")) {
     &error("进入私密论坛&对不起，你无权访问这个论坛！");
@@ -142,10 +142,10 @@ else {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tboth\t浏览<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>(文本方式)\t");
+            &whosonline("$in_member_name\t$forumname\tboth\t浏览<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>(文本方式)\t");
         }
         else {
-            &whosonline("$inmembername\t$forumname(密)\tboth\t浏览保密贴子(文本方式)\t");
+            &whosonline("$in_member_name\t$forumname(密)\tboth\t浏览保密贴子(文本方式)\t");
         }
     }
 }
@@ -162,7 +162,7 @@ if ($category =~ /childforum-[0-9]+/) {
 }
 
 $output .= qq~
-    <html><head><title>$topictitle - $boardname</title>
+    <html><head><title>$topictitle - $board_name</title>
 	<style>
 		A:visited {	TEXT-DECORATION: none	}
 		A:active  {	TEXT-DECORATION: none	}
@@ -192,7 +192,7 @@ $output .= qq~
         <tr>
             <td>
             <p><b>以文本方式查看主题</b><p>
-            <b>- $boardname</b> ($boardurl/leobbs.cgi)<br>$addlink
+            <b>- $board_name</b> ($boardurl/leobbs.cgi)<br>$addlink
             <b>$addspace-- $forumname</b> ($boardurl/forums.cgi?forum=$in_forum)<br>
             <b>$addspace--- $topictitle</b> ($boardurl/topic.cgi?forum=$in_forum&topic=$in_topic)
         </tr>
@@ -208,7 +208,7 @@ if ($mymembercode eq "ad" or $mymembercode eq "smo" or $myinmembmod eq "yes") {
 else {
     $viewhide = 0;
     if ($hidejf eq "yes") {
-        my @viewhide = grep (/^$inmembername\t/i, @threads);
+        my @viewhide = grep (/^$in_member_name\t/i, @threads);
         $viewhide = @viewhide;
         $viewhide = 1 if ($viewhide >= 1);
     }
@@ -220,7 +220,7 @@ foreach $line (@threads) {
     ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post) = split(/\t/, $line);
     if ($rn eq 1) {
         &getmember("$membername", "no");
-        if ($membercode eq "masked") {
+        if ($member_code eq "masked") {
             $addme = "";
             $post = qq(<br>------------------------<br><font color=$posternamecolor>此用户的发言已经被屏蔽！<br>如有疑问，请联系管理员！</font><br>------------------------<BR>);
         }
@@ -231,7 +231,7 @@ foreach $line (@threads) {
 
     if ($wwjf ne "no") {
         if ($post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
-            if ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($myrating >= $1)) {
+            if ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($myrating >= $1)) {
             }
             else {
                 $post = qq~<FONT COLOR=$fonthighlight><B>[Hidden Post: Rating $1]</B></FONT> <BR>  <BR> <FONT COLOR=$posternamecolor>（您没有权限看这个帖子，您的威望至少需要 <B>$1<\/B>）</FONT><BR>  <BR> ~;
@@ -261,16 +261,16 @@ foreach $line (@threads) {
                 @allbuyer = split(/\t/, $allbuyer);
                 $allbuyerno = @allbuyer;
                 $allbuyer = "\t$allbuyer\t";
-                $isbuyer = "yes" if ($allbuyer =~ /\t$inmembername\t/i);
+                $isbuyer = "yes" if ($allbuyer =~ /\t$in_member_name\t/i);
             }
             $allbuyerno = 0 if (($allbuyerno < 0) || ($allbuyerno eq ""));
-            unless ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq 'mo') || ($mymembercode eq 'amo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
+            unless ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq 'mo') || ($mymembercode eq 'amo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
                 $post = qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[查看这个帖子需要 <b>$1</b> $moneyname，目前已有 <B>$allbuyerno</B> 人购买]</FONT><BR><br><FORM action=buypost.cgi method=post><input name=inforum type=hidden value=$in_forum><input name=intopic type=hidden value=$in_topic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="算你狠。。我买，我付钱"></form><BR> ~;
                 $addme = "附件保密!<br>";
             }
             else {
                 $buyeroutput = "";
-                if ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq 'mo') || ($mymembercode eq 'amo') || ($myinmembmod eq "yes")) {
+                if ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq 'mo') || ($mymembercode eq 'amo') || ($myinmembmod eq "yes")) {
                     if ($allbuyerno > 0) {
                         $buyeroutput = qq~<SCRIPT LANGUAGE="JavaScript">
 function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & myindex1 != 1) { var newwindow = list.options[myindex1].value; var msgwindow = window.open(newwindow,"",""); }}
@@ -314,7 +314,7 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
             if ($StartCheck >= $viewusepost) {$Checkpost = 'ok';}
             else {$Checkpost = 'not';}
 
-            if (($Checkpost eq 'ok') || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || ($membername eq $inmembername)) {
+            if (($Checkpost eq 'ok') || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || ($membername eq $in_member_name)) {
                 $post =~ s/\[post=(\d+?)\](.+?)\[\/post\]/<blockquote><font color=$posternamecolor>文章内容：（发言总数须有 <B>$viewusepost<\/B> 才能查看本贴） <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg;
             }
             else {
@@ -328,7 +328,7 @@ function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & 
         if ($post =~ m/\[jf=(\d+?)\](.+?)\[\/jf\]/isg) {
             $jfpost = $1;
 
-            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
                 $post =~ s/\[jf=(\d+?)\](.*)\[\/jf\]/<blockquote><font color=$posternamecolor>文章内容：（积分必须达到 <B>$jfpost<\/B> 才能查看本内容） <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg;
             }
             else {

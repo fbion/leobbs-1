@@ -46,12 +46,12 @@ for ('membername', 'password', 'announcementtitle', 'announcementpost', 'action'
     $tp = &cleaninput($tp);
     ${$_} = $tp;
 }
-my $inmembername = $membername;
-my $inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+my $in_member_name = $membername;
+my $in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 my $inannouncementtitle = $announcementtitle;
 my $inannouncementpost = $announcementpost;
@@ -59,23 +59,23 @@ my $in_forum = my $forum;
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-my $inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+my $in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {$inmembername = "客人";}
+if ((!$in_member_name) or ($in_member_name eq "客人")) {$in_member_name = "客人";}
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         my $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         my $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -106,7 +106,7 @@ if ($in_forum ne "") {
     $forumdescription =~ s/<P>//isg;
     $output .= qq~
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$in_forum>$forumname</a> → 浏览论坛公告</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$board_name</a>$addlink → <a href=forums.cgi?forum=$in_forum>$forumname</a> → 浏览论坛公告</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -117,7 +117,7 @@ if ($in_forum ne "") {
 else {
     $output .= qq~
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看到本站所有公告</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="announcements.cgi">论坛公告</a> → 查看论坛公告<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="announcements.cgi">论坛公告</a> → 查看论坛公告<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -128,7 +128,7 @@ else {
 
 if ($action eq "delete") {
     if ($checked eq "yes") {
-        if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
+        if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
 
         $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
         open(FILE, "$filetoopen");
@@ -159,15 +159,15 @@ elsif ($action eq "add") {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t公告栏\tnone\t添加公告\t");
+        &whosonline("$in_member_name\t公告栏\tnone\t添加公告\t");
     }
-    if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
+    if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
     $output .= qq~<tr><td bgcolor=$titlecolor colspan=2 align=center $catbackpic>
 <form action="$thisprog" method=post>
 <input type=hidden name="action" value="addannouncement">
 <input type=hidden name="forum" value="$in_forum">
 <font face="$font" color=$fontcolormisc><b>发表论坛公告</b></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>论坛公告标题</b></font></td>
@@ -182,7 +182,7 @@ elsif ($action eq "add") {
 }
 elsif ($action eq "addannouncement") {
     $currenttime = time;
-    if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
+    if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
     if ($inannouncementpost eq "") {&error("使用公告&请输入论坛公告内容！");}
     if ($inannouncementtitle eq "") {&error("使用公告&请输入论坛公告标题！");}
 
@@ -190,7 +190,7 @@ elsif ($action eq "addannouncement") {
     open(FILE, "$filetoopen");
     @announcements = <FILE>;
     close(FILE);
-    $newline = "$inannouncementtitle\t$currenttime\t$inannouncementpost\t$inmembername\t";
+    $newline = "$inannouncementtitle\t$currenttime\t$inannouncementpost\t$in_member_name\t";
 
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, ">$filetoopen");
@@ -209,9 +209,9 @@ elsif ($action eq "edit") {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t公告栏\tnone\t编辑公告\t");
+        &whosonline("$in_member_name\t公告栏\tnone\t编辑公告\t");
     }
-    if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
+    if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
 
     $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
     open(FILE, "$filetoopen");
@@ -235,7 +235,7 @@ elsif ($action eq "edit") {
 <input type=hidden name="action" value="doedit">
 <input type=hidden name="number" value="$number">
 <font face="$font" color=$fontcolormisc><b>编辑论坛公告</b></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top width=30%><font face="$font" color=$fontcolormisc><b>论坛公告标题</b></font></td>
@@ -249,7 +249,7 @@ elsif ($action eq "edit") {
 }
 elsif ($action eq "doedit") {
     $currenttime = time;
-    if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
+    if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
     if ($inannouncementpost eq "") {&error("使用公告&请输入论坛公告内容！");}
     if ($inannouncementtitle eq "") {&error("使用公告&请输入论坛公告标题！");}
     $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
@@ -257,7 +257,7 @@ elsif ($action eq "doedit") {
     @announcements = <FILE>;
     close(FILE);
     $count = 0;
-    $newline = "$inannouncementtitle\t$currenttime\t$inannouncementpost\t$inmembername\t";
+    $newline = "$inannouncementtitle\t$currenttime\t$inannouncementpost\t$in_member_name\t";
 
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, ">$filetoopen");
@@ -281,7 +281,7 @@ else {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t公告栏\tboth\t查看公告\t");
+        &whosonline("$in_member_name\t公告栏\tboth\t查看公告\t");
     }
     $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
     open(FILE, "$filetoopen");
@@ -324,7 +324,7 @@ else {
         $adminedit = qq~<a href="$thisprog?action=edit&number=$postcountcheck&forum=$in_forum"><img src="$imagesurl/images/a_edit.gif" border=0"></a>~;
 
         $output .= qq~<tr><a name=title$postedid></a><td bgcolor=$titlecolor align=center valign=top $catbackpic><font face="$font" color=$titlefontcolor><b>>> $title <<</b></td></tr>~;
-        if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+        if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
             $output .= qq~<tr><td bgcolor=$postbackcolor align=left>$admindelete &nbsp; $adminedit &nbsp; $adminadd</td></tr>~;
         }
         $nameposted = "本站的默认公告" if (!$nameposted);
@@ -339,7 +339,7 @@ $post</td></tr><tr><td bgcolor="$postbackcolor" valign=middle>
     }
 }
 $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
-&output("$boardname - 公告", \$output);
+&output("$board_name - 公告", \$output);
 exit;
 
 sub login {
@@ -347,7 +347,7 @@ sub login {
     ($postto, $therest) = split(/\?/, $url);
     @pairs = split(/\&/, $therest);
 
-    if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
+    if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
     foreach (@pairs) {
         ($name, $value) = split(/\=/, $_);
         $hiddenvars .= qq~<input type=hidden name="$name" value="$value">\n~;
@@ -357,7 +357,7 @@ sub login {
 <tr><td bgcolor=$titlecolor valign=middle colspan=2 align=center $catbackpic>
 $hiddenvars
 <font face="$font" color=$fontcolormisc><b>登录前请输入管理员的详细信息</b><br>请注意，只有管理员才可以增加、删除、修改论坛公告！</font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo valign=middle colspan=2 align=center><input type=submit name="submit" value="确定删除"></td></form></tr></table></td></tr></table>
@@ -378,7 +378,7 @@ sub doend {
 <meta http-equiv="refresh" content="3; url=$relocurl">
 ~;
     &writeannounce;
-    &output("$boardname - 公告", \$output);
+    &output("$board_name - 公告", \$output);
     exit;
 }
 

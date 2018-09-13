@@ -11,9 +11,9 @@
 use warnings;
 use strict;
 use diagnostics;
-if (($arrawpostreal eq "on") || ($membercode eq 'mo' || $membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) {$realimg = qq(<img onclick=real() src=$imagesurl/btg/rm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 Real 音/视频" width=23 height=22> )}
+if (($arrawpostreal eq "on") || ($member_code eq 'mo' || $member_code eq 'amo' || $member_code eq 'ad' || $inmembmod eq 'yes' || $member_code eq 'smo')) {$realimg = qq(<img onclick=real() src=$imagesurl/btg/rm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 Real 音/视频" width=23 height=22> )}
 else {$realimg = qq(　　)};
-if (($arrawpostmedia eq "on") || ($membercode eq 'mo' || $membercode eq 'amo' || $membercode eq 'ad' || $inmembmod eq 'yes' || $membercode eq 'smo')) {$wmimg = qq(<img onclick=wm() src=$imagesurl/btg/wm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 WM 类音/视频" width=23 height=22> )}
+if (($arrawpostmedia eq "on") || ($member_code eq 'mo' || $member_code eq 'amo' || $member_code eq 'ad' || $inmembmod eq 'yes' || $member_code eq 'smo')) {$wmimg = qq(<img onclick=wm() src=$imagesurl/btg/wm.gif class="gray" onmouseover="enable(this)" onmouseout="disable(this)" alt="插入 WM 类音/视频" width=23 height=22> )}
 else {$wmimg = qq(　　)};
 $insidejs = qq~
 <script>

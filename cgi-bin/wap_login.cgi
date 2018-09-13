@@ -27,14 +27,14 @@ require "wap.pl";
 $check = $query->param('check');
 $lid = $query->param('lid');
 &waptitle;
-$show .= qq~<card  title="$boardname-登陆">~;
+$show .= qq~<card  title="$board_name-登陆">~;
 if ($check eq 'loginout') {
     unlink "${lbdir}wap/$lid";
-    $show .= qq~<p>成功注销$inmembername，您过去的书签将不能再直接免登陆</p><p><a href='wap.cgi'>返回首页</a></p>~;
+    $show .= qq~<p>成功注销$in_member_name，您过去的书签将不能再直接免登陆</p><p><a href='wap.cgi'>返回首页</a></p>~;
     &wapfoot;
 }
 my $xh2 = $ENV{'REMOTE_ADDR'};
-$show .= qq~<p><b>登录$boardname</b> <br/>您的手机IP：$xh2<br/>如果您在手机上无法输入ID进行登陆，请记住上面IP，进入论坛（loginwap.cgi）生成免登陆Url。<br/>\n</p><p>账号：<input type="text" name="n1" value="$a1"/><br/>\n</p><p>密码：<input type='password' name="p" value="$b1"/><br/>\n</p><p>
+$show .= qq~<p><b>登录$board_name</b> <br/>您的手机IP：$xh2<br/>如果您在手机上无法输入ID进行登陆，请记住上面IP，进入论坛（loginwap.cgi）生成免登陆Url。<br/>\n</p><p>账号：<input type="text" name="n1" value="$a1"/><br/>\n</p><p>密码：<input type='password' name="p" value="$b1"/><br/>\n</p><p>
 <anchor>[登录]<go href="wap_index.cgi" method="post">
 <postfield name="n1" value="\$(n1)"/>
 <postfield name="p" value="\$(p)"/>

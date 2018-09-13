@@ -186,7 +186,7 @@ sub moveallupfiles #移动/copy当前主贴全部附件,移动/copy的时候调�
 sub getusrdir #获取临时文件夹
 {
     my $incanshu = shift;
-    # my $tmpname = $inmembername;
+    # my $tmpname = $in_member_name;
     my $tmpname = $query->cookie("amembernamecookie");
     $tmpname =~ s/ /\_/g;
     $tmpname =~ tr/A-Z/a-z/;
@@ -212,7 +212,7 @@ sub getusrdir #获取临时文件夹
     $filesno = $filesno - 2;
     $maxaddnum = 10 if ($maxaddnum eq "" || $maxaddnum < 1);
     if ($incanshu ne 1) {
-        if ($filesno > $maxaddnum && $membercode ne "ad" && $membercode ne "smo") {$pathtocheck = "ERR";} ##同时上传到了最大限度##{$thisout="您今天上传的东西太多了或者请不要同时在几个区同时上传，谢谢合作";&thisout("$thisoutput");exit;}
+        if ($filesno > $maxaddnum && $member_code ne "ad" && $member_code ne "smo") {$pathtocheck = "ERR";} ##同时上传到了最大限度##{$thisout="您今天上传的东西太多了或者请不要同时在几个区同时上传，谢谢合作";&thisout("$thisoutput");exit;}
     }
     return "$pathtocheck";
 }

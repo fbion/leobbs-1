@@ -50,25 +50,25 @@ else {
     $cookiepath =~ s/\/$//;
 }
 
-$inmembername = $query->cookie("amembernamecookie") if (!$inmembername);
-$inpassword = $query->cookie("apasswordcookie") if (!$inpassword);
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie") if (!$in_member_name);
+$in_password = $query->cookie("apasswordcookie") if (!$in_password);
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") #必须登录才能访问银行
+if ($in_member_name eq "" || $in_member_name eq "客人") #必须登录才能访问银行
 {
     &error("普通错误&你现在的身份是访客，必须登陆以后才能访问银行！");
 }
 else {
-    &getmember($inmembername);
-    if ($inpassword ne $password) {
+    &getmember($in_member_name);
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -77,7 +77,7 @@ else {
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
 
-$cleanmembername = $inmembername;
+$cleanmembername = $in_member_name;
 $cleanmembername =~ s/ /\_/sg;
 $cleanmembername =~ tr/A-Z/a-z/;
 $currenttime = time;
@@ -119,7 +119,7 @@ if ($mystatus) {
 }
 
 #自动冻结发言被屏蔽用户、禁言用户（监狱中的犯人剥夺金融权利？:D）
-$mystatus = -1 if (($membercode eq "banned" || $membercode eq "masked") && $mystatus == 1);
+$mystatus = -1 if (($member_code eq "banned" || $member_code eq "masked") && $mystatus == 1);
 
 #检查过期贷款
 if (-e $lbdir . "ebankdata/allloan.cgi") {
@@ -235,7 +235,7 @@ sub display #营业厅
     unless (-e "$filetoopens.lck") {
         $screenmode = $query->cookie("screenmode");
         $screenmode = 8 if ($screenmode eq "");
-        &whosonline("$inmembername\t$bankname\t$bankname\t银行营业大厅");
+        &whosonline("$in_member_name\t$bankname\t$bankname\t银行营业大厅");
         $membertongji =~ s/本分论坛/$bankname/o;
         undef $memberoutput if ($onlineview != 1);
     }
@@ -246,7 +246,7 @@ sub display #营业厅
     }
 
     $output .= qq~$refreshnow
-	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> → $bankname</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$board_name</a> → $bankname</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
@@ -325,7 +325,7 @@ function PromptChangePass()
         $output .= qq~<font color=#ff99cc>当前贷款　　　　　　<i>$myloan</i> $moneyname</font><br><font color=#ff99cc>累计时间和利息　　　<i>$myloandays</i> 天共 <i>$myloanaccrual</i> $moneyname</font><br>~ if ($myloan);
         $output .= qq~</td></tr></table><br></td></tr>~;
     }
-    $output .= qq~<tr><td colspan=2 align=center><a href=setbank.cgi><font color=blue>进入银行管理中心</font></a></td></tr>~ if (($membercode eq "ad" && $bankadminallow ne "manager") || ($membercode eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$inmembername,/i);
+    $output .= qq~<tr><td colspan=2 align=center><a href=setbank.cgi><font color=blue>进入银行管理中心</font></a></td></tr>~ if (($member_code eq "ad" && $bankadminallow ne "manager") || ($member_code eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$in_member_name,/i);
     $output .= qq~<tr><td colspan=2><hr width=250></td></tr><tr><td colspan=2 align=center><font color=#7700ff>$bankname杰出客户<br><br></font></td></tr><tr><td bgcolor=$titlecolor align=center>客 户 帐 号</td><td bgcolor=$titlecolor align=center>当 前 存 款</td></tr>~;
 
     for ($i = 1; $i <= @maxusers; $i++) {
@@ -345,7 +345,7 @@ function PromptChangePass()
 </tr>~;
         }
         elsif ($mystatus == -1) {
-            if ($membercode eq "banned" || $membercode eq "masked") {
+            if ($member_code eq "banned" || $member_code eq "masked") {
                 $output .= qq~
 	<td bgcolor=$miscbackone align=center><font size=4>由于你被禁止发言，所以你的账号被银行自动冻结。</font></td>
 </tr>~;
@@ -366,7 +366,7 @@ function PromptChangePass()
 <tr>
 	<td bgcolor=$miscbacktwo valign=top>　<img src="$imagesurl/ebank/bank.gif" width=16><font color=green>转帐汇款</font><img src="$imagesurl/ebank/bank.gif" width=16>　２号柜台　 本柜台同时兼办销户请点<a href=# OnClick="PromptLogOff()"><font color=#cc0000><b>这里</b></font></a><hr><br>~;
 
-            if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo") {
+            if ($rating < $banktransneed && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo") {
                 $output .= qq~　 行长设定了只有威望达到 $banktransneed 以上的会员和版主才能使用转帐和汇款功能！<br><br>~;
             }
             else {
@@ -437,7 +437,7 @@ function PromptChangePass()
     $output .= qq~
 </table></td></tr>
 </table><SCRIPT>valignend()</SCRIPT>~;
-    $pagetitle = "$boardname - $bankname营业大厅";
+    $pagetitle = "$board_name - $bankname营业大厅";
 
     return;
 }
@@ -461,18 +461,18 @@ sub open #开户
     &myerror("银行错误&银行盘点，暂时停业，无法开户！") unless ($bankopen eq "on");
     &myerror("银行错误&你已经在本银行开过户了！") if ($mystatus);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&你的现金不够开户最低要求！") if ($myallmoney < $bankmindeal);
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行开户") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行开户") unless (-e "$filetoopens.lck");
 
     &updateuserinfo($cleanmembername, 0, -$bankmindeal, 1, $bankmindeal, $currenttime, 0, "", 0, "yes");
     &updateallsave(1, $bankmindeal);
 
     &logpriviate("开户", $bankmindeal, $bankmindeal);
-    &logaction($inmembername, "开户成功，存入 $bankmindeal $moneyname。");
+    &logaction($in_member_name, "开户成功，存入 $bankmindeal $moneyname。");
 
     &order($cleanmembername, $bankmindeal);
     &printjump("开户成功");
@@ -487,12 +487,12 @@ sub logoff #销户
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     &myerror("银行错误&你输入的取款密码错误！") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&你必须先偿还在本银行的贷款后才能销户！") if ($myloan);
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行销户") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行销户") unless (-e "$filetoopens.lck");
 
     &updateuserinfo($cleanmembername, 0, $mysaves + $mysaveaccrual, "", -$mysaves, "", 0, "", 0, "yes");
     &updateallsave(-1, -$mysaves);
@@ -500,7 +500,7 @@ sub logoff #销户
     my $filetodel = $lbdir . "ebankdata/log/" . $cleanmembername . ".cgi";
     unlink($filetodel);
 
-    &logaction($inmembername, "销户成功，取走存款 $mysaves $moneyname，结算利息 $mysaveaccrual $moneyname。");
+    &logaction($in_member_name, "销户成功，取走存款 $mysaves $moneyname，结算利息 $mysaveaccrual $moneyname。");
 
     &order($cleanmembername, 0);
     &printjump("销户成功");
@@ -516,7 +516,7 @@ sub get #取款
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     &myerror("银行错误&你输入的取款密码错误！") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&取款数额输入错误，请检查！") if ($getmoney =~ /[^0-9]/ or $getmoney eq "");
     &myerror("银行错误&你没有那么多存款可以取出，如果不销户，你的户头必须至少存有 $bankmindeal $moneyname！") if ($getmoney > $mysaves + $mysaveaccrual - $bankmindeal);
     &myerror("银行错误&取款数额超过本行最大单笔交易额 $bankmaxdeal $moneyname") if ($getmoney > $bankmaxdeal);
@@ -524,14 +524,14 @@ sub get #取款
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行取款") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行取款") unless (-e "$filetoopens.lck");
 
     &updateuserinfo($cleanmembername, 0, $getmoney, "nochange", $mysaveaccrual - $getmoney, $currenttime, 0, "nochange", 0, "yes");
     &updateallsave(0, $mysaveaccrual - $getmoney);
 
     &logpriviate("结息", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
     &logpriviate("取出", -$getmoney, $mysaves + $mysaveaccrual - $getmoney);
-    &logaction($inmembername, "<font color=#99ccff>取出存款 $getmoney $moneyname，同时结算利息 $mysaveaccrual $moneyname。</font>");
+    &logaction($in_member_name, "<font color=#99ccff>取出存款 $getmoney $moneyname，同时结算利息 $mysaveaccrual $moneyname。</font>");
 
     &order($cleanmembername, $mysaves + $mysaveaccrual - $getmoney);
     &printjump("取款成功");
@@ -545,7 +545,7 @@ sub save #存款
     &myerror("银行错误&你没在本银行开过户，怎么存款？") unless ($mystatus);
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&存款数额输入错误，请检查！") if ($savemoney =~ /[^0-9]/ or $savemoney eq "");
     &myerror("银行错误&你没有那么多现金可以存！") if ($savemoney > $myallmoney);
     &myerror("银行错误&存款数额超过本行最大单笔交易额 $bankmaxdeal $moneyname") if ($savemoney > $bankmaxdeal);
@@ -553,14 +553,14 @@ sub save #存款
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行存款") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行存款") unless (-e "$filetoopens.lck");
 
     &updateuserinfo($cleanmembername, 0, -$savemoney, "nochange", $mysaveaccrual + $savemoney, $currenttime, 0, "nochange", 0, "yes");
     &updateallsave(0, $mysaveaccrual + $savemoney);
 
     &logpriviate("结息", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
     &logpriviate("存入", $savemoney, $mysaves + $mysaveaccrual + $savemoney);
-    &logaction($inmembername, "<font color=#99ccff>存入存款 $savemoney $moneyname，同时结算利息 $mysaveaccrual $moneyname。</font>");
+    &logaction($in_member_name, "<font color=#99ccff>存入存款 $savemoney $moneyname，同时结算利息 $mysaveaccrual $moneyname。</font>");
 
     &order($cleanmembername, $mysaves + $mysaveaccrual + $savemoney);
     &printjump("存款成功");
@@ -579,9 +579,9 @@ sub btrans #转帐
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     &myerror("银行错误&你输入的取款密码错误！") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&转账附言太长了！") if (length($btransmessage) > 50);
-    &myerror("银行错误&你的信用度（威望）不够高，无法使用转帐业务！") if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo");
+    &myerror("银行错误&你的信用度（威望）不够高，无法使用转帐业务！") if ($rating < $banktransneed && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo");
     &myerror("银行错误&转帐数额输入错误，请检查！") if ($btransmoney =~ /[^0-9]/ or $btransmoney eq "");
     my $banktranscharge = int($banktransrate * $btransmoney + 0.5); #四舍五入:)
     $banktranscharge = $bankmindeal if ($banktranscharge < $bankmindeal);
@@ -591,7 +591,7 @@ sub btrans #转帐
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行转账") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行转账") unless (-e "$filetoopens.lck");
 
     $btransuser =~ s/ /\_/sg;
     $btransuser =~ tr/A-Z/a-z/;
@@ -602,7 +602,7 @@ sub btrans #转帐
     &myerror("银行错误&转帐对象用户不存在！") if ($userregistered eq "no");
     my ($tmystatus, $tmysaves, $tmysavetime, $tmyloan, $tmyloantime, $tmyloanrating, $tbankadd1, $tbankadd2, $tbankadd3, $tbankadd4, $tbankadd5) = split(/,/, $ebankdata);
     &myerror("银行错误&转帐对象用户并没有在本行开户！你可以考虑使用汇款业务。") if ($tmystatus eq "");
-    &myerror("银行错误&对方账户已经被冻结，无法给他汇款！") if ($tmystatus == -1 || $membercode eq "banned" || $membercode eq "masked");
+    &myerror("银行错误&对方账户已经被冻结，无法给他汇款！") if ($tmystatus == -1 || $member_code eq "banned" || $member_code eq "masked");
     my $tmysavedays = &getbetween($tmysavetime, $currenttime);
     my $tmysaveaccrual = int($tmysaves * $banksaverate * $tmysavedays);
 
@@ -610,7 +610,7 @@ sub btrans #转帐
     &updateuserinfo($btransuser, 0, 0, "nochange", $tmysaveaccrual + $btransmoney, $currenttime, 0, "nochange", 0, "no");
     &updateallsave(0, $mysaveaccrual + $tmysaveaccrual - $banktranscharge);
 
-    &bankmessage($btransuser, "转帐通知", "　　$inmembername 向你在本行的帐户里转入了 $btransmoney $moneyname存款，现在已经到帐，请查收！<br>　　转账附言：<font color=green>$btransmessage</font>。");
+    &bankmessage($btransuser, "转帐通知", "　　$in_member_name 向你在本行的帐户里转入了 $btransmoney $moneyname存款，现在已经到帐，请查收！<br>　　转账附言：<font color=green>$btransmessage</font>。");
 
     &logpriviate("结息", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
     &logpriviate("转帐手续费", -$banktranscharge, $mysaves + $mysaveaccrual - $banktranscharge);
@@ -619,9 +619,9 @@ sub btrans #转帐
 
     $cleanmembername = $btransuser;
     &logpriviate("结息", $tmysaveaccrual, $tmysaves + $tmysaveaccrual) if ($tmysaveaccrual != 0);
-    &logpriviate("从$inmembername转入", $btransmoney, $tmysaves + $tmysaveaccrual + $btransmoney);
+    &logpriviate("从$in_member_name转入", $btransmoney, $tmysaves + $tmysaveaccrual + $btransmoney);
 
-    &logaction($inmembername, "<font color=green>转出存款 $btransmoney $moneyname给 $btransuser，交纳手续费 $banktranscharge $moneyname，同时结算转出方结算利息 $mysaveaccrual $moneyname，转入方结算利息 $tmysaveaccrual $moneyname。转账附言：$btransmessage</font>");
+    &logaction($in_member_name, "<font color=green>转出存款 $btransmoney $moneyname给 $btransuser，交纳手续费 $banktranscharge $moneyname，同时结算转出方结算利息 $mysaveaccrual $moneyname，转入方结算利息 $tmysaveaccrual $moneyname。转账附言：$btransmessage</font>");
     &printjump("转帐成功");
     return;
 }
@@ -637,9 +637,9 @@ sub post {
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     &myerror("银行错误&你输入的取款密码错误！") if ($bankgetpass ne "" && $bankgetpass ne $getpass);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&汇款附言太长了！") if (length($postmessage) > 50);
-    &myerror("银行错误&你的信用度（威望）不够高，无法使用汇款业务！") if ($rating < $banktransneed && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo");
+    &myerror("银行错误&你的信用度（威望）不够高，无法使用汇款业务！") if ($rating < $banktransneed && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo");
     &myerror("银行错误&汇款数额输入错误，请检查！") if ($postmoney =~ /[^0-9]/ or $postmoney eq "");
     my $bankpostcharge = int($bankpostrate * $postmoney + 0.5); #四舍五入:)
     $bankpostcharge = $bankmindeal if ($bankpostcharge < $bankmindeal);
@@ -649,7 +649,7 @@ sub post {
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行汇款") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行汇款") unless (-e "$filetoopens.lck");
 
     $postuser =~ s/ /\_/sg;
     $postuser =~ tr/A-Z/a-z/;
@@ -663,12 +663,12 @@ sub post {
     &updateuserinfo($postuser, 0, $postmoney, "nochange", 0, "nochange", 0, "nochange", 0, "no");
     &updateallsave(0, $mysaveaccrual - $postmoney - $bankpostcharge);
 
-    &bankmessage($postuser, "汇款单", "　　$inmembername 从本行给你汇寄了 $postmoney $moneyname现金，现在已经到位，请查收！<br>　　汇款附言：<font color=green>$postmessage</font>。");
+    &bankmessage($postuser, "汇款单", "　　$in_member_name 从本行给你汇寄了 $postmoney $moneyname现金，现在已经到位，请查收！<br>　　汇款附言：<font color=green>$postmessage</font>。");
 
     &logpriviate("结息", $mysaveaccrual, $mysaves + $mysaveaccrual) if ($mysaveaccrual != 0);
     &logpriviate("汇款手续费", -$bankpostcharge, $mysaves + $mysaveaccrual - $bankpostcharge);
     &logpriviate("汇出到$postuser", -$postmoney, $mysaves + $mysaveaccrual - $bankpostcharge - $postmoney);
-    &logaction($inmembername, "<font color=green>给用户 $postuser 汇寄了$postmoney $moneyname，交纳手续费 $bankpostcharge $moneyname，同时结算利息 $mysaveaccrual $moneyname。汇款附言：$postmessage</font>");
+    &logaction($in_member_name, "<font color=green>给用户 $postuser 汇寄了$postmoney $moneyname，交纳手续费 $bankpostcharge $moneyname，同时结算利息 $mysaveaccrual $moneyname。汇款附言：$postmessage</font>");
 
     &order($cleanmembername, $mysaves + $mysaveaccrual - $bankpostcharge - $postmoney);
     &printjump("汇款成功");
@@ -683,7 +683,7 @@ sub loan #贷款
     &myerror("银行错误&你没在本银行开过户，怎么贷款？") unless ($mystatus);
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&贷款服务已经被行长停用！") if ($bankallowloan ne "yes");
     &myerror("银行错误&你当前还有贷款没有还清，不允许新的贷款！") if ($myloan);
     &myerror("银行错误&抵押威望输入错误！") if ($loanrate =~ /[^0-9]/ or $loanrate eq "");
@@ -696,7 +696,7 @@ sub loan #贷款
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行贷款") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行贷款") unless (-e "$filetoopens.lck");
 
     &updateuserinfo($cleanmembername, 0, $loanmoney, "nochange", 0, "nochange", $loanmoney, $currenttime, $loanrate, "yes");
     my $filetomake = $lbdir . "ebankdata/allloan.cgi";
@@ -710,7 +710,7 @@ sub loan #贷款
     &bankmessage($cleanmembername, "贷款通知", "　　你在本行抵押了 $loanrate 点威望贷款 $loanmoney $moneyname，现在贷款已经发放到你的现金，请在从今天开始的 $bankloanmaxdays 天以内及时归还贷款，否则逾期系统将自动强制收回贷款并且扣除你抵押的威望。");
 
     &logpriviate("贷款", $loanmoney, $mysaves);
-    &logaction($inmembername, "<font color=#ff7777>向银行抵押了 $loanrate 点威望申请了 $loanmoney $moneyname贷款，已发放至其现金。</font>");
+    &logaction($in_member_name, "<font color=#ff7777>向银行抵押了 $loanrate 点威望申请了 $loanmoney $moneyname贷款，已发放至其现金。</font>");
     &printjump("贷款成功");
     return;
 }
@@ -720,13 +720,13 @@ sub repay {
     &myerror("银行错误&你没在本银行开过户，还什么贷款？") unless ($mystatus);
     &myerror("银行错误&你的帐户被暂时冻结，请与行长联系！") if ($mystatus == -1);
     @mybankdotimes = split(/\|/, $mybankdotime);
-    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $membercode ne "ad");
+    &myerror("银行错误&你在24小时内的交易次数已经超过了允许的最大值 $bankmaxdaydo！") if (@mybankdotimes >= $bankmaxdaydo && $currenttime - pop(@mybankdotimes) <= 86400 && $member_code ne "ad");
     &myerror("银行错误&你没有贷过款,还啥？") unless ($myloan);
     &myerror("银行错误&你的现金不够偿还贷款！") if ($myallmoney < $myloan + $myloanaccrual);
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\t$bankname\tnone\t在银行还贷") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\t$bankname\tnone\t在银行还贷") unless (-e "$filetoopens.lck");
 
     &updateuserinfo($cleanmembername, 0, -($myloan + $myloanaccrual), "nochange", 0, "nochange", -$myloan, "", -$myloanrating, "no");
 
@@ -748,7 +748,7 @@ sub repay {
     }
 
     &logpriviate("还贷", $myloan + $myloanaccrual, $mysaves);
-    &logaction($inmembername, "<font color=#ff7777>向银行偿还了 $myloan $moneyname贷款，支付利息 $myloanaccrual $moneyname。</font>");
+    &logaction($in_member_name, "<font color=#ff7777>向银行偿还了 $myloan $moneyname贷款，支付利息 $myloanaccrual $moneyname。</font>");
     &printjump("还贷成功");
     return;
 }
@@ -899,7 +899,7 @@ sub dooutloan #处理用户的过期贷款（调用参数：用户名）
         my $filedata = <FILE>;
         close(FILE);
         chomp($filedata);
-        my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 
         if ($mystatus && $myloan) {
@@ -921,7 +921,7 @@ sub dooutloan #处理用户的过期贷款（调用参数：用户名）
             if (open(FILE, ">$filetoopen")) {
                 flock(FILE, 2) if ($OS_USED eq "Unix");
                 $lastgone = time;
-                print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+                print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
                 close(FILE);
             }
         }
@@ -941,7 +941,7 @@ sub printjump #显示LB风格跳转页面（调用参数：页面主题）
     my $content = shift;
 
     $output .= qq~
-	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> → <a href=ebank.cgi>$bankname</a> → $content</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+	<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$board_name</a> → <a href=ebank.cgi>$bankname</a> → $content</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -954,7 +954,7 @@ sub printjump #显示LB风格跳转页面（调用参数：页面主题）
 </table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog">~;
-    $pagetitle = "$boardname - 在银行$content";
+    $pagetitle = "$board_name - 在银行$content";
     return;
 }
 
@@ -1001,7 +1001,7 @@ sub updateuserinfo #更新用户信息
         flock(FILE, 2) if ($OS_USED eq "Unix");
         my $filedata = <FILE>;
         chomp($filedata);
-        my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 
         if ($allowcount eq "yes") {
@@ -1033,12 +1033,12 @@ sub updateuserinfo #更新用户信息
         if (($membername ne "") && ($password ne "")) {
             seek(FILE, 0, 0);
             #			$lastgone = $currenttime;
-            print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+            print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
             close(FILE);
 
             if (open(FILE, ">$lbdir$memdir/old/$nametocheck.cgi")) {
                 #			$lastgone = $currenttime;
-                print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+                print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
                 close(FILE);
             }
         }

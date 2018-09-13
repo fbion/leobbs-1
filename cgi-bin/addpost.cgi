@@ -55,17 +55,17 @@ $in_topic = $topic;
 &error("打开文件&老大，别乱黑我的程序呀！！") if ($in_forum !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 $currenttime = time;
 $inpost =~ s/LBHIDDEN/LBHIDD\&\#069\;N/sg;
@@ -78,21 +78,21 @@ $inpost =~ s/\[ALIPAYE\]/\[ALIPAY\&\#069\;\]/sg;
 $inpost = &dofilter("$inpost");
 $inpost =~ s/(ev)a(l)/$1&#97;$2/isg;
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 &ipbanned; #封杀一些 ip
 if (($num) && ($num !~ /^[0-9]+$/)) {&error("普通&老大，别乱黑我的程序呀！！！");}
 if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
 }
 else {
-    &getmember("$inmembername");
-    &error("普通错误&此用户根本不存在！") if ($inpassword ne "" && $userregistered eq "no");
-    if ($inpassword ne $password && $userregistered ne "no") {
+    &getmember("$in_member_name");
+    &error("普通错误&此用户根本不存在！") if ($in_password ne "" && $userregistered eq "no");
+    if ($in_password ne $password && $userregistered ne "no") {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -100,9 +100,9 @@ else {
     }
 }
 &doonoff;
-$mymembercode = $membercode;
+$mymembercode = $member_code;
 if ($inpost eq "") {&error("添加回复&请输入要续写的内容！");}
-if (($membercode eq "banned") || ($membercode eq "masked")) {&error("添加回复&您被禁止发言或者发言被屏蔽，请联系管理员解决！");}
+if (($member_code eq "banned") || ($member_code eq "masked")) {&error("添加回复&您被禁止发言或者发言被屏蔽，请联系管理员解决！");}
 $myrating = $rating;
 $myrating = "-6" if !($myrating);
 $maxpoststr = "" if ($maxpoststr eq 0);
@@ -110,11 +110,11 @@ $maxpoststr = 100 if (($maxpoststr < 100) && ($maxpoststr ne ""));
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 print header(-charset => UTF -8, -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &moderator("$in_forum");
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -131,9 +131,9 @@ my @threads = <FILE>;
 close(FILE);
 &winunlock($filetoopen) if ($OS_USED eq "Nt");
 my ($postermembername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post, $posticon, $water) = split(/\t/, $threads[$num - 1]);
-if (lc($postermembername) ne lc($inmembername)) {&error("发生错误&文章作者不是你，你不能在此基础上续写");}
+if (lc($postermembername) ne lc($in_member_name)) {&error("发生错误&文章作者不是你，你不能在此基础上续写");}
 
-&error("发生错误&对不起，本论坛不允许发表或回复超过 <B>$maxpoststr</B> 个字符的文章！") if (((length($inpost) + length($post)) > $maxpoststr) && ($maxpoststr ne "") && ($membercode ne "ad") && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
+&error("发生错误&对不起，本论坛不允许发表或回复超过 <B>$maxpoststr</B> 个字符的文章！") if (((length($inpost) + length($post)) > $maxpoststr) && ($maxpoststr ne "") && ($member_code ne "ad") && ($member_code ne 'smo') && ($member_code ne 'cmo') && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/) && ($inmembmod ne "yes"));
 
 my $time1 = time;
 $time1 = &longdateandtime($time1);
@@ -183,4 +183,4 @@ $output .= qq~<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tabl
 </tr></td></table></td></tr></table>
 <meta http-equiv="refresh" content="3; url=$relocurl">
 	~;
-&output("$boardname - 在$forumname内续写帖子", \$output);
+&output("$board_name - 在$forumname内续写帖子", \$output);

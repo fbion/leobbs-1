@@ -47,13 +47,13 @@ $in_topic = $query->param('topic');
 $action = $query->param('action');
 $admin = $query->param('admin');
 $prunedays = $query->param('prunedays');
-$inmembername = $query->param('membername');
-$inpassword = $query->param('password');
+$in_member_name = $query->param('membername');
+$in_password = $query->param('password');
 $inaddline = $query->param('addline');
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $movetoid = $query->param('movetoid');
@@ -63,26 +63,26 @@ $action = &stripMETA("$action");
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 &error("打开文件&老大，别乱黑我的程序呀！") if (($movetoid) && ($movetoid !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 if (($in_forum !~ m|([0-9\G]+$)|g) or (!$in_forum)) {&error("普通错误&请不要修改生成的 URL！");}
 if (($prunedays) && ($prunedays !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {$inmembername = "客人";}
+if ((!$in_member_name) or ($in_member_name eq "客人")) {$in_member_name = "客人";}
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -95,11 +95,11 @@ else {
 if ($action eq "prune") {
     $cleartoedit = "no";
     &mischeader("批量管理");
-    if ($inpassword eq $password) {
+    if ($in_password eq $password) {
         $pwok = "密码不显示";
     }
     else {
-        $pwok = $inpassword;
+        $pwok = $in_password;
     }
     $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
     $trueipaddress = "no" if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
@@ -110,7 +110,7 @@ if ($action eq "prune") {
         $filetomake = "$lbdir" . "data/baddel.cgi";
 
         $maxdeloneday = 9 if (($maxdeloneday eq "") || ($maxdeloneday <= 0));
-        if ($membercode ne "ad") {
+        if ($member_code ne "ad") {
             open(FILE, "$filetomake");
             my @delfile = <FILE>;
             close(FILE);
@@ -120,7 +120,7 @@ if ($action eq "prune") {
             foreach (@delfile) {
                 chomp($_);
                 (my $delname, my $no, my $noip, $no, $no, my $notime) = split(/\t/, $_);
-                if (lc($delname) eq lc($inmembername)) {
+                if (lc($delname) eq lc($in_member_name)) {
                     if ($notime > $totime) {
                         $delcount++;
                     }
@@ -137,14 +137,14 @@ if ($action eq "prune") {
             undef $delcou;
         }
         if (open(FILE, ">>$filetomake")) {
-            print FILE "$inmembername\t$pwok\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t批量删除$forumname $prunedays天前的贴子\t$thistime\t\n";
+            print FILE "$in_member_name\t$pwok\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t批量删除$forumname $prunedays天前的贴子\t$thistime\t\n";
             close(FILE);
         }
     }
     elsif ($admin eq 'move') {
         $filetomake = "$lbdir" . "data/badmove.cgi";
         $maxmoveoneday = 9 if (($maxmoveoneday eq "") || ($maxmoveoneday <= 0));
-        if ($membercode ne "ad") {
+        if ($member_code ne "ad") {
             open(FILE, "$filetomake");
             my @movefile = <FILE>;
             close(FILE);
@@ -154,7 +154,7 @@ if ($action eq "prune") {
             foreach (@movefile) {
                 chomp $_;
                 (my $movename, my $no, my $noip, $no, $no, my $notime) = split(/\t/, $_);
-                if (lc($movename) eq lc($inmembername)) {
+                if (lc($movename) eq lc($in_member_name)) {
                     if ($notime > $totime) {
                         $movecount++;
                     }
@@ -171,14 +171,14 @@ if ($action eq "prune") {
             undef $movecou;
         }
         if (open(FILE, ">>$filetomake")) {
-            print FILE "$inmembername\t$pwok\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t批量移动$forumname $prunedays天前的帖子\t$thistime\t\n";
+            print FILE "$in_member_name\t$pwok\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t批量移动$forumname $prunedays天前的帖子\t$thistime\t\n";
             close(FILE);
         }
     }
     undef $thistime;
 
-    if ((($membercode eq "ad") || ($membercode eq 'smo')) && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if ((($member_code eq "ad") || ($member_code eq 'smo')) && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("使用批量管理&您不是本论坛坛主、管理员或是您的密码输入错误！");}
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
@@ -486,8 +486,8 @@ if ($action eq "prune") {
     }
     else {
         &mischeader("批量管理");
-        if ((($membercode eq "ad") || ($membercode eq 'smo')) && ($inpassword eq $password)) {$cleartoedit = "yes";}
-        if (($inmembmod eq "yes") && ($membercode ne "amo") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+        if ((($member_code eq "ad") || ($member_code eq 'smo')) && ($in_password eq $password)) {$cleartoedit = "yes";}
+        if (($inmembmod eq "yes") && ($member_code ne "amo") && ($in_password eq $password)) {$cleartoedit = "yes";}
         unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
         if ($cleartoedit eq "no" && $checked eq "yes") {&error("使用批量管理&您不是本论坛坛主、管理员或是您的密码输入错误！");}
         $filetoopen = "$lbdir" . "data/allforums.cgi";
@@ -508,7 +508,7 @@ if ($action eq "prune") {
             next if ($forumid !~ /^[0-9]+$/);
             next if ($categoryplace !~ /^[0-9]+$/);
             $categoryplace = sprintf("%09d", $categoryplace);
-            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
             push(@rearrangedforums, $rearrange);
             $a++;
         }
@@ -516,7 +516,7 @@ if ($action eq "prune") {
         @finalsortedforums = sort (@rearrangedforums);
 
         foreach my $sortedforums (@finalsortedforums) {
-            (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forumpass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $sortedforums);
+            (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forum_pass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $sortedforums);
             $categoryplace = sprintf("%01d", $categoryplace);
             if ($categoryplace ne $lastcategoryplace) {
                 $jumphtml .= "<option value=\"\" style=background-color:$titlecolor>╋$category\n</option>";
@@ -524,7 +524,7 @@ if ($action eq "prune") {
             if ($hiddenforum eq "yes") {$hidden = "(隐含)";}
             else {$hidden = "";}
             $child = ($category =~ /^childforum-[0-9]+/) ? "　|" : "";
-            $jumphtml .= "<option value=\"$forumid\">$child　|-$forumname$hidden\n</option>" if (($disphideboard eq "yes") || ($hidden eq "") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode eq "amo"));
+            $jumphtml .= "<option value=\"$forumid\">$child　|-$forumname$hidden\n</option>" if (($disphideboard eq "yes") || ($hidden eq "") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code eq "amo"));
             $lastcategoryplace = $categoryplace;
         }
         $jumphtml .= qq~</select>\n~;
@@ -541,7 +541,7 @@ if ($action eq "prune") {
             <input type=hidden name="checked" value="yes">
             <input type=hidden name="forum" value="$in_forum">
             <font face="$font" color=$fontcolormisc><b>请输入您的详细资料以便进入管理模式[批量管理]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 	<tr>
@@ -563,7 +563,7 @@ if ($action eq "prune") {
     }
 }
 else {&error("普通错误&未指定功能名！");}
-&output("$boardname - 批量管理", \$output);
+&output("$board_name - 批量管理", \$output);
 exit;
 
 sub MoveTopic {

@@ -99,7 +99,7 @@ tempobj.disabled=true
                     $size++;
                 }
             }
-            $showpoll = "true" if (lc($tmpinmembername) eq lc($inmembername));
+            $showpoll = "true" if (lc($tmpinmembername) eq lc($in_member_name));
         }
 
         if (($showsignature eq 'yes') || ($showsignature =~ /[0-9]+$/)) {$poll .= qq~ <tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr><tr><td colspan=$adminviewcolspan>目前总共有 <font color=$fonthighlight><B>$size</B></font> 张投票，结果如下：<HR size=1 width=100%><BR></td></tr>~;}
@@ -138,21 +138,21 @@ tempobj.disabled=true
     }
     $poll .= "</td></tr><tr><td colspan=$adminviewcolspan><HR size=1 width=100%></td></tr></table>";
 
-    if (($threadstate eq "pollclosed") || ($showpoll eq "true") || ($inmembername eq "客人")) {
-        my $poll1 = "<font color=$fonthighlight>客人不能投票，请注册！</font>" if ($inmembername eq "客人");
+    if (($threadstate eq "pollclosed") || ($showpoll eq "true") || ($in_member_name eq "客人")) {
+        my $poll1 = "<font color=$fonthighlight>客人不能投票，请注册！</font>" if ($in_member_name eq "客人");
         $poll1 = "<font color=$fonthighlight>谢谢，你已经投过票了！</font>" if ($showpoll eq "true");
         $poll1 = "<font color=$fonthighlight>对不起，此投票已经关闭！</font>" if ($threadstate eq "pollclosed");
-        $poll = "<br><br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font><br>" if (($PollHidden eq "yes") && ($inmembername eq "客人"));
+        $poll = "<br><br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font><br>" if (($PollHidden eq "yes") && ($in_member_name eq "客人"));
         $poll = "$poll$poll1";
     }
     else {
-        if (($PollHidden eq "yes") && ($membername{$membername} ne $inmembername) && ($mymembercode ne "ad") && ($mymembercode ne 'smo') && ($myinmembmod ne "yes")) {
+        if (($PollHidden eq "yes") && ($membername{$membername} ne $in_member_name) && ($mymembercode ne "ad") && ($mymembercode ne 'smo') && ($myinmembmod ne "yes")) {
             $poll = "<br><font color=$fonthighlight>对不起，你必需先投票才可看结果！</font>";
         }
         elsif ($pollnull eq "true") {$poll = "<BR><font color=$fonthighlight>目前暂时没有人投票！</font>";}
         $poll = "$pollform$poll";
     }
-    if (($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || (($usereditpost ne "no") && (lc($inmembername) eq lc($membername{$membername})))) {$editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$in_forum&topic=$in_topic title=编辑这个投票><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~}
+    if (($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || (($usereditpost ne "no") && (lc($in_member_name) eq lc($membername{$membername})))) {$editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$in_forum&topic=$in_topic title=编辑这个投票><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~}
     else {$editgraphic = "";}
     $delgraphic = "";
     $posticon = "";

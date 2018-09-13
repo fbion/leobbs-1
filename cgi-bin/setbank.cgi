@@ -41,32 +41,32 @@ $query = new LBCGI;
 
 $action = $query->param('action');
 if ($action eq "login") {
-    $inmembername = $query->param("membername");
-    $inpassword = $query->param("password");
-    $inpasswordtemp = $inpassword;
-    if ($inpassword ne "") {
-        eval {$inpassword = md5_hex($inpassword);};
-        if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-        unless ($@) {$inpassword = "lEO$inpassword";}
+    $in_member_name = $query->param("membername");
+    $in_password = $query->param("password");
+    $in_passwordtemp = $in_password;
+    if ($in_password ne "") {
+        eval {$in_password = md5_hex($in_password);};
+        if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+        unless ($@) {$in_password = "lEO$in_password";}
     }
     &checkverify;
-    my $tempmembername = uri_escape($inmembername);
+    my $tempmembername = uri_escape($in_member_name);
     print "Set-Cookie: adminname=$tempmembername\n";
-    print "Set-Cookie: adminpass=$inpassword\n";
+    print "Set-Cookie: adminpass=$in_password\n";
 }
 else {
-    $inmembername = $query->cookie("adminname");
-    $inpassword = $query->cookie("adminpass");
+    $in_member_name = $query->cookie("adminname");
+    $in_password = $query->cookie("adminpass");
 }
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
-&getmember($inmembername, "no");
+&getmember($in_member_name, "no");
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-if (($membercode eq "ad" || ($membercode eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$inmembername,/i) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad" || ($member_code eq "smo" && $bankadminallow eq "all") || ",$bankmanager," =~ /,$in_member_name,/i) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
     my %Mode = (
         'setinfo'   => \&setinfo,   #设定银行各项业务指标
         'setok'     => \&setok,     #保存设定
@@ -94,7 +94,7 @@ else {
     $ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
     $trueipaddress = $ENV{'HTTP_CLIENT_IP'};
     $ipaddress = $trueipaddress if ($trueipaddress ne "" && $trueipaddress ne "unknown" && $trueipaddress !~ m/^192\.168\./ && $trueipaddress !~ m/^10\./);
-    &logaction($inmembername, "<b>从 $ipaddress 以密码 $inpasswordtemp 登录行长办公室失败。</b>") if ($inmembername && $inpassword);
+    &logaction($in_member_name, "<b>从 $ipaddress 以密码 $in_passwordtemp 登录行长办公室失败。</b>") if ($in_member_name && $in_password);
     &ebankadminlogin;
 }
 
@@ -131,7 +131,7 @@ sub viewloan {
             my $filedata = <FILE>;
             close(FILE);
 
-            my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+            my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
             my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
             $loantime = &shortdate($loantime);
 
@@ -178,11 +178,11 @@ sub bonusok {
         my $filedata = <FILE>;
         close(FILE);
 
-        my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
         my ($numberofposts, $numberofreplys) = split(/\|/, $numberofposts);
 
-        next if ($membercode eq "banned" || $membercode eq "masked");
+        next if ($member_code eq "banned" || $member_code eq "masked");
         next if ($bonustarget ne "all" && $mystatus != 1);
         next if ($bonusday ne "" && $currenttime - $joineddate < $bonusday * 86400);
         next if ($bonuspost ne "" && $numberofposts + $numberofreplys < $bonuspost);
@@ -190,7 +190,7 @@ sub bonusok {
         $mymoney += $bonusnum;
         open(FILE, ">$lastfile");
         flock(FILE, 2) if ($OS_USED eq "Unix");
-        print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+        print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
         close(FILE);
         &winunlock($lastfile) if ($OS_USED eq "Unix" || $OS_USED eq "Nt");
         $bonusmem++;
@@ -199,7 +199,7 @@ sub bonusok {
 
         $lastfile = $memberfiles[$i];
         $lastfile =~ s/\.cgi$//isg;
-        &bankmessage($lastfile, "<font color=red>红包通知</font>", "　　$inmembername 以$bonusreason的理由，给您发了 $bonusnum $moneyname的红包，请查收您的现金。");
+        &bankmessage($lastfile, "<font color=red>红包通知</font>", "　　$in_member_name 以$bonusreason的理由，给您发了 $bonusnum $moneyname的红包，请查收您的现金。");
         $lastfile = "";
     }
     &winunlock($lastfile) if (($OS_USED eq "Unix" || $OS_USED eq "Nt") && $lastfile ne "");
@@ -227,7 +227,7 @@ setTimeout("MAINFORM.submit()", 1000);
         $bonusday = "注册 $bonusday 天以上" if ($bonusday ne "");
         $bonuspost = "发帖 $bonuspost 篇以上" if ($bonuspost ne "");
         $bonusday = $bonusday ne "" && $bonuspost ne "" ? "$bonusday且$bonuspost的" : $bonusday ne "" || $bonuspost ne "" ? "$bonusday$bonuspost的" : "";
-        &logaction($inmembername, "<font color=red>以$bonusreason的理由给$bonusday$bonustarget发了总共 $bonusmem 个 $bonusnum $moneyname 的红包。");
+        &logaction($in_member_name, "<font color=red>以$bonusreason的理由给$bonusday$bonustarget发了总共 $bonusmem 个 $bonusnum $moneyname 的红包。");
         $output = qq~
 <table width=100% cellpadding=6 cellspacing=0>
 <tr><td bgcolor=#2159C9><font color=#ffffff><b>欢迎来到论坛管理中心 / 雷傲银行行长办公室</b></td></tr>
@@ -276,7 +276,7 @@ sub repair {
         my $filedata = <FILE>;
         close(FILE);
 
-        my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 
         if ($mystatus) {
@@ -566,7 +566,7 @@ sub deletelog {
         chomp;
         print FILE $_ . "\n" if ($_);
     }
-    print FILE "$inmembername\t$currenttime\t<b>删除了 $delnum 条银行交易日志。</b>\n";
+    print FILE "$in_member_name\t$currenttime\t<b>删除了 $delnum 条银行交易日志。</b>\n";
     close(FILE);
     &winunlock($filetoopen) if (($OS_USED eq "Unix") || ($OS_USED eq "Nt"));
 
@@ -837,19 +837,19 @@ sub editok {
         my $filedata = <FILE>;
         close(FILE);
         chomp($filedata);
-        my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $mybankdotime, $bankgetpass, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 
         if ($mystatus) {
             if ($mysaves != $newsavenums) {
-                &logaction($inmembername, "编辑用户 $membername 的存款从 $mysaves $moneyname到 $newsavenums $moneyname。");
+                &logaction($in_member_name, "编辑用户 $membername 的存款从 $mysaves $moneyname到 $newsavenums $moneyname。");
                 &updateallsave(0, $newsavenums - $mysaves);
                 $mysaves = $newsavenums;
                 &order($memid, $newsavenums);
             }
 
             if ($myloan && $clearloan eq "yes") {
-                &logaction($inmembername, "清除了用户 $membername $myloan $moneyname的贷款记录。");
+                &logaction($in_member_name, "清除了用户 $membername $myloan $moneyname的贷款记录。");
                 $myloan = 0;
                 $myloantime = "";
                 $myloanrating = 0;
@@ -857,17 +857,17 @@ sub editok {
 
             if ($getpass ne "") {
                 $bankgetpass = $getpass;
-                &logaction($inmembername, "<b>修改了用户 $membername 的取款密码。</b>");
+                &logaction($in_member_name, "<b>修改了用户 $membername 的取款密码。</b>");
             }
 
             if ($accountstats eq "on" && $mystatus == -1) {
-                &bankmessage($memid, "解冻通知", "你在$bankname的账户已经被$inmembername解冻。");
-                &logaction($inmembername, "<font color=green>解除了对用户 $membername 帐户的冻结。</font>");
+                &bankmessage($memid, "解冻通知", "你在$bankname的账户已经被$in_member_name解冻。");
+                &logaction($in_member_name, "<font color=green>解除了对用户 $membername 帐户的冻结。</font>");
                 $mystatus = 1;
             }
             elsif ($accountstats eq "off" && $mystatus == 1) {
-                &bankmessage($memid, "冻结通知", "你在$bankname的账户已经被$inmembername冻结，如有疑问请与其联系。");
-                &logaction($inmembername, "<font color=red>暂时冻结了用户 $membername 的帐户。</font>");
+                &bankmessage($memid, "冻结通知", "你在$bankname的账户已经被$in_member_name冻结，如有疑问请与其联系。");
+                &logaction($in_member_name, "<font color=red>暂时冻结了用户 $membername 的帐户。</font>");
                 $mystatus = -1;
             }
 
@@ -877,7 +877,7 @@ sub editok {
                 if (open(FILE, ">$filetoopen")) {
                     flock(FILE, 2) if ($OS_USED eq "Unix");
                     $lastgone = time;
-                    print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+                    print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
                     close(FILE);
                 }
             }
@@ -920,7 +920,7 @@ sub empty {
             print FILE "$_\n";
         }
     }
-    print FILE "$inmembername\t$currenttime\t<b>批量删除了银行 $clearday 天以前的过期交易日志共 $deletenum 条。</b>\n";
+    print FILE "$in_member_name\t$currenttime\t<b>批量删除了银行 $clearday 天以前的过期交易日志共 $deletenum 条。</b>\n";
     close(FILE);
     &winunlock($filetomake) if ($OS_USED eq "Unix" || $OS_USED eq "Nt");
 
@@ -1040,7 +1040,7 @@ sub ebankadminlogin {
 </tr>
 <form action=$thisprog method=POST>
 <input type=hidden name=action value="login">
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername" value="$inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername" value="$in_member_name"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 ~;
     print qq~
@@ -1124,7 +1124,7 @@ sub checkverify {
     my $sessionid = $query->param('sessionid');
     $sessionid =~ s/[^0-9a-f]//isg;
     if (length($sessionid) != 32 && $useverify eq "yes") {
-        $inpassword = "";
+        $in_password = "";
         return;
     }
     mkdir("${lbdir}verifynum", 0777) unless (-e "${lbdir}verifynum");
@@ -1148,12 +1148,12 @@ sub checkverify {
     my $currenttime = time;
 
     if (($verifynum ne $trueverifynum || $currenttime > $verifytime + 300 || $ipaddress ne $savedipaddress) && ($useverify eq "yes")) { #验证码有效时间仅为5分钟
-        $inpassword = "";
+        $in_password = "";
     }
     else {
         unlink("${lbdir}verifynum/$sessionid.cgi");
         unlink("${imagesdir}verifynum/$sessionid.cgi");
-        my $memberfilename = $inmembername;
+        my $memberfilename = $in_member_name;
         $memberfilename =~ s/ /_/g;
         $memberfilename =~ tr/A-Z/a-z/;
         $memberfilename = "${lbdir}verifynum/login/$memberfilename.cgi";

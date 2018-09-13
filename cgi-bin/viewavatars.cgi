@@ -55,21 +55,21 @@ if (($startimage < 0) || ($startimage eq "") || ($endimage <= 0) || ($endimage <
 }
 if ($inpage eq "") {$inpage = 1;}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-$inmembername = cookie("amembernamecookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_member_name = cookie("amembernamecookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {
-    $inmembername = "客人";
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
+    $in_member_name = "客人";
 }
 else {
-    #  &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #  &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
 $defaultwidth = "width=$defaultwidth" if ($defaultwidth ne "");
@@ -85,7 +85,7 @@ closedir(DIR);
 @images = grep (/\.gif$/i, @dirdata);
 
 foreach $image (@images) {
-    if ($membercode ne 'ad') {
+    if ($member_code ne 'ad') {
         if ($image =~ /admin\_/ig) {
             next;
         }
@@ -128,7 +128,7 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看到本站所有的头像</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="viewavatars.cgi">用户头像列表</a> → 查看列表<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="viewavatars.cgi">用户头像列表</a> → 查看列表<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 
 ~;
@@ -152,7 +152,7 @@ $output .= qq~
 </table><SCRIPT>valignend()</SCRIPT>
 ~;
 
-&output("$boardname - 用户头像列表", \$output);
+&output("$board_name - 用户头像列表", \$output);
 
 sub splitpages {
     $totalpages = @cleanimages / $perpage;

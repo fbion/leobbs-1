@@ -42,10 +42,10 @@ $wordarray = $query->param('wordarray');
 $action = $query->param("action");
 $action = &cleaninput("$action");
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -54,9 +54,9 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 
 if ($action eq "process") {
 
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
 
-    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
 
         $wordarray =~ s/[\`\~\!\@\#\$\%\&\=\\\{\}\;\'\:\"\,\.\/\<\>]//isg;
         $wordarray =~ s/\s+/\n/ig;
@@ -136,9 +136,9 @@ if ($action eq "process") {
 }
 else {
 
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
 
-    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
 
         $idfiletoopen = "$lbdir" . "data/idbans.cgi";
         open(FILE, "$idfiletoopen");

@@ -59,15 +59,15 @@ sub getoneforum {
             unlink("${lbdir}cache/forumsone$in_forum.pl");
             require "dogetoneforum.pl";
         }
-        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $no, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
+        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $no, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
         unlink("${lbdir}cache/forumsone$in_forum.pl") if ((-M "${lbdir}cache/forumsone$in_forum.pl") * 86400 > 600);
     }
     else {
         require "dogetoneforum.pl";
     }
     $forummodnamestemp = ",$forummoderator,";
-    my $tempinmembername = ",$inmembername,";
-    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)) ? "yes" : "no";
+    my $tempinmembername = ",$in_member_name,";
+    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)) ? "yes" : "no";
     return;
 }
 
@@ -80,9 +80,9 @@ sub moderator {
             unlink("${lbdir}cache/forums$in_forum.pl");
             require "domoderator.pl";
         }
-        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
+        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
 
-        if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/))) {$inmembmod = "yes";}
+        if ($forummodnamestemp =~ /\Q\,$in_member_name\,\E/i || (($member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/))) {$inmembmod = "yes";}
         else {$inmembmod = "no";}
         unlink("${lbdir}cache/forums$in_forum.pl") if ((-M "${lbdir}cache/forums$in_forum.pl") * 86400 > 600);
     }
@@ -158,7 +158,7 @@ sub getmember {
         close(FILE3);
         &winunlock($filetoopen) if (($OS_USED eq "Nt") && ($readtype ne "no"));
         chomp($filedata);
-        ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         $showemail = "no" if ($dispmememail eq "no");
         $membername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
         $password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
@@ -167,7 +167,7 @@ sub getmember {
             if ($@) {eval('use Digest::MD5 qw(md5_hex);$password = md5_hex($password);');}
             unless ($@) {$password = "lEO$password";}
         }
-        $membercode ||= "me";
+        $member_code ||= "me";
 
         $onlinetime = "3000" if ($onlinetime < 0);
 
@@ -182,21 +182,21 @@ sub getmember {
             foreach (@private) {
                 chomp $_;
                 ($access, $value) = split(/=/, $_);
-                $allowedentry{$access} = $value;
+                $allowed_entry{$access} = $value;
             }
         }
         return 1;
     }
     else {
         $userregistered = "no";
-        $membercode = "";
+        $member_code = "";
         return 0;
     }
 }
 
 sub doonoff {
     #$mainoff 主，$mainonoff　分论坛
-    return if ($membercode eq "ad");
+    return if ($member_code eq "ad");
     if (($mainoff == 2) && ($mainonoff ne 2)) {
         $mainoff = 1;
         my (undef, undef, $hour, $mday, undef, undef, $wday, undef) = localtime(time + $timezone * 3600);

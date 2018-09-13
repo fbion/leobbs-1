@@ -54,38 +54,38 @@ $in_topic = $topic;
 &error("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9 ]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $currenttime = time;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -122,7 +122,7 @@ for (my $iii = 0; $iii <= 4; $iii++) {
     unlink("${lbdir}cache/plcache$in_forum\_$jjj.pl");
 }
 
-&output($boardname, \$output);
+&output($board_name, \$output);
 exit;
 
 sub lockthread {
@@ -133,9 +133,9 @@ sub lockthread {
     &mischeader("主题锁定");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
 
     if (($arrowuserdel eq "on") && ($cleartoedit ne "yes")) {
         open(ENT, "${lbdir}forum$in_forum/$in_topic.pl");
@@ -143,7 +143,7 @@ sub lockthread {
         close(ENT);
         chomp $in;
         ($topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $inposticon, $inposttemp, $addmetemp) = split(/\t/, $in);
-        if ((lc($inmembername) eq lc($startedby)) && ($inpassword eq $password)) {$cleartoedit = "yes";}
+        if ((lc($in_member_name) eq lc($startedby)) && ($in_password eq $password)) {$cleartoedit = "yes";}
     }
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题锁定&您不是本论坛坛主或版主，或者您的密码错误！");}
@@ -173,7 +173,7 @@ sub lockthread {
                 close(FILE);
             }
             $topictitle =~ s/^＊＃！＆＊//;
-            &sendtoposter("$inmembername", "$startedby", "", "lock", "$in_forum", "$in_topic", "$topictitle", "$lockreason") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($startedby)));
+            &sendtoposter("$in_member_name", "$startedby", "", "lock", "$in_forum", "$in_topic", "$topictitle", "$lockreason") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($startedby)));
         }
 
         if ($lockcount == 1) {
@@ -194,7 +194,7 @@ sub lockthread {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -204,7 +204,7 @@ sub lockthread {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [锁定 $lockcount 个主题]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入锁定理由</font></td><td bgcolor=$miscbackone><input type=text name=lockreason size=60> （可不填）</td></tr>
@@ -219,9 +219,9 @@ sub unlockthread {
     &mischeader("主题解锁");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题解锁&您不是本论坛坛主或版主，或者您的密码错误！");}
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
@@ -252,7 +252,7 @@ sub unlockthread {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -262,7 +262,7 @@ sub unlockthread {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题解锁]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -276,9 +276,9 @@ sub repireforum {
     &mischeader("论坛修复");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("论坛修复&您不是本论坛坛主或正版主，或者您的密码错误！");}
 
@@ -319,7 +319,7 @@ sub repireforum {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -329,7 +329,7 @@ sub repireforum {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [论坛修复]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -343,9 +343,9 @@ sub puttop {
     &mischeader("主题提升");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题提升&您不是本论坛坛主或版主，或者您的密码错误！");}
 
@@ -405,7 +405,7 @@ sub puttop {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -415,7 +415,7 @@ sub puttop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题提升]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -429,9 +429,9 @@ sub putdown {
     &mischeader("主题沉底");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题沉底&您不是本论坛坛主或版主，或者您的密码错误！");}
 
@@ -479,7 +479,7 @@ sub putdown {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -489,7 +489,7 @@ sub putdown {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题沉底]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -503,9 +503,9 @@ sub locktop {
     &mischeader("主题固定");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
 
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题固定首行&您不是本论坛坛主或正版主，或者您的密码错误！");}
@@ -560,7 +560,7 @@ sub locktop {
         }
         if ($toptopic >= $maxtoptopic) {$topnum = "<BR><B><font color=$fonthighlight>已经固定了 $toptopic 个帖子了，如果继续，最早一个被固定的帖子将被自动取消固定。</B></font>"}
         else {$topnum = "<BR><B><font color=$fonthighlight>已经固定了 $toptopic 个帖子了，你最多可以固定 $maxtoptopic 个帖子。</B></font>";}
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -570,7 +570,7 @@ sub locktop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题固定首行]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -585,9 +585,9 @@ sub unlocktop {
     &mischeader("主题取消固定");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题取消固定&您不是本论坛坛主或正版主，或者您的密码错误！");}
 
@@ -620,7 +620,7 @@ sub unlocktop {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -630,7 +630,7 @@ sub unlocktop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题取消固定]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -645,7 +645,7 @@ sub abslocktop {
     if (($startnewthreads eq "no") || ($startnewthreads eq "cert") || ($privateforum eq "yes")) {&error("主题总固定首行&对不起，这个分论坛并不是对所有用户开放的，所以不能总固定帖子！");}
     $absmaxtoptopic = 3 if ($absmaxtoptopic <= 0);
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题总固定首行&您不是本论坛坛主，或者您的密码错误！");}
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
@@ -709,7 +709,7 @@ sub abslocktop {
         }
         if ($toptopic >= $absmaxtoptopic) {$topnum = "<BR><B><font color=$fonthighlight>已经总固定了 $toptopic 个帖子了，如果继续，最早一个被固定的帖子将被自动取消固定。</B></font>"}
         else {$topnum = "<BR><B><font color=$fonthighlight>已经总固定了 $toptopic 个帖子了，你最多可以总固定 $absmaxtoptopic 个帖子。</B></font>";}
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -719,7 +719,7 @@ sub abslocktop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题总固定首行]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -734,7 +734,7 @@ sub absunlocktop {
     &mischeader("主题取消总固定");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题取消总固定&您不是本论坛坛主，或者您的密码错误！");}
 
@@ -775,7 +775,7 @@ sub absunlocktop {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -785,7 +785,7 @@ sub absunlocktop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题取消总固定]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -799,9 +799,9 @@ sub highlight {
     $maxhightopic = 8 if ($maxhightopic <= 0);
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("加重帖子标题&您不是本论坛坛主或版主，或者您的密码错误！");}
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
@@ -863,7 +863,7 @@ sub highlight {
         }
         if ($toptopic >= $maxhightopic) {$topnum = "<BR><B><font color=$fonthighlight>已经加重了 $toptopic 个帖子标题了，如果继续，最早一个被加重标题将被自动取消加重标题。</B></font>"}
         else {$topnum = "<BR><B><font color=$fonthighlight>已经加重了 $toptopic 个帖子标题了，你最多可以加重 $maxhightopic 个帖子标题。</B></font>";}
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -873,7 +873,7 @@ sub highlight {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [加重帖子标题]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -888,9 +888,9 @@ sub lowlight {
     &mischeader("帖子标题取消加重");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("帖子标题取消加重&您不是本论坛坛主或版主，或者您的密码错误！");}
 
@@ -927,7 +927,7 @@ sub lowlight {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -937,7 +937,7 @@ sub lowlight {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [帖子标题取消加重]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -952,7 +952,7 @@ sub catlocktop {
     if (($startnewthreads eq "no") || ($startnewthreads eq "cert") || ($privateforum eq "yes")) {&error("主题区固定首行&对不起，这个分论坛并不是对所有用户开放的，所以不能区固定帖子！");}
     $absmaxcantopic = 3 if ($absmaxcantopic <= 0);
     $cleartoedit = "no";
-    if (($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad" || $member_code eq "smo" || ",$catemods," =~ /\Q\,$in_member_name\,\E/i) && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题区固定首行&您不是本分区管理员，或者您的密码错误！");}
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
@@ -1015,7 +1015,7 @@ sub catlocktop {
         }
         if ($toptopic >= $absmaxcantopic) {$topnum = "<BR><B><font color=$fonthighlight>已经区固定了 $toptopic 个帖子了，如果继续，最早一个被固定的帖子将被自动取消固定。</B></font>"}
         else {$topnum = "<BR><B><font color=$fonthighlight>已经区固定了 $toptopic 个帖子了，你最多可以区固定 $absmaxcantopic 个帖子。</B></font>";}
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -1025,7 +1025,7 @@ sub catlocktop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题区固定首行]</b></font>$topnum</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
@@ -1040,7 +1040,7 @@ sub catunlocktop {
     &mischeader("主题取消区固定");
 
     $cleartoedit = "no";
-    if (($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad" || $member_code eq "smo" || ",$catemods," =~ /\Q\,$in_member_name\,\E/i) && ($in_password eq $password)) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
     if ($cleartoedit eq "no" && $checked eq "yes") {&error("主题取消区固定&您不是本分区管理员，或者您的密码错误！");}
 
@@ -1079,7 +1079,7 @@ sub catunlocktop {
 ~;
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
@@ -1089,7 +1089,7 @@ sub catunlocktop {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [主题取消区固定]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>

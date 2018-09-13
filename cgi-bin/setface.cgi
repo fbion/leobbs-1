@@ -49,27 +49,27 @@ else {
 }
 
 #&ipbanned; #封杀一些 ip
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("不能进入 $plugname &你目前的身份是访客，请先登陆!");
     exit;
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -88,14 +88,14 @@ $admin_user =~ tr/A-Z/a-z/;
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-&error("$plugname 后台管理&只有论坛坛主与插件管理员才能进入此区！") if (($membercode ne "ad") && ($admin_user ne "$tempmembername"));
+&error("$plugname 后台管理&只有论坛坛主与插件管理员才能进入此区！") if (($member_code ne "ad") && ($admin_user ne "$tempmembername"));
 
 print $query->header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 $output .= qq~
 <BODY>
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以购买、装备、赠送、设置和管理你的虚拟形象</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href=face.cgi>$plugname</a> <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>后台管理</a>]<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href=face.cgi>$plugname</a> <img src=$imagesurl/images/fg.gif width=1 height=10> [<a href=setface.cgi>后台管理</a>]<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -141,7 +141,7 @@ sub main {
 
 sub bset # 基本设置
 {
-    &error("基本设置&此选项只有本论坛坛主才能使用！") if ($membercode ne "ad");
+    &error("基本设置&此选项只有本论坛坛主才能使用！") if ($member_code ne "ad");
     my $checked = $query->param('checked');
     if ($checked eq "yes") {
         my $new1 = $query->param('plugname');    # 插件名称

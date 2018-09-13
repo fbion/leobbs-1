@@ -26,7 +26,7 @@ require "data/boardinfo.cgi";
 require "wap.pl";
 require "data/styles.cgi";
 &waptitle;
-$show .= qq~<card  title="$boardname">~;
+$show .= qq~<card  title="$board_name">~;
 $lid = $query->param('lid');
 $in_forum = $query->param('f');
 $in_topic = $query->param('t');

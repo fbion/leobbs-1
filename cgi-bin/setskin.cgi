@@ -51,18 +51,18 @@ foreach (@params) {
     }
 }
 
-$inmembername = cookie("adminname");
-$inpassword = cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = cookie("adminname");
+$in_password = cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") && ($in_member_name ne "") && (lc($in_member_name) eq lc($membername))) {
 
 
     if ($action eq "process") {
@@ -110,7 +110,7 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
 
     }
     else {
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
 
         print qq~
                 <tr><td bgcolor=#2159C9 colspan=2><font face=宋体  color=#FFFFFF>

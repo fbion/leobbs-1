@@ -13,7 +13,7 @@ use warnings;
 use diagnostics;
 
 if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！"); }
-    if (($floodcontrol eq "on") && ($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'amo') && ($membercode ne 'cmo') && ($membercode ne "mo") && ($inmembmod ne "yes")) {
+    if (($floodcontrol eq "on") && ($member_code ne "ad")&&($member_code ne 'smo')&&($member_code ne 'amo') && ($member_code ne 'cmo') && ($member_code ne "mo") && ($inmembmod ne "yes")) {
 	($lastpost, $posturl, $posttopic) = split(/\%\%\%/,$lastpostdate);
 	$lastpost = $lastpost + $floodcontrollimit;
 	if ($lastpost > $currenttime)  {
@@ -24,30 +24,30 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
     if (($inhiddentopic eq "yes") && ($moneyhidden eq "yes")) { &error("发表主题&请不要在一个帖子内同时使用威望和金钱加密！"); }
     if ((($inhiddentopic eq "yes")||($moneyhidden eq "yes")) && ($userregistered eq "no")) { &error("发表主题&未注册用户无权进行威望和金钱加密！"); }
 
-    &error("发表或回复主题&对不起，本论坛不允许发表或回复超过 <B>$maxpoststr</B> 个字符的文章！") if ((length($inpost) > $maxpoststr)&&($maxpoststr ne "")&&($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
-    &error("发表或回复主题&对不起，本论坛不允许发表或回复少于 <B>$minpoststr</B> 个字符的文章！") if ((length($inpost) < $minpoststr)&&($minpoststr ne "")&&($membercode ne "ad")&&($membercode ne 'smo')&&($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
+    &error("发表或回复主题&对不起，本论坛不允许发表或回复超过 <B>$maxpoststr</B> 个字符的文章！") if ((length($inpost) > $maxpoststr)&&($maxpoststr ne "")&&($member_code ne "ad")&&($member_code ne 'smo')&&($member_code ne 'cmo') && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/) && ($inmembmod ne "yes"));
+    &error("发表或回复主题&对不起，本论坛不允许发表或回复少于 <B>$minpoststr</B> 个字符的文章！") if ((length($inpost) < $minpoststr)&&($minpoststr ne "")&&($member_code ne "ad")&&($member_code ne 'smo')&&($member_code ne 'cmo') && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/) && ($inmembmod ne "yes"));
 
     if ($postopen eq "no") { &error("发表或回复主题&对不起，本论坛不允许发表或回复主题！"); }
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-	if ($privateforum ne "yes") { &whosonline("$inmembername\t$forumname\tnone\t发表新主题\t"); }
-	                       else { &whosonline("$inmembername\t$forumname(密)\tnone\t发表新的保密主题\t"); }
+	if ($privateforum ne "yes") { &whosonline("$in_member_name\t$forumname\tnone\t发表新主题\t"); }
+	                       else { &whosonline("$in_member_name\t$forumname(密)\tnone\t发表新的保密主题\t"); }
     }
 
-    if ((($onlinetime + $onlinetimeadd) < $onlinepost)&&($onlinepost ne "")&&($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/))     { $onlinetime = $onlinetime + $onlinetimeadd; &error("发表新主题&对不起，本论坛不允许在线时间少于 $onlinepost 秒的用户发表主题！你目前已经在线 $onlinetime 秒！<BR>如果在线时间统计不正确,请重新登陆论坛一次即可解决！"); }
+    if ((($onlinetime + $onlinetimeadd) < $onlinepost)&&($onlinepost ne "")&&($member_code ne "ad")&&($member_code ne "smo")&&($member_code ne "cmo")&&($member_code ne "mo")&&($member_code ne "amo")&&($member_code !~ /^rz/))     { $onlinetime = $onlinetime + $onlinetimeadd; &error("发表新主题&对不起，本论坛不允许在线时间少于 $onlinepost 秒的用户发表主题！你目前已经在线 $onlinetime 秒！<BR>如果在线时间统计不正确,请重新登陆论坛一次即可解决！"); }
 
-    if (($userregistered eq "no")&&(length($inmembername) > 12)) { &error("发表新主题&您输入的用户名太长，请控制在6个汉字内！");   }
-    if (($userregistered eq "no")&&($inmembername =~ /^客人/)) { &error("发表新主题&请不要在用户名的开头中使用客人字样！");   }
-    if ($inmembername eq "客人") { &error("发表新主题&请不要在用户名的开头中使用客人字样！");   }
+    if (($userregistered eq "no")&&(length($in_member_name) > 12)) { &error("发表新主题&您输入的用户名太长，请控制在6个汉字内！");   }
+    if (($userregistered eq "no")&&($in_member_name =~ /^客人/)) { &error("发表新主题&请不要在用户名的开头中使用客人字样！");   }
+    if ($in_member_name eq "客人") { &error("发表新主题&请不要在用户名的开头中使用客人字样！");   }
     if (($userregistered eq "no")&&($startnewthreads ne "all")) { &error("发表新主题&您没有注册！");   }
-    elsif ((($inpassword ne $password)&&($userregistered ne "no"))||(($inpassword ne "")&&($userregistered eq "no"))) { &error("发表新主题&您的密码错误！"); }
-    elsif (($membercode eq "banned")||($membercode eq "masked"))      { &error("添加回复&您被禁止发言或者发言被屏蔽，请联系管理员解决！"); }
+    elsif ((($in_password ne $password)&&($userregistered ne "no"))||(($in_password ne "")&&($userregistered eq "no"))) { &error("发表新主题&您的密码错误！"); }
+    elsif (($member_code eq "banned")||($member_code eq "masked"))      { &error("添加回复&您被禁止发言或者发言被屏蔽，请联系管理员解决！"); }
     elsif ($in_topictitle eq "＊＃！＆＊") { &error("发表新主题&必须输入主题标题！"); }
     elsif (length($in_topictitle) > 92)   { &error("发表新主题&主题标题过长！"); }
     else  {
-#	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "")&&($mastpostatt eq "yes")&&($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
+#	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "")&&($mastpostatt eq "yes")&&($member_code ne "ad")&&($member_code ne 'smo')&&($inmembmod ne "yes"));
 #	@allforums = @forums;
 	$in_topictitle =~ s/\(无内容\)$//;
 	if (($inpost eq "")&&($addme eq "")) { $in_topictitle.=" (无内容)"; }
@@ -61,22 +61,22 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	if ($tempintopictitle eq "") { &error("发表新主题&主题标题有问题！"); }
 
         $tempaccess = "forumsallowed". "$in_forum";
-        $testentry = $query->cookie("$tempaccess");
-        if (($allowedentry{$in_forum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
+        $test_entry = $query->cookie("$tempaccess");
+        if (($allowed_entry{$in_forum} eq "yes")||(($test_entry eq $forum_pass)&&($test_entry ne ""))||($member_code eq "ad")||($member_code eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
         if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("发表&对不起，您不允许在此论坛发表！"); }
 
 	if ($startnewthreads eq "no") {
-            unless ($membercode eq "ad" ||$membercode eq 'smo'|| $inmembmod eq "yes") { &error("发表新主题&在此论坛中只能由坛主或者本版版主发表新主题！"); }
+            unless ($member_code eq "ad" ||$member_code eq 'smo'|| $inmembmod eq "yes") { &error("发表新主题&在此论坛中只能由坛主或者本版版主发表新主题！"); }
 	}
 	elsif ($startnewthreads eq "cert") {
-            unless ($membercode eq "ad" ||$membercode eq 'smo'|| $inmembmod eq "yes"||$membercode eq 'cmo'||$membercode eq 'mo'||$membercode eq 'amo'||$membercode =~ /^rz/) { &error("发表新主题&在此论坛中只能由坛主、版主和认证会员发表新主题！"); }
+            unless ($member_code eq "ad" ||$member_code eq 'smo'|| $inmembmod eq "yes"||$member_code eq 'cmo'||$member_code eq 'mo'||$member_code eq 'amo'||$member_code =~ /^rz/) { &error("发表新主题&在此论坛中只能由坛主、版主和认证会员发表新主题！"); }
 	}
 	elsif (($startnewthreads eq "follow") &&($action eq "addnew")) {
-            unless ($membercode eq "ad" ||$membercode eq 'smo'||$membercode eq 'cmo' ||$membercode eq 'mo'||$membercode eq 'amo'|| $inmembmod eq "yes") { &error("发表新主题&在此论坛中只能由坛主或者版主发表新主题！"); }
+            unless ($member_code eq "ad" ||$member_code eq 'smo'||$member_code eq 'cmo' ||$member_code eq 'mo'||$member_code eq 'amo'|| $inmembmod eq "yes") { &error("发表新主题&在此论坛中只能由坛主或者版主发表新主题！"); }
 	}
-	elsif (($startnewthreads eq "all")&&($userregistered eq "no")) { $inmembername = "$inmembername(客)"; }
+	elsif (($startnewthreads eq "all")&&($userregistered eq "no")) { $in_member_name = "$in_member_name(客)"; }
 
-	if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $inmembmod ne "yes") {
+	if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $inmembmod ne "yes") {
 	    &error("发表新主题&对不起，你的删贴率超过了<b>$deletepercent</b>%，管理员不允许你发表新主题！请联系坛主解决！") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
 	}
 
@@ -89,7 +89,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	    foreach (@pairs1) {
 		my ($toemote, $beemote) = split(/=/,$_);
 		chomp $beemote;
-		$beemote =~ s/对象/〖$inmembername〗/isg;
+		$beemote =~ s/对象/〖$in_member_name〗/isg;
 		$inpost =~ s/$toemote/$beemote/isg;
 		last unless ($inpost =~ m/\/\/\//);
 	    }
@@ -133,7 +133,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
             my $threaddata =<FILE>;
             close(FILE);
             (my $amembername,my $atopictitle,my $no,my $no,my $no,my $no,my $apost,my $no) = split(/\t/, $threaddata);
-	    if (($amembername eq $inmembername)&&((($apost eq $inpost)&&($apost ne "")&&($inpost ne ""))||($atopictitle eq $in_topictitle))) {
+	    if (($amembername eq $in_member_name)&&((($apost eq $inpost)&&($apost ne "")&&($inpost ne ""))||($atopictitle eq $in_topictitle))) {
 	        if (open(FILE, ">${lbdir}boarddata/lastnum$in_forum.cgi")) {
         	    flock(FILE, 2) if ($OS_USED eq "Unix");
         	    print FILE $oldthreadnumber;
@@ -151,12 +151,12 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	$in_topictitle =~ s/(o|O)r/$1&#114;/sg;
 #	$in_topictitle  =~ s/\\/&#92;/isg;
 	
-	$inpost =~ s/\[UploadFile.{0,6}=(.+?)\]//isg unless (($arrowupload ne "no")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes"));
+	$inpost =~ s/\[UploadFile.{0,6}=(.+?)\]//isg unless (($arrowupload ne "no")||($member_code eq "ad")||($member_code eq 'smo')||($inmembmod eq "yes"));
 	
 	$inpost =~ s/(ev)a(l)/$1&#97;$2/isg;
 
         $addme= &upfileonpost(\$inpost,$in_forum,$newthreadnumber);#处理上传，返回数值给BT区做判断
-	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "0")&&($mastpostatt eq "yes")&&($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
+	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "0")&&($mastpostatt eq "yes")&&($member_code ne "ad")&&($member_code ne 'smo')&&($inmembmod ne "yes"));
 	$addme = "" if ($addme eq "0");
 	$in_topictitletemp = $in_topictitle ;
 	$in_topictitletemp =~ s/^＊＃！＆＊//;
@@ -173,12 +173,12 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
         }
 
         if (open(FILE, ">${lbdir}forum$in_forum/$newthreadnumber.pl")) {
-            print FILE "$newthreadnumber\t$in_topictitle\t\topen\t0\t0\t$inmembername\t$currenttime\t\t$currenttime\t$inposticon\t$inposttemp\t$addme\t";
+            print FILE "$newthreadnumber\t$in_topictitle\t\topen\t0\t0\t$in_member_name\t$currenttime\t\t$currenttime\t$inposticon\t$inposttemp\t$addme\t";
             close(FILE);
         }
 
         if (open(FILE, ">${lbdir}forum$in_forum/$newthreadnumber.thd.cgi")) {
-            print FILE "$inmembername\t$in_topictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t$inwater\t\n";
+            print FILE "$in_member_name\t$in_topictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t$inwater\t\n";
             close(FILE);
         }
 
@@ -194,11 +194,11 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 		    close(FILE);
 		    my $checknumber = 0;
 		    $maxadpost = 3 if ($maxadpost < 3);
-		    if (($membercode ne "ad")&&($membercode ne "smo")&&($membercode ne "cmo")&&($membercode ne "mo")&&($membercode ne "amo")&&($membercode !~ /^rz/)) {
+		    if (($member_code ne "ad")&&($member_code ne "smo")&&($member_code ne "cmo")&&($member_code ne "mo")&&($member_code ne "amo")&&($member_code !~ /^rz/)) {
 		        foreach (@recentposts) {
 			    (my $no,$no,my $temptopic,$no,$no,my $tempmembername) = split(/\t/,$_);
 			    $temptopic =~ s/^＊＃！＆＊//;
-			    $checknumber ++ if (($in_topictitletemp eq $temptopic)&&(lc($tempmembername) eq lc($inmembername)));
+			    $checknumber ++ if (($in_topictitletemp eq $temptopic)&&(lc($tempmembername) eq lc($in_member_name)));
 		        }
 
 		        if ($checknumber >= $maxadpost) {
@@ -207,14 +207,14 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 			    unlink ("${lbdir}forum$in_forum/$newthreadnumber.thd.cgi");
 	                    unlink ("${imagesdir}$usrdir/$in_forum/$in_forum\_${newthreadnumber}.$up_ext");
 
-			    if (($inmembername ne "")&&($userregistered ne "no")&&($password ne "")) {
-			        $memberfiletitle = $inmembername;
+			    if (($in_member_name ne "")&&($userregistered ne "no")&&($password ne "")) {
+			        $memberfiletitle = $in_member_name;
 			        $memberfiletitle =~ s/ /\_/isg;
 			        $memberfiletitle =~ tr/A-Z/a-z/;
 			        my $namenumber = &getnamenumber($memberfiletitle);
 			        &checkmemfile($memberfiletitle,$namenumber);
 			        if (open(MEMFILE, ">${lbdir}$memdir/$namenumber/$memberfiletitle.cgi")) {
-			            print MEMFILE "$inmembername\t$password\t$membertitle\tmasked\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+			            print MEMFILE "$in_member_name\t$password\t$membertitle\tmasked\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
 			            close(MEMFILE);
 			        }
 		                unlink ("${lbdir}cache/myinfo/$memberfiletitle.pl");
@@ -222,7 +222,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 			    }
 		            $filetomake = "$lbdir" . "data/idbans.cgi";
 		            open (FILE, ">>$filetomake");
-        		    print FILE "$inmembername\t";
+        		    print FILE "$in_member_name\t";
 		            close (FILE);
 			    &error("出错&由于你在多区发送广告，所以你已经被禁止发言！");
 			}
@@ -234,14 +234,14 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 		    
 		    if (open (FILE, ">$filetomakeopen")) {
 			flock (FILE, 2) if ($OS_USED eq "Unix");
-			print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
+			print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$in_member_name\t\n";
 			for ($i=0;$i<$maxpostreport;$i++) { print FILE $recentposts[$i]; }
 			close(FILE);
 		    }
 		    &winunlock($filetomakeopen) if ($OS_USED eq "Nt");
 		} else {
       		    if (open (FILE, ">$filetomakeopen")) {
-      			print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
+      			print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$in_member_name\t\n";
       			close(FILE);
       		    }
    		}
@@ -306,7 +306,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	    }
             &winunlock($file) if ($OS_USED eq "Nt");
             if (open (LIST, ">>${lbdir}boarddata/listall$in_forum.cgi")) {
-                print LIST "$newthreadnumber\t$in_topictitletemp\t$inmembername\t$currenttime\t\n";
+                print LIST "$newthreadnumber\t$in_topictitletemp\t$in_member_name\t$currenttime\t\n";
             	close (LIST);
             }
 	}
@@ -317,7 +317,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
             ($tpost,$treply) = split (/\|/,$truenumber);
 	}
 
-        $cleanmembername = $inmembername;
+        $cleanmembername = $in_member_name;
         $cleanmembername =~ s/ /\_/isg;
 	$cleanmembername =~ tr/A-Z/a-z/;
 
@@ -337,9 +337,9 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
     	if (($userregistered ne "no")&&($password ne "")) {
 	    $filetomake = "$lbdir" . "$memdir/$cleanmembername.cgi";
             &winlock($filetomake) if ($OS_USED eq "Nt");
-            if ((open(FILE, ">$filetomake"))&&($inmembername ne "")) {
+            if ((open(FILE, ">$filetomake"))&&($in_member_name ne "")) {
         	flock(FILE, 2) if ($OS_USED eq "Unix");
-        	print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+        	print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
         	close(FILE);
             }
             &winunlock($filetomake) if ($OS_USED eq "Nt");
@@ -357,7 +357,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
             open(FILE, "+<$filetoopen");
             ($no, $threads, $posts, $todayforumpost, $lastposter) = split(/\t/,<FILE>);
 
-            $lastposter   = $inmembername;
+            $lastposter   = $in_member_name;
             $lastposttime = $currenttime;
             if (($tpost ne "")&&($treply ne "")) {
                 $threads = $tpost;
@@ -411,7 +411,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 
         if (($emailfunctions eq "on") && ($innotify eq "yes")) {
             if (open (FILE, ">${lbdir}forum$in_forum/$newthreadnumber.mal.pl")) {
-                print FILE "$inmembername\t$emailaddress\t\n";
+                print FILE "$in_member_name\t$emailaddress\t\n";
                 close (FILE);
             }
         }
@@ -428,7 +428,7 @@ unlink ("${lbdir}cache/plcache$in_forum\_0.pl");
 	                 else { $relocurl = "forums.cgi?forum=$in_forum"; }
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢，$inmembername！您的新主题已经发表成功！</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢，$in_member_name！您的新主题已经发表成功！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>如果浏览器没有自动返回，请点击下面的链接！
 <ul><li><a href="topic.cgi?forum=$in_forum&topic=$newthreadnumber">返回新主题</a>
 <li><a href="forums.cgi?forum=$in_forum">返回论坛</a>

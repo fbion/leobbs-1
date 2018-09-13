@@ -73,10 +73,10 @@ $inshow = 0 if ($inshow eq "");
 $inmax = $query->param('max');
 $maxtopics = 99999 if ($inmax eq "yes");
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $instart = int($instart / $maxtopics + 0.5) * $maxtopics;
 $action = $query->param('action');
@@ -90,10 +90,10 @@ $onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview&forum=$i
 
 if ((($forumimagead eq "1") && ($useimageadtopic eq "1")) || (($forumimagead1 eq "1") && ($useimageadtopic1 eq "1"))) {require "${lbdir}imagead.cgi";}
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $nodisp = $query->cookie("nodisp");
 ($nodispavatar, $nodispsign, $nodispphoto) = split(/\|/, $nodisp);
@@ -122,18 +122,18 @@ if (($defaultflashwidth eq "") || ($defaultflashwidth < 200) || ($defaultflashhe
 
 $currenttime = time;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {
-    $inmembername = "客人";
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
+    $in_member_name = "客人";
     $myrating = "-1";
     $mymembercode = "no";
     $jifen = -1;
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
 }
 else {
-    &getmember("$inmembername", "no");
-    $mymembercode = $membercode;
+    &getmember("$in_member_name", "no");
+    $mymembercode = $member_code;
     $myrating = $rating;
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -144,24 +144,24 @@ else {
     $forumlastvisit = $lastvisitinfo{$in_forum};
     &setlastvisit("$in_forum,$currenttime");
 }
-$testentry = $query->cookie("forumsallowed$in_forum");
+$test_entry = $query->cookie("forumsallowed$in_forum");
 
 &getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
 
-if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
+if (($allowed_entry{$in_forum} eq "yes") || (($test_entry eq $forum_pass) && ($test_entry ne "")) || ($member_code eq "ad") || ($inmembmod eq "yes") || ($member_code eq 'smo')) {$allowed = "yes";}
 else {$allowed = "no";}
 
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
 $myrating = -6 if ($myrating eq "");
 if (($privateforum eq "yes" && $allowed ne "yes")) {&error("进入私有论坛&对不起，您没有权限进入该私有论坛！");}
-if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
 
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -207,7 +207,7 @@ if ($mymembercode eq "ad" or $mymembercode eq "smo" or $myinmembmod eq "yes") {
 else {
     $viewhide = 0;
     if ($hidejf eq "yes") {
-        my @viewhide = grep (/^$inmembername\t/i, @threads);
+        my @viewhide = grep (/^$in_member_name\t/i, @threads);
         $viewhide = @viewhide;
         $viewhide = 1 if ($viewhide >= 1);
     }
@@ -359,7 +359,7 @@ if ($addtopictime eq "yes") {
 $topictitletemp =~ s/ \(无内容\)$//;
 $topictitletemp =~ s/\&\#039\;//isg;
 $topictitletemp = &cleaninput($topictitletemp);
-$bookmarkpage = qq~ <span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic', ' $boardname - $topictitletemp')"><IMG SRC=$imagesurl/images/fav_add1.gif width=15 alt=把本贴加入收藏夹></span>&nbsp;~;
+$bookmarkpage = qq~ <span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic', ' $board_name - $topictitletemp')"><IMG SRC=$imagesurl/images/fav_add1.gif width=15 alt=把本贴加入收藏夹></span>&nbsp;~;
 
 &title;
 
@@ -372,8 +372,8 @@ if (-e "$filetoopens.lck") {
     unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 30);
 }
 else {
-    if ($privateforum ne "yes") {&whosonline("$inmembername\t$forumname\t$forumname<>浏览“$topictitletemp”\t浏览<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitletemp</b></a>\t");}
-    else {&whosonline("$inmembername\t$forumname(密)\t$forumname<>topictitletemp(密)\t浏览保密贴子\t");}
+    if ($privateforum ne "yes") {&whosonline("$in_member_name\t$forumname\t$forumname<>浏览“$topictitletemp”\t浏览<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitletemp</b></a>\t");}
+    else {&whosonline("$in_member_name\t$forumname(密)\t$forumname<>topictitletemp(密)\t浏览保密贴子\t");}
     $membertongji =~ s/分论坛/主题/o;
     $membertongji =~ s/人在线/人浏览/o;
     undef $memberoutput if ($onlineview != 1);
@@ -416,7 +416,7 @@ if ($startarray eq "0" && $arrawrecordclick eq "yes") {
     my $trueipaddress1 = $ENV{'HTTP_CLIENT_IP'};
     $trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
     open(FILECLICK, ">>${lbdir}forum$in_forum/$in_topic.clk.pl");
-    print FILECLICK "$inmembername\t$ipaddress\t$trueipaddress\t$currenttime\t\n";
+    print FILECLICK "$in_member_name\t$ipaddress\t$trueipaddress\t$currenttime\t\n";
     close(FILECLICK);
 }
 
@@ -424,7 +424,7 @@ $insidead = "" if (($forumimagead ne "1") && ($useimageadtopic ne "1"));
 $insidead1 = "" if (($forumimagead1 ne "1") && ($useimageadtopic1 ne "1"));
 if ($threadviews > 0) {
     $threadviewstemp = "◆此帖被阅读 <b>$threadviews</b> 次◆";
-    $threadviewstemp = "<a href=dispclick.cgi?forum=$in_forum&topic=$in_topic title=查看此帖的访问记录 target=_blank>$threadviewstemp</a>" if ($membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes');
+    $threadviewstemp = "<a href=dispclick.cgi?forum=$in_forum&topic=$in_topic title=查看此帖的访问记录 target=_blank>$threadviewstemp</a>" if ($member_code eq 'ad' || $member_code eq 'smo' || $inmembmod eq 'yes');
 }
 
 $output .= qq~<script>
@@ -668,7 +668,7 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 
 #    next if ($membername eq "");
 
-    if (($inmembername eq "" || $inmembername eq "客人")&&($waterwhenguest eq "yes")){
+    if (($in_member_name eq "" || $in_member_name eq "客人")&&($waterwhenguest eq "yes")){
 	$post="\[watermark]\n$post\[\/watermark]";
     }
 
@@ -679,7 +679,7 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     	$membername=~s/\(客\)/ \(客人\)/isg;
 	$membername{"客人"}  = $membername;
 	$membername = "客人";
-	require "guestinfo.pl" if ($membercode{"客人"} eq "");
+	require "guestinfo.pl" if ($member_code{"客人"} eq "");
     }
     else {
     	$tempmname = $membername;  #给 getnameinfo.pl 用的
@@ -687,10 +687,10 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 	$membername =~ s/ /\_/g;
 	$membername =~ tr/A-Z/a-z/;
 	$membername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-        if ($membercode{$membername} eq "") {
+        if ($member_code{$membername} eq "") {
 	    if (-e "${lbdir}cache/meminfo/$membername.pl") {
 	        eval{ require "${lbdir}cache/meminfo/$membername.pl";};
-	        if (($@)||($membername{$membername} eq "")||($membercode{$membername} eq "")) { unlink ("${lbdir}cache/meminfo/$membername.pl"); require "getnameinfo.pl" if ($onloadinfopl ne 1); &getmemberinfo($membername); }
+	        if (($@)||($membername{$membername} eq "")||($member_code{$membername} eq "")) { unlink ("${lbdir}cache/meminfo/$membername.pl"); require "getnameinfo.pl" if ($onloadinfopl ne 1); &getmemberinfo($membername); }
 	    }
 	    else {
                 require "getnameinfo.pl" if ($onloadinfopl ne 1);
@@ -712,7 +712,7 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
         $replygraphic = qq~<a href=post.cgi?action=replyquote&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=引用回复这个贴子><img src=$imagesurl/images/reply.gif border=0 width=16 align=absmiddle>引用</a>　~;
     } else { $replygraphic="";}
     
-    if ($waterwhenguest eq "yes" && $inmembername eq "客人") {
+    if ($waterwhenguest eq "yes" && $in_member_name eq "客人") {
     	$copygfx = "";
     } else {
         $copygfx = qq~<a href=post.cgi?action=copy1&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=复制这个贴子><img src=$imagesurl/images/copy.gif border=0 width=16 align=absmiddle>复制</a>　~;
@@ -723,7 +723,7 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     $mynodispsign=$nodispsign;
 
     if ($forummodnamestemp =~ /\Q\,$membername{$membername}\,\E/i) { $inmembmod = "yes"; } else { $inmembmod = "no"; }
-    $mynodispsign="no" if ($membercode{$membername} eq 'ad' || $membercode{$membername} eq 'smo'|| $inmembmod eq "yes");
+    $mynodispsign="no" if ($member_code{$membername} eq 'ad' || $member_code{$membername} eq 'smo'|| $inmembmod eq "yes");
 
     if ($onlineuserlist =~ /\_$membername{$membername}\_/i) { $onlineinfo = "该用户目前在线";$onlinepic="online1.gif"; } else { $onlineinfo = "该用户目前不在线";$onlinepic="offline1.gif"; }
     if (($mymembercode eq "ad")&&($onlineuserlisthidden =~ /\_$membername{$membername}\_/i)) { $onlineinfo = "该用户目前处于隐身状态";$onlinepic="onlinehidden.gif"; }
@@ -734,11 +734,11 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 
     if ($count eq 1) { $postbackcolor = "$postcolorone"; $postfontcolor = "$postfontcolorone"; $count++; } else { $postbackcolor = "$postcolortwo"; $postfontcolor = "$postfontcolortwo"; $count = 1; }
 
-    if ((($post =~ /(\&\#35\;|#)Moderation Mode/i) && ($membercode{$membername} eq 'mo' ||$membercode{$membername} eq 'amo'||$membercode{$membername} eq 'cmo'|| $membercode{$membername} eq 'ad' || $membercode{$membername} eq 'smo')) || $htmlstate eq 'on') {
+    if ((($post =~ /(\&\#35\;|#)Moderation Mode/i) && ($member_code{$membername} eq 'mo' ||$member_code{$membername} eq 'amo'||$member_code{$membername} eq 'cmo'|| $member_code{$membername} eq 'ad' || $member_code{$membername} eq 'smo')) || $htmlstate eq 'on') {
         $post =~ s/(\&\#35\;|#)Moderation Mode/***** 版主模式 *****\<BR\>/g;
         $post =~ s/&lt;/</g; $post =~ s/&gt;/>/g; $post =~ s/\&\#35\;/\#/g; $post =~ s/&quot;/\"/g; $post =~ s/( |\>)<br>/$1\n/sg; $post =~ s/( |\>)<p>/$1\n\n/sg;
     } else { $post =~ s/style/\&\#115\;tyle/isg; }
-    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($usereditpost ne "no")&&(lc($inmembername) eq lc($membername{$membername}))))  {
+    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($usereditpost ne "no")&&(lc($in_member_name) eq lc($membername{$membername}))))  {
     	if ($post=~m/\[ALIPAYE\]/) {
     	    $editgraphic    = qq~<a href=editpay.cgi?action=edit&forum=$in_forum&topic=$in_topic title=编辑这个交易帖><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~;
     	} else {
@@ -791,11 +791,11 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
         $posticon = qq~<img src=$imagesurl/posticons/$posticon $defaultsmilewidth $defaultsmileheight>~ if ($posticon ne "");
     }
     
-    if ((lc($inmembername) eq lc($membername))&&($inmembername ne "客人")&&(($threadstate ne "closed")&&($threadstate ne "pollclosed")&&($postopen ne "no"))){
+    if ((lc($in_member_name) eq lc($membername))&&($in_member_name ne "客人")&&(($threadstate ne "closed")&&($threadstate ne "pollclosed")&&($postopen ne "no"))){
 	$post.="<br><br><br><span id=postnum$editpostnumber><span style=cursor:hand onClick=javascript:addpost('$editpostnumber');><font color=$fonthighlight><b>[补充该文...]</b></span></span><br>";
     }
 
-    if ($membercode{$membername} eq "masked") {
+    if ($member_code{$membername} eq "masked") {
     	$addme = "";
 	$signature{$membername} = "";
         $post = qq(<br>------------------------<br><font color=$posternamecolor>此用户的发言已经被屏蔽！<br>如有疑问，请联系管理员！</font><br>------------------------<BR></td><td width=16>);
@@ -824,10 +824,10 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     }
     else { $post = qq($post<BR></td><td width=16></td></tr><tr><td></td><td valign=bottom><BR><BR><BR><BR>$postcopyright<BR>); }
 
-    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($arrowuserdel ne "off")&&(lc($inmembername) eq lc($membername{$membername})))) { $delgraphic = qq~<a href=delpost.cgi?action=directdel&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=删除这个回复><img src=$imagesurl/images/del.gif border=0 width=16 align=absmiddle>删除</a>　~; } else { $delgraphic = ""; }
+    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($arrowuserdel ne "off")&&(lc($in_member_name) eq lc($membername{$membername})))) { $delgraphic = qq~<a href=delpost.cgi?action=directdel&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=删除这个回复><img src=$imagesurl/images/del.gif border=0 width=16 align=absmiddle>删除</a>　~; } else { $delgraphic = ""; }
     $delgraphic .=qq(<input type="checkbox" name="postno$editpostnumber" value="yes">) if((($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes"))&&($treeview ne "yes"));
 
-    if ((($mymembercode eq "ad")||($mymembercode eq "mo")||($mymembercode eq 'smo')||(($myinmembmod eq "yes")&&($mymembercode ne 'amo')))&&($membercode{$membername} ne "ad")&&($tempname ne "")&&($membername ne "客人")) { $rateuser = qq~ <a href="userrating.cgi?membername=$tempname&oldforum=$in_forum&oldtopic=$in_topic&oldpostno=$editpostnumber" title=给此用户增减威望或积分><img src=$imagesurl/images/poll1.gif border=0 width=16 height=14></a>~; } else { $rateuser=""; }
+    if ((($mymembercode eq "ad")||($mymembercode eq "mo")||($mymembercode eq 'smo')||(($myinmembmod eq "yes")&&($mymembercode ne 'amo')))&&($member_code{$membername} ne "ad")&&($tempname ne "")&&($membername ne "客人")) { $rateuser = qq~ <a href="userrating.cgi?membername=$tempname&oldforum=$in_forum&oldtopic=$in_topic&oldpostno=$editpostnumber" title=给此用户增减威望或积分><img src=$imagesurl/images/poll1.gif border=0 width=16 height=14></a>~; } else { $rateuser=""; }
 
     ($ip1,$ip2,$ip3,$ip4) = split(/\./,$postipaddress);
 
@@ -845,7 +845,7 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 	if ($pvtip eq "on") { $postipaddress="$ip1.$ip2.$ip3.*"; } else { $postipaddress="已设置保密"; }
     }
     else {
-	if (($pvtip eq "on")&&($inmembername ne "客人")) { $postipaddress="$ip1.$ip2.*.*"; } else { $postipaddress="已设置保密"; }
+	if (($pvtip eq "on")&&($in_member_name ne "客人")) { $postipaddress="$ip1.$ip2.*.*"; } else { $postipaddress="已设置保密"; }
     }
 
     if ($proxyip ne 1) { if ($mymembercode eq "ad") { $fromproxy ="真实 IP： $truepostipaddress"; } else { $fromproxy = "此 IP 为代理服务器"; } } else { $fromproxy=""; }
@@ -923,7 +923,7 @@ $output .= qq~<SCRIPT>valignend()</SCRIPT><img src=$imagesurl/images/none.gif he
 
 if (($indexforum ne "no")&&($dispjump ne "no")) {
     require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
-    $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes")||($membercode eq "ad")||($membercode eq "smo")||($membercode eq "cmo")||($membercode eq "mo")||($membercode eq "amo"));
+    $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes")||($member_code eq "ad")||($member_code eq "smo")||($member_code eq "cmo")||($member_code eq "mo")||($member_code eq "amo"));
     $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
 
     if ($usefake eq "yes") {

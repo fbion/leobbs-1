@@ -32,15 +32,15 @@ require "wap_code.cgi";
 require "wap.pl";
 $|++;
 &waptitle;
-$show .= qq~<card  title="$boardname"> ~;
+$show .= qq~<card  title="$board_name"> ~;
 $lid = $query->param('lid');
 &check($lid);
 $pa = $query->param('pa');
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
 }
 
 $postno = $query->param('pno');

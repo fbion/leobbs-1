@@ -23,7 +23,7 @@ my $arrowonlinemax = '99999';
 my $avatars = 'on';
 my $basetimes = '北京时间';
 my $boarddescription = '我的雷傲极酷超级论坛，我的天地';
-my $boardname = '雷傲极酷超级论坛';
+my $board_name = '雷傲极酷超级论坛';
 my $canhidden = 'yes';
 my $coolclickdisp = '0';
 my $copyrightinfo = '中文版权所有： &lt;a href=http://www.leobbs.com&gt;雷傲科技&lt;/a&gt;';

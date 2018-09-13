@@ -56,31 +56,31 @@ $SEARCH_STRING =~ s/^system //g;
 $SEARCH_STRING = &stripMETA($SEARCH_STRING);
 
 $ipaddress = $ENV{'REMOTE_ADDR'};
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {
-    $inmembername = "客人";
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
+    $in_member_name = "客人";
     $file_name = "客人$ipaddress";
     $file_name =~ s/\.//g;
 }
 else {
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
     if ($userregistered eq "no") {&error("论坛搜索&你还没注册呢！");}
-    $file_name = $inmembername;
+    $file_name = $in_member_name;
 }
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 opendir(DIRS, "$lbdir");
@@ -93,13 +93,13 @@ $searchdir = $searchdir[0];
 if ($searchopen eq "99") {&error("搜索&搜索功能已经被关闭！");}
 
 if (($searchopen ne "") && ($searchopen ne "0")) {
-    if (($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo")) {
-        if (($membercode eq "masked") || ($membercode eq "banned")) {&error("搜索&搜索功能只允许普通会员使用");}
-        if (($searchopen eq 1) && ($inmembername eq "客人")) {&error("搜索&搜索功能只允许注册会员使用，请注册！");}
-        if ($searchopen eq 2) {if ($membercode !~ /^rz/) {&error("搜索&搜索功能只允许认证会员或以上级别使用！");}}
+    if (($member_code ne "ad") && ($member_code ne "smo") && ($member_code ne "cmo") && ($member_code ne "mo") && ($member_code ne "amo")) {
+        if (($member_code eq "masked") || ($member_code eq "banned")) {&error("搜索&搜索功能只允许普通会员使用");}
+        if (($searchopen eq 1) && ($in_member_name eq "客人")) {&error("搜索&搜索功能只允许注册会员使用，请注册！");}
+        if ($searchopen eq 2) {if ($member_code !~ /^rz/) {&error("搜索&搜索功能只允许认证会员或以上级别使用！");}}
         if ($searchopen eq 3) {&error("搜索&搜索功能只允许版主或以上级别使用！");}
     }
-    if (($searchopen eq 4) && ($membercode ne "ad")) {&error("搜索&搜索功能目前只允许坛主使用！");}
+    if (($searchopen eq 4) && ($member_code ne "ad")) {&error("搜索&搜索功能目前只允许坛主使用！");}
 }
 
 $file_name =~ y/ /_/;
@@ -123,7 +123,7 @@ if ($action eq "") {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t搜索\tboth\t搜索符合要求的贴子\t");
+        &whosonline("$in_member_name\t搜索\tboth\t搜索符合要求的贴子\t");
     }
     opendir(DIR, "${lbdir}$searchdir");
     my @dirdata = readdir(DIR);
@@ -137,8 +137,8 @@ if ($action eq "") {
 }
 
 if ($action eq "saveresults") {
-    if ($inmembername eq "客人") {&error("保存搜索结果&客人不能保存搜索结果！");}
-    $file_name = $inmembername;
+    if ($in_member_name eq "客人") {&error("保存搜索结果&客人不能保存搜索结果！");}
+    $file_name = $in_member_name;
     $file_name =~ y/ /_/;
     $file_name =~ tr/A-Z/a-z/;
     copy("${lbdir}$searchdir/$file_name\_sch.cgi", "${lbdir}$searchdir/$file_name\_sav.cgi");
@@ -151,11 +151,11 @@ if ($action eq "saveresults") {
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="2; url=$thisprog?action=display">
 ~;
-    &output("$boardname - 贴子搜索", \$output);
+    &output("$board_name - 贴子搜索", \$output);
 }
 elsif ($action eq "loadresults") {
-    if ($inmembername eq "客人") {&error("调入搜索结果&客人无法调入搜索结果！");}
-    $file_name = $inmembername;
+    if ($in_member_name eq "客人") {&error("调入搜索结果&客人无法调入搜索结果！");}
+    $file_name = $in_member_name;
     $file_name =~ y/ /_/;
     $file_name =~ tr/A-Z/a-z/;
     $savefilename = "${lbdir}$searchdir/$file_name\_sav.cgi";
@@ -288,7 +288,7 @@ elsif ($action eq "continue") {
     my $filetoopen = "${lbdir}forum$search_in_forum/foruminfo.cgi";
     if (-e $filetoopen) {
         &getoneforum($search_in_forum);
-        $nofile = "true" if (($privateforum eq "yes") && ($allowedentry{$search_in_forum} ne "yes") && ($membercode ne "ad") && ($membercode ne 'smo'));
+        $nofile = "true" if (($privateforum eq "yes") && ($allowed_entry{$search_in_forum} ne "yes") && ($member_code ne "ad") && ($member_code ne 'smo'));
     }
     else {
         $nofile = "true";
@@ -432,14 +432,14 @@ else {
         #start foreach @forums
         $a = sprintf("%09d", $a);
         chomp $forum;
-        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
         next if (($forumid !~ /^[0-9]+$/) || ($categoryplace !~ /^[0-9]+$/));
         $categoryplace = sprintf("%09d", $categoryplace);
-        if ((($privateforum eq "yes") && ($userregistered ne "no") && ($allowedentry{$forumid} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo')) {
-            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+        if ((($privateforum eq "yes") && ($userregistered ne "no") && ($allowed_entry{$forumid} eq "yes")) || ($member_code eq "ad") || ($member_code eq 'smo')) {
+            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
         }
         elsif ($privateforum ne "yes") {
-            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
         }
         push(@rearrangedforums, $rearrange);
         $a++;
@@ -448,7 +448,7 @@ else {
     $count = 1;
     foreach (@rearrangedforums) {
         chomp $_;
-        (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forumpass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $_);
+        (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forum_pass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $_);
         $categoryplace = sprintf("%01d", $categoryplace);
         $child = ($category =~ /^childforum-[0-9]+/) ? "　|" : "";
         if ($hiddenforum eq "yes") {$hidden = "(隐含)";}
@@ -456,10 +456,10 @@ else {
         if ($categoryplace ne $lastcategoryplace) {
             $jumphtml .= "<option value=\"\" style=background-color:$titlecolor>╋$category\n</option>";
             $jumphtml2 .= qq(<input type="radio" name="CAT_TO_SEARCH" value="cat$categoryplace">$category<BR>);
-            $jumphtml .= "<option value=\"$forumid\">$child　|- $forumname$hidden\n</option>" if ($hidden eq "" || $membercode eq "ad");
+            $jumphtml .= "<option value=\"$forumid\">$child　|- $forumname$hidden\n</option>" if ($hidden eq "" || $member_code eq "ad");
         }
         else {
-            $jumphtml .= "<option value=\"$forumid\">$child　|- $forumname$hidden\n</option>" if ($hidden eq "" || $membercode eq "ad");
+            $jumphtml .= "<option value=\"$forumid\">$child　|- $forumname$hidden\n</option>" if ($hidden eq "" || $member_code eq "ad");
         }
         $lastcategoryplace = $categoryplace;
     }
@@ -485,7 +485,7 @@ else {
     $output .= qq~
 <option value="post_search">搜索回复作者
 <option value="both_search">两者都搜索
-~ if ($searchall ne "no" || $membercode eq "ad");
+~ if ($searchall ne "no" || $member_code eq "ad");
     $output .= qq~
 </select>
 </td></tr>
@@ -498,7 +498,7 @@ else {
     $output .= qq~
 <option value="post_search">在贴子内容中搜索关键字
 <option value="both_search">在主题和贴子内容中搜索关键字
-~ if ($searchall ne "no" || $membercode eq "ad");
+~ if ($searchall ne "no" || $member_code eq "ad");
     $output .= qq~
 </select>
 </td></tr>
@@ -526,7 +526,7 @@ else {
 ~;
 }
 
-&output("$boardname - 贴子搜索", \$output);
+&output("$board_name - 贴子搜索", \$output);
 exit;
 
 sub displayresults {
@@ -633,10 +633,10 @@ sub displayresults {
         $topicdescription = qq(&nbsp;-=> $topicdescription) if $topicdescription;
 
         $in_forum = $forumid;
-        if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+        if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
             $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=add&forum=$in_forum&topic=$topicid><font color=$titlecolor>精</font></a>|<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
         }
-        elsif ((lc($inmembername) eq lc($startedby)) && ($inpassword eq $password) && ($inmembername !~ /^客人/)) {
+        elsif ((lc($in_member_name) eq lc($startedby)) && ($in_password eq $password) && ($in_member_name !~ /^客人/)) {
             if ($arrowuserdel eq "on") {
                 $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>| <a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁定此贴，不允许别人回复</font></a> | <a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删除此贴</font></a> |</font>&nbsp;&nbsp;</DIV>~;
             }
@@ -665,7 +665,7 @@ $topicdescription$admini</td>
 </font></td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 );
-    &output("$boardname - 搜索结果", \$output);
+    &output("$board_name - 搜索结果", \$output);
 
 }
 exit;

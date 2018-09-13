@@ -42,7 +42,7 @@ my $in_topic = $query->param('topic');
 
 if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '' && $pvtdown ne "no") {
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    print qq~<script>alert('请不要盗链$boardname的连接');location.href='topic.cgi?forum=$in_forum&topic=$in_topic';</script>~;
+    print qq~<script>alert('请不要盗链$board_name的连接');location.href='topic.cgi?forum=$in_forum&topic=$in_topic';</script>~;
     exit;
 }
 
@@ -63,44 +63,44 @@ $file_name = substr($file_name, 0, 32) if (length($file_name) > 32);
 &error('打开文件&老大，别乱黑我的程序呀！！') if ($in_forum !~ /^\d+$/ || $in_topic !~ /^\d+$/ || $file_ext eq '');
 require "data/style$in_forum.cgi" if (-e "${lbdir}data/style$in_forum.cgi");
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+my $in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $in_post_no--;
 
-$inmembername = $query->cookie("amembernamecookie") unless ($inmembername);
-$inpassword = $query->cookie("apasswordcookie") unless ($inpassword);
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+var $in_member_name = $query->cookie("amembernamecookie") unless ($in_member_name);
+$in_password = $query->cookie("apasswordcookie") unless ($in_password);
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if (!$inmembername || $inmembername eq "客人") {
+if (!$in_member_name || $in_member_name eq "客人") {
     if ($regaccess eq 'on' || $privateforum eq 'yes') {
         print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         print qq~<script language="JavaScript">document.location = "loginout.cgi?forum=$in_forum";</script>~;
         exit;
     }
-    $inmembername = '客人';
+    $in_member_name = '客人';
     $rating = -6;
     &error("普通错误&客人不能查看附件，请注册或登录后再试") if ($guestregistered eq "off" && $pvtdown ne "no");
 }
 else {
-    &getmember($inmembername, 'no');
+    &getmember($in_member_name, 'no');
     &error('普通错误&此用户根本不存在！') if ($userregistered eq 'no');
-    &error('普通错误&密码与用户名不相符，请重新登录！') if ($inpassword ne $password);
+    &error('普通错误&密码与用户名不相符，请重新登录！') if ($in_password ne $password);
 }
 
 &getoneforum($in_forum);
-$testentry = $query->cookie("forumsallowed$in_forum");
-$allowed = $allowedentry{$in_forum} eq 'yes' || ($testentry eq $forumpass && $testentry ne '') || $membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes' ? 'yes' : 'no';
+$test_entry = $query->cookie("forumsallowed$in_forum");
+$allowed = $allowed_entry{$in_forum} eq 'yes' || ($test_entry eq $forum_pass && $test_entry ne '') || $member_code eq 'ad' || $member_code eq 'smo' || $inmembmod eq 'yes' ? 'yes' : 'no';
 &error("进入私有论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq 'yes' && $allowed ne 'yes' && $pvtdown ne "no");
-&error("进入论坛&你一般会员不允许进入此论坛！") if ($startnewthreads eq 'cert' && (($membercode ne 'ad' && $membercode ne 'smo' && $membercode ne 'cmo' && $membercode ne 'mo' && $membercode !~ /^rz/) || $inmembername eq '客人') && $userincert eq 'no' && $pvtdown ne "no");
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad' && $pvtdown ne "no");
+&error("进入论坛&你一般会员不允许进入此论坛！") if ($startnewthreads eq 'cert' && (($member_code ne 'ad' && $member_code ne 'smo' && $member_code ne 'cmo' && $member_code ne 'mo' && $member_code !~ /^rz/) || $in_member_name eq '客人') && $userincert eq 'no' && $pvtdown ne "no");
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad' && $pvtdown ne "no");
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -131,13 +131,13 @@ if (open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi")) {
     @threads = split(/\n/, $thread);
 }
 
-if ($membercode eq "ad" or $membercode eq "smo" or $inmembmod eq "yes") {
+if ($member_code eq "ad" or $member_code eq "smo" or $inmembmod eq "yes") {
     $viewhide = 1;
 }
 else {
     $viewhide = 0;
     if ($hidejf eq "yes") {
-        my @viewhide = grep (/^$inmembername\t/i, @threads);
+        my @viewhide = grep (/^$in_member_name\t/i, @threads);
         $viewhide = @viewhide;
         $viewhide = 1 if ($viewhide >= 1);
     }
@@ -165,7 +165,7 @@ if ($hidejf eq "yes" && $pvtdown ne "no") {
 if ($postjf eq "yes" && $pvtdown ne "no") {
     if ($post1 =~ m/\[post=(.+?)\](.+?)\[\/post\]/isg) {
         $viewusepost = $1;
-        unless (($StartCheck >= $viewusepost) || ($membercode eq "ad") || ($membercode eq "smo") || ($inmembmod eq "yes") || ($poster eq $inmembername)) {
+        unless (($StartCheck >= $viewusepost) || ($member_code eq "ad") || ($member_code eq "smo") || ($inmembmod eq "yes") || ($poster eq $in_member_name)) {
             if ($newformat eq 0) {
                 &error("普通错误&你无权下载这个加密附件！需要发贴达到$viewusepost，而你只有$StartCheck。");
             }
@@ -182,7 +182,7 @@ if ($postjf eq "yes" && $pvtdown ne "no") {
 if ($jfmark eq "yes" && $pvtdown ne "no") {
     if ($post1 =~ m/\[jf=(.+?)\](.+?)\[\/jf\]/isg) {
         $jfpost = $1;
-        unless (($jfpost <= $jifen) || ($membercode eq "ad") || ($membercode eq "smo") || ($inmembmod eq "yes") || ($poster eq $inmembername)) {
+        unless (($jfpost <= $jifen) || ($member_code eq "ad") || ($member_code eq "smo") || ($inmembmod eq "yes") || ($poster eq $in_member_name)) {
             if ($newformat eq 0) {
                 &error("普通错误&你无权下载这个加密附件！积分必须达到 $jfpost，而你只有$jifen。");
             }
@@ -198,7 +198,7 @@ if ($jfmark eq "yes" && $pvtdown ne "no") {
 
 if ($wwjf ne "no" && $pvtdown ne "no") {
     if ($post1 =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
-        unless (($inmembername eq $poster) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || ($rating >= $1)) {
+        unless (($in_member_name eq $poster) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes") || ($rating >= $1)) {
             &error("普通错误&你无权下载这个加密附件！需要威望$1，而你只有$rating。")
         }
     }
@@ -218,9 +218,9 @@ if ($cansale ne "no" && $pvtdown ne "no") {
             $allbuyer =~ s/\t$//gi;
             $allbuyer =~ s/^\t//gi;
             $allbuyer = "\t$allbuyer\t";
-            $isbuyer = "yes" if ($allbuyer =~ /\t$inmembername\t/i);
+            $isbuyer = "yes" if ($allbuyer =~ /\t$in_member_name\t/i);
         }
-        unless (($inmembername eq $poster) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || ($isbuyer eq "yes")) {
+        unless (($in_member_name eq $poster) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes") || ($isbuyer eq "yes")) {
             &error("普通错误&因为你没有购买，所以你无权下载这个加密附件！");
         }
     }
@@ -239,11 +239,11 @@ if ($picwater eq "yes") {
 if ($picwater eq "yes") {
     $picwaterman = 1 if ($picwaterman eq "");
 
-    if ($picwaterman eq "0") {$picwater = "no" if ($inmembername ne '客人');}
-    elsif ($picwaterman eq "1") {$picwater = "no" if ($inmembername ne '客人' && $membercode ne "me");}
-    elsif ($picwaterman eq "2") {$picwater = "no" if ($inmembername ne '客人' && $membercode ne "me" && $membercode !~ /^rz/);}
-    elsif ($picwaterman eq "3") {$picwater = "no" if ($membercode eq "ad" || $membercode eq "smo");}
-    elsif ($picwaterman eq "4") {$picwater = "no" if ($membercode eq "ad");}
+    if ($picwaterman eq "0") {$picwater = "no" if ($in_member_name ne '客人');}
+    elsif ($picwaterman eq "1") {$picwater = "no" if ($in_member_name ne '客人' && $member_code ne "me");}
+    elsif ($picwaterman eq "2") {$picwater = "no" if ($in_member_name ne '客人' && $member_code ne "me" && $member_code !~ /^rz/);}
+    elsif ($picwaterman eq "3") {$picwater = "no" if ($member_code eq "ad" || $member_code eq "smo");}
+    elsif ($picwaterman eq "4") {$picwater = "no" if ($member_code eq "ad");}
 }
 
 if ($picwater eq "yes" && ($file_ext eq 'jpg' || $file_ext eq 'jpeg' || $file_ext eq 'png')) {

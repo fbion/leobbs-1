@@ -54,18 +54,18 @@ $beginone = &unHTML("$beginone");
 $noofone = 2000 if ($noofone !~ /^[0-9]+$/);
 $beginone = 0 if ($beginone !~ /^[0-9]+$/);
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
 
     print qq~
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
@@ -867,10 +867,10 @@ sub doupconter {
 sub douponlineuser {
     $currenttime = time;
     open(FILES, ">${lbdir}data/onlinedata.cgi");
-    print FILES "$inmembername\t$currenttime\t$currenttime\t管理区\t保密\t保密\t保密\t管理区\t保密\t$membercode\t";
+    print FILES "$in_member_name\t$currenttime\t$currenttime\t管理区\t保密\t保密\t保密\t管理区\t保密\t$member_code\t";
     close(FILES);
     open(FILES, ">${lbdir}data/onlinedata.cgi.cgi");
-    print FILES "$inmembername\t$currenttime\t$currenttime\t管理区\t保密\t保密\t保密\t管理区\t保密\t$membercode\t";
+    print FILES "$in_member_name\t$currenttime\t$currenttime\t管理区\t保密\t保密\t保密\t管理区\t保密\t$member_code\t";
     close(FILES);
 
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>

@@ -39,8 +39,8 @@ $|++;
 my $thisprog = "checkname.cgi";
 
 my $query = new LBCGI;
-my $inmembername = $query->param('name');
-$inmembername = &cleaninput($inmembername);
+my $in_member_name = $query->param('name');
+$in_member_name = &cleaninput($in_member_name);
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 $CheckR = "";
@@ -68,39 +68,39 @@ chomp $userarray;
 $noreg = "no";
 foreach (@saveduserarray) {
     chomp $_;
-    if ($inmembername =~ m/$_/isg) {
+    if ($in_member_name =~ m/$_/isg) {
         $noreg = "yes";
         last;
     }
 }
 $CheckR = "已经被保留或者被禁止注册,请更换一个用户名。" if ($noreg eq "yes");
 
-$CheckR = "用户名有问题，请更换！" if (($inmembername =~ /^m-/i) || ($inmembername =~ /^s-/i) || ($inmembername =~ /tr-/i) || ($inmembername =~ /^y-/i) || ($inmembername =~ /注册/i) || ($inmembername =~ /guest/i) || ($inmembername =~ /qq-/i) || ($inmembername =~ /qq/i) || ($inmembername =~ /qw/i) || ($inmembername =~ /q-/i) || ($inmembername =~ /qx-/i) || ($inmembername =~ /qw-/i) || ($inmembername =~ /qr-/i) || ($inmembername =~ /^全体/i) || ($inmembername =~ /register/i) || ($inmembername =~ /诚聘中/i) || ($inmembername =~ /斑竹/i) || ($inmembername =~ /管理系统讯息/i) || ($inmembername =~ /leobbs/i) || ($inmembername =~ /leoboard/i) || ($inmembername =~ /雷傲/i) || ($inmembername =~ /LB5000/i) || ($inmembername =~ /全体管理人员/i) || ($inmembername =~ /管理员/i) || ($inmembername =~ /隐身/i) || ($inmembername =~ /短消息广播/i) || ($inmembername =~ /暂时空缺/i) || ($inmembername =~ /＊＃！＆＊/i) || ($inmembername =~ /版主/i) || ($inmembername =~ /坛主/i) || ($inmembername =~ /nodisplay/i) || ($inmembername =~ /^system/i) || ($inmembername =~ /---/i) || ($inmembername eq "admin") || ($inmembername eq "root") || ($inmembername eq "copy") || ($inmembername =~ /^sub/) || ($inmembername =~ /^exec/) || ($inmembername =~ /\@ARGV/i) || ($inmembername =~ /^require/) || ($inmembername =~ /^rename/i) || ($inmembername =~ /^dir/i) || ($inmembername =~ /^print/i) || ($inmembername =~ /^con/i) || ($inmembername =~ /^nul/i) || ($inmembername =~ /^aux/i) || ($inmembername =~ /^com/i) || ($inmembername =~ /^lpt/i) || ($inmembername =~ /^open/i));
+$CheckR = "用户名有问题，请更换！" if (($in_member_name =~ /^m-/i) || ($in_member_name =~ /^s-/i) || ($in_member_name =~ /tr-/i) || ($in_member_name =~ /^y-/i) || ($in_member_name =~ /注册/i) || ($in_member_name =~ /guest/i) || ($in_member_name =~ /qq-/i) || ($in_member_name =~ /qq/i) || ($in_member_name =~ /qw/i) || ($in_member_name =~ /q-/i) || ($in_member_name =~ /qx-/i) || ($in_member_name =~ /qw-/i) || ($in_member_name =~ /qr-/i) || ($in_member_name =~ /^全体/i) || ($in_member_name =~ /register/i) || ($in_member_name =~ /诚聘中/i) || ($in_member_name =~ /斑竹/i) || ($in_member_name =~ /管理系统讯息/i) || ($in_member_name =~ /leobbs/i) || ($in_member_name =~ /leoboard/i) || ($in_member_name =~ /雷傲/i) || ($in_member_name =~ /LB5000/i) || ($in_member_name =~ /全体管理人员/i) || ($in_member_name =~ /管理员/i) || ($in_member_name =~ /隐身/i) || ($in_member_name =~ /短消息广播/i) || ($in_member_name =~ /暂时空缺/i) || ($in_member_name =~ /＊＃！＆＊/i) || ($in_member_name =~ /版主/i) || ($in_member_name =~ /坛主/i) || ($in_member_name =~ /nodisplay/i) || ($in_member_name =~ /^system/i) || ($in_member_name =~ /---/i) || ($in_member_name eq "admin") || ($in_member_name eq "root") || ($in_member_name eq "copy") || ($in_member_name =~ /^sub/) || ($in_member_name =~ /^exec/) || ($in_member_name =~ /\@ARGV/i) || ($in_member_name =~ /^require/) || ($in_member_name =~ /^rename/i) || ($in_member_name =~ /^dir/i) || ($in_member_name =~ /^print/i) || ($in_member_name =~ /^con/i) || ($in_member_name =~ /^nul/i) || ($in_member_name =~ /^aux/i) || ($in_member_name =~ /^com/i) || ($in_member_name =~ /^lpt/i) || ($in_member_name =~ /^open/i));
 
-$CheckR = "用户名有问题，请更换！" if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
+$CheckR = "用户名有问题，请更换！" if ($in_member_name =~ /^q(.+?)-/ig || $in_member_name =~ /^q(.+?)q/ig);
 
-$tempinmembername = $inmembername;
+$tempinmembername = $in_member_name;
 $tempinmembername =~ s/ //g;
 $tempinmembername =~ s/  //g;
-if ($inmembername =~ /^客人/) {$CheckR = "有点问题哟，请不要在用户名的开头中使用客人字样。";}
-if ($inmembername =~ /_/) {$CheckR = "有点问题哟，请不要在用户名中使用下划线！";}
-if ($inmembername =~ /\t/) {$CheckR = "有点问题哟，请不要在用户名中使用特殊字符！";}
-if (length($inmembername) > 12) {$CheckR = "太长了，请不要超过12个字符（6个汉字）。";}
-if (length($inmembername) < 2) {$CheckR = "太短了，请不要少於2个字符（1个汉字）。";}
+if ($in_member_name =~ /^客人/) {$CheckR = "有点问题哟，请不要在用户名的开头中使用客人字样。";}
+if ($in_member_name =~ /_/) {$CheckR = "有点问题哟，请不要在用户名中使用下划线！";}
+if ($in_member_name =~ /\t/) {$CheckR = "有点问题哟，请不要在用户名中使用特殊字符！";}
+if (length($in_member_name) > 12) {$CheckR = "太长了，请不要超过12个字符（6个汉字）。";}
+if (length($in_member_name) < 2) {$CheckR = "太短了，请不要少於2个字符（1个汉字）。";}
 
-#&getmember("$inmembername");
-&getmember("$inmembername", "no");
+#&getmember("$in_member_name");
+&getmember("$in_member_name", "no");
 if ($userregistered ne "no") {$CheckR = "已经有用户使用，请选择一个新的用户名。";}
 
-if ($inmembername eq "") {$CheckR = "不能为空";}
-if ($inmembername ne "") {$show = qq~"<font color="red">$inmembername</font>"~;}
-$CheckR = "对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]这类字符！" if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
+if ($in_member_name eq "") {$CheckR = "不能为空";}
+if ($in_member_name ne "") {$show = qq~"<font color="red">$in_member_name</font>"~;}
+$CheckR = "对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]这类字符！" if ($in_member_name =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
 
 if ($CheckR eq "") {$CheckR = "没有问题，可以正常使用。";}
 print qq~
 <html>
 <head> 
-<title>$boardname</title>
+<title>$board_name</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--end Java-->
 <!--css info(editable)-->

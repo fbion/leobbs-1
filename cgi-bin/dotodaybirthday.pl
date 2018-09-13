@@ -40,7 +40,7 @@ if (!(-e $lockfile)) {
                 close(FILE);
                 $inboxmessages =~ s/\r//isg;
                 open(FILE, ">${lbdir}$msgdir/in/${usersfilename}_msg.cgi");
-                print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t《$boardname》祝您生日快乐！\t今天是您 $unowy 岁生日,《$boardname》祝您生日快乐！\n$inboxmessages";
+                print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t《$board_name》祝您生日快乐！\t今天是您 $unowy 岁生日,《$board_name》祝您生日快乐！\n$inboxmessages";
                 close(FILE);
             }
         }

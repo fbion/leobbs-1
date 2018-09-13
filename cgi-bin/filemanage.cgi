@@ -38,18 +38,18 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-$inmembername = cookie("adminname");
-$inpassword = cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = cookie("adminname");
+$in_password = cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $data = $query->param('data');
 
 &getadmincheck;
-&getmember($inmembername);
+&getmember($in_member_name);
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") && ($in_member_name ne "") && (lc($in_member_name) eq lc($membername))) {
     print qq~<tr><td bgcolor=#2159C9 colspan=2><font face=宋体  color=#FFFFFF>
 <b>欢迎来到论坛管理中心 / 文件管理器</b>
 </td></tr>~;

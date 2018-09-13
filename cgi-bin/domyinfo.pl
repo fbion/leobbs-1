@@ -73,7 +73,7 @@ else {
     }
 }
 
-$modscard_link = qq~\n :: [ <span style=cursor:hand onClick="javascript:openScript('modscard.cgi',420,320)"><font color=$fonthighlight><B>版主签到</B></font></span> ]~ if ($membercode eq "ad" || $membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo");
+$modscard_link = qq~\n :: [ <span style=cursor:hand onClick="javascript:openScript('modscard.cgi',420,320)"><font color=$fonthighlight><B>版主签到</B></font></span> ]~ if ($member_code eq "ad" || $member_code eq "smo" || $member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo");
 
 $mysaves = "<font title=$mysaves>>999999999</font>" if ($mysaves > 999999999);
 $myloan = "<font title=$myloan>>999999999</font>" if ($myloan > 999999999);
@@ -82,8 +82,8 @@ $postdel = 0 if ($postdel eq "");
 my $lasttimes = $lastgone + ($timedifferencevalue + $timezone) * 3600;
 $lasttimes = &dateformat($lasttimes);
 
-my $inmembernames = uri_escape($inmembername);
-if (($maxmsgno eq "") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) {$maxmsgno = qq~<B>没有限制</B>~;}
+my $in_member_names = uri_escape($in_member_name);
+if (($maxmsgno eq "") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) {$maxmsgno = qq~<B>没有限制</B>~;}
 else {$maxmsgno = qq~<font color=$fonthighlight><B>$maxmsgno</B></font> 条~;}
 my $myoutput = qq~<tr><td bgcolor=\$titlecolor colspan=4 \$catbackpic><font color=\$titlefontcolor><B>-=>  个人状态</B>  [ 来自：$trueipaddress，$fromwhere1 。系统：$osinfo，$browseinfo。最后访问时间：$lasttimes ]</td></tr>
 <tr><td bgcolor=\$forumcolorone align=center width=18>$inboximg</td>
@@ -108,7 +108,7 @@ my $myoutput = qq~<tr><td bgcolor=\$titlecolor colspan=4 \$catbackpic><font colo
 回复数: <B>$numberofreplys</B><BR>
 被删数: <B>$postdel</B><BR>
 </td></tr></table><img src=$imagesurl/images/none.gif height=9><BR><center>
-[ <a href=fav.cgi?action=show&member=$inmembernames>我的收藏夹</a> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=post',420,320)">我被回复的主题</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=reply',420,320)">我参与的主题</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=new',420,320)">论坛最新帖</span> ]$modscard_link</center>
+[ <a href=fav.cgi?action=show&member=$in_member_names>我的收藏夹</a> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=post',420,320)">我被回复的主题</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=reply',420,320)">我参与的主题</span> ] :: [ <span style=cursor:hand onClick="javascript:openScript('recopr.cgi?action=new',420,320)">论坛最新帖</span> ]$modscard_link</center>
 </td>~;
 if ($forumcached eq "yes") {
     open(FILE, ">${lbdir}cache/myinfo/$memberfilename.pl");

@@ -32,26 +32,26 @@ require "bbs.lib.pl";
 $|++;
 
 $queryme = new LBCGI;
-$inmembername = $queryme->cookie("amembernamecookie");
-$inpassword = $queryme->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $queryme->cookie("amembernamecookie");
+$in_password = $queryme->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $query = $queryme->param('query');
 
 if (($query eq "") || ($query !~ /^[0-9\.]+$/)) {
     &error("普通错误&请不要胡乱使用本功能！");
 }
-if ((!$inmembername) or ($inmembername eq "客人")) {
-    $inmembername = "客人";
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($in_password ne $password);
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
-if (($membercode ne "ad") && ($membercode ne "smo")) {
+if (($member_code ne "ad") && ($member_code ne "smo")) {
     &error("普通错误&你不是本论坛的坛主或总斑竹，所以不能使用该功能！");
 }
 my $host = "sunny.nic.com";

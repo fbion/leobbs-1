@@ -40,18 +40,18 @@ $in_topic = $query->param('topic');
 $in_post_no = $query->param('postno');
 $decrypt = $query->param('clno');
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic !~ /^[0-9]+$/) || ($in_forum !~ /^[0-9]+$/) || ($in_post_no !~ /^[0-9]+$/) || ($decrypt !~ /^[0-9]+$/));
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-&error("普通错误&老大，别乱黑我的程式呀！！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
-$inmembername =~ s/\///g;
-$inmembername =~ s/\.\.//g;
-$inmembername =~ s/\\//g;
-if ((!$inmembername) or ($inmembername eq "客人")) {
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+&error("普通错误&老大，别乱黑我的程式呀！！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
+$in_member_name =~ s/\///g;
+$in_member_name =~ s/\.\.//g;
+$in_member_name =~ s/\\//g;
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
     &error("普通错误&必需为本论坛用户方可进入，请重新登录！");
 }
 else {
-    &getmember("$inmembername", "no");
-    &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
+    &getmember("$in_member_name", "no");
+    &error("普通错误&密码与用户名不相符，请重新登录！") if ($in_password ne $password);
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
 my $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";

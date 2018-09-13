@@ -46,28 +46,28 @@ else {
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inmembername = $query->param("username");
-$inpassword = $query->param("password");
-$inmembername =~ s/\_/ /isg;
+$in_member_name = $query->param("username");
+$in_password = $query->param("password");
+$in_member_name =~ s/\_/ /isg;
 
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-&error("修改密码&错误，校验出错，请不要胡乱修改！") if (($inmembername eq "") || ($inpassword eq ""));
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+&error("修改密码&错误，校验出错，请不要胡乱修改！") if (($in_member_name eq "") || ($in_password eq ""));
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
     &error("修改密码&错误，用户名不能为空！");
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
     &error("修改密码&错误，此用户不存在！") if ($userregistered eq "no");
 }
 
@@ -77,12 +77,12 @@ closedir(DIRS);
 @files = grep (/\.cgi$/i, @files);
 foreach (@files) {unlink("${lbdir}$msgdir/$_") if ((-M "${lbdir}$msgdir/$_") > 1);}
 
-$inmembernamefile = $inmembername;
-$inmembernamefile =~ s/ /\_/g;
-$inmembernamefile =~ tr/A-Z/a-z/;
+$in_member_namefile = $in_member_name;
+$in_member_namefile =~ s/ /\_/g;
+$in_member_namefile =~ tr/A-Z/a-z/;
 
-if (-e "${lbdir}$msgdir/$inmembernamefile.cgi") {
-    open(FILE, "${lbdir}$msgdir/$inmembernamefile.cgi");
+if (-e "${lbdir}$msgdir/$in_member_namefile.cgi") {
+    open(FILE, "${lbdir}$msgdir/$in_member_namefile.cgi");
     $x = <FILE>;
     close(FILE);
     chomp $x;
@@ -97,7 +97,7 @@ if ($password ne "") {
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$mypassword = md5_hex($password);');}
 }
 
-&error("修改密码&错误，密码校验出错，请不要胡乱修改！") if ($mypassword ne $inpassword);
+&error("修改密码&错误，密码校验出错，请不要胡乱修改！") if ($mypassword ne $in_password);
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &mischeader("取回密码");
@@ -120,45 +120,45 @@ if ($action eq "login") {
         $password1 = "lEO$password1";
     }
 
-    if (($inmembername ne "") && ($password1 ne "")) {
-        my $namenumber = &getnamenumber($inmembernamefile);
-        &checkmemfile($inmembernamefile, $namenumber);
-        $filetomake = "$lbdir" . "$memdir/$namenumber/$inmembernamefile.cgi";
+    if (($in_member_name ne "") && ($password1 ne "")) {
+        my $namenumber = &getnamenumber($in_member_namefile);
+        &checkmemfile($in_member_namefile, $namenumber);
+        $filetomake = "$lbdir" . "$memdir/$namenumber/$in_member_namefile.cgi";
         &winlock($filetomake) if ($OS_USED eq "Nt");
         open(FILE3, "+<$filetomake");
         flock(FILE3, 2) if ($OS_USED eq "Unix");
         my $filedata = <FILE3>;
         chomp($filedata);
-        ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         seek(FILE3, 0, 0);
-        print FILE3 "$membername\t$password1\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+        print FILE3 "$membername\t$password1\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
         close(FILE3);
-        if (open(FILE, ">${lbdir}$memdir/old/$inmembernamefile.cgi")) {
-            print FILE "$membername\t$password1\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+        if (open(FILE, ">${lbdir}$memdir/old/$in_member_namefile.cgi")) {
+            print FILE "$membername\t$password1\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
             close(FILE);
         }
         &winunlock($filetomake) if ($OS_USED eq "Nt");
     }
-    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>$inmembername，您的新密码已经生效！</b></font></td></tr>
+    $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>$in_member_name，您的新密码已经生效！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
 具体情况：<ul><li><a href="loginout.cgi">按此登录论坛</a>
 </ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>
 ~;
-    unlink("${lbdir}$msgdir/$inmembernamefile.cgi");
+    unlink("${lbdir}$msgdir/$in_member_namefile.cgi");
 }
 else {
     $output .= qq~<tr>
 <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center>
 <form action="$thisprog" name="login" method="post" onSubmit="submitonce(this)">
 <input type=hidden name="action" value="login">
-<input type=hidden name="username" value="$inmembername">
-<input type=hidden name="password" value="$inpassword">
-<font face="$font" color=$fontcolormisc><b>$inmembername，您的身份已经通过确认，请输入您的新密码</b></font></td></tr>
+<input type=hidden name="username" value="$in_member_name">
+<input type=hidden name="password" value="$in_password">
+<font face="$font" color=$fontcolormisc><b>$in_member_name，您的身份已经通过确认，请输入您的新密码</b></font></td></tr>
 <tr><td width=40% bgcolor=$miscbackone><font color=$fontcolormisc><b>论坛密码： (至少8位)</b><br>请输入论坛密码，区分大小写<br>只能使用大小写字母和数字的组合</font></td><td width=60% bgcolor=$miscbackone><input type=password name="password1">&nbsp;* 此项必须填写</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>论坛密码： (至少8位)</b><br>再输一遍，以便确定！</font></td><td bgcolor=$miscbackone><input type=password name="password2">&nbsp;* 此项必须填写</td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit value="确 定" name=submit></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR><BR>
 ~;
 }
-&output("$boardname - 取回密码", \$output);
+&output("$board_name - 取回密码", \$output);
 exit;

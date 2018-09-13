@@ -69,35 +69,35 @@ $startarray = $inshow;
 $inthreadages = $query->param('threadages');
 $inthreadages = $defaulttopicshow if ($inthreadages eq "" && $defaulttopicshow ne "");
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 $currenttime = time;
 &error("打开论坛&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！") if (!(-e "${lbdir}boarddata/listno$in_forum.cgi"));
 
 $inshow = int($inshow / $maxthreads + 0.5) * $maxthreads;
 $inshow = ($deshow - 1) * $maxthreads if ($deshow ne "");
 
-$inmembername = $query->param('membername');
-$inpassword = $query->param('password');
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $query->param('membername');
+$in_password = $query->param('password');
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
-$forumpassword = $query->param('forumpassword');
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-if ((!$inmembername) or ($inmembername eq "客人")) {$inmembername = "客人";}
+$forum_password = $query->param('forumpassword');
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if ((!$in_member_name) or ($in_member_name eq "客人")) {$in_member_name = "客人";}
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -137,12 +137,12 @@ if (",$in_forumcookies," !~ /,$in_forum,/) {
 my $forumscookie = cookie(-name => "forumscookies", -value => $in_forumcookies, -path => "$cookiepath/", -expires => "+30d");
 print header(-cookie => [ $allowforumcookie, $onlineviewcookie, $tempvisitcookie, $permvisitcookie, $forumscookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&error("进入论坛&一般会员不允许进入此论坛！") if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no"));
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&一般会员不允许进入此论坛！") if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no"));
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -157,7 +157,7 @@ if ($adlinks ne "") {
 }
 
 $rsshtml = qq~  <a href="rss.cgi/leo.xml?forum=$in_forum" target="_blank"><img src="$imagesurl/images/xml.gif" border="0" height=15 align="absmiddle" alt="RSS 订阅本论坛"></a>&nbsp;<a href="wap.cgi" target="_blank"><img src="$imagesurl/images/wap.gif" height=15 border="0" align="absmiddle" alt="通过手机访问论坛，地址：$boardurl/wap.cgi"></a>~;
-if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers ne '') {
+if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allow_users ne '') {
     $rsshtml = "";
 }
 if ($regaccess eq "on") {
@@ -248,13 +248,13 @@ $insidead$insidead1
 
 if ($privateforum eq "yes") {
     $rsshtml = "";
-    if ($inmembername eq "客人") {
+    if ($in_member_name eq "客人") {
         print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
-    $testentry = cookie("forumsallowed$in_forum");
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || (($userregistered ne "no") && ($allowedentry{$in_forum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
-        if ($inpassword ne $password) {&error("进入论坛&密码错误，你不允许进入该论坛！");}
+    $test_entry = cookie("forumsallowed$in_forum");
+    if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || (($userregistered ne "no") && ($allowed_entry{$in_forum} eq "yes")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
+        if ($in_password ne $password) {&error("进入论坛&密码错误，你不允许进入该论坛！");}
     }
     else {require "accessform.pl";}
 }
@@ -263,10 +263,10 @@ my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
     if ($privateforum ne "yes") {
-        &whosonline("$inmembername\t$forumname\t$forumname\t查看论坛上的主题");
+        &whosonline("$in_member_name\t$forumname\t$forumname\t查看论坛上的主题");
     }
     else {
-        &whosonline("$inmembername\t$forumname(密)\t$forumname\t查看保密论坛上的主题");
+        &whosonline("$in_member_name\t$forumname(密)\t$forumname\t查看保密论坛上的主题");
     }
     undef $memberoutput if ($onlineview != 1);
 }
@@ -363,7 +363,7 @@ if (-e "${lbdir}boarddata/forumrule$in_forum.cgi") {
     $forumrule = qq~<span style="height:64;overflow:auto;padding:2px;color:#000000;width:100%;text-align:left">$forumrule</span>~ if ($forumrulelines > 5);
 }
 
-if (($membercode eq "ad") || ($membercode eq 'smo') || (",$catemods," =~ /\Q\,$inmembername\,\E/i) || ($inmembmod eq "yes")) {
+if (($member_code eq "ad") || ($member_code eq 'smo') || (",$catemods," =~ /\Q\,$in_member_name\,\E/i) || ($inmembmod eq "yes")) {
     $editrule = "<a href='forumrule.cgi?forum=$in_forum'><img src='$imagesurl/images/a_edit.gif' border=0></a>";
     $forumrule = "目前没有论坛规则及重要信息，按<a href='forumrule.cgi?forum=$in_forum'>这里</a>新增。" unless $forumrule;
 }
@@ -384,7 +384,7 @@ if ($startnewthreads ne "onlysub") {
 
     if (($xzbopen ne "no") && ($startnewthreads ne "no") && ($privateforum ne "yes")) {require "forumxzb.pl";}
 
-    if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+    if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
         $admindisp = $query->cookie('admindisp');
         $admini = $admindisp eq '' ? '隐藏' : '显示';
         $admini = qq~<img src=$imagesurl/images/icon.gif width=14> <b><span style=cursor:hand onClick=javascript:showadmini()><font color=$fonthighlight id=admini0 title=设置是否显示版主快速操作栏>$admini版主操作</font></span><span id=admini style="display:$admindisp"></span></b>　~;
@@ -655,8 +655,8 @@ window.onload=addSenToEventHandle(window.onload,"init();")
             $jhbuttom = "";
         }
 
-        $abslockbuttom = $membercode eq "ad" ? "<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>总固</font></a>|" : "";
-        $catlockbuttom = $membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i ? "<a href=postings.cgi?action=catlocktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>区固</font></a>|" : "";
+        $abslockbuttom = $member_code eq "ad" ? "<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>总固</font></a>|" : "";
+        $catlockbuttom = $member_code eq "ad" || $member_code eq "smo" || ",$catemods," =~ /\Q\,$in_member_name\,\E/i ? "<a href=postings.cgi?action=catlocktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>区固</font></a>|" : "";
 
         $hllink = ($highlight =~ m/\_$forumid-$topicid\_/i) ? "<a href=postings.cgi?action=lowlight&forum=$forumid&topic=$topicid><font color=$titlecolor>取消加重</font></a>" : "<a href=postings.cgi?action=highlight&forum=$forumid&topic=$topicid><font color=$titlecolor>加重</font></a>";
 
@@ -694,7 +694,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
         }
         else {$topnew = "";}
 
-        if ((lc($inmembername) eq lc($startedby)) && ($nodispown eq "yes")) {
+        if ((lc($in_member_name) eq lc($startedby)) && ($nodispown eq "yes")) {
             $mypost = "<img src=$imagesurl/images/$skin/$mypost_blogo title=我发表的主题> ";
             $addonlength += 2;
         }
@@ -702,7 +702,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
 
         $topicicon = "<img src=$imagesurl/images/$skin/topicnonew.gif border=0>";
 
-        if ($inmembername ne "客人") {
+        if ($in_member_name ne "客人") {
             if (($threadposts >= $hottopicmark) && ($forumlastvisit < $lastpostdate)) {$topicicon = "<img src=$imagesurl/images/$skin/topichot3.gif border=0>";}
             elsif (($threadposts >= $hottopicmark) && ($forumlastvisit > $lastpostdate)) {$topicicon = "<img src=$imagesurl/images/$skin/topichotnonew.gif border=0>";}
             elsif (($threadposts < $hottopicmark) && ($forumlastvisit < $lastpostdate)) {$topicicon = "<img src=$imagesurl/images/$skin/topicnew3.gif border=0>";}
@@ -806,15 +806,15 @@ window.onload=addSenToEventHandle(window.onload,"init();")
         else {$pagestoshowtemp1 = int($numberofpages) * 3.3 + 7;}
         $totlelength = $pagestoshowtemp1 + length($topictitletemp) + 3 + $addonlength; #标题栏的总长度
 
-        if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
-            if ($membercode ne "amo") {
+        if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
+            if ($member_code ne "amo") {
                 $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|$jhbuttom$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$in_forum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
             }
             else {
                 $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$in_forum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
             }
         }
-        elsif ((lc($inmembername) eq lc($startedby)) && ($inmembername !~ /^客人/)) {
+        elsif ((lc($in_member_name) eq lc($startedby)) && ($in_member_name !~ /^客人/)) {
             if ($arrowuserdel eq "on") {
                 $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>快速操作： ~;
                 $admini .= qq~| <a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁定此帖，不允许别人回复</font></a> ~ unless ($threadstate eq "closed");
@@ -825,7 +825,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
         else {undef $admini;}
         if (($startarray eq 0) && ($topiccount < $topcount + $abstopcount + $cattopcount)) {
             if ($topiccount < $abstopcount) {
-                if ($membercode eq "ad") {
+                if ($member_code eq "ad") {
                     $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=absunlocktop&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>取消总固顶</font></a>|<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$forumid&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
                 }
                 else {undef $admini;}
@@ -849,7 +849,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
                 $multimanagebutton = "<td bgcolor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
             }
             elsif ($topiccount < $cattopcount + $abstopcount) {
-                if ($membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i) {
+                if ($member_code eq "ad" || $member_code eq "smo" || ",$catemods," =~ /\Q\,$in_member_name\,\E/i) {
                     $admini = qq~<div id=admini style="display:$admindisp" align=right><font color=$titlecolor>|<a href=postings.cgi?action=catunlocktop&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>取消区固顶</font></a>|$abslockbuttom<a href=postings.cgi?action=catlocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$forumid&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$forumid&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</div>~;
                 }
                 else {$admini = "";}
@@ -871,7 +871,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
                 $multimanagebutton = "<td bgColor=$forumcolortwo width=25>&nbsp;</td>" if ($multimanagebutton ne "");
             }
             elsif ($topiccount < $topcount + $abstopcount + $cattopcount) {
-                if (($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {
+                if (($member_code eq "ad") || ($inmembmod eq "yes") || ($member_code eq 'smo')) {
                     $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=unlocktop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>取消固顶</font></a>|$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
                 }
                 else {undef $admini;}
@@ -945,7 +945,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
 
     if (($indexforum ne "no") && ($dispjump ne "no")) {
         require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
-        $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode eq "amo"));
+        $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code eq "amo"));
         $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
         $jumphtml = "<tr><td align=right>$jumphtml</td></form>";
     }
@@ -961,7 +961,7 @@ else {
 
     if (($indexforum ne "no") && ($dispjump ne "no")) {
         require "${lbdir}data/forumjump.pl" if (-e "${lbdir}data/forumjump.pl");
-        $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode eq "amo"));
+        $jumphtml =~ s/\<\!\-\-h (.+?) \-\-\>/$1/isg if (($disphideboard eq "yes") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code eq "amo"));
         $jumphtml =~ s/\<\!\-\-c (.+?) \-\-\>/$1/isg if ($dispchildjump ne "no");
         $jumphtml = "<tr><td align=right>$jumphtml</td></form>";
     }
@@ -970,7 +970,7 @@ else {
     $output .= qq~<table cellpadding=1 cellspacing=0 width=$tablewidth><tr><td align=right>$jumphtml</td></tr></table>~;
     $output .= "<BR><center><font color=$fonthighlight><B>这里是纯子论坛板块，请选择进入相应子论坛</B></font><BR><BR><BR>";
 }
-if (($dispview eq "yes") || (($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo') && ($membercode ne 'amo'))) {require "dodispviewforum.pl";}
+if (($dispview eq "yes") || (($member_code eq "ad" || $inmembmod eq "yes" || $member_code eq 'smo') && ($member_code ne 'amo'))) {require "dodispviewforum.pl";}
 
 &output("$forumname", \$output);
 exit;

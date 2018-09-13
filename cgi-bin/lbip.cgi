@@ -31,25 +31,25 @@ $|++;
 use testinfo qw(ipwhere);
 
 my $queryme = new LBCGI;
-my $inmembername = $queryme->cookie("amembernamecookie");
-my $inpassword = $queryme->cookie("apasswordcookie");
+my $in_member_name = $queryme->cookie("amembernamecookie");
+my $in_password = $queryme->cookie("apasswordcookie");
 my $password;
 my $userregistered;
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 my $query = $queryme->param('q');
-if ((!$inmembername) or ($inmembername eq "客人")) {
-    $inmembername = "客人";
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($in_password ne $password);
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
-my $membercode;
-if (($membercode ne "ad") && ($membercode ne "smo")) {
+my $member_code;
+if (($member_code ne "ad") && ($member_code ne "smo")) {
     &error("普通错误&你不是本论坛的坛主或总斑竹，所以不能使用该功能！");
 }
 

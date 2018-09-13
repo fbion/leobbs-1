@@ -75,30 +75,30 @@ $YEAR_COUNT = 10;
 $output = ''; #初始化输出
 
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
     &error("普通错误&客人不能使用此功能，请注册登录后再访问，谢谢！")
 }
 else {
-    &getmember("$inmembername", "no");
-    &error("普通错误&此用户根本不存在！") if ($inpassword ne "" && $userregistered eq "no");
-    &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
-    $inmembername = $membername;
+    &getmember("$in_member_name", "no");
+    &error("普通错误&此用户根本不存在！") if ($in_password ne "" && $userregistered eq "no");
+    &error("普通错误&密码与用户名不相符，请重新登录！") if ($in_password ne $password);
+    $in_member_name = $membername;
 }
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 mkdir("${lbdir}calendar", 0777) unless (-e "${lbdir}calendar");
 chmod(0777, "${lbdir}calendar");
 
-$mymembercode = $membercode;
+$mymembercode = $member_code;
 my ($month_start, $month_end, $month_end_day);
 $local_time = ($set_year + $set_month > 0) ? timelocal(0, 0, 0, $set_day, $set_month, $set_year) : $currenttime;
 
@@ -149,13 +149,13 @@ $catbackpic = 'background="' . $imagesurl . '/images/' . $skin . '/' . $catbackp
 &title;
 
 if ($action eq "event") {
-    &event_action if ($membercode eq "ad");
+    &event_action if ($member_code eq "ad");
 }
 elsif ($action eq "getmenbrithday") {
-    &getmenbrithday if ($membercode eq "ad");
+    &getmenbrithday if ($member_code eq "ad");
 }
 elsif ($action eq "edit") {
-    &edit_event if ($membercode eq "ad");
+    &edit_event if ($member_code eq "ad");
 }
 elsif ($action eq "view") {
     &view_event;
@@ -200,7 +200,7 @@ unless (-e "${lbdir}calendar/borninfo$set_month.cgi") {
 $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看论坛月历和特别事件记录</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="calendar.cgi">论坛月历</a> → 查看$year_display$month_display月历 <td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="calendar.cgi">论坛月历</a> → 查看$year_display$month_display月历 <td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <style>
 .TODAY {border:2px;border-style:outset;background-color:$miscbacktwo;}
@@ -249,7 +249,7 @@ for ($l = 0; $l < 6; $l++) {
         $event_temp .= open_event($monthly_event) . "\n";
 
         my $view_event = ($event_temp !~ /^[\n\s]*$/) ? '<a href="' . $thisprog . '?action=view&set_year=' . $set_year . '&set_month=' . $set_month . '&set_day=' . $month_starting . '"><img src="' . $imagesurl . '/images/openfold.gif" width="16" height="15" alt="查看完整事件" border="0"></a> ' : '';
-        my $edit_event = ($membercode eq "ad") ? '<a href="' . $thisprog . '?action=event&set_year=' . $set_year . '&set_month=' . $set_month . '&set_day=' . $month_starting . '"><img src="' . $imagesurl . '/images/edit.gif" width="16" height="15" alt="编辑事件" border="0"></a> ' : '';
+        my $edit_event = ($member_code eq "ad") ? '<a href="' . $thisprog . '?action=event&set_year=' . $set_year . '&set_month=' . $set_month . '&set_day=' . $month_starting . '"><img src="' . $imagesurl . '/images/edit.gif" width="16" height="15" alt="编辑事件" border="0"></a> ' : '';
         if ($event_temp !~ /^[\n\s]*$/) {
             $event_temp =~ s/^\n+//;
             my @event_temp = split(/\n+/, $event_temp);
@@ -283,7 +283,7 @@ for ($l = 0; $l < 6; $l++) {
     $output .= qq~
 </tr>~;
 }
-$add_event = qq~<a href="$thisprog?action=event"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="增加新事件" border="0"></a>&nbsp;&nbsp;[<a href=$thisprog?action=getmenbrithday>更新用户生日数据</a>]~ if ($membercode eq "ad");
+$add_event = qq~<a href="$thisprog?action=event"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="增加新事件" border="0"></a>&nbsp;&nbsp;[<a href=$thisprog?action=getmenbrithday>更新用户生日数据</a>]~ if ($member_code eq "ad");
 
 $nextmonth = $set_month + 1;
 $premonth = $set_month - 1;
@@ -308,7 +308,7 @@ $output .= qq~
 <td width="12%"><a href="$thisprog?set_year=$preyear&set_month=$premonth"><img src="$imagesurl/images/premonth.gif" width="52" height="12" alt="显示上一个月" border="0"></a> <a href="$thisprog?set_year=$nextyear&set_month=$nextmonth"><img src="$imagesurl/images/nextmonth.gif" width="52" height="12" alt="显示下一个月" border="0"></a></td></tr>
 </table>~;
 
-&output("$boardname - 月历", \$output);
+&output("$board_name - 月历", \$output);
 
 sub view_event {
     my $event_list = '';
@@ -394,7 +394,7 @@ sub view_event {
     $event_list =~ s/(<\/tr>\n<tr>)$//;
     $event_list = '<td  height="200" valign="middle" align="center"><u>本日没有任何事件</u></td>' if ($event_list eq "");
 
-    $add_event = qq~<a href="$thisprog?action=event&set_year=$set_year&set_month=$set_month&set_day=$set_day"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="增加新事件" border="0"></a>~ if ($membercode eq "ad");
+    $add_event = qq~<a href="$thisprog?action=event&set_year=$set_year&set_month=$set_month&set_day=$set_day"><img src="$imagesurl/images/newevent.gif" width="99" height="25" alt="增加新事件" border="0"></a>~ if ($member_code eq "ad");
 
     $nextday = $set_day + 1;
     $preday = $set_day - 1;
@@ -430,7 +430,7 @@ sub view_event {
     $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看论坛月历和特别事件记录</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 查看事件<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 查看事件<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
@@ -441,7 +441,7 @@ sub view_event {
 <td width="*">$add_event</td>
 <td width="12%">$prelink $nextlink</td></tr>
 </table>~;
-    &output("$boardname - 查看事件", \$output);
+    &output("$board_name - 查看事件", \$output);
 }
 sub event_action {
     $action_now = ($edit_event) ? sprintf('编辑事件 [%04d年%02d月%02d日]', $set_year, $set_month, $set_day) : '增加事件';
@@ -494,7 +494,7 @@ function select_day(select_obj){
 </script>
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看论坛月历和特别事件记录</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 事件设定<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 事件设定<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -530,7 +530,7 @@ function select_day(select_obj){
 </form>
 </table>
 </td></tr></table><SCRIPT>valignend()</SCRIPT>~;
-    &output("$boardname - 编辑事件", \$output);
+    &output("$board_name - 编辑事件", \$output);
 }
 
 sub edit_event {
@@ -557,19 +557,19 @@ sub edit_event {
     $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看论坛月历和特别事件记录</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 事件设定<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 事件设定<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
-<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢，$inmembername！您的事件已经成功储存！</b></font></td></tr>
+<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢，$in_member_name！您的事件已经成功储存！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>如果浏览器没有自动返回，请点击下面的链接！
 <ul><li><a href="$thisprog?set_year=$set_year&set_month=$set_month">返回月历</a>
 <li><a href="leoboard.cgi">返回论坛首页</a>
 </ul></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$thisprog?set_year=$set_year&set_month=$set_month">~;
-    &output("$boardname - 储存事件", \$output);
+    &output("$board_name - 储存事件", \$output);
 }
 
 sub open_event {
@@ -632,7 +632,7 @@ sub delete_old_event {
 }
 
 sub getmenbrithday {
-    &error("权限错误&对不起，本功能只限坛主使用！") if ($membercode ne "ad");
+    &error("权限错误&对不起，本功能只限坛主使用！") if ($member_code ne "ad");
     open(MEMFILE, "${lbdir}data/lbmember3.cgi");
     @birthdaydata = <MEMFILE>;
     close(MEMFILE);
@@ -654,7 +654,7 @@ sub getmenbrithday {
     $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看论坛月历和特别事件记录</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 事件设定<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="$thisprog?set_year=$set_year&set_month=$set_month">论坛月历</a> → 事件设定<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 border=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -666,6 +666,6 @@ sub getmenbrithday {
 </ul></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$thisprog?set_year=$set_year&set_month=$set_month">~;
-    &output("$boardname - 更新用户生日数据", \$output);
+    &output("$board_name - 更新用户生日数据", \$output);
 
 }

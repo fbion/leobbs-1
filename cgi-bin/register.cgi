@@ -57,9 +57,9 @@ $in_forum = $query->param('forum');
 &ipbanned; #封杀一些 ip
 
 if ($arrowavaupload ne "on") {undef $addme;}
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 if ($regonoff == 2) {
@@ -83,15 +83,15 @@ if ($regonoff == 2) {
     }
 }
 if ($regonoff == 1) {
-    $inmembername = $query->cookie("amembernamecookie");
-    $inpassword = $query->cookie("apasswordcookie");
-    $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?]//isg;
-    $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-    unless ($inmembername eq "" || $inmembername eq "客人") {
-        &getmember("$inmembername");
+    $in_member_name = $query->cookie("amembernamecookie");
+    $in_password = $query->cookie("apasswordcookie");
+    $in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?]//isg;
+    $in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+    unless ($in_member_name eq "" || $in_member_name eq "客人") {
+        &getmember("$in_member_name");
         &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-        &error("普通错误&论坛密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
-        $regonoff = 0 if ($membercode eq "ad");
+        &error("普通错误&论坛密码与用户名不相符，请重新登录！") if ($in_password ne $password);
+        $regonoff = 0 if ($member_code eq "ad");
     }
 }
 
@@ -148,7 +148,7 @@ if ($regonoff eq 1) {
 }
 elsif ($action eq "addmember") {
     &error("出错&请不要用外部连接本程序！") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '') && ($canotherlink ne "yes"));
-    $membercode = "me";
+    $member_code = "me";
     $membertitle = "Member";
     $numberofposts = "0|0";
     $joineddate = time;
@@ -159,7 +159,7 @@ elsif ($action eq "addmember") {
     $lastpostdate = "没有发表过";
     $emailaddress = lc($emailaddress);
 
-    if (($inmembername eq "") || ($emailaddress eq "")) {
+    if (($in_member_name eq "") || ($emailaddress eq "")) {
         &error("用户注册&请输入用户名和邮件地址，这些是必需的！");
     }
 
@@ -291,25 +291,25 @@ elsif ($action eq "addmember") {
     }
     #邮件限制 _E
 
-    &error("用户注册&对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]\|这类字符！") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\|\;\'\:\"\,\.\/\<\>\?\[\]]/);
-    if ($inmembername =~ /_/) {&error("用户注册&请不要在用户名中使用下划线！");}
+    &error("用户注册&对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]\|这类字符！") if ($in_member_name =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\|\;\'\:\"\,\.\/\<\>\?\[\]]/);
+    if ($in_member_name =~ /_/) {&error("用户注册&请不要在用户名中使用下划线！");}
 
-    $inmembername =~ s/\&nbsp\;//ig;
-    $inmembername =~ s/　/ /g;
-    $inmembername =~ s// /g;
-    $inmembername =~ s/[ ]+/ /g;
-    $inmembername =~ s/[ ]+/_/;
-    $inmembername =~ s/[_]+/_/;
-    $inmembername =~ s/�//isg;
-    $inmembername =~ s///isg;
-    $inmembername =~ s/　//isg;
-    $inmembername =~ s///isg;
-    $inmembername =~ s/()+//isg;
-    $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?\[\]]//isg;
-    $inmembername =~ s/\s*$//g;
-    $inmembername =~ s/^\s*//g;
+    $in_member_name =~ s/\&nbsp\;//ig;
+    $in_member_name =~ s/　/ /g;
+    $in_member_name =~ s// /g;
+    $in_member_name =~ s/[ ]+/ /g;
+    $in_member_name =~ s/[ ]+/_/;
+    $in_member_name =~ s/[_]+/_/;
+    $in_member_name =~ s/�//isg;
+    $in_member_name =~ s///isg;
+    $in_member_name =~ s/　//isg;
+    $in_member_name =~ s///isg;
+    $in_member_name =~ s/()+//isg;
+    $in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\|\'\:\"\,\.\/\<\>\?\[\]]//isg;
+    $in_member_name =~ s/\s*$//g;
+    $in_member_name =~ s/^\s*//g;
 
-    &error("用户注册&对不起，您输入的用户名有问题，请更换一个") if ($inmembername =~ /^q(.+?)-/ig || $inmembername =~ /^q(.+?)q/ig);
+    &error("用户注册&对不起，您输入的用户名有问题，请更换一个") if ($in_member_name =~ /^q(.+?)-/ig || $in_member_name =~ /^q(.+?)q/ig);
 
     $bannedmember = "no";
     open(FILE, "${lbdir}data/banemaillist.cgi");
@@ -333,7 +333,7 @@ elsif ($action eq "addmember") {
     $ipaddresstemp =~ /^((((.*?\\\.).*?\\\.).*?\\\.).*?)$/;
     $bannedmember = "yes" if ($bannedips =~ /\t($1|$2|$3|$4)\t/);
 
-    $bannedmember = "yes" if (($inmembername =~ /^m-/i) || ($inmembername =~ /^s-/i) || ($inmembername =~ /tr-/i) || ($inmembername =~ /^y-/i) || ($inmembername =~ /注册/i) || ($inmembername =~ /guest/i) || ($inmembername =~ /qq-/i) || ($inmembername =~ /qq/i) || ($inmembername =~ /qw/i) || ($inmembername =~ /q-/i) || ($inmembername =~ /qx-/i) || ($inmembername =~ /qw-/i) || ($inmembername =~ /qr-/i) || ($inmembername =~ /^全体/i) || ($inmembername =~ /register/i) || ($inmembername =~ /诚聘中/i) || ($inmembername =~ /斑竹/i) || ($inmembername =~ /管理系统讯息/i) || ($inmembername =~ /leobbs/i) || ($inmembername =~ /leoboard/i) || ($inmembername =~ /雷傲/i) || ($inmembername =~ /LB5000/i) || ($inmembername =~ /全体管理人员/i) || ($inmembername =~ /管理员/i) || ($inmembername =~ /隐身/i) || ($inmembername =~ /短消息广播/i) || ($inmembername =~ /暂时空缺/i) || ($inmembername =~ /＊＃！＆＊/i) || ($inmembername =~ /版主/i) || ($inmembername =~ /坛主/i) || ($inmembername =~ /nodisplay/i) || ($inmembername =~ /^system/i) || ($inmembername =~ /---/i) || ($inmembername eq "admin") || ($inmembername eq "root") || ($inmembername eq "copy") || ($inmembername =~ /^sub/) || ($inmembername =~ /^exec/) || ($inmembername =~ /\@ARGV/i) || ($inmembername =~ /^require/) || ($inmembername =~ /^rename/i) || ($inmembername =~ /^dir/i) || ($inmembername =~ /^print/i) || ($inmembername =~ /^con/i) || ($inmembername =~ /^nul/i) || ($inmembername =~ /^aux/i) || ($inmembername =~ /^com/i) || ($inmembername =~ /^lpt/i) || ($inmembername =~ /^open/i));
+    $bannedmember = "yes" if (($in_member_name =~ /^m-/i) || ($in_member_name =~ /^s-/i) || ($in_member_name =~ /tr-/i) || ($in_member_name =~ /^y-/i) || ($in_member_name =~ /注册/i) || ($in_member_name =~ /guest/i) || ($in_member_name =~ /qq-/i) || ($in_member_name =~ /qq/i) || ($in_member_name =~ /qw/i) || ($in_member_name =~ /q-/i) || ($in_member_name =~ /qx-/i) || ($in_member_name =~ /qw-/i) || ($in_member_name =~ /qr-/i) || ($in_member_name =~ /^全体/i) || ($in_member_name =~ /register/i) || ($in_member_name =~ /诚聘中/i) || ($in_member_name =~ /斑竹/i) || ($in_member_name =~ /管理系统讯息/i) || ($in_member_name =~ /leobbs/i) || ($in_member_name =~ /leoboard/i) || ($in_member_name =~ /雷傲/i) || ($in_member_name =~ /LB5000/i) || ($in_member_name =~ /全体管理人员/i) || ($in_member_name =~ /管理员/i) || ($in_member_name =~ /隐身/i) || ($in_member_name =~ /短消息广播/i) || ($in_member_name =~ /暂时空缺/i) || ($in_member_name =~ /＊＃！＆＊/i) || ($in_member_name =~ /版主/i) || ($in_member_name =~ /坛主/i) || ($in_member_name =~ /nodisplay/i) || ($in_member_name =~ /^system/i) || ($in_member_name =~ /---/i) || ($in_member_name eq "admin") || ($in_member_name eq "root") || ($in_member_name eq "copy") || ($in_member_name =~ /^sub/) || ($in_member_name =~ /^exec/) || ($in_member_name =~ /\@ARGV/i) || ($in_member_name =~ /^require/) || ($in_member_name =~ /^rename/i) || ($in_member_name =~ /^dir/i) || ($in_member_name =~ /^print/i) || ($in_member_name =~ /^con/i) || ($in_member_name =~ /^nul/i) || ($in_member_name =~ /^aux/i) || ($in_member_name =~ /^com/i) || ($in_member_name =~ /^lpt/i) || ($in_member_name =~ /^open/i));
 
     if ($bannedmember eq "yes") {&error("用户注册&不允许注册，你填写的用户名、Email 或当前的 IP 被管理員设置成禁止注册新用户了，请更换或者联系管理員以便解决！");}
 
@@ -346,7 +346,7 @@ elsif ($action eq "addmember") {
     foreach (@saveduserarray) {
         chomp $_;
         $_ =~ s/\|/\\\|/isg;
-        if ($inmembername =~ m/$_/isg) {
+        if ($in_member_name =~ m/$_/isg) {
             $noreg = "yes";
             last;
         }
@@ -406,28 +406,28 @@ elsif ($action eq "addmember") {
         }
     } #清除自定义头像信息
 
-    if ($inmembername =~ /\t/) {&error("用户注册&请不要在用户名中使用特殊字符！");}
+    if ($in_member_name =~ /\t/) {&error("用户注册&请不要在用户名中使用特殊字符！");}
     if ($password =~ /[^a-zA-Z0-9]/) {&error("用户注册&论坛密码只允许大小写字母和数字的组合！！");}
     if ($password =~ /^lEO/) {&error("用户注册&论坛密码不允许是 lEO 开头，请更换！！");}
 
     $recomm_q = $recommender;
     $recomm_q =~ y/ /_/;
     $recomm_q =~ tr/A-Z/a-z/;
-    $member_q = $inmembername;
+    $member_q = $in_member_name;
     $member_q =~ y/ /_/;
     $member_q =~ tr/A-Z/a-z/;
     if ($recomm_q eq $member_q) {&error("用户注册&您不能推荐自己！");}
 
-    $tempinmembername = $inmembername;
+    $tempinmembername = $in_member_name;
     $tempinmembername =~ s/ //g;
     $tempinmembername =~ s/　//g;
     if ($tempinmembername eq "") {&error("用户注册&你的用户名有点问题哟，换一个！");}
-    if ($inmembername =~ /^客人/) {&error("用户注册&请不要在用户名的开头中使用客人字样！");}
-    if (length($inmembername) > 12) {&error("用户注册&用户名太长，请不要超过12个字符（6个汉字）！");}
-    if (length($inmembername) < 2) {&error("用户注册&用户名太短了，请不要少於2个字符（1个汉字）！");}
+    if ($in_member_name =~ /^客人/) {&error("用户注册&请不要在用户名的开头中使用客人字样！");}
+    if (length($in_member_name) > 12) {&error("用户注册&用户名太长，请不要超过12个字符（6个汉字）！");}
+    if (length($in_member_name) < 2) {&error("用户注册&用户名太短了，请不要少於2个字符（1个汉字）！");}
     if (length($newlocation) > 16) {&error("用户注册&来自地区过长，请不要超过16个字符（8个汉字）！");}
 
-    if (($inmembername =~ m/_/) || (!$inmembername)) {&error("用户注册&用户名中含有非法字符！");}
+    if (($in_member_name =~ m/_/) || (!$in_member_name)) {&error("用户注册&用户名中含有非法字符！");}
 
     if ($passwordverification eq "no") {
         if ($password ne $password2) {&error("用户注册&对不起，你输入的两次论坛密码不相同！");}
@@ -435,7 +435,7 @@ elsif ($action eq "addmember") {
         #       if ($password =~ /^[0-9]+$/) { &error("用户注册&论坛密码请不要全部为数字，请更换！"); }
     }
 
-    if ($inmembername eq $password) {&error("用户注册&请勿将用户名和论坛密码设置成相同！");}
+    if ($in_member_name eq $password) {&error("用户注册&请勿将用户名和论坛密码设置成相同！");}
 
     if ($emailaddress !~ /^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/) {&error("用户注册&邮件地址错误！");}
     $emailaddress =~ s/[\ \a\f\n\e\0\r\t\`\~\!\$\%\^\&\*\(\)\=\+\\\{\}\;\'\:\"\,\/\<\>\?\|]//isg;
@@ -443,11 +443,11 @@ elsif ($action eq "addmember") {
     $homepage =~ s/ARGV//isg;
     $homepage =~ s/system//isg;
 
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
     if ($userregistered ne "no") {&error("用户注册&该用户已经存在，请重新输入一个新的用户名！");}
-    $membercode = "me";
+    $member_code = "me";
 
-    $memberfiletitle = $inmembername;
+    $memberfiletitle = $in_member_name;
     $memberfiletitle =~ y/ /_/;
     $memberfiletitle =~ tr/A-Z/a-z/;
     $memberfiletitletemp = unpack("H*", "$memberfiletitle");
@@ -556,12 +556,12 @@ elsif ($action eq "addmember") {
     my $namenumber = &getnamenumber($memberfiletitle);
     $filetomake = "$lbdir" . "$memdir/$namenumber/$memberfiletitle.cgi";
     if (open(FILE, ">$filetomake")) {
-        print FILE "$inmembername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$newlocation\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t0\t$lastgone\t1\t$useradd04\t$useradd02\t$mymoney\t0\t$sex\t$education\t$marry\t$work\t$born\t\t\t\t\t\t\t$userquestion\t\t$jifen\t\t$soccerdata\t0\t";
+        print FILE "$in_member_name\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$newlocation\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t0\t$lastgone\t1\t$useradd04\t$useradd02\t$mymoney\t0\t$sex\t$education\t$marry\t$work\t$born\t\t\t\t\t\t\t$userquestion\t\t$jifen\t\t$soccerdata\t0\t";
         close(FILE);
     }
     $filetomake = "$lbdir" . "$memdir/old/$memberfiletitle.cgi";
     if (open(FILE, ">$filetomake")) {
-        print FILE "$inmembername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$newlocation\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t0\t$lastgone\t1\t$useradd04\t$useradd02\t$mymoney\t0\t$sex\t$education\t$marry\t$work\t$born\t\t\t\t\t\t\t$userquestion\t\t$jifen\t\t$soccerdata\t0\t";
+        print FILE "$in_member_name\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$newlocation\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t0\t$lastgone\t1\t$useradd04\t$useradd02\t$mymoney\t0\t$sex\t$education\t$marry\t$work\t$born\t\t\t\t\t\t\t$userquestion\t\t$jifen\t\t$soccerdata\t0\t";
         close(FILE);
     }
 
@@ -579,37 +579,37 @@ elsif ($action eq "addmember") {
 
     $filetomakeopen = "${lbdir}data/lbmember.cgi";
     if (open(MEMFILE, ">>$filetomakeopen")) {
-        print MEMFILE "$inmembername\t$membercode\t0\t$joineddate\t$emailaddress\t\n";
+        print MEMFILE "$in_member_name\t$member_code\t0\t$joineddate\t$emailaddress\t\n";
         close(MEMFILE);
     }
 
     $filetomakeopen = "${lbdir}data/lbemail/$charone.cgi";
     if (open(MEMFILE, ">>$filetomakeopen")) {
-        print MEMFILE "$emailaddress\t$inmembername\n";
+        print MEMFILE "$emailaddress\t$in_member_name\n";
         close(MEMFILE);
     }
 
     if (($born ne "") && ($born ne "//")) {
         $filetomakeopen = "${lbdir}data/lbmember3.cgi";
         if (open(MEMFILE, ">>$filetomakeopen")) {
-            print MEMFILE "$inmembername\t$born\t\n";
+            print MEMFILE "$in_member_name\t$born\t\n";
             close(MEMFILE);
         }
         $month = int($month);
         if (open(MEMFILE, ">>${lbdir}calendar/borninfo$month.cgi")) {
-            print MEMFILE "$inmembername\t$born\t\n";
+            print MEMFILE "$in_member_name\t$born\t\n";
             close(MEMFILE);
         }
     }
 
     $filetomakeopen = "${lbdir}data/lbmember4.cgi";
     if (open(MEMFILE, ">>$filetomakeopen")) {
-        print MEMFILE "$inmembername\t$ipaddress\t\n";
+        print MEMFILE "$in_member_name\t$ipaddress\t\n";
         close(MEMFILE);
     }
 
-    $inmembername =~ y/_/ /;
-    $inmemberfile = $inmembername;
+    $in_member_name =~ y/_/ /;
+    $inmemberfile = $in_member_name;
     $inmemberfile =~ y/ /_/;
     $inmemberfile =~ tr/A-Z/a-z/;
     $currenttime = time;
@@ -624,7 +624,7 @@ elsif ($action eq "addmember") {
 
         $filetoopen = "$lbdir" . "$msgdir/in/$inmemberfile" . "_msg.cgi";
         if (open(FILE, ">$filetoopen")) {
-            print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t欢迎您访问$boardname，祝你使用愉快！\t$tempoutput<BR><BR>----------------------------<BR>LeoBBS 由雷傲科技荣誉出品<BR>主页:<a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a>\n";
+            print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t欢迎您访问$board_name，祝你使用愉快！\t$tempoutput<BR><BR>----------------------------<BR>LeoBBS 由雷傲科技荣誉出品<BR>主页:<a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a>\n";
             close(FILE);
         }
     }
@@ -632,12 +632,12 @@ elsif ($action eq "addmember") {
     if (($passwordverification eq "no") && ($emailfunctions ne "off")) {
         $to = $emailaddress;
         $from = $adminemail_out;
-        $subject = "感谢您在$boardname中注册！";
-        $message .= "\n欢迎你加入$boardname! <br>\n";
+        $subject = "感谢您在$board_name中注册！";
+        $message .= "\n欢迎你加入$board_name! <br>\n";
         $message .= "论坛URL: $boardurl/leobbs.cgi\n <br><br>\n <br>\n";
         $message .= "------------------------------------<br>\n";
         $message .= "您的用户名、论坛密码如下。\n <br>\n";
-        $message .= "用户名： $inmembername <br>\n";
+        $message .= "用户名： $in_member_name <br>\n";
         $message .= "论坛密码： $notmd5password\n <br><br>\n <br>\n";
         $message .= "要注意论坛密码是区分大小写的\n <br>\n";
         $message .= "您随时可以使用用户资料修改您的论坛密码 <br>\n";
@@ -655,12 +655,12 @@ elsif ($action eq "addmember") {
         if ($adminverification eq "yes") {
             $to = $adminemail_out;
             $from = $emailaddress;
-            $subject = "等待您认证$boardname中的注册！";
-            $message .= "\n欢迎你加入$boardname！\n";
+            $subject = "等待您认证$board_name中的注册！";
+            $message .= "\n欢迎你加入$board_name！\n";
             $message .= "论坛URL:$boardurl/leobbs.cgi\n\n\n";
             $message .= "------------------------------------\n";
             $message .= "您的用户名、论坛密码如下。\n\n";
-            $message .= "用户名： $inmembername\n";
+            $message .= "用户名： $in_member_name\n";
             $message .= "论坛密码： $notmd5password\n\n\n";
             $message .= "邮  箱： $emailaddress1\n\n\n";
             $message .= "论坛密码是区分大小写的\n\n";
@@ -672,12 +672,12 @@ elsif ($action eq "addmember") {
         else {
             $to = $emailaddress;
             $from = $adminemail_out;
-            $subject = "感谢您在$boardname中注册！";
-            $message .= "\n欢迎你加入$boardname！<br>\n";
+            $subject = "感谢您在$board_name中注册！";
+            $message .= "\n欢迎你加入$board_name！<br>\n";
             $message .= "论坛URL:$boardurl/leobbs.cgi\n <br><br>\n <br>\n";
             $message .= "------------------------------------<br>\n";
             $message .= "您的用户名、论坛密码如下。\n<br><br>\n";
-            $message .= "用户名： $inmembername <br>\n";
+            $message .= "用户名： $in_member_name <br>\n";
             $message .= "论坛密码： $notmd5password\n <br><br>\n<br>\n";
             $message .= "论坛密码是区分大小写的 \n<br><br>\n";
             $message .= "您随时可以使用用户资料修改您的论坛密码 <br>\n";
@@ -691,12 +691,12 @@ elsif ($action eq "addmember") {
     if ($newusernotify eq "yes" && $emailfunctions ne "off") {
         $to = $adminemail_in;
         $from = $adminemail_out;
-        $subject = "$boardname有新用户注册了！";
-        $message = "\n论坛：$boardname <br>\n";
+        $subject = "$board_name有新用户注册了！";
+        $message = "\n论坛：$board_name <br>\n";
         $message .= "论坛URL:$boardurl/leobbs.cgi <br>\n";
         $message .= "-------------------------------------\n<br><br>\n";
         $message .= "新用户注册的信息如下。 <br><br>\n\n";
-        $message .= "用户名： $inmembername <br>\n";
+        $message .= "用户名： $in_member_name <br>\n";
         $message .= "密  码： $notmd5password <br>\n";
         $message .= "邮  件： $emailaddress <br>\n";
         $message .= "主  页： $homepage <br>\n";
@@ -709,14 +709,14 @@ elsif ($action eq "addmember") {
     if ($in_forum eq "") {$refrashurl = "leobbs.cgi";}
     else {$refrashurl = "forums.cgi?forum=$in_forum";}
     $output .= qq~<tr>
-	<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>感谢您注册，$inmembername</b>$recommfuncerror</font></td></tr><tr>
+	<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>感谢您注册，$in_member_name</b>$recommfuncerror</font></td></tr><tr>
         <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc>具体情况：<ul><li><a href="$refrashurl">按此返回论坛</a>
         <meta http-equiv="refresh" content="3; url=$refrashurl">
 	</ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 
     if (($passwordverification eq "yes") && ($emailfunctions ne "off")) {$output =~ s/按此返回论坛/您的论坛密码已经寄出，按此返回论坛，然后使用邮件中的密码登录/;}
     else {
-        $namecookie = cookie(-name => "amembernamecookie", -value => "$inmembername", -path => "$cookiepath/", -expires => "+30d");
+        $namecookie = cookie(-name => "amembernamecookie", -value => "$in_member_name", -path => "$cookiepath/", -expires => "+30d");
         $passcookie = cookie(-name => "apasswordcookie", -value => "$password", -path => "$cookiepath/", -expires => "+30d");
     }
     require "$lbdir" . "data/boardstats.cgi";
@@ -727,7 +727,7 @@ elsif ($action eq "addmember") {
         &winlock($filetomake) if ($OS_USED eq "Nt");
         if (open(FILE, ">$filetomake")) {
             flock(FILE, 2) if ($OS_USED eq "Unix");
-            print FILE "\$lastregisteredmember = \'$inmembername\'\;\n";
+            print FILE "\$lastregisteredmember = \'$in_member_name\'\;\n";
             print FILE "\$totalmembers = \'$totalmembers\'\;\n";
             print FILE "\$totalthreads = \'$totalthreads\'\;\n";
             print FILE "\$totalposts = \'$totalposts\'\;\n";
@@ -1240,7 +1240,7 @@ else {
     ~;
 }
 print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - 注册新用户", \$output);
+&output("$board_name - 注册新用户", \$output);
 exit;
 
 sub recommfunc {

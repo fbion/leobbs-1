@@ -64,12 +64,12 @@ $movetoid =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<
 &error("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9 ]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $in_post_no = $postno;
@@ -80,10 +80,10 @@ $inleavemessage = $leavemessage;
 $currenttime = time;
 $inposticon = $posticon;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
@@ -91,19 +91,19 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 
 if (($in_post_no) && ($in_post_no !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername");
-    #    &getmember("$inmembername","no");
+    &getmember("$in_member_name");
+    #    &getmember("$in_member_name","no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -125,18 +125,18 @@ elsif ($action eq "postdeleteonce") {&postdeleteonce}
 elsif ($action eq "unpostdeleteonce") {&unpostdeleteonce}
 else {&error("普通错误&请以正确的方式访问本程序");}
 
-&output("$boardname - 主题处理", \$output);
+&output("$board_name - 主题处理", \$output);
 exit;
 
 sub deletethread {
     &mischeader("删除主题");
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartoedit = "yes";}
     $alldeltopic = 0;
 
-    if ($membercode ne "ad") {
+    if ($member_code ne "ad") {
         $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
         $trueipaddress = "no" if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
         my $trueipaddress1 = $ENV{'HTTP_CLIENT_IP'};
@@ -151,7 +151,7 @@ sub deletethread {
         foreach (@delfile) {
             chomp $_;
             (my $delname, my $no, my $noip, $no, $no, my $notime) = split(/\t/, $_);
-            if (lc($delname) eq lc($inmembername)) {
+            if (lc($delname) eq lc($in_member_name)) {
                 if ($notime > $totime) {
                     $delcount++;
                 }
@@ -185,14 +185,14 @@ sub deletethread {
 
                 ($startedby, $topictitle, my $no, $no, $no, $no, $no, $no, $no, $no) = split(/\t/, $threads[0]);
                 if ($arrowuserdel eq "on") {
-                    if ((lc($inmembername) eq lc($startedby)) && ($inpassword eq $password)) {$cleartoedit = "yes";}
+                    if ((lc($in_member_name) eq lc($startedby)) && ($in_password eq $password)) {$cleartoedit = "yes";}
                 }
                 unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
 
                 if ($cleartoedit eq "no") {&error("删除主题&您不是本论坛坛主或版主，也不是本主题的发布者，或者您的密码错误！");}
                 else {
                     #4
-                    &sendtoposter("$inmembername", "$startedby", "", "deletethread", "$in_forum", "$in_topic", "$topictitle", "$inpost") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($startedby)));
+                    &sendtoposter("$in_member_name", "$startedby", "", "deletethread", "$in_forum", "$in_topic", "$topictitle", "$inpost") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($startedby)));
                     $nametocheck = $startedby;
                     $nametocheck =~ s/ /\_/g;
                     $nametocheck =~ tr/A-Z/a-z/;
@@ -210,7 +210,7 @@ sub deletethread {
                         my $filedata = <FILE>;
                         close(FILE);
                         chomp $filedata;
-                        (my $membername, my $password, my $membertitle, my $membercode, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userxz, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $userquestion, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
+                        (my $membername, my $password, my $membertitle, my $member_code, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userxz, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $userquestion, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
                         if (($membername ne "") && ($password ne "")) {
                             #7
 
@@ -230,7 +230,7 @@ sub deletethread {
                                 if ($forumdeljf ne "") {$jifen -= $forumdeljf;}
                                 else {$jifen -= $deltojf;}
                             }
-                            print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+                            print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
                             close(FILE);
                         } #7
                         &winunlock($filetoopen) if ($OS_USED eq "Nt");
@@ -282,7 +282,7 @@ sub deletethread {
             $trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
             my $thistime = time;
             if (open(FILE, ">>${lbdir}data/baddel.cgi")) {
-                print FILE "$inmembername\t密码不显示\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t删除$forumname $alldeltopic 个贴子\t$thistime\t\n";
+                print FILE "$in_member_name\t密码不显示\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t删除$forumname $alldeltopic 个贴子\t$thistime\t\n";
                 close(FILE);
             }
             undef $thistime;
@@ -538,7 +538,7 @@ sub deletethread {
 <input type=hidden name="topic" value="@intopic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [$topictitle]</b></font></td></tr>
 <tr><td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc><b>该操作是不可逆的，请仔细考虑！</font></td>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>删除理由：</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
@@ -572,15 +572,15 @@ sub deletepost {
         $postcountcheck = 0;
         $totalposts = @allthreads;
         $cleartoedit = "no";
-        if (($membercode eq "ad") && ($inpassword eq $password)) {
+        if (($member_code eq "ad") && ($in_password eq $password)) {
             $cleartoedit = "yes";
             $checkcandelm = "YES";
         }
-        if (($membercode eq 'smo') && ($inpassword eq $password)) {
+        if (($member_code eq 'smo') && ($in_password eq $password)) {
             $cleartoedit = "yes";
             $checkcandelm = "YES";
         }
-        if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {
+        if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {
             $cleartoedit = "yes";
             $checkcandelm = "YES";
         }
@@ -596,7 +596,7 @@ sub deletepost {
             if ($posttodelete eq "0") {&error("删除回复&这里是用来删除回复的，不能删除主题！");}
             ($startedby[$posttodelete], $topictitle) = split(/\t/, $allthreads[$posttodelete]);
             if ($arrowuserdel eq "on" && $checkcandelm ne "YES") {
-                if ((lc($inmembername) eq lc($startedby[$posttodelete])) && ($inpassword eq $password)) {
+                if ((lc($in_member_name) eq lc($startedby[$posttodelete])) && ($in_password eq $password)) {
                     $cleartoedit = "yes";
                     $checkcandel++;
                 }
@@ -614,7 +614,7 @@ sub deletepost {
             $postdelnum = 0;
             foreach $posttodelete (@inpostno) {
                 $startedby = $startedby[$posttodelete];
-                &sendtoposter("$inmembername", "$startedby", "", "deletepost", "$in_forum", "$in_topic", "$topictitle", "$inpost") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($startedby)));
+                &sendtoposter("$in_member_name", "$startedby", "", "deletepost", "$in_forum", "$in_topic", "$topictitle", "$inpost") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($startedby)));
                 if ($inleavemessage eq "yes") {
                     $postdelnum++;
                     $mymoney1 -= $forumdelmoney - $delmoney if ($forumdelmoney ne "");
@@ -638,7 +638,7 @@ sub deletepost {
                 $filedata = <FILE>;
                 close(FILE);
                 chomp($filedata);
-                ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+                ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
                 if (($membername ne "") && ($password ne "")) {
 
                     my ($post1, $post2) = split(/\|/, $numberofposts);
@@ -654,7 +654,7 @@ sub deletepost {
                     $postdel = $postdel + $postdelnum;
                     $mymoney = $mymoney + $mymoney1;
                     $jifen = $jifen + $jifen1;
-                    print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+                    print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
                     close(FILE);
                 }
                 &winunlock($filetoopen) if ($OS_USED eq "Nt");
@@ -895,7 +895,7 @@ sub deletepost {
 <input type=hidden name="postno" value="$postno">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [删除 $in_post_no 个回复]</b></font></td></tr>
 <tr><td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc><b>该操作是不可逆的，请仔细考虑！</font></td>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>删除理由：</font></td><td bgcolor=$miscbackone><input name="inpost" type=text size=50></td></tr>
@@ -915,9 +915,9 @@ sub deletepost {
             $thismovetopic = @intopic;
 
             $cleartomove = "no";
-            if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartomove = "yes";}
-            if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartomove = 'yes';}
-            if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartomove = "yes";}
+            if (($member_code eq "ad") && ($in_password eq $password)) {$cleartomove = "yes";}
+            if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartomove = 'yes';}
+            if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartomove = "yes";}
             unless ($cleartomove eq "yes") {$cleartomove = "no";}
             if ($cleartomove eq "no") {&error("移动主题&您不是坛主或版主，或者您的密码错误！");}
 
@@ -943,7 +943,7 @@ sub deletepost {
 
                 $inpostaddon = "<p>" if ($inpost ne "");
                 if ($indeletepost eq "yes") {
-                    $moveinfoold = qq~此贴已被管理员$inmembername转移至： <a href=forums.cgi?forum=$movetoid target=_self>$newforumname</a>~;
+                    $moveinfoold = qq~此贴已被管理员$in_member_name转移至： <a href=forums.cgi?forum=$movetoid target=_self>$newforumname</a>~;
                     $moveinfonew = qq~此贴转移自： <a href=forums.cgi?forum=$in_forum target=_self>$oldforumname</a>~;
                 }
                 else {
@@ -988,10 +988,10 @@ sub deletepost {
                     close(ENT);
                     ($topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $lastinposticon, $inposttemp, $addmetemp) = split(/\t/, $in);
                     $topictitle =~ s/＊＃！＆＊//;
-                    &sendtoposter("$inmembername", "$startedby", "$newforumname", "move", "$in_forum", "$in_topic", "$topictitle", "") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($startedby)));
+                    &sendtoposter("$in_member_name", "$startedby", "$newforumname", "move", "$in_forum", "$in_topic", "$topictitle", "") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($startedby)));
                     $threadposts++ if ($indeletepost eq "yes");
 
-                    $myinpost = "$inmembername\t$topictitle\t$ENV{'REMOTE_ADDR'}\tyes\tyes\t$currenttime\t$myinpost\t$inposticon\t\n"; #$topictitle这里才有
+                    $myinpost = "$in_member_name\t$topictitle\t$ENV{'REMOTE_ADDR'}\tyes\tyes\t$currenttime\t$myinpost\t$inposticon\t\n"; #$topictitle这里才有
 
                     if ($moveinfonew ne "") {
                         $topicdescription = $moveinfonew;
@@ -1000,7 +1000,7 @@ sub deletepost {
                     $lastinposticon = $inposticon if ($inposticon ne "");
 
                     if ($indeletepost eq "yes") {
-                        $moveforumwrite = "$newthreadnumber\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$lastinposticon\t***** 版主模式 *****\t$addmetemp\t";
+                        $moveforumwrite = "$newthreadnumber\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$in_member_name\t$currenttime\t$lastinposticon\t***** 版主模式 *****\t$addmetemp\t";
                     }
                     else {
                         $moveforumwrite = "$newthreadnumber\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$currenttime\t$lastinposticon\t$inposttemp\t$addmetemp\t";
@@ -1102,7 +1102,7 @@ sub deletepost {
                                     chomp $_;
                                     print FILE "$_\n";
                                 }
-                                print FILE "$inmembername\t$topictitle\t$ENV{'REMOTE_ADDR'}\tyes\tyes\t$currenttime\t$newinpost\t$inposticon\t\n" if ($indeletepost eq "yes");
+                                print FILE "$in_member_name\t$topictitle\t$ENV{'REMOTE_ADDR'}\tyes\tyes\t$currenttime\t$newinpost\t$inposticon\t\n" if ($indeletepost eq "yes");
                                 close(FILE);
                             }
                             &winunlock($filetoopen) if ($OS_USED eq "Nt");
@@ -1117,7 +1117,7 @@ sub deletepost {
                             if (($threadstate eq "poll") || ($threadstate eq "pollclosed")) {$threadstate = "pollclosed";}
                             else {$threadstate = "closed";}
                             if (open(FILE, ">$file")) {
-                                $in_forumwrite = "$in_topic\t$topictitle\t$moveinfoold\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$lastinposticon\t$inposttemp\t$addmetemp\t";
+                                $in_forumwrite = "$in_topic\t$topictitle\t$moveinfoold\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$in_member_name\t$currenttime\t$lastinposticon\t$inposttemp\t$addmetemp\t";
                                 print FILE $in_forumwrite;
                                 close(FILE);
                             }
@@ -1299,19 +1299,19 @@ sub deletepost {
                     $a = sprintf("%09d", $a);
                     chomp $forum;
                     next if (length("$forum") < 30);
-                    ($movetoforumid, $category, $categoryplace, $forumname, $forumdescription, $noneed, $noneed, $noneed, $noneed, $nowstartnewthreads, $noneed, $noneed, $noneed, $noneed, $noneed, $miscad2, $noneed, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+                    ($movetoforumid, $category, $categoryplace, $forumname, $forumdescription, $noneed, $noneed, $noneed, $noneed, $nowstartnewthreads, $noneed, $noneed, $noneed, $noneed, $noneed, $miscad2, $noneed, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
                     next if ($movetoforumid !~ /^[0-9]+$/);
                     next if ($categoryplace !~ /^[0-9]+$/);
                     next if ($nowstartnewthreads eq "onlysub");
 
                     $categoryplace = sprintf("%09d", $categoryplace);
-                    $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$movetoforumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+                    $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$movetoforumid\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
                     push(@rearrangedforums, $rearrange);
                     $a++;
                 }
                 @finalsortedforums = sort (@rearrangedforums);
                 foreach $sortedforums (@finalsortedforums) {
-                    ($categoryplace, my $a, $category, $forumname, $forumdescription, $movetoforumid, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $sortedforums);
+                    ($categoryplace, my $a, $category, $forumname, $forumdescription, $movetoforumid, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $sortedforums);
                     $categoryplace = sprintf("%01d", $categoryplace);
 
                     $child = ($category =~ /^childforum-[0-9]+/) ? "　|" : "";
@@ -1339,7 +1339,7 @@ sub deletepost {
 <input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="@intopic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [移动 $in_topic 个主题]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
@@ -1402,9 +1402,9 @@ sub deletepost {
                 }
                 chomp @allthreads;
                 $cleartoedit = "no";
-                if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-                if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-                if (($inmembmod eq "yes") && ($membercode ne 'amo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
+                if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+                if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+                if (($inmembmod eq "yes") && ($member_code ne 'amo') && ($in_password eq $password)) {$cleartoedit = "yes";}
                 $allthreads = @allthreads;
                 $allthreads++;
                 &error("单贴屏蔽&此帖子不存在！") if ($postno > $allthreads);
@@ -1415,7 +1415,7 @@ sub deletepost {
                 unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
                 if ($cleartoedit eq "yes") {
 
-                    &sendtoposter("$inmembername", "$postermembername1", "", "postdeleteonce", "$in_forum", "$in_topic", "$topictitle1", "$inpost") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($postermembername1)));
+                    &sendtoposter("$in_member_name", "$postermembername1", "", "postdeleteonce", "$in_forum", "$in_topic", "$topictitle1", "$inpost") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($postermembername1)));
                     $inpost1 =~ s/\[POSTISDELETE=(.+?)\]//;
                     $inpost1 = qq~[POSTISDELETE=$inpost]$inpost1~;
                     $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
@@ -1440,7 +1440,7 @@ sub deletepost {
                         unless ($cleartoedit eq "yes") {$cleartoedit = "no";}
                         if ($cleartoedit eq "yes") {
 
-                            &sendtoposter("$inmembername", "$postermembername1", "", "postdeleteonce", "$in_forum", "$in_topic", "$topictitle1", "$inpost") if (($sendmanageinfo eq "yes") && (lc($inmembername) ne lc($postermembername1)));
+                            &sendtoposter("$in_member_name", "$postermembername1", "", "postdeleteonce", "$in_forum", "$in_topic", "$topictitle1", "$inpost") if (($sendmanageinfo eq "yes") && (lc($in_member_name) ne lc($postermembername1)));
                             $inpost1 =~ s/\[POSTISDELETE=(.+?)\]//;
                             $inpost1 = qq~[POSTISDELETE=$inpost]$inpost1~;
                             $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
@@ -1499,7 +1499,7 @@ sub deletepost {
                                 value = "$postno" >
                                     <font color=$fontcolormisc> < b > 请输入您的用户名、密码进入版主模式 [ 单贴屏蔽 ] < /b></
                                 font > </td> < /tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u > </B> < /font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u > </B> < /font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</
                                 td > </tr>
                                     < tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
                                 请输入您的用户名 < /font></
@@ -1553,13 +1553,13 @@ sub unpostdeleteonce {
     chomp @allthreads;
     $cleartoedit = "
                                 no ";
-    if (($membercode eq "
-                                ad ") && ($inpassword eq $password))  { $cleartoedit = "
+    if (($member_code eq "
+                                ad ") && ($in_password eq $password))  { $cleartoedit = "
                                 yes ";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) { $cleartoedit = "
+    if (($member_code eq 'smo') && ($in_password eq $password)) { $cleartoedit = "
                                 yes ";}
     if (($inmembmod eq "
-                                yes ") && ($membercode ne 'amo') && ($inpassword eq $password))  { $cleartoedit = "
+                                yes ") && ($member_code ne 'amo') && ($in_password eq $password))  { $cleartoedit = "
                                 yes ";}
 	$allthreads=@allthreads;
 	$allthreads ++;
@@ -1576,7 +1576,7 @@ sub unpostdeleteonce {
                                 yes ") {
 
 	    &sendtoposter("
-                                $inmembername
+                                $in_member_name
                                 ","
                                 $postermembername1
                                 ","
@@ -1590,7 +1590,7 @@ sub unpostdeleteonce {
                                 ","
                                 $inpost
                                 ") if (($sendmanageinfo eq "
-                                yes ")&&(lc($inmembername) ne lc($postermembername1)));
+                                yes ")&&(lc($in_member_name) ne lc($postermembername1)));
 	$inpost1 =~ s/\[POSTISDELETE=(.+?)\]//;
         $filetoopen = "
                                 $lbdir
@@ -1715,7 +1715,7 @@ sub unpostdeleteonce {
                                 $postno
                                 ">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [取消单贴屏蔽]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="
                                 membername "></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="

@@ -52,39 +52,39 @@ $in_forum = $forum;
 &error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $currenttime = time;
-$inmembername = &stripMETA($inmembername);
+$in_member_name = &stripMETA($in_member_name);
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 if ($catsbackpicinfo ne "") {$catsbackpicinfo = "background=$imagesurl/images/$skin/$catsbackpicinfo";}
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {
-    $inmembername = "客人";
+if ((!$in_member_name) or ($in_member_name eq "客人")) {
+    $in_member_name = "客人";
     $userregistered = "no";
     &error("普通错误&请登录后再使用本功能！");
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -100,9 +100,9 @@ $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></spa
 #        &moderator("$in_forum");
 &getoneforum("$in_forum");
 if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /\Q,$inmembername,\E/i);
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /\Q,$in_member_name,\E/i);
 }
 
 my %Mode = (
@@ -117,7 +117,7 @@ if ($Mode{$action}) {
 }
 else {&error("普通错误&请以正确的方式访问本程序！");}
 
-&output("$boardname - 在$forumname内发小字报", \$output);
+&output("$board_name - 在$forumname内发小字报", \$output);
 
 sub newthread {
 
@@ -128,10 +128,10 @@ sub newthread {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t$forumname\tboth\t张贴小字报\t") if ($privateforum ne "yes");
-        &whosonline("$inmembername\t$forumname(密)\tboth\t张贴新的保密小字报\t") if ($privateforum eq "yes");
+        &whosonline("$in_member_name\t$forumname\tboth\t张贴小字报\t") if ($privateforum ne "yes");
+        &whosonline("$in_member_name\t$forumname(密)\tboth\t张贴新的保密小字报\t") if ($privateforum eq "yes");
     }
-    if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+    if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
         &error("张贴小字报&斑竹和坛主不得参与,谢谢合作！");
     }
 
@@ -154,7 +154,7 @@ sub newthread {
                     <td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>谁可以张贴小字报？</b> $startthreads</td>
                 </tr>
                 <tr>
-                    <td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td>
+                    <td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td>
                 </tr>
             <tr>
             <td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td>
@@ -196,8 +196,8 @@ sub addnewthread {
         }
     }
     if ($userregistered eq "no") {&error("张贴小字报&您没有注册！");}
-    elsif ($inpassword ne $password) {&error("张贴小字报&您的密码错误！");}
-    elsif (($membercode eq "banned") || ($membercode eq "masked")) {&error("张贴小字报&您被禁止发言！");}
+    elsif ($in_password ne $password) {&error("张贴小字报&您的密码错误！");}
+    elsif (($member_code eq "banned") || ($member_code eq "masked")) {&error("张贴小字报&您被禁止发言！");}
     elsif ($inpost eq "") {&error("张贴小字报&必须输入标题！");}
     elsif (length($inpost) > 82) {&error("发表新投票&标题过长！");}
     else {
@@ -212,7 +212,7 @@ sub addnewthread {
         chomp(@xzbdata);
         $sizexzb = @xzbdata;
         $currenttime = time;
-        if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+        if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
             &error("张贴小字报&斑竹和坛主不得参与,谢谢合作！");
         }
 
@@ -229,7 +229,7 @@ sub addnewthread {
         ($inpost, $message) = split(/\t/, $temp);
 
         $sizexzb = 48 if ($sizexzb > 48);
-        $write = "＃―＃―・\t$inpost\t$inmembername\t$message\t$currenttime\t";
+        $write = "＃―＃―・\t$inpost\t$in_member_name\t$message\t$currenttime\t";
         @newxzb = ($write, @xzbdata);
         open(DIR, ">$dirtoopen/xzb$in_forum.cgi");
         for ($i = 0; $i <= $sizexzb; $i++) {
@@ -241,7 +241,7 @@ sub addnewthread {
         $relocurl = "forums.cgi?forum=$in_forum";
 
         if (($xzbcost ne "") && ($xzbcost >= 0)) {
-            $cleanmembername = $inmembername;
+            $cleanmembername = $in_member_name;
             $cleanmembername =~ s/ /\_/isg;
             $cleanmembername =~ tr/A-Z/a-z/;
 
@@ -257,13 +257,13 @@ sub addnewthread {
             $filedata = <fh>;
             close(fh);
             chomp $filedata;
-            (my $membername, my $password, my $membertitle, my $membercode, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userstar, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
+            (my $membername, my $password, my $membertitle, my $member_code, my $numberofposts, my $emailaddress, my $showemail, my $ipaddress, my $homepage, my $oicqnumber, my $icqnumber, my $location, my $interests, my $joineddate, my $lastpostdate, my $signature, my $timedifference, my $privateforums, my $useravatar, my $userflag, my $userstar, my $usersx, my $personalavatar, my $personalwidth, my $personalheight, my $rating, my $lastgone, my $visitno, my $useradd04, my $useradd02, my $mymoney, my $postdel, my $sex, my $education, my $marry, my $work, my $born, my $chatlevel, my $chattime, my $jhmp, my $jhcount, my $ebankdata, my $onlinetime, my $awards, my $jifen, my $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
             $mymoney -= $xzbcost;
 
             if ($password ne "") {
                 if (open(fh, ">${lbdir}$memdir/$namenumber/$cleanmembername.cgi")) {
                     flock(fh, 2) if ($OS_USED eq "Unix");
-                    print fh "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userstar\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
+                    print fh "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userstar\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t\n";
                     close(fh);
                 }
             }
@@ -309,8 +309,8 @@ sub view {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t$forumname\tboth\t阅读小字报\t") if ($privateforum ne "yes");
-        &whosonline("$inmembername\t$forumname(密)\tboth\t阅读保密小字报\t") if ($privateforum eq "yes");
+        &whosonline("$in_member_name\t$forumname\tboth\t阅读小字报\t") if ($privateforum ne "yes");
+        &whosonline("$in_member_name\t$forumname(密)\tboth\t阅读保密小字报\t") if ($privateforum eq "yes");
     }
 
     $dateposted = $posttime + ($timedifferencevalue * 3600) + ($timezone * 3600);
@@ -330,7 +330,7 @@ sub view {
 	                  <tr>
 	                  <td bgcolor=$titlecolor align=center valign=top $catbackpic><font face="$font" color=$titlefontcolor><b>>> $title <<</b></td></tr>
 		    ~;
-    if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || ($postid eq "$inmembername")) {
+    if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes") || ($postid eq "$in_member_name")) {
         $output .= qq~
 	                      	<tr>
 	                      	    <td bgcolor=$postcolortwo align=right>$admindelete</td>
@@ -357,7 +357,7 @@ sub view {
 
 	              ~;
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    &output("$boardname - 在$forumname内查看小字报", \$output);
+    &output("$board_name - 在$forumname内查看小字报", \$output);
 
     exit;
 }
@@ -371,7 +371,7 @@ sub del {
     close(DIR);
     chomp(@xzbdata);
     ($nouse, $title, $postid, $msg, $posttime) = split(/\t/, $xzbdata[$id]);
-    if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes") && ($postid ne "$inmembername")) {
+    if (($member_code ne "ad") && ($member_code ne 'smo') && ($inmembmod ne "yes") && ($postid ne "$in_member_name")) {
         &error("删除小字报&你没权力删除!");
     }
 

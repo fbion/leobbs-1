@@ -44,17 +44,17 @@ $insendto = $query->param('sendto');
 $inmessage = &cleaninput($inmessage);
 $inmsgtitle = &cleaninput($inmsgtitle);
 
-$inmembername = $query->cookie('adminname');
-$inpassword = $query->cookie('adminpass');
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie('adminname');
+$in_password = $query->cookie('adminpass');
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
 &admintitle;
 
-if (($membercode ne "ad") || ($inpassword ne $password) || (lc($inmembername) ne lc($membername))) {
+if (($member_code ne "ad") || ($in_password ne $password) || (lc($in_member_name) ne lc($membername))) {
     &adminlogin;
     exit;
 }
@@ -112,20 +112,20 @@ else {
         undef @sendmemlist;
         foreach (@sendmemlist1) {
             chomp $_;
-            my ($membername, $membercode, $no) = split(/\t/, $_);
-            push(@sendmemlist, $_) if (($membercode eq "me") && ($insendto eq "me"));
-            push(@sendmemlist, $_) if (($membercode eq "rz") && ($insendto eq "rz"));
-            push(@sendmemlist, $_) if (($membercode eq "rz1") && ($insendto eq "rz1"));
-            push(@sendmemlist, $_) if (($membercode eq "rz2") && ($insendto eq "rz2"));
-            push(@sendmemlist, $_) if (($membercode eq "rz3") && ($insendto eq "rz3"));
-            push(@sendmemlist, $_) if (($membercode eq "rz4") && ($insendto eq "rz4"));
-            push(@sendmemlist, $_) if (($membercode eq "rz5") && ($insendto eq "rz5"));
-            push(@sendmemlist, $_) if (($membercode eq "mo") && ($insendto eq "mo"));
-            push(@sendmemlist, $_) if (($membercode eq "cmo") && ($insendto eq "cmo"));
-            push(@sendmemlist, $_) if (($membercode eq "smo") && ($insendto eq "smo"));
-            push(@sendmemlist, $_) if (($membercode eq "amo") && ($insendto eq "amo"));
-            push(@sendmemlist, $_) if (($membercode eq "ad") && ($insendto eq "ad"));
-            push(@sendmemlist, $_) if ((($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) && ($insendto eq "allmo"));
+            my ($membername, $member_code, $no) = split(/\t/, $_);
+            push(@sendmemlist, $_) if (($member_code eq "me") && ($insendto eq "me"));
+            push(@sendmemlist, $_) if (($member_code eq "rz") && ($insendto eq "rz"));
+            push(@sendmemlist, $_) if (($member_code eq "rz1") && ($insendto eq "rz1"));
+            push(@sendmemlist, $_) if (($member_code eq "rz2") && ($insendto eq "rz2"));
+            push(@sendmemlist, $_) if (($member_code eq "rz3") && ($insendto eq "rz3"));
+            push(@sendmemlist, $_) if (($member_code eq "rz4") && ($insendto eq "rz4"));
+            push(@sendmemlist, $_) if (($member_code eq "rz5") && ($insendto eq "rz5"));
+            push(@sendmemlist, $_) if (($member_code eq "mo") && ($insendto eq "mo"));
+            push(@sendmemlist, $_) if (($member_code eq "cmo") && ($insendto eq "cmo"));
+            push(@sendmemlist, $_) if (($member_code eq "smo") && ($insendto eq "smo"));
+            push(@sendmemlist, $_) if (($member_code eq "amo") && ($insendto eq "amo"));
+            push(@sendmemlist, $_) if (($member_code eq "ad") && ($insendto eq "ad"));
+            push(@sendmemlist, $_) if ((($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) && ($insendto eq "allmo"));
         }
     }
     else {

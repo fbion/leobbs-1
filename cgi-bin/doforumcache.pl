@@ -32,7 +32,7 @@ foreach $forum (@forums) {
     $a = sprintf("%09d", $a);
     chomp $forum;
     next if (length("$forum") < 30);
-    ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threadsno, $postsno, $forumgraphic, $tmp, $tmp, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpostno, $miscad5) = split(/\t/, $forum);
+    ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threadsno, $postsno, $forumgraphic, $tmp, $tmp, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpostno, $miscad5) = split(/\t/, $forum);
     next if (($forumid !~ /^[0-9]+$/) || ($forumname eq ""));
     $forumdescription = &HTML("$forumdescription");
 

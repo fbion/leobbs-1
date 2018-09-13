@@ -19,15 +19,15 @@ require "bbs.lib.pl";
 require "wap.pl";
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print "<title>生成幸运ID</title>";
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ((!$inmembername) or ($inmembername eq "客人")) {&error("普通错误&客人不能进行操作");}
+if ((!$in_member_name) or ($in_member_name eq "客人")) {&error("普通错误&客人不能进行操作");}
 else {
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -44,7 +44,7 @@ if ($ip ne '') {
     if (-e "${lbdir}wap/$x") {goto FILE;}
     my $xh2 = $ip;
     open(file, ">${lbdir}wap/$x");
-    print file "$inmembername,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
+    print file "$in_member_name,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
     close(file);
 
     open(file, "${lbdir}wap/all.h");
@@ -55,12 +55,12 @@ if ($ip ne '') {
     foreach (@s) {
         chomp;
         my ($n, $s) = split(/\,/, $_);
-        if ($inmembername eq $n) {
+        if ($in_member_name eq $n) {
             unlink "${lbdir}wap/$s";
         }
         else {print file "$_\n";}
     }
-    print file "$inmembername,$x\n";
+    print file "$in_member_name,$x\n";
     close(file);
     print qq~<p>您的幸运ID为：$x,您的IP为：$xh2，请不要泄漏您的幸运ID给任何人！请把下面进入的首页地址加入手机书签(书签地址：$boardurl/wap.cgi?lid=$x ，加入之后可免登陆) 。否则请不要加入书签！</p><p>注意：本幸运ID全为数字。</p>~;
 }

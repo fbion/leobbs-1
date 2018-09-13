@@ -54,10 +54,10 @@ if ($inadminmodpass ne "") {
     unless ($@) {$inadminmodpass = "lEO$inadminmodpass";}
 }
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 $inhelpon = &cleaninput($inhelpon);
@@ -78,19 +78,19 @@ $cleanadminname =~ s/\_/ /g;
 $cleannewname = $innew;
 $cleannewname =~ s/\_/ /g;
 if (($number) && ($number !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-if (!$inadminmodname) {$inadminmodname = $inmembername;}
-if (!$inadminmodpass) {$inadminmodpass = $inpassword;}
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$inadminmodname) {$inadminmodname = $in_member_name;}
+if (!$inadminmodpass) {$inadminmodpass = $in_password;}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -107,11 +107,11 @@ if ($inhelpon) {
                 <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardname的帮助文件</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$board_name的帮助文件</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
-                       <br><center>$inmembername，希望下面的帮助对您有用</center><br><br>
+                       <br><center>$in_member_name，希望下面的帮助对您有用</center><br><br>
                        <font face="$font" color=$fontcolormisc>
                        <b>关于$cleanhelpname的帮助：</b><p>
 	~;
@@ -132,7 +132,7 @@ elsif ($innew) {
                 <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardname的帮助文件</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$board_name的帮助文件</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
@@ -153,7 +153,7 @@ elsif ($action eq "login") {
 
     &getmember("$inadminmodname", "no");
 
-    unless ($membercode eq "ad" || ($membercode eq 'smo') || $membercode eq "cmo" || $membercode eq "amo" || $membercode eq "mo") {&messangererror("查看帮助&您没有权限查看此文件！");}
+    unless ($member_code eq "ad" || ($member_code eq 'smo') || $member_code eq "cmo" || $member_code eq "amo" || $member_code eq "mo") {&messangererror("查看帮助&您没有权限查看此文件！");}
     if ($inadminmodpass ne $password) {&messangererror("查看帮助&您的密码错误！");}
 
     $output .= qq~<p>
@@ -163,7 +163,7 @@ elsif ($action eq "login") {
                 <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardname的帮助文件</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$board_name的帮助文件</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
@@ -189,9 +189,9 @@ elsif ($action eq "login") {
     }
 }
 elsif ($inadmin) {
-    &getmember("$inmembername", "no");
-    unless ($membercode eq "ad" || $membercode eq 'smo' || $membercode eq 'cmo' || $membercode eq 'amo' || $membercode eq "mo") {&messangererror("查看帮助&您没有权限查看此文件！");}
-    if ($inpassword ne $password) {&messangererror("查看帮助&您的密码错误！");}
+    &getmember("$in_member_name", "no");
+    unless ($member_code eq "ad" || $member_code eq 'smo' || $member_code eq 'cmo' || $member_code eq 'amo' || $member_code eq "mo") {&messangererror("查看帮助&您没有权限查看此文件！");}
+    if ($in_password ne $password) {&messangererror("查看帮助&您的密码错误！");}
     $output .= qq~<p>
 <SCRIPT>valigntop()</SCRIPT>
 		<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -199,11 +199,11 @@ elsif ($inadmin) {
                   <td>
                   <table cellpadding=3 cellspacing=1 width=100%>
                     <tr>
-                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardname的帮助文件</b></td>
+                      <td bgcolor=$miscbacktwo align=center $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$board_name的帮助文件</b></td>
                     </tr>
                     <tr>
                       <td bgcolor=$miscbackone valign=middle align=cleft><font face="$font" color=$fontcolormisc>
-                      <br><center>$inmembername，希望下面的帮助对您有用</center><br><br>
+                      <br><center>$in_member_name，希望下面的帮助对您有用</center><br><br>
                       <font face="$font" color=$fontcolormisc>
                       <b>关于$cleanadminname的帮助</b><p>
             ~;
@@ -226,7 +226,7 @@ else {
                 <td>
                     <table cellpadding=3 cellspacing=1 width=100%>
                         <tr>
-                            <td bgcolor=$miscbacktwo align=center colspan=2 $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$boardname的帮助文件</b></td>
+                            <td bgcolor=$miscbacktwo align=center colspan=2 $catbackpic height=26><font face="$font" color=$fontcolormisc><b>$board_name的帮助文件</b></td>
                         </tr>
                         <tr>
                             <td bgcolor=$miscbackone align=center><br><center><font face="$font" color=$fontcolormisc>
@@ -283,13 +283,13 @@ $output .= qq~
     <form action="$thisprog" method="post">
     <input type=hidden name="action" value="login">
     <font face="$font" color=$fontcolormisc>
-    您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。<BR>
+    您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。<BR>
     用户名：&nbsp; <input type=text name="adminmodname"> &nbsp;
     密　码：&nbsp; <input type=password name="adminmodpass"> &nbsp; <input type=submit value="登 录"></td></tr></form>
     </table></td></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
 
-&output("$boardname - 帮助", \$output, "msg");
+&output("$board_name - 帮助", \$output, "msg");
 
 sub messangererror {
     my $errorinfo = shift;
@@ -318,5 +318,5 @@ sub messangererror {
                 </td></tr>
                 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>
     ~;
-    &output("$boardname - 帮助", \$output, "msg");
+    &output("$board_name - 帮助", \$output, "msg");
 }

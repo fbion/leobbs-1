@@ -28,7 +28,7 @@ foreach (@yabbers) {
     foreach (@member) {
         chomp $_;
         }
-    $membercode = "me";
+    $member_code = "me";
     $password = $member[0];
     $name     = $member[1];
     $email    = $member[2];
@@ -40,14 +40,14 @@ foreach (@yabbers) {
 
     $sig =~ s/\&\&/<br>/g;
 
-    if ($title ne "Administrator") { $title = "Member"; $membercode = "me"; }
-    else { $membercode = "ad"; }
+    if ($title ne "Administrator") { $title = "Member"; $member_code = "me"; }
+    else { $member_code = "ad"; }
 
     $name = y/ /_/;
 
     my $file_name = "$leobbsdir" . "$name" . ".cgi";
     open (IKON, ">$file_name");
-    print IKON "$name\t$password\t$title\t$membercode\t$posts\t$email\tyes\txxx.xx.xxx.xx\t$www\t\t$icq\t\t\t$time\t\%\%\%$time\%\%\%\t$sig\t0\t\t\t\t\t\t\t\t\t\n";
+    print IKON "$name\t$password\t$title\t$member_code\t$posts\t$email\tyes\txxx.xx.xxx.xx\t$www\t\t$icq\t\t\t$time\t\%\%\%$time\%\%\%\t$sig\t0\t\t\t\t\t\t\t\t\t\n";
     close (IKON);
     $membercount ++;
     $lastmember = "$username";

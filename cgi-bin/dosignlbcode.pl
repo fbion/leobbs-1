@@ -33,12 +33,12 @@ sub signlbcode {
 
     $signature =~ s/(^|\s|\>|\\|\;)(http|https|ftp):\/\/(\S+?)(\s|$|\<|\[)/$1<a href=$2:\/\/$3\ target=_blank>$2\:\/\/$3<\/a>$4/isg;
 
-    if (($arrawsignpic eq "on")||($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawsignpic eq "on")||($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
 	$signature =~ s/\[url.+?\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]\[\/url\]/<a href=$1:\/\/$2 target=_blank title=开新窗口浏览><img src=$1:\/\/$2 border=0 onload=\"javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333\"><\/a>/isg;
 	$signature =~ s/\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=$1:\/\/$2 border=0 onload=\"javascript:x=this.width;y=this.height;limity=screen.height\/3;if(this.height>limity)this.height=limity; if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333\" onClick=\"this.width=x;this.height=y\">/isg;
 	$signature =~ s/(^|\s|\>|\\|\;)(http|https|ftp):\/\/(\S+?\.)(png|bmp|gif|jpg|jpeg)(\s|$|\<|\[)/$1<a href=$2:\/\/$3$4 target=_blank title=开新窗口浏览><img src=$2:\/\/$3$4 border=0 onload=\"javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333\"><\/a>$5/isg;
     }
-    if (($arrawsignflash eq "on")||($membercode{$membername} eq 'mo'|| $membercode{$membername} eq 'amo'  || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawsignflash eq "on")||($member_code{$membername} eq 'mo'|| $member_code{$membername} eq 'amo'  || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
 	$signature =~ s/(\[swf\])\s*(http|https|ftp):\/\/(\S+?\.swf)\s*(\[\/swf\])/<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$2:\/\/$3 quality=high pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash" WIDTH=$defaultflashwidth height=$defaultflashheight><\/embed>/isg;
 	$signature =~ s/(\[FLASH=)(\S+?)(\,)(\S+?)(\])\s*(http|https|ftp):\/\/(\S+?\.swf)\s*(\[\/FLASH\])/<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" WIDTH=$2 HEIGHT=$4><PARAM NAME=MOVIE VALUE=$6:\/\/$7><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><EMBED SRC=$6:\/\/$7 WIDTH=$2 HEIGHT=$4 PLAY=TRUE LOOP=TRUE QUALITY=HIGH><\/EMBED><\/OBJECT>/isg;
         $signature =~ s/(^|\s|\>)(http|https|ftp):\/\/(\S+?\.swf)(\s|$|\<)/$1<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$2:\/\/$3 quality=high pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash" WIDTH=$defaultflashwidth height=$defaultflashheight><\/embed>$4/isg;
@@ -54,7 +54,7 @@ sub signlbcode {
         $signature =~ s/(\[email\])(\S+\@\S+?)(\[\/email\])/<A HREF="mailto:$2">$2<\/A>/isg;
         $signature =~ s/\[email=(\S+?\@\S+?)\]\s*(.*?)\s*\[\/email\]/<a href=mailto:$1>$2<\/a>/isg;
     
-        if (($arrawsignfontsize eq "on")||($membercode{$membername} eq 'mo'|| $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+        if (($arrawsignfontsize eq "on")||($member_code{$membername} eq 'mo'|| $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
     	    $signature =~ s/\[size=\s*([1-6])\s*\]\s*(.*?)\s*\[\/size\]/<font size=$1>$2<\/font>/isg;
         }
         if ($arrawsignsound eq "on") {

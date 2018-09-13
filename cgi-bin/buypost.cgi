@@ -56,28 +56,28 @@ $salemembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,
 &error("打开文件&老大，别乱黑我的程序呀！") if ($salemembername eq "");
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 &error("出错&请不要用外部连接本程序！") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '') && ($canotherlink ne "yes"));
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("普通错误&对不起，你目前的身份是访客，不能进入，请先登录!");
     exit;
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -89,7 +89,7 @@ if ($mvmoney < $moneynumber) {
     &error("购买帖子失败&老大，你的钱不够买这个帖子啊！");
     exit;
 }
-if (lc($salemembername) eq lc($inmembername)) {
+if (lc($salemembername) eq lc($in_member_name)) {
     &error("购买帖子失败&老大，你自己买自己的帖子做什么啊！");
     exit;
 }
@@ -109,20 +109,20 @@ close(FILE);
 chomp $allbuyer;
 $allbuyer = "\t$allbuyer\t";
 $allbuyer =~ s/\t\t/\t/;
-&error("购买帖子失败&你已经购买了这个帖子了，你刷新帖子就可以看到的！！") if ($allbuyer =~ /\t$inmembername\t/i);
+&error("购买帖子失败&你已经购买了这个帖子了，你刷新帖子就可以看到的！！") if ($allbuyer =~ /\t$in_member_name\t/i);
 
 open(FILE, ">>${lbdir}$saledir/$in_forum\_$in_topic\_$postnumber.cgi");
-print FILE "$inmembername\t";
+print FILE "$in_member_name\t";
 close(FILE);
 
-&updateuserinfo("$inmembername", 0, 0, 0, 0, 0, -$moneynumber, 0);
+&updateuserinfo("$in_member_name", 0, 0, 0, 0, 0, -$moneynumber, 0);
 $moneynumber1 = $moneynumber;
 $moneynumber1 = int($moneynumber - $moneynumber * $postcess / 100) if ($postcess ne '' && $postcess >= 1 && $postcess <= 100);
 &updateuserinfo("$salemembername", 0, 0, 0, 0, 0, $moneynumber1, 0);
-$inmembername =~ s/ /\_/isg;
-$inmembername =~ tr/A-Z/a-z/;
-unlink("${lbdir}cache/myinfo/$inmembername.pl");
-unlink("${lbdir}cache/meminfo/$inmembername.pl");
+$in_member_name =~ s/ /\_/isg;
+$in_member_name =~ tr/A-Z/a-z/;
+unlink("${lbdir}cache/myinfo/$in_member_name.pl");
+unlink("${lbdir}cache/meminfo/$in_member_name.pl");
 $salemembername =~ s/ /\_/isg;
 $salemembername =~ tr/A-Z/a-z/;
 unlink("${lbdir}cache/myinfo/$salemembername.pl");
@@ -143,5 +143,5 @@ $output .= qq~<SCRIPT>valignend()</SCRIPT><table cellpadding=0 cellspacing=0 bor
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=topic.cgi?forum=$in_forum&topic=$in_topic">
 ~;
-&output("$boardname - 在$forumname内购买帖子", \$output);
+&output("$board_name - 在$forumname内购买帖子", \$output);
 exit;

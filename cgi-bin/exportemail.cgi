@@ -45,18 +45,18 @@ $inexport = $query->param('exporter');
 $intarname = $query->param('tarname');
 $intarname =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-&getmember("$inmembername");
+&getmember("$in_member_name");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) { #s1
+if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") && ($in_member_name ne "") && (lc($in_member_name) eq lc($membername))) { #s1
     if ($action eq "delete") {
         unlink("${imagesdir}$intarname.csv");
         print qq(<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
@@ -105,8 +105,8 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
             if ($inexport eq "allmanager") {
                 foreach (@cgi1) {
                     chomp $_;
-                    (my $membername, my $membercode, my $no, $no, my $email) = split(/\t/, $_);
-                    if (($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) {
+                    (my $membername, my $member_code, my $no, $no, my $email) = split(/\t/, $_);
+                    if (($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) {
                         push(@cgi, "$membername,$email,$counts,\n");
                         $counts++;
                     }
@@ -115,7 +115,7 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
             elsif ($inexport eq "all") {
                 foreach (@cgi1) {
                     chomp $_;
-                    (my $membername, my $membercode, my $no, $no, my $email) = split(/\t/, $_);
+                    (my $membername, my $member_code, my $no, $no, my $email) = split(/\t/, $_);
                     push(@cgi, "$membername,$email,$counts,\n");
                     $counts++;
                 }
@@ -123,8 +123,8 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
             else {
                 foreach (@cgi1) {
                     chomp $_;
-                    (my $membername, my $membercode, my $no, $no, my $email) = split(/\t/, $_);
-                    if ($membercode eq $inexport) {
+                    (my $membername, my $member_code, my $no, $no, my $email) = split(/\t/, $_);
+                    if ($member_code eq $inexport) {
                         push(@cgi, "$membername,$email,$counts,\n");
                         $counts++;
                     }

@@ -31,21 +31,21 @@ require "data/cityinfo.cgi";
 &GetCookie;
 $|++;
 
-$inmembername = $cookie{"amembernamecookie"};
-$inpassword = $cookie{"apasswordcookie"};
+$in_member_name = $cookie{"amembernamecookie"};
+$in_password = $cookie{"apasswordcookie"};
 print "Content-Type: text/html; Charset=UTF-8\n\n";
 
-&error if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
-&error if ($inmembername eq "" || $inmembername eq "客人");
-$inmembername =~ s/ /\_/g;
-$inmembername =~ tr/A-Z/a-z/;
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+&error if (($in_member_name =~ m/\//) || ($in_member_name =~ m/\\/) || ($in_member_name =~ m/\.\./));
+&error if ($in_member_name eq "" || $in_member_name eq "客人");
+$in_member_name =~ s/ /\_/g;
+$in_member_name =~ tr/A-Z/a-z/;
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-my $namenumber = &getnamenumber($inmembername);
-&checkmemfile($inmembername, $namenumber);
+my $namenumber = &getnamenumber($in_member_name);
+&checkmemfile($in_member_name, $namenumber);
 
-$filetoopen = $lbdir . $memdir . "/$namenumber/" . $inmembername . ".cgi";
+$filetoopen = $lbdir . $memdir . "/$namenumber/" . $in_member_name . ".cgi";
 $filetoopen = &stripMETA($filetoopen);
 &error unless (-e $filetoopen);
 &winlock($filetoopen) if ($OS_USED eq "Nt");
@@ -54,8 +54,8 @@ flock(FILE, 1) if ($OS_USED eq "Unix");
 $filedata = <FILE>;
 close(FILE);
 chomp($filedata);
-($membername, $password, $membertitle, $membercode, $numofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
-if ($inpassword ne $password) {
+($membername, $password, $membertitle, $member_code, $numofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+if ($in_password ne $password) {
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
     &error;
 }
@@ -69,7 +69,7 @@ else {
         if (open(FILE, ">$filetoopen")) {
             flock(FILE, 2) if ($OS_USED eq "Unix");
             $lastgone = time;
-            print FILE "$membername\t$password\t$membertitle\t$membercode\t$numofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+            print FILE "$membername\t$password\t$membertitle\t$member_code\t$numofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
             close(FILE);
         }
     }

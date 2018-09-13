@@ -44,45 +44,45 @@ $in_forum = $query->param("forum");
 &error("打开论坛&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
 require "data/style${inforum}.cgi" if (-e "${lbdir}data/style${inforum}.cgi");
 
-$inmembername = $query->param("membername");
-$inpassword = $query->param("password");
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $query->param("membername");
+$in_password = $query->param("password");
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
-$inmembername = $query->cookie("amembernamecookie") unless ($inmembername);
-$inpassword = $query->cookie("apasswordcookie") unless ($inpassword);
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie") unless ($in_member_name);
+$in_password = $query->cookie("apasswordcookie") unless ($in_password);
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if (!$inmembername || $inmembername eq "客人") {
-    $inmembername = "客人";
+if (!$in_member_name || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember($inmembername, "no");
+    &getmember($in_member_name, "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
+    &error("普通错误&密码与用户名不相符，请重新登录！") if ($in_password ne $password);
 }
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 if (($viewadminlog ne "") && ($viewadminlog ne "0")) {
-    if (($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo")) {
-        if (($membercode eq "masked") || ($membercode eq "banned")) {&error("版务日志&版务日志功能只允许普通会员使用");}
-        if (($viewadminlog eq 1) && ($inmembername eq "客人")) {&error("版务日志&版务日志功能只允许注册会员使用，请注册！");}
-        if ($viewadminlog eq 2) {if ($membercode !~ /^rz/) {&error("版务日志&版务日志功能只允许认证会员或以上级别使用！");}}
+    if (($member_code ne "ad") && ($member_code ne "smo") && ($member_code ne "cmo") && ($member_code ne "mo") && ($member_code ne "amo")) {
+        if (($member_code eq "masked") || ($member_code eq "banned")) {&error("版务日志&版务日志功能只允许普通会员使用");}
+        if (($viewadminlog eq 1) && ($in_member_name eq "客人")) {&error("版务日志&版务日志功能只允许注册会员使用，请注册！");}
+        if ($viewadminlog eq 2) {if ($member_code !~ /^rz/) {&error("版务日志&版务日志功能只允许认证会员或以上级别使用！");}}
         if ($viewadminlog eq 3) {&error("版务日志&版务日志功能只允许版主或以上级别使用！");}
     }
 }
 
 $action = $query->param('action');
-if ($action eq 'delete' && $membercode eq 'ad') {
+if ($action eq 'delete' && $member_code eq 'ad') {
     my $logtime = time;
     my $trueipaddress = $ENV{"HTTP_CLIENT_IP"};
     $trueipaddress = $ENV{"HTTP_X_FORWARDED_FOR"} if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
@@ -95,7 +95,7 @@ if ($action eq 'delete' && $membercode eq 'ad') {
     flock(FILE, 1) if ($OS_USED eq "Unix");
     my @alllogs = <FILE>;
     close(FILE);
-    push(@alllogs, "$inmembername\t$logtime\t\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t清空版务日志\n");
+    push(@alllogs, "$in_member_name\t$logtime\t\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t清空版务日志\n");
     my $start = $#alllogs - 50;
     $start = 0 if ($start < 0);
     my $alllog = join('', @alllogs[$start .. $#alllogs]);
@@ -114,15 +114,15 @@ if ($action eq 'delete' && $membercode eq 'ad') {
 }
 
 &getoneforum($in_forum);
-$testentry = $query->cookie("forumsallowed$in_forum");
-$allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes" ? "yes" : "no";
+$test_entry = $query->cookie("forumsallowed$in_forum");
+$allowed = $allowed_entry{$in_forum} eq "yes" || ($test_entry eq $forum_pass && $test_entry ne "") || $member_code eq "ad" || $member_code eq "smo" || $inmembmod eq "yes" ? "yes" : "no";
 &error("进入论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq "yes" && $allowed ne "yes");
-&error("进入论坛&你一般会员不允许进入此论坛！") if ($startnewthreads eq "cert" && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode !~ /^rz/) || $inmembername eq "客人") && $userincert eq "no");
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你一般会员不允许进入此论坛！") if ($startnewthreads eq "cert" && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code !~ /^rz/) || $in_member_name eq "客人") && $userincert eq "no");
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -136,10 +136,10 @@ my $filetoopens = "${lbdir}data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 unless (-e "${filetoopens}.lck") {
     if ($privateforum ne "yes") {
-        &whosonline("$inmembername\t$forumname\tboth\t查看版务日志");
+        &whosonline("$in_member_name\t$forumname\tboth\t查看版务日志");
     }
     else {
-        &whosonline("$inmembername\t$forumname(密)\tboth\t查看版务日志");
+        &whosonline("$in_member_name\t$forumname(密)\tboth\t查看版务日志");
     }
 }
 
@@ -160,7 +160,7 @@ close(FILE);
 @alllogs = $type eq "name" ? grep (/^$key\t/i, @alllogs) : grep (/$key[^\t]*$/i, @alllogs) if ($key ne "");
 $allitems = @alllogs;
 &splitpage("forum=$in_forum&type=$type&key=$key");
-$adminoption = qq~　<a href=$thisprog?action=delete&forum=$in_forum onClick="return confirm('是否真的要清空本版的版务日志（最后50条将被保留）？')"><img src=$imagesurl/images/del.gif border=0 title="清空本版的版务日志"></a>~ if ($membercode eq 'ad');
+$adminoption = qq~　<a href=$thisprog?action=delete&forum=$in_forum onClick="return confirm('是否真的要清空本版的版务日志（最后50条将被保留）？')"><img src=$imagesurl/images/del.gif border=0 title="清空本版的版务日志"></a>~ if ($member_code eq 'ad');
 
 $output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
@@ -177,7 +177,7 @@ for ($i = $startnum; $i >= $endnum; $i--) {
     $logname = "<a href=profile.cgi?action=show&member=$encodename target=_blank>$logname</a>";
     $logtime = &dateformatshort($logtime + $addtimes);
     $logtopic = $logtopic eq "" ? "不存在" : &gettopic($logtopic);
-    if ($membercode eq "ad") {
+    if ($member_code eq "ad") {
         if ($logproxy ne "no") {$logproxy = qq~<BR><span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$logproxy',420,320)" title="LB WHOIS信息">$logproxy</span>~;}
         else {$logproxy = "";}
         $logip = qq~<span style=cursor:hand onClick="javascript:openScript('lbip.cgi?q=$logip',420,320)" title="LB WHOIS信息">$logip</span>$logproxy~;
@@ -198,7 +198,7 @@ $output .= qq~
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&output("$boardname - 版务日志查看", \$output);
+&output("$board_name - 版务日志查看", \$output);
 exit;
 
 sub gettopic {

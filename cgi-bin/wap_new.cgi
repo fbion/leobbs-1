@@ -26,7 +26,7 @@ require "data/boardinfo.cgi";
 require "wap.pl";
 $lid = $query->param('lid');
 &waptitle;
-$show .= qq~<card  title="最新文章"><p>$boardname-最新文章<br/>~;
+$show .= qq~<card  title="最新文章"><p>$board_name-最新文章<br/>~;
 open(file, "${lbdir}data/recentpost.cgi");
 my @file = <file>;
 close(file);

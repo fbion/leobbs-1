@@ -40,7 +40,7 @@ $output .= qq~<form action=post.cgi method=post name="FORM" enctype="multipart/f
 <SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=5 cellSpacing=1 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td bgcolor=$titlecolor width=220 $catbackpic><font color=$fontcolormisc><b>快速回复主题:</b></font></td><td bgcolor=$titlecolor width=500 $catbackpic> <font color=$fontcolormisc>$topictitletemp</font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=3><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=3><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>输入用户名和密码:</b></font></td><td bgcolor=$miscbackone> <font color=$fontcolormisc><b>用户名</b>: <input type=text name=membername> <span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style=cursor:hand>没有注册？</span>　<b>密码:</b> <input type=password name=password> <a href=profile.cgi?action=lostpass style=cursor:help>忘记密码？</a></font></td></tr>
 ~;
 

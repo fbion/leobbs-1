@@ -41,10 +41,10 @@ $query = new LBCGI;
 $process = $query->param("process");
 $action = $query->param("action");
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -53,9 +53,9 @@ if ($process ne "preview template") {
     &admintitle;
 }
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
     print qq(
    <tr><td bgcolor=#2159C9><font face=宋体 color=#FFFFFF>
    <b>欢迎来到论坛管理中心 / 编辑论坛模板</b>

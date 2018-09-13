@@ -60,29 +60,29 @@ else {
     $cookiepath =~ s/\/$//;
 }
 
-$inmembername = $query->cookie("amembernamecookie") unless ($inmembername);
-$inpassword = $query->cookie("apasswordcookie") unless ($inpassword);
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t]//isg;
-$cleanmembername = $inmembername;
+$in_member_name = $query->cookie("amembernamecookie") unless ($in_member_name);
+$in_password = $query->cookie("apasswordcookie") unless ($in_password);
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t]//isg;
+$cleanmembername = $in_member_name;
 $cleanmembername =~ s/ /\_/sg;
 $cleanmembername =~ tr/A-Z/a-z/;
 $ftplockfile = "${lbdir}lock/$cleanmembername\_ftpiii.lck";
 $currenttime = time;
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") { #检查用户身份
+if ($in_member_name eq "" || $in_member_name eq "客人") { #检查用户身份
     &error("普通错误&访客不能查看FTP 联盟,请先登录！");
 }
 else {
-    &getmember($inmembername, 'no');
+    &getmember($in_member_name, 'no');
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
-    &error("权限错误&被屏蔽文章或禁言的用戶不允许访问 FTP 联盟！") if ($membercode eq "banned" || $membercode eq "masked");
+    &error("普通错误&密码与用户名不相符，请重新登录！") if ($in_password ne $password);
+    &error("权限错误&被屏蔽文章或禁言的用戶不允许访问 FTP 联盟！") if ($member_code eq "banned" || $member_code eq "masked");
 
     #避免恶意用户同时提交多个交易请求造成的负债购买等现象
     if (-e $ftplockfile) {
@@ -94,7 +94,7 @@ else {
     $myallmoney = $numberofposts * $addmoney + $numberofreplys * $replymoney + $visitno * $loginmoney + $mymoney - $postdel * $delmoney + $jhcount * $addjhhb;
 }
 
-if (($membercode ne "ad") && ($plugstats eq "close")) {
+if (($member_code ne "ad") && ($plugstats eq "close")) {
     unlink($ftplockfile);
     &error("普通错误&FTP 联盟已经被管理员暂时关闭！");
 }
@@ -123,7 +123,7 @@ else {
 
 unlink($ftplockfile);
 print header(-cookie => [ $onlineviewcookie ], -charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - FTP 联盟", \$output);
+&output("$board_name - FTP 联盟", \$output);
 exit;
 
 sub list {
@@ -139,7 +139,7 @@ sub list {
     unless (-e "$filetoopens.lck") {
         $screenmode = $query->cookie("screenmode");
         $screenmode = 8 if ($screenmode eq "");
-        &whosonline("$inmembername\tFTP 联盟\tFTP 联盟\t查看 FTP 联盟列表");
+        &whosonline("$in_member_name\tFTP 联盟\tFTP 联盟\t查看 FTP 联盟列表");
         $membertongji =~ s/本分论坛/FTP 联盟/o;
         undef $memberoutput if ($onlineview != 1);
     }
@@ -211,7 +211,7 @@ function AdminView()
 		return false;	
 }
 </script>~;
-    $output .= "\n<table width=$tablewidth align=center><tr><td>　　<a href=$thisprog?action=add><font color=$fonthighlight><b>出售新的 FTP 服务</b></font></a></td></tr></table>" if ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
+    $output .= "\n<table width=$tablewidth align=center><tr><td>　　<a href=$thisprog?action=add><font color=$fonthighlight><b>出售新的 FTP 服务</b></font></a></td></tr></table>" if ($member_code eq "ad" || ",$saleusers," =~ /,$in_member_name,/i);
     $output .= qq~
 	<SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
@@ -236,7 +236,7 @@ function AdminView()
         if ($ftpstatus eq "close") {
             $prompt = "Closed()";
         }
-        elsif (lc($inmembername) eq lc($ftpadmin) || $membercode eq "ad") {
+        elsif (lc($in_member_name) eq lc($ftpadmin) || $member_code eq "ad") {
             $prompt = "AdminView()";
         }
         elsif ($rating < $ftprate) {
@@ -255,10 +255,10 @@ function AdminView()
             $prompt = "ViewNEW($ftpmoney, $myallmoney)";
         }
 
-        if (lc($inmembername) eq lc($ftpadmin) || $membercode eq "ad") {
+        if (lc($in_member_name) eq lc($ftpadmin) || $member_code eq "ad") {
             $adminoption = qq~<a href=$thisprog?action=edit&id=$ftpid><font color=$titlecolor>编</font></a> <font color=$titlecolor>|</font> <a href=$thisprog?action=delete&id=$ftpid OnClick="return confirm('这将彻底删除你的 FTP 服务资料，如果只是一时中断使用，建议你只将其暂时关闭。是否继续？');"><font color=$titlecolor>删</font></a> <font color=$titlecolor>|</font> <a href=$thisprog?action=info&id=$ftpid><font color=$titlecolor>记录</font></a>~;
         }
-        $adminoption .= qq~ <font color=$titlecolor>|</font> <a href=$thisprog?action=up&id=$ftpid OnClick="return confirm('这将把这个 FTP 提升到联盟的最顶端位置，是否继续？');"><font color=$titlecolor>提</font></a>~ if ($membercode eq "ad");
+        $adminoption .= qq~ <font color=$titlecolor>|</font> <a href=$thisprog?action=up&id=$ftpid OnClick="return confirm('这将把这个 FTP 提升到联盟的最顶端位置，是否继续？');"><font color=$titlecolor>提</font></a>~ if ($member_code eq "ad");
 
         $ftpintro =~ s/<br>/\n/isg;
         $ftpname = "<font color=$fonthighlight><b>$ftpname</b></font>" if ($ftptype ne "priviate");
@@ -274,7 +274,7 @@ function AdminView()
 
     $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><table cellPadding=0 cellSpacing=0 width=$tablewidth><tr><td align=right width=100% style="line-height: 150%">&copy; <b>程序设计: <a href=http://www.94cool.net target=_blank><font color=5599ff>94Cool</font><font color=ff9955>.net</font></a></b> <a href=mailto:Jim_White\@etang.com>BigJim</a> </td></tr></table>~;
 
-    if ($membercode eq "ad") {
+    if ($member_code eq "ad") {
         #坛主可以看到管理选项
         $plugopenorclose = qq~<select name="plugstats"><option value="open">正常开放</option><option value="close">暂时关闭</option></select>~;
         $plugopenorclose =~ s/value=\"$plugstats\"/value=\"$plugstats\" selected/;
@@ -329,7 +329,7 @@ sub view {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t查看 FTP 服务登录资料") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t查看 FTP 服务登录资料") unless (-e "$filetoopens.lck");
 
     open(INFO, $infofile);
     flock(INFO, 1) if ($OS_USED eq "Unix");
@@ -339,7 +339,7 @@ sub view {
     my ($ftpstatus, $ftpname, $ftptype, $ftpadmin, $ftptime, $ftpaddress, $ftpport, $ftpuser, $ftppass, $ftprate, $ftpmoney, $ftpreduce, $ftpmaxuser, $ftpintro, $polluser, $pollscore) = split(/\t/, $ftpinfo);
 
     &myerror("查看错误&这个 FTP 已经暂时关闭！") if ($ftpstatus eq "close");
-    &myerror("查看错误&你的威望不够查看这个 FTP 的最低要求！") if ($rating < $ftprate && lc($inmembername) ne lc($ftpadmin) && $membercode ne "ad");
+    &myerror("查看错误&你的威望不够查看这个 FTP 的最低要求！") if ($rating < $ftprate && lc($in_member_name) ne lc($ftpadmin) && $member_code ne "ad");
 
     my $viewfile = "$lbdir$ftpdir/view$ftpid.cgi";
     if (-e $viewfile) {
@@ -349,7 +349,7 @@ sub view {
         close(VIEW);
     }
     my @view = grep (/^$cleanmembername\t/, @ftpviews);
-    if (@view < 1 && lc($inmembername) ne lc($ftpadmin) && $membercode ne "ad") {
+    if (@view < 1 && lc($in_member_name) ne lc($ftpadmin) && $member_code ne "ad") {
         &myerror("查看错误&查看这个 FTP 登录资料的人数已经达到了限定的最大数额！") if (@ftpviews >= $ftpmaxuser && $ftpmaxuser ne "");
         $ftpmoney -= $ftpreduce * int(($currenttime - $ftptime) / 86400);
         $ftpmoney = 1 if ($ftpmoney < 1);
@@ -358,7 +358,7 @@ sub view {
         #更新用户金钱和查看记录
         use testinfo qw(ipwhere);
         my $fromwhere = &ipwhere($trueipaddress);
-        &updateusermoney($inmembername, -$ftpmoney);
+        &updateusermoney($in_member_name, -$ftpmoney);
         &winlock($viewfile) if ($OS_USED eq "Nt");
         open(VIEW, ">>$viewfile");
         flock(VIEW, 2) if ($OS_USED eq "Unix");
@@ -386,10 +386,10 @@ sub view {
 	<SCRIPT>valigntop()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellPadding=6 cellSpacing=1 width=100%>
 <tr style="color: $fonthighlight; font-weight: bold; background-color: $titlecolor" align=center><td colSpan=2>$ftpname 的具体登录资料</td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" width=20% align=center>服务地址:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpaddress<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>服务端口:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpport<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>登陆用户:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftpuser<font color=$miscbacktwo>$boarddescription</font></td></tr>
-<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>登陆密码:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$boardname</font>$ftppass<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" width=20% align=center>服务地址:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$board_name</font>$ftpaddress<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>服务端口:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$board_name</font>$ftpport<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>登陆用户:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$board_name</font>$ftpuser<font color=$miscbacktwo>$boarddescription</font></td></tr>
+<tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>登陆密码:</td><td bgColor=$miscbacktwo><font color=$miscbacktwo>$board_name</font>$ftppass<font color=$miscbacktwo>$boarddescription</font></td></tr>
 <tr><td style="color: $titlefontcolor; font-weight: bold; background-color: $miscbackone" align=center>相关说明:　</td><td bgColor=$miscbacktwo><form action=$thisprog method=POST><input name=action type=hidden value="poll"><input name=id type=hidden value="$ftpid"><table width=100%><tr><td width=12></td><td>$ftpintro</td><td align=right>当前评价: $pollscore<br><br><select name=score><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option><option value=6 selected>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option><option value=10>10</option></select> <input type=submit value="评分"></td></tr></table></td></tr></form>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     return;
@@ -406,7 +406,7 @@ sub poll {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t对 FTP 服务评分") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t对 FTP 服务评分") unless (-e "$filetoopens.lck");
 
     #更新用户评分操作时间
     my $pollfile = "$lbdir$ftpdir/poll$ftpid.cgi";
@@ -486,12 +486,12 @@ sub poll {
 }
 
 sub add {
-    &myerror("权限错误&你没有权利出售 FTP 服务！") unless ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
+    &myerror("权限错误&你没有权利出售 FTP 服务！") unless ($member_code eq "ad" || ",$saleusers," =~ /,$in_member_name,/i);
 
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t出售 FTP") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t出售 FTP") unless (-e "$filetoopens.lck");
 
     &ftpheader;
     my $statusoption = qq~<input name=ftpstatus type=radio value="open" checked> 正常开放　　<input name=ftpstatus type=radio value="close"> 暂时关闭~;
@@ -525,7 +525,7 @@ sub add {
 }
 
 sub addok {
-    &myerror("权限错误&你没有权利出售 FTP 服务！") unless ($membercode eq "ad" || ",$saleusers," =~ /,$inmembername,/i);
+    &myerror("权限错误&你没有权利出售 FTP 服务！") unless ($member_code eq "ad" || ",$saleusers," =~ /,$in_member_name,/i);
 
     for ("ftpstatus", "ftpname", "ftptype", "ftpaddress", "ftpport", "ftpuser", "ftppass", "ftprate", "ftpmoney", "ftpreduce", "ftpmaxuser", "ftpintro") {
         ${$_} = &cleaninput($query->param($_));
@@ -546,7 +546,7 @@ sub addok {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t出售 FTP") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t出售 FTP") unless (-e "$filetoopens.lck");
 
     #取得新FTP的ID
     my $numfiletoupdate = "$lbdir$ftpdir/lastnum.cgi";
@@ -566,7 +566,7 @@ sub addok {
 
     #写入新数据文件
     open(INFO, ">$lbdir$ftpdir/info$lastnumber.cgi");
-    print INFO "$ftpstatus\t$ftpname\t$ftptype\t$inmembername\t$currenttime\t$ftpaddress\t$ftpport\t$ftpuser\t$ftppass\t$ftprate\t$ftpmoney\t$ftpreduce\t$ftpmaxuser\t$ftpintro\t0\t0";
+    print INFO "$ftpstatus\t$ftpname\t$ftptype\t$in_member_name\t$currenttime\t$ftpaddress\t$ftpport\t$ftpuser\t$ftppass\t$ftprate\t$ftpmoney\t$ftpreduce\t$ftpmaxuser\t$ftpintro\t0\t0";
     close(INFO);
 
     #更新索引文件
@@ -574,7 +574,7 @@ sub addok {
     &winlock($listtoupdate) if ($OS_USED eq "Nt");
     open(LIST, ">>$listtoupdate");
     flock(LIST, 2) if ($OS_USED eq "Unix");
-    print LIST "$lastnumber\t$ftpstatus\t$ftpname\t$ftptype\t$inmembername\t$currenttime\t$ftprate\t$ftpmoney\t$ftpreduce\t$ftpmaxuser\t$ftpintro\t0\t0\t0\n";
+    print LIST "$lastnumber\t$ftpstatus\t$ftpname\t$ftptype\t$in_member_name\t$currenttime\t$ftprate\t$ftpmoney\t$ftpreduce\t$ftpmaxuser\t$ftpintro\t0\t0\t0\n";
     close(LIST);
     &winunlock($listtoupdate) if ($OS_USED eq "Nt");
 
@@ -600,7 +600,7 @@ sub edit {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t编辑 FTP 资料") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t编辑 FTP 资料") unless (-e "$filetoopens.lck");
 
     #读入旧的资料
     open(INFO, $infofile);
@@ -609,7 +609,7 @@ sub edit {
     close(INFO);
     chomp($ftpinfo);
     my ($ftpstatus, $ftpname, $ftptype, $ftpadmin, undef, $ftpaddress, $ftpport, $ftpuser, $ftppass, $ftprate, $ftpmoney, $ftpreduce, $ftpmaxuser, $ftpintro, undef) = split(/\t/, $ftpinfo);
-    &myerror("权限错误&你没有权利编辑这个 FTP！") unless ($membercode eq "ad" || lc($inmembername) eq lc($ftpadmin));
+    &myerror("权限错误&你没有权利编辑这个 FTP！") unless ($member_code eq "ad" || lc($in_member_name) eq lc($ftpadmin));
 
     &ftpheader;
     my $statusoption = qq~<input name=ftpstatus type=radio value="open"> 正常开放　　<input name=ftpstatus type=radio value="close"> 暂时关闭~;
@@ -672,7 +672,7 @@ sub editok {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t编辑 FTP 资料") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t编辑 FTP 资料") unless (-e "$filetoopens.lck");
 
     &winlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
     open(INFO, $infofile);
@@ -681,7 +681,7 @@ sub editok {
     close(INFO);
     chomp($ftpinfo);
     my (undef, undef, undef, $ftpadmin, $ftptime, undef, undef, undef, undef, undef, undef, undef, undef, undef, $polluser, $pollscore) = split(/\t/, $ftpinfo);
-    unless ($membercode eq "ad" || lc($inmembername) eq lc($ftpadmin)) {
+    unless ($member_code eq "ad" || lc($in_member_name) eq lc($ftpadmin)) {
         &winunlock($infofile) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
         &myerror("权限错误&你没有权利编辑这个 FTP！");
     }
@@ -740,17 +740,17 @@ sub info {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t查询 FTP 购买记录") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t查询 FTP 购买记录") unless (-e "$filetoopens.lck");
 
     #判断用户权限
-    if ($membercode ne "ad") {
+    if ($member_code ne "ad") {
         open(INFO, $infofile);
         flock(INFO, 1) if ($OS_USED eq "Unix");
         my $ftpinfo = <INFO>;
         close(INFO);
         chomp($ftpinfo);
         my (undef, undef, undef, $ftpadmin, undef) = split(/\t/, $ftpinfo);
-        &myerror("权限错误&你没有权利查询这个 FTP 的购买记录！") unless (lc($inmembername) eq lc($ftpadmin));
+        &myerror("权限错误&你没有权利查询这个 FTP 的购买记录！") unless (lc($in_member_name) eq lc($ftpadmin));
     }
 
     #读取查看记录
@@ -814,17 +814,17 @@ sub delete {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t删除 FTP 资料") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t删除 FTP 资料") unless (-e "$filetoopens.lck");
 
     #判断用户权限
-    if ($membercode ne "ad") {
+    if ($member_code ne "ad") {
         open(INFO, $infofile);
         flock(INFO, 1) if ($OS_USED eq "Unix");
         my $ftpinfo = <INFO>;
         close(INFO);
         chomp($ftpinfo);
         my (undef, undef, undef, $ftpadmin, undef) = split(/\t/, $ftpinfo);
-        &myerror("权限错误&你没有权利删除这个 FTP！") unless (lc($inmembername) eq lc($ftpadmin));
+        &myerror("权限错误&你没有权利删除这个 FTP！") unless (lc($in_member_name) eq lc($ftpadmin));
     }
 
     #删除数据文件
@@ -863,7 +863,7 @@ sub delete {
 }
 
 sub up {
-    &myerror("权限错误&你无权提升 FTP 位置！") unless ($membercode eq "ad");
+    &myerror("权限错误&你无权提升 FTP 位置！") unless ($member_code eq "ad");
     my $ftpid = $query->param("id");
     &myerror("普通错误&老大，别乱黑我的程序呀！") unless ($ftpid =~ /^[0-9]+$/);
     my $infofile = "$lbdir$ftpdir/info$ftpid.cgi";
@@ -872,7 +872,7 @@ sub up {
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t提升 FTP 位置") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t提升 FTP 位置") unless (-e "$filetoopens.lck");
 
     #读入旧的资料
     open(INFO, $infofile);
@@ -914,12 +914,12 @@ sub up {
 }
 
 sub repair {
-    &myerror("权限错误&你无权进行 FTP 联盟管理！") unless ($membercode eq "ad");
+    &myerror("权限错误&你无权进行 FTP 联盟管理！") unless ($member_code eq "ad");
 
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t修复 FTP 联盟") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t修复 FTP 联盟") unless (-e "$filetoopens.lck");
 
     #获取所有数据文件ID并排序
     opendir(DIR, "$lbdir$ftpdir");
@@ -963,12 +963,12 @@ sub repair {
 }
 
 sub config {
-    &myerror("权限错误&你无权进行 FTP 联盟管理！") unless ($membercode eq "ad");
+    &myerror("权限错误&你无权进行 FTP 联盟管理！") unless ($member_code eq "ad");
 
     #写入用户在线状态
     my $filetoopens = "${lbdir}data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
-    &whosonline("$inmembername\tFTP 联盟\tnone\t设定 FTP 联盟") unless (-e "$filetoopens.lck");
+    &whosonline("$in_member_name\tFTP 联盟\tnone\t设定 FTP 联盟") unless (-e "$filetoopens.lck");
 
     my $newsaleusers = $query->param("saleusers");
     my $newpercent = $query->param("percent");
@@ -1044,7 +1044,7 @@ sub ftpheader {
     $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以查看本站 FTP 联盟的列表及详细信息</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href=$thisprog>FTP 联盟</a> → $jump<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href=$thisprog>FTP 联盟</a> → $jump<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 ~;
     return;
@@ -1066,12 +1066,12 @@ sub updateusermoney {
         my $filedata = <FILE>;
         close(FILE);
         chomp($filedata);
-        my ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        my ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $soccerdata, $useradd5) = split(/\t/, $filedata);
         $mymoney += int($cmoney);
         if ($membername ne "" && $password ne "") {
             open(FILE, ">$memfiletoupdate");
             flock(FILE, 2) if ($OS_USED eq "Unix");
-            print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$soccerdata\t$useradd5";
+            print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$soccerdata\t$useradd5";
             close(FILE);
         }
         &winunlock($memfiletoupdate) if ($OS_USED eq "Nt");

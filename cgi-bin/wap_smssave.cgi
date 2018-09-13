@@ -35,11 +35,11 @@ $show .= qq~<card  title="保存短消息">~;
 $lid = $query->param('lid');
 &check($lid);
 $in_topictitle = $query->param('title');
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
 }
 $name = $query->param('name');
 $name = $uref->fromUTF8("UTF-8", $name);
@@ -58,7 +58,7 @@ if (open(FILE, $filetomake)) {
     close(FILE);
 }
 open(FILE, ">$filetomake");
-print FILE "$inmembername\tno\t$currenttime\t$in_topictitle\t$inpost\n";
+print FILE "$in_member_name\tno\t$currenttime\t$in_topictitle\t$inpost\n";
 foreach (@filedata) {
     chomp;
     print FILE "$_\n";

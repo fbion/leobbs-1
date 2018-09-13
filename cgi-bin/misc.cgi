@@ -42,18 +42,18 @@ $UIN =~ s/[^0-9]//isg;
 $action = $query->param('action');
 $action = &cleaninput("$action");
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {$inmembername = "客人";}
+if ($in_member_name eq "" || $in_member_name eq "客人") {$in_member_name = "客人";}
 if ($action eq "showsmilies") {
     $output = qq~ 
 <p>
@@ -64,7 +64,7 @@ if ($action eq "showsmilies") {
         <table width=100% cellpadding=5 cellspacing=1>
             <tr>
                 <td bgcolor=$miscbackone $catbackpic align=center colspan=2>
-                    <font color=$titlefontcolor><b>$boardname - 表情转换</b></font>
+                    <font color=$titlefontcolor><b>$board_name - 表情转换</b></font>
                     </td>
                 </tr>
                 <tr>
@@ -166,11 +166,11 @@ elsif ($action eq "icq") {
     <tr>
         <td>
         <form action="http://wwp.mirabilis.com/scripts/WWPMsg.dll" method="post">
-        <input type="hidden" name="subject" value="来自 - $boardname"><input type="hidden" name="to" value="$UIN">
+        <input type="hidden" name="subject" value="来自 - $board_name"><input type="hidden" name="to" value="$UIN">
         <table width=100% cellpadding=5 cellspacing=1>
             <tr>
                 <td bgcolor=$miscbackone align=center colspan=2>
-                    <font color=$titlefontcolor><b>$boardname - ICQ 寻呼</b><br>发送一个消息给 $UIN</font>
+                    <font color=$titlefontcolor><b>$board_name - ICQ 寻呼</b><br>发送一个消息给 $UIN</font>
                     </td>
                 </tr>
                 <tr>
@@ -666,5 +666,5 @@ elsif ($action eq "lbcode") {
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&output("$boardname - 帮助", \$output, "msg");
+&output("$board_name - 帮助", \$output, "msg");
 exit;

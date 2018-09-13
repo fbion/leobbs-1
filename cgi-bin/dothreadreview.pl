@@ -17,7 +17,7 @@ use diagnostics;
 if ($jfmark eq "yes") {
     if ($post1 =~ m/\[jf=(.+?)\](.+?)\[\/jf\]/isg) {
         $jfpost = $1;
-        if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+        if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
         }
         else {
             $noviewthis = "yes" if ($noviewjf eq "yes");
@@ -48,7 +48,7 @@ if ($noviewthis ne "yes") {
     for (my $i = 0; $i < $threadsize; $i++) {
         ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post, $posticon) = split(/\t/, $sortedthreads[$i]);
         &getmember($membername, "no");
-        $post = "此用户的发言已经被屏蔽！" if ($membercode eq "masked");
+        $post = "此用户的发言已经被屏蔽！" if ($member_code eq "masked");
 
         $postdate = $postdate + ($timedifferencevalue + $timezone) * 3600;
         $postdate = &dateformat("$postdate");

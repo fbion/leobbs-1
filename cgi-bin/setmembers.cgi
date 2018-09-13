@@ -62,18 +62,18 @@ $indelcdrom = &unHTML("$indelcdrom");
 $undelname = $query->param('undelname');
 $undelname = &unHTML("$undelname");
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
 
     print qq~
 	<script>
@@ -116,9 +116,9 @@ else {
 
 sub deleteavatar {
 
-    $oldmembercode = $membercode;
+    $oldmembercode = $member_code;
     &getmember("$inmember");
-    if ((($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode eq "amo")) && ($oldmembercode eq "smo")) {
+    if ((($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code eq "amo")) && ($oldmembercode eq "smo")) {
         print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>总斑竹无权删除坛主和斑竹资料！</b></td></tr>";
         exit;
     }
@@ -205,7 +205,7 @@ sub memberoptions {
     </td>
     </tr>          
     ~;
-    if ($membercode eq "ad") {
+    if ($member_code eq "ad") {
         print qq~
 
     <tr>
@@ -380,7 +380,7 @@ sub memberoptions {
 ######## Subroutes (Do member count)  
 sub canceldel {
 
-    unless (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    unless (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         print qq~
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
@@ -512,10 +512,10 @@ sub delnopost {
 
         if ($sendtoemail ne "" && $emailfunctions eq "on") {
             $from = "$adminemail_out";
-            $subject = "来自$boardname的重要邮件！！";
+            $subject = "来自$board_name的重要邮件！！";
             $message = "";
             $message .= "\n";
-            $message .= "$boardname <br>\n";
+            $message .= "$board_name <br>\n";
             $message .= "$boardurl/leobbs.cgi <br>\n";
             $message .= "------------------------------------------\n<br><br>\n";
             $message .= "系统发现你已经长时间未访问本论坛并发言了， <br>\n";
@@ -560,7 +560,7 @@ $delwarn
 
 sub delok {
 
-    unless (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    unless (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         print qq~
         <tr>
         <td bgcolor=#FFFFFF align=center colspan=2>
@@ -597,10 +597,10 @@ sub delok {
             my @memfavdir = grep (/^memfav/i, @files);
             $memfavdir = $memfavdir[0];
             $from = "$adminemail_out";
-            $subject = "来自$boardname的重要邮件！！";
+            $subject = "来自$board_name的重要邮件！！";
             $message = "";
             $message .= "\n";
-            $message .= "$boardname <br>\n";
+            $message .= "$board_name <br>\n";
             $message .= "$boardurl/leobbs.cgi <br>\n";
             $message .= "------------------------------------------\n<br><br>\n";
             $message .= "系统发现你已经长时间未访问本论坛并发言了， <br>\n";
@@ -926,7 +926,7 @@ sub showmember {
         $lastpostdetails = "没有发表过";
     }
 
-    if ($membercode eq "banned") {
+    if ($member_code eq "banned") {
         $unbanlink = qq~ | [<a href="$thisprog?action=unban&member=~ . uri_escape($member) . qq~">取消禁止发言</a>]~;
     }
     $totlepostandreply = $numberofposts + $numberofreplys;
@@ -962,7 +962,7 @@ sub showmember {
 
 
 sub edit {
-    $oldmembercode = $membercode;
+    $oldmembercode = $member_code;
 
     if ($checkaction eq "yes") {
 
@@ -1310,7 +1310,7 @@ sub edit {
 
         foreach $forum (@forums) {
             chomp $forum;
-            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
             if ($privateforum eq "yes") {
                 $grab = "$forumid\t$forumname";
                 push(@newforums, $grab);
@@ -1336,14 +1336,14 @@ sub edit {
             foreach $accessallowed (@private) {
                 chomp $accessallowed;
                 ($access, $value) = split(/=/, $accessallowed);
-                $allowedentry2{$access} = $value;
+                $allowed_entry2{$access} = $value;
             }
         }
 
         @allowedforums = sort alphabetically(@newforums);
         foreach $line (@allowedforums) {
             ($forumid, $forumname) = split(/\t/, $line);
-            if ($allowedentry2{$forumid} eq "yes") {$checked = " checked";}
+            if ($allowed_entry2{$forumid} eq "yes") {$checked = " checked";}
             else {$checked = "";}
             $privateoutput .= qq~<input type="checkbox" name="allow$forumid" value="yes" $checked>$forumname<br>\n~;
         }
@@ -1355,13 +1355,13 @@ sub edit {
         my $memteam5 = qq~<option value="rz5">$defrz5(认证用户)~ if ($defrz5 ne "");
         $memberstateoutput = qq~<select name="membercode"><option value="me">一般用户$memteam1$memteam2$memteam3$memteam4$memteam5<option value="rz">认证用户<option value="banned">禁止此用户发言<option value="masked">屏蔽此用户贴子<option value="mo">论坛版主<option value="amo">论坛副版主<option value="cmo">分类区版主<option value="smo">论坛总版主 *<option value="ad">坛主 **</select>~;
 
-        $memberstateoutput =~ s/value=\"$membercode\"/value=\"$membercode\" selected/g;
+        $memberstateoutput =~ s/value=\"$member_code\"/value=\"$member_code\" selected/g;
         if ($userregistered eq "no") {
             print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>无此用户！</b></td></tr>";
             exit;
         }
 
-        if ((($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) && ($oldmembercode eq "smo")) {
+        if ((($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) && ($oldmembercode eq "smo")) {
             print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>总斑竹无权查看坛主和斑竹资料！</b></td></tr>";
             exit;
         }
@@ -1764,7 +1764,7 @@ function showflag(){document.images.userflags.src="$imagesurl/flags/"+document.c
             my $memteam4 = qq~<option value="rz4">$defrz4(认证用户)~ if ($defrz4 ne "");
             my $memteam5 = qq~<option value="rz5">$defrz5(认证用户)~ if ($defrz5 ne "");
             $memberstateoutput = qq~<select name="membercode"><option value="me">一般用户$memteam1$memteam2$memteam3$memteam4$memteam5<option value="rz">认证用户<option value="banned">禁止此用户发言<option value="masked">屏蔽此用户贴子</select>~;
-            $memberstateoutput =~ s/value=\"$membercode\"/value=\"$membercode\" selected/g;
+            $memberstateoutput =~ s/value=\"$member_code\"/value=\"$member_code\" selected/g;
             ($year, $month, $day) = split(/\//, $born);
             if ($lastgone ne "") {$lastgone = &dateformat($lastgone);}
             else {$lastgone = $joineddate;}
@@ -1858,15 +1858,15 @@ function showflag(){document.images.userflags.src="$imagesurl/flags/"+document.c
 
 sub deletemember {
 
-    $oldmembercode = $membercode;
+    $oldmembercode = $member_code;
     &getmember("$inmember");
     my ($mystatus, $mysaves, $mysavetime, $myloan, $myloantime, $myloanrating, $bankadd1, $bankadd2, $bankadd3, $bankadd4, $bankadd5) = split(/,/, $ebankdata);
 
-    if ((($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) && ($oldmembercode eq "smo")) {
+    if ((($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) && ($oldmembercode eq "smo")) {
         print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>总斑竹无权删除坛主和斑竹资料！</b></td></tr>";
         exit;
     }
-    if ($inmembername eq $inmember) {
+    if ($in_member_name eq $inmember) {
         print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>自己不能删除自己的资料哟！</b></td></tr>";
         exit;
     }
@@ -1941,37 +1941,37 @@ sub deletemember {
 
         &getmember("$inmember", "no");
 
-        $inmembername = $inmember;
-        $inmembername =~ s/ /\_/isg;
-        $inmembername =~ tr/A-Z/a-z/;
+        $in_member_name = $inmember;
+        $in_member_name =~ s/ /\_/isg;
+        $in_member_name =~ tr/A-Z/a-z/;
 
         # Delete the database for the member
-        my $namenumber = &getnamenumber($inmembername);
-        &checkmemfile($inmembername, $namenumber);
-        unlink("${lbdir}$searchdir/$inmembername\_sch.cgi");
-        unlink("${lbdir}$searchdir/$inmembername\_sav.cgi");
-        unlink("${lbdir}$memdir/$namenumber/$inmembername.cgi");
-        unlink("${lbdir}$memdir/old/$inmembername.cgi");
+        my $namenumber = &getnamenumber($in_member_name);
+        &checkmemfile($in_member_name, $namenumber);
+        unlink("${lbdir}$searchdir/$in_member_name\_sch.cgi");
+        unlink("${lbdir}$searchdir/$in_member_name\_sav.cgi");
+        unlink("${lbdir}$memdir/$namenumber/$in_member_name.cgi");
+        unlink("${lbdir}$memdir/old/$in_member_name.cgi");
         unlink("${lbdir}$msgdir/in/${inmembername}_msg.cgi");
         unlink("${lbdir}$msgdir/out/${inmembername}_out.cgi");
         unlink("${lbdir}$msgdir/main/${inmembername}_mian.cgi");
-        unlink("${lbdir}$memfavdir/$inmembername.cgi");
-        unlink("${lbdir}$memfavdir/open/$inmembername.cgi");
-        unlink("${lbdir}$memfavdir/close/$inmembername.cgi");
-        unlink("${lbdir}memfriend/$inmembername.cgi");
-        unlink("${lbdir}$recorddir/post/$inmembername.cgi");
-        unlink("${lbdir}$recorddir/reply/$inmembername.cgi");
-        unlink("${lbdir}memblock/$inmembername.cgi");
-        unlink("${imagesdir}usravatars/$inmembername.gif");
-        unlink("${imagesdir}usravatars/$inmembername.png");
-        unlink("${imagesdir}usravatars/$inmembername.jpg");
-        unlink("${imagesdir}usravatars/$inmembername.swf");
-        unlink("${imagesdir}usravatars/$inmembername.bmp");
-        unlink("${lbdir}ebankdata/log/" . $inmembername . ".cgi");
-        unlink("${lbdir}cache/meminfo/$inmembername.pl");
-        unlink("${lbdir}cache/myinfo/$inmembername.pl");
-        unlink("${lbdir}cache/id/$inmembername.pl");
-        $memberfiletitletemp = unpack("H*", "$inmembername");
+        unlink("${lbdir}$memfavdir/$in_member_name.cgi");
+        unlink("${lbdir}$memfavdir/open/$in_member_name.cgi");
+        unlink("${lbdir}$memfavdir/close/$in_member_name.cgi");
+        unlink("${lbdir}memfriend/$in_member_name.cgi");
+        unlink("${lbdir}$recorddir/post/$in_member_name.cgi");
+        unlink("${lbdir}$recorddir/reply/$in_member_name.cgi");
+        unlink("${lbdir}memblock/$in_member_name.cgi");
+        unlink("${imagesdir}usravatars/$in_member_name.gif");
+        unlink("${imagesdir}usravatars/$in_member_name.png");
+        unlink("${imagesdir}usravatars/$in_member_name.jpg");
+        unlink("${imagesdir}usravatars/$in_member_name.swf");
+        unlink("${imagesdir}usravatars/$in_member_name.bmp");
+        unlink("${lbdir}ebankdata/log/" . $in_member_name . ".cgi");
+        unlink("${lbdir}cache/meminfo/$in_member_name.pl");
+        unlink("${lbdir}cache/myinfo/$in_member_name.pl");
+        unlink("${lbdir}cache/id/$in_member_name.pl");
+        $memberfiletitletemp = unpack("H*", "$in_member_name");
         unlink("${imagesdir}usravatars/$memberfiletitletemp.gif");
         unlink("${imagesdir}usravatars/$memberfiletitletemp.png");
         unlink("${imagesdir}usravatars/$memberfiletitletemp.jpg");
@@ -2086,7 +2086,7 @@ sub unban {
 
     &getmember("$inmember");
 
-    if ($membercode ne "banned") {
+    if ($member_code ne "banned") {
         print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>$inmember 没有被禁止发言啊！</b></td></tr>";
         exit;
     }
@@ -2142,7 +2142,7 @@ sub unban {
 } # end route
 
 sub viewdelmembers {
-    unless ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    unless ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         print qq~
 <tr> 
 <td bgcolor=#FFFFFF align=center colspan=2> 
@@ -2190,7 +2190,7 @@ sub viewdelmembers {
 }
 
 sub undelmember {
-    unless ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    unless ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         print qq~
 <tr> 
 <td bgcolor=#FFFFFF align=center colspan=2> 
@@ -2241,9 +2241,9 @@ sub undelmember {
 
 sub boxaction {
 
-    $oldmembercode = $membercode;
+    $oldmembercode = $member_code;
     &getmember("$inmember");
-    if ((($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) && ($oldmembercode eq "smo")) {
+    if ((($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) && ($oldmembercode eq "smo")) {
         print "<tr><td bgcolor=#EEEEEE colspan=2 align=center><font color=#333333><b>总斑竹无权查看坛主和斑竹资料！</b></td></tr>";
         exit;
     }

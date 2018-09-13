@@ -39,17 +39,17 @@ $query = new LBCGI;
 $checkaction = $query->param("checkaction");
 $checkaction = &cleaninput("$checkaction");
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &getadmincheck;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &admintitle;
-&getmember("$inmembername", "no");
-if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+&getmember("$in_member_name", "no");
+if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
     if ($checkaction eq "yes") {
         $dirtoopen = "$lbdir";
         opendir(DIR, "$dirtoopen");
@@ -114,8 +114,8 @@ if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $passwo
                 close(FILE1);
                 $existforum =~ s/forum//isg;
                 chomp $existforuminfo;
-                (my $forumid, my $category, my $categoryplace, my $forumname, my $forumdescription, my $forummoderator, my $htmlstate, my $idmbcodestate, my $privateforum, my $startnewthreads, my $lastposter, my $lastposttime, my $threads, my $posts, my $forumgraphic, my $miscad2, my $misc, my $forumpass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $existforuminfo);
-                print FILE "$existforum\t$category\t$categoryplace\t$forumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t\n";
+                (my $forumid, my $category, my $categoryplace, my $forumname, my $forumdescription, my $forummoderator, my $htmlstate, my $idmbcodestate, my $privateforum, my $startnewthreads, my $lastposter, my $lastposttime, my $threads, my $posts, my $forumgraphic, my $miscad2, my $misc, my $forum_pass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $existforuminfo);
+                print FILE "$existforum\t$category\t$categoryplace\t$forumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t\n";
             }
             else {
                 $existforum =~ s/forum//isg;

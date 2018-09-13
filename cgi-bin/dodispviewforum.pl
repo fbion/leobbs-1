@@ -11,8 +11,8 @@
 use strict;
 use warnings;
 use diagnostics;
-if ($inmembername ne "客人") {
-    if (($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo') && ($membercode ne 'amo')) {
+if ($in_member_name ne "客人") {
+    if (($member_code eq "ad" || $inmembmod eq "yes" || $member_code eq 'smo') && ($member_code ne 'amo')) {
         $deltopicmore1 = qq~论坛选项~;
         $deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$in_forum>批量管理文章</a>~;
         $deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$in_forum>修复这个论坛</a>~;

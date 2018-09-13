@@ -29,11 +29,11 @@ sub dosalepost {
         @allbuyer = split(/\t/, $allbuyer);
         $allbuyerno = @allbuyer;
         $allbuyer = "\t$allbuyer\t";
-        $isbuyer = "yes" if ($allbuyer =~ /\t$inmembername\t/i);
+        $isbuyer = "yes" if ($allbuyer =~ /\t$in_member_name\t/i);
     }
     $allbuyerno = 0 if (($allbuyerno < 0) || ($allbuyerno eq ""));
     {@allexege = ($$post =~ /\[buyexege\].*?\[\/buyexege\]/ig);}
-    unless ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
+    unless ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
         $$post = qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[查看这个帖子需要 <b>$1</b> $moneyname，目前已有 <B>$allbuyerno</B> 人购买]</FONT><BR><br><script>function salesubmitonce(theform){if (document.all||document.getElementById){for (i=0;i<theform.length;i++){ var tempobj=theform.elements[i]; if(tempobj.type.toLowerCase()=="submit"||tempobj.type.toLowerCase()=="reset") { tempobj.disabled=true; }}}}</script>
                 <FORM action=buypost.cgi method=post onSubmit="salesubmitonce(this)"><input name=inforum type=hidden value=$in_forum><input name=intopic type=hidden value=$in_topic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="算你狠。。我买，我付钱"></form><BR> ~;
         $$post .= join('<BR>', @allexege);
@@ -41,7 +41,7 @@ sub dosalepost {
     }
     else {
         $buyeroutput = "";
-        if ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes")) {
+        if ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes")) {
             if ($allbuyerno > 0) {
                 $buyeroutput = qq~<SCRIPT LANGUAGE="JavaScript">function surfto(list) { var myindex1  = list.selectedIndex; if (myindex1 != 0 & myindex1 != 1) { var newwindow = list.options[myindex1].value; var msgwindow = window.open("profile.cgi?action=show&member=" + newwindow,"",""); } }</SCRIPT><img src=$imagesurl/images/team2.gif width=19 height=19 align=absmiddle><select onchange="surfto(this)">
 <option>购买名单：</option><option>------------</option>

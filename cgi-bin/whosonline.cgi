@@ -40,18 +40,18 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = LBCGI->new;
 &ipbanned; #封杀一些 ip
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -59,17 +59,17 @@ else {
     }
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
-$membercodetemp = $membercode;
+$member_codetemp = $member_code;
 
 $defaultwidth = "width=$defaultwidth" if ($defaultwidth ne "");
 $defaultheight = "height=$defaultheight" if ($defaultheight ne "");
 $current_time = time;
 $addtime = $timezone * 3600 + $timedifferencevalue * 3600;
 $current_time = &dateformatshort($current_time + $addtime);
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 $catbackpic = "background=$imagesurl/images/$skin/$catbackpic";
 
 $helpurl = &helpfiles("在线用户");
@@ -78,7 +78,7 @@ $helpurl = qq~$helpurl<img src="$imagesurl/images/$skin/help_b.gif" border=0></a
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-    &whosonline("$inmembername\t在线用户\tboth\t查看在线用户状态\t");
+    &whosonline("$in_member_name\t在线用户\tboth\t查看在线用户状态\t");
 }
 $freshtime = $query->cookie("freshtime");
 if ($freshtime ne "") {
@@ -109,7 +109,7 @@ foreach (@onlinedata) {
     chomp $_;
     ($savedusername, $savedcometime, $savedtime, $savedwhere, $saveipaddresstemp, $saveosinfo, $savebrowseinfo, $savedwhere2, $fromwhere, $savemembercode, $savehidden) = split(/\t/, $_);
     $savedwhere2 =~ s/＊＃！＆＊//;
-    $fromwhere = "已设置保密" if (($pvtip ne "on") && ($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes"));
+    $fromwhere = "已设置保密" if (($pvtip ne "on") && ($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes"));
     $savedcometime = &dateformatshort($savedcometime + $addtime);
     $savedtime = &dateformatshort($savedtime + $addtime);
     ($lookfor, $no) = split(/\(/, $savedusername);
@@ -119,7 +119,7 @@ foreach (@onlinedata) {
     }
     else {
         my $checkhidden = 0;
-        if (((($savehidden eq 1) && ($membercodetemp ne "ad")) || ($savedusername =~ /^客人/)) && (lc($savedusername) ne lc($inmembername))) {
+        if (((($savehidden eq 1) && ($member_codetemp ne "ad")) || ($savedusername =~ /^客人/)) && (lc($savedusername) ne lc($in_member_name))) {
             $checkhidden = 1;
             $savedusername = "隐身会员";
             $useravatar = "没有";
@@ -156,22 +156,22 @@ foreach (@onlinedata) {
 
     ($saveipaddress, $none) = split(/=/, $saveipaddresstemp);
     ($ip1, $ip2, $ip3, $ip4) = split(/\./, $saveipaddress);
-    if ($membercodetemp eq "ad") {
+    if ($member_codetemp eq "ad") {
         $saveipaddress = "$ip1.$ip2.$ip3.$ip4";
     }
-    elsif ($membercodetemp eq "smo") {
+    elsif ($member_codetemp eq "smo") {
         if ($smocanseeip eq "no") {$saveipaddress = "$ip1.$ip2.$ip3.$ip4";}
         else {
             if ($pvtip eq "on") {$saveipaddress = "$ip1.$ip2.$ip3.$ip4";}
             else {$saveipaddress = "已设置保密";}
         }
     }
-    elsif ($membercodetemp eq "mo") {
+    elsif ($member_codetemp eq "mo") {
         if ($pvtip eq "on") {$saveipaddress = "$ip1.$ip2.$ip3.*";}
         else {$saveipaddress = "已设置保密";}
     }
     else {
-        if (($pvtip eq "on") && ($inmembername ne "客人")) {
+        if (($pvtip eq "on") && ($in_member_name ne "客人")) {
             $saveipaddress = "$ip1.$ip2.*.*";
         }
         else {$saveipaddress = "已设置保密";}
@@ -195,5 +195,5 @@ foreach (@onlinedata) {
 $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output("$boardname - 论坛当前在线用户", \$output);
+&output("$board_name - 论坛当前在线用户", \$output);
 exit;

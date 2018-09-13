@@ -63,33 +63,33 @@ for ('inmembername', 'inpassword', 'action', 'CookieDate', 'onlineview', 'viewMo
 $hidden = 0 if ($canhidden eq "no");
 $CookieDate = "+1d" if ($CookieDate eq "");
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
 }
 else {
-    &error("用户登陆&对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]这类字符！") if ($inmembername =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
-    &getmember("$inmembername", "no");
-    &error("用户登录&对不起,用户名和密码输入错误！") if (($inpassword ne $password) && ($action ne "logout"));
-    $inmembername = $membername;
+    &error("用户登陆&对不起，您输入的用户名有问题，请不要在用户名中包含\@\#\$\%\^\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]这类字符！") if ($in_member_name =~ /[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]/);
+    &getmember("$in_member_name", "no");
+    &error("用户登录&对不起,用户名和密码输入错误！") if (($in_password ne $password) && ($action ne "logout"));
+    $in_member_name = $membername;
 }
-$memberfilename = $inmembername;
+$memberfilename = $in_member_name;
 $memberfilename =~ s/ /\_/g;
 $memberfilename =~ tr/A-Z/a-z/;
 &getoneforum("$in_forum");
@@ -103,11 +103,11 @@ $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 
 
 if ($action eq "login") {
     &cleanolddata;
-    if (($userregistered ne "no") && ($inpassword eq $password)) {
-        &whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
+    if (($userregistered ne "no") && ($in_password eq $password)) {
+        &whosonline("$in_member_name\t论坛登录\tnone\t登录论坛\t");
         if ($in_forum eq "") {$refrashurl = "leobbs.cgi";}
         else {$refrashurl = "forums.cgi?forum=$in_forum";}
-        $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>感谢你登录 $inmembername</b></font></td></tr>
+        $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>感谢你登录 $in_member_name</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
 具体情况：<ul><li><a href="$refrashurl">进入论坛</a>
 <meta http-equiv="refresh" content="3; url=$refrashurl">
@@ -118,8 +118,8 @@ if ($action eq "login") {
         if ($boarddispsign eq "no") {$nodispsign = "yes";}
         else {$nodispsign = "no" if !($nodispsign);}
 
-        $namecookie = cookie(-name => "amembernamecookie", -value => "$inmembername", -path => "$cookiepath/", -expires => "$CookieDate");
-        $passcookie = cookie(-name => "apasswordcookie", -value => "$inpassword", -path => "$cookiepath/", -expires => "$CookieDate");
+        $namecookie = cookie(-name => "amembernamecookie", -value => "$in_member_name", -path => "$cookiepath/", -expires => "$CookieDate");
+        $passcookie = cookie(-name => "apasswordcookie", -value => "$in_password", -path => "$cookiepath/", -expires => "$CookieDate");
         $onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "$CookieDate");
         $viewcookie = cookie(-name => "viewMode", -value => "$viewMode", -path => "$cookiepath/", -expires => "$CookieDate");
         $freshtimecookie = cookie(-name => "freshtime", -value => "$freshtime", -path => "$cookiepath/", -expires => "$CookieDate");
@@ -141,7 +141,7 @@ if ($action eq "login") {
 }
 elsif ($action eq "logout") {
     &cleanolddata1;
-    if ($inmembername ne "" && $inmembername ne "客人") {
+    if ($in_member_name ne "" && $in_member_name ne "客人") {
         $filetoopen = "$lbdir" . "data/onlinedata.cgi";
         my $filetoopens = &lockfilename($filetoopen);
         if (!(-e "$filetoopens.lck")) {
@@ -153,9 +153,9 @@ elsif ($action eq "logout") {
             $onlinedata =~ s/\r//isg;
 
             if (length($onlinedata) >= 80) {
-                my $inmembername1 = $inmembername;
-                $inmembername1 =~ s/\|/\\\|/isg;
-                $onlinedata =~ s/(.*)(^|\n)$inmembername1\t(.*?)(\n|$)(.*)/$1$2$5/i;
+                my $in_member_name1 = $in_member_name;
+                $in_member_name1 =~ s/\|/\\\|/isg;
+                $onlinedata =~ s/(.*)(^|\n)$in_member_name1\t(.*?)(\n|$)(.*)/$1$2$5/i;
                 ($savedcometime, $savedtime, undef) = split(/\t/, $3);
                 open(ONLINEFILE, ">$filetoopen");
                 flock(ONLINEFILE, 2) if ($OS_USED eq "Unix");
@@ -165,7 +165,7 @@ elsif ($action eq "logout") {
             else {unlink("$filetoopen");}
             &winunlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
             require "douplogintime.pl";
-            &uplogintime("$inmembername", "")
+            &uplogintime("$in_member_name", "")
         }
         else {
             unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 30);
@@ -194,8 +194,8 @@ elsif ($action eq "logout") {
 
 }
 else {
-    if ($query->cookie("selectstyle")) {$inselectstyle = $query->cookie("selectstyle");}
-    $inselectstyle = $skinselected if ($inselectstyle eq "");
+    if ($query->cookie("selectstyle")) {$in_select_style = $query->cookie("selectstyle");}
+    $in_select_style = $skin_selected if ($in_select_style eq "");
     if ($query->cookie("viewMode") ne "") {
         $checked = "checked";
         $checked1 = "";
@@ -235,11 +235,11 @@ else {
     if ($nodispphoto eq "yes") {$checked4 = "checked";}
 
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    if ($inmembername ne "客人") {
+    if ($in_member_name ne "客人") {
         my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
         $filetoopens = &lockfilename($filetoopens);
         if (!(-e "$filetoopens.lck")) {
-            &whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
+            &whosonline("$in_member_name\t论坛登录\tnone\t登录论坛\t");
         }
     }
     opendir(DIR, "${lbdir}data/skin");
@@ -273,7 +273,7 @@ else {
     <input type=hidden name="action" value="login">
     <input type=hidden name="forum" value="$in_forum">
     <font face="$font" color=$fontcolormisc><b>请输入您的用户名、密码登录</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="inpassword"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
     <tr>
@@ -379,8 +379,8 @@ $advmode</form></tr></table></td></tr></table><BR><BR>
 ~;
 }
 
-$inselectstyle =~ s/\(/\\(/isg;
-$inselectstyle =~ s/\)/\\)/isg;
-$output =~ s/option value=\"$inselectstyle\"/option value=\"$inselectstyle\" selected/;
-&output("$boardname - 登录/退出", \$output);
+$in_select_style =~ s/\(/\\(/isg;
+$in_select_style =~ s/\)/\\)/isg;
+$output =~ s/option value=\"$in_select_style\"/option value=\"$in_select_style\" selected/;
+&output("$board_name - 登录/退出", \$output);
 exit;

@@ -21,8 +21,8 @@ BEGIN {
 require "data/boardinfo.cgi";
 require "wap.pl";
 &waptitle;
-$show .= qq~\n<card  title="$boardname-注册">\n ~;
-$show .= qq~<p><b>在$boardname注册</b>\n</p><p>注册账号：<input type="text" name="n"/>\n</p><p>注册密码：<input type='password' name="p"/>\n</p><p>重复密码：<input type='password' name="p1"/>\n</p><p>邮件地址：<input type='text' name="email"/>\n</p><p>
+$show .= qq~\n<card  title="$board_name-注册">\n ~;
+$show .= qq~<p><b>在$board_name注册</b>\n</p><p>注册账号：<input type="text" name="n"/>\n</p><p>注册密码：<input type='password' name="p"/>\n</p><p>重复密码：<input type='password' name="p1"/>\n</p><p>邮件地址：<input type='text' name="email"/>\n</p><p>
 <anchor>[注册]<go href="wap_save_reg.cgi" method="post">\n
 <postfield name="n" value="\$(n)"/>\n
 <postfield name="p" value="\$(p)"/>\n

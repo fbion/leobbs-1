@@ -13,11 +13,11 @@ use warnings;
 use diagnostics;
 
 if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
-$testentry = $query->cookie("forumsallowed$in_forum");
-if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+$test_entry = $query->cookie("forumsallowed$in_forum");
+if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || ($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
 if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您不允许在此论坛发表！");}
 if ($postopen eq "no") {&error("发表或回复主题&对不起，本论坛不允许发表或回复主题！");}
-&error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($inmembername eq "客人"));
+&error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($in_member_name eq "客人"));
 
 open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
 @threads = <FILE>;
@@ -31,25 +31,25 @@ my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
     if ($privateforum ne "yes") {
-        &whosonline("$inmembername\t$forumname\tnone\t引用回复<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
+        &whosonline("$in_member_name\t$forumname\tnone\t引用回复<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
     }
     else {
-        &whosonline("$inmembername\t$forumname(密)\tnone\t引用回复保密帖子\t");
+        &whosonline("$in_member_name\t$forumname(密)\tnone\t引用回复保密帖子\t");
     }
 }
 
-if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/)) {
+if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($member_code ne "ad") && ($member_code ne "smo") && ($member_code ne "cmo") && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/)) {
     $onlinetime = $onlinetime + $onlinetimeadd;
     &error("回复主题&对不起，本论坛不允许在线时间少于 $onlinepost 秒的用户回复主题！你目前已经在线 $onlinetime 秒！<BR>如果在线时间统计不正确,请重新登陆论坛一次即可解决！");
 }
 
 &getmember($membername, "no");
-$post = "此用户的发言已经被屏蔽！" if ($membercode eq "masked");
-$membercode = $mymembercode;
+$post = "此用户的发言已经被屏蔽！" if ($member_code eq "masked");
+$member_code = $mymembercode;
 
 if ($post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
     $checked = $1;
-    if ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq "mo") || ($mymembercode eq "amo") || ($inmembmod eq "yes") || ($myrating >= $1)) {
+    if ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq "mo") || ($mymembercode eq "amo") || ($inmembmod eq "yes") || ($myrating >= $1)) {
         $weiwangoptionbutton =~ s/value=$checked/value=$checked selected/isg;
         $weiwangoptionbutton =~ s/value=\"yes\" /value=\"yes\" checked /;
     }

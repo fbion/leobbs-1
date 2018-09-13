@@ -29,7 +29,7 @@ $username =~ tr/A-Z/a-z/;
   
 **5\. 用户库文件的内部结构**  
 你打开一个用户库文件的时候，里面的内容如下：  
-$membername\\t$password\\t$membertitle\\t$membercode\\t$numberofposts\\t$emailaddress\\t$showemail\\t$ipaddress\\t$homepage\\t$oicqnumber\\t  
+$membername\\t$password\\t$membertitle\\t$member_code\\t$numberofposts\\t$emailaddress\\t$showemail\\t$ipaddress\\t$homepage\\t$oicqnumber\\t  
 $icqnumber\\t$location\\t$interests\\t$joineddate\\t$lastpostdate\\t$signature\\t$timedifference\\t$privateforums\\t$useravatar\\t$userflag\\t  
 $userxz\\t$usersx\\t$personalavatar\\t$personalwidth\\t$personalheight\\t$rating\\t$lastgone\\t$visitno\\t$useradd04\\t$useradd02\\t$mymoney\\t$postdel\\t  
 $sex\\t$education\\t$marry\\t$work\\t$born\\t$chatlevel\\t$chattime\\t$jhmp\\t$jhcount\\t$ebankdata\\t$onlinetime\\t$userquestion\\t$awards\\t  
@@ -40,7 +40,7 @@ $jifen\\t$userface\\t$soccerdata\\t$useradd5\\t
 $membername     用户名（未处理过的）
 $password       密码（先经过 MD5 加密，然后在最前面添加 lEO 标志字样，长度为固定的３５个字节）
 $membertitle    自定义头衔（如果内容是 member 或者空的话表示无头衔）
-$membercode     用户类型（坛主：ad，总斑竹：smo，斑竹：mo，副斑竹：amo，认证用户：rz 和 rz1 rz2 ... rz5，普通用户：me，
+$member_code     用户类型（坛主：ad，总斑竹：smo，斑竹：mo，副斑竹：amo，认证用户：rz 和 rz1 rz2 ... rz5，普通用户：me，
                 禁言用户：banned，屏蔽贴子用户：masked）
 $numberofposts  发贴数（格式：主题数|回复数，中间是用"|"符号隔开的）
 $emailaddress   电子邮件地址

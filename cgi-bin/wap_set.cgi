@@ -27,10 +27,10 @@ require "wap.pl";
 $check = $query->param('check');
 $lid = $query->param('lid');
 &waptitle;
-$show .= qq~<card  title="$boardname-登陆">~;
+$show .= qq~<card  title="$board_name-登陆">~;
 if ($check eq '1') {
     &check($lid);
-    if ($inmembername ne '' && $inmembername ne '客人') {
+    if ($in_member_name ne '' && $in_member_name ne '客人') {
         $pre = $query->param('pre');
         $mastnum = $query->param('mastnum');
         $mastnum2 = $query->param('mastnum2');
@@ -39,9 +39,9 @@ if ($check eq '1') {
         open(file, "${lbdir}wap/$lid");
         my $bf = <file>;
         close(file);
-        my ($inmembername, $xh2) = split(/\,/, $bf);
+        my ($in_member_name, $xh2) = split(/\,/, $bf);
         open(file, ">${lbdir}wap/$lid");
-        print file "$inmembername,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
+        print file "$in_member_name,$xh2,$pre,$topicpre,$pre_index,$mastnum,$mastnum2";
         close(file);
         $show .= qq~<p>成功更改设置！</p><p><a href='wap.cgi?lid=$lid'>返回首页</a></p>~;
     }

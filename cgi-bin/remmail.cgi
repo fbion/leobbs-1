@@ -44,12 +44,12 @@ foreach $param (@params) {
     ${$param} = $theparam;
 }
 
-$inmembername = $query->cookie("amembernamecookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $member =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $member = "" if (length($member) > 16);
 
-if (lc($inmembername) eq lc($member)) {
+if (lc($in_member_name) eq lc($member)) {
     $filetoopen = "$lbdir" . "data/remmem.cgi";
     open(FILE, "$filetoopen");
     flock(FILE, 2);

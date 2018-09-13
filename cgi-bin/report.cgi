@@ -50,12 +50,12 @@ $insubject = $query->param('subject');
 $inemailmessage = $query->param('emailmessage');
 $emailtopictitle = $query->param('emailtopictitle');
 $intouser = $query->param('touser');
-$inmembername = $query->param('membername');
-$inpassword = $query->param('password');
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $query->param('membername');
+$in_password = $query->param('password');
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $inmsgtitle = $query->param('subject');
@@ -69,8 +69,8 @@ $emailtopictitle = &cleaninput($emailtopictitle);
 $in_forum = &cleaninput($in_forum);
 $inoriginalpost = &cleaninput($inoriginalpost);
 
-$inmembername = &cleaninput($inmembername);
-$inpassword = &cleaninput($inpassword);
+$in_member_name = &cleaninput($in_member_name);
+$in_password = &cleaninput($in_password);
 $in_post_no = $query->param('postno');
 
 $inmessage2 = $inemailmessage . $inoriginalpost . $inpost2;
@@ -81,36 +81,36 @@ $add_user2 = $query->param('touser1');
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = cookie("amembernamecookie");}
+if (!$in_password) {$in_password = cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 &error("短消息禁止使用&很抱歉，坛主由于某种原因已禁止所有用户使用短消息功能") if ($allowusemsg eq "off");
 &error("论坛已经关闭&很抱歉，由于论坛暂时关闭，请稍后再来使用短消息，谢谢合作！") if (($mainoff == 1) || ($mainonoff == 1));
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
 }
 else {
-    #			&getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #			&getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {&error("发送报告&你的密码有问题！");}
+    if ($in_password ne $password) {&error("发送报告&你的密码有问题！");}
 }
 
 &title;
 
 $output .= qq~<BR>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以把有问题的帖子发送给管理人员处理</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a>  → 报告有问题的贴子<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a>  → 报告有问题的贴子<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -121,10 +121,10 @@ $output .= qq~<BR>
 
 if ($action eq "send") {
 
-    #	&getmember("$inmembername");
+    #	&getmember("$in_member_name");
     if ($userregistered eq "no") {&error("发送报告&你还没注册呢！");}
-    elsif ($inpassword ne $password) {&error("发送报告&你的密码有问题！");}
-    elsif ($inmembername eq "") {&login("$thisprog?action=reply&touser=$intouser");}
+    elsif ($in_password ne $password) {&error("发送报告&你的密码有问题！");}
+    elsif ($in_member_name eq "") {&login("$thisprog?action=reply&touser=$intouser");}
 
     # Check for blanks
 
@@ -152,7 +152,7 @@ if ($action eq "send") {
 
     open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
-    print FILE "＊＃！＆＊$inmembername\tno\t$currenttime\t$inmsgtitle\t$inmessage2\n";
+    print FILE "＊＃！＆＊$in_member_name\tno\t$currenttime\t$inmsgtitle\t$inmessage2\n";
     foreach $line (@inboxmessages) {
         chomp $line;
         print FILE "$line\n";
@@ -168,7 +168,7 @@ if ($action eq "send") {
 
     $output .= qq~
             <tr>
-                <td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>谢谢，$inmembername！已经成功将报告发送给版主了</b></td>
+                <td bgcolor=$miscbacktwo align=center><font color=$fontcolormisc><b>谢谢，$in_member_name！已经成功将报告发送给版主了</b></td>
             </tr>
 
             <tr>
@@ -193,7 +193,7 @@ else {
     open(FILE, "$filetoopen");
     $forums = <FILE>;
     close(FILE);
-    ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
+    ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
 
     $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
     open(FILE, "$filetoopen");
@@ -240,7 +240,7 @@ else {
     $toto .= qq~</select>~;
     &getoneforum("$in_forum");
 
-    &error("发送报告&你就是版主，搞什么飞机？") if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"));
+    &error("发送报告&你就是版主，搞什么飞机？") if (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes"));
 
     $topictitle = &cleanarea("$topictitle");
 
@@ -255,7 +255,7 @@ else {
 			<font color=$fontcolormisc><b>向管理员报告有问题的贴子</b></font>
 		</td>
 	</tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 	<tr>
@@ -279,5 +279,5 @@ else {
 
 } # end routine.
 
-&output($boardname, \$output);
+&output($board_name, \$output);
 exit;

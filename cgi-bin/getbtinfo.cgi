@@ -122,7 +122,7 @@ if ($seeds eq "") {
 print qq~
 <html>
 <head>
-<title>欢迎您光临$boardname BitTorrent</title>
+<title>欢迎您光临$board_name BitTorrent</title>
 <meta http-equiv="Content-Type" Content="text/html; charset=UTF-8">
 <style>
 a:visited	{text-decoration: none}

@@ -23,7 +23,7 @@ $output .= qq~<p><SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 
 foreach (@childforum) {
     chomp $_;
     ($cforumname, $cforumdescription, $cprivateforum, $cstartnewthreads, $clastposter, $clastposttime1, $cthreads, $cposts, $chiddenforum, $cforumid, $modout, $cteam, $cmiscad4, $ctodayforumpost, $cmiscad5) = split(/\t/, $_);
-    next unless (($chiddenforum eq "no") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo"));
+    next unless (($chiddenforum eq "no") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo"));
     if ($pforum_display_type{$forumid} ne "basic") {
         $cforumnameadd = $cforumname;
         $cforumnameadd1 = $cforumnameadd;
@@ -39,7 +39,7 @@ foreach (@childforum) {
         my ($ctodayforumpost, $ctodayforumposttime) = split(/\|/, $ctodayforumpost);
         $ctodayforumpost = 0 if (($nowtime ne $ctodayforumposttime) || ($ctodayforumpost eq ""));
 
-        if (($clastposttime > $forumlastvisit) && ($inmembername ne "客人") && ($action ne "resetall")) {
+        if (($clastposttime > $forumlastvisit) && ($in_member_name ne "客人") && ($action ne "resetall")) {
             if (($cforumpass) || ($cprivateforum eq "yes")) {$folderpicture = qq~<img src=$imagesurl/images/$skin/$bm_havenew border=0 style=cursor:hand onClick=javascript:O4($cforumid)>~;}
             elsif ($cstartnewthreads eq "follow") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$pl_havenew border=0 style=cursor:hand onClick=javascript:O4($cforumid)>~;}
             elsif ($cstartnewthreads eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$zg_havenew border=0 style=cursor:hand onClick=javascript:O4($cforumid)>~;}
@@ -70,9 +70,9 @@ foreach (@childforum) {
             $clastposter = "";
         }
 
-        $topictitle = "" unless ((($cprivateforum ne "yes") || ($membercode eq "ad") || ($membercode eq "smo")) && ($topictitle));
+        $topictitle = "" unless ((($cprivateforum ne "yes") || ($member_code eq "ad") || ($member_code eq "smo")) && ($topictitle));
 
-        $forumbookmark = qq~<span style=CURSOR: hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$cforumid', '$boardname - $cforumnameadd1')"><IMG SRC=$imagesurl/images/fav_add.gif BORDER=0 width=16 ALT="将$cforumnameadd添加到收藏夹"></span>~;
+        $forumbookmark = qq~<span style=CURSOR: hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$cforumid', '$board_name - $cforumnameadd1')"><IMG SRC=$imagesurl/images/fav_add.gif BORDER=0 width=16 ALT="将$cforumnameadd添加到收藏夹"></span>~;
         if ($chiddenforum eq "yes") {$hiddeninfo = "　<I>(隐含)</I>";}
         else {$hiddeninfo = "";}
 
@@ -102,7 +102,7 @@ foreach (@childforum) {
         my ($ctodayforumpost, $ctodayforumposttime) = split(/\|/, $ctodayforumpost);
         $ctodayforumpost = 0 if (($nowtime ne $ctodayforumposttime) || ($ctodayforumpost eq ""));
 
-        if (($clastposttime > $forumlastvisit) && ($inmembername ne "客人") && ($action ne "resetall")) {
+        if (($clastposttime > $forumlastvisit) && ($in_member_name ne "客人") && ($action ne "resetall")) {
             if (($cforumpass) || ($cprivateforum eq "yes")) {$folderpicture = qq~<img src=$imagesurl/images/$skin/$bm_havenew border=0 style=cursor:hand onClick=javascript:O4($cforumid)>~;}
             elsif ($cstartnewthreads eq "follow") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$pl_havenew border=0 style=cursor:hand onClick=javascript:O4($cforumid)>~;}
             elsif ($cstartnewthreads eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$zg_havenew border=0 style=cursor:hand onClick=javascript:O4($cforumid)>~;}

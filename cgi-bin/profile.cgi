@@ -62,36 +62,36 @@ $action = $query->param('action');
 $inmember = $query->param('member');
 $inmember =~ s/\///g;
 $inmember =~ s/\.\.//g;
-$inmembername = $query->param("membername");
-$inpassword = $query->param("password");
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $query->param("membername");
+$in_password = $query->param("password");
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $oldpassword = $query->param("oldpassword");
 $action = &cleaninput("$action");
 $inmember = &cleaninput("$inmember");
-$inmembername = &cleaninput("$inmembername");
-$inpassword = &cleaninput("$inpassword");
+$in_member_name = &cleaninput("$in_member_name");
+$in_password = &cleaninput("$in_password");
 $oldpassword = &cleaninput("$oldpassword");
 $defaultwidth = "width=$defaultwidth" if ($defaultwidth ne "");
 $defaultheight = "height=$defaultheight" if ($defaultheight ne "");
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if (($inmembername eq "") && ($action ne "lostpass") && ($action ne "lostpassword") && ($action ne "sendpassword")) {
-    $inmembername = "客人";
+if (($in_member_name eq "") && ($action ne "lostpass") && ($action ne "lostpassword") && ($action ne "sendpassword")) {
+    $in_member_name = "客人";
     $userregistered = "no";
     if ($dispprofile eq "no") {
         print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -99,9 +99,9 @@ if (($inmembername eq "") && ($action ne "lostpass") && ($action ne "lostpasswor
     }
 }
 else {
-    &getmember("$inmembername", "no");
-    &error("普通错误&用户 $inmembername 在本论坛中不存在！") if (($userregistered eq "no") && ($action ne "lostpass") && ($action ne "lostpassword"));
-    &error("普通错误&论坛密码与用户名不相符，请重新登录！") if ($inpassword ne $password && $action eq "show");
+    &getmember("$in_member_name", "no");
+    &error("普通错误&用户 $in_member_name 在本论坛中不存在！") if (($userregistered eq "no") && ($action ne "lostpass") && ($action ne "lostpassword"));
+    &error("普通错误&论坛密码与用户名不相符，请重新登录！") if ($in_password ne $password && $action eq "show");
 }
 if ($arrawsignpic eq "on") {$signpicstates = "允许";}
 else {$signpicstates = "禁止";}
@@ -139,7 +139,7 @@ else {
 }
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&output($boardname, \$output);
+&output($board_name, \$output);
 exit;
 
 sub lostpasswordform {
@@ -163,7 +163,7 @@ sub showprofile {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t个人资料\tboth\t查看<b>$inmember</b>的个人资料\t");
+        &whosonline("$in_member_name\t个人资料\tboth\t查看<b>$inmember</b>的个人资料\t");
     }
     &getmember("$inmember", "no");
     if ("$userregistered" eq "no") {&error("查看资料&没有此用户名！");}
@@ -270,19 +270,19 @@ sub showprofile {
         $icqlogo = "";
     }
     else {$icqlogo = qq~<a href=misc.cgi?action=icq&UIN=$icqnumber target=_blank><img src=$imagesurl/images/icq.gif alt="给 ICQ:$icqnumber 发个消息" border=0 width=16 height=16></a>~;}
-    if ((($membercode eq "ad") && ($membertitle eq "Member")) || (($membercode eq "ad") && ($membertitle eq "member"))) {$membertitle = "论坛坛主";}
-    if ((($membercode eq "mo") && ($membertitle eq "Member")) || (($membercode eq "mo") && ($membertitle eq "member"))) {$membertitle = "论坛版主";}
-    if ((($membercode eq "cmo") && ($membertitle eq "Member")) || (($membercode eq "cmo") && ($membertitle eq "member"))) {$membertitle = "分类区版主";}
-    if ((($membercode eq "smo") && ($membertitle eq "Member")) || (($membercode eq "smo") && ($membertitle eq "member"))) {$membertitle = "总版主";}
-    if ((($membercode eq "amo") && ($membertitle eq "Member")) || (($membercode eq "amo") && ($membertitle eq "member"))) {$membertitle = "论坛副版主";}
+    if ((($member_code eq "ad") && ($membertitle eq "Member")) || (($member_code eq "ad") && ($membertitle eq "member"))) {$membertitle = "论坛坛主";}
+    if ((($member_code eq "mo") && ($membertitle eq "Member")) || (($member_code eq "mo") && ($membertitle eq "member"))) {$membertitle = "论坛版主";}
+    if ((($member_code eq "cmo") && ($membertitle eq "Member")) || (($member_code eq "cmo") && ($membertitle eq "member"))) {$membertitle = "分类区版主";}
+    if ((($member_code eq "smo") && ($membertitle eq "Member")) || (($member_code eq "smo") && ($membertitle eq "member"))) {$membertitle = "总版主";}
+    if ((($member_code eq "amo") && ($membertitle eq "Member")) || (($member_code eq "amo") && ($membertitle eq "member"))) {$membertitle = "论坛副版主";}
 
-    $mtitle = $motitle if (($membercode eq "mo") && ($motitle ne ""));
-    $mtitle = $adtitle if (($membercode eq "ad") && ($adtitle ne ""));
-    $mtitle = $cmotitle if (($membercode eq "cmo") && ($cmotitle ne ""));
-    $mtitle = $smotitle if (($membercode eq "smo") && ($smotitle ne ""));
-    $mtitle = $amotitle if (($membercode eq "amo") && ($amotitle ne ""));
+    $mtitle = $motitle if (($member_code eq "mo") && ($motitle ne ""));
+    $mtitle = $adtitle if (($member_code eq "ad") && ($adtitle ne ""));
+    $mtitle = $cmotitle if (($member_code eq "cmo") && ($cmotitle ne ""));
+    $mtitle = $smotitle if (($member_code eq "smo") && ($smotitle ne ""));
+    $mtitle = $amotitle if (($member_code eq "amo") && ($amotitle ne ""));
 
-    if ($membercode eq "banned") {$membertitle = "禁止发言";}
+    if ($member_code eq "banned") {$membertitle = "禁止发言";}
     if ($membertitle eq "member" || $membertitle eq "Member" || $membertitle eq "") {$membertitle = "没有";}
     if (($homepage eq "http://") || ($homepage eq "")) {$homepage = "没有";}
     else {$homepage = qq~<a href="$homepage" target=_blank>$homepage</a>~;}
@@ -590,7 +590,7 @@ sub showprofile {
                     $pet_xz_time = '已经死亡...';
                     $pet_style = qq~ style="filter:xray"~;
                 }
-                my $tempmembername = uri_escape($inmembername);
+                my $tempmembername = uri_escape($in_member_name);
                 $petinfo = qq~<tr><td bgcolor=$miscbacktwo valign=middle><font color=$fontcolormisc><b>宠物资料：</b></font></td><td bgcolor=$miscbacktwo valign=middle><table border="1" width="320" style="border-collapse: collapse" bordercolor="$tablebordercolor" cellPadding=2 cellSpacing=0><tr><td colspan="2" height="23" bgcolor="$miscbacktwo">&nbsp;<img src=$imagesurl/pet_maiweb/cw.gif> 昵称： <a href=pet.cgi?action=myspet&petname=$tempmembername target=_blank><b>$pet_name</b></a> $pet_zt　　年龄： $pet_born 天</td></tr><tr><td width="110" align=center $pet_style><img src=$imagesurl/pet_maiweb/pet/$pet_sx/$pet_sx$pet_jb.gif border=0></td><td width="*">&nbsp;胜利 $pet_win 次 / 失败 $pet_lose 次<br>&nbsp;攻击力 $pet_gjl 点 / 防御力 $pet_fyl 点<br>&nbsp;经验： $pet_exp1<br>&nbsp;体力： $pet_hp1<br>&nbsp;食物： $pet_sp1<BR>&nbsp;状态： $pet_xz_time</td></tr></table></td></tr>~;
             }
             else {$petinfo = '';}

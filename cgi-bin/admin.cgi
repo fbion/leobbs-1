@@ -67,19 +67,19 @@ $query = new LBCGI;
 #&ipbanned; #封杀一些 ip
 $action = $query->param('action');
 $loginprog = $query->param('loginprog');
-$inmembername = $query->param('membername');
-$inpassword = $query->param('password');
-$inpasswordtemp = $inpassword;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $query->param('membername');
+$in_password = $query->param('password');
+$in_passwordtemp = $in_password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
-$inmembername = &unHTML("$inmembername");
-$inpassword = &unHTML("$inpassword");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = &unHTML("$in_member_name");
+$in_password = &unHTML("$in_password");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 unlink("${lbdir}ilite.cgi");
 unlink("${lbdir}cat.cgi");
@@ -134,22 +134,22 @@ else {
         unlink("${lbdir}install.cgi") if (!(-e "${lbdir}data/install.lock"));
         &cleanolddata2;
         &checkverify;
-        $tempmembername = uri_escape($inmembername);
+        $tempmembername = uri_escape($in_member_name);
         print "Set-Cookie: adminname=$tempmembername\n";
-        print "Set-Cookie: adminpass=$inpassword\n";
+        print "Set-Cookie: adminpass=$in_password\n";
     }
     else {
         &cleanolddata3;
-        $inmembername = $query->cookie('adminname');
-        $inpassword = $query->cookie('adminpass');
+        $in_member_name = $query->cookie('adminname');
+        $in_password = $query->cookie('adminpass');
     }
-    $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-    $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+    $in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+    $in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
     &getadmincheck;
 
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
     &admintitle;
 
     $trueipaddress = $ENV{'HTTP_X_FORWARDED_FOR'};
@@ -157,12 +157,12 @@ else {
     my $trueipaddress1 = $ENV{'HTTP_CLIENT_IP'};
     $trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
 
-    if ((($membercode eq "ad") || ($membercode eq "smo")) && ($inpassword eq $password) && (lc($inmembername) eq lc($membername))) {
+    if ((($member_code eq "ad") || ($member_code eq "smo")) && ($in_password eq $password) && (lc($in_member_name) eq lc($membername))) {
         if ($action eq "login") {
             my $thistime = time;
             $filetomake = "$lbdir" . "data/adminlogin.cgi";
             open(FILE, ">>$filetomake");
-            print FILE "$inmembername\t密码不显示\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t登录成功\t$thistime\t\n";
+            print FILE "$in_member_name\t密码不显示\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t登录成功\t$thistime\t\n";
             close(FILE);
         }
 
@@ -171,7 +171,7 @@ else {
         $warning = qq~<br><font color=#000000>环境监测：<b>通过</b></font>~;
 
         $current_time = localtime;
-        $inmembername =~ s/\_/ /g;
+        $in_member_name =~ s/\_/ /g;
         $start_topic_ratio = $totalthreads / $totalmembers if ($totalthreads && $totalmembers);
         $start_topic_ratio = substr($start_topic_ratio, 0, 5) if ($totalthreads && $totalmembers);
         $posting_ratio = $totalposts / $totalmembers if ($totalposts && $totalmembers);
@@ -196,7 +196,7 @@ else {
 
         print qq~
 <tr><td bgcolor=#2159C9><font color=#FFFFFF><b>欢迎来到论坛管理中心</b></td></tr>
-<tr><td bgcolor=#EEEEEE valign=middle align=center><font color=#333333><b>欢迎 $inmembername</b></font></td></tr>
+<tr><td bgcolor=#EEEEEE valign=middle align=center><font color=#333333><b>欢迎 $in_member_name</b></font></td></tr>
 <tr><td bgcolor=#FFFFFF></td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle align=left>
 <font color=#000000><center><br>
@@ -236,11 +236,11 @@ $warning
         &cleanolddata4;
         &adminlogin;
 
-        if (($inmembername ne "") && ($inpassword ne "")) {
+        if (($in_member_name ne "") && ($in_password ne "")) {
             my $thistime = time;
             $filetomake = "$lbdir" . "data/adminlogin.cgi";
             open(FILE, ">>$filetomake");
-            print FILE "$inmembername\t错$inpasswordtemp\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t\<B\>登录失败\<\/B\>\t$thistime\t\n";
+            print FILE "$in_member_name\t错$in_passwordtemp\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t\<B\>登录失败\<\/B\>\t$thistime\t\n";
             close(FILE);
             undef $thistime;
         }
@@ -283,7 +283,7 @@ sub checkverify {
     my $sessionid = $query->param('sessionid');
     $sessionid =~ s/[^0-9a-f]//isg;
     if (length($sessionid) != 32 && $useverify eq "yes") {
-        $inpassword = "";
+        $in_password = "";
         return;
     }
 
@@ -306,13 +306,13 @@ sub checkverify {
     my $currenttime = time;
 
     if (($verifynum ne $trueverifynum || $currenttime > $verifytime + 120 || $ipaddress ne $savedipaddress) && ($useverify eq "yes")) { #验证码有效时间仅为2分钟
-        $inpassword = "";
+        $in_password = "";
     }
     else {
         unlink("${lbdir}verifynum/$sessionid.cgi");
         unlink("${imagesdir}verifynum/$sessionid.cgi");
         mkdir("${lbdir}verifynum/login", 0777) unless (-d "${lbdir}verifynum/login");
-        $memberfilename = $inmembername;
+        $memberfilename = $in_member_name;
         $memberfilename =~ y/ /_/;
         $memberfilename =~ tr/A-Z/a-z/;
         $memberfilename = "${lbdir}verifynum/login/$memberfilename.cgi";

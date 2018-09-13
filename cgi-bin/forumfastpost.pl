@@ -59,7 +59,7 @@ function DoTitle(addTitle) { var revisedTitle;var currentTitle = document.FORM.i
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor colspan=2 $catbackpic>&nbsp;<font color=$titlefontcolor><b>快速发表新主题</b></font> -- $startthreads</td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <B><u><font color=$fonthighlight>$inmembername</font></u></B> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <B><u><font color=$fonthighlight>$in_member_name</font></u></B> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbacktwo width=220>&nbsp;<font color=$fontcolormisc><b>输入用户名和密码:</b></font></td><td bgcolor=$miscbacktwo>　<font color=$fontcolormisc><b>用户名</b>: <input type=text name=membername> <span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style=cursor:hand>没有注册？</span>　<b>密码:</b> <input type=password name=password> <a href=profile.cgi?action=lostpass style=cursor:help>忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone>&nbsp;<font color=$fontcolormisc><b>主题标题</b></font>　
 <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
@@ -89,7 +89,7 @@ $output .= qq~
 $requestnotify$emoticonsbutton$fontpost</center>
 <td bgcolor=$miscbacktwo>　<TEXTAREA cols=80 name=inpost rows=9 wrap="soft" onkeydown=ctlent()>$inpost</TEXTAREA><br></td></tr>~;
 
-if (($arrowupload ne "off") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+if (($arrowupload ne "off") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
     $uploadreqire = "" if ($uploadreqire <= 0);
     $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
     $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;

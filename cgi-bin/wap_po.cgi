@@ -25,7 +25,7 @@ use diagnostics;
 use LBCGI;
 $query = new LBCGI;
 &waptitle;
-$show .= qq~<head><meta forua="true" http-equiv="Cache-Control" content="max-age=0"/><meta http-equiv="Cache-Control" content="no-cache"/></head><card  title="$boardname">~;
+$show .= qq~<head><meta forua="true" http-equiv="Cache-Control" content="max-age=0"/><meta http-equiv="Cache-Control" content="no-cache"/></head><card  title="$board_name">~;
 $lid = $query->param('lid');
 $in_forum = $query->param('f');
 $show .= qq~<p><b>标题：</b><input type="text" name="title" value="" /></p><p><b>内容：</b><input type="text" name="inpost" value=""/><br/>换行标签：[br]</p><p><anchor>发表&gt;&gt;<go href="wap_post.cgi" method="post">

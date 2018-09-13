@@ -28,15 +28,15 @@ require "wap.lib.pl";
 require "wap_code.cgi";
 $lid = $query->param('lid');
 &check($lid);
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
 }
 
 &waptitle;
-$show .= qq~<card  title="收件箱"><p>$boardname收件箱<br/>~;
+$show .= qq~<card  title="收件箱"><p>$board_name收件箱<br/>~;
 open(file, "${lbdir}${msgdir}/in/${inmembername}_msg.cgi");
 my @file = <file>;
 close(file);
@@ -104,7 +104,7 @@ foreach (@file[$k .. $s]) {
 }
 $show .= "[$paGe/$yema页]</p><p>$newpage</p>";
 $show .= qq~<p>跳到<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_sms.cgi?paGe=\$(tz)&amp;lid=$lid">Go..</a></p>~;
-$show .= "<p><a href=\"wap_index.cgi?lid=$lid\">$boardname列表</a>&nbsp;<a href=\"wap_smssend.cgi?lid=$lid\">发短消息</a></p>";
+$show .= "<p><a href=\"wap_index.cgi?lid=$lid\">$board_name列表</a>&nbsp;<a href=\"wap_smssend.cgi?lid=$lid\">发短消息</a></p>";
 open(file, "${lbdir}${msgdir}/in/${inmembername}_msg.cgi");
 my @file = <file>;
 close(file);

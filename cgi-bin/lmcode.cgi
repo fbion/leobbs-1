@@ -34,10 +34,10 @@ $|++;
 
 $query = new LBCGI;
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 $thisprog = "lmcode.cgi";
@@ -47,11 +47,11 @@ $output = qq~<p>
   <table cellpadding="5" style="border-collapse: collapse" width=$tablewidth cellspacing="0" bordercolor=$tablebordercolor border=1 align=center>
     <tr>
       <td width="100%" colspan="3" bgcolor=$titlecolor $catbackpic>
-      <p align="center"><font color="#333333"><b>欢迎增加 <u>$boardname</u> 联盟代码</b></font></td>
+      <p align="center"><font color="#333333"><b>欢迎增加 <u>$board_name</u> 联盟代码</b></font></td>
     </tr>
     <tr>
       <td width="28%" bgcolor=$forumcolorone><b>论坛名称：</b></td>
-      <td width="72%" colspan="2" bgcolor=$forumcolortwo>$boardname</td>
+      <td width="72%" colspan="2" bgcolor=$forumcolortwo>$board_name</td>
     </tr>
     <tr>
       <td width="28%" bgcolor=$forumcolorone><b>论坛地址：</b></td>
@@ -83,7 +83,7 @@ $output .= qq~
       </td>
       <td width="*" bgcolor=$forumcolortwo>
       <a target="_blank" href="$boardurl/leobbs.cgi">
-      <b>$boardname</b></a><br>
+      <b>$board_name</b></a><br>
       $boarddescription</td>
     </tr>
     <tr>
@@ -93,5 +93,5 @@ $output .= qq~
     </tr>
   </table><SCRIPT>valignend()</SCRIPT>
 ~;
-&output("$boardname - 查看联盟论坛代码", \$output, "msg");
+&output("$board_name - 查看联盟论坛代码", \$output, "msg");
 exit;

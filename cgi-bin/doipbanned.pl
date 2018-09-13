@@ -13,7 +13,7 @@ use warnings;
 use diagnostics;
 
 unlink("${lbdir}cache/id/$infilemembername.cgi");
-if (($inmembername ne "") && ($inmembername ne "客人")) {
+if (($in_member_name ne "") && ($in_member_name ne "客人")) {
     if (open(FILE, "${lbdir}data/idbans.cgi")) {
         $term_idbannedmembers = <FILE>;
         close(FILE);
@@ -21,9 +21,9 @@ if (($inmembername ne "") && ($inmembername ne "客人")) {
         $term_idbannedmembers = "\_$term_idbannedmembers\_";
         $term_idbannedmembers =~ s/\_\_/\_/isg;
         $term_idbannedmembers =~ s/(\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\])//ig;
-        $tempinmembername = "\_$inmembername\_";
+        $tempinmembername = "\_$in_member_name\_";
         $tempinmembername =~ s/(\.|\*|\(|\)|\||\\|\/|\?|\+|\[|\])//ig;
-        if ($term_idbannedmembers =~ /$tempinmembername/i) {&error(" ID 被禁止&由于你没遵守本站规定！你的 ID ($inmembername) 被禁止！如有疑问，请联系管理员。");}
+        if ($term_idbannedmembers =~ /$tempinmembername/i) {&error(" ID 被禁止&由于你没遵守本站规定！你的 ID ($in_member_name) 被禁止！如有疑问，请联系管理员。");}
     }
 }
 

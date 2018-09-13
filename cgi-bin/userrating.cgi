@@ -45,31 +45,31 @@ $in_post_no = $query->param("oldpostno");
 &error("普通错误&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/ || $in_topic !~ /^[0-9]+$/ || $in_post_no !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inmembername = $query->param("inmembername");
-$inpassword = $query->param("password");
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $query->param("inmembername");
+$in_password = $query->param("password");
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
-$inmembername = $query->cookie("amembernamecookie") if ($inmembername eq "");
-$inpassword = $query->cookie("apasswordcookie") if ($inpassword eq "");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_member_name = $query->cookie("amembernamecookie") if ($in_member_name eq "");
+$in_password = $query->cookie("apasswordcookie") if ($in_password eq "");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
+if ($in_member_name eq "" || $in_member_name eq "客人") {
     &error("用户投票&没有该注册用户或者您在投票前没有登录！");
 }
 else {
-    &getmember($inmembername, "no");
+    &getmember($in_member_name, "no");
     &error("用户投票&没有该注册用户！") if ($userregistered eq "no");
-    &error("用户投票&错误的管理员密码！") if ($inpassword ne $password);
+    &error("用户投票&错误的管理员密码！") if ($in_password ne $password);
 }
 
 $editmembername = $query->param("membername");
@@ -87,7 +87,7 @@ $action = "login" if ($action ne "logmein" && $action ne "process");
 $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以对用户进行投票，减少或增加他们的威望或积分，甚至可以禁止他们发言！</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="forums.cgi?forum=$in_forum">$forumname</a> → 给用户投票<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$board_name</a> → <a href="forums.cgi?forum=$in_forum">$forumname</a> → 给用户投票<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -106,14 +106,14 @@ if ($action eq "login") {
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 elsif ($action eq "logmein") {
-    $inmembmod = "no" if ($membercode eq "amo");
-    $mymembercode = $membercode;
-    &error("用户投票&仅仅本版管理员才能在本版投票") unless ($membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes");
-    &error("用户投票&不能对自己投票") if ($inmembername eq $editmembername);
+    $inmembmod = "no" if ($member_code eq "amo");
+    $mymembercode = $member_code;
+    &error("用户投票&仅仅本版管理员才能在本版投票") unless ($member_code eq "ad" || $member_code eq "smo" || $inmembmod eq "yes");
+    &error("用户投票&不能对自己投票") if ($in_member_name eq $editmembername);
     &getmember($editmembername);
     &error("用户投票&没有该注册用户") if ($userregistered eq "no");
-    &error("用户投票&坛主不能被投票") if ($membercode eq "ad");
-    &error("用户投票&只有坛主才能给版主们投票！") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
+    &error("用户投票&坛主不能被投票") if ($member_code eq "ad");
+    &error("用户投票&只有坛主才能给版主们投票！") if (($member_code eq "smo" || $member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && $mymembercode ne "ad");
 
     my $threadtomake = "${lbdir}forum$in_forum/$in_topic.thd.cgi";
     $in_post_no--;
@@ -167,14 +167,14 @@ $pwout
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
 }
 elsif ($action eq "process") {
-    $inmembmod = "no" if ($membercode eq "amo");
-    $mymembercode = $membercode;
-    &error("用户投票&仅仅本版管理员才能在本版投票") unless ($membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes");
-    &error("用户投票&不能对自己投票") if ($inmembername eq $editmembername);
+    $inmembmod = "no" if ($member_code eq "amo");
+    $mymembercode = $member_code;
+    &error("用户投票&仅仅本版管理员才能在本版投票") unless ($member_code eq "ad" || $member_code eq "smo" || $inmembmod eq "yes");
+    &error("用户投票&不能对自己投票") if ($in_member_name eq $editmembername);
     &getmember($editmembername);
     &error("用户投票&没有该注册用户") if ($userregistered eq "no");
-    &error("用户投票&坛主不能被投票") if ($membercode eq "ad");
-    &error("用户投票&只有坛主才能给版主们投票！") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
+    &error("用户投票&坛主不能被投票") if ($member_code eq "ad");
+    &error("用户投票&只有坛主才能给版主们投票！") if (($member_code eq "smo" || $member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && $mymembercode ne "ad");
     my $thistime = time;
 
     my $pw = $query->param("pw");
@@ -225,7 +225,7 @@ elsif ($action eq "process") {
     $rating = 0 if ($rating eq "");
     $rating = -6 if ($rating < -6);
     $rating = $maxweiwang if ($rating > $maxweiwang);
-    $newmembercode = $rating == -6 ? "banned" : ($membercode eq "banned" || $membercode eq "masked") ? "me" : $membercode;
+    $newmembercode = $rating == -6 ? "banned" : ($member_code eq "banned" || $member_code eq "masked") ? "me" : $member_code;
     $newmembercode = "masked" if ($pw eq "worstm");
 
     my $threadtomake = "${lbdir}forum$in_forum/$in_topic.thd.cgi";
@@ -239,7 +239,7 @@ elsif ($action eq "process") {
         if ($in_post_no < @threads && $in_post_no >= 0) {
             (my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$in_post_no]);
             &error("用户投票&此帖子并不是$editmembername发表！") if (lc($membername) ne lc($editmembername));
-            $post = "[ADMINOPE=$inmembername|$editmembername|$ratingname|$reason|$thistime]$post";
+            $post = "[ADMINOPE=$in_member_name|$editmembername|$ratingname|$reason|$thistime]$post";
             $threads[$in_post_no] = "$membername\t$topictitle\t$postipaddresstemp\t$showemoticons\t$showsignature\t$postdate\t$post\t$posticon";
             open(FILE, ">$threadtomake");
             flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -338,7 +338,7 @@ elsif ($action eq "process") {
 
     $filetomake = "${lbdir}data/userratinglog.cgi";
     open(FILE0, ">>$filetomake");
-    print FILE0 "$editmembername\t$inmembername\t$ratingname\t$thistime\t$in_forum\t$in_topic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$reason\t\n";
+    print FILE0 "$editmembername\t$in_member_name\t$ratingname\t$thistime\t$in_forum\t$in_topic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$reason\t\n";
     close(FILE0);
 
     &addadminlog("对用户 $editmembername 操作： $ratingname，理由：$reason", $in_topic);
@@ -346,11 +346,11 @@ elsif ($action eq "process") {
     if ($notify eq "yes" && $emailfunctions eq "on") {
         eval("use MAILPROG qw(sendmail);");
         my $membertitleout = $newmembercode eq "banned" ? "被禁止" : "普通会员";
-        my $subject = "你已经被 $inmembername $pwmail !";
+        my $subject = "你已经被 $in_member_name $pwmail !";
         my $message = "<br>$homename<br>";
         $message .= "<a href=$boardurl/leobbs.cgi target=_blank>$boardurl/leobbs.cgi</a><br>";
         $message .= "<a href=$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic target=_blank>$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic</a><br><br><br>";
-        $message .= "你已经被 $inmembername $pwmail !<br><br><br>";
+        $message .= "你已经被 $in_member_name $pwmail !<br><br><br>";
         $message .= "内容：$ratingname<br>";
         $message .= "你现在的状态是: $membertitleout<br>";
         $message .= "你被 $pwmailing 的原因是:<br>";
@@ -361,7 +361,7 @@ elsif ($action eq "process") {
     }
     if ($msgnotify eq "yes") {
         $topictitle =~ s/^＊＃！＆＊//;
-        &shortmessage($inmembername, $editmembername, "你已经被$pwmail!", "　　你已经被 $inmembername $pwmailing! 　内容：$ratingname。<br>　　相关的主题是: \[url=topic.cgi?forum=$in_forum&topic=$in_topic\]按此进入\[\/url\]，操作原因是: $reason。");
+        &shortmessage($in_member_name, $editmembername, "你已经被$pwmail!", "　　你已经被 $in_member_name $pwmailing! 　内容：$ratingname。<br>　　相关的主题是: \[url=topic.cgi?forum=$in_forum&topic=$in_topic\]按此进入\[\/url\]，操作原因是: $reason。");
     }
     $output .= qq~
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>$editmembername 已经成功被$pwmail</b></font></td></tr>
@@ -375,7 +375,7 @@ elsif ($action eq "process") {
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&output("$boardname - 用户投票", \$output);
+&output("$board_name - 用户投票", \$output);
 exit;
 
 sub shortmessage #给用户发短消息（调用参数：发送人、收取人、主题、内容）

@@ -62,27 +62,27 @@ else {
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
 &ipbanned; #封杀一些 ip
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 $action = $query->param('action');
 $catlog = $query->cookie('catlog');
 $catlog1 = $query->param('catlog');
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ($action eq "delcookieall") {require "dodelallcookies.pl";}
 
-if ($inmembername eq "") {$inmembername = "客人";}
+if ($in_member_name eq "") {$in_member_name = "客人";}
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
-    if ($inpassword ne $password) {
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -202,7 +202,7 @@ function SetCookie (name, value) { var argv = SetCookie.arguments;var argc = Set
 </script>
 <br>
 ~;
-&whosonline("$inmembername\t论坛首页\tboth\t查看论坛信息");
+&whosonline("$in_member_name\t论坛首页\tboth\t查看论坛信息");
 undef $memberoutput if ($onlineview != 1);
 
 if ($announcements eq 'yes') {
@@ -252,11 +252,11 @@ if ($dispinfos ne "no") {
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td><table cellpadding=6 cellspacing=1 width=100%>
 ~;
 
-    if ($inmembername eq "客人") {
+    if ($in_member_name eq "客人") {
         require "fastlogin.pl";
     }
     else {
-        $memberfilename = $inmembername;
+        $memberfilename = $in_member_name;
         $memberfilename =~ s/ /\_/g;
         $memberfilename =~ tr/A-Z/a-z/;
         if ((-e "${lbdir}cache/myinfo/$memberfilename.pl") && (((-M "${lbdir}cache/myinfo/$memberfilename.pl") * 86400 < 1800) || ($docache eq "yes"))) {
@@ -294,7 +294,7 @@ require "${lbdir}data/category_display.cgi" if (-e "${lbdir}data/category_displa
 foreach (@rearrangedforums) {
     chomp $_;
     ($categoryplace, my $a, $category, $forumname, $forumdescription, $privateforum, $startnewthreads, $lastposter, $lastposttime1, $threads, $posts, $hiddenforum, $forumid, $team, $miscad4, $todayforumpost) = split(/\t/, $_);
-    next unless (($hiddenforum eq "no") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode =~ /^rz/));
+    next unless (($hiddenforum eq "no") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code =~ /^rz/));
     $categoryplace = sprintf("%01d", $categoryplace);
     #    $forumdescription  = &HTML("$forumdescription");
     $threads += $threadadds[$forumid] if ($threadadds[$forumid] ne "");
@@ -331,10 +331,10 @@ foreach (@rearrangedforums) {
             if (($dispchildforumnum ne "no") && ($#forums >= 0)) {
                 $childno++;
                 $realchindforumnums = grep (/^[0-9]+\tchildforum\-$forumid\t(.*)\t/, @forums);
-                $childforumnums = @childforumnums = ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode =~ /^rz/) ? grep (/^[0-9]+\tchildforum\-$forumid\t(.*)\t/, @forums) : grep (/^[0-9]+\tchildforum\-$forumid\tno\t/, @forums);
+                $childforumnums = @childforumnums = ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code =~ /^rz/) ? grep (/^[0-9]+\tchildforum\-$forumid\t(.*)\t/, @forums) : grep (/^[0-9]+\tchildforum\-$forumid\tno\t/, @forums);
                 if ($childforumnums > 0) {
-                    if ($privateforum ne 'yes' || $membercode =~ /^(ad|smo)$/) {
-                        $childforumnums = ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode =~ /^rz/) ? qq~  <span title="有 $childforumnums 个下属子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~ : qq~  <span title="有 $realchindforumnums 个下属子论坛,其中 $childforumnums 个正常子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~;
+                    if ($privateforum ne 'yes' || $member_code =~ /^(ad|smo)$/) {
+                        $childforumnums = ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code =~ /^rz/) ? qq~  <span title="有 $childforumnums 个下属子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~ : qq~  <span title="有 $realchindforumnums 个下属子论坛,其中 $childforumnums 个正常子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~;
                         ($childforumnumshtml = join("\n", @childforumnums)) =~ s/(^|\n)(.*?)\t.*?\t(.*)\t(.*?)\t/<div class=menuitems> <a href=forums.cgi?forum=$2><font color=$menufontcolor>$4<\/font><\/a> <\/div>/g;
                         $childforumnumshtml = qq~<script>linkset[$childno]='$childforumnumshtml'</script>~;
                     }
@@ -348,7 +348,7 @@ foreach (@rearrangedforums) {
                     $childforumnumshtml = '';
                 }
             }
-            $forumnameadd = "$boardname - $forumname";
+            $forumnameadd = "$board_name - $forumname";
             $forumnameadd =~ s/\&\#039\;/\\\'/g;
             $titleinfos{"$forumname\n"} =~ s/\|/\n/isg;
             my $forumbookmark = qq~<span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/forums.cgi?forum=$forumid', '$forumnameadd')"><IMG SRC=$imagesurl/images/fav_add.gif width=16 ALT="将 $forumname 添加到收藏夹"></span>~;
@@ -362,7 +362,7 @@ foreach (@rearrangedforums) {
             $todayforumpost = 0 if (($nowtime ne $todayforumposttime) || ($todayforumpost eq ""));
             $todayforumpost += $todayforumpostadds[$forumid] if ($todayforumpostadds[$forumid] ne "");
 
-            if (($lastposttime > $forumlastvisit) && ($inmembername ne "客人") && ($action ne "resetall")) {
+            if (($lastposttime > $forumlastvisit) && ($in_member_name ne "客人") && ($action ne "resetall")) {
                 if ($privateforum eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$bm_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
                 elsif ($startnewthreads eq "follow") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$pl_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
                 elsif ($startnewthreads eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$zg_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
@@ -393,7 +393,7 @@ foreach (@rearrangedforums) {
                 $lastposter = "";
             }
 
-            $topictitle = "" unless (($privateforum ne "yes") || ($membercode eq "ad") || ($membercode eq "smo"));
+            $topictitle = "" unless (($privateforum ne "yes") || ($member_code eq "ad") || ($member_code eq "smo"));
 
             if ($hiddenforum eq "yes") {$hiddeninfo = "　<I>(隐含)</I>";}
             else {$hiddeninfo = "";}
@@ -411,10 +411,10 @@ foreach (@rearrangedforums) {
             if (($dispchildforumnum ne "no") && ($#forums >= 0)) {
                 $childno++;
                 $realchindforumnums = grep (/^[0-9]+\tchildforum\-$forumid\t(.*)\t/, @forums);
-                $childforumnums = @childforumnums = ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode =~ /^rz/) ? grep (/^[0-9]+\tchildforum\-$forumid\t(.*)\t/, @forums) : grep (/^[0-9]+\tchildforum\-$forumid\tno\t/, @forums);
+                $childforumnums = @childforumnums = ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code =~ /^rz/) ? grep (/^[0-9]+\tchildforum\-$forumid\t(.*)\t/, @forums) : grep (/^[0-9]+\tchildforum\-$forumid\tno\t/, @forums);
                 if ($childforumnums > 0) {
-                    if ($privateforum ne 'yes' || $membercode =~ /^(ad|smo)$/) {
-                        $childforumnums = ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "mo") || ($membercode =~ /^rz/) ? qq~  <span title="有 $childforumnums 个下属子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~ : qq~  <span title="有 $realchindforumnums 个下属子论坛,其中 $childforumnums 个正常子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~;
+                    if ($privateforum ne 'yes' || $member_code =~ /^(ad|smo)$/) {
+                        $childforumnums = ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "mo") || ($member_code =~ /^rz/) ? qq~  <span title="有 $childforumnums 个下属子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~ : qq~  <span title="有 $realchindforumnums 个下属子论坛,其中 $childforumnums 个正常子论坛" style=cursor:hand onMouseover="showmenu(event,linkset[$childno])" onMouseout="delayhidemenu()">[$childforumnums]</span>~;
                         ($childforumnumshtml = join("\n", @childforumnums)) =~ s/(^|\n)(.*?)\t.*?\t(.*)\t(.*?)\t/<div class=menuitems> <a href=forums.cgi?forum=$2><font color=$menufontcolor>$4<\/font><\/a> <\/div>/g;
                         $childforumnumshtml = qq~<script>linkset[$childno]='$childforumnumshtml'</script>~;
                     }
@@ -441,7 +441,7 @@ foreach (@rearrangedforums) {
             $todayforumpost = 0 if (($nowtime ne $todayforumposttime) || ($todayforumpost eq ""));
             $todayforumpost += $todayforumpostadds[$forumid] if ($todayforumpostadds[$forumid] ne "");
 
-            if (($lastposttime > $forumlastvisit) && ($inmembername ne "客人") && ($action ne "resetall")) {
+            if (($lastposttime > $forumlastvisit) && ($in_member_name ne "客人") && ($action ne "resetall")) {
                 if ($privateforum eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$bm_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
                 elsif ($startnewthreads eq "follow") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$pl_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
                 elsif ($startnewthreads eq "yes") {$folderpicture = qq~<img src=$imagesurl/images/$skin/$zg_havenew style=cursor:hand onClick=javascript:O3($forumid)>~;}
@@ -531,7 +531,7 @@ if ($onlineview == 1) {
     $output .= qq~&nbsp;<font color=$forumfontcolor>在线图例：　<img src=$imagesurl/images/$onlineadmin width=12> 论坛坛主 　<img src=$imagesurl/images/$onlinesmod width=12> 论坛总版主 　<img src=$imagesurl/images/$onlinecmod width=12> 分类区版主 　<img src=$imagesurl/images/$onlinemod width=12> 论坛版主 　<img src=$imagesurl/images/$onlineamod width=12> 论坛副版主$defrzmpic1$defrzmpic2$defrzmpic3$defrzmpic4$defrzmpic5 　<img src=$imagesurl/images/$onlinerz width=12> 认证会员 　<img src=$imagesurl/images/$onlinemember width=12> 普通会员 　<img src=$imagesurl/images/$onlineguest width=12> 客人或隐身会员<br><hr size=1 width=99%><table cellpadding=1 cellspacing=0><tr>$memberoutput</tr></table>~;
 }
 
-if ($dispview eq "yes" || $membercode eq "ad" || $membercode eq 'smo') {require "dodispviewleobbs.pl";}
+if ($dispview eq "yes" || $member_code eq "ad" || $member_code eq 'smo') {require "dodispviewleobbs.pl";}
 
 $output .= qq~</td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
@@ -551,7 +551,7 @@ $output .= qq~
 <td align=right noWrap>[ <a href=leobbs.cgi?action=delcookieall>删除论坛 cookie</a> ] :: [ <a href=leobbs.cgi?action=resetall>标记所有为已读</a> ] :: [ <a href=$thisprog?action=expand>展开所有分类</a> ] :: [ <a href=$thisprog?action=depand>收缩所有分类</a> ]&nbsp;</td></tr>
 </table><center><br>$adfoot</center><br>~;
 
-&output("$boardname", \$output);
+&output("$board_name", \$output);
 exit;
 
 sub getonlineno {

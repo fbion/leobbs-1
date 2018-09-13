@@ -45,36 +45,36 @@ $in_forum = $query->param('forum');
 &error("开启档案&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9 ]+$/);
 require "${lbdir}data/style${inforum}.cgi" if (-e "${lbdir}data/style${inforum}.cgi");
 
-#my $inmembername = $query->param('membername');
-#my $inpassword = $query->param('password');
-$inmembername = $query->param('membername');
-$inpassword = $query->param('password');
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+#my $in_member_name = $query->param('membername');
+#my $in_password = $query->param('password');
+$in_member_name = $query->param('membername');
+$in_password = $query->param('password');
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-require "${lbdir}data/skin/${inselectstyle}.cgi" if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi"));
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+require "${lbdir}data/skin/${inselectstyle}.cgi" if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi"));
 $catbackpic = "background=$imagesurl/images/$skin/$catbackpic" if $catbackpic;
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-$inmembername = $query->cookie("amembernamecookie") unless $inmembername;
-$inpassword = $query->cookie("apasswordcookie") unless $inpassword;
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie") unless $in_member_name;
+$in_password = $query->cookie("apasswordcookie") unless $in_password;
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -113,7 +113,7 @@ sub ShowForm {
 <input type=hidden name="action" value="edit">
 <input type=hidden name="forum" value="$in_forum">
 <font color=$fontcolormisc><b>请输入您的用户名称、密码进入版主模式 [编辑论坛规则及重要信息]</b></font></td></tr>
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><b><u>$inmembername</u></b></font> ，要使用其他用户身份，请输入用户名称和密码。未注册客人请输入网名，密码留空白。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><b><u>$in_member_name</u></b></font> ，要使用其他用户身份，请输入用户名称和密码。未注册客人请输入网名，密码留空白。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名称</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入论坛规则及重要信息<br>(允许使用 LBCODE 代码)<br><br><font color=$fonthighlight>为了美观，内容请控制在5行内。</font></td><td bgcolor=$miscbackone><textarea cols=60 name=forumrule rows=10>$forumrule</textarea> （留空表示不显示论坛规则及重要信息）</td></tr>
@@ -127,7 +127,7 @@ sub ShowForm {
 sub Edit {
     &mischeader("编辑论坛规则及重要信息");
 
-    &error("权限不足&您不是本论坛坛主或版主，或是您的密码错误！") unless ((($membercode eq "ad") || ($membercode eq 'smo') || (",$catemods," =~ /\Q\,$inmembername\,\E/i) || ($inmembmod eq "yes")) && ($inpassword eq $password));
+    &error("权限不足&您不是本论坛坛主或版主，或是您的密码错误！") unless ((($member_code eq "ad") || ($member_code eq 'smo') || (",$catemods," =~ /\Q\,$in_member_name\,\E/i) || ($inmembmod eq "yes")) && ($in_password eq $password));
 
     my $forumrule = $query->param('forumrule');
     $forumrule = &cleaninput("$forumrule");

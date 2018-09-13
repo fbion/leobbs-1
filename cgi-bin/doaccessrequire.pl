@@ -12,12 +12,12 @@ use strict;
 use warnings;
 use diagnostics;
 
-if ($inmembername eq "客人") {
+if ($in_member_name eq "客人") {
     print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
     exit;
 }
-if ((($userregistered ne "no") && ($allowedentry{$in_forum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || (($userregistered ne "no") && ($forumpassword eq $forumpass))) {
-    $allowforumcookie = cookie(-name => "forumsallowed$in_forum", -value => "$forumpass", -path => "$cookiepath/", -expires => "0");
+if ((($userregistered ne "no") && ($allowed_entry{$in_forum} eq "yes")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes") || (($userregistered ne "no") && ($forum_password eq $forum_pass))) {
+    $allowforumcookie = cookie(-name => "forumsallowed$in_forum", -value => "$forum_pass", -path => "$cookiepath/", -expires => "0");
 
     print header(-cookie => [ $allowforumcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 

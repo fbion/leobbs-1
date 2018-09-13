@@ -60,12 +60,12 @@ if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum
 $moneymax = 99999 if ($moneymax <= 0 || $moneymax >= 99999);
 $moneypost = int($moneypost) if (($moneypost ne "") && ($moneyhidden eq "yes"));
 &error("普通错误&请正确的输入帖子的价格，不要少于 1，也不要大于 $moneymax ！") if ((($moneypost > $moneymax) || ($moneypost < 1)) && ($moneyhidden eq "yes"));
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $in_post_no = $postno;
@@ -83,10 +83,10 @@ $inpost =~ s/\[POSTISDELETE=(.+?)\]/\[POSTISDELET\&\#069\;=$1\]/sg;
 $inpost =~ s/\[ADMINOPE=(.+?)\]/\[ADMINOP\&\#069\;=$1\]/sg;
 $inpost =~ s/\[ALIPAYE\]/\[ALIPAY\&\#069\;\]/sg;
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ($moneyhidden eq "yes" && $cansale ne "no") {
     if (open(FILE, "${lbdir}data/cansalelist.cgi")) {
@@ -99,15 +99,15 @@ if ($moneyhidden eq "yes" && $cansale ne "no") {
         if ($CANSALELIST ne "") {
             my $type = $1;
             $CANSALELIST = "\t$CANSALELIST\t";
-            &error("普通错误&您不能够出售帖子！") if (!$type && $CANSALELIST !~ /\t$inmembername\t/ || $type && $CANSALELIST =~ /\t$inmembername\t/);
+            &error("普通错误&您不能够出售帖子！") if (!$type && $CANSALELIST !~ /\t$in_member_name\t/ || $type && $CANSALELIST =~ /\t$in_member_name\t/);
         }
     }
 }
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 $maxupload = 300 if ($maxupload eq "");
 
@@ -126,14 +126,14 @@ else {undef $emote;}
 $defaultsmilewidth = "width=$defaultsmilewidth" if ($defaultsmilewidth ne "");
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    #    &getmember("$inmembername");
-    &getmember("$inmembername", "no");
+    #    &getmember("$in_member_name");
+    &getmember("$in_member_name", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if ($inpassword ne $password) {
+    if ($in_password ne $password) {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -148,11 +148,11 @@ $maxpoststr = 100 if (($maxpoststr < 100) && ($maxpoststr ne ""));
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &moderator("$in_forum");
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -166,7 +166,7 @@ if ($action eq "edit") {&editform;}
 elsif ($action eq "processedit") {&processedit;}
 else {&error("普通错误&请以正确的方式访问本程序.");}
 
-&output($boardname, \$output);
+&output($board_name, \$output);
 exit;
 
 sub editform {
@@ -191,16 +191,16 @@ sub editform {
     &error("发表&对不起，不允许这样编辑交易帖！") if ($post =~ m/\[ALIPAYE\]/);
 
     if ($noedittime ne '') {
-        if (($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes")) {
+        if (($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes")) {
             &error("编辑帖子&超过 $noedittime 小时不允许再编辑帖子！") if (($currenttime - $postdate) > ($noedittime * 3600));
         }
     }
 
-    $inmembmod = "no" if (($membercode eq "amo") && ($allowamoedit ne "yes"));
-    if (($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes") && ((lc($inmembername) ne lc($postermembername)) || ($usereditpost eq "no"))) {&error("编辑帖子&您不是原作者、论坛管理员，或者密码错誤，或者此区不允许编辑帖子！");}
+    $inmembmod = "no" if (($member_code eq "amo") && ($allowamoedit ne "yes"));
+    if (($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes") && ((lc($in_member_name) ne lc($postermembername)) || ($usereditpost eq "no"))) {&error("编辑帖子&您不是原作者、论坛管理员，或者密码错誤，或者此区不允许编辑帖子！");}
 
-    $testentry = $query->cookie("forumsallowed$in_forum");
-    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    $test_entry = $query->cookie("forumsallowed$in_forum");
+    if (($allowed_entry{$in_forum} eq "yes") || (($test_entry eq $forum_pass) && ($test_entry ne "")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     else {$allowed = "no";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您不允许在此论坛发表！");}
 
@@ -238,8 +238,8 @@ sub editform {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t$forumname\tnone\t编辑<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t") if ($privateforum ne "yes");
-        &whosonline("$inmembername\t$forumname(密)\tnone\t编辑保密贴子\t") if ($privateforum eq "yes");
+        &whosonline("$in_member_name\t$forumname\tnone\t编辑<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t") if ($privateforum ne "yes");
+        &whosonline("$in_member_name\t$forumname(密)\tnone\t编辑保密贴子\t") if ($privateforum eq "yes");
     }
 
     if (($nowater eq "on") && ($in_post_no eq "1")) {
@@ -282,7 +282,7 @@ sub editform {
     else {
         undef $salepost;
     }
-    if (($rawpost =~ /\[POSTISDELETE=(.+?)\]/) && ($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes")) {
+    if (($rawpost =~ /\[POSTISDELETE=(.+?)\]/) && ($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes")) {
         &error("编辑帖子&不允许编辑已经被单独屏蔽的帖子！");
     }
 
@@ -346,7 +346,7 @@ therange.execCommand("Copy")}
 <table cellpadding=4 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor>$topictitlehtml1</td></tr>
 $topictitlehtml$nowaterpost
-<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr>
@@ -385,7 +385,7 @@ $topictitlehtml$nowaterpost
     ########################################################
     if ($rawpost =~ m/\[UploadFile.{0,6}=([^\\\]]+?)\]/is) {$delimg = "<BR><input type=checkbox name='delimg' value='no'>删除所有的原图像或附件</input>" if ($delimg eq "");}
 
-    if (((($in_post_no eq "1") && ($arrowupload ne "off")) || (($in_post_no ne "1") && ($allowattachment ne "no")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"))) {
+    if (((($in_post_no eq "1") && ($arrowupload ne "off")) || (($in_post_no ne "1") && ($allowattachment ne "no")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes"))) {
         $uploadreqire = "" if ($uploadreqire <= 0);
         $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
         #        $output .= qq~<tr><td bgcolor=$miscbacktwo><b>上传附件或图片</b>(最大 $maxupload KB)$uploadreqire</td><td bgcolor=$miscbacktwo> <input type="file" size=30 name="addme">　　$addtypedisp</td></tr>~;
@@ -448,7 +448,7 @@ function showall (){var out ='';for (var i=0;i<emotarray.length;i++){out += ' <i
 ~;
         }
     }
-    if (($in_post_no ne 1) && (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || (($arrowuserdel eq "on") && (lc($inmembername) eq lc($postermembername))))) {
+    if (($in_post_no ne 1) && (($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes") || (($arrowuserdel eq "on") && (lc($in_member_name) eq lc($postermembername))))) {
         $managetable = qq~<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>管理员选项</b></td><td bgcolor=$miscbackone>&nbsp;<a href="delpost.cgi?action=processedit&postno=$in_post_no&forum=$in_forum&topic=$in_topic&deletepost=yes" OnClick="return confirm('真的要删除此回复么？');">删除此回复(谨慎使用，不可恢复)</a></td></tr>~;
     }
     $output .= qq~</td></tr>
@@ -505,12 +505,12 @@ sub processedit {
         $post =~ s/\[ADMINOPE=(.+?)\]//s;
     }
 
-    if (($post =~ /\[POSTISDELETE=(.+?)\]/) && ($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes")) {
+    if (($post =~ /\[POSTISDELETE=(.+?)\]/) && ($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes")) {
         &error("编辑帖子&不允许编辑已经被单独屏蔽的帖子！");
     }
 
     if ($noedittime ne '') {
-        if (($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes")) {
+        if (($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes")) {
             &error("编辑帖子&超过 $noedittime 小时不允许再编辑帖子！") if (($currenttime - $postdate) > ($noedittime * 3600));
         }
     }
@@ -529,25 +529,25 @@ sub processedit {
     ($temp, $edittimes) = split(/第 /, $edittimes);
     $edittimes = 0 unless ($edittimes);
 
-    $testentry = $query->cookie("forumsallowed$in_forum");
-    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    $test_entry = $query->cookie("forumsallowed$in_forum");
+    if (($allowed_entry{$in_forum} eq "yes") || (($test_entry eq $forum_pass) && ($test_entry ne "")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     else {$allowed = "no";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("编辑主题&对不起，您不允许在此论坛发表！");}
 
-    &error("编辑帖子&对不起，本论坛不允许发表超过 <B>$maxpoststr</B> 个字符的文章！") if ((length($inpost) > $maxpoststr) && ($maxpoststr ne "") && ($membercode ne "ad") && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne 'amo') && ($membercode ne "mo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
+    &error("编辑帖子&对不起，本论坛不允许发表超过 <B>$maxpoststr</B> 个字符的文章！") if ((length($inpost) > $maxpoststr) && ($maxpoststr ne "") && ($member_code ne "ad") && ($member_code ne 'smo') && ($member_code ne 'cmo') && ($member_code ne 'amo') && ($member_code ne "mo") && ($member_code !~ /^rz/) && ($inmembmod ne "yes"));
     &error("编辑主题&对不起，不允许编辑投票贴子！") if (($posticon =~ m/<BR>/i) && ($posttoget eq 0));
     &error("发表&对不起，不允许这样编辑交易帖！") if ($inpost =~ m/\[ALIPAYE\]/);
-    &error("编辑帖子&对不起，本论坛不允许发表少于 <B>$minpoststr</B> 个字符的文章！") if ((length($inpost) < $minpoststr) && ($minpoststr ne "") && ($membercode ne "ad") && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/) && ($inmembmod ne "yes"));
+    &error("编辑帖子&对不起，本论坛不允许发表少于 <B>$minpoststr</B> 个字符的文章！") if ((length($inpost) < $minpoststr) && ($minpoststr ne "") && ($member_code ne "ad") && ($member_code ne 'smo') && ($member_code ne 'cmo') && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/) && ($inmembmod ne "yes"));
 
-    $inmembmod = "no" if (($membercode eq "amo") && ($allowamoedit ne "yes"));
-    if (($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes") && ((lc($inmembername) ne lc($postermembername)) || ($usereditpost eq "no"))) {&error("编辑帖子&您不是原作者、论坛管理员，或者密码错誤，或者此区不允许编辑帖子！");}
-    if (($membercode eq "banned") || ($membercode eq "masked")) {&error("编辑帖子&您被禁止发言或者发言已经被屏蔽，请联系管理员以便解决！");}
+    $inmembmod = "no" if (($member_code eq "amo") && ($allowamoedit ne "yes"));
+    if (($member_code ne "ad") && ($member_code ne "smo") && ($inmembmod ne "yes") && ((lc($in_member_name) ne lc($postermembername)) || ($usereditpost eq "no"))) {&error("编辑帖子&您不是原作者、论坛管理员，或者密码错誤，或者此区不允许编辑帖子！");}
+    if (($member_code eq "banned") || ($member_code eq "masked")) {&error("编辑帖子&您被禁止发言或者发言已经被屏蔽，请联系管理员以便解决！");}
 
     $cleartoedit = "no";
-    if (($membercode eq "ad") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($membercode eq 'smo') && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if (($inmembmod eq "yes") && ($inpassword eq $password)) {$cleartoedit = "yes";}
-    if ((lc($inmembername) eq lc($postermembername)) && ($inpassword eq $password) && ($usereditpost ne "no")) {$cleartoedit = "yes";}
+    if (($member_code eq "ad") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($member_code eq 'smo') && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if (($inmembmod eq "yes") && ($in_password eq $password)) {$cleartoedit = "yes";}
+    if ((lc($in_member_name) eq lc($postermembername)) && ($in_password eq $password) && ($usereditpost ne "no")) {$cleartoedit = "yes";}
     unless ($cleartoedit eq "yes") {$cleartoedit eq "no";}
 
     if ($cleartoedit eq "yes") {
@@ -566,7 +566,7 @@ sub processedit {
             foreach (@pairs1) {
                 chomp $_;
                 ($toemote, $beemote) = split(/=/, $_);
-                $beemote =~ s/对象/〖$inmembername〗/isg;
+                $beemote =~ s/对象/〖$in_member_name〗/isg;
                 $inpost =~ s/$toemote/$beemote/isg;
                 last unless ($inpost =~ m/\/\/\//);
             }
@@ -597,7 +597,7 @@ sub processedit {
         if ((length($newtopictitle) > 110) && ($in_post_no eq 1)) {&error("编辑主题&对不起，主题标题过长！");}
         $newtopictitle = "＊＃！＆＊$newtopictitle";
 
-        if (($nowater eq "on") && ($membercode ne "ad") && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne 'amo') && ($membercode ne 'mo') && ($inmembmod ne "yes")) {
+        if (($nowater eq "on") && ($member_code ne "ad") && ($member_code ne 'smo') && ($member_code ne 'cmo') && ($member_code ne 'amo') && ($member_code ne 'mo') && ($inmembmod ne "yes")) {
             ($trash, $trash, $trash, $trash, $trash, $trash, $post, $trash, my $water) = split(/\t/, $allthreads[0]);
             if ($water eq "no") {
                 my $inposttemp = $inpost;
@@ -625,7 +625,7 @@ sub processedit {
         }
         $edittimes++;
         $noaddedittime = 60 if ($noaddedittime < 0);
-        $inpost = qq~[这个贴子最后由$inmembername在 $editpostdate 第 $edittimes 次编辑]<br><br>$inpost~ if (($currenttime - $postdate) > $noaddedittime || $postermembername ne $inmembername);
+        $inpost = qq~[这个贴子最后由$in_member_name在 $editpostdate 第 $edittimes 次编辑]<br><br>$inpost~ if (($currenttime - $postdate) > $noaddedittime || $postermembername ne $in_member_name);
 
         if ($moneyhidden eq "yes") {
             $inposttemp = "(保密)";

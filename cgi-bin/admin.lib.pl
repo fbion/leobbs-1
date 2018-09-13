@@ -14,7 +14,7 @@ use diagnostics;
 
 sub getadmincheck {
     my $currenttime = time;
-    $memberfilename = $inmembername;
+    $memberfilename = $in_member_name;
     $memberfilename =~ y/ /_/;
     $memberfilename =~ tr/A-Z/a-z/;
     $memberfilename = "${lbdir}verifynum/login/$memberfilename.cgi";
@@ -28,7 +28,7 @@ sub getadmincheck {
             # 管理员登录如果15分钟未做任何操作，需要重新登录
             unlink("$memberfilename");
             print "Set-Cookie: adminpass=\"\"\n";
-            $inpassword = "";
+            $in_password = "";
         }
         else {
             open(FILE, ">$memberfilename");
@@ -39,12 +39,12 @@ sub getadmincheck {
     }
     else {
         print "Set-Cookie: adminpass=\"\"\n";
-        $inpassword = "";
+        $in_password = "";
     }
 }
 
 sub adminlogin {
-    $inmembername =~ s/\_/ /g;
+    $in_member_name =~ s/\_/ /g;
     if ($useverify eq "yes") {
 
         if ($verifyusegd ne "no") {
@@ -72,7 +72,7 @@ sub adminlogin {
 <input type=hidden name=loginprog value=$loginprog>
 <tr><td bgcolor=#EEEEEE valign=middle colspan=2 align=center><font color=#333333><b>请输入您的用户名、密码登录</b></font></td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><BR><font color=#555555>请输入您的用户名</font></td>
-<td bgcolor=#FFFFFF valign=middle><BR><input type=text name=membername value="$inmembername" maxlength=15></td></tr>
+<td bgcolor=#FFFFFF valign=middle><BR><input type=text name=membername value="$in_member_name" maxlength=15></td></tr>
 <tr><td bgcolor=#FFFFFF valign=middle width=40% align=right><font color=#555555>请输入您的密码</font></td>
 <td bgcolor=#FFFFFF valign=middle><input type=password name=password maxlength=20></td></tr>
 ~;

@@ -3,32 +3,32 @@
 use warnings;
 use strict;
 use diagnostics;
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $postminjf 的才能发言！") if ($postminjf > 0 && $jifen < $postminjf);
 }
 
 if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
 $tempaccess = "forumsallowed" . "$in_forum";
-$testentry = $query->cookie("$tempaccess");
+$test_entry = $query->cookie("$tempaccess");
 
-if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || ($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
 if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您没有在此论坛中发表的权利！");}
 
 if ($postopen eq "no") {&error("发表主题&对不起，本论坛不允许发表主题！");}
 
 if ($payopen eq "no") {&error("发表交易帖&对不起，本论坛不允许发表交易帖！");}
 
-if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $inmembmod ne "yes") {
+if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $inmembmod ne "yes") {
     &error("发表交易帖&对不起，你的删贴率超过了<b>$deletepercent</b>%，管理员不允许你发表交易帖！") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
 }
 
 my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
-    if ($privateforum ne "yes") {&whosonline("$inmembername\t$forumname\tnone\t发表交易帖\t");}
-    else {&whosonline("$inmembername\t$forumname(密)\tnone\t发表新的保密交易帖\t");}
+    if ($privateforum ne "yes") {&whosonline("$in_member_name\t$forumname\tnone\t发表交易帖\t");}
+    else {&whosonline("$in_member_name\t$forumname(密)\tnone\t发表新的保密交易帖\t");}
 }
-if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/)) {
+if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($member_code ne "ad") && ($member_code ne "smo") && ($member_code ne "cmo") && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/)) {
     $onlinetime = $onlinetime + $onlinetimeadd;
     &error("发表交易帖&对不起，本论坛不允许在线时间少于 $onlinepost 秒的用户发表交易帖！你目前已经在线 $onlinetime 秒！");
 }
@@ -96,7 +96,7 @@ return;}
 <OPTION selected value="">选择话题</OPTION> <OPTION value=[原创]>[原创]</OPTION><OPTION value=[转帖]>[转帖]</OPTION><OPTION value=[灌水]>[灌水]</OPTION><OPTION value=[讨论]>[讨论]</OPTION><OPTION value=[求助]>[求助]</OPTION><OPTION value=[推荐]>[推荐]</OPTION><OPTION value=[公告]>[公告]</OPTION><OPTION value=[注意]>[注意]</OPTION><OPTION value=[贴图]>[贴图]</OPTION><OPTION value=[建议]>[建议]</OPTION><OPTION value=[下载]>[下载]</OPTION><OPTION value=[分享]>[分享]</OPTION>
 </SELECT></td><td bgcolor=$miscbackone><input type=text size=60 maxlength=80 name="intopictitle" value="$in_topictitle">　不得超过 40 个汉字</td></tr>$nowaterpost
     ~;
-$output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+$output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername">   <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password">   <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>当前心情</b><br><li>将放在帖子的前面<BR></font></td><td bgcolor=$miscbackone valign=top>
@@ -115,7 +115,7 @@ foreach (@posticondata) {
     $tempiconnum++;
 }
 
-if (($arrowupload ne "off") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+if (($arrowupload ne "off") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
     $uploadreqire = "" if ($uploadreqire <= 0);
     $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
     $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;

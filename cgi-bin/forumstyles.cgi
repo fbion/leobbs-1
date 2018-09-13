@@ -40,10 +40,10 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $query = new LBCGI;
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 @params = $query->param;
 foreach $param (@params) {
@@ -79,9 +79,9 @@ $incategory = $PARAM{'category'};
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") && ($in_member_name ne "") && (lc($in_member_name) eq lc($membername))) {
     #s1
 
     my %Mode = (
@@ -168,7 +168,7 @@ sub styleform {
         $thd[$i] =~ s/\.cgi//isg;
         $myskin .= qq~<option value="$thd[$i]">皮肤 [ $thd[$i] ]~;
     }
-    $myskin =~ s/value=\"$skinselected\"/value=\"$skinselected\" selected/;
+    $myskin =~ s/value=\"$skin_selected\"/value=\"$skin_selected\" selected/;
 
     &getoneforum("$in_forum");
 
@@ -2317,7 +2317,7 @@ function ClearAllow()
                <td bgcolor=#FFFFFF colspan=2>
                <font color=#333333><b>只允许以下用户进入本版面</b><BR>如果希望向全体开放，请不要填写<BR>对任何用户都有效的，包括管理员</font></td>
                <td bgcolor=#FFFFFF>
-               <textarea name="allowusers" rows=6 cols=40 readonly=true>$allowusers</textarea><br><input type=button value=添加 OnClick="AddAllow();">　<input type=button value=删除 OnClick="DeleteAllow();">　<input type=button value=清除 OnClick="ClearAllow();"></td>
+               <textarea name="allowusers" rows=6 cols=40 readonly=true>$allow_users</textarea><br><input type=button value=添加 OnClick="AddAllow();">　<input type=button value=删除 OnClick="DeleteAllow();">　<input type=button value=清除 OnClick="ClearAllow();"></td>
                </tr>~;
 
     $tempoutput = "<select name=\"forumallowcount\">\n<option value=\"yes\">计入发贴数\n<option value=\"no\">不计入发贴数\n</select>\n";

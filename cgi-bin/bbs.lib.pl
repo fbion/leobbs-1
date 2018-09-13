@@ -88,9 +88,9 @@ sub checksearchbot {
 }
 
 sub ipbanned {
-    my $inmembername = $query->cookie("amembernamecookie") if ($inmembername eq "");
-    $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-    my $infilemembername = $inmembername;
+    my $in_member_name = $query->cookie("amembernamecookie") if ($in_member_name eq "");
+    $in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+    my $infilemembername = $in_member_name;
     $infilemembername =~ s/ /_/g;
     $infilemembername =~ tr/A-Z/a-z/;
     $infilemembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -100,7 +100,7 @@ sub ipbanned {
     $trueipaddress = $ipaddress if ($trueipaddress eq "" || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./ || $trueipaddress =~ m/a-z/i);
     $trueipaddress =~ s/\.\.//g;
     $trueipaddress =~ s/[a-z\\\/]//isg;
-    $infilemembername = $trueipaddress if (($inmembername eq "") || ($inmembername eq "客人"));
+    $infilemembername = $trueipaddress if (($in_member_name eq "") || ($in_member_name eq "客人"));
     if ((-e "${lbdir}cache/id/$infilemembername.cgi") && ((-M "${lbdir}cache/id/$infilemembername.cgi") * 86400 < 1800)) {
         #直接通过
     }
@@ -125,8 +125,8 @@ sub title {
 
     &doonoff;
     $newmail = "<p>";
-    if ($inmembername eq "" || $inmembername eq "客人") {
-        $inmembername = "客人";
+    if ($in_member_name eq "" || $in_member_name eq "客人") {
+        $in_member_name = "客人";
         $loggedinas = qq~<b>客人</b>： <a href=loginout.cgi?forum=$in_forum title=从这里开始进入论坛>登录</a> <img src=$imagesurl/images/fg.gif width=1> <a href=register.cgi?forum=$in_forum title=注册了才能发表文章哦！><B><font color=$fonthighlight>按这里注册</font></B></a> <img src=$imagesurl/images/fg.gif width=1> <a href=profile.cgi?action=lostpassword title=好惨啊，忘记密码登录不了 style=cursor:help>忘记密码</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <a href="search.cgi?forum=$in_forum" title=按关键字、作者来搜寻>搜索</a> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick=javascript:openScript('help.cgi',500,400) title=常见问题的解答>帮助</span>&nbsp;~;
         if (($regaccess eq "on" && &checksearchbot) && ($thisprog ne "loginout.cgi") && ($thisprog ne "register.cgi") && ($thisprog ne "profile.cgi") && ($thisprog ne "viewavatars.cgi")) {
             print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -143,7 +143,7 @@ sub title {
     }
     else {
         if (($thisprog eq "leobbs.cgi") || ($thisprog eq "forums.cgi") || ($thisprog eq "topic.cgi")) {
-            $memberfilename = $inmembername;
+            $memberfilename = $in_member_name;
             $memberfilename =~ s/ /\_/g;
             $memberfilename =~ tr/A-Z/a-z/;
 
@@ -159,7 +159,7 @@ sub title {
                 require "domymsg.pl";
             }
         }
-        $loggedinas = qq~$inmembername：<a href=loginout.cgi?forum=$in_forum>重登录</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[1])" onMouseout="delayhidemenu()">控制面板</span> <img src=$imagesurl/images/fg.gif width=1> <a href=search.cgi?forum=$in_forum title=按关键字、作者来搜寻论坛内的帖子>搜索</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[0])" onMouseout="delayhidemenu()">论坛设施</span> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick="javascript:openScript('help.cgi',500,400)" title=常见问题的解答>帮助</span> <img src=$imagesurl/images/fg.gif width=1> <a href=loginout.cgi?action=logout title=在公众的地方上网记得要按退出哦><font color=$fonthighlight>退出</font></a>&nbsp;~;
+        $loggedinas = qq~$in_member_name：<a href=loginout.cgi?forum=$in_forum>重登录</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[1])" onMouseout="delayhidemenu()">控制面板</span> <img src=$imagesurl/images/fg.gif width=1> <a href=search.cgi?forum=$in_forum title=按关键字、作者来搜寻论坛内的帖子>搜索</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[0])" onMouseout="delayhidemenu()">论坛设施</span> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick="javascript:openScript('help.cgi',500,400)" title=常见问题的解答>帮助</span> <img src=$imagesurl/images/fg.gif width=1> <a href=loginout.cgi?action=logout title=在公众的地方上网记得要按退出哦><font color=$fonthighlight>退出</font></a>&nbsp;~;
     }
 
     if ($useadscript ne 0) {
@@ -198,7 +198,7 @@ sub title {
         eval {require "${lbdir}data/skincache.pl";};
         if ($@) {unlink("${lbdir}data/skincache.pl");}
     }
-    $loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <a href=admin.cgi target=_blank>管理中心</a>&nbsp;~ if (($membercode eq "ad") || ($membercode eq "smo"));
+    $loggedinas .= qq~<img src=$imagesurl/images/fg.gif width=1> <a href=admin.cgi target=_blank>管理中心</a>&nbsp;~ if (($member_code eq "ad") || ($member_code eq "smo"));
 
     if ($navadd ne "") {
         $navadd = &HTML($navadd);
@@ -233,7 +233,7 @@ sub title {
 .menuitems{margin:1px;padding:1px;word-break:keep-all;}
 </style>
 <script>
-linkset[1]='<div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("messanger.cgi?action=new",600,400) title=发送悄悄话短讯息给站内的朋友>发短讯给朋友</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=profile.cgi?action=modify title=编辑修改您的个人资料><font color=$menufontcolor>修改我的资料</font></a>&nbsp;</div><div class=menuitems>&nbsp;<a href=fav.cgi?action=show&member=$inmembername title=对您收藏的帖子进行管理><font color=$menufontcolor>管理我的收藏</font></a>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("friendlist.cgi",420,320) title=查看、添加、删除你的好友名单>管理好友列表</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("blocklist.cgi",420,320) title=查看、添加、删除你的黑名单>管理黑名单表</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=new",420,320) title=显示论坛最新的帖子列表>论坛最新帖子</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=post",420,320) title=我发表的、而且已经被别人回复过的主题列表>被回复的主题</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=reply",420,320) title=我发表回复过的主题列表>我参与的主题</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=delmycache.cgi title=清除我的缓存，确保个人所有资料都是最新的><font color=$menufontcolor>更新我的缓存</font></a>&nbsp;</div>'
+linkset[1]='<div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("messanger.cgi?action=new",600,400) title=发送悄悄话短讯息给站内的朋友>发短讯给朋友</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=profile.cgi?action=modify title=编辑修改您的个人资料><font color=$menufontcolor>修改我的资料</font></a>&nbsp;</div><div class=menuitems>&nbsp;<a href=fav.cgi?action=show&member=$in_member_name title=对您收藏的帖子进行管理><font color=$menufontcolor>管理我的收藏</font></a>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("friendlist.cgi",420,320) title=查看、添加、删除你的好友名单>管理好友列表</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("blocklist.cgi",420,320) title=查看、添加、删除你的黑名单>管理黑名单表</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=new",420,320) title=显示论坛最新的帖子列表>论坛最新帖子</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=post",420,320) title=我发表的、而且已经被别人回复过的主题列表>被回复的主题</span>&nbsp;</div><div class=menuitems>&nbsp;<span style=cursor:hand onClick=javascript:openScript("recopr.cgi?action=reply",420,320) title=我发表回复过的主题列表>我参与的主题</span>&nbsp;</div><div class=menuitems>&nbsp;<a href=delmycache.cgi title=清除我的缓存，确保个人所有资料都是最新的><font color=$menufontcolor>更新我的缓存</font></a>&nbsp;</div>'
 </script>
 $pluginadd$headmark$userskins~;
     if (($usesuperannounce eq "1") && ($thisprog eq "leobbs.cgi" || $thisprog eq "forums.cgi" || $thisprog eq "topic.cgi")) {
@@ -295,15 +295,15 @@ sub getoneforum {
             unlink("${lbdir}cache/forumsone$in_forum.pl");
             require "dogetoneforum.pl";
         }
-        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $no, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
+        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $no, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
         unlink("${lbdir}cache/forumsone$in_forum.pl") if ((-M "${lbdir}cache/forumsone$in_forum.pl") * 86400 > 600);
     }
     else {
         require "dogetoneforum.pl";
     }
     $forummodnamestemp = ",$forummoderator,";
-    my $tempinmembername = ",$inmembername,";
-    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)) ? "yes" : "no";
+    my $tempinmembername = ",$in_member_name,";
+    $inmembmod = $forummodnamestemp =~ /\Q$tempinmembername\E/i || (($member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)) ? "yes" : "no";
     return;
 }
 sub moderator {
@@ -315,8 +315,8 @@ sub moderator {
             unlink("${lbdir}cache/forums$in_forum.pl");
             require "domoderator.pl";
         }
-        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
-        if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/))) {$inmembmod = "yes";}
+        ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
+        if ($forummodnamestemp =~ /\Q\,$in_member_name\,\E/i || (($member_code eq "cmo" || $member_code eq "mo" || $member_code eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/))) {$inmembmod = "yes";}
         else {$inmembmod = "no";}
         unlink("${lbdir}cache/forums$in_forum.pl") if ((-M "${lbdir}cache/forums$in_forum.pl") * 86400 > 600);
     }
@@ -387,7 +387,7 @@ sub getmember {
         close(FILE3);
         &winunlock($filetoopen) if (($OS_USED eq "Nt") && ($readtype ne "no"));
         chomp($filedata);
-        ($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
+        ($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber, $location, $interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount, $ebankdata, $onlinetime, $userquestion, $awards, $jifen, $userface, $soccerdata, $useradd5) = split(/\t/, $filedata);
         $mymoney = int($mymoney);
         $showemail = "no" if ($dispmememail eq "no");
         $membername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -397,7 +397,7 @@ sub getmember {
             if ($@) {eval('use Digest::MD5 qw(md5_hex);$password = md5_hex($password);');}
             unless ($@) {$password = "lEO$password";}
         }
-        $membercode ||= "me";
+        $member_code ||= "me";
         $jhcount = "0" if ($jhcount <= 0);
         $jhcount ||= "0";
         $visitno ||= "0";
@@ -418,14 +418,14 @@ sub getmember {
             foreach (@private) {
                 chomp $_;
                 ($access, $value) = split(/=/, $_);
-                $allowedentry{$access} = $value;
+                $allowed_entry{$access} = $value;
             }
         }
         return 1;
     }
     else {
         $userregistered = "no";
-        $membercode = "";
+        $member_code = "";
         return 0;
     }
 }
@@ -509,7 +509,7 @@ sub whosonline {
                 $savedcometime = $currenttime if (lc($savedusername) ne lc($tempusername));
                 if ($memberprinted eq "no") {
                     $savehidden = $hidden if ($hidden ne "");
-                    $tempdata = "$tempusername\t$savedcometime\t$currenttime\t$where\t$ipall\t$saveosinfo\t$savebrowseinfo\t$where2\t$fromwhere\t$membercode\t$savehidden\t$sex\t";
+                    $tempdata = "$tempusername\t$savedcometime\t$currenttime\t$where\t$ipall\t$saveosinfo\t$savebrowseinfo\t$where2\t$fromwhere\t$member_code\t$savehidden\t$sex\t";
                     $osinfo = $saveosinfo;
                     $browseinfo = $savebrowseinfo;
                     $tempdata =~ s/[\a\f\n\e\0\r]//isg;
@@ -576,11 +576,11 @@ function OGO(place, action, time, time1, os, browser, ip, where, xa, xb) {docume
             else {$mspic = $onlinemember;}
             ($savedipaddress, $truepostipaddress) = split(/\=/, $postipaddresstemp);
             $totleonlineall++;
-            $fromwhere = "已设置保密" unless (($pvtip eq "on") || ($membercode eq "ad") || (($membercode eq 'smo') && ($smocanseeip eq "no")));
-            if ($membercode eq "smo") {
+            $fromwhere = "已设置保密" unless (($pvtip eq "on") || ($member_code eq "ad") || (($member_code eq 'smo') && ($smocanseeip eq "no")));
+            if ($member_code eq "smo") {
                 $savedipaddress = "已设置保密" unless ($pvtip eq "on" || $smocanseeip eq "no");
             }
-            elsif ($membercode eq "cmo" || $membercode eq "mo") {
+            elsif ($member_code eq "cmo" || $member_code eq "mo") {
                 if ($pvtip eq "on") {
                     my ($ip1, $ip2, $ip3, $ip4) = split(/\./, $savedipaddress);
                     $savedipaddress = "$ip1.$ip2.$ip3.*";
@@ -589,8 +589,8 @@ function OGO(place, action, time, time1, os, browser, ip, where, xa, xb) {docume
                     $savedipaddress = "已设置保密";
                 }
             }
-            elsif ($membercode ne "ad") {
-                if ($pvtip eq "on" && $inmembername ne "客人") {
+            elsif ($member_code ne "ad") {
+                if ($pvtip eq "on" && $in_member_name ne "客人") {
                     my ($ip1, $ip2, $ip3, $ip4) = split(/\./, $savedipaddress);
                     $savedipaddress = "$ip1.$ip2.*.*";
                 }
@@ -630,9 +630,9 @@ function OGO(place, action, time, time1, os, browser, ip, where, xa, xb) {docume
             }
 
             if (($savedwhere eq $method && $check_of_method_b) || ($savedwhere eq $wherebaomi && $check_of_method_b) || $method eq "both") {
-                if ((($hiddened eq 1 && $membercode ne "ad") || ($savedusername =~ /^客人/)) && (lc($savedusername) ne lc($inmembername))) {
+                if ((($hiddened eq 1 && $member_code ne "ad") || ($savedusername =~ /^客人/)) && (lc($savedusername) ne lc($in_member_name))) {
                     $XA = $XB = "";
-                    if (lc($savedusername) eq lc($inmembername) || $savedusername eq "客人($trueipaddress)") {
+                    if (lc($savedusername) eq lc($in_member_name) || $savedusername eq "客人($trueipaddress)") {
                         $XA = "<font color=$onlineselfcolor>";
                         $XB = "</font>";
                     }
@@ -656,7 +656,7 @@ function OGO(place, action, time, time1, os, browser, ip, where, xa, xb) {docume
                     $XA = $XB = "";
                     $XA = "<font color=$mcolor>" if ($savesex eq "m");
                     $XA = "<font color=$fcolor>" if ($savesex eq "f");
-                    if (lc($savedusername) eq lc($inmembername)) {
+                    if (lc($savedusername) eq lc($in_member_name)) {
                         $XA = "<font color=$onlineselfcolor>";
                         $XB = "</font>";
                     }
@@ -748,7 +748,7 @@ sub output {
             $boardcopyright = "$boardcopyright　 　<a href=http://www.miibeian.gov.cn/ target=_blank>$beian</a>";
         }
         $copyright .= qq~<hr width=390 size=1><table width=80% align=center cellpadding=0 cellspacing=0><tr><td align=center>~;
-        $boardlastinfo = qq~<BR>本论坛言论纯属发表者个人意见，与<font color=$fonthighlight><b> $boardname </b></font>立场无关<br>~ if ($dispboardsm ne "no");
+        $boardlastinfo = qq~<BR>本论坛言论纯属发表者个人意见，与<font color=$fonthighlight><b> $board_name </b></font>立场无关<br>~ if ($dispboardsm ne "no");
         if ($noads ne "yes") {
             if ($regerid =~ m/^LEO/) {
                 eval {$regerid = md5_hex($regerid);};
@@ -798,7 +798,7 @@ sub output {
         $templatedata =~ s/announcements.cgi/announcements.htm/isg;
     }
     print $templatedata;
-    if (($cpudisp eq "1") || ($membercode eq "ad") || ($membercode eq "smo") || ($membercode eq "cmo") || ($membercode eq "amo") || ($membercode eq "mo")) {
+    if (($cpudisp eq "1") || ($member_code eq "ad") || ($member_code eq "smo") || ($member_code eq "cmo") || ($member_code eq "amo") || ($member_code eq "mo")) {
         $spenttime = sprintf("%.2f", ((times)[0] + (times)[1] - $startingtime) * 1000);
         print "<center><font color=$cpudispcolor>当前页面执行消耗时间： $spenttime 毫秒　";
         unless ($usegzip ne 'yes' || $gzipused ne "1") {print "[Gzip: On, Level: $complevel]";}
@@ -808,7 +808,7 @@ sub output {
 }
 sub doonoff {
     #$mainoff 主，$mainonoff　分论坛
-    return if ($membercode eq "ad");
+    return if ($member_code eq "ad");
     if (($mainoff == 2) && ($mainonoff ne 2)) {
         my $mainoff = 1;
         my (undef, undef, $hour, $mday, undef, undef, $wday, undef) = localtime(time + $timezone * 3600);
@@ -853,16 +853,16 @@ sub error {
     my $errorinfo = shift;
     (my $where, my $errormsg, my $ismsg) = split(/\&/, $errorinfo);
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    if (!$inmembername) {$inmembername = cookie("amembernamecookie");}
-    $inpassword = cookie("apasswordcookie");
-    $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-    $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+    if (!$in_member_name) {$in_member_name = cookie("amembernamecookie");}
+    $in_password = cookie("apasswordcookie");
+    $in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+    $in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
     $sann = "";
     if ($ismsg ne "msg") {
         &title;
         $output =~ s/\<script src=\"$imagesurl\/images\/lbpopup.js\"><\/script>//isg if ($ismsg eq "guestiii");
         if ($indexforum ne "no") {
-            $output .= qq~<BR><table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a> → 错误： $where</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>~;
+            $output .= qq~<BR><table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font color=$navfontcolor><a href=leobbs.cgi>$board_name</a> → 错误： $where</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>~;
         }
         else {
             $output .= qq~<BR><table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font color=$navfontcolor>错误： $where</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>~;
@@ -884,7 +884,7 @@ sub error {
 <br><br><center><font color=$fontcolormisc> << <a href="javascript:history.go(-1)">返回上一页</a></center>
 </tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT><BR>
 ~;
-    &output($boardname, \$output, "$ismsg");
+    &output($board_name, \$output, "$ismsg");
     exit;
 }
 sub myip {

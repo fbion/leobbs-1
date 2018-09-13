@@ -52,10 +52,10 @@ else {
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inmembername = $query->cookie("amembernamecookie");
-$inpassword = $query->cookie("apasswordcookie");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("amembernamecookie");
+$in_password = $query->cookie("apasswordcookie");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 $addme = $query->param('addme');
 $forum = $query->param('forum');
@@ -77,21 +77,21 @@ if ($in_forum ne "" && $in_forum !~ /^[0-9]+$/) {&thisout("<b>请以正确的方
 
 if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&thisout("<b>对不起，此分论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复此分论坛一次！</b>");}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&thisout("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&thisout("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
     &thisout("<b>请先登陆才能上传文件！</b>")
 }
 else {
 
-    &getmember("$inmembername");
-    &thisout("<b>普通错误,此用户根本不存在！</b>") if ($inpassword ne "" && $userregistered eq "no");
-    if ($inpassword ne $password && $userregistered ne "no") {
+    &getmember("$in_member_name");
+    &thisout("<b>普通错误,此用户根本不存在！</b>") if ($in_password ne "" && $userregistered eq "no");
+    if ($in_password ne $password && $userregistered ne "no") {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -194,9 +194,9 @@ sub doupfile #上传
         last if ($ci > 20);
     }
 
-    if (($addme) && (($arrowupload ne 'off') || ($membercode eq 'ad') || ($membercode eq 'smo') || ($inmembmod eq 'yes'))) {
+    if (($addme) && (($arrowupload ne 'off') || ($member_code eq 'ad') || ($member_code eq 'smo') || ($inmembmod eq 'yes'))) {
         $uploadreqire = 0 if ($uploadreqire < 0);
-        if (($membercode ne 'ad') && ($membercode ne 'smo') && ($membercode ne 'amo') && ($membercode ne 'cmo') && ($membercode ne 'mo') && ($membercode !~ /^rz/) && ($inmembmod ne 'yes') && (($numberofposts + $numberofreplys) < $uploadreqire)) {
+        if (($member_code ne 'ad') && ($member_code ne 'smo') && ($member_code ne 'amo') && ($member_code ne 'cmo') && ($member_code ne 'mo') && ($member_code !~ /^rz/) && ($inmembmod ne 'yes') && (($numberofposts + $numberofreplys) < $uploadreqire)) {
             &thisout("上传出错，你必须发帖总数达到 <B>$uploadreqire</B> 才能在本区上传！$gourl");
         }
 
@@ -221,7 +221,7 @@ sub doupfile #上传
         open(FILE, ">$thispath/$tmpfilename.$up_ext");
         binmode($addme); #注意
         binmode(FILE);
-        while (((read($addme, $buffer, 4096))) && !(($filesize > $maxupload) && ($membercode ne "ad"))) {
+        while (((read($addme, $buffer, 4096))) && !(($filesize > $maxupload) && ($member_code ne "ad"))) {
             if ($up_ext eq "txt" || $up_ext eq "cgi" || $up_ext eq "pl" || $up_ext eq "php3" || $up_ext eq "phtm" || $up_ext eq "phtml" || $up_ext eq "htm" || $up_ext eq "html" || $up_ext eq "asp" || $up_ext eq "php" || $up_ext eq "shtml" || $up_ext eq "phtml" || $up_ext eq "jsp") {
                 $buffer =~ s/\.cookie/\&\#46\;cookie/isg;
                 $buffer =~ s/on(mouse|exit|error|click|key)/\&\#111\;n$1/isg;
@@ -274,7 +274,7 @@ sub doupfile #上传
         }
         #######################################################################
 
-        if (($filesize > $maxupload) && ($membercode ne "ad")) {
+        if (($filesize > $maxupload) && ($member_code ne "ad")) {
             unlink("$thispath/$tmpfilename.$up_ext");
             &thisout("上传出错，上传文件大小超过$maxupload KB，请重新选择！$gourl");
         }

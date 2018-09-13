@@ -36,7 +36,7 @@ if (-e "${lbdir}boarddata/xzb$in_forum.cgi") {
         $temppostid =~ tr/A-Z/a-z/;
         my $titletemps = &lbhz($title, 35);
         $xzb = qq~&nbsp;小字报: <img src=$imagesurl/images/icon.gif width=14> <span style=cursor:hand onClick="javascript:openScript('xzb.cgi?action=view&forum=$in_forum&id=$xzbcount',420,320)" title="$title"><font color=$fonthighlight>$titletemps</font></span> -- <span style=cursor:hand onClick=javascript:O9('~ . uri_escape($temppostid) . qq~')>$postid</span>~;
-        $xzb = qq~<B>[<a href=xzbadmin.cgi?forum=$in_forum>管理</a>]</b>$xzb~ if (($membercode eq "ad") || ($membercode eq "smo") || ($inmembmod eq "yes"));
+        $xzb = qq~<B>[<a href=xzbadmin.cgi?forum=$in_forum>管理</a>]</b>$xzb~ if (($member_code eq "ad") || ($member_code eq "smo") || ($inmembmod eq "yes"));
     }
 }
 1;

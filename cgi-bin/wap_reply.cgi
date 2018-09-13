@@ -30,16 +30,16 @@ require "wap.pl";
 require "data/styles.cgi";
 $|++;
 &waptitle;
-$show .= qq~<card  title="$boardname">~;
+$show .= qq~<card  title="$board_name">~;
 $lid = $query->param('lid');
 &check($lid);
 $in_forum = $query->param('f');
 $in_topic = $query->param('t');
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
 }
 else {
-    &getmember("$inmembername", "no");
+    &getmember("$in_member_name", "no");
 }
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 $inpost = $query->param('inpost');
@@ -56,10 +56,10 @@ $inpost =~ s/\[POSTISDELETE=(.+?)\]/\[POSTISDELET\&\#069\;=$1\]/sg;
 $inpost =~ s/\[ADMINOPE=(.+?)\]/\[ADMINOP\&\#069\;=$1\]/sg;
 &moderator("$in_forum");
 $myinmembmod = $inmembmod;
-if ($allowusers ne '') {
-    &errorout('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+if ($allow_users ne '') {
+    &errorout('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &errorout("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -70,27 +70,27 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
 }
 if ($startnewthreads eq "onlysub") {&errorout("发表&对不起，这里是纯子论坛区，不允许发言！");}
 if ($postopen eq "no") {&errorout("发表或回复主题&对不起，本论坛不允许发表或回复主题！");}
-if (($userregistered eq "no") && ($inmembername =~ /^客人/)) {&errorout("发表新回复&请不要在用户名的开头中使用客人字样！");}
+if (($userregistered eq "no") && ($in_member_name =~ /^客人/)) {&errorout("发表新回复&请不要在用户名的开头中使用客人字样！");}
 
-if ($inmembername eq "客人") {&errorout("发表新回复&请不要在用户名的开头中使用客人字样！");}
+if ($in_member_name eq "客人") {&errorout("发表新回复&请不要在用户名的开头中使用客人字样！");}
 
 if (($userregistered eq "no") && ($startnewthreads ne "all")) {&errorout("发表新回复&您没有注册！");}
-# elsif ((($inpassword ne $password)&&($userregistered ne "no"))||(($inpassword ne "")&&($userregistered eq "no"))) { &errorout("发表新回复&您的密码错误！"); }
-elsif (($membercode eq "banned") || ($membercode eq "masked")) {&errorout("发表&已被禁止发言或者发言被屏蔽，请联系管理员解决！");}
+# elsif ((($in_password ne $password)&&($userregistered ne "no"))||(($in_password ne "")&&($userregistered eq "no"))) { &errorout("发表新回复&您的密码错误！"); }
+elsif (($member_code eq "banned") || ($member_code eq "masked")) {&errorout("发表&已被禁止发言或者发言被屏蔽，请联系管理员解决！");}
 elsif ($inpost eq "") {&errorout("发表新回复&必须输入内容！");}
 else {
     if ($startnewthreads eq "no") {
-        unless ($membercode eq "ad" || $membercode eq 'smo' || $inmembmod eq "yes") {&errorout("发表新回复&在此论坛中只能由坛主或者本版版主发表新回复！");}
+        unless ($member_code eq "ad" || $member_code eq 'smo' || $inmembmod eq "yes") {&errorout("发表新回复&在此论坛中只能由坛主或者本版版主发表新回复！");}
     }
     elsif ($startnewthreads eq "cert") {
-        unless ($membercode eq "ad" || $membercode eq 'smo' || $inmembmod eq "yes" || $membercode eq 'cmo' || $membercode eq 'amo' || $membercode eq 'mo' || $membercode =~ /^rz/) {&errorout("发表新回复&在此论坛中只能由坛主、版主和认证会员发表新回复！");}
+        unless ($member_code eq "ad" || $member_code eq 'smo' || $inmembmod eq "yes" || $member_code eq 'cmo' || $member_code eq 'amo' || $member_code eq 'mo' || $member_code =~ /^rz/) {&errorout("发表新回复&在此论坛中只能由坛主、版主和认证会员发表新回复！");}
     }
     $tempaccess = "forumsallowed" . "$in_forum";
-    $testentry = $query->cookie("$tempaccess");
+    $test_entry = $query->cookie("$tempaccess");
 
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || ($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&errorout("发表&对不起，您不允许在此论坛发表！");}
-    if (($startnewthreads eq "all") && ($userregistered eq "no")) {$inmembername = "$inmembername(客)";}
+    if (($startnewthreads eq "all") && ($userregistered eq "no")) {$in_member_name = "$in_member_name(客)";}
 }
 $inpost =~ s/\[这个(.+?)最后由(.+?)编辑\]//isg;
 $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
@@ -119,14 +119,14 @@ close(ENT);
 ($topicid, $topictitle, $topicdescription, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $posticon, my $no, $addmetype) = split(/\t/, $in);
 if (($threadstate eq "closed") || ($threadstate eq "pollclosed")) {&errorout("发表回复&对不起，这个主题已经被锁定！");}
 $numberofitems = $threadposts + 1;
-if (($rdays ne '') && ($membercode ne "ad") && ($membercode ne "smo")) {&errorout("发表回复&超过 $rdays 天的帖子不允许再回复！") if ($currenttime - $lastpostdate > $rdays * 86400);}
+if (($rdays ne '') && ($member_code ne "ad") && ($member_code ne "smo")) {&errorout("发表回复&超过 $rdays 天的帖子不允许再回复！") if ($currenttime - $lastpostdate > $rdays * 86400);}
 
 $inpost = &dofilter("$inpost");
 $inpost = "<img src='$imagesurl/images/sj.gif' width='22' alt='由手机 WAP 发送' />" . $inpost;
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 if (open(FILE, ">>$filetoopen")) {
     flock(FILE, 2) if ($OS_USED eq "Unix");
-    print FILE "$inmembername\t$topictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t\n";
+    print FILE "$in_member_name\t$topictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t\n";
     close(FILE);
 }
 &winunlock($filetoopen) if ($OS_USED eq "Nt");
@@ -140,7 +140,7 @@ $topictitletemp =~ s/^＊＃！＆＊//;
 &winlock($file) if ($OS_USED eq "Nt");
 if (open(FILE, ">$file")) {
     flock(FILE, 2) if ($OS_USED eq "Unix");
-    print FILE "$in_topic\t＊＃！＆＊$topictitletemp\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$posticon\t$inposttemp\t$addmetype\t";
+    print FILE "$in_topic\t＊＃！＆＊$topictitletemp\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$in_member_name\t$currenttime\t$posticon\t$inposttemp\t$addmetype\t";
     close(FILE);
 }
 &winunlock($file) if ($OS_USED eq "Nt");
@@ -169,7 +169,7 @@ else {
     ($tpost, $treply) = split(/\|/, $truenumber);
 }
 
-$cleanmembername = $inmembername;
+$cleanmembername = $in_member_name;
 $cleanmembername =~ s/ /\_/isg;
 $cleanmembername =~ tr/A-Z/a-z/;
 
@@ -198,9 +198,9 @@ if (($userregistered ne "no") && ($password ne "")) {
     &checkmemfile($cleanmembername, $namenumber);
     $filetomake = "$lbdir" . "$memdir/$namenumber/$cleanmembername.cgi";
     &winlock($filetomake) if ($OS_USED eq "Nt");
-    if ((open(FILE, ">$filetomake")) && ($inmembername ne "")) {
+    if ((open(FILE, ">$filetomake")) && ($in_member_name ne "")) {
         flock(FILE, 2) if ($OS_USED eq "Unix");
-        print FILE "$membername\t$password\t$membertitle\t$membercode\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
+        print FILE "$membername\t$password\t$membertitle\t$member_code\t$numberofposts|$numberofreplys\t$emailaddress\t$showemail\t$ipaddress\t$homepage\t$oicqnumber\t$icqnumber\t$location\t$interests\t$joineddate\t$lastpostdate\t$signature\t$timedifference\t$privateforums\t$useravatar\t$userflag\t$userxz\t$usersx\t$personalavatar\t$personalwidth\t$personalheight\t$rating\t$lastgone\t$visitno\t$useradd04\t$useradd02\t$mymoney\t$postdel\t$sex\t$education\t$marry\t$work\t$born\t$chatlevel\t$chattime\t$jhmp\t$jhcount\t$ebankdata\t$onlinetime\t$userquestion\t$awards\t$jifen\t$userface\t$soccerdata\t$useradd5\t";
         close(FILE);
     }
     &winunlock($filetomake) if ($OS_USED eq "Nt");
@@ -257,7 +257,7 @@ if (!(-e "$filetoopens.lck")) {
     &winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
     open(FILE, "+<$filetoopen");
     ($no, $threads, $posts, $todayforumpost, $lastposter) = split(/\t/, <FILE>);
-    $lastposter = $inmembername;
+    $lastposter = $in_member_name;
     $lastposttime = $currenttime;
     if (($tpost ne "") && ($treply ne "")) {
         $threads = $tpost;
@@ -298,8 +298,8 @@ if ($privateforum ne "yes") {
     open(PSF2, ">$lbdir/data/recentreply.pl");
     $postdate = &shortdate($currenttime + $addtimes);
     print PSF2 "\$alljh=qq~";
-    print PSF "$topictitletemp\t$inmembername\t$in_forum\t$in_topic\t$postdate\t$topictitletemp2\n";
-    print PSF2 "・<a href=topic.cgi?forum=$in_forum&topic=$in_topic title='$topictitletemp\n作者：$inmembername\n时间：$postdate'>$topictitletemp2</a>";
+    print PSF "$topictitletemp\t$in_member_name\t$in_forum\t$in_topic\t$postdate\t$topictitletemp2\n";
+    print PSF2 "・<a href=topic.cgi?forum=$in_forum&topic=$in_topic title='$topictitletemp\n作者：$in_member_name\n时间：$postdate'>$topictitletemp2</a>";
     for ($j = 0; $j <= 8; $j++) {
         chomp $hasPSF[$j];
         if ($hasPSF[$j] ne '') {

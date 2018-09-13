@@ -44,10 +44,10 @@ $query = new LBCGI;
 
 #&ipbanned; #封杀一些 ip
 
-$inmembername = $query->cookie("adminname");
-$inpassword = $query->cookie("adminpass");
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+$in_member_name = $query->cookie("adminname");
+$in_password = $query->cookie("adminpass");
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 @params = $query->param;
 foreach $param (@params) {
@@ -96,9 +96,9 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 
 &admintitle;
 
-&getmember("$inmembername", "no");
+&getmember("$in_member_name", "no");
 
-if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && ($inmembername ne "") && (lc($inmembername) eq lc($membername))) {
+if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") && ($in_member_name ne "") && (lc($in_member_name) eq lc($membername))) {
     #s1
 
     my %Mode = (
@@ -507,7 +507,7 @@ sub addforum {
         <td bgcolor=#FFFFFF width=40%>
         <font color=#333333><b>私有论坛密码</b>(只对私有论坛有效)</font></td>
         <td bgcolor=#FFFFFF>
-       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> 对坛主和总斑竹无效</td>
+       <input type=text size=12 name="forumpass" value="$forum_pass" maxlength=20> 对坛主和总斑竹无效</td>
         </td>
         </tr>
         
@@ -783,7 +783,7 @@ sub deleteforum {
     #start
     my $thistime = time;
     open(FILE, ">>${lbdir}data/baddel.cgi");
-    print FILE "$inmembername\t密码不显示\t$ENV{'REMOTE_ADDR'}\t$ENV{'HTTP_X_FORWARDED_FOR'}/$ENV{'HTTP_CLIENT_IP'}\t删除论坛$forumname\t$thistime\t\n";
+    print FILE "$in_member_name\t密码不显示\t$ENV{'REMOTE_ADDR'}\t$ENV{'HTTP_X_FORWARDED_FOR'}/$ENV{'HTTP_CLIENT_IP'}\t删除论坛$forumname\t$thistime\t\n";
     close(FILE);
     undef $thistime;
 
@@ -851,7 +851,7 @@ sub deleteforum {
     flock(FILE, 2) if ($OS_USED eq "Unix");
     foreach (@forums) {
         chomp $_;
-        my ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
+        my ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
         next if ($forumid !~ /^[0-9]+$/);
         if ($forumid ne $in_forum) {
             print FILE "$_\n";
@@ -909,7 +909,7 @@ sub editform {
         ($forumid, $notneeded, $notneeded, $gforumname) = split(/\t/, $forum);
         next if ($forumid !~ /^[0-9]+$/);
         if ($forumid eq "$in_forum") {
-            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
         }
         $forumname[$forumid] = "$gforumname";
     }
@@ -1005,7 +1005,7 @@ sub editform {
         <td bgcolor=#FFFFFF width=40%>
         <font color=#333333><b>私有论坛密码</b>(只对私有论坛有效)</font></td>
         <td bgcolor=#FFFFFF>
-       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> 对坛主和总斑竹无效</td>
+       <input type=text size=12 name="forumpass" value="$forum_pass" maxlength=20> 对坛主和总斑竹无效</td>
         </td>
         </tr>
         ~;
@@ -1149,7 +1149,7 @@ sub doedit {
         ($forumid, $notneeded) = split(/\t/, $forum);
         next if ($forumid !~ /^[0-9]+$/);
         if ($forumid eq $in_forum) {
-            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
         }
     }
 
@@ -1318,7 +1318,7 @@ sub catform {
         <td bgcolor=#FFFFFF width=40%>
         <font color=#333333><b>私有论坛密码</b>(只对私有论坛有效)</font></td>
         <td bgcolor=#FFFFFF>
-       <input type=text size=12 name="forumpass" value="$forumpass" maxlength=20> 对坛主和总斑竹无效</td>
+       <input type=text size=12 name="forumpass" value="$forum_pass" maxlength=20> 对坛主和总斑竹无效</td>
         </td>
         </tr>
         
@@ -1698,8 +1698,8 @@ sub editcatname {
             ($tempno, $category, $categorynumber) = split(/\t/, $forum);
             next if ($tempno !~ /^[0-9]+$/);
             if ($incategory eq "$categorynumber" && $category !~ /^childforum-[0-9]+/) {
-                ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
-                $linetochange = "$forumid\t$new_categoryname\t$incategory\t$forumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t";
+                ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+                $linetochange = "$forumid\t$new_categoryname\t$incategory\t$forumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t";
                 chomp $linetochange;
                 print FILE "$linetochange\n";
                 $dirtomake = "$lbdir" . "forum$forumid";
@@ -1783,9 +1783,9 @@ sub reordercats {
             #start foreach @forums
             $a = sprintf("%09d", $a);
             chomp $forum;
-            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
             $categoryplace = sprintf("%09d", $categoryplace);
-            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
             push(@rearrangedforums, $rearrange);
             $a++;
         } # end foreach (@forums)
@@ -1794,7 +1794,7 @@ sub reordercats {
 
         foreach $sortedforums (@finalsortedforums) {
             #start foreach @finalsortedforums
-            ($categoryplace, my $a, $category, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $sortedforums);
+            ($categoryplace, my $a, $category, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $sortedforums);
             $categoryplace = sprintf("%01d", $categoryplace);
 
             if ($categoryplace ne $lastcategoryplace) { #start if $categoryplace
@@ -1862,8 +1862,8 @@ sub reordercats {
             ($tempno, $notneeded, $categorynumber) = split(/\t/, $forum);
             next if ($tempno !~ /^[0-9]+$/);
             $newid = $PARAM{$categorynumber};
-            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
-            print FILE "$forumid\t$category\t$newid\t$forumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t\n";
+            ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+            print FILE "$forumid\t$category\t$newid\t$forumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t\n";
         }
 
         close(FILE);
@@ -1931,7 +1931,7 @@ sub reorder {
             ($forumid, $category, $notneeded, $notneeded) = split(/\t/, $forum);
             next if ($forumid !~ /^[0-9]+$/);
             if ($forumid eq $in_forum) {
-                ($forumid, $mycategory, $mycategoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+                ($forumid, $mycategory, $mycategoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
                 last;
             }
         }
@@ -1953,14 +1953,14 @@ sub reorder {
             next if ($forumid eq $in_forum);
             #    next if ($category =~/childforum-[0-9]+/);
             $categoryplace = sprintf("%09d", $categoryplace);
-            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
+            $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
             push(@rearrangedforums, $rearrange);
             $a++;
         }
 
         @finalsortedforums = sort (@rearrangedforums);
         foreach my $sortedforums (@finalsortedforums) {
-            (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forumpass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $sortedforums);
+            (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $misc, my $forum_pass, my $hiddenforum, my $indexforum, my $teamlogo, my $teamurl, my $fgwidth, my $fgheight, my $miscad4, my $todayforumpost, my $miscad5) = split(/\t/, $sortedforums);
             $categoryplace = sprintf("%01d", $categoryplace);
             if ($category eq $mycategory) {
                 $jumphtml3 = "<option value=\"top$categoryplace\">╋子论坛列表最顶\n" if ($jumphtml3 eq "");
@@ -2037,7 +2037,7 @@ sub reorder {
             foreach $forum (@forums) {
                 chomp $forum;
                 next if ($forum eq "");
-                ($forumid, $category, $categoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+                ($forumid, $category, $categoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
                 next if ($forumid !~ /^[0-9]+$/);
                 if ($forumid ne $incategory && $category ne "childforum-$incategory" && $category ne "childforum-$in_forum") {
                     if ($forumid eq $in_forum) {
@@ -2108,7 +2108,7 @@ sub reorder {
             foreach $forum (@forums) {
                 chomp $forum;
                 next if ($forum eq "");
-                ($forumid, $category, $categoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
+                ($forumid, $category, $categoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forum_pass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
                 next if ($forumid !~ /^[0-9]+$/);
                 if ($forumid ne $incategory) {
                     if ($forumid eq $incforum) {
@@ -2122,12 +2122,12 @@ sub reorder {
                         close(FILE1);
                     }
                     elsif ($category eq "childforum-$oldforumid") {
-                        print FILE "$forumid\tchildforum-$incforum\t$categoryplace\t$myforumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t\n";
+                        print FILE "$forumid\tchildforum-$incforum\t$categoryplace\t$myforumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t\n";
 
                         $dirtomake = "$lbdir" . "forum$forumid";
                         $filetomake1 = "$dirtomake/foruminfo.cgi";
                         open(FILE1, ">$filetomake1");
-                        print FILE1 "$forumid\tchildforum-$incforum\t$categoryplace\t$myforumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t";
+                        print FILE1 "$forumid\tchildforum-$incforum\t$categoryplace\t$myforumname\t$forumdescription\t$forummoderator\t$htmlstate\t$idmbcodestate\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$forumgraphic\t$miscad2\t$misc\t$forum_pass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t";
                         close(FILE1);
                     }
                     else {
@@ -2196,7 +2196,7 @@ top.location.href = URL; target = '_self';
         next if ($forumid !~ /^[0-9]+$/);
         next if ($categoryplace !~ /^[0-9]+$/);
         $categoryplace = sprintf("%09d", $categoryplace);
-        $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$forumpass\t$hiddenforum\t$indexforum\t");
+        $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$forum_pass\t$hiddenforum\t$indexforum\t");
         push(@rearrangedforums, $rearrange);
         $a++;
     }
@@ -2204,7 +2204,7 @@ top.location.href = URL; target = '_self';
     @finalsortedforums = sort (@rearrangedforums);
     $outputbutton = "";
     foreach my $sortedforums (@finalsortedforums) {
-        (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $forumpass, my $hiddenforum, my $indexforum) = split(/\t/, $sortedforums);
+        (my $categoryplace, my $a, my $category, my $forumname, my $forumdescription, my $forumid, my $forumgraphic, my $miscad2, my $forum_pass, my $hiddenforum, my $indexforum) = split(/\t/, $sortedforums);
         $categoryplace = sprintf("%01d", $categoryplace);
         if ($categoryplace ne $lastcategoryplace) {
             $jumphtml .= "<option value=\"category.cgi?category=$categoryplace\" style=background-color:\$titlecolor>╋$category\n</option>";

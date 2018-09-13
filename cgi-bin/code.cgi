@@ -33,10 +33,10 @@ sub lbcode {
 
     if ($$post =~ /\[ADMINOPE=(.+?)\]/) {
         while ($$post =~ /\[ADMINOPE=(.+?)\]/g) {
-            my ($inmembername1, $editmembername1, $ratingname1, $reason1, $thistime1) = split(/\|/, $1);
+            my ($in_member_name1, $editmembername1, $ratingname1, $reason1, $thistime1) = split(/\|/, $1);
             $thistime1 = $thistime1 + ($timedifferencevalue * 3600) + ($timezone * 3600);
             $thistime1 = &dateformatshort($thistime1);
-            $$post =~ s/\[ADMINOPE=(.+?)\]/<font color=$fonthighlight>-------------------------------------------------------------------<br>$inmembername1 在 $thistime1 由于此帖对 $editmembername1　进行如下操作：<BR>$ratingname1<BR>理由： $reason1<br>-------------------------------------------------------------------<\/font><br><br>/is;
+            $$post =~ s/\[ADMINOPE=(.+?)\]/<font color=$fonthighlight>-------------------------------------------------------------------<br>$in_member_name1 在 $thistime1 由于此帖对 $editmembername1　进行如下操作：<BR>$ratingname1<BR>理由： $reason1<br>-------------------------------------------------------------------<\/font><br><br>/is;
         }
     }
 
@@ -65,7 +65,7 @@ sub lbcode {
 
     if ($wwjf ne "no") {
         if ($$post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
-            if ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($myrating >= $1)) {
+            if ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($myrating >= $1)) {
             }
             else {
                 $$post = qq~<FONT COLOR=$fonthighlight><B>[Hidden Post: Rating $1]</B></FONT> <BR>  <BR> <FONT COLOR=$posternamecolor>（您没有权限看这个帖子，您的威望至少需要 <B>$1<\/B>）</FONT><BR>  <BR> ~;
@@ -101,12 +101,12 @@ sub lbcode {
 
     $$post =~ s/(^|\s|\>|\\|\;)(http|https|ftp|exeem):\/\/(\S+?)(\s|$|\<|\[)/$1<a href=$2:\/\/$3\ target=_blank>$2\:\/\/$3<\/a>$4/isg;
 
-    if (($arrawpostpic eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostpic eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/\[url.+?\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]\[\/url\]/<a href=$1:\/\/$2 target=_blank title=开新窗口浏览><img src=$1:\/\/$2 border=0 onload=\"javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333\"><\/a>/isg;
         $$post =~ s/\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<a href=$1:\/\/$2 target=_blank title=开新窗口浏览><img src=$1:\/\/$2 border=0 onload=\"javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333\"><\/a>/isg;
         $$post =~ s/(^|\s|\>|\\|\;)(http|https|ftp):\/\/(\S+?\.)(png|bmp|gif|jpg|jpeg)(\s|$|\<|\[)/$1<a href=$2:\/\/$3$4 target=_blank title=开新窗口浏览><img src=$2:\/\/$3$4 border=0 onload=\"javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333\"><\/a>$5/isg;
     }
-    if (($arrawpostflash eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostflash eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/(\[swf\])\s*(http|https|ftp):\/\/(\S+?\.swf)\s*(\[\/swf\])/<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$2:\/\/$3 quality=high pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash" WIDTH=$defaultflashwidth height=$defaultflashheight><\/embed>/isg;
         $$post =~ s/(\[FLASH=)(\S+?)(\,)(\S+?)(\])\s*(http|https|ftp):\/\/(\S+?\.swf)\s*(\[\/FLASH\])/<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" WIDTH=$2 HEIGHT=$4><PARAM NAME=MOVIE VALUE=$6:\/\/$7><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><EMBED SRC=$6:\/\/$7 WIDTH=$2 HEIGHT=$4 PLAY=TRUE LOOP=TRUE QUALITY=HIGH><\/EMBED><\/OBJECT>/isg;
         $$post =~ s/(^|\s|\>)(http|https|ftp):\/\/(\S+?\.swf)(\s|$|\<)/$1<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$2:\/\/$3 quality=high pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash" WIDTH=$defaultflashwidth height=$defaultflashheight><\/embed>$4/isg;
@@ -170,7 +170,7 @@ sub lbcode {
             if ($StartCheck >= $viewusepost) {$Checkpost = 'ok';}
             else {$Checkpost = 'not';}
 
-            if (($Checkpost eq 'ok') || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+            if (($Checkpost eq 'ok') || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
                 $$post =~ s/\[post=(\d+?)\](.*)\[\/post\]/<blockquote><font color=$posternamecolor>文章内容：（发言总数须有 <B>$viewusepost<\/B> 才能查看本贴） <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg;
             }
             else {
@@ -183,7 +183,7 @@ sub lbcode {
     if ($jfmark eq "yes") {
         if ($$post =~ m/\[jf=(\d+?)\](.+?)\[\/jf\]/isg) {
             $jfpost = $1;
-            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
                 $$post =~ s/\[jf=(\d+?)\](.*)\[\/jf\]/<blockquote><font color=$posternamecolor>文章内容：（积分必须达到 <B>$jfpost<\/B> 才能查看本内容） <hr noshade size=1>$2<hr noshade size=1><\/font><\/blockquote>/isg;
             }
             else {
@@ -237,7 +237,7 @@ sub lbcode {
             $addline =~ s/"/\&quot;/sg;
             $addline =~ s/</\&lt;/sg;
             $addline =~ s/>/\&gt;/sg;
-            $post1 .= length($_) > 5 ? $_ . "<font color=$postbackcolor>$addline</font><br>" : $_ . "<font color=$postbackcolor>\&copy;$boardname -- $boarddescription　　$addline</font><br>";
+            $post1 .= length($_) > 5 ? $_ . "<font color=$postbackcolor>$addline</font><br>" : $_ . "<font color=$postbackcolor>\&copy;$board_name -- $boarddescription　　$addline</font><br>";
         }
         $$post =~ s/\[watermark\](.+?)\[\/watermark\]/$post1/is;
     }
@@ -247,16 +247,16 @@ sub lbcode {
     else {$quoteback = $postcolorone;}
     $$post =~ s/\[quote\]\s*(.*?)\s*\[\/quote\]/<BR><table cellpadding=0 cellspacing=0 WIDTH=94\% bgcolor=#000000 align=center style=\"TABLE-LAYOUT: fixed\"><tr><td><table width=100% cellpadding=5 cellspacing=1 style=\"TABLE-LAYOUT: fixed\"><TR><TD BGCOLOR=$quoteback style=\"LEFT: 0px; WIDTH: 100%; WORD-WRAP: break-word; $paraspace; $wordspace\\pt\">$1<\/td><\/tr><\/table><\/td><\/tr><\/table><BR>/isg;
 
-    if (($arrawpostfontsize eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostfontsize eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/\[size=\s*([1-6])\s*\]\s*(.*?)\s*\[\/size\]/<font size=$1>$2<\/font>/isg;
     }
 
-    if (($arrawpostsound eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostsound eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/(\[sound\])\s*(http|https|ftp):\/\/(\S+?\.wav)\s*(\[\/sound\])/<bgsound src=$2:\/\/$3 border=0><img src=$imagesurl\/images\/wave.gif width=16 height=16 alt=WAVE音乐>/isg;
         $$post =~ s/(\[sound\])\s*(http|https|ftp):\/\/(\S+?\.)(mid|midi)\s*(\[\/sound\])/<bgsound src=$2:\/\/$3$4 border=0><img src=$imagesurl\/images\/mid.gif width=16 height=16 alt=MIDI音乐>/isg;
     }
 
-    if (($arrawpostreal eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostreal eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/(\[ra\])(\S+?\.)(ram|rmm|mp3|mp2|mpa|ra|mpga)(\[\/ra\])/<b>这个是 RealPlayer 音乐：<\/b><br><object classid="clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA" id="RAOCX" width="480" height="70"><param name="_ExtentX" value="6694"><param name="_ExtentY" value="1588"><param name="AUTOSTART" value=$arrawautoplay><param name="SHUFFLE" value="0"><param name="PREFETCH" value="0"><param name="NOLABELS" value="0"><param name="SRC" value="$2$3"><param name="CONTROLS" value="StatusBar,ControlPanel"><param name="LOOP" value="0"><param name="NUMLOOP" value="0"><param name="CENTER" value="0"><param name="MAINTAINASPECT" value="0"><param name="BACKGROUNDCOLOR" value="#000000"><embed src="$2$3" width="320" autostart=$arrawautoplay height="70"><\/object><BR>/isg;
         $$post =~ s/(\[rm\])(\S+?\.)(ram|rmm|rm|rmvb|mpg|mpv|mpeg|dat|avi|mpga)(\[\/rm\])/<b>这个是 RealPlayer 影片：<\/b><br><object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" HEIGHT=300 ID=Player WIDTH=480 VIEWASTEXT><param NAME="_ExtentX" VALUE="12726"><param NAME="_ExtentY" VALUE="8520"><param NAME="AUTOSTART" VALUE=$arrawautoplay><param NAME="SHUFFLE" VALUE="0"><param NAME="PREFETCH" VALUE="0"><param NAME="NOLABELS" VALUE="0"><param NAME="CONTROLS" VALUE="ImageWindow"><param NAME="CONSOLE" VALUE="_master"><param NAME="LOOP" VALUE="0"><param NAME="NUMLOOP" VALUE="0"><param NAME="CENTER" VALUE="0"><param NAME="MAINTAINASPECT" VALUE="$2$3"><param NAME="BACKGROUNDCOLOR" VALUE="#000000"><\/object><br><object CLASSID=clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA HEIGHT=32 ID=Player WIDTH=480 VIEWASTEXT><param NAME="_ExtentX" VALUE="18256"><param NAME="_ExtentY" VALUE="794"><param NAME="AUTOSTART" VALUE=$arrawautoplay><param NAME="SHUFFLE" VALUE="0"><param NAME="PREFETCH" VALUE="0"><param NAME="NOLABELS" VALUE="0"><param NAME="CONTROLS" VALUE="controlpanel"><param NAME="CONSOLE" VALUE="_master"><param NAME="LOOP" VALUE="0"><param NAME="NUMLOOP" VALUE="0"><param NAME="CENTER" VALUE="0"><param NAME="MAINTAINASPECT" VALUE="0"><param NAME="BACKGROUNDCOLOR" VALUE="#000000"><param NAME="SRC" VALUE="$2$3"><\/object><BR>/isg;
         $$post =~ s/(\[real=)(\S+?)(\,)(\S+?)(\])(\S+?\.)(ram|rmm|rm|rmvb|mpg|mpv|mpeg|dat|avi|mpga)(\[\/real\])/<b>这个是 RealPlayer 影片：<\/b><br><object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" HEIGHT=$4 ID=Player WIDTH=$2 VIEWASTEXT><param NAME="_ExtentX" VALUE="12726"><param NAME="_ExtentY" VALUE="8520"><param NAME="AUTOSTART" VALUE=$arrawautoplay><param NAME="SHUFFLE" VALUE="0"><param NAME="PREFETCH" VALUE="0"><param NAME="NOLABELS" VALUE="0"><param NAME="CONTROLS" VALUE="ImageWindow"><param NAME="CONSOLE" VALUE="_master"><param NAME="LOOP" VALUE="0"><param NAME="NUMLOOP" VALUE="0"><param NAME="CENTER" VALUE="0"><param NAME="MAINTAINASPECT" VALUE="$6"><param NAME="BACKGROUNDCOLOR" VALUE="#000000"><\/object><br><object CLASSID=clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA HEIGHT=32 ID=Player WIDTH=$2 VIEWASTEXT><param NAME="_ExtentX" VALUE="18256"><param NAME="_ExtentY" VALUE="794"><param NAME="AUTOSTART" VALUE=$arrawautoplay><param NAME="SHUFFLE" VALUE="0"><param NAME="PREFETCH" VALUE="0"><param NAME="NOLABELS" VALUE="0"><param NAME="CONTROLS" VALUE="controlpanel"><param NAME="CONSOLE" VALUE="_master"><param NAME="LOOP" VALUE="0"><param NAME="NUMLOOP" VALUE="0"><param NAME="CENTER" VALUE="0"><param NAME="MAINTAINASPECT" VALUE="0"><param NAME="BACKGROUNDCOLOR" VALUE="#000000"><param NAME="SRC" VALUE="$6$7"><\/object><BR>/isg;
@@ -266,7 +266,7 @@ sub lbcode {
         $$post =~ s/(\[rm\])(\S+?\.)(ram|rmm|rm|rmvb|mpg|mpv|mpeg|dat|avi|mpga)(\[\/rm\])/<b>这个是 RealPlayer 影片，点击播放<\/b><BR><a href="$2$3">$2$3<\/a>/isg;
         $$post =~ s/(\[real=)(\S+?)(\,)(\S+?)(\])(\S+?\.)(ram|rmm|rm|rmvb|mpg|mpv|mpeg|dat|avi|mpga)(\[\/real\])/<b>这个是 RealPlayer 影片，点击播放<\/b><BR><a href="$6$7">$6$7<\/a>/isg;
     }
-    if (($arrawpostmedia eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostmedia eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/(\[wma\])(\S+?\.)(ram|wma|wm|mp3|mp2|ra|mpa|mpga)(\[\/wma\])/<b>这个是 Windows Media Player 音乐：<\/b><br><embed type="application\/x-mplayer2" pluginspage="http:\/\/www.microsoft.com\/Windows\/Downloads\/Contents\/Products\/MediaPlayer\/" src="$2$3" name="realradio" showcontrols=1 ShowDisplay=0 ShowStatusBar=1 width=480 height=70 autostart=$arrawautoplay><\/embed><BR>/isg;
         $$post =~ s/(\[wmv\])(\S+?\.)(ram|asf|asx|avi|wmv|mpg|mpv|mpeg|dat)(\[\/wmv\])/<b>这个是 Windows Media Player 影片：<\/b><br><object id="videowindow1" width="480" height="330" classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95"><param NAME="Filename" value="$2$3"><param name="AUTOSTART" value=$arrawautoplay><\/object><BR>/isg;
         $$post =~ s/(\[wm=)(\S+?)(\,)(\S+?)(\])(\S+?\.)(ram|asf|asx|avi|wmv|mpg|mpeg|dat)(\[\/wm\])/<b>这个是 Windows Media Player 影片：<\/b><br><object id="videowindow1" width=$2 height=$4 classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95"><param NAME="Filename" value="$6$7"><param name="AUTOSTART" value=$arrawautoplay><\/object><BR>/isg;

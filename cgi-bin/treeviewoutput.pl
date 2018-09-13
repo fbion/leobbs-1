@@ -39,7 +39,7 @@ foreach (@threads) {
     if ($jfmark eq "yes" && $i == 0) {
         if ($post =~ m/\[jf=(.+?)\](.+?)\[\/jf\]/isg) {
             $jfpost = $1;
-            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
             }
             else {
                 &error("有问题&积分必须达到 $jfpost 才能查看，你目前的积分是 $jifen ！") if ($noviewjf eq "yes");

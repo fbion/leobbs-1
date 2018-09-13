@@ -76,12 +76,12 @@ $maxupload = 300 if ($maxupload eq "");
 $moneymax = 99999 if ($moneymax <= 0 || $moneymax >= 99999);
 $moneypost = int($moneypost) if (($moneypost ne "") && ($moneyhidden eq "yes"));
 &error("普通错误&请正确的输入帖子的价格，不要少于 1，也不要大于 $moneymax ！") if ((($moneypost > $moneymax) || ($moneypost < 1)) && ($moneyhidden eq "yes"));
-$inmembername = $membername;
-$inpassword = $password;
-if ($inpassword ne "") {
-    eval {$inpassword = md5_hex($inpassword);};
-    if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
-    unless ($@) {$inpassword = "lEO$inpassword";}
+$in_member_name = $membername;
+$in_password = $password;
+if ($in_password ne "") {
+    eval {$in_password = md5_hex($in_password);};
+    if ($@) {eval('use Digest::MD5 qw(md5_hex);$in_password = md5_hex($in_password);');}
+    unless ($@) {$in_password = "lEO$in_password";}
 }
 
 $in_post_no = $postno;
@@ -99,10 +99,10 @@ $inpost =~ s/\[ALIPAYE\]/\[ALIPAY\&\#069\;\]/sg;
 $inpost .= ($uselbcode eq "yes") ? "" : "[DISABLELBCODE]" if ($action eq "addnew" || $action eq "addreply" || $action eq "addnewpay");
 $inpost .= ($inshowchgfont eq "yes") ? "[USECHGFONTE]" : "" if (($action eq "addnew" || $action eq "addreply" || $action eq "addnewpay") && ($canchgfont ne "no"));
 
-if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
-if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
-$inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
-$inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
+if (!$in_member_name) {$in_member_name = $query->cookie("amembernamecookie");}
+if (!$in_password) {$in_password = $query->cookie("apasswordcookie");}
+$in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
+$in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ($moneyhidden eq "yes" && $cansale ne "no") {
     if (open(FILE, "${lbdir}data/cansalelist.cgi")) {
@@ -115,7 +115,7 @@ if ($moneyhidden eq "yes" && $cansale ne "no") {
         if ($CANSALELIST ne "") {
             my $type = $1;
             $CANSALELIST = "\t$CANSALELIST\t";
-            &error("普通错误&您不能够出售帖子！") if (!$type && $CANSALELIST !~ /\t$inmembername\t/ || $type && $CANSALELIST =~ /\t$inmembername\t/);
+            &error("普通错误&您不能够出售帖子！") if (!$type && $CANSALELIST !~ /\t$in_member_name\t/ || $type && $CANSALELIST =~ /\t$in_member_name\t/);
         }
     }
 }
@@ -126,25 +126,25 @@ $inposticon = $posticon;
 
 if (($in_post_no) && ($in_post_no !~ /^[0-9]+$/)) {&error("普通错误&老大，别乱黑我的程序呀！！！");}
 
-$inselectstyle = $query->cookie("selectstyle");
-$inselectstyle = $skinselected if ($inselectstyle eq "");
-&error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
-if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
+$in_select_style = $query->cookie("selectstyle");
+$in_select_style = $skin_selected if ($in_select_style eq "");
+&error("普通错误&老大，别乱黑我的程序呀！") if (($in_select_style =~ m/\//) || ($in_select_style =~ m/\\/) || ($in_select_style =~ m/\.\./));
+if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
 if ($inshowemoticons ne "yes") {$inshowemoticons eq "no";}
 if ($innotify ne "yes") {$innotify eq "no";}
 
 if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
 
-if ($inmembername eq "" || $inmembername eq "客人") {
-    $inmembername = "客人";
+if ($in_member_name eq "" || $in_member_name eq "客人") {
+    $in_member_name = "客人";
     $userregistered = "no";
 }
 else {
 
-    &getmember("$inmembername");
-    &error("普通错误&此用户根本不存在！") if ($inpassword ne "" && $userregistered eq "no");
-    if ($inpassword ne $password && $userregistered ne "no") {
+    &getmember("$in_member_name");
+    &error("普通错误&此用户根本不存在！") if ($in_password ne "" && $userregistered eq "no");
+    if ($in_password ne $password && $userregistered ne "no") {
         $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
         $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
@@ -154,7 +154,7 @@ else {
 
 &doonoff; #论坛开放与否
 
-$mymembercode = $membercode;
+$mymembercode = $member_code;
 $myrating = $rating;
 $myrating = "-6" if !($myrating);
 $maxpoststr = "" if ($maxpoststr eq 0);
@@ -169,12 +169,12 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 &moderator("$in_forum");
 $myinmembmod = $inmembmod;
 
-&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
-if ($allowusers ne '') {
-    &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
+&error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
+if ($allow_users ne '') {
+    &error('进入论坛&你不允许进入该论坛！') if (",$allow_users," !~ /,$in_member_name,/i && $member_code ne 'ad');
 }
 
-if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
     &error("进入论坛&你不允许进入该论坛，你的威望为 $rating，而本论坛只有威望大于等于 $enterminweiwang 的才能进入！") if ($enterminweiwang > 0 && $rating < $enterminweiwang);
     if ($enterminmony > 0 || $enterminjf > 0) {
         require "data/cityinfo.cgi" if ($addmoney eq "" || $replymoney eq "" || $moneyname eq "");
@@ -257,7 +257,7 @@ elsif ($action eq "addreply") {&addreply;}
 elsif ($action eq "addnewpay") {&addnewpay;}
 else {&error("普通错误&请以正确的方式访问本程序！");}
 
-&output("$boardname - 在$forumname内发帖", \$output);
+&output("$board_name - 在$forumname内发帖", \$output);
 exit;
 
 sub copy1 {
@@ -273,7 +273,7 @@ sub addnewpay {
 }
 
 sub addreply {
-    if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+    if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $replyminjf 的才能回复！") if ($replyminjf > 0 && $jifen < $replyminjf);
     }
     &error("出错&请不要用外部连接本程序！") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '') && ($canotherlink ne "yes"));
@@ -281,7 +281,7 @@ sub addreply {
 }
 
 sub addnewthread {
-    if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+    if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $postminjf 的才能发言！") if ($postminjf > 0 && $jifen < $postminjf);
     }
     &error("出错&请不要用外部连接本程序！") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '') && ($canotherlink ne "yes"));
@@ -289,7 +289,7 @@ sub addnewthread {
 }
 
 sub replyquote {
-    if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+    if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $replyminjf 的才能回复！") if ($replyminjf > 0 && $jifen < $replyminjf);
     }
     require "doreplyquote.pl";
@@ -298,30 +298,30 @@ sub replyquote {
 sub newthread {
     #&getoneforum("$in_forum");
 
-    if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
+    if ($member_code ne 'ad' && $member_code ne 'smo' && $inmembmod ne 'yes') {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $postminjf 的才能发言！") if ($postminjf > 0 && $jifen < $postminjf);
     }
 
     if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
     $tempaccess = "forumsallowed" . "$in_forum";
-    $testentry = $query->cookie("$tempaccess");
+    $test_entry = $query->cookie("$tempaccess");
 
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if ((($test_entry eq $forum_pass) && ($test_entry ne "")) || ($allowed_entry{$in_forum} eq "yes") || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您没有在此论坛中发表的权利！");}
 
     if ($postopen eq "no") {&error("发表主题&对不起，本论坛不允许发表主题！");}
 
-    if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $inmembmod ne "yes") {
+    if ($deletepercent > 0 && $numberofposts + $numberofreplys > 0 && $member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $inmembmod ne "yes") {
         &error("发表新主题&对不起，你的删贴率超过了<b>$deletepercent</b>%，管理员不允许你发表新主题！请联系坛主解决！") if ($postdel / ($numberofposts + $numberofreplys) >= $deletepercent / 100);
     }
 
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        if ($privateforum ne "yes") {&whosonline("$inmembername\t$forumname\tnone\t发表新主题\t");}
-        else {&whosonline("$inmembername\t$forumname(密)\tnone\t发表新的保密主题\t");}
+        if ($privateforum ne "yes") {&whosonline("$in_member_name\t$forumname\tnone\t发表新主题\t");}
+        else {&whosonline("$in_member_name\t$forumname(密)\tnone\t发表新的保密主题\t");}
     }
-    if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/)) {
+    if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($member_code ne "ad") && ($member_code ne "smo") && ($member_code ne "cmo") && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/)) {
         $onlinetime = $onlinetime + $onlinetimeadd;
         &error("发表新主题&对不起，本论坛不允许在线时间少于 $onlinepost 秒的用户发表主题！你目前已经在线 $onlinetime 秒！<BR>如果在线时间统计不正确,请重新登陆论坛一次即可解决！");
     }
@@ -396,11 +396,11 @@ sub reply {
     #&getoneforum("$in_forum");
     &moderator("$in_forum");
     $tempaccess = "forumsallowed" . "$in_forum";
-    $testentry = $query->cookie("$tempaccess");
-    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    $test_entry = $query->cookie("$tempaccess");
+    if (($allowed_entry{$in_forum} eq "yes") || (($test_entry eq $forum_pass) && ($test_entry ne "")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您不允许在此论坛发表！");}
     if ($postopen eq "no") {&error("发表或回复主题&对不起，本论坛不允许发表或回复主题！");}
-    &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($inmembername eq "客人"));
+    &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($in_member_name eq "客人"));
 
     open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
     @threads = <FILE>;
@@ -440,13 +440,13 @@ sub reply {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tnone\t回复<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
+            &whosonline("$in_member_name\t$forumname\tnone\t回复<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
         }
         else {
-            &whosonline("$inmembername\t$forumname(密)\tnone\t回复保密帖子\t");
+            &whosonline("$in_member_name\t$forumname(密)\tnone\t回复保密帖子\t");
         }
     }
-    if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($membercode ne "ad") && ($membercode ne "smo") && ($membercode ne "cmo") && ($membercode ne "mo") && ($membercode ne "amo") && ($membercode !~ /^rz/)) {
+    if ((($onlinetime + $onlinetimeadd) < $onlinepost) && ($onlinepost ne "") && ($member_code ne "ad") && ($member_code ne "smo") && ($member_code ne "cmo") && ($member_code ne "mo") && ($member_code ne "amo") && ($member_code !~ /^rz/)) {
         $onlinetime = $onlinetime + $onlinetimeadd;
         &error("回复主题&对不起，本论坛不允许在线时间少于 $onlinepost 秒的用户回复主题！你目前已经在线 $onlinetime 秒！<BR>如果在线时间统计不正确,请重新登陆论坛一次即可解决！");
     }
@@ -476,7 +476,7 @@ therange.execCommand("Copy")}
 
 sub posttable {
     my $page = shift;
-    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
+    $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$in_member_name</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>当前心情</b><br><li>将放在帖子的前面<BR></font></td><td bgcolor=$miscbackone valign=top>
@@ -494,7 +494,7 @@ sub posttable {
         $output .= qq~<input type=radio value="$_" name="posticon"><img src=$imagesurl/posticons/$_ $defaultsmilewidth $defaultsmileheight>&nbsp;~;
         $tempiconnum++;
     }
-    if ((($page eq 1) && ($arrowupload ne "off")) || (($page eq 2) && ($allowattachment ne "no")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+    if ((($page eq 1) && ($arrowupload ne "off")) || (($page eq 2) && ($allowattachment ne "no")) || ($member_code eq "ad") || ($member_code eq 'smo') || ($inmembmod eq "yes")) {
         $uploadreqire = "" if ($uploadreqire <= 0);
         $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
         $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;

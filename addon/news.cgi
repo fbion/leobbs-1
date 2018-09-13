@@ -81,7 +81,7 @@ if ($number !~ /^[0-9]+$/) {
 
 if (-e "${lbdir}data/style${inforum}.cgi") { require "${lbdir}data/style${inforum}.cgi"; }
 
-if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers ne '') {
+if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allow_users ne '') {
     $str="-* 这是保密论坛，不能列表 *-";
     goto ENDPPP;
 }

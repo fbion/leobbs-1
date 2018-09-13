@@ -14,7 +14,7 @@ sub lbcode {
     $$post =~ s/\[UploadFile=(.*?)\]/(上传文件)<br>/ig;
     if ($wwjf ne "no") {
         if ($$post =~ /LBHIDDEN\[(.*?)\]LBHIDDEN/sg) {
-            if ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($myrating >= $1)) {
+            if ((lc($in_member_name) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($myrating >= $1)) {
             }
             else {
                 $$post = qq~（您没有权限看这个帖子，您的威望至少需要 <b>$1<\/b><br> ~;
@@ -48,10 +48,10 @@ sub lbcode {
                 $allbuyerno2 = $allbuyerno - 1;
 
                 $allbuyer = "\t$allbuyer\t";
-                $isbuyer = "yes" if ($allbuyer =~ /\t$inmembername\t/i);
+                $isbuyer = "yes" if ($allbuyer =~ /\t$in_member_name\t/i);
             }
             $allbuyerno = 0 if (($allbuyerno < 0) || ($allbuyerno eq ""));
-            unless (($inmembername eq $membername) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
+            unless (($in_member_name eq $membername) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
                 $$post = qq~(察看这个帖子需要 <b>$1<\/b> $moneyname，目前已有 <b>$allbuyerno<\/b> 人购买，<a href=\"buypost.cgi?inforum=$in_forum&amp;intopic=$in_topic&amp;postmast=$most&amp;postnumber=$postno&amp;salemembername=$membername&amp;moneynumber=$1\">\[购买\]<\/a>)~;
                 $addme = "(附件保密!)<br><br>" if ($addme);
             }
@@ -67,7 +67,7 @@ sub lbcode {
         return;
     }
 
-    if (($arrawpostpic eq "on") || ($membercode{$membername} eq 'mo' || $membercode{$membername} eq 'amo' || $membercode{$membername} eq 'cmo' || $membercode{$membername} eq 'ad' || $inmembmod eq 'yes' || $membercode{$membername} eq 'smo')) {
+    if (($arrawpostpic eq "on") || ($member_code{$membername} eq 'mo' || $member_code{$membername} eq 'amo' || $member_code{$membername} eq 'cmo' || $member_code{$membername} eq 'ad' || $inmembmod eq 'yes' || $member_code{$membername} eq 'smo')) {
         $$post =~ s/\[url.+?\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]\[\/url\]/<img src=\'$1:\/\/$2\' alt=\'图片\' width=\'110\' \/>/isg;
         $$post =~ s/\[img\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=\'$1:\/\/$2\' alt=\'图片\' width=\'110\' \/>/isg;
         $$post =~ s/\[img\,(.+?)\]\s*(http|https|ftp):\/\/(\S+?)\s*\[\/img\]/<img src=\'$2:\/\/$3\' align=\'$1\' alt=\'图片\' width=\'110\' \/>/isg;
@@ -96,7 +96,7 @@ sub lbcode {
     ## 指定帖子给特殊会员看
     if ($$post =~ m/\[qqh=(.+?)\](.+?)\[\/qqh\]/isg) {
         $cenviewer = "$1";
-        if ((lc($cenviewer) eq lc($inmembername)) || (lc($membername) eq lc($inmembername))) {
+        if ((lc($cenviewer) eq lc($in_member_name)) || (lc($membername) eq lc($in_member_name))) {
             $$post =~ s/\[qqh=(.+?)\](.+?)\[\/qqh\]/\(这是$membername给你的悄悄话，请注意保密:$2\)<br>/isg;
         }
         else {
@@ -107,7 +107,7 @@ sub lbcode {
     if ($jfmark eq "yes") {
         if ($$post =~ m/\[jf=(\d+?)\](.+?)\[\/jf\]/isg) {
             $jfpost = $1;
-            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+            if (($jfpost <= $jifen) || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
                 $$post =~ s/\[jf=(\d+?)\](.*)\[\/jf\]/文章内容：（积分必须达到 $jfpost 才能查看本内容）$2/isg;
             }
             else {
@@ -139,7 +139,7 @@ sub lbcode {
             $viewusepost = $1;
             if ($StartCheck >= $viewusepost) {$Checkpost = 'ok';}
             else {$Checkpost = 'not';}
-            if (($Checkpost eq 'ok') || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($inmembername))) {
+            if (($Checkpost eq 'ok') || ($mymembercode eq "ad") || ($mymembercode eq "smo") || ($myinmembmod eq "yes") || (lc($membername) eq lc($in_member_name))) {
                 $$post =~ s/\[post=(.+?)\](.*)\[\/post\]/$2/isg;
             }
             else {

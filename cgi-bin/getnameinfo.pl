@@ -31,15 +31,15 @@ sub getmemberinfo {
         my $filedata = <FILE3>;
         close(FILE3);
         chomp($filedata);
-        ($membername{$membername}, undef, $membertitle{$membername}, $membercode{$membername}, $numberofposts{$membername}, my $emailaddress, my $showemail, undef, my $homepage, my $oicqnumber, my $icqnumber, $location{$membername}, undef, $joineddate{$membername}, undef, $signature{$membername}, undef, undef, $useravatar{$membername}, $userflag{$membername}, $userxz, $usersx, my $personalavatar, my $personalwidth, my $personalheight, $rating{$membername}, $lastgone{$membername}, my $visitno, my $useradd04, $useradd02{$membername}, $mymoney{$membername}, my $postdel, my $sex, undef, undef, undef, undef, undef, undef, $jhmp{$membername}, $jhcount{$membername}, my $ebankdata, my $onlinetime, my $userquestion, $awards{$membername}, $jifen{$membername}, $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
+        ($membername{$membername}, undef, $membertitle{$membername}, $member_code{$membername}, $numberofposts{$membername}, my $emailaddress, my $showemail, undef, my $homepage, my $oicqnumber, my $icqnumber, $location{$membername}, undef, $joineddate{$membername}, undef, $signature{$membername}, undef, undef, $useravatar{$membername}, $userflag{$membername}, $userxz, $usersx, my $personalavatar, my $personalwidth, my $personalheight, $rating{$membername}, $lastgone{$membername}, my $visitno, my $useradd04, $useradd02{$membername}, $mymoney{$membername}, my $postdel, my $sex, undef, undef, undef, undef, undef, undef, $jhmp{$membername}, $jhcount{$membername}, my $ebankdata, my $onlinetime, my $userquestion, $awards{$membername}, $jifen{$membername}, $userface, my $soccerdata, my $useradd5) = split(/\t/, $filedata);
         $mymoney{$membername} = int($mymoney{$membername});
-        #	($membername, $password, $membertitle, $membercode, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber ,$location ,$interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount,$ebankdata,$onlinetime,$userquestion,$awards,$jifen,$userface,$soccerdata,$useradd5) = split(/\t/,$filedata);
+        #	($membername, $password, $membertitle, $member_code, $numberofposts, $emailaddress, $showemail, $ipaddress, $homepage, $oicqnumber, $icqnumber ,$location ,$interests, $joineddate, $lastpostdate, $signature, $timedifference, $privateforums, $useravatar, $userflag, $userxz, $usersx, $personalavatar, $personalwidth, $personalheight, $rating, $lastgone, $visitno, $useradd04, $useradd02, $mymoney, $postdel, $sex, $education, $marry, $work, $born, $chatlevel, $chattime, $jhmp, $jhcount,$ebankdata,$onlinetime,$userquestion,$awards,$jifen,$userface,$soccerdata,$useradd5) = split(/\t/,$filedata);
 
         $membername{$membername} = $tempmname if ($membername{$membername} eq "");
         $lastgone{$membername} = $joineddate{$membername} if ($lastgone{$membername} eq ""); # 最后访问时间
         $lastgone{$membername} = &dateformat($lastgone{$membername} + $addtimes);
         $showemail = "no" if ($dispmememail eq "no");
-        $membercode{$membername} ||= "me";
+        $member_code{$membername} ||= "me";
         $jhcount{$membername} = "0" if ($jhcount{$membername} <= 0);
         $onlinetime = "3000" if ($onlinetime < 0);
         ($signatureorigin{$membername}, $signaturehtml{$membername}) = split(/aShDFSiod/, $signature{$membername});
@@ -206,12 +206,12 @@ sub getmemberinfo {
         if ($homepage) {$homepagegraphic{$membername} = qq~<a href=http://$homepage target=_blank title="访问 $membername{$membername} 的主页"><img src=$imagesurl/images/homepage.gif border=0 width=16 align=absmiddle></a>　~;}
         else {$homepagegraphic{$membername} = "";}
         #    if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) { $oicqgraphic{$membername} = qq~<a href=http://search.tencent.com/cgi-bin/friend/user_show_info?ln=$oicqnumber target=_blank title="查看 QQ:$oicqnumber的资料" atta="<img src=http://qqshow-user.tencent.com/$oicqnumber/10/00/>"><img src=$imagesurl/images/oicq.gif border=0 width=16 align=absmiddle> </a>&nbsp;~; } else { $oicqgraphic=""; }
-        if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) {$oicqgraphic{$membername} = qq~<a target=blank href=http://wpa.qq.com/msgrd?V=1&Uin=$oicqnumber&Site=$boardname&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:$oicqnumber:4 alt="发送即时消息给$membername" width=16></a> ~;}
+        if (($oicqnumber) && ($oicqnumber =~ /[0-9]/)) {$oicqgraphic{$membername} = qq~<a target=blank href=http://wpa.qq.com/msgrd?V=1&Uin=$oicqnumber&Site=$board_name&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:$oicqnumber:4 alt="发送即时消息给$membername" width=16></a> ~;}
         else {$oicqgraphic = "";}
         if (($icqnumber) && ($icqnumber =~ /[0-9]/)) {$icqgraphic{$membername} = qq~<span style="cursor:hand" onClick="javascript:openScript('misc.cgi?action=icq&UIN=$icqnumber',450,300)" title="给 ICQ:$icqnumber 发个消息"><img src=$imagesurl/images/icq.gif border=0 width=16 align=absmiddle></span>　~;}
         else {$icqgraphic = "";}
 
-        if ($membercode{$membername} eq "ad") {
+        if ($member_code{$membername} eq "ad") {
             $posterfontcolor{$membername} = "$adminnamecolor";
             $glowing{$membername} = $adminglow;
             $membernameimg{$membername} = "<img src=$imagesurl/images/teamad.gif alt=此人为坛主 width=16 align=absmiddle>";
@@ -219,7 +219,7 @@ sub getmemberinfo {
             $mtitle{$membername} = $adtitle if ($adtitle ne "");
             if (($membertitle{$membername} eq "Member") || ($membertitle{$membername} eq "member")) {$membertitle{$membername} = "论坛坛主";}
         }
-        elsif ($membercode{$membername} eq "mo") {
+        elsif ($member_code{$membername} eq "mo") {
             $posterfontcolor{$membername} = "$teamnamecolor";
             $glowing{$membername} = $teamglow;
             $membernameimg{$membername} = "<img src=$imagesurl/images/teammo.gif alt=此人为版主 width=16 align=absmiddle>";
@@ -227,7 +227,7 @@ sub getmemberinfo {
             $mtitle{$membername} = $motitle if ($motitle ne "");
             if (($membertitle{$membername} eq "Member") || ($membertitle{$membername} eq "member")) {$membertitle{$membername} = "论坛版主";}
         }
-        elsif ($membercode{$membername} eq "cmo") {
+        elsif ($member_code{$membername} eq "cmo") {
             $posterfontcolor{$membername} = "$cmonamecolor";
             $glowing{$membername} = $cmoglow;
             $membernameimg{$membername} = "<img src=$imagesurl/images/teamcmo.gif alt=此人为分类区版主 width=16 align=absmiddle>";
@@ -235,7 +235,7 @@ sub getmemberinfo {
             $mtitle{$membername} = $cmotitle if ($cmotitle ne "");
             if (($membertitle{$membername} eq "Member") || ($membertitle{$membername} eq "member")) {$membertitle{$membername} = "分类区版主";}
         }
-        elsif ($membercode{$membername} eq "amo") {
+        elsif ($member_code{$membername} eq "amo") {
             $posterfontcolor{$membername} = "$amonamecolor";
             $glowing{$membername} = $amoglow;
             $membernameimg{$membername} = "<img src=$imagesurl/images/teamamo.gif alt=此人为论坛副版主 width=16 align=absmiddle>";
@@ -243,7 +243,7 @@ sub getmemberinfo {
             $mtitle{$membername} = $amotitle if ($amotitle ne "");
             if (($membertitle{$membername} eq "Member") || ($membertitle{$membername} eq "member")) {$membertitle{$membername} = "论坛副版主";}
         }
-        elsif ($membercode{$membername} eq "smo") {
+        elsif ($member_code{$membername} eq "smo") {
             $posterfontcolor{$membername} = "$smonamecolor";
             $glowing{$membername} = $smoglow;
             $membernameimg{$membername} = "<img src=$imagesurl/images/teamsmo.gif alt=此人为总版主 width=16 align=absmiddle>";
@@ -251,14 +251,14 @@ sub getmemberinfo {
             $mtitle{$membername} = $smotitle if ($smotitle ne "");
             if (($membertitle{$membername} eq "Member") || ($membertitle{$membername} eq "member")) {$membertitle{$membername} = "总版主";}
         }
-        elsif ($membercode{$membername} =~ /^rz/) {
+        elsif ($member_code{$membername} =~ /^rz/) {
             $posterfontcolor{$membername} = $rznamecolor;
             $glowing{$membername} = $rzglow;
-            my $teampic = $membercode{$membername} eq "rz1" && $defrz1 ne "" && $defrzpic1 ne "" ? $defrzpic1 : $membercode{$membername} eq "rz2" && $defrz2 ne "" && $defrzpic2 ne "" ? $defrzpic2 : $membercode{$membername} eq "rz3" && $defrz3 ne "" && $defrzpic3 ne "" ? $defrzpic3 : $membercode{$membername} eq "rz4" && $defrz4 ne "" && $defrzpic4 ne "" ? $defrzpic4 : $membercode{$membername} eq "rz5" && $defrz5 ne "" && $defrzpic5 ne "" ? $defrzpic5 : "teamrz.gif";
-            my $teamname = $membercode{$membername} eq "rz1" && $defrz1 ne "" ? $defrz1 : $membercode{$membername} eq "rz2" && $defrz2 ne "" ? $defrz2 : $membercode{$membername} eq "rz3" && $defrz3 ne "" ? $defrz3 : $membercode{$membername} eq "rz4" && $defrz4 ne "" ? $defrz4 : $membercode{$membername} eq "rz5" && $defrz5 ne "" ? $defrz5 : "认证用户";
+            my $teampic = $member_code{$membername} eq "rz1" && $defrz1 ne "" && $defrzpic1 ne "" ? $defrzpic1 : $member_code{$membername} eq "rz2" && $defrz2 ne "" && $defrzpic2 ne "" ? $defrzpic2 : $member_code{$membername} eq "rz3" && $defrz3 ne "" && $defrzpic3 ne "" ? $defrzpic3 : $member_code{$membername} eq "rz4" && $defrz4 ne "" && $defrzpic4 ne "" ? $defrzpic4 : $member_code{$membername} eq "rz5" && $defrz5 ne "" && $defrzpic5 ne "" ? $defrzpic5 : "teamrz.gif";
+            my $teamname = $member_code{$membername} eq "rz1" && $defrz1 ne "" ? $defrz1 : $member_code{$membername} eq "rz2" && $defrz2 ne "" ? $defrz2 : $member_code{$membername} eq "rz3" && $defrz3 ne "" ? $defrz3 : $member_code{$membername} eq "rz4" && $defrz4 ne "" ? $defrz4 : $member_code{$membername} eq "rz5" && $defrz5 ne "" ? $defrz5 : "认证用户";
             $membernameimg{$membername} = qq~<img src=$imagesurl/images/$teampic alt="此人为$teamname" width=16 align=absmiddle>~;
         }
-        elsif ($membercode{$membername} eq "banned") {
+        elsif ($member_code{$membername} eq "banned") {
             $posterfontcolor{$membername} = "$posternamecolor";
             $glowing{$membername} = $banglow;
             $membergraphic{$membername} = "";
@@ -266,7 +266,7 @@ sub getmemberinfo {
             $membertitle{$membername} = "&nbsp;<b>已被禁止发言</b><BR>";
             $membernameimg{$membername} = "";
         }
-        elsif ($membercode{$membername} eq "masked") {
+        elsif ($member_code{$membername} eq "masked") {
             $posterfontcolor{$membername} = "$posternamecolor";
             $glowing{$membername} = $banglow;
             $membergraphic{$membername} = "";
@@ -281,7 +281,7 @@ sub getmemberinfo {
         }
 
         if ($membertitle{$membername} eq "member" || $membertitle{$membername} eq "Member" || $membertitle{$membername} eq "") {$membertitle{$membername} = "";}
-        else {$membertitle{$membername} = "&nbsp;头衔: $membertitle{$membername}<br>" if (($membercode{$membername} ne "banned") && ($membercode{$membername} ne "masked"));}
+        else {$membertitle{$membername} = "&nbsp;头衔: $membertitle{$membername}<br>" if (($member_code{$membername} ne "banned") && ($member_code{$membername} ne "masked"));}
 
         $membertitle{$membername} =~ s/&lt;/</g;
         $membertitle{$membername} =~ s/&gt;/>/g;
@@ -427,7 +427,7 @@ sub getmemberinfo {
             $vheight{$membername} = $vheight{$membername} + 15;
         }
 
-        if ((!(-e "${lbdir}cache/meminfo/$membername.pl")) && ($saveinfofile <= 3) && ($inselectstyle eq $skinselected)) {
+        if ((!(-e "${lbdir}cache/meminfo/$membername.pl")) && ($saveinfofile <= 3) && ($in_select_style eq $skin_selected)) {
 
             my $homepagegraphic = $homepagegraphic{$membername};
             my $membernameimg = $membernameimg{$membername};
@@ -538,7 +538,7 @@ sub getmemberinfo {
             open(FILE, ">${lbdir}cache/meminfo/$membername.pl");
             print FILE qq(
 \$membername{"$membername"}      = qq~$membername{$membername}~;
-\$membercode{"$membername"}      = qq~$membercode{$membername}~;
+\$member_code{"$membername"}      = qq~$member_code{$membername}~;
 \$rating{"$membername"}          = qq~$rating{$membername}~;
 \$membergraphic{"$membername"}   = qq~$membergraphic{$membername}~;
 \$posterfontcolor{"$membername"} = qq~$posterfontcolor{$membername}~;
@@ -581,7 +581,7 @@ sub getmemberinfo {
 \$useravatar{"$membername"}      = qq~$useravatar~;
 \$mtitle{"$membername"}          = qq~$mtitle~;
 \$location{"$membername"}        = qq~$locatername = "客人";
-	require "guestinfo.pl" if ($membercode{"客人"} eq "");
+	require "guestinfo.pl" if ($member_code{"客人"} eq "");
     }
 }
 1;
