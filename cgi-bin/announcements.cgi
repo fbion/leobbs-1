@@ -34,32 +34,32 @@ require "data/styles.cgi";
 require "bbs.lib.pl";
 $|++;
 
-$thisprog = "announcements.cgi";
+my $thisprog = "announcements.cgi";
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;') if ($usegzip eq "yes");
 
-$query = new LBCGI;
+my $query = LBCGI->new;
 
 for ('membername', 'password', 'announcementtitle', 'announcementpost', 'action', 'checked', 'number', 'forum') {
     next unless defined $_;
     next if $_ eq 'SEND_MAIL';
-    $tp = $query->param($_);
+    my $tp = $query->param($_);
     $tp = &cleaninput($tp);
     ${$_} = $tp;
 }
-$inmembername = $membername;
-$inpassword = $password;
+my $inmembername = $membername;
+my $inpassword = $password;
 if ($inpassword ne "") {
     eval {$inpassword = md5_hex($inpassword);};
     if ($@) {eval('use Digest::MD5 qw(md5_hex);$inpassword = md5_hex($inpassword);');}
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
-$inannouncementtitle = $announcementtitle;
-$inannouncementpost = $announcementpost;
-$inforum = $forum;
+my $inannouncementtitle = $announcementtitle;
+my $inannouncementpost = $announcementpost;
+my $inforum = my $forum;
 &error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-$inselectstyle = $query->cookie("selectstyle");
+my $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle = $skinselected if ($inselectstyle eq "");
 &error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
@@ -76,8 +76,8 @@ else {
     &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
     if ($inpassword ne $password) {
-        $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
-        $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
+        my $namecookie = cookie(-name => "amembernamecookie", -value => "", -path => "$cookiepath/");
+        my $passcookie = cookie(-name => "apasswordcookie", -value => "", -path => "$cookiepath/");
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
