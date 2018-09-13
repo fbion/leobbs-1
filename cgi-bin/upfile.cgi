@@ -60,10 +60,10 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 $addme = $query->param('addme');
 $forum = $query->param('forum');
 $topic = $query->param('topic');
-$inforum = $forum;
-$intopic = $topic;
+$in_forum = $forum;
+$in_topic = $topic;
 
-if ($intopic ne "") {$tmpurl = "&topic=$intopic";}
+if ($in_topic ne "") {$tmpurl = "&topic=$in_topic";}
 $gourl1 = qq~<meta http-equiv="refresh" content="3; url=$thisprog?action=uppic&forum=$forum$tmpurl"> [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>3 秒钟自动返回</a> ]~;
 $gourl = qq~ [ <a href=$thisprog?action=uppic&forum=$forum$tmpurl>按此返回</a> ]~;
 
@@ -72,10 +72,10 @@ print header(-charset => "UTF-8");
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 $maxupload = 300 if ($maxupload eq "");
 
-if (($intopic) && ($intopic !~ /^[0-9]+$/)) {&thisout("<b>请以正确的方式访问本程序1！</b>");}
-if ($inforum ne "" && $inforum !~ /^[0-9]+$/) {&thisout("<b>请以正确的方式访问本程序2！</b>");};
+if (($in_topic) && ($in_topic !~ /^[0-9]+$/)) {&thisout("<b>请以正确的方式访问本程序1！</b>");}
+if ($in_forum ne "" && $in_forum !~ /^[0-9]+$/) {&thisout("<b>请以正确的方式访问本程序2！</b>");};
 
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) {&thisout("<b>对不起，此分论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复此分论坛一次！</b>");}
+if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&thisout("<b>对不起，此分论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复此分论坛一次！</b>");}
 
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle = $skinselected if ($inselectstyle eq "");
@@ -132,8 +132,8 @@ sub uppic #界面
     $thisoutput = qq~
 <form action="$thisprog" method="post" enctype="multipart/form-data" name=UPFORM>
 <input type=hidden name="action" value="doupfile">
-<input type=hidden name="forum" value="$inforum">
-<input type=hidden name="topic" value="$intopic">
+<input type=hidden name="forum" value="$in_forum">
+<input type=hidden name="topic" value="$in_topic">
 <input type="file" size=26 name="addme" > <input type=submit value="立 即 上 传"> 　　$addtypedisp~;
     &thisout("$thisoutput");
     exit;
@@ -145,10 +145,10 @@ sub doupfile #上传
     $addme = $query->param('addme'); #如果CGI.pm版本<2.47，用他替换上句
     $forum = $query->param('forum');
     $topic = $query->param('topic');
-    $inforum = $forum;
-    $intopic = $topic;
+    $in_forum = $forum;
+    $in_topic = $topic;
 
-    &moderator($inforum); #获得权限
+    &moderator($in_forum); #获得权限
 
     my $thispath = &getusrdir; #临时目录
 
@@ -204,8 +204,8 @@ sub doupfile #上传
         #     $tmpfilename =~s/([^\w.-])/_/g;
         #     $tmpfilename =~s/(^[-.]+)//;
         my @filename = split(/\./, $tmpfilename); #注意
-        $up_name = $filename[0];
-        $up_ext = $filename[-1];
+        $up_name = $file_name[0];
+        $up_ext = $file_name[-1];
         $up_ext = lc($up_ext);
 
         my $checkadd = 0;
@@ -279,7 +279,7 @@ sub doupfile #上传
             &thisout("上传出错，上传文件大小超过$maxupload KB，请重新选择！$gourl");
         }
 
-        $delurl = qq~$thisprog?action=delup&name=$tmpfilename&ext=${up_ext}&forum=$inforum~;
+        $delurl = qq~$thisprog?action=delup&name=$tmpfilename&ext=${up_ext}&forum=$in_forum~;
         $addit2span = qq~ <div id=${tmpfilename}_${up_ext}>附件:$up_name.$up_ext [<span style=cursor:hand onClick=\\"jsupfile('$tmpfilename.$up_ext');FORM.inpost.focus()\\">再次插入帖子</span>]</div>~;
         $thisoutput .= qq~<b>上传成功</b> $gourl1<SCRIPT> var p_showupfile= parent.document.getElementById("showupfile"); var s = p_showupfile.innerHTML; s+="$addit2span"; p_showupfile.innerHTML =s; var p_inpost= parent.document.FORM.inpost; var upname='[UploadFile$imgslt=$tmpfilename.$up_ext]';var o_value=p_inpost.value; o_value += upname; p_inpost.value = o_value;</SCRIPT>~;
 
@@ -298,7 +298,7 @@ sub delup #删除
 
     # exit if (;)
     $forum = $query->param('forum');
-    $inforum = $forum;
+    $in_forum = $forum;
     my $thispath = &getusrdir(1);
 
     opendir(DIRS, "$thispath");

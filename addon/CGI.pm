@@ -3103,7 +3103,7 @@ sub read_multipart {
         $param .= $TAINTED;
 
 	# Bug:  Netscape doesn't escape quotation marks in file names!!!
-	my($filename) = $header{'Content-Disposition'}=~/ filename="?([^\"]*)"?/;
+	my($file_name) = $header{'Content-Disposition'}=~/ filename="?([^\"]*)"?/;
 	# Test for Opera's multiple upload feature
 	my($multipart) = ( defined( $header{'Content-Type'} ) &&
 		$header{'Content-Type'} =~ /multipart\/mixed/ ) ?
@@ -3114,7 +3114,7 @@ sub read_multipart {
 
 	# If no filename specified, then just read the data and assign it
 	# to our parameter list.
-	if ( ( !defined($filename) || $filename eq '' ) && !$multipart ) {
+	if ( ( !defined($file_name) || $file_name eq '' ) && !$multipart ) {
 	    my($value) = $buffer->readBody;
             $value .= $TAINTED;
 	    push(@{$self->{$param}},$value);
@@ -3134,8 +3134,8 @@ sub read_multipart {
 	  }
 
 	  # set the filename to some recognizable value
-          if ( ( !defined($filename) || $filename eq '' ) && $multipart ) {
-              $filename = "multipart/mixed";
+          if ( ( !defined($file_name) || $file_name eq '' ) && $multipart ) {
+              $file_name = "multipart/mixed";
           }
 
 	  # choose a relatively unpredictable tmpfile sequence number
@@ -3143,7 +3143,7 @@ sub read_multipart {
           for (my $cnt=10;$cnt>0;$cnt--) {
 	    next unless $tmpfile = new CGITempFile($seqno);
 	    $tmp = $tmpfile->as_string;
-	    last if defined($filehandle = Fh->new($filename,$tmp,$PRIVATE_TEMPFILES));
+	    last if defined($filehandle = Fh->new($file_name,$tmp,$PRIVATE_TEMPFILES));
             $seqno += int rand(100);
           }
           die "CGI open of tmpfile: $!\n" unless defined $filehandle;
@@ -3198,17 +3198,17 @@ END_OF_FUNC
 
 'tmpFileName' => <<'END_OF_FUNC',
 sub tmpFileName {
-    my($self,$filename) = self_or_default(@_);
-    return $self->{'.tmpfiles'}->{fileno($filename)}->{name} ?
-	$self->{'.tmpfiles'}->{fileno($filename)}->{name}->as_string
+    my($self,$file_name) = self_or_default(@_);
+    return $self->{'.tmpfiles'}->{fileno($file_name)}->{name} ?
+	$self->{'.tmpfiles'}->{fileno($file_name)}->{name}->as_string
 	    : '';
 }
 END_OF_FUNC
 
 'uploadInfo' => <<'END_OF_FUNC',
 sub uploadInfo {
-    my($self,$filename) = self_or_default(@_);
-    return $self->{'.tmpfiles'}->{fileno($filename)}->{info};
+    my($self,$file_name) = self_or_default(@_);
+    return $self->{'.tmpfiles'}->{fileno($file_name)}->{info};
 }
 END_OF_FUNC
 
@@ -3623,15 +3623,15 @@ $AUTOLOADED_ROUTINES=<<'END_OF_AUTOLOAD';
 'new' => <<'END_OF_FUNC',
 sub new {
     my($package,$sequence) = @_;
-    my $filename;
+    my $file_name;
     for (my $i = 0; $i < $MAXTRIES; $i++) {
-	last if ! -f ($filename = sprintf("${TMPDIRECTORY}${SL}CGItemp%d",$sequence++));
+	last if ! -f ($file_name = sprintf("${TMPDIRECTORY}${SL}CGItemp%d",$sequence++));
     }
     # check that it is a more-or-less valid filename
-    return unless $filename =~ m!^([a-zA-Z0-9_ \'\":/.\$\\-]+)$!;
+    return unless $file_name =~ m!^([a-zA-Z0-9_ \'\":/.\$\\-]+)$!;
     # this used to untaint, now it doesn't
-    # $filename = $1;
-    return bless \$filename;
+    # $file_name = $1;
+    return bless \$file_name;
 }
 END_OF_FUNC
 
@@ -5448,7 +5448,7 @@ field will accept (-maxlength).
 When the form is processed, you can retrieve the entered filename
 by calling param():
 
-       $filename = $query->param('uploaded_file');
+       $file_name = $query->param('uploaded_file');
 
 Different browsers will return slightly different things for the
 name.  Some browsers return the filename only.  Others return the full
@@ -5461,13 +5461,13 @@ The filename returned is also a file handle.  You can read the contents
 of the file using standard Perl file reading calls:
 
 	# Read a text file and print it out
-	while (<$filename>) {
+	while (<$file_name>) {
 	   print;
 	}
 
 	# Copy a binary file to somewhere safe
 	open (OUTFILE,">>/usr/local/web/users/feedback");
-	while ($bytesread=read($filename,$buffer,1024)) {
+	while ($bytesread=read($file_name,$buffer,1024)) {
 	   print OUTFILE $buffer;
 	}
 
@@ -5501,8 +5501,8 @@ other information as well (such as modification date and size). To
 retrieve this information, call uploadInfo().  It returns a reference to
 an associative array containing all the document headers.
 
-       $filename = $query->param('uploaded_file');
-       $type = $query->uploadInfo($filename)->{'Content-Type'};
+       $file_name = $query->param('uploaded_file');
+       $type = $query->uploadInfo($file_name)->{'Content-Type'};
        unless ($type eq 'text/html') {
 	  die "HTML FILES ONLY!";
        }

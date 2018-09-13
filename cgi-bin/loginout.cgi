@@ -48,8 +48,8 @@ else {
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inforum = $query->param('forum');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_forum = $query->param('forum');
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 for ('inmembername', 'inpassword', 'action', 'CookieDate', 'onlineview', 'viewMode', 'nodispavatar',
@@ -92,8 +92,8 @@ else {
 $memberfilename = $inmembername;
 $memberfilename =~ s/ /\_/g;
 $memberfilename =~ tr/A-Z/a-z/;
-&getoneforum("$inforum");
-#&moderator("$inforum");
+&getoneforum("$in_forum");
+#&moderator("$in_forum");
 #&title;
 &mischeader("登录/退出");
 
@@ -105,8 +105,8 @@ if ($action eq "login") {
     &cleanolddata;
     if (($userregistered ne "no") && ($inpassword eq $password)) {
         &whosonline("$inmembername\t论坛登录\tnone\t登录论坛\t");
-        if ($inforum eq "") {$refrashurl = "leobbs.cgi";}
-        else {$refrashurl = "forums.cgi?forum=$inforum";}
+        if ($in_forum eq "") {$refrashurl = "leobbs.cgi";}
+        else {$refrashurl = "forums.cgi?forum=$in_forum";}
         $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>感谢你登录 $inmembername</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
 具体情况：<ul><li><a href="$refrashurl">进入论坛</a>
@@ -136,7 +136,7 @@ if ($action eq "login") {
 
         $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>登录错误</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>登录错误的可能原因：
-<ul><li>密码错误<li>用户名错误<li>您不是<a href=register.cgi?forum=$inforum>注册</a>用户</ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
+<ul><li>密码错误<li>用户名错误<li>您不是<a href=register.cgi?forum=$in_forum>注册</a>用户</ul></tr></td></table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;
     }
 }
 elsif ($action eq "logout") {
@@ -271,10 +271,10 @@ else {
     <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center>
     <form action="$thisprog" name="login" method="post" onSubmit="submitonce(this)">
     <input type=hidden name="action" value="login">
-    <input type=hidden name="forum" value="$inforum">
+    <input type=hidden name="forum" value="$in_forum">
     <font face="$font" color=$fontcolormisc><b>请输入您的用户名、密码登录</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="inmembername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="inpassword"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
     <tr>
     <td bgcolor=$miscbacktwo colspan=2 valign=middle><font face="$font" color=$fontcolormisc><b>论坛登录选项</b></font></td></tr>

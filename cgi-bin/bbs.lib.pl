@@ -127,10 +127,10 @@ sub title {
     $newmail = "<p>";
     if ($inmembername eq "" || $inmembername eq "客人") {
         $inmembername = "客人";
-        $loggedinas = qq~<b>客人</b>： <a href=loginout.cgi?forum=$inforum title=从这里开始进入论坛>登录</a> <img src=$imagesurl/images/fg.gif width=1> <a href=register.cgi?forum=$inforum title=注册了才能发表文章哦！><B><font color=$fonthighlight>按这里注册</font></B></a> <img src=$imagesurl/images/fg.gif width=1> <a href=profile.cgi?action=lostpassword title=好惨啊，忘记密码登录不了 style=cursor:help>忘记密码</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <a href="search.cgi?forum=$inforum" title=按关键字、作者来搜寻>搜索</a> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick=javascript:openScript('help.cgi',500,400) title=常见问题的解答>帮助</span>&nbsp;~;
+        $loggedinas = qq~<b>客人</b>： <a href=loginout.cgi?forum=$in_forum title=从这里开始进入论坛>登录</a> <img src=$imagesurl/images/fg.gif width=1> <a href=register.cgi?forum=$in_forum title=注册了才能发表文章哦！><B><font color=$fonthighlight>按这里注册</font></B></a> <img src=$imagesurl/images/fg.gif width=1> <a href=profile.cgi?action=lostpassword title=好惨啊，忘记密码登录不了 style=cursor:help>忘记密码</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <a href="search.cgi?forum=$in_forum" title=按关键字、作者来搜寻>搜索</a> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick=javascript:openScript('help.cgi',500,400) title=常见问题的解答>帮助</span>&nbsp;~;
         if (($regaccess eq "on" && &checksearchbot) && ($thisprog ne "loginout.cgi") && ($thisprog ne "register.cgi") && ($thisprog ne "profile.cgi") && ($thisprog ne "viewavatars.cgi")) {
             print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-            print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+            print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
             exit;
         }
         if (($regpuonoff eq "ontop") && ($thisprog eq "leobbs.cgi") || ($regpuonoff eq "oneach") && ($thisprog ne "loginout.cgi") && ($thisprog ne "register.cgi")) {
@@ -138,7 +138,7 @@ sub title {
             else {$forumgraphic1 = qq~<img src=$imagesurl/myimages/$boardlogo border=0>~};
             $popupmsg = qq~请先注册以避免此视窗出现~ if (!$popupmsg);
             $popupmsg = &HTML("$popupmsg");
-            $loggedinas .= qq~<script src="$imagesurl/images/lbpopup.js"></script><div id="lbplocation" style="position: absolute;visibility: hidden;height: 1;width: 1;top: 100;left: 50"><table width=520 height=320 bgcolor=$titleborder style="border: 1 outset $miscbackone"><tr><td><table width=490 height=290 bgcolor=$menubackground align=center style="border: 1 inset $miscbacktwo"><tr><td align=center valign=middle><a href=leobbs.cgi>$forumgraphic1</a><br>$popupmsg<br><br><b><a href=register.cgi title=按这里进行注册><U>注　册</U></a>　　<a href=loginout.cgi?forum=$inforum title=从这里开始进入论坛><U>登　入</U></a></b><p>(此视窗将于 5 秒后自动关闭)</td></tr></table></td></tr></table></div>~;
+            $loggedinas .= qq~<script src="$imagesurl/images/lbpopup.js"></script><div id="lbplocation" style="position: absolute;visibility: hidden;height: 1;width: 1;top: 100;left: 50"><table width=520 height=320 bgcolor=$titleborder style="border: 1 outset $miscbackone"><tr><td><table width=490 height=290 bgcolor=$menubackground align=center style="border: 1 inset $miscbacktwo"><tr><td align=center valign=middle><a href=leobbs.cgi>$forumgraphic1</a><br>$popupmsg<br><br><b><a href=register.cgi title=按这里进行注册><U>注　册</U></a>　　<a href=loginout.cgi?forum=$in_forum title=从这里开始进入论坛><U>登　入</U></a></b><p>(此视窗将于 5 秒后自动关闭)</td></tr></table></td></tr></table></div>~;
         }
     }
     else {
@@ -159,7 +159,7 @@ sub title {
                 require "domymsg.pl";
             }
         }
-        $loggedinas = qq~$inmembername：<a href=loginout.cgi?forum=$inforum>重登录</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[1])" onMouseout="delayhidemenu()">控制面板</span> <img src=$imagesurl/images/fg.gif width=1> <a href=search.cgi?forum=$inforum title=按关键字、作者来搜寻论坛内的帖子>搜索</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[0])" onMouseout="delayhidemenu()">论坛设施</span> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick="javascript:openScript('help.cgi',500,400)" title=常见问题的解答>帮助</span> <img src=$imagesurl/images/fg.gif width=1> <a href=loginout.cgi?action=logout title=在公众的地方上网记得要按退出哦><font color=$fonthighlight>退出</font></a>&nbsp;~;
+        $loggedinas = qq~$inmembername：<a href=loginout.cgi?forum=$in_forum>重登录</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[1])" onMouseout="delayhidemenu()">控制面板</span> <img src=$imagesurl/images/fg.gif width=1> <a href=search.cgi?forum=$in_forum title=按关键字、作者来搜寻论坛内的帖子>搜索</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onMouseover="showmenu(event,linkset[0])" onMouseout="delayhidemenu()">论坛设施</span> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick="javascript:openScript('help.cgi',500,400)" title=常见问题的解答>帮助</span> <img src=$imagesurl/images/fg.gif width=1> <a href=loginout.cgi?action=logout title=在公众的地方上网记得要按退出哦><font color=$fonthighlight>退出</font></a>&nbsp;~;
     }
 
     if ($useadscript ne 0) {
@@ -176,7 +176,7 @@ sub title {
         $adscript = $adscriptmain;
     }
 
-    if ($inforum eq "") {
+    if ($in_forum eq "") {
         if ($boardlogo ne "") {
             if ($boardlogo =~ /\.swf$/i) {$forumgraphicoutput = qq~<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$imagesurl/myimages/$boardlogo quality=high width=$boardlogow height=$boardlogoh pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed>~}
             else {$forumgraphicoutput = qq~<img src=$imagesurl/myimages/$boardlogo>~};
@@ -186,11 +186,11 @@ sub title {
         if ($forumgraphic) {
             ($fgwidth, $fgheight) = split(/\|/, $fgwidth);
             if ($forumgraphic =~ /\.swf$/i) {$forumgraphicoutput = qq~<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$imagesurl/myimages/$forumgraphic quality=high width=$fgwidth height=$fgheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed>~}
-            else {$forumgraphicoutput = qq~<a href=forums.cgi?forum=$inforum><img src=$imagesurl/myimages/$forumgraphic border=0></a>~};
+            else {$forumgraphicoutput = qq~<a href=forums.cgi?forum=$in_forum><img src=$imagesurl/myimages/$forumgraphic border=0></a>~};
         }
         else {
             if ($boardlogo =~ /\.swf$/i) {$forumgraphicoutput = qq~<PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=$imagesurl/myimages/$boardlogo quality=high width=$boardlogow height=$boardlogoh pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed>~}
-            else {$forumgraphicoutput = qq~<a href=forums.cgi?forum=$inforum><img src=$imagesurl/myimages/$boardlogo border=0></a>~};
+            else {$forumgraphicoutput = qq~<a href=forums.cgi?forum=$in_forum><img src=$imagesurl/myimages/$boardlogo border=0></a>~};
         }
     }
 
@@ -261,16 +261,16 @@ $pluginadd$headmark$userskins~;
         $lastvisitdata = qq~ 最近访问论坛时间： $fulldate~;
     }
     else {$lastvisitdata = qq~ $forumname欢迎您的到来 ~;}
-    $uservisitdata = qq~<a href=forums.cgi?forum=$inforum&action=resetposts title="$lastvisitdata">标记论坛所有内容为已读</a>&nbsp;~;
+    $uservisitdata = qq~<a href=forums.cgi?forum=$in_forum&action=resetposts title="$lastvisitdata">标记论坛所有内容为已读</a>&nbsp;~;
 }
 
 sub mischeader {
     local ($misctype) = @_;
 
-    if (-e "${lbdir}cache/forumstitle$inforum.pl") {
-        eval {require "${lbdir}cache/forumstitle$inforum.pl";};
+    if (-e "${lbdir}cache/forumstitle$in_forum.pl") {
+        eval {require "${lbdir}cache/forumstitle$in_forum.pl";};
         if ($@) {
-            unlink("${lbdir}cache/forumstitle$inforum.pl");
+            unlink("${lbdir}cache/forumstitle$in_forum.pl");
             require "domischeader.pl";
         }
     }
@@ -278,7 +278,7 @@ sub mischeader {
         require "domischeader.pl";
     }
     &title;
-    if ($inforum eq "") {
+    if ($in_forum eq "") {
         $titleoutput =~ s/\ →\ \<a href=forums.cgi\?forum=\>\<\/a\>//isg;
         $titleoutput =~ s/\>\>\>\ //isg;
     }
@@ -287,16 +287,16 @@ sub mischeader {
 }
 
 sub getoneforum {
-    local $inforum = shift;
-    return if ($inforum eq "");
-    if (-e "${lbdir}cache/forumsone$inforum.pl") {
-        eval {require "${lbdir}cache/forumsone$inforum.pl";};
+    local $in_forum = shift;
+    return if ($in_forum eq "");
+    if (-e "${lbdir}cache/forumsone$in_forum.pl") {
+        eval {require "${lbdir}cache/forumsone$in_forum.pl";};
         if ($@) {
-            unlink("${lbdir}cache/forumsone$inforum.pl");
+            unlink("${lbdir}cache/forumsone$in_forum.pl");
             require "dogetoneforum.pl";
         }
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $no, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
-        unlink("${lbdir}cache/forumsone$inforum.pl") if ((-M "${lbdir}cache/forumsone$inforum.pl") * 86400 > 600);
+        unlink("${lbdir}cache/forumsone$in_forum.pl") if ((-M "${lbdir}cache/forumsone$in_forum.pl") * 86400 > 600);
     }
     else {
         require "dogetoneforum.pl";
@@ -307,23 +307,23 @@ sub getoneforum {
     return;
 }
 sub moderator {
-    local $inforum = shift;
-    return if ($inforum eq "");
-    if (-e "${lbdir}cache/forums$inforum.pl") {
-        eval {require "${lbdir}cache/forums$inforum.pl";};
+    local $in_forum = shift;
+    return if ($in_forum eq "");
+    if (-e "${lbdir}cache/forums$in_forum.pl") {
+        eval {require "${lbdir}cache/forums$in_forum.pl";};
         if ($@) {
-            unlink("${lbdir}cache/forums$inforum.pl");
+            unlink("${lbdir}cache/forums$in_forum.pl");
             require "domoderator.pl";
         }
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
         if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/))) {$inmembmod = "yes";}
         else {$inmembmod = "no";}
-        unlink("${lbdir}cache/forums$inforum.pl") if ((-M "${lbdir}cache/forums$inforum.pl") * 86400 > 600);
+        unlink("${lbdir}cache/forums$in_forum.pl") if ((-M "${lbdir}cache/forums$in_forum.pl") * 86400 > 600);
     }
     else {
         require "domoderator.pl";
     }
-    eval {require "${lbdir}boarddata/forumposts$inforum.pl";} if ($thisprog eq "forums.cgi");
+    eval {require "${lbdir}boarddata/forumposts$in_forum.pl";} if ($thisprog eq "forums.cgi");
     return;
 }
 sub checkmemfile {

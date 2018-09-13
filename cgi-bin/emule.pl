@@ -76,7 +76,7 @@ sub doemule {
                 $totalper = int($totalper * 100 / 1024 + 0.5) / 100;
                 $totalper .= "KB";
             }
-            $view .= "<tr bgColor=$postbackcolor1><td width=88%><font color=$postfontcolor1><input type=\"checkbox\" name=\"emulefile$codecount\" value=\"$_\" onclick=\"em_size('emulefile$codecount');\" checked=\"checked\"><a href=\"$_\">$emu[2]</a></font></td><td align=center><font color=$postfontcolor1 title=$filename>$totalper</font></td></tr>";
+            $view .= "<tr bgColor=$postbackcolor1><td width=88%><font color=$postfontcolor1><input type=\"checkbox\" name=\"emulefile$codecount\" value=\"$_\" onclick=\"em_size('emulefile$codecount');\" checked=\"checked\"><a href=\"$_\">$emu[2]</a></font></td><td align=center><font color=$postfontcolor1 title=$file_name>$totalper</font></td></tr>";
         }
 
         if ($total > (1024 * 1024 * 1024 * 1024)) {

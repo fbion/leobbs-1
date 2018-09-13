@@ -12,17 +12,17 @@ use warnings;
 use strict;
 use diagnostics;
 
-$tempaccess = "forumsallowed" . "$inforum";
+$tempaccess = "forumsallowed" . "$in_forum";
 $testentry = $query->cookie("$tempaccess");
-if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
 if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("复制帖子&对不起，您不允许复制保密论坛的帖子！");}
 &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($inmembername eq "客人"));
 &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($waterwhenguest eq "yes" && $inmembername eq "客人");
 
-open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
+open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
 my @threads = <FILE>;
 close(FILE);
-$posttoget = $inpostno - 1;
+$posttoget = $in_post_no - 1;
 ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post) = split(/\t/, $threads[$posttoget]);
 $topictitle =~ s/^＊＃！＆＊//;
 
@@ -48,7 +48,7 @@ my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
     if ($privateforum ne "yes") {
-        &whosonline("$inmembername\t$forumname\tnone\t复制帖子<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
+        &whosonline("$inmembername\t$forumname\tnone\t复制帖子<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
     }
     else {
         &whosonline("$inmembername\t$forumname(密)\tnone\t复制保密帖子\t");

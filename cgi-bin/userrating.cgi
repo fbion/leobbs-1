@@ -39,10 +39,10 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 $thisprog = "userrating.cgi";
 $query = new LBCGI;
-$inforum = $query->param("oldforum");
-$intopic = $query->param("oldtopic");
-$inpostno = $query->param("oldpostno");
-&error("普通错误&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/ || $intopic !~ /^[0-9]+$/ || $inpostno !~ /^[0-9]+$/);
+$in_forum = $query->param("oldforum");
+$in_topic = $query->param("oldtopic");
+$in_post_no = $query->param("oldpostno");
+&error("普通错误&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/ || $in_topic !~ /^[0-9]+$/ || $in_post_no !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inmembername = $query->param("inmembername");
@@ -77,17 +77,17 @@ $editmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,
 
 $action = $query->param("action");
 
-&error("论坛投票&主题不存在！") unless (-e "${lbdir}forum$inforum/$intopic.pl");
+&error("论坛投票&主题不存在！") unless (-e "${lbdir}forum$in_forum/$in_topic.pl");
 
 $action = "login" if ($action ne "logmein" && $action ne "process");
-&getoneforum($inforum);
+&getoneforum($in_forum);
 
 &title;
 
 $output .= qq~
 <br>
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> 在这里您可以对用户进行投票，减少或增加他们的威望或积分，甚至可以禁止他们发言！</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="forums.cgi?forum=$inforum">$forumname</a> → 给用户投票<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3 height=25><tr><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=11> <font face="$font" color=$navfontcolor> <a href="leobbs.cgi">$boardname</a> → <a href="forums.cgi?forum=$in_forum">$forumname</a> → 给用户投票<td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
@@ -97,9 +97,9 @@ if ($action eq "login") {
     $output .= qq~
 <form action=$thisprog method=POST>
 <input type=hidden name=action value="logmein">
-<input type=hidden name=oldforum value="$inforum">
-<input type=hidden name=oldtopic value="$intopic">
-<input type=hidden name=oldpostno value="$inpostno">
+<input type=hidden name=oldforum value="$in_forum">
+<input type=hidden name=oldtopic value="$in_topic">
+<input type=hidden name=oldpostno value="$in_post_no">
 <input type=hidden name=membername value="$editmembername">
 <tr><td bgcolor=$titlecolor $catbackpic colSpan=2 align=center><font color=$fontcolormisc><b>请首先登录然后对 $editmembername 进行投票(仅对坛主和版主开放)</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colSpan=2 align=center><input type=submit name=submit value="登录投票"></td></form></tr>
@@ -115,20 +115,20 @@ elsif ($action eq "logmein") {
     &error("用户投票&坛主不能被投票") if ($membercode eq "ad");
     &error("用户投票&只有坛主才能给版主们投票！") if (($membercode eq "smo" || $membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && $mymembercode ne "ad");
 
-    my $threadtomake = "${lbdir}forum$inforum/$intopic.thd.cgi";
-    $inpostno--;
+    my $threadtomake = "${lbdir}forum$in_forum/$in_topic.thd.cgi";
+    $in_post_no--;
     if (-e $threadtomake) {
         open(FILE, $threadtomake);
         my @threads = <FILE>;
         close(FILE);
-        if ($inpostno < @threads && $inpostno >= 0) {
-            (my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$inpostno]);
+        if ($in_post_no < @threads && $in_post_no >= 0) {
+            (my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$in_post_no]);
             &error("用户投票&此帖子并不是$editmembername发表！") if (lc($membername) ne lc($editmembername));
         }
         else {&error("用户投票&对应的帖子不存在！!");}
     }
     else {&error("用户投票&对应的帖子不存在！");}
-    $inpostno++;
+    $in_post_no++;
 
     $rating = 0 if ($rating eq "");
     if ($jifen eq "") {
@@ -150,9 +150,9 @@ elsif ($action eq "logmein") {
 <form action=$thisprog method=POST>
 <input type=hidden name=action value=process>
 <input type=hidden name=membername value="$editmembername">
-<input type=hidden name=oldforum value="$inforum">
-<input type=hidden name=oldtopic value="$intopic">
-<input type=hidden name=oldpostno value="$inpostno">
+<input type=hidden name=oldforum value="$in_forum">
+<input type=hidden name=oldtopic value="$in_topic">
+<input type=hidden name=oldpostno value="$in_post_no">
 <b>* 积 分 处 理 *</b><BR>
 <input type=radio name=pw value="jfzj" checked> 奖励/惩罚论坛积分 <input type=text name=numschange size=3 maxsize=3> 分 (必须控制在 -$max1jf 到 $max1jf 之间)<BR><BR>
 <b>* 威 望 处 理 *</b><BR>
@@ -228,19 +228,19 @@ elsif ($action eq "process") {
     $newmembercode = $rating == -6 ? "banned" : ($membercode eq "banned" || $membercode eq "masked") ? "me" : $membercode;
     $newmembercode = "masked" if ($pw eq "worstm");
 
-    my $threadtomake = "${lbdir}forum$inforum/$intopic.thd.cgi";
-    $inpostno--;
+    my $threadtomake = "${lbdir}forum$in_forum/$in_topic.thd.cgi";
+    $in_post_no--;
     if (-e $threadtomake) {
         &winlock($threadtomake) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
         open(FILE, $threadtomake);
         flock(FILE, 1) if ($OS_USED eq "Unix");
         my @threads = <FILE>;
         close(FILE);
-        if ($inpostno < @threads && $inpostno >= 0) {
-            (my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$inpostno]);
+        if ($in_post_no < @threads && $in_post_no >= 0) {
+            (my $membername, $topictitle, my $postipaddresstemp, my $showemoticons, my $showsignature, my $postdate, my $post, my $posticon) = split(/\t/, $threads[$in_post_no]);
             &error("用户投票&此帖子并不是$editmembername发表！") if (lc($membername) ne lc($editmembername));
             $post = "[ADMINOPE=$inmembername|$editmembername|$ratingname|$reason|$thistime]$post";
-            $threads[$inpostno] = "$membername\t$topictitle\t$postipaddresstemp\t$showemoticons\t$showsignature\t$postdate\t$post\t$posticon";
+            $threads[$in_post_no] = "$membername\t$topictitle\t$postipaddresstemp\t$showemoticons\t$showsignature\t$postdate\t$post\t$posticon";
             open(FILE, ">$threadtomake");
             flock(FILE, 2) if ($OS_USED eq "Unix");
             foreach (@threads) {
@@ -338,10 +338,10 @@ elsif ($action eq "process") {
 
     $filetomake = "${lbdir}data/userratinglog.cgi";
     open(FILE0, ">>$filetomake");
-    print FILE0 "$editmembername\t$inmembername\t$ratingname\t$thistime\t$inforum\t$intopic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$reason\t\n";
+    print FILE0 "$editmembername\t$inmembername\t$ratingname\t$thistime\t$in_forum\t$in_topic\t$ENV{'REMOTE_ADDR'}\t$trueipaddress\t$reason\t\n";
     close(FILE0);
 
-    &addadminlog("对用户 $editmembername 操作： $ratingname，理由：$reason", $intopic);
+    &addadminlog("对用户 $editmembername 操作： $ratingname，理由：$reason", $in_topic);
 
     if ($notify eq "yes" && $emailfunctions eq "on") {
         eval("use MAILPROG qw(sendmail);");
@@ -349,7 +349,7 @@ elsif ($action eq "process") {
         my $subject = "你已经被 $inmembername $pwmail !";
         my $message = "<br>$homename<br>";
         $message .= "<a href=$boardurl/leobbs.cgi target=_blank>$boardurl/leobbs.cgi</a><br>";
-        $message .= "<a href=$boardurl/topic.cgi?forum=$inforum&topic=$intopic target=_blank>$boardurl/topic.cgi?forum=$inforum&topic=$intopic</a><br><br><br>";
+        $message .= "<a href=$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic target=_blank>$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic</a><br><br><br>";
         $message .= "你已经被 $inmembername $pwmail !<br><br><br>";
         $message .= "内容：$ratingname<br>";
         $message .= "你现在的状态是: $membertitleout<br>";
@@ -361,13 +361,13 @@ elsif ($action eq "process") {
     }
     if ($msgnotify eq "yes") {
         $topictitle =~ s/^＊＃！＆＊//;
-        &shortmessage($inmembername, $editmembername, "你已经被$pwmail!", "　　你已经被 $inmembername $pwmailing! 　内容：$ratingname。<br>　　相关的主题是: \[url=topic.cgi?forum=$inforum&topic=$intopic\]按此进入\[\/url\]，操作原因是: $reason。");
+        &shortmessage($inmembername, $editmembername, "你已经被$pwmail!", "　　你已经被 $inmembername $pwmailing! 　内容：$ratingname。<br>　　相关的主题是: \[url=topic.cgi?forum=$in_forum&topic=$in_topic\]按此进入\[\/url\]，操作原因是: $reason。");
     }
     $output .= qq~
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>$editmembername 已经成功被$pwmail</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>具体情况:<br><ul>
-<li><a href=topic.cgi?forum=$inforum&topic=$intopic>返回当前主题 </a>$pages
-<li><a href=forums.cgi?forum=$inforum>返回当前论坛</a>
+<li><a href=topic.cgi?forum=$in_forum&topic=$in_topic>返回当前主题 </a>$pages
+<li><a href=forums.cgi?forum=$in_forum>返回当前论坛</a>
 <li><a href=leobbs.cgi>返回论坛首页</a>
 </ul></td></tr>
 </table></td></tr></table><SCRIPT>valignend()</SCRIPT>~;

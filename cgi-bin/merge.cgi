@@ -143,9 +143,9 @@ if (($membercode eq "ad") && ($inpassword eq $password) && (lc($inmembername) eq
             require "dopost.pl";
             &moveallupfiles($oforum, $oldid, $dforum, $newid, $delsource2);
         }
-        $inforum = $oforum;
+        $in_forum = $oforum;
         &deleteforum if ($delsource eq "yes");
-        $inforum = $dforum;
+        $in_forum = $dforum;
 
         rebuildLIST(-Forum => "$dforum");
 
@@ -211,20 +211,20 @@ sub recount {
     $threadcount = "0" if (!$threadcount);
     $topiccount = "0" if (!$topiccount);
 
-    my $info = rebuildLIST(-Forum => "$inforum");
+    my $info = rebuildLIST(-Forum => "$in_forum");
     ($threadcount, $topiccount) = split(/\|/, $info);
 
     $threadcount = 0 if ($threadcount < 0);
     $topiccount = 0 if ($topiccount < 0);
 
-    open(FILE, "+<${lbdir}boarddata/foruminfo$inforum.cgi");
+    open(FILE, "+<${lbdir}boarddata/foruminfo$in_forum.cgi");
     ($lastposttime, $threads, $posts, $todayforumpost, $lastposter) = split(/\t/, <FILE>);
     seek(FILE, 0, 0);
     print FILE "$lastposttime\t$threadcount\t$topiccount\t$todayforumpost\t$lastposter\t\n";
     close(FILE);
     $posts = 0 if ($posts eq "");
     $threads = 0 if ($threads eq "");
-    open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+    open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
     print FILE "\$threads = $threadcount;\n\$posts = $topiccount;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
     close(FILE);
 
@@ -242,7 +242,7 @@ sub recount {
 sub deleteforum {
   #start
 
-    $dirtoopen = "$lbdir" . "forum$inforum";
+    $dirtoopen = "$lbdir" . "forum$in_forum";
     opendir(DIR, "$dirtoopen");
     @dirdata = readdir(DIR);
     closedir(DIR);
@@ -252,7 +252,7 @@ sub deleteforum {
         unlink $filetoremove;
     }
 
-    $dirtoopen2 = "$imagesdir" . "$usrdir/$inforum";
+    $dirtoopen2 = "$imagesdir" . "$usrdir/$in_forum";
     opendir(DIR, "$dirtoopen2");
     @dirdata2 = readdir(DIR);
     closedir(DIR);
@@ -263,28 +263,28 @@ sub deleteforum {
         unlink $filetoremove;
     }
 
-    $dirtoremove = "$lbdir" . "forum$inforum";
+    $dirtoremove = "$lbdir" . "forum$in_forum";
     rmdir $dirtoremove;
-    $dirtoremove = "$imagesdir" . "$usrdir/$inforum";
+    $dirtoremove = "$imagesdir" . "$usrdir/$in_forum";
     rmdir $dirtoremove;
 
-    $filetoremove = "$lbdir" . "boarddata/list$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/list$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "boarddata/listno$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/listno$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "boarddata/listall$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/listall$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "boarddata/xzb$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/xzb$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "boarddata/xzbs$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/xzbs$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "boarddata/lastnum$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/lastnum$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "boarddata/ontop$inforum.cgi";
+    $filetoremove = "$lbdir" . "boarddata/ontop$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "data/news$inforum.cgi";
+    $filetoremove = "$lbdir" . "data/news$in_forum.cgi";
     unlink $filetoremove;
-    $filetoremove = "$lbdir" . "data/style$inforum.cgi";
+    $filetoremove = "$lbdir" . "data/style$in_forum.cgi";
     unlink $filetoremove;
 
     $filetoopen = "$lbdir" . "data/allforums.cgi";
@@ -301,7 +301,7 @@ sub deleteforum {
         next if ($forum eq "");
         ($forumid, $category, $notneeded, $notneeded) = split(/\t/, $forum);
         next if ($forumid !~ /^[0-9]+$/);
-        unless ($forumid eq "$inforum") {
+        unless ($forumid eq "$in_forum") {
             print FILE "$forum\n";
         }
     }

@@ -38,10 +38,10 @@ $query = new LBCGI;
 
 &ipbanned; #封杀一些 ip
 
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $action = $query->param('action');
@@ -61,17 +61,17 @@ if ($inpassword ne "") {
 $inmsgtitle = $query->param('subject');
 $inmessage = $query->param('emailmessage');
 $inoriginalpost = $query->param('originalpost');
-$inpost2 = "<BR><BR><b>贴子原始位置：</b> $boardurl/topic.cgi?forum=$inforum&topic=$intopic<br>";
+$inpost2 = "<BR><BR><b>贴子原始位置：</b> $boardurl/topic.cgi?forum=$in_forum&topic=$in_topic<br>";
 
 $insubject = &cleaninput($insubject);
 $inemailmessage = &cleaninput($inemailmessage);
 $emailtopictitle = &cleaninput($emailtopictitle);
-$inforum = &cleaninput($inforum);
+$in_forum = &cleaninput($in_forum);
 $inoriginalpost = &cleaninput($inoriginalpost);
 
 $inmembername = &cleaninput($inmembername);
 $inpassword = &cleaninput($inpassword);
-$inpostno = $query->param('postno');
+$in_post_no = $query->param('postno');
 
 $inmessage2 = $inemailmessage . $inoriginalpost . $inpost2;
 
@@ -160,10 +160,10 @@ if ($action eq "send") {
     close(FILE);
 
     if ($refreshurl == 1) {
-        $relocurl = "topic.cgi?forum=$inforum&topic=$intopic";
+        $relocurl = "topic.cgi?forum=$in_forum&topic=$in_topic";
     }
     else {
-        $relocurl = "forums.cgi?forum=$inforum";
+        $relocurl = "forums.cgi?forum=$in_forum";
     }
 
     $output .= qq~
@@ -175,8 +175,8 @@ if ($action eq "send") {
             <td bgcolor=$miscbackone><font color=$fontcolormisc>
             如果浏览器没有自动返回，请点击下面的链接！
             <ul>
-            <li><a href="topic.cgi?forum=$inforum&topic=$intopic">返回主题</a>
-            <li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+            <li><a href="topic.cgi?forum=$in_forum&topic=$in_topic">返回主题</a>
+            <li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
             <li><a href="leobbs.cgi">返回论坛首页</a>
             </ul>
             </tr>
@@ -189,13 +189,13 @@ if ($action eq "send") {
 
 else {
 
-    $filetoopen = "$lbdir" . "forum$inforum/foruminfo.cgi";
+    $filetoopen = "$lbdir" . "forum$in_forum/foruminfo.cgi";
     open(FILE, "$filetoopen");
     $forums = <FILE>;
     close(FILE);
     ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
 
-    $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+    $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
     open(FILE, "$filetoopen");
     flock(FILE, 2);
     $threads = <FILE>;
@@ -238,7 +238,7 @@ else {
         $toto .= qq~<option value="$_">$_</option>~;
     }
     $toto .= qq~</select>~;
-    &getoneforum("$inforum");
+    &getoneforum("$in_forum");
 
     &error("发送报告&你就是版主，搞什么飞机？") if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"));
 
@@ -247,8 +247,8 @@ else {
     $output .= qq~
     <form action="$thisprog" method=post>
     <input type=hidden name="action" value="send">
-    <input type=hidden name="forum" value="$inforum">
-    <input type=hidden name="topic" value="$intopic">
+    <input type=hidden name="forum" value="$in_forum">
+    <input type=hidden name="topic" value="$in_topic">
     <input type=hidden size=40 name="subject" value="报告有问题的贴子： $topictitle">
 	<tr>
     		<td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center>
@@ -256,7 +256,7 @@ else {
 		</td>
 	</tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 	<tr>
                 <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc><b>报告发送给哪个版主</b></font>

@@ -48,8 +48,8 @@ for ('forum', 'membername', 'password', 'action', 'inpost', 'message', 'id') {
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$inforum = $forum;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_forum = $forum;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inmembername = $membername;
@@ -97,8 +97,8 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 $helpurl = &helpfiles("阅读标记");
 $helpurl = qq~$helpurl<img src=$imagesurl/images/$skin/help_b.gif border=0></span>~;
 
-#        &moderator("$inforum");
-&getoneforum("$inforum");
+#        &moderator("$in_forum");
+&getoneforum("$in_forum");
 if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 if ($allowusers ne '') {
@@ -145,7 +145,7 @@ sub newthread {
     $output .= qq~
                 <form action="$thisprog" method=post name="FORM" >
                 <input type=hidden name="action" value="addnew">
-                <input type=hidden name="forum" value="$inforum">
+                <input type=hidden name="forum" value="$in_forum">
                 <SCRIPT>valigntop()</SCRIPT>
         	<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
             	<tr><td>
@@ -206,7 +206,7 @@ sub addnewthread {
         }
 
         $dirtoopen = "$lbdir" . "boarddata";
-        open(DIR, "<$dirtoopen/xzb$inforum.cgi");
+        open(DIR, "<$dirtoopen/xzb$in_forum.cgi");
         @xzbdata = <DIR>;
         close(DIR);
         chomp(@xzbdata);
@@ -231,14 +231,14 @@ sub addnewthread {
         $sizexzb = 48 if ($sizexzb > 48);
         $write = "＃―＃―・\t$inpost\t$inmembername\t$message\t$currenttime\t";
         @newxzb = ($write, @xzbdata);
-        open(DIR, ">$dirtoopen/xzb$inforum.cgi");
+        open(DIR, ">$dirtoopen/xzb$in_forum.cgi");
         for ($i = 0; $i <= $sizexzb; $i++) {
             print DIR "$newxzb[$i]\n";
         }
 
         &mischeader("新小字报张贴成功");
 
-        $relocurl = "forums.cgi?forum=$inforum";
+        $relocurl = "forums.cgi?forum=$in_forum";
 
         if (($xzbcost ne "") && ($xzbcost >= 0)) {
             $cleanmembername = $inmembername;
@@ -282,7 +282,7 @@ sub addnewthread {
             <td bgcolor=$miscbackone><font color=$fontcolormisc>
             如果浏览器没有自动返回，请点击下面的链接！
             <ul>
-            <li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+            <li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
             <li><a href="leobbs.cgi">返回论坛首页</a>
             </ul>
             </tr>
@@ -298,9 +298,9 @@ sub addnewthread {
 
 
 sub view {
-    &error("老大你别黑我的程序啊!") if (($id eq "") || ($inforum eq ""));
+    &error("老大你别黑我的程序啊!") if (($id eq "") || ($in_forum eq ""));
     $dirtoopen = "$lbdir" . "boarddata";
-    open(DIR, "<$dirtoopen/xzb$inforum.cgi");
+    open(DIR, "<$dirtoopen/xzb$in_forum.cgi");
     @xzbdata = <DIR>;
     close(DIR);
     chomp(@xzbdata);
@@ -317,7 +317,7 @@ sub view {
     $dateposted = &dateformat("$dateposted");
     &lbcode(\$msg);
     $admindelete = qq~
-       <a href=xzb.cgi?action=del&forum=$inforum&id=$id OnClick="return confirm('确定删除这个小字报么？');">删除</a>
+       <a href=xzb.cgi?action=del&forum=$in_forum&id=$id OnClick="return confirm('确定删除这个小字报么？');">删除</a>
        ~;
     $output = qq~<P><SCRIPT>valigntop()</SCRIPT>
 	<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=#000000 align=center>
@@ -363,9 +363,9 @@ sub view {
 }
 
 sub del {
-    &error("老大你别黑我的程序啊!") if (($id eq "") || ($inforum eq ""));
+    &error("老大你别黑我的程序啊!") if (($id eq "") || ($in_forum eq ""));
     $dirtoopen = "$lbdir" . "boarddata";
-    open(DIR, "<$dirtoopen/xzb$inforum.cgi");
+    open(DIR, "<$dirtoopen/xzb$in_forum.cgi");
     @xzbdata = <DIR>;
     $sizexzb = @xzbdata;
     close(DIR);
@@ -375,7 +375,7 @@ sub del {
         &error("删除小字报&你没权力删除!");
     }
 
-    open(DIR, ">$dirtoopen/xzb$inforum.cgi");
+    open(DIR, ">$dirtoopen/xzb$in_forum.cgi");
     for ($i = 0; $i < $sizexzb; $i++) {
         if ($i ne $id) {
             print DIR "$xzbdata[$i]\n";

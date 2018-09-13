@@ -37,14 +37,14 @@ $|++;
 $thisprog = "pag.cgi";
 $query = new LBCGI;
 
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
 $email = $query->param('email');
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -61,7 +61,7 @@ if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
     if ($regaccess eq "on" && &checksearchbot) {
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
@@ -70,20 +70,20 @@ else {
     #    &getmember("$inmembername");
     &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    if (($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo')) {$allowed = "yes";}
+    if (($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo')) {$allowed = "yes";}
     else {$allowed = "no";}
     #        &getmemberstime("$inmembername");
     &getlastvisit;
-    $forumlastvisit = $lastvisitinfo{$inforum};
+    $forumlastvisit = $lastvisitinfo{$in_forum};
     $currenttime = time;
-    &setlastvisit("$inforum,$currenttime");
+    &setlastvisit("$in_forum,$currenttime");
 }
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 
-$filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+$filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -124,7 +124,7 @@ else {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tboth\t打包邮递贴子<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
+            &whosonline("$inmembername\t$forumname\tboth\t打包邮递贴子<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
         }
         else {
             &whosonline("$inmembername\t$forumname(密)\tboth\t打包邮递贴子保密贴子\t");
@@ -168,8 +168,8 @@ if ($email) {
             <td>
             <p><b>从$boardname打包的主题</b><p>
             <b>论 坛 名- $boardname</b> ($boardurl/leobbs.cgi)<br>
-            <b>讨论区名-- $forumname</b> ($boardurl/forums.cgi?forum=$inforum)<br>
-            <b>贴子标题--- $topictitle</b> ($boardurl/topic.cgi?forum=$inforum&topic=$intopic)
+            <b>讨论区名-- $forumname</b> ($boardurl/forums.cgi?forum=$in_forum)<br>
+            <b>贴子标题--- $topictitle</b> ($boardurl/topic.cgi?forum=$in_forum&topic=$in_topic)
         </tr>
     </table>
     <p><p><p>
@@ -222,12 +222,12 @@ else {
     <form action="$thisprog" method=post>
     <tr>
     <td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
-    <input type=hidden name="forum" value="$inforum">
-    <input type=hidden name="topic" value="$intopic">
+    <input type=hidden name="forum" value="$in_forum">
+    <input type=hidden name="topic" value="$in_topic">
     <font color=$fontcolormisc><b>打包邮递</b></font></td></tr>
     <tr>
     <td bgcolor=$miscbackone colspan=2><font color=$fontcolormisc>
-    <b>把本贴 <a href=topic.cgi?forum=$inforum&topic=$intopic>$topictitle</a> 打包邮递。</b><br>请正确输入你要邮递的邮件地址！
+    <b>把本贴 <a href=topic.cgi?forum=$in_forum&topic=$in_topic>$topictitle</a> 打包邮递。</b><br>请正确输入你要邮递的邮件地址！
     </td></tr><tr>
     <td bgcolor=$miscbacktwo><font color=$fontcolormisc><b>邮递的 Email 地址：</b></td>
     <td bgcolor=$miscbacktwo><input type=text size=40 name="email"></td>

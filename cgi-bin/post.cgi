@@ -61,14 +61,14 @@ for ('forum', 'topic', 'membername', 'password', 'action', 'postno', 'inshowsign
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$intopictitle =~ s/\\0//isg;
-#$intopictitle  =~ s/\\/&#92;/isg;
-$intopictitle = "＊＃！＆＊$intopictitle";
+$in_topictitle =~ s/\\0//isg;
+#$in_topictitle  =~ s/\\/&#92;/isg;
+$in_topictitle = "＊＃！＆＊$in_topictitle";
 
-$inforum = $forum;
-$intopic = $topic;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！！") if ($inforum !~ /^[0-9]+$/);
+$in_forum = $forum;
+$in_topic = $topic;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！！") if ($in_forum !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 $maxupload = 300 if ($maxupload eq "");
 
@@ -84,7 +84,7 @@ if ($inpassword ne "") {
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-$inpostno = $postno;
+$in_post_no = $postno;
 $innotify = $notify;
 $currenttime = time;
 $postipaddress = &myip();
@@ -124,7 +124,7 @@ $inposticon = $posticon;
 
 &ipbanned; #封杀一些 ip
 
-if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) {&error("普通错误&老大，别乱黑我的程序呀！！！");}
+if (($in_post_no) && ($in_post_no !~ /^[0-9]+$/)) {&error("普通错误&老大，别乱黑我的程序呀！！！");}
 
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle = $skinselected if ($inselectstyle eq "");
@@ -134,7 +134,7 @@ if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {re
 if ($inshowemoticons ne "yes") {$inshowemoticons eq "no";}
 if ($innotify ne "yes") {$innotify eq "no";}
 
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
+if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
 
 if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
@@ -166,7 +166,7 @@ if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catba
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&moderator("$inforum");
+&moderator("$in_forum");
 $myinmembmod = $inmembmod;
 
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
@@ -296,17 +296,17 @@ sub replyquote {
 }
 
 sub newthread {
-    #&getoneforum("$inforum");
+    #&getoneforum("$in_forum");
 
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $postminjf 的才能发言！") if ($postminjf > 0 && $jifen < $postminjf);
     }
 
     if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子论坛区，不允许发言！");}
-    $tempaccess = "forumsallowed" . "$inforum";
+    $tempaccess = "forumsallowed" . "$in_forum";
     $testentry = $query->cookie("$tempaccess");
 
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您没有在此论坛中发表的权利！");}
 
     if ($postopen eq "no") {&error("发表主题&对不起，本论坛不允许发表主题！");}
@@ -363,7 +363,7 @@ sub newthread {
     if ($useemote eq "no") {$emotestates = "不可用";}
     else {$emotestates = "可用";}
 
-    $intopictitle =~ s/^＊＃！＆＊//;
+    $in_topictitle =~ s/^＊＃！＆＊//;
     $output .= qq~<script>
 var autoSave = false;
 function storeCaret(textEl) {if (textEl.createTextRange) textEl.caretPos = document.selection.createRange().duplicate();if (autoSave)savePost();}
@@ -379,7 +379,7 @@ return;}
 </script>
 <form action=$thisprog method=post name="FORM" enctype="multipart/form-data">
 <input type=hidden name=action value=addnew>
-<input type=hidden name=forum value=$inforum>
+<input type=hidden name=forum value=$in_forum>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -387,25 +387,25 @@ return;}
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>主题标题</b></font>　
 <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
 <OPTION selected value="">选择话题</OPTION> <OPTION value=[原创]>[原创]</OPTION><OPTION value=[转帖]>[转帖]</OPTION><OPTION value=[灌水]>[灌水]</OPTION><OPTION value=[讨论]>[讨论]</OPTION><OPTION value=[求助]>[求助]</OPTION><OPTION value=[推荐]>[推荐]</OPTION><OPTION value=[公告]>[公告]</OPTION><OPTION value=[注意]>[注意]</OPTION><OPTION value=[贴图]>[贴图]</OPTION><OPTION value=[建议]>[建议]</OPTION><OPTION value=[下载]>[下载]</OPTION><OPTION value=[分享]>[分享]</OPTION>
-</SELECT></td><td bgcolor=$miscbackone><input type=text size=60 maxlength=80 name="intopictitle" value="$intopictitle">　不得超过 40 个汉字</td></tr>$nowaterpost
+</SELECT></td><td bgcolor=$miscbackone><input type=text size=60 maxlength=80 name="intopictitle" value="$in_topictitle">　不得超过 40 个汉字</td></tr>$nowaterpost
     ~;
     &posttable(1);
 }
 
 sub reply {
-    #&getoneforum("$inforum");
-    &moderator("$inforum");
-    $tempaccess = "forumsallowed" . "$inforum";
+    #&getoneforum("$in_forum");
+    &moderator("$in_forum");
+    $tempaccess = "forumsallowed" . "$in_forum";
     $testentry = $query->cookie("$tempaccess");
-    if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您不允许在此论坛发表！");}
     if ($postopen eq "no") {&error("发表或回复主题&对不起，本论坛不允许发表或回复主题！");}
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if (($guestregistered eq "off") && ($inmembername eq "客人"));
 
-    open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
+    open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
     @threads = <FILE>;
     close(FILE);
-    $posttoget = $inpostno - 1;
+    $posttoget = $in_post_no - 1;
     ($membername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post) = split(/\t/, $threads[$posttoget]);
     $topictitle =~ s/^＊＃！＆＊//;
 
@@ -440,7 +440,7 @@ sub reply {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tnone\t回复<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t");
+            &whosonline("$inmembername\t$forumname\tnone\t回复<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t");
         }
         else {
             &whosonline("$inmembername\t$forumname(密)\tnone\t回复保密帖子\t");
@@ -463,8 +463,8 @@ therange.execCommand("Copy")}
 </script>
 <form action="$thisprog" method=post name="FORM" enctype="multipart/form-data">
 <input type=hidden name="action" value="addreply">
-<input type=hidden name="forum" value="$inforum">
-<input type=hidden name="topic" value="$intopic">
+<input type=hidden name="forum" value="$in_forum">
+<input type=hidden name="topic" value="$in_topic">
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -477,7 +477,7 @@ therange.execCommand("Copy")}
 sub posttable {
     my $page = shift;
     $output .= qq~<tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>当前心情</b><br><li>将放在帖子的前面<BR></font></td><td bgcolor=$miscbackone valign=top>
 ~;
@@ -498,7 +498,7 @@ sub posttable {
         $uploadreqire = "" if ($uploadreqire <= 0);
         $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
         $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
-        $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font></font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
+        $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$in_forum&topic=$in_topic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$in_forum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font></font><SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
     }
     $maxpoststr = "(帖子中最多包含 <B>$maxpoststr</B> 个字符)" if ($maxpoststr ne "");
 
@@ -558,7 +558,7 @@ $requestnotify$emoticonsbutton$fontpost$weiwangoptionbutton$salepost
 </font><BR></td></tr><tr><td bgcolor=$miscbacktwo colspan=2 align=center>
 <input type=Submit value="发 表" name=Submit onClick="return clckcntr();">　　<input type=button value='预 览' name=Button onclick=gopreview()>　　<input type="reset" name="Clear" value="清 除"></td></form></tr></table></tr></td></table>
 <SCRIPT>valignend()</SCRIPT>
-<form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$inforum"></form>
+<form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$in_forum"></form>
 <script>
 function gopreview(){
 document.preview.body.value=document.FORM.inpost.value;
@@ -570,7 +570,7 @@ document.preview.submit()
 }
 
 sub addmytopic {
-    my ($mode, $cleanmembername, $inforum, $intopic, $topictitle, $currenttime, $posticon) = @_;
+    my ($mode, $cleanmembername, $in_forum, $in_topic, $topictitle, $currenttime, $posticon) = @_;
     if ($recorddir eq "") {
         opendir(DIRS, "$lbdir");
         my @files = readdir(DIRS);

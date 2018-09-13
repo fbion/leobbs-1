@@ -48,8 +48,8 @@ foreach $param (@params) {
 }
 
 $action = $PARAM{'action'};
-$inforum = $PARAM{'forum'};
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_forum = $PARAM{'forum'};
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inmember = $query->param('member');

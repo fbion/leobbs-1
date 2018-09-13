@@ -143,15 +143,15 @@ if ($action eq "attach") {
     my ($from, $readstate, $date, $messagetitle, $post, $attach) = split(/\t/, $msgtograb);
     &error("读取附件&消息没有附件！或此消息已被删除！&msg") if ($attach eq '');
 
-    my ($filename, $content) = split('＊＃！＆＊', $attach);
-    my $fileext = lc((split(/\./, $filename))[-1]);
+    my ($file_name, $content) = split('＊＃！＆＊', $attach);
+    my $file_ext = lc((split(/\./, $file_name))[-1]);
     $content = &Base64decode($content);
     my $filesize = length($content);
 
-    $fileext = 'jpeg' if ($fileext eq 'jpg');
-    $fileext = 'html' if ($fileext eq 'htm');
-    $fileext = 'plain' if ($fileext eq 'txt');
-    print $fileext eq 'gif' || $fileext eq 'jpeg' || $fileext eq 'png' || $fileext eq 'bmp' ? header(-type => "image/$fileext", -attachment => $filename, -expires => '0', -content_length => $filesize) : $fileext eq 'swf' ? header(-type => "application/x-shockwave-flash", -attachment => $filename, -expires => '0', -content_length => $filesize) : $fileext eq 'plain' || $fileext eq 'html' ? header(-type => "text/$fileext", -attachment => $filename, -expires => '0', -content_length => $filesize) : header(-type => "attachment/$fileext", -attachment => $filename, -expires => '0', -content_length => $filesize);
+    $file_ext = 'jpeg' if ($file_ext eq 'jpg');
+    $file_ext = 'html' if ($file_ext eq 'htm');
+    $file_ext = 'plain' if ($file_ext eq 'txt');
+    print $file_ext eq 'gif' || $file_ext eq 'jpeg' || $file_ext eq 'png' || $file_ext eq 'bmp' ? header(-type => "image/$file_ext", -attachment => $file_name, -expires => '0', -content_length => $filesize) : $file_ext eq 'swf' ? header(-type => "application/x-shockwave-flash", -attachment => $file_name, -expires => '0', -content_length => $filesize) : $file_ext eq 'plain' || $file_ext eq 'html' ? header(-type => "text/$file_ext", -attachment => $file_name, -expires => '0', -content_length => $filesize) : header(-type => "attachment/$file_ext", -attachment => $file_name, -expires => '0', -content_length => $filesize);
     binmode(STDOUT);
     print $content;
     exit;

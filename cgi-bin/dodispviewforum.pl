@@ -14,8 +14,8 @@ use diagnostics;
 if ($inmembername ne "客人") {
     if (($membercode eq "ad" || $inmembmod eq "yes" || $membercode eq 'smo') && ($membercode ne 'amo')) {
         $deltopicmore1 = qq~论坛选项~;
-        $deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$inforum>批量管理文章</a>~;
-        $deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$inforum>修复这个论坛</a>~;
+        $deltopicmore2 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=forumoptions.cgi?action=prune&forum=$in_forum>批量管理文章</a>~;
+        $deltopicmore3 = qq~<img src=$imagesurl/images/$skin/adminlock.gif width=12 height=15> <a href=postings.cgi?action=repireforum&forum=$in_forum>修复这个论坛</a>~;
     }
     else {
         $deltopicmore1 = "";
@@ -25,7 +25,7 @@ if ($inmembername ne "客人") {
 
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellspacing=1 cellpadding=6 width=100%>
-<tr><td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS 论坛图例</b></font> (<a href=delforumcache.cgi?forum=$inforum title=如果本区有部分数据滞后的话，可以用此功能>更新该区缓存</a>)</td>
+<tr><td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS 论坛图例</b></font> (<a href=delforumcache.cgi?forum=$in_forum title=如果本区有部分数据滞后的话，可以用此功能>更新该区缓存</a>)</td>
 <td noWrap bgcolor=$titlecolor width=20% align=right $catbackpic><font color=$titlefontcolor> 所有时间均为 - $basetimes &nbsp;</td></tr><tr><td colspan=3 bgcolor=$forumcolorone>
 <table cellspacing=4 cellpadding=0 width=94% align=center><tr>
 <td width=20%><font color=$fonthighlight>打开的主题</font></td>
@@ -48,7 +48,7 @@ if ($inmembername ne "客人") {
 else {
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellspacing=0 cellpadding=0 width=$tablewidth align=center bgcolor=$tablebordercolor>
 <tr><td><table cellspacing=1 cellpadding=6 width="100%"><tr>
-<td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS 论坛图例</b></font> (<a href=delforumcache.cgi?forum=$inforum title=如果本区有部分数据滞后的话，可以用此功能>更新该区缓存</a>)</td>
+<td width=80% bgcolor=$titlecolor $catbackpic><font color=$titlefontcolor><b>-=> LeoBBS 论坛图例</b></font> (<a href=delforumcache.cgi?forum=$in_forum title=如果本区有部分数据滞后的话，可以用此功能>更新该区缓存</a>)</td>
 <td noWrap bgcolor=$titlecolor width=20% align=right $catbackpic><font color=$titlefontcolor>所有时间均为 - $basetimes &nbsp;</td></tr><tr><td colspan=3 bgcolor=$forumcolorone>
 <table cellspacing=4 cellpadding=0 width=92% align=center><tr>
 <td width=21%><img src=$imagesurl/images/$skin/topicnonew.gif> 打开讨论的主题</td>

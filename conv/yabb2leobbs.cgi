@@ -45,8 +45,8 @@ foreach (@yabbers) {
 
     $name = y/ /_/;
 
-    my $filename = "$leobbsdir" . "$name" . ".cgi";
-    open (IKON, ">$filename");
+    my $file_name = "$leobbsdir" . "$name" . ".cgi";
+    open (IKON, ">$file_name");
     print IKON "$name\t$password\t$title\t$membercode\t$posts\t$email\tyes\txxx.xx.xxx.xx\t$www\t\t$icq\t\t\t$time\t\%\%\%$time\%\%\%\t$sig\t0\t\t\t\t\t\t\t\t\t\n";
     close (IKON);
     $membercount ++;

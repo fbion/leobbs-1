@@ -180,9 +180,9 @@ elsif ($action eq "login") {
 
     foreach (@newdirdata) {
         chomp $_;
-        $filename = $_;
-        $filename =~ s/\.cgi$//g;
-        $cleanname = $filename;
+        $file_name = $_;
+        $file_name =~ s/\.cgi$//g;
+        $cleanname = $file_name;
         $cleanname =~ s/\_/ /g;
         $cleannamefile = uri_escape($cleanname);
         $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;关于<a href="$thisprog?admin=$cleannamefile" target="_self"><b>$cleanname</b></a>的帮助<p>~;
@@ -247,9 +247,9 @@ else {
 
     foreach (@newdirdata) {
         chomp $_;
-        $filename = $_;
-        $filename =~ s/\.dat$//g;
-        $cleanname = $filename;
+        $file_name = $_;
+        $file_name =~ s/\.dat$//g;
+        $cleanname = $file_name;
         $cleanname =~ s/\_/ /g;
         $cleannamefile = uri_escape($cleanname);
         $output .= qq~&nbsp;&nbsp;&nbsp;&nbsp;关于<a href="$thisprog?helpon=$cleannamefile" target="_self"><b>$cleanname</b></a>的帮助<p>~;

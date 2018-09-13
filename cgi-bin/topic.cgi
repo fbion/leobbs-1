@@ -56,9 +56,9 @@ if ($jumpto) {
     print redirect(-location => "$jumpto");
     exit;
 }
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic !~ /^[0-9]+$/) || ($inforum !~ /^[0-9]+$/));
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic !~ /^[0-9]+$/) || ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 $man = $query->param('man');
 $man = $query->cookie("man") if ($man eq "");
@@ -86,7 +86,7 @@ $onlineview = $onlineview1 if ($onlineview1 ne "");
 $onlineview = 0 if ($onlineview eq "");
 $onlineview = $onlineview == 1 ? 0 : 1 if ($action eq "onlineview");
 $onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "+30d");
-$onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview&forum=$inforum&topic=$intopic&start=$instart&show=$inshow><font color=$titlefontcolor>关闭详细列表</font></a>]" : "[<a href=$thisprog?action=onlineview&forum=$inforum&topic=$intopic&start=$instart&show=$inshow><font color=$titlefontcolor>显示详细列表</font></a>]";
+$onlinetitle = $onlineview == 1 ? "[<a href=$thisprog?action=onlineview&forum=$in_forum&topic=$in_topic&start=$instart&show=$inshow><font color=$titlefontcolor>关闭详细列表</font></a>]" : "[<a href=$thisprog?action=onlineview&forum=$in_forum&topic=$in_topic&start=$instart&show=$inshow><font color=$titlefontcolor>显示详细列表</font></a>]";
 
 if ((($forumimagead eq "1") && ($useimageadtopic eq "1")) || (($forumimagead1 eq "1") && ($useimageadtopic1 eq "1"))) {require "${lbdir}imagead.cgi";}
 
@@ -141,15 +141,15 @@ else {
     }
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
     &getlastvisit;
-    $forumlastvisit = $lastvisitinfo{$inforum};
-    &setlastvisit("$inforum,$currenttime");
+    $forumlastvisit = $lastvisitinfo{$in_forum};
+    &setlastvisit("$in_forum,$currenttime");
 }
-$testentry = $query->cookie("forumsallowed$inforum");
+$testentry = $query->cookie("forumsallowed$in_forum");
 
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
 
-if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
+if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
 else {$allowed = "no";}
 
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
@@ -178,7 +178,7 @@ print header(-cookie => [ $treeviewcookie, $onlineviewcookie, $mancookie, $tempv
 $defaultsmilewidth = "width=$defaultsmilewidth" if ($defaultsmilewidth ne "");
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
-if (open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi")) {
+if (open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi")) {
     sysread(FILE, my $threads, (stat(FILE))[7]);
     close(FILE);
     $threads =~ s/\r//isg;
@@ -197,7 +197,7 @@ if (open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi")) {
 
 }
 else {
-    unlink("${lbdir}forum$inforum/$intopic.pl");
+    unlink("${lbdir}forum$in_forum/$in_topic.pl");
     &error("打开主题&这个主题不存在！可能已经被删除！");
 }
 
@@ -216,7 +216,7 @@ $StartCheck = $numberofposts + $numberofreplys;
 
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
-my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+my $filetoopen = "${lbdir}forum$in_forum/$in_topic.pl";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -243,18 +243,18 @@ if ($topictitle ne "") {
 }
 &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-if ($treeview eq "yes") {$viewstyle = "&nbsp;<a href=topic.cgi?forum=$inforum&topic=$intopic&changemode=1&show=$inshow><img src=$imagesurl/images/flatview.gif width=40 height=12 border=0 alt=平板显示贴子></a>";}
-else {$viewstyle = "&nbsp;<a href=topic.cgi?forum=$inforum&topic=$intopic&changemode=1&show=$inshow><img src=$imagesurl/images/treeview.gif width=40 height=12 border=0 alt=树形显示贴子></a>";}
+if ($treeview eq "yes") {$viewstyle = "&nbsp;<a href=topic.cgi?forum=$in_forum&topic=$in_topic&changemode=1&show=$inshow><img src=$imagesurl/images/flatview.gif width=40 height=12 border=0 alt=平板显示贴子></a>";}
+else {$viewstyle = "&nbsp;<a href=topic.cgi?forum=$in_forum&topic=$in_topic&changemode=1&show=$inshow><img src=$imagesurl/images/treeview.gif width=40 height=12 border=0 alt=树形显示贴子></a>";}
 if ($postopen eq "no") {$newthreadbutton = "";}
-else {$newthreadbutton = qq~<a href=post.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a> ~;}
+else {$newthreadbutton = qq~<a href=post.cgi?action=new&forum=$in_forum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a> ~;}
 if ($pollopen eq "no") {$newpollbutton = "";}
-else {$newpollbutton = qq~<a href=poll.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a> ~;}
+else {$newpollbutton = qq~<a href=poll.cgi?action=new&forum=$in_forum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a> ~;}
 if ($payopen eq "no") {$newpaybutton = "";}
-else {$newpaybutton = qq~<a href=post.cgi?action=pay&forum=$inforum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~;}
+else {$newpaybutton = qq~<a href=post.cgi?action=pay&forum=$in_forum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~;}
 
 if (($threadstate ne "closed") && ($threadstate ne "pollclosed") && ($postopen ne "no")) {
-    $newreplybutton = qq~<a href=post.cgi?action=reply&forum=$inforum&topic=$intopic><img src=$imagesurl/images/$skin/$newreplylogo border=0 alt=回复贴子></a> ~;
-    $replynow = qq~<a href=post.cgi?action=reply&forum=$inforum&topic=$intopic><img src=$imagesurl/images/replynow.gif border=0 alt=回复贴子 width=16>回复</a>　~;
+    $newreplybutton = qq~<a href=post.cgi?action=reply&forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/$skin/$newreplylogo border=0 alt=回复贴子></a> ~;
+    $replynow = qq~<a href=post.cgi?action=reply&forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/replynow.gif border=0 alt=回复贴子 width=16>回复</a>　~;
 }
 else {
     $replynow = "";
@@ -278,15 +278,15 @@ if ($numberofpages > 1) {
 
     my $currentpage = int($instart / $maxtopics) + 1;
     my $endstart = ($numberofpages - 1) * $maxtopics;
-    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=0&show=$inshow title="首 页" ><font face=webdings>9</font></a>~;
-    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$endstart&show=$inshow title="尾 页" ><font face=webdings>:</font></a>~;
+    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=0&show=$inshow title="首 页" ><font face=webdings>9</font></a>~;
+    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$endstart&show=$inshow title="尾 页" ><font face=webdings>:</font></a>~;
 
     my $uppage = $currentpage - 1;
     my $nextpage = $currentpage + 1;
     my $upstart = $instart - $maxtopics;
     my $nextstart = $instart + $maxtopics;
-    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstart&show=$inshow title="第$uppage页"><font face=webdings>7</font></a>~;
-    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstart&show=$inshow title="第$nextpage页"><font face=webdings>8</font></a>~;
+    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$upstart&show=$inshow title="第$uppage页"><font face=webdings>7</font></a>~;
+    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$nextstart&show=$inshow title="第$nextpage页"><font face=webdings>8</font></a>~;
 
     my $tempstep = $currentpage / 7;
     my $currentstep = int($tempstep);
@@ -295,14 +295,14 @@ if ($numberofpages > 1) {
     my $nextsteppage = $currentstep * 7 + 1;
     my $upstepstart = ($upsteppage - 1) * $maxtopics;
     my $nextstepstart = ($nextsteppage - 1) * $maxtopics;
-    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstepstart&show=$inshow class=hb title="第$upsteppage页">←</a> ~;
-    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstepstart&show=$inshow class=hb title="第$nextsteppage页">→</a> ~;
+    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$upstepstart&show=$inshow class=hb title="第$upsteppage页">←</a> ~;
+    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$nextstepstart&show=$inshow class=hb title="第$nextsteppage页">→</a> ~;
 
     $pages = "";
     my $currentstart = $upstepstart + $maxtopics;
     for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++) {
         last if ($i > $numberofpages);
-        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$currentstart&show=$inshow class=hb>$i</a> ~;
+        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$currentstart&show=$inshow class=hb>$i</a> ~;
         $currentstart += $maxtopics;
     }
     $pages = "<font color=$menufontcolor><b>共 <font color=$fonthighlight>$numberofpages</font> 页</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
@@ -318,16 +318,16 @@ if ($usefake eq "yes") {
     $pages =~ s/topic.cgi\?forum=([0-9]+?)&topic=([0-9]+?)&show=([0-9]+?)([\ \'\"\>])/topic-$1-$2-0-$3-.htm$4/isg;
     $pages =~ s/topic.cgi\?forum=([0-9]+?)&topic=([0-9]+?)&replynum=([^\"\+\ ]+?)([\ \'\"\>])/topic-$1-$2-0-0-$3.htm$4/isg;
 
-    $printpageicon = qq~ <a href=printpage-$inforum-$intopic.htm><img src=$imagesurl/images/printpage.gif border=0 width=16 alt=显示可打印的版本></a>&nbsp;~;
+    $printpageicon = qq~ <a href=printpage-$in_forum-$in_topic.htm><img src=$imagesurl/images/printpage.gif border=0 width=16 alt=显示可打印的版本></a>&nbsp;~;
 }
 else {
-    $printpageicon = qq~ <a href=printpage.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/printpage.gif border=0 width=16 alt=显示可打印的版本></a>&nbsp;~;
+    $printpageicon = qq~ <a href=printpage.cgi?forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/printpage.gif border=0 width=16 alt=显示可打印的版本></a>&nbsp;~;
 }
 
-$reporticon = qq~ <a href=report.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/report.gif border=0 width=16 alt=本贴有问题，发送短消息报告给版主></a>&nbsp;~;
-$favicon = qq~ <a href=fav.cgi?action=add&forum=$inforum&topic=$intopic><img src=$imagesurl/images/fav.gif border=0 width=13 alt=加入个人收藏&关注本贴></a>&nbsp;~;
-if (($privateforum ne "yes") && ($emailfunctions eq "on")) {$sendtofriendicon = qq~ <a href=lbfriend.cgi?forum=$inforum&topic=$intopic><img src=$imagesurl/images/emailtofriend.gif border=0 width=16 alt=发送本页面给朋友></a>&nbsp;~;}
-$pagpageicon = qq~ <img src=$imagesurl/images/pag.gif border=0 width=16 alt=把本贴打包邮递 style=cursor:hand onClick="javascript:openScript('pag.cgi?forum=$inforum&topic=$intopic',500,400)">&nbsp;~ if ($emailfunctions eq "on");
+$reporticon = qq~ <a href=report.cgi?forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/report.gif border=0 width=16 alt=本贴有问题，发送短消息报告给版主></a>&nbsp;~;
+$favicon = qq~ <a href=fav.cgi?action=add&forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/fav.gif border=0 width=13 alt=加入个人收藏&关注本贴></a>&nbsp;~;
+if (($privateforum ne "yes") && ($emailfunctions eq "on")) {$sendtofriendicon = qq~ <a href=lbfriend.cgi?forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/emailtofriend.gif border=0 width=16 alt=发送本页面给朋友></a>&nbsp;~;}
+$pagpageicon = qq~ <img src=$imagesurl/images/pag.gif border=0 width=16 alt=把本贴打包邮递 style=cursor:hand onClick="javascript:openScript('pag.cgi?forum=$in_forum&topic=$in_topic',500,400)">&nbsp;~ if ($emailfunctions eq "on");
 $fontsizeselect = qq~<select OnChange="SetPostFont(this.value)"><option value="12">默认</option><option value="15">稍大</option><option value="18">普通</option><option value="21">较大</option><option value="24">很大</option><option value="30">最大</option></select>~;
 $postfontsize1 = $query->cookie("postfontsize");
 $postfontsize1 = $postfontsize if ($postfontsize1 eq "");
@@ -359,7 +359,7 @@ if ($addtopictime eq "yes") {
 $topictitletemp =~ s/ \(无内容\)$//;
 $topictitletemp =~ s/\&\#039\;//isg;
 $topictitletemp = &cleaninput($topictitletemp);
-$bookmarkpage = qq~ <span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$inforum&topic=$intopic', ' $boardname - $topictitletemp')"><IMG SRC=$imagesurl/images/fav_add1.gif width=15 alt=把本贴加入收藏夹></span>&nbsp;~;
+$bookmarkpage = qq~ <span style=CURSOR:hand onClick="window.external.AddFavorite('$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic', ' $boardname - $topictitletemp')"><IMG SRC=$imagesurl/images/fav_add1.gif width=15 alt=把本贴加入收藏夹></span>&nbsp;~;
 
 &title;
 
@@ -372,7 +372,7 @@ if (-e "$filetoopens.lck") {
     unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 30);
 }
 else {
-    if ($privateforum ne "yes") {&whosonline("$inmembername\t$forumname\t$forumname<>浏览“$topictitletemp”\t浏览<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitletemp</b></a>\t");}
+    if ($privateforum ne "yes") {&whosonline("$inmembername\t$forumname\t$forumname<>浏览“$topictitletemp”\t浏览<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitletemp</b></a>\t");}
     else {&whosonline("$inmembername\t$forumname(密)\t$forumname<>topictitletemp(密)\t浏览保密贴子\t");}
     $membertongji =~ s/分论坛/主题/o;
     $membertongji =~ s/人在线/人浏览/o;
@@ -380,10 +380,10 @@ else {
 }
 
 $output .= qq~<br>~;
-if (-e "${lbdir}cache/forumstopic$inforum.pl") {
-    eval {require "${lbdir}cache/forumstopic$inforum.pl";};
+if (-e "${lbdir}cache/forumstopic$in_forum.pl") {
+    eval {require "${lbdir}cache/forumstopic$in_forum.pl";};
     if ($@) {
-        unlink("${lbdir}cache/forumstopic$inforum.pl");
+        unlink("${lbdir}cache/forumstopic$in_forum.pl");
         require "dotopic.pl";
     }
 }
@@ -415,7 +415,7 @@ if ($startarray eq "0" && $arrawrecordclick eq "yes") {
     $trueipaddress = $ipaddress if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
     my $trueipaddress1 = $ENV{'HTTP_CLIENT_IP'};
     $trueipaddress = $trueipaddress1 if ($trueipaddress1 ne "" && $trueipaddress1 !~ m/a-z/i && $trueipaddress1 !~ m/^192\.168\./ && $trueipaddress1 !~ m/^10\./);
-    open(FILECLICK, ">>${lbdir}forum$inforum/$intopic.clk.pl");
+    open(FILECLICK, ">>${lbdir}forum$in_forum/$in_topic.clk.pl");
     print FILECLICK "$inmembername\t$ipaddress\t$trueipaddress\t$currenttime\t\n";
     close(FILECLICK);
 }
@@ -424,7 +424,7 @@ $insidead = "" if (($forumimagead ne "1") && ($useimageadtopic ne "1"));
 $insidead1 = "" if (($forumimagead1 ne "1") && ($useimageadtopic1 ne "1"));
 if ($threadviews > 0) {
     $threadviewstemp = "◆此帖被阅读 <b>$threadviews</b> 次◆";
-    $threadviewstemp = "<a href=dispclick.cgi?forum=$inforum&topic=$intopic title=查看此帖的访问记录 target=_blank>$threadviewstemp</a>" if ($membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes');
+    $threadviewstemp = "<a href=dispclick.cgi?forum=$in_forum&topic=$in_topic title=查看此帖的访问记录 target=_blank>$threadviewstemp</a>" if ($membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes');
 }
 
 $output .= qq~<script>
@@ -528,42 +528,42 @@ if ($topicad ne "") {
 $output .= qq~$topicad<table cellpadding=1 cellspacing=0 width=$tablewidth align=center><tr><td height=22><span id=LeoBBSgg style=display:none></span></td></tr>
 <tr><td align=center width=1></td>
 <td width=435 valign=bottom>$newthreadbutton$newreplybutton$newpollbutton$newpaybutton</td>
-<td align=right valign=bottom width=* nowarp><font color=$forumfontcolor>$threadviewstemp　 <a href=gettopicno.cgi?forum=$inforum&topic=$topicid&show=$inshow&act=pre><img src=$imagesurl/images/prethread.gif border=0 alt=浏览上一篇主题 width=52 height=12></a>&nbsp;　<a href="javascript:this.location.reload()"><img src=$imagesurl/images/refresh.gif border=0 alt=刷新本主题 width=40 height=12></a> $viewstyle　<a href=gettopicno.cgi?forum=$inforum&topic=$topicid&show=$inshow&act=next><img src=$imagesurl/images/nextthread.gif border=0 alt=浏览下一篇主题 width=52 height=12></a></td><td align=center width=2></td></tr></table>
+<td align=right valign=bottom width=* nowarp><font color=$forumfontcolor>$threadviewstemp　 <a href=gettopicno.cgi?forum=$in_forum&topic=$topicid&show=$inshow&act=pre><img src=$imagesurl/images/prethread.gif border=0 alt=浏览上一篇主题 width=52 height=12></a>&nbsp;　<a href="javascript:this.location.reload()"><img src=$imagesurl/images/refresh.gif border=0 alt=刷新本主题 width=40 height=12></a> $viewstyle　<a href=gettopicno.cgi?forum=$in_forum&topic=$topicid&show=$inshow&act=next><img src=$imagesurl/images/nextthread.gif border=0 alt=浏览下一篇主题 width=52 height=12></a></td><td align=center width=2></td></tr></table>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td height=1></td></tr></table>
 <table cellpadding=0 cellspacing=0 width=$tablewidth align=center><tr><td bgcolor=$tablebordercolor width=1 height=24><img src=$imagesurl/images/none.gif width=1></td><td bgcolor=$titlecolor colspan=2 $catbackpic>
 <table cellpadding=0 cellspacing=1 width=100%><tr><td><font color=$titlefontcolor>&nbsp;<b>* 贴子主题</B>： $topictitletemp</td>
-<td align=right> <a href=$thisprog?forum=$inforum&topic=$intopic&start=$instart&max=yes&show=$inshow><img src=$imagesurl/images/showall.gif border=0 width=14 alt=不分页显示此帖></a>&nbsp;$reporticon$favicon$printpageicon$pagpageicon$bookmarkpage$sendtofriendicon $fontsizeselect&nbsp;</td></tr></table></td><td bgcolor=$tablebordercolor width=1 height=24></td></tr></table>
+<td align=right> <a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$instart&max=yes&show=$inshow><img src=$imagesurl/images/showall.gif border=0 width=14 alt=不分页显示此帖></a>&nbsp;$reporticon$favicon$printpageicon$pagpageicon$bookmarkpage$sendtofriendicon $fontsizeselect&nbsp;</td></tr></table></td><td bgcolor=$tablebordercolor width=1 height=24></td></tr></table>
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td height=1></td></tr></table>
 ~;
 
-if (open(FILE, "${lbdir}FileCount/$inforum/$inforum\_$intopic.pl")) {
+if (open(FILE, "${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl")) {
     @usruploaddata = <FILE>;
     close(FILE);
     chomp @usruploaddata;
     my $usruploaddatano1 = @usruploaddata;
-    my @usruploaddata1 = grep (/^$inforum\_$intopic(\.|\_)/, @usruploaddata);
+    my @usruploaddata1 = grep (/^$in_forum\_$in_topic(\.|\_)/, @usruploaddata);
     my $usruploaddatano2 = @usruploaddata1;
     if (($usruploaddatano1 ne $usruploaddatano2) && ($usruploaddata2 > 0)) {
-        unlink("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
+        unlink("${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
         print "页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！！<BR><BR><meta http-equiv='refresh' content='0;'>";
         exit;
     }
 }
 else {
-    opendir(USRDIR, "${imagesdir}$usrdir/$inforum");
+    opendir(USRDIR, "${imagesdir}$usrdir/$in_forum");
     @usruploaddata = readdir(USRDIR);
     closedir(USRDIR);
-    @usruploaddata = grep (/^$inforum\_$intopic(\.|\_)/, @usruploaddata);
+    @usruploaddata = grep (/^$in_forum\_$in_topic(\.|\_)/, @usruploaddata);
     chomp @usruploaddata;
-    #    open (FILE, ">${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
+    #    open (FILE, ">${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
     #    print FILE join("\n",@usruploaddata);
     #    print FILE "\n" if ($#usruploaddata > 0);
     #    close(FILE);
 }
 $usruploaddata = @usruploaddata;
 if ($usruploaddata > 0) {
-    @usruploaddatareply = grep (/^$inforum\_$intopic\_/, @usruploaddata);
+    @usruploaddatareply = grep (/^$in_forum\_$in_topic\_/, @usruploaddata);
     $usruploaddatareply = @usruploaddatareply;
 }
 
@@ -591,7 +591,7 @@ tempobj.disabled=true
 }}}
 function addpost(num){
 var postnum = eval('postnum'+num);
-postnum.innerHTML="<form method=post action=addpost.cgi onSubmit=submitonce(this)><input name=id type=hidden value="+num+"><input name=forum type=hidden value=$inforum><input name=topic type=hidden value=$intopic><textarea rows=6 name=inpost cols=35></textarea><p></p><input type=submit value=续写该文></form>";
+postnum.innerHTML="<form method=post action=addpost.cgi onSubmit=submitonce(this)><input name=id type=hidden value="+num+"><input name=forum type=hidden value=$in_forum><input name=topic type=hidden value=$in_topic><textarea rows=6 name=inpost cols=35></textarea><p></p><input type=submit value=续写该文></form>";
 }
 function ResetReplyTitle(no) {
         document.forms('FORM').floor.value= no ;
@@ -606,7 +606,7 @@ if ($magicface ne 'off') {
 <script>
 function MM_showHideLayers() {var i,p,v,obj,args=MM_showHideLayers.arguments;obj=document.getElementById("MagicFace");for (i=0; i<(args.length-2); i+=3) if (obj) { v=args[i+2];if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }obj.visibility=v; }}
 function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" + MagicID + ".swf";document.getElementById("MagicFace").innerHTML = '<object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="500" height="350"><param name="movie" value="'+ MagicFaceUrl +'"><param name="menu" value="false"><param name="quality" value="high"><param name="play" value="false"><param name="wmode" value="transparent"><embed src="' + MagicFaceUrl +'" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="350"></embed></object>';document.getElementById("MagicFace").style.top = (document.body.scrollTop+((document.body.clientHeight-300)/2))+"px";document.getElementById("MagicFace").style.left = (document.body.scrollLeft+((document.body.clientWidth-480)/2))+"px";document.getElementById("MagicFace""500" height="350"><param name="movie" value="'+ MagicFaceUrl +'"><param name="menu" value="false"><param name="quality" value="high"><param name="play" value="false"><param name="wmode" value="transparent"><embed src="' + MagicFaceUrl +'" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="350"></embed></object>';document.getElementById("MagicFace").style.top = (document.body.scrollTop+((document.body.clientHeight-300)/2))+"px";document.getElementById("MagicFace").style.left = (document.body.scrollLeft+((document.body.clientWidth-480)/2))+"px";document.getElementById("MagicFace"ply);
-	    my @downcount      = grep(/$inforum\_$intopic\_$rrn\./,@filedowncount);
+	    my @downcount      = grep(/$in_forum\_$in_topic\_$rrn\./,@filedowncount);
             if ($ #usruploaddata1 >= 0) {
         my $usruploadfile = $usruploaddata1[0]; chomp $usruploadfile;
                ($up_name, $up_ext) = split(/\./,$usruploadfile);
@@ -618,8 +618,8 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 }
     }
     else {
-        my @usruploaddata2 = grep(/^$inforum\_$intopic\./,@usruploaddata);
-	my @downcount      = grep(/$inforum\_$intopic\./,@filedowncount);
+        my @usruploaddata2 = grep(/^$in_forum\_$in_topic\./,@usruploaddata);
+	my @downcount      = grep(/$in_forum\_$in_topic\./,@filedowncount);
         if ($#usruploaddata2 >= 0) {
 	    my $usruploadfile = $usruploaddata2[0]; chomp $usruploadfile;
             ($up_name, $up_ext) = split(/\./,$usruploadfile);
@@ -627,35 +627,35 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
             $addmefile =1;
         }
     }
-    if (!(-e "${imagesdir}$usrdir/$inforum/$up_name.$up_ext")) {
-        unlink ("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
+    if (!(-e "${imagesdir}$usrdir/$in_forum/$up_name.$up_ext")) {
+        unlink ("${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
         print "页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！<BR><BR><meta http-equiv='refresh' content='0;'>";
         exit;
     }
     if ($addmefile == 1) {
-   	@fileinfo = stat("${imagesdir}$usrdir/$inforum/$up_name.$up_ext");
+   	@fileinfo = stat("${imagesdir}$usrdir/$in_forum/$up_name.$up_ext");
 	$filetype = "unknow";
 	$filetype = $up_ext if (-e "${imagesdir}icon/$up_ext.gif");
 	if (($up_ext eq "gif")||($up_ext eq "jpg")||($up_ext eq "jpe")||($up_ext eq "jpeg")||($up_ext eq "tif")||($up_ext eq "png")||($up_ext eq "bmp")) {
             if (($nodispphoto eq 'yes')||($arrawpostpic eq 'off')) {
-	    	$addme = qq(<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br>);
+	    	$addme = qq(<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br>);
 	    } else{
-	    	$addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext border=0 alt=按此在新窗口浏览图片 onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><br>);
+	    	$addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext border=0 alt=按此在新窗口浏览图片 onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><br>);
 	    }
 	    $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,$editpostnumber,'$up_ext')><img id=followImg$editpostnumber src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> 按此查看图片详细信息<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$editpostnumber style=DISPLAY:none><tr><td id=followTd$editpostnumber><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,$editpostnumber,'$up_ext')>正在读取此图片的详细信息，请稍候 ...</DIV></td></tr></table></span><BR><BR>);
 	}
 	elsif ($up_ext eq "swf") {
 	    if ($arrawpostflash eq "on") {
-	        $addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>)
+	        $addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>)
 	    } else {
-	        $addme=qq(<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>);
+	        $addme=qq(<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>);
 	    }
 	}
 	elsif (($up_ext eq "torrent")&&(($rn eq 0)||($rn eq ""))) {
 	    require "dobtinfo.pl";
 	}
 	else {
-        	$addme = qq(<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>);		
+        	$addme = qq(<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>);
 	}
     } else { $addme = ""; }
   } else { $addme = ""; }
@@ -709,13 +709,13 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     else { $proxyip = 0; }
 
     if (($threadstate ne "closed")&&($threadstate ne "pollclosed")&&($postopen ne "no")) {
-        $replygraphic = qq~<a href=post.cgi?action=replyquote&forum=$inforum&topic=$intopic&postno=$editpostnumber title=引用回复这个贴子><img src=$imagesurl/images/reply.gif border=0 width=16 align=absmiddle>引用</a>　~;
+        $replygraphic = qq~<a href=post.cgi?action=replyquote&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=引用回复这个贴子><img src=$imagesurl/images/reply.gif border=0 width=16 align=absmiddle>引用</a>　~;
     } else { $replygraphic="";}
     
     if ($waterwhenguest eq "yes" && $inmembername eq "客人") {
     	$copygfx = "";
     } else {
-        $copygfx = qq~<a href=post.cgi?action=copy1&forum=$inforum&topic=$intopic&postno=$editpostnumber title=复制这个贴子><img src=$imagesurl/images/copy.gif border=0 width=16 align=absmiddle>复制</a>　~;
+        $copygfx = qq~<a href=post.cgi?action=copy1&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=复制这个贴子><img src=$imagesurl/images/copy.gif border=0 width=16 align=absmiddle>复制</a>　~;
     }
     
 
@@ -740,17 +740,17 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     } else { $post =~ s/style/\&\#115\;tyle/isg; }
     if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($usereditpost ne "no")&&(lc($inmembername) eq lc($membername{$membername}))))  {
     	if ($post=~m/\[ALIPAYE\]/) {
-    	    $editgraphic    = qq~<a href=editpay.cgi?action=edit&forum=$inforum&topic=$intopic title=编辑这个交易帖><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~;
+    	    $editgraphic    = qq~<a href=editpay.cgi?action=edit&forum=$in_forum&topic=$in_topic title=编辑这个交易帖><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~;
     	} else {
-    	    $editgraphic    = qq~<a href=editpost.cgi?action=edit&forum=$inforum&topic=$intopic&postno=$editpostnumber title=编辑这个贴子><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~;
+    	    $editgraphic    = qq~<a href=editpost.cgi?action=edit&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=编辑这个贴子><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~;
     	}
     } else { $editgraphic =""; }
 
     if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")) {
     	if ($post =~ /\[POSTISDELETE=(.+?)\]/) {
-    	    $pbgraphic = qq~<a href=delpost.cgi?action=unpostdeleteonce&forum=$inforum&topic=$intopic&postno=$editpostnumber title=取消屏蔽这个回复><img src=$imagesurl/images/yes.gif border=0 width=15 align=absmiddle>取消屏蔽</a>　~; 
+    	    $pbgraphic = qq~<a href=delpost.cgi?action=unpostdeleteonce&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=取消屏蔽这个回复><img src=$imagesurl/images/yes.gif border=0 width=15 align=absmiddle>取消屏蔽</a>　~;
     	} else {
-    	    $pbgraphic = qq~<a href=delpost.cgi?action=postdeleteonce&forum=$inforum&topic=$intopic&postno=$editpostnumber title=屏蔽这个回复><img src=$imagesurl/images/no.gif border=0 width=15 align=absmiddle>屏蔽</a>　~; 
+    	    $pbgraphic = qq~<a href=delpost.cgi?action=postdeleteonce&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=屏蔽这个回复><img src=$imagesurl/images/no.gif border=0 width=15 align=absmiddle>屏蔽</a>　~;
     	}
     } else { $pbgraphic = ""; }
 
@@ -776,9 +776,9 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     if ($canchgfont ne "no") {
       if ($post =~/\[USECHGFONTE\]/) {
 	$post =~ s/\[USECHGFONTE\]//isg;
-        $post =~ s/(^|\>|\n)(\[这个.+?最后由.+?编辑\])(.*)/$1$2<div id=CArea$inforum$editpostnumber>$3<\/div><script>var _old$inforum$editpostnumber=CArea$inforum$editpostnumber.innerHTML;ConFONT('$inforum$editpostnumber','$imagesurl','1');<\/script>/isg;
-	if (!($2)) { $post = qq~<div id=CArea$inforum$editpostnumber>$post</div><script>var _old$inforum$editpostnumber=CArea$inforum$editpostnumber.innerHTML;ConFONT('$inforum$editpostnumber','$imagesurl','1');</script>~; }
-	$chgposticon = "<span id=OArea$inforum$editpostnumber></span>　";
+        $post =~ s/(^|\>|\n)(\[这个.+?最后由.+?编辑\])(.*)/$1$2<div id=CArea$in_forum$editpostnumber>$3<\/div><script>var _old$in_forum$editpostnumber=CArea$in_forum$editpostnumber.innerHTML;ConFONT('$in_forum$editpostnumber','$imagesurl','1');<\/script>/isg;
+	if (!($2)) { $post = qq~<div id=CArea$in_forum$editpostnumber>$post</div><script>var _old$in_forum$editpostnumber=CArea$in_forum$editpostnumber.innerHTML;ConFONT('$in_forum$editpostnumber','$imagesurl','1');</script>~; }
+	$chgposticon = "<span id=OArea$in_forum$editpostnumber></span>　";
       }
       else { $chgposticon = ""; }
     } else { $post =~ s/\[USECHGFONTE\]//isg; $chgposticon = "";}
@@ -803,9 +803,9 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 
     if ($man eq '') {
         my $man=uri_escape($membername{$membername});
-        $postmanbuttom ="<a href=$thisprog?forum=$inforum&topic=$intopic&show=$inshow&man=$man><img src=$imagesurl/images/lookme.gif border=0 width=16 align=absmiddle>只看我</a>　";
+        $postmanbuttom ="<a href=$thisprog?forum=$in_forum&topic=$in_topic&show=$inshow&man=$man><img src=$imagesurl/images/lookme.gif border=0 width=16 align=absmiddle>只看我</a>　";
     } else {
-        $postmanbuttom ="<a href=$thisprog?forum=$inforum&topic=$intopic&show=$inshow&man=[]><img src=$imagesurl/images/find.gif border=0 width=16 align=absmiddle>取消只看我</a>　";
+        $postmanbuttom ="<a href=$thisprog?forum=$in_forum&topic=$in_topic&show=$inshow&man=[]><img src=$imagesurl/images/find.gif border=0 width=16 align=absmiddle>取消只看我</a>　";
     }
 
     $signature{$membername} = "<font color=$posternamecolor>此用户的签名已经被屏蔽！</font>" if ($notshowsignaturemember =~/\t$membername{$membername}\t/i);
@@ -824,10 +824,10 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
     }
     else { $post = qq($post<BR></td><td width=16></td></tr><tr><td></td><td valign=bottom><BR><BR><BR><BR>$postcopyright<BR>); }
 
-    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($arrowuserdel ne "off")&&(lc($inmembername) eq lc($membername{$membername})))) { $delgraphic = qq~<a href=delpost.cgi?action=directdel&forum=$inforum&topic=$intopic&postno=$editpostnumber title=删除这个回复><img src=$imagesurl/images/del.gif border=0 width=16 align=absmiddle>删除</a>　~; } else { $delgraphic = ""; }
+    if (($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes")||(($arrowuserdel ne "off")&&(lc($inmembername) eq lc($membername{$membername})))) { $delgraphic = qq~<a href=delpost.cgi?action=directdel&forum=$in_forum&topic=$in_topic&postno=$editpostnumber title=删除这个回复><img src=$imagesurl/images/del.gif border=0 width=16 align=absmiddle>删除</a>　~; } else { $delgraphic = ""; }
     $delgraphic .=qq(<input type="checkbox" name="postno$editpostnumber" value="yes">) if((($mymembercode eq "ad")||($mymembercode eq 'smo')||($myinmembmod eq "yes"))&&($treeview ne "yes"));
 
-    if ((($mymembercode eq "ad")||($mymembercode eq "mo")||($mymembercode eq 'smo')||(($myinmembmod eq "yes")&&($mymembercode ne 'amo')))&&($membercode{$membername} ne "ad")&&($tempname ne "")&&($membername ne "客人")) { $rateuser = qq~ <a href="userrating.cgi?membername=$tempname&oldforum=$inforum&oldtopic=$intopic&oldpostno=$editpostnumber" title=给此用户增减威望或积分><img src=$imagesurl/images/poll1.gif border=0 width=16 height=14></a>~; } else { $rateuser=""; }
+    if ((($mymembercode eq "ad")||($mymembercode eq "mo")||($mymembercode eq 'smo')||(($myinmembmod eq "yes")&&($mymembercode ne 'amo')))&&($membercode{$membername} ne "ad")&&($tempname ne "")&&($membername ne "客人")) { $rateuser = qq~ <a href="userrating.cgi?membername=$tempname&oldforum=$in_forum&oldtopic=$in_topic&oldpostno=$editpostnumber" title=给此用户增减威望或积分><img src=$imagesurl/images/poll1.gif border=0 width=16 height=14></a>~; } else { $rateuser=""; }
 
     ($ip1,$ip2,$ip3,$ip4) = split(/\./,$postipaddress);
 
@@ -942,29 +942,29 @@ $output .= qq~</tr></table><br>~;
 if (($threadstate ne "closed")&&($threadstate ne "pollclosed")&&($postopen ne "no")&&($dispquickreply ne "no")) { require "fastreplay.pl"; }
 
 $output .= qq~<table cellspacing=0 cellpadding=0 width=$tablewidth align=center>
-<tr><td>&nbsp;<a href=#top><img src=$imagesurl/images/gotop.gif width=15 border=0 align=absmiddle>顶端</a>　<a href=fav.cgi?action=add&forum=$inforum&topic=$intopic><img src=$imagesurl/images/addfavorite.gif height=15 border=0 align=absmiddle>加到"个人收藏夹"</a></td><td nowrap align=right><font color=$menufontcolor><img src=$imagesurl/images/forumme.gif> <b>主题管理</B>：
-<a href=postings.cgi?action=abslocktop&forum=$inforum&topic=$intopic>总固顶</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=absunlocktop&forum=$inforum&topic=$intopic>取消总固顶</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=catlocktop&forum=$inforum&topic=$intopic>区固顶</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=catunlocktop&forum=$inforum&topic=$intopic>取消区固顶</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=locktop&forum=$inforum&topic=$intopic>固顶</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=unlocktop&forum=$inforum&topic=$intopic>取消固顶</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=puttop&forum=$inforum&topic=$intopic>提升</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=putdown&forum=$inforum&topic=$intopic>沉底</a> <img src=$imagesurl/images/fg.gif>
+<tr><td>&nbsp;<a href=#top><img src=$imagesurl/images/gotop.gif width=15 border=0 align=absmiddle>顶端</a>　<a href=fav.cgi?action=add&forum=$in_forum&topic=$in_topic><img src=$imagesurl/images/addfavorite.gif height=15 border=0 align=absmiddle>加到"个人收藏夹"</a></td><td nowrap align=right><font color=$menufontcolor><img src=$imagesurl/images/forumme.gif> <b>主题管理</B>：
+<a href=postings.cgi?action=abslocktop&forum=$in_forum&topic=$in_topic>总固顶</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=absunlocktop&forum=$in_forum&topic=$in_topic>取消总固顶</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=catlocktop&forum=$in_forum&topic=$in_topic>区固顶</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=catunlocktop&forum=$in_forum&topic=$in_topic>取消区固顶</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$in_topic>固顶</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=unlocktop&forum=$in_forum&topic=$in_topic>取消固顶</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$in_topic>提升</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=putdown&forum=$in_forum&topic=$in_topic>沉底</a> <img src=$imagesurl/images/fg.gif>
 <BR>
-<a href=postings.cgi?action=highlight&forum=$inforum&topic=$intopic>加重</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=lowlight&forum=$inforum&topic=$intopic>取消加重</a> <img src=$imagesurl/images/fg.gif>
-<a href=jinghua.cgi?action=add&forum=$inforum&topic=$intopic>精华</a> <img src=$imagesurl/images/fg.gif>
-<a href=jinghua.cgi?action=del&forum=$inforum&topic=$intopic>取消精华</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=lock&forum=$inforum&topic=$intopic>锁定</a> <img src=$imagesurl/images/fg.gif>
-<a href=postings.cgi?action=unlock&forum=$inforum&topic=$intopic>解锁</a> <img src=$imagesurl/images/fg.gif>
-<a href=delpost.cgi?action=delete&forum=$inforum&topic=$intopic>删除</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=highlight&forum=$in_forum&topic=$in_topic>加重</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=lowlight&forum=$in_forum&topic=$in_topic>取消加重</a> <img src=$imagesurl/images/fg.gif>
+<a href=jinghua.cgi?action=add&forum=$in_forum&topic=$in_topic>精华</a> <img src=$imagesurl/images/fg.gif>
+<a href=jinghua.cgi?action=del&forum=$in_forum&topic=$in_topic>取消精华</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=lock&forum=$in_forum&topic=$in_topic>锁定</a> <img src=$imagesurl/images/fg.gif>
+<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$in_topic>解锁</a> <img src=$imagesurl/images/fg.gif>
+<a href=delpost.cgi?action=delete&forum=$in_forum&topic=$in_topic>删除</a> <img src=$imagesurl/images/fg.gif>
 <span style=cursor:hand onClick="javascript:DelReply();">删除回复</span> <img src=$imagesurl/images/fg.gif> 
-<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$intopic>移动</a> <img src=$imagesurl/images/fg.gif>
+<a href=delpost.cgi?action=movetopic&forum=$in_forum&topic=$in_topic>移动</a> <img src=$imagesurl/images/fg.gif>
 </td></tr></table><p><p>
 <form action="delpost.cgi" method=post name="DReply"> 
-<input type=hidden name="forum" value="$inforum"> 
-<input type=hidden name="topic" value="$intopic"> 
+<input type=hidden name="forum" value="$in_forum">
+<input type=hidden name="topic" value="$in_topic">
 <input type=hidden name="action" value="directdel"> 
 <input type=hidden name="postno"></form>
 ~;

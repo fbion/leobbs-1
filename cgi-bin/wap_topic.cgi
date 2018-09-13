@@ -41,12 +41,12 @@ if ($inmembername eq "" || $inmembername eq "客人") {
 else {
     &getmember("$inmembername", "no");
 }
-$inforum = $query->param('f');
-$intopic = $query->param('t');
-&getoneforum("$inforum");
+$in_forum = $query->param('f');
+$in_topic = $query->param('t');
+&getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
 &errorout("打开主题&这个主题不存在！可能已经被删除！") unless (-e "${lbdir}forum${inforum}/${intopic}.thd.cgi");
-my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+my $filetoopen = "${lbdir}forum$in_forum/$in_topic.pl";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -75,13 +75,13 @@ if ($topictitle ne "") {
 $mymembercode = $membercode;
 $myinmembmod = $inmembmod;
 $myrating = $rating;
-$tempaccess = "forumsallowed" . $inforum;
+$tempaccess = "forumsallowed" . $in_forum;
 $testentry = $query->cookie($tempaccess);
-$allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
+$allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
 
-&errorout("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
-&errorout("打开文件&老大，别乱黑我的程序呀！") if ($intopic !~ /^[0-9]+$/);
-&getoneforum($inforum);
+&errorout("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
+&errorout("打开文件&老大，别乱黑我的程序呀！") if ($in_topic !~ /^[0-9]+$/);
+&getoneforum($in_forum);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 &errorout("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
@@ -103,7 +103,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
 }
 $topictitle =~ s/^＊＃！＆＊//;
-my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+my $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 open(FILE, "$filetoopen");
 my @threads = <FILE>;
 close(FILE);
@@ -132,7 +132,7 @@ my $s = $k + $topicpre;
 for ($ij = $paGe - 2; $ij <= $paGe + 3; $ij++) {
     next if ($ij < 1);
     next if ($ij > $all_1);
-    if ($ij ne $paGe) {$newpage .= "&nbsp;<a href=\"wap_topic.cgi?t=$intopic&amp;paGe=$ij&amp;f=$inforum&amp;lid=$lid&amp;pa=$pa\">$ij</a>";}
+    if ($ij ne $paGe) {$newpage .= "&nbsp;<a href=\"wap_topic.cgi?t=$in_topic&amp;paGe=$ij&amp;f=$in_forum&amp;lid=$lid&amp;pa=$pa\">$ij</a>";}
     else {$newpage .= "&nbsp;<i>$ij</i>";}
 }
 $newpage or $newpage = ' <i>1</i>';
@@ -162,7 +162,7 @@ for ($i = $k; $i < $s; $i++) {
         $post =~ s/\&amp;#35;/\&#35;/g;
         $post =~ s/\&amp;amp;/\&amp;/g;
         chomp $post;
-        $post .= "<a href=\"wap_topic_all.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic&amp;pno=$i&amp;pa=$pa\">&gt;&gt;</a>";
+        $post .= "<a href=\"wap_topic_all.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic&amp;pno=$i&amp;pa=$pa\">&gt;&gt;</a>";
     }
     else {
         $post =~ s/<br>/<br\/>/g;
@@ -173,5 +173,5 @@ for ($i = $k; $i < $s; $i++) {
     $a .= qq~<p>$rn楼：$postdate<br/>作者:$membername<br/>$post($postsize字)<br/>------------</p>~;
 }
 my $r = &msg($inmembername);
-$show .= qq~<p>$r<b>标题：$topictitle</b><br/><small>($threadviews,$#threads,$startedby)</small><br/>----------</p>$a<p>[$paGe/$all_1页]</p><p>$newpage</p><p>跳到<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_topic.cgi?t=$intopic&amp;paGe=\$(tz)&amp;f=$inforum&amp;lid=$lid&amp;paGe=$pa">Go..</a></p><p><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">返回$forumname</a><br/><a href="wap_re.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">回复帖子</a><br/><a href="wap_index.cgi?lid=$lid">论坛首页</a></p>~;
+$show .= qq~<p>$r<b>标题：$topictitle</b><br/><small>($threadviews,$#threads,$startedby)</small><br/>----------</p>$a<p>[$paGe/$all_1页]</p><p>$newpage</p><p>跳到<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_topic.cgi?t=$in_topic&amp;paGe=\$(tz)&amp;f=$in_forum&amp;lid=$lid&amp;paGe=$pa">Go..</a></p><p><a href="wap_forum.cgi?forum=$in_forum&amp;lid=$lid&amp;paGe=$pa">返回$forumname</a><br/><a href="wap_re.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic">回复帖子</a><br/><a href="wap_index.cgi?lid=$lid">论坛首页</a></p>~;
 &wapfoot;

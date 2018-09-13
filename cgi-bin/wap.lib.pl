@@ -51,16 +51,16 @@ sub dofilter {
     return $infiltermessage;
 }
 sub getoneforum {
-    local $inforum = shift;
-    return if ($inforum eq "");
-    if (-e "${lbdir}cache/forumsone$inforum.pl") {
-        eval {require "${lbdir}cache/forumsone$inforum.pl";};
+    local $in_forum = shift;
+    return if ($in_forum eq "");
+    if (-e "${lbdir}cache/forumsone$in_forum.pl") {
+        eval {require "${lbdir}cache/forumsone$in_forum.pl";};
         if ($@) {
-            unlink("${lbdir}cache/forumsone$inforum.pl");
+            unlink("${lbdir}cache/forumsone$in_forum.pl");
             require "dogetoneforum.pl";
         }
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $no, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forums);
-        unlink("${lbdir}cache/forumsone$inforum.pl") if ((-M "${lbdir}cache/forumsone$inforum.pl") * 86400 > 600);
+        unlink("${lbdir}cache/forumsone$in_forum.pl") if ((-M "${lbdir}cache/forumsone$in_forum.pl") * 86400 > 600);
     }
     else {
         require "dogetoneforum.pl";
@@ -72,24 +72,24 @@ sub getoneforum {
 }
 
 sub moderator {
-    local $inforum = shift;
-    return if ($inforum eq "");
-    if (-e "${lbdir}cache/forums$inforum.pl") {
-        eval {require "${lbdir}cache/forums$inforum.pl";};
+    local $in_forum = shift;
+    return if ($in_forum eq "");
+    if (-e "${lbdir}cache/forums$in_forum.pl") {
+        eval {require "${lbdir}cache/forums$in_forum.pl";};
         if ($@) {
-            unlink("${lbdir}cache/forums$inforum.pl");
+            unlink("${lbdir}cache/forums$in_forum.pl");
             require "domoderator.pl";
         }
         ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums);
 
         if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/))) {$inmembmod = "yes";}
         else {$inmembmod = "no";}
-        unlink("${lbdir}cache/forums$inforum.pl") if ((-M "${lbdir}cache/forums$inforum.pl") * 86400 > 600);
+        unlink("${lbdir}cache/forums$in_forum.pl") if ((-M "${lbdir}cache/forums$in_forum.pl") * 86400 > 600);
     }
     else {
         require "domoderator.pl";
     }
-    eval {require "${lbdir}boarddata/forumposts$inforum.pl";} if ($thisprog eq "forums.cgi");
+    eval {require "${lbdir}boarddata/forumposts$in_forum.pl";} if ($thisprog eq "forums.cgi");
     return;
 }
 

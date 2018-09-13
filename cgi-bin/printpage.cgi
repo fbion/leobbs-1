@@ -40,13 +40,13 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 
 &ipbanned; #封杀一些 ip
 
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -64,7 +64,7 @@ if ($inmembername eq "" || $inmembername eq "客人") {
     $myrating = -1;
     if ($regaccess eq "on" && &checksearchbot) {
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
     &error("普通错误&客人不能查看贴子内容，请注册或登录后再试") if ($guestregistered eq "off");
@@ -81,23 +81,23 @@ else {
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
-    #&getoneforum("$inforum");
-    #    &moderator("$inforum");
+    #&getoneforum("$in_forum");
+    #    &moderator("$in_forum");
     $myinmembmod = $inmembmod;
     &getlastvisit;
-    $forumlastvisit = $lastvisitinfo{$inforum};
+    $forumlastvisit = $lastvisitinfo{$in_forum};
     $currenttime = time;
-    &setlastvisit("$inforum,$currenttime");
+    &setlastvisit("$in_forum,$currenttime");
 }
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 &doonoff; #论坛开放与否
 
 if ($privateforum eq "yes") {
     if ($inmembername eq "客人") {
-        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
-    if (($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if (($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     else {$allowed = "no";}
 }
 
@@ -116,7 +116,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
 }
 
-$filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+$filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -142,7 +142,7 @@ else {
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
         if ($privateforum ne "yes") {
-            &whosonline("$inmembername\t$forumname\tboth\t浏览<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>(文本方式)\t");
+            &whosonline("$inmembername\t$forumname\tboth\t浏览<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>(文本方式)\t");
         }
         else {
             &whosonline("$inmembername\t$forumname(密)\tboth\t浏览保密贴子(文本方式)\t");
@@ -193,8 +193,8 @@ $output .= qq~
             <td>
             <p><b>以文本方式查看主题</b><p>
             <b>- $boardname</b> ($boardurl/leobbs.cgi)<br>$addlink
-            <b>$addspace-- $forumname</b> ($boardurl/forums.cgi?forum=$inforum)<br>
-            <b>$addspace--- $topictitle</b> ($boardurl/topic.cgi?forum=$inforum&topic=$intopic)
+            <b>$addspace-- $forumname</b> ($boardurl/forums.cgi?forum=$in_forum)<br>
+            <b>$addspace--- $topictitle</b> ($boardurl/topic.cgi?forum=$in_forum&topic=$in_topic)
         </tr>
     </table>
     <p><p><p>
@@ -251,7 +251,7 @@ foreach $line (@threads) {
             my $allbuyer = "";
             my $allbuyerno = "";
             undef @allbuyer;
-            if (open(FILE, "${lbdir}$saledir/$inforum\_$intopic\_$postno.cgi")) {
+            if (open(FILE, "${lbdir}$saledir/$in_forum\_$in_topic\_$postno.cgi")) {
                 my $allbuyer = <FILE>;
                 close(FILE);
                 chomp $allbuyer;
@@ -265,7 +265,7 @@ foreach $line (@threads) {
             }
             $allbuyerno = 0 if (($allbuyerno < 0) || ($allbuyerno eq ""));
             unless ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($mymembercode eq 'mo') || ($mymembercode eq 'amo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
-                $post = qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[查看这个帖子需要 <b>$1</b> $moneyname，目前已有 <B>$allbuyerno</B> 人购买]</FONT><BR><br><FORM action=buypost.cgi method=post><input name=inforum type=hidden value=$inforum><input name=intopic type=hidden value=$intopic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="算你狠。。我买，我付钱"></form><BR> ~;
+                $post = qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[查看这个帖子需要 <b>$1</b> $moneyname，目前已有 <B>$allbuyerno</B> 人购买]</FONT><BR><br><FORM action=buypost.cgi method=post><input name=inforum type=hidden value=$in_forum><input name=intopic type=hidden value=$in_topic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="算你狠。。我买，我付钱"></form><BR> ~;
                 $addme = "附件保密!<br>";
             }
             else {

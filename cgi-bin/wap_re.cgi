@@ -28,14 +28,14 @@ require "data/styles.cgi";
 &waptitle;
 $show .= qq~<card  title="$boardname">~;
 $lid = $query->param('lid');
-$inforum = $query->param('f');
-$intopic = $query->param('t');
+$in_forum = $query->param('f');
+$in_topic = $query->param('t');
 $show .= qq~<p><b>回复内容：</b><br/><input type="text" name="inpost" value=""/><br/>换行标签：[br]</p><p><anchor>回复<go href="wap_reply.cgi" method="post">
 <postfield name="inpost" value="\$(inpost)"/>
 <postfield name="lid" value="$lid"/>
-<postfield name="f" value="$inforum"/>
-<postfield name="t" value="$intopic"/>
+<postfield name="f" value="$in_forum"/>
+<postfield name="t" value="$in_topic"/>
 </go>
 </anchor></p>~;
-$show .= qq~<p><br/><br/><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;paGe=$pa">返回列表</a></p><p><a href="wap_topic.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">返回帖子</a></p>~;
+$show .= qq~<p><br/><br/><a href="wap_forum.cgi?forum=$in_forum&amp;lid=$lid&amp;paGe=$pa">返回列表</a></p><p><a href="wap_topic.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic">返回帖子</a></p>~;
 &wapfoot;

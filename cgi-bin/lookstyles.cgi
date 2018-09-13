@@ -45,8 +45,8 @@ foreach $param (@params) {
 }
 
 $action = $PARAM{'action'};
-$inforum = $PARAM{'forum'};
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_forum = $PARAM{'forum'};
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -77,12 +77,12 @@ else {
     &getmember("$inmembername", "no");
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 
 &mischeader("本版配色列表");
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 
 &error("本版配色&对不起，本版块不允许查看配色！") if ($look eq "off");
 

@@ -41,8 +41,8 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = new LBCGI;
 
 $action = $query->param('action');
-$inforum = $query->param('forum');
-&error("开启档案&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9 ]+$/);
+$in_forum = $query->param('forum');
+&error("开启档案&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9 ]+$/);
 require "${lbdir}data/style${inforum}.cgi" if (-e "${lbdir}data/style${inforum}.cgi");
 
 #my $inmembername = $query->param('membername');
@@ -82,9 +82,9 @@ else {
     }
 }
 
-&error("普通错误&没有这个分论坛！") unless -e "${lbdir}forum$inforum";
+&error("普通错误&没有这个分论坛！") unless -e "${lbdir}forum$in_forum";
 
-&moderator($inforum);
+&moderator($in_forum);
 
 if ($action ne "edit") {
     &ShowForm();
@@ -100,7 +100,7 @@ sub ShowForm {
 
     &mischeader("编辑论坛规则及重要信息");
 
-    open FILE, "${lbdir}boarddata/forumrule$inforum.cgi";
+    open FILE, "${lbdir}boarddata/forumrule$in_forum.cgi";
     my $forumrule = <FILE>;
     close FILE;
 
@@ -111,10 +111,10 @@ sub ShowForm {
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
 <form action="$thisprog" method="post">
 <input type=hidden name="action" value="edit">
-<input type=hidden name="forum" value="$inforum">
+<input type=hidden name="forum" value="$in_forum">
 <font color=$fontcolormisc><b>请输入您的用户名称、密码进入版主模式 [编辑论坛规则及重要信息]</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><b><u>$inmembername</u></b></font> ，要使用其他用户身份，请输入用户名称和密码。未注册客人请输入网名，密码留空白。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名称</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名称</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入论坛规则及重要信息<br>(允许使用 LBCODE 代码)<br><br><font color=$fonthighlight>为了美观，内容请控制在5行内。</font></td><td bgcolor=$miscbackone><textarea cols=60 name=forumrule rows=10>$forumrule</textarea> （留空表示不显示论坛规则及重要信息）</td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="编 辑"></td></form></tr></table></td></tr></table>
@@ -137,13 +137,13 @@ sub Edit {
     $forumrule =~ s/<br>$//ig;
 
     if ($forumrule) {
-        open FILE, ">${lbdir}boarddata/forumrule$inforum.cgi";
+        open FILE, ">${lbdir}boarddata/forumrule$in_forum.cgi";
         print FILE $forumrule;
         close FILE;
     }
     else {
         # 反正都没有论坛规则及重要信息，倒不如整个档案删除，减少一次档案读取。
-        unlink "${lbdir}boarddata/forumrule$inforum.cgi";
+        unlink "${lbdir}boarddata/forumrule$in_forum.cgi";
     }
 
     require "recooper.pl";
@@ -153,9 +153,9 @@ sub Edit {
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>论坛规则及重要信息已编辑</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-具体情况：<ul><li><a href="forums.cgi?forum=$inforum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a></ul></tr></td>
+具体情况：<ul><li><a href="forums.cgi?forum=$in_forum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a></ul></tr></td>
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
-<meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">~;
+<meta http-equiv="refresh" content="3; url=forums.cgi?forum=$in_forum">~;
 
 }

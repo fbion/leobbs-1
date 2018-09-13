@@ -55,8 +55,8 @@ if ($inpassword ne "") {
 }
 my $inannouncementtitle = $announcementtitle;
 my $inannouncementpost = $announcementpost;
-my $inforum = my $forum;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+my $in_forum = my $forum;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 my $inselectstyle = $query->cookie("selectstyle");
@@ -83,15 +83,15 @@ else {
     }
 }
 
-if ($inforum ne "") {&getoneforum("$inforum");}
+if ($in_forum ne "") {&getoneforum("$in_forum");}
 else {$inmembmod = "no";}
-#    &moderator("$inforum");
+#    &moderator("$in_forum");
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &title;
 
-if ($inforum ne "") {
+if ($in_forum ne "") {
     if ($category =~ /childforum-[0-9]+/) {
         $tempforumno = $category;
         $tempforumno =~ s/childforum-//;
@@ -106,7 +106,7 @@ if ($inforum ne "") {
     $forumdescription =~ s/<P>//isg;
     $output .= qq~
 <table width=$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table>
-<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$inforum>$forumname</a> → 浏览论坛公告</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
+<table width=$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$in_forum>$forumname</a> → 浏览论坛公告</td><td bgcolor=$navbackground align=right></td></tr></table></td></tr></table>
 <p>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
@@ -130,7 +130,7 @@ if ($action eq "delete") {
     if ($checked eq "yes") {
         if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
 
-        $filetoopen = "$lbdir" . "data/news$inforum.cgi";
+        $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
         open(FILE, "$filetoopen");
         @announcements = <FILE>;
         close(FILE);
@@ -152,7 +152,7 @@ if ($action eq "delete") {
         exit;
     }
     else {
-        &login("$thisprog?action=delete&number=$number&checked=yes&forum=$inforum");
+        &login("$thisprog?action=delete&number=$number&checked=yes&forum=$in_forum");
     }
 }
 elsif ($action eq "add") {
@@ -165,7 +165,7 @@ elsif ($action eq "add") {
     $output .= qq~<tr><td bgcolor=$titlecolor colspan=2 align=center $catbackpic>
 <form action="$thisprog" method=post>
 <input type=hidden name="action" value="addannouncement">
-<input type=hidden name="forum" value="$inforum">
+<input type=hidden name="forum" value="$in_forum">
 <font face="$font" color=$fontcolormisc><b>发表论坛公告</b></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，如果要以其他用户身份发表，请在下面输入用户名和密码。如果不想改变用户身份，请留空。</td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"></td></tr>
@@ -186,7 +186,7 @@ elsif ($action eq "addannouncement") {
     if ($inannouncementpost eq "") {&error("使用公告&请输入论坛公告内容！");}
     if ($inannouncementtitle eq "") {&error("使用公告&请输入论坛公告标题！");}
 
-    $filetoopen = "$lbdir" . "data/news$inforum.cgi";
+    $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
     open(FILE, "$filetoopen");
     @announcements = <FILE>;
     close(FILE);
@@ -213,7 +213,7 @@ elsif ($action eq "edit") {
     }
     if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
 
-    $filetoopen = "$lbdir" . "data/news$inforum.cgi";
+    $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
     open(FILE, "$filetoopen");
     @announcements = <FILE>;
     close(FILE);
@@ -231,7 +231,7 @@ elsif ($action eq "edit") {
     $announcementpost =~ s/\<br\>/\n/g;
     $output .= qq~<tr><td bgcolor=$titlecolor colspan=2 align=center $catbackpic>
 <form action="$thisprog" method=post>
-<input type=hidden name="forum" value="$inforum">
+<input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="action" value="doedit">
 <input type=hidden name="number" value="$number">
 <font face="$font" color=$fontcolormisc><b>编辑论坛公告</b></td></tr>
@@ -252,7 +252,7 @@ elsif ($action eq "doedit") {
     if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes")) {&error("使用公告&您不是管理员！");}
     if ($inannouncementpost eq "") {&error("使用公告&请输入论坛公告内容！");}
     if ($inannouncementtitle eq "") {&error("使用公告&请输入论坛公告标题！");}
-    $filetoopen = "$lbdir" . "data/news$inforum.cgi";
+    $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
     open(FILE, "$filetoopen");
     @announcements = <FILE>;
     close(FILE);
@@ -283,7 +283,7 @@ else {
     if (!(-e "$filetoopens.lck")) {
         &whosonline("$inmembername\t公告栏\tboth\t查看公告\t");
     }
-    $filetoopen = "$lbdir" . "data/news$inforum.cgi";
+    $filetoopen = "$lbdir" . "data/news$in_forum.cgi";
     open(FILE, "$filetoopen");
     @announcements = <FILE>;
     close(FILE);
@@ -319,9 +319,9 @@ else {
             $count = 1;
         }
         $post = qq~<p><blockquote>$post</blockquote><p>~;
-        $adminadd = qq~<a href="$thisprog?action=add&forum=$inforum"><img src="$imagesurl/images/a_add.gif" border=0"></a>~;
-        $admindelete = qq~<a href="$thisprog?action=delete&number=$postcountcheck&forum=$inforum"><img src="$imagesurl/images/a_delete.gif" border=0"></a>~;
-        $adminedit = qq~<a href="$thisprog?action=edit&number=$postcountcheck&forum=$inforum"><img src="$imagesurl/images/a_edit.gif" border=0"></a>~;
+        $adminadd = qq~<a href="$thisprog?action=add&forum=$in_forum"><img src="$imagesurl/images/a_add.gif" border=0"></a>~;
+        $admindelete = qq~<a href="$thisprog?action=delete&number=$postcountcheck&forum=$in_forum"><img src="$imagesurl/images/a_delete.gif" border=0"></a>~;
+        $adminedit = qq~<a href="$thisprog?action=edit&number=$postcountcheck&forum=$in_forum"><img src="$imagesurl/images/a_edit.gif" border=0"></a>~;
 
         $output .= qq~<tr><a name=title$postedid></a><td bgcolor=$titlecolor align=center valign=top $catbackpic><font face="$font" color=$titlefontcolor><b>>> $title <<</b></td></tr>~;
         if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
@@ -366,7 +366,7 @@ $hiddenvars
 
 sub doend {
     my $action_taken = shift;
-    $relocurl = "$thisprog?forum=$inforum";
+    $relocurl = "$thisprog?forum=$in_forum";
     $output .= qq~<tr>
 <td bgcolor=$titlecolor $catbackpic valign=middle align=center><font face="$font" color=$fontcolormisc><b>论坛公告</b></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
@@ -386,7 +386,7 @@ sub writeannounce {
     mkdir("${lbdir}cache", 0777) if (!(-e "${lbdir}cache"));
     $currenttime = time;
     $timeadd = $timedifferencevalue * 3600;
-    if ($inforum eq "") {
+    if ($in_forum eq "") {
         if (open(FILE, "${lbdir}data/news.cgi")) {
             @announcementdata = <FILE>;
             close(FILE);
@@ -440,7 +440,7 @@ sub writeannounce {
         close(FILE);
     }
     else {
-        if (open(FILE, "${lbdir}data/news$inforum.cgi")) {
+        if (open(FILE, "${lbdir}data/news$in_forum.cgi")) {
             @announcementdata = <FILE>;
             close(FILE);
         }
@@ -467,20 +467,20 @@ sub writeannounce {
                     $dateposted = $dateposted + $timeadd;
                     $dateposted = &longdate("$dateposted");
                     $newstitleid++;
-                    $title .= qq~　<font color=\$forumfontcolor><B>$newstitleid. <a href=announcements.cgi?forum=$inforum#title$newstitleid target=_blank><font color=\$fonthighlight>$newstitle</font></a></B>　[$dateposted]</font> 　　~;
+                    $title .= qq~　<font color=\$forumfontcolor><B>$newstitleid. <a href=announcements.cgi?forum=$in_forum#title$newstitleid target=_blank><font color=\$fonthighlight>$newstitle</font></a></B>　[$dateposted]</font> 　　~;
                 }
             }
-            else {$title = "<a href=announcements.cgi?forum=$inforum target=_blank><B>$title</B></a>　[$dateposted]";}
+            else {$title = "<a href=announcements.cgi?forum=$in_forum target=_blank><B>$title</B></a>　[$dateposted]";}
             $announcedisp = qq~<marquee scrollamount=3 onmouseover=this.stop(); onmouseout=this.start();>$title</marquee>~;
         }
         else {
             $titletemp = &lbhz($title, 38);
-            $announcedisp = qq~&nbsp;<a href=announcements.cgi?forum=$inforum target=_blank title="$title"><b>$titletemp</b></a>　[$dateposted]~;
+            $announcedisp = qq~&nbsp;<a href=announcements.cgi?forum=$in_forum target=_blank title="$title"><b>$titletemp</b></a>　[$dateposted]~;
         }
         undef $titletemp;
         undef $title;
         undef $newstitleid;
-        open(FILE, ">${lbdir}data/announce$inforum.pl");
+        open(FILE, ">${lbdir}data/announce$in_forum.pl");
         $announcedisp =~ s/\\/\\\\/isg;
         $announcetemp1 =~ s/\\/\\\\/isg;
         $announcedisp =~ s/~/\\\~/isg;

@@ -40,8 +40,8 @@ $forummoderator =~ s/ \,/\,/gi;
 $forummoderator =~ s/\,\,/\,/gi;
 $forummoderator =~ s/\,$//gi;
 $forummoderator =~ s/^\,//gi;
-if (!(-e "${lbdir}cache/forumsone$inforum.pl")) {
-    open(FILE, ">${lbdir}cache/forumsone$inforum.pl");
+if (!(-e "${lbdir}cache/forumsone$in_forum.pl")) {
+    open(FILE, ">${lbdir}cache/forumsone$in_forum.pl");
     $forums =~ s/\\/\\\\/isg;
     $forums =~ s/~/\\\~/isg;
     $forums =~ s/\$/\\\$/isg;

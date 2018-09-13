@@ -26,7 +26,7 @@ if ($topictitle eq "") {
     $topictitle =~ s/^＊＃！＆＊//;
 }
 $topictitle = "＊＃！＆＊$topictitle";
-$topicid = $intopic;
+$topicid = $in_topic;
 
 if ($post1 =~ /.*?\[UploadFile.{0,6}=(.+?)\].*?/i) {
     ($no, $addmetype) = split(/.*\./, $1);

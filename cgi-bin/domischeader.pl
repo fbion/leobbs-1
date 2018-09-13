@@ -11,7 +11,7 @@
 use strict;
 use warnings;
 use diagnostics;
-my $filetoopen = "${lbdir}forum$inforum/foruminfo.cgi";
+my $filetoopen = "${lbdir}forum$in_forum/foruminfo.cgi";
 open(FILE, "$filetoopen");
 my $forums = <FILE>;
 close(FILE);
@@ -32,15 +32,15 @@ $forumdescription =~ s/<BR>//isg;
 $forumdescription =~ s/<P>//isg;
 
 if ($indexforum ne "no") {
-    $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$inforum>$forumname</a> → misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
+    $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$in_forum>$forumname</a> → misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
 }
 else {
-    $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=forums.cgi?forum=$inforum>$forumname</a> →　misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
+    $titleoutput = qq~<BR><table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=forums.cgi?forum=$in_forum>$forumname</a> →　misctypehtc</td><td bgcolor=\$navbackground align=right></td></tr></table></td></tr></table>~;
 }
 
 $titleoutput .= qq~<br>~;
-if ((!(-e "${lbdir}cache/forumstitle$inforum.pl")) && ($forumid ne "")) {
-    open(FILE, ">${lbdir}cache/forumstitle$inforum.pl");
+if ((!(-e "${lbdir}cache/forumstitle$in_forum.pl")) && ($forumid ne "")) {
+    open(FILE, ">${lbdir}cache/forumstitle$in_forum.pl");
     $titleoutput =~ s/\\/\\\\/isg;
     $titleoutput =~ s/~/\\\~/isg;
     $titleoutput =~ s/\$/\\\$/isg;

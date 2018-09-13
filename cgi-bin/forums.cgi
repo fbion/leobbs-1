@@ -55,8 +55,8 @@ if ($jumpto) {
     print redirect(-location => "$jumpto");
     exit;
 }
-$inforum = $query->param('forum');
-&error("打开论坛&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
+$in_forum = $query->param('forum');
+&error("打开论坛&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $action = $query->param('action');
@@ -74,7 +74,7 @@ $inselectstyle = $skinselected if ($inselectstyle eq "");
 &error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 $currenttime = time;
-&error("打开论坛&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！") if (!(-e "${lbdir}boarddata/listno$inforum.cgi"));
+&error("打开论坛&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！") if (!(-e "${lbdir}boarddata/listno$in_forum.cgi"));
 
 $inshow = int($inshow / $maxthreads + 0.5) * $maxthreads;
 $inshow = ($deshow - 1) * $maxthreads if ($deshow ne "");
@@ -104,8 +104,8 @@ else {
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
     &getlastvisit;
-    $forumlastvisit = $lastvisitinfo{$inforum};
-    &setlastvisit("$inforum,$currenttime");
+    $forumlastvisit = $lastvisitinfo{$in_forum};
+    &setlastvisit("$in_forum,$currenttime");
 }
 require "${lbdir}imagead.cgi" if (($forumimagead eq "1") || ($useimageadforum eq "1") || ($forumimagead1 eq "1") || ($useimageadforum1 eq "1"));
 
@@ -119,10 +119,10 @@ $onlineview = $onlineview1 if ($onlineview1 ne "");
 $onlineview = 0 if ($onlineview eq "");
 $onlineview = $onlineview == 1 ? 0 : 1 if ($action eq "onlineview");
 $onlineviewcookie = cookie(-name => "onlineview", -value => "$onlineview", -path => "$cookiepath/", -expires => "+30d");
-if ($onlineview == 1) {$onlinetitle = "[<a href=$thisprog?action=onlineview&forum=$inforum><font color=$titlefontcolor>关闭详细列表</font></a>]";}
-else {$onlinetitle = "[<a href=$thisprog?action=onlineview&forum=$inforum><font color=$titlefontcolor>显示详细列表</font></a>]";}
+if ($onlineview == 1) {$onlinetitle = "[<a href=$thisprog?action=onlineview&forum=$in_forum><font color=$titlefontcolor>关闭详细列表</font></a>]";}
+else {$onlinetitle = "[<a href=$thisprog?action=onlineview&forum=$in_forum><font color=$titlefontcolor>显示详细列表</font></a>]";}
 
-&moderator("$inforum");
+&moderator("$in_forum");
 
 require "doaccessrequire.pl" if ($action eq "accessrequired");
 require "resetposts.pl" if ($action eq "resetposts");
@@ -131,10 +131,10 @@ if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catba
 $insidead = "" if (($forumimagead ne "1") && ($useimageadforum eq "0"));
 $insidead1 = "" if (($forumimagead1 ne "1") && ($useimageadforum1 eq "0"));
 
-$inforumcookies = $query->cookie("forumscookies");
-if (",$inforumcookies," !~ /,$inforum,/) {
-    $inforumcookies .= ",$inforum";}
-my $forumscookie = cookie(-name => "forumscookies", -value => $inforumcookies, -path => "$cookiepath/", -expires => "+30d");
+$in_forumcookies = $query->cookie("forumscookies");
+if (",$in_forumcookies," !~ /,$in_forum,/) {
+    $in_forumcookies .= ",$in_forum";}
+my $forumscookie = cookie(-name => "forumscookies", -value => $in_forumcookies, -path => "$cookiepath/", -expires => "+30d");
 print header(-cookie => [ $allowforumcookie, $onlineviewcookie, $tempvisitcookie, $permvisitcookie, $forumscookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 &error("进入论坛&一般会员不允许进入此论坛！") if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode ne "amo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no"));
@@ -156,7 +156,7 @@ if ($adlinks ne "") {
     require "doadlinks.pl";
 }
 
-$rsshtml = qq~  <a href="rss.cgi/leo.xml?forum=$inforum" target="_blank"><img src="$imagesurl/images/xml.gif" border="0" height=15 align="absmiddle" alt="RSS 订阅本论坛"></a>&nbsp;<a href="wap.cgi" target="_blank"><img src="$imagesurl/images/wap.gif" height=15 border="0" align="absmiddle" alt="通过手机访问论坛，地址：$boardurl/wap.cgi"></a>~;
+$rsshtml = qq~  <a href="rss.cgi/leo.xml?forum=$in_forum" target="_blank"><img src="$imagesurl/images/xml.gif" border="0" height=15 align="absmiddle" alt="RSS 订阅本论坛"></a>&nbsp;<a href="wap.cgi" target="_blank"><img src="$imagesurl/images/wap.gif" height=15 border="0" align="absmiddle" alt="通过手机访问论坛，地址：$boardurl/wap.cgi"></a>~;
 if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allowusers ne '') {
     $rsshtml = "";
 }
@@ -171,10 +171,10 @@ if ($rssinfo eq "no") {
 }
 
 &title;
-if (-e "${lbdir}cache/forumshead$inforum.pl") {
-    eval {require "${lbdir}cache/forumshead$inforum.pl";};
+if (-e "${lbdir}cache/forumshead$in_forum.pl") {
+    eval {require "${lbdir}cache/forumshead$in_forum.pl";};
     if ($@) {
-        unlink("${lbdir}cache/forumshead$inforum.pl");
+        unlink("${lbdir}cache/forumshead$in_forum.pl");
         require "doforumhead.pl";
     }
 }
@@ -215,8 +215,8 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
 
 if ($usefake eq "yes") {
     $output .= qq~
-function O1(id) {window.open("topic-$inforum-"+id+"-0-0-.htm");}
-function O2(id) {window.open("view-$inforum-"+id+".htm");}
+function O1(id) {window.open("topic-$in_forum-"+id+"-0-0-.htm");}
+function O2(id) {window.open("view-$in_forum-"+id+".htm");}
 function O5(id1,id2) {window.open("topic-"+id1+"-"+id2+"-.htm");}
 function O6(id1,id2) {window.open("view-"+id1+"-"+id2+".htm");}
 function O3(id1,id2,id3) {window.open("topic-" + id1 + "-" + id2 + "-" + id3 + "-0-last.htm#bottom", "_self");}
@@ -226,8 +226,8 @@ function O9(id) {if(id!="")window.open("profile-"+id+".htm");}
 }
 else {
     $output .= qq~
-function O1(id) {window.open("topic.cgi?forum=$inforum&topic="+id);}
-function O2(id) {window.open("view.cgi?forum=$inforum&topic="+id);}
+function O1(id) {window.open("topic.cgi?forum=$in_forum&topic="+id);}
+function O2(id) {window.open("view.cgi?forum=$in_forum&topic="+id);}
 function O5(id1,id2) {window.open("topic.cgi?forum="+id1+"&topic="+id2);}
 function O6(id1,id2) {window.open("view.cgi?forum="+id1+"&topic="+id2);}
 function O3(id1,id2,id3) {window.open("topic.cgi?forum=" + id1 + "&topic=" + id2 + "&start=" + id3 + "&replynum=last#bottom", "_self");}
@@ -249,11 +249,11 @@ $insidead$insidead1
 if ($privateforum eq "yes") {
     $rsshtml = "";
     if ($inmembername eq "客人") {
-        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
-    $testentry = cookie("forumsallowed$inforum");
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || (($userregistered ne "no") && ($allowedentry{$inforum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+    $testentry = cookie("forumsallowed$in_forum");
+    if ((($testentry eq $forumpass) && ($testentry ne "")) || (($userregistered ne "no") && ($allowedentry{$in_forum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
         if ($inpassword ne $password) {&error("进入论坛&密码错误，你不允许进入该论坛！");}
     }
     else {require "accessform.pl";}
@@ -286,13 +286,13 @@ if ($startnewthreads ne "onlysub") {
 }
 
 if ($announcements eq 'yes') {
-    if (-e "${lbdir}data/announce$inforum.pl") {
-        require "${lbdir}data/announce$inforum.pl";
+    if (-e "${lbdir}data/announce$in_forum.pl") {
+        require "${lbdir}data/announce$in_forum.pl";
         $announcedisp =~ s/\$forumfontcolor/$forumfontcolor/isg;
         $announcedisp =~ s/\$fonthighlight/$fonthighlight/isg;
     }
     else {
-        $announcedisp = qq~&nbsp;<a href=announcements.cgi?forum=$inforum target=_blank title="当前没有公告"><b>当前没有公告</b></a>~;
+        $announcedisp = qq~&nbsp;<a href=announcements.cgi?forum=$in_forum target=_blank title="当前没有公告"><b>当前没有公告</b></a>~;
         $announcetemp1 = qq~<img src=$imagesurl/images/announce.gif border=0 alt=分论坛暂时无公告！ width=18>~;
     }
 }
@@ -302,17 +302,17 @@ $output .= qq~
 <table cellpadding=1 cellspacing=0 width=$tablewidth align=center>
 <tr><td width=2></td><td align=center width=34>$announcetemp1</td><td width=*>$announcedisp</td><td align=right width=500><p>
 <SCRIPT>
-function threadmenu(){var URL = document.jump1.threadages.options[document.jump1.threadages.selectedIndex].value;top.location.href = "forums.cgi?forum=$inforum&threadages=" + URL; target = '_self';}
+function threadmenu(){var URL = document.jump1.threadages.options[document.jump1.threadages.selectedIndex].value;top.location.href = "forums.cgi?forum=$in_forum&threadages=" + URL; target = '_self';}
 </SCRIPT>
 <form action=forums.cgi method=post name=jump1><A href=javascript:JM_setTarget() value='' id=globalTarget><img src=$imagesurl/images/$skin/$wlogo border=0 alt=查看帖子使用的模式？ align=absmiddle></a>　
 ~;
 
 eval {require "data/fname.pl";};
-my @inforumcookies = split(/\,/, $inforumcookies);
+my @inforumcookies = split(/\,/, $in_forumcookies);
 foreach (@inforumcookies) {
     chomp;
     next if ($_ eq '');
-    next if ($_ eq $inforum);
+    next if ($_ eq $in_forum);
     my $a = 'fname' . $_;
     next if (${$a} eq '');
     $vist_f .= "<option value=$_>□-${$a}";
@@ -352,8 +352,8 @@ if ($onlineview == 1) {$output .= qq~<tr><td colspan=2 bgcolor=$forumcolorone><t
 $output .= qq~</table></td></tr></table><SCRIPT>valignend()</SCRIPT><br>~;
 
 my ($forumrule, $editrule);
-if (-e "${lbdir}boarddata/forumrule$inforum.cgi") {
-    open FILE, "${lbdir}boarddata/forumrule$inforum.cgi";
+if (-e "${lbdir}boarddata/forumrule$in_forum.cgi") {
+    open FILE, "${lbdir}boarddata/forumrule$in_forum.cgi";
     $forumrule = <FILE>;
     close FILE;
     require "code.cgi";
@@ -364,8 +364,8 @@ if (-e "${lbdir}boarddata/forumrule$inforum.cgi") {
 }
 
 if (($membercode eq "ad") || ($membercode eq 'smo') || (",$catemods," =~ /\Q\,$inmembername\,\E/i) || ($inmembmod eq "yes")) {
-    $editrule = "<a href='forumrule.cgi?forum=$inforum'><img src='$imagesurl/images/a_edit.gif' border=0></a>";
-    $forumrule = "目前没有论坛规则及重要信息，按<a href='forumrule.cgi?forum=$inforum'>这里</a>新增。" unless $forumrule;
+    $editrule = "<a href='forumrule.cgi?forum=$in_forum'><img src='$imagesurl/images/a_edit.gif' border=0></a>";
+    $forumrule = "目前没有论坛规则及重要信息，按<a href='forumrule.cgi?forum=$in_forum'>这里</a>新增。" unless $forumrule;
 }
 
 $output .= qq~
@@ -424,18 +424,18 @@ e.style.display = "";admini0.innerText = "隐藏版主操作";
     }
 
     if (($privateforum eq "yes") || ($xzbopen eq "no") || ($startnewthreads eq "no") || ($startnewthreads eq "cert")) {$newthreadbutton3 = "";}
-    else {$newthreadbutton3 = qq~<a href=xzb.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newxzblogo border=0 alt=张帖一个小字报></a>　~;}
+    else {$newthreadbutton3 = qq~<a href=xzb.cgi?action=new&forum=$in_forum><img src=$imagesurl/images/$skin/$newxzblogo border=0 alt=张帖一个小字报></a>　~;}
     if ($pollopen eq "no") {$newthreadbutton2 = "";}
-    else {$newthreadbutton2 = qq~<a href=poll.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a>　~;}
+    else {$newthreadbutton2 = qq~<a href=poll.cgi?action=new&forum=$in_forum><img src=$imagesurl/images/$skin/$newpolllogo border=0 alt=开启一个新投票></a>　~;}
     if ($postopen eq "no") {$newthreadbutton1 = "";}
-    else {$newthreadbutton1 = qq~<a href=post.cgi?action=new&forum=$inforum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a>　~;}
+    else {$newthreadbutton1 = qq~<a href=post.cgi?action=new&forum=$in_forum><img src=$imagesurl/images/$skin/$newthreadlogo border=0 alt=发表一个新主题></a>　~;}
     if ($payopen eq "no") {$newthreadbutton4 = "";}
-    else {$newthreadbutton4 = qq~<a href=post.cgi?action=pay&forum=$inforum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~;}
+    else {$newthreadbutton4 = qq~<a href=post.cgi?action=pay&forum=$in_forum><img src=$imagesurl/images/$skin/newpay.gif border=0 alt="发表一个新交易，关于支付宝的具体说明请访问 http://www.alipay.com/"></a>　~;}
     $newthreadbutton = "$newthreadbutton1$newthreadbutton2$newthreadbutton3$newthreadbutton4";
 
-    if ($startnewthreads ne "no") {$jinghua = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=jinghua.cgi?action=list&forum=$inforum><font color=$fonthighlight><B>本版精华</B></font></a>&nbsp;~;}
-    unless ($look eq "off") {$lookstyles = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=lookstyles.cgi?forum=$inforum>本版配色</a>&nbsp;~;}
-    $forumlog = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=forumlogs.cgi?forum=$inforum><font color=$fonthighlight><B>版务日志</B></font></a>&nbsp;~;
+    if ($startnewthreads ne "no") {$jinghua = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=jinghua.cgi?action=list&forum=$in_forum><font color=$fonthighlight><B>本版精华</B></font></a>&nbsp;~;}
+    unless ($look eq "off") {$lookstyles = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=lookstyles.cgi?forum=$in_forum>本版配色</a>&nbsp;~;}
+    $forumlog = qq~<img src=$imagesurl/images/icon.gif width=14> <a href=forumlogs.cgi?forum=$in_forum><font color=$fonthighlight><B>版务日志</B></font></a>&nbsp;~;
 
     $output .= qq~
 <script language="JavaScript" type="text/javascript">
@@ -495,14 +495,14 @@ document.write("<a href=topic.cgi?forum="+forumid+"&topic="+topicid+"&start="+j+
 <table cellpadding=0 cellspacing=0 width=$tablewidth>
 <tr><td align=center width=2></td><td>$newthreadbutton</td><td align=right colspan=2>$modoutput&nbsp;</td>
 <form action=download.cgi name=Download method=POST target=_blank><input type=hidden name=forum><input type=hidden name=topic><input type=hidden name=reply></form>
-<form action=jinghua.cgi method=post name=JingHua><input type=hidden name=action value=add><input type=hidden name=forum value="$inforum"><input type=hidden name=topic></form>
-<form action=postings.cgi method=post name=Lock><input type=hidden name=action value="lock"><input type=hidden name=forum value="$inforum"><input type=hidden name=topic></form>
-<form action=forums.cgi method=get name=Jumppage><input type=hidden name=forum value="$inforum"><input type=hidden name=dshow><input type=hidden name=threadages value=$inthreadages></form>
+<form action=jinghua.cgi method=post name=JingHua><input type=hidden name=action value=add><input type=hidden name=forum value="$in_forum"><input type=hidden name=topic></form>
+<form action=postings.cgi method=post name=Lock><input type=hidden name=action value="lock"><input type=hidden name=forum value="$in_forum"><input type=hidden name=topic></form>
+<form action=forums.cgi method=get name=Jumppage><input type=hidden name=forum value="$in_forum"><input type=hidden name=dshow><input type=hidden name=threadages value=$inthreadages></form>
 </tr></table>
 <table cellpadding=0 cellspacing=0 width=$tablewidth><tr><td>$admini$xzb</td><td align=right width=*>$jinghua$forumlog$lookstyles$rsshtml</td><td width=4></td></tr></table>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor>
-<form action=delpost.cgi name=Action method=post onsubmit="if ((Action.action.value != 'delete')&&(Action.action.value != 'movetopic')) return false;"><input type=hidden name=forum value="$inforum"><input type=hidden name=action value="">
+<form action=delpost.cgi name=Action method=post onsubmit="if ((Action.action.value != 'delete')&&(Action.action.value != 'movetopic')) return false;"><input type=hidden name=forum value="$in_forum"><input type=hidden name=action value="">
 <tr><td height=1></td></tr></table>
 <table cellpadding=0 cellspacing=0 width=$tablewidth height=27 bordercolor=$tablebordercolor border=1 align=center>
 <tr><td bgcolor=$titlecolor $catbackpic width=30 align=center><font color=$titlefontcolor><b>状态</b></td>
@@ -513,20 +513,20 @@ document.write("<a href=topic.cgi?forum="+forumid+"&topic="+topicid+"&start="+j+
 $multimanage</tr></table>
 ~;
 
-    if (-e "${lbdir}cache/forumstop$inforum.pl") {
-        eval {require "${lbdir}cache/forumstop$inforum.pl";};
+    if (-e "${lbdir}cache/forumstop$in_forum.pl") {
+        eval {require "${lbdir}cache/forumstop$in_forum.pl";};
         if ($@) {
-            unlink("${lbdir}cache/forumstop$inforum.pl");
-            unlink("${lbdir}cache/plcache$inforum\_0.pl");
+            unlink("${lbdir}cache/forumstop$in_forum.pl");
+            unlink("${lbdir}cache/plcache$in_forum\_0.pl");
             require "dotop.pl";
-            unlink("${lbdir}cache/forumstoptopic$inforum.pl");
+            unlink("${lbdir}cache/forumstoptopic$in_forum.pl");
         }
         $jhdata = "" if ($usejhpoint ne "yes");
     }
     else {
         require "dotop.pl";
-        unlink("${lbdir}cache/forumstoptopic$inforum.pl");
-        unlink("${lbdir}cache/plcache$inforum\_0.pl");
+        unlink("${lbdir}cache/forumstoptopic$in_forum.pl");
+        unlink("${lbdir}cache/plcache$in_forum\_0.pl");
     }
 
     if ($dispabstop ne "0") {
@@ -558,8 +558,8 @@ $multimanage</tr></table>
     if (($inthreadages) && ($inthreadages ne "all")) {$threadagesstart = "&threadages=$inthreadages";}
     else {undef $threadagesstart;}
 
-    if ((-e "${lbdir}cache/plcache$inforum\_$inshow.pl") && ((-M "${lbdir}cache/plcache$inforum\_$inshow.pl") * 86400 < 300) && ($threadagesstart eq "")) {
-        open(FILE, "${lbdir}cache/plcache$inforum\_$inshow.pl");
+    if ((-e "${lbdir}cache/plcache$in_forum\_$inshow.pl") && ((-M "${lbdir}cache/plcache$in_forum\_$inshow.pl") * 86400 < 300) && ($threadagesstart eq "")) {
+        open(FILE, "${lbdir}cache/plcache$in_forum\_$inshow.pl");
         $topicpages = <FILE>;
         chomp $topicpages;
         ($abstopcount, $cattopcount, $topcount) = split(/\t/, <FILE>);
@@ -569,7 +569,7 @@ $multimanage</tr></table>
         if ($topicnum < 7) {
             undef @toptopic;
             undef $topicpages;
-            unlink("${lbdir}cache/plcache$inforum\_$inshow.pl");
+            unlink("${lbdir}cache/plcache$in_forum\_$inshow.pl");
             require "doplcache.pl";
         }
     }
@@ -609,7 +609,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
 </script>
 ~;
 
-    opendir(DIR, "${imagesdir}$usrdir/$inforum");
+    opendir(DIR, "${imagesdir}$usrdir/$in_forum");
     @usruploadfile = readdir(DIR);
     closedir(DIR);
 
@@ -640,14 +640,14 @@ window.onload=addSenToEventHandle(window.onload,"init();")
             $addonlength += 2.5;
         }
 
-        if ($forumid eq $inforum) {
+        if ($forumid eq $in_forum) {
             if ($jhdata =~ /\_$topicid\_/) {
                 $jhimage = qq~ <img src=$imagesurl/images/$skin/$new_JH align=absmiddle alt=精华帖子>~;
-                $jhbuttom = qq~<a href=jinghua.cgi?action=del&forum=$inforum&topic=$topicid><font color=$titlecolor>取消精华</font></a>|~;
+                $jhbuttom = qq~<a href=jinghua.cgi?action=del&forum=$in_forum&topic=$topicid><font color=$titlecolor>取消精华</font></a>|~;
             }
             else {
                 $jhimage = "";
-                $jhbuttom = qq~<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>精</font></a>|~;
+                $jhbuttom = qq~<a href=jinghua.cgi?action=add&forum=$in_forum&topic=$topicid><font color=$titlecolor>精</font></a>|~;
             }
         }
         else {
@@ -656,7 +656,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
         }
 
         $abslockbuttom = $membercode eq "ad" ? "<a href=postings.cgi?action=abslocktop&forum=$forumid&topic=$topicid><font color=$titlecolor>总固</font></a>|" : "";
-        $catlockbuttom = $membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i ? "<a href=postings.cgi?action=catlocktop&forum=$inforum&topic=$topicid><font color=$titlecolor>区固</font></a>|" : "";
+        $catlockbuttom = $membercode eq "ad" || $membercode eq "smo" || ",$catemods," =~ /\Q\,$inmembername\,\E/i ? "<a href=postings.cgi?action=catlocktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>区固</font></a>|" : "";
 
         $hllink = ($highlight =~ m/\_$forumid-$topicid\_/i) ? "<a href=postings.cgi?action=lowlight&forum=$forumid&topic=$topicid><font color=$titlecolor>取消加重</font></a>" : "<a href=postings.cgi?action=highlight&forum=$forumid&topic=$topicid><font color=$titlecolor>加重</font></a>";
 
@@ -775,10 +775,10 @@ window.onload=addSenToEventHandle(window.onload,"init();")
             $topicdescription = qq~<br>　　-=> $topicdescription~;
         }
 
-        if (($topiccount >= $abstopcount + $cattopcount) || ($startarray ne 0) || ($forumid eq $inforum)) {
-            my @usruploadfile = grep (/^$inforum\_$topicid(\.|\_)/, @usruploadfile);
+        if (($topiccount >= $abstopcount + $cattopcount) || ($startarray ne 0) || ($forumid eq $in_forum)) {
+            my @usruploadfile = grep (/^$in_forum\_$topicid(\.|\_)/, @usruploadfile);
             if ($#usruploadfile >= 0 || $addmetype ne "") {
-                my @files = grep (/^$inforum\_$topicid\./, @usruploadfile);
+                my @files = grep (/^$in_forum\_$topicid\./, @usruploadfile);
                 if ($#files >= 0 || $addmetype ne "") {
                     if ($addmetype eq "") {
                         my $usrfilename = $files[0];
@@ -808,17 +808,17 @@ window.onload=addSenToEventHandle(window.onload,"init();")
 
         if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
             if ($membercode ne "amo") {
-                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|$jhbuttom$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$inforum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
+                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|$jhbuttom$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$in_forum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
             }
             else {
-                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$inforum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
+                $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|$hllink|<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=putdown&forum=$in_forum&topic=$topicid><font color=$titlecolor>沉</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
             }
         }
         elsif ((lc($inmembername) eq lc($startedby)) && ($inmembername !~ /^客人/)) {
             if ($arrowuserdel eq "on") {
                 $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>快速操作： ~;
-                $admini .= qq~| <a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁定此帖，不允许别人回复</font></a> ~ unless ($threadstate eq "closed");
-                $admini .= qq~| <a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删除此帖</font></a> |</font>&nbsp;</DIV>~;
+                $admini .= qq~| <a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁定此帖，不允许别人回复</font></a> ~ unless ($threadstate eq "closed");
+                $admini .= qq~| <a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删除此帖</font></a> |</font>&nbsp;</DIV>~;
             }
             else {undef $admini;}
         }
@@ -872,7 +872,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
             }
             elsif ($topiccount < $topcount + $abstopcount + $cattopcount) {
                 if (($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {
-                    $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=unlocktop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>取消固顶</font></a>|$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
+                    $admini = qq~<DIV id=admini style="display:$admindisp" ALIGN=Right><font color=$titlecolor>|<a href=postings.cgi?action=unlocktop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>取消固顶</font></a>|$abslockbuttom$catlockbuttom<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>顶</font></a>|$jhbuttom<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
                 }
                 else {undef $admini;}
                 $topicicon = "<img src=$imagesurl/images/$skin/locktop.gif border=0>";
@@ -952,7 +952,7 @@ window.onload=addSenToEventHandle(window.onload,"init();")
     else {$jumphtml = "";}
 
     $output .= qq~<td align=right><table cellpadding=0 cellspacing=2>~;
-    $output .= qq~<tr><td align=right><form action=search.cgi method=post><input type=hidden name=action value=startsearch><input type=hidden name=POST_SEARCH value=topictitle_search><input type=hidden name=NAME_SEARCH value=topictitle_search><input name=SEARCH_STRING value=输入关键字 onfocus="this.value ='';" size=14><select name=TYPE_OF_SEARCH><option value="keyword_search">主题<option value="username_search">作者</select><input type=hidden name=FORUMS_TO_SEARCH value=$inforum> <input type=submit value=搜索></td></form></tr>~ if ($searchopen ne "99");
+    $output .= qq~<tr><td align=right><form action=search.cgi method=post><input type=hidden name=action value=startsearch><input type=hidden name=POST_SEARCH value=topictitle_search><input type=hidden name=NAME_SEARCH value=topictitle_search><input name=SEARCH_STRING value=输入关键字 onfocus="this.value ='';" size=14><select name=TYPE_OF_SEARCH><option value="keyword_search">主题<option value="username_search">作者</select><input type=hidden name=FORUMS_TO_SEARCH value=$in_forum> <input type=submit value=搜索></td></form></tr>~ if ($searchopen ne "99");
     $output .= qq~$jumphtml</table></td></tr></table></tr></table><br>~;
 
     if ($usefastpost ne "no") {require "forumfastpost.pl";}

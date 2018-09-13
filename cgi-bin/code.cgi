@@ -123,8 +123,8 @@ sub lbcode {
         my $clinkcode;
         $postcountnumber = ($thisprog eq "view.cgi") ? $rn : $postcountnumber;
         $$post =~ s/\[curl=(http|https|ftp):\/\/(.*?)\]/
-            $clinkcode = sprintf("%.3d%.5d%.5d%.2d", $inforum, $intopic, $postcountnumber, $clinkcount);
-                my $return = '<form action="decrypt.cgi" name="decrypt' . $clinkcode . '" method=POST><input type=hidden name=clno value="' . $clinkcount . '"><input type=hidden name=forum value="' . $inforum . '"><input type=hidden name=topic value="' . $intopic . '"><input type="hidden" name="postno" value="' . $postcountnumber . '"><\/form> ［<span style=cursor:hand onClick="decrypt' . $clinkcode . '.submit()">加密链接，点击进入<\/span>］ ';
+            $clinkcode = sprintf("%.3d%.5d%.5d%.2d", $in_forum, $in_topic, $postcountnumber, $clinkcount);
+                my $return = '<form action="decrypt.cgi" name="decrypt' . $clinkcode . '" method=POST><input type=hidden name=clno value="' . $clinkcount . '"><input type=hidden name=forum value="' . $in_forum . '"><input type=hidden name=topic value="' . $in_topic . '"><input type="hidden" name="postno" value="' . $postcountnumber . '"><\/form> ［<span style=cursor:hand onClick="decrypt' . $clinkcode . '.submit()">加密链接，点击进入<\/span>］ ';
                 $clinkcount++;
                 $return;
             /ige;

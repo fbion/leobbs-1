@@ -48,8 +48,8 @@ for ('forum', 'membername', 'password', 'action', 'inpost', 'message', 'xzbid', 
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$inforum = $forum;
-if (($inforum eq "") || ($inforum !~ /^[0-9]+$/)) { #验证分论坛编号
+$in_forum = $forum;
+if (($in_forum eq "") || ($in_forum !~ /^[0-9]+$/)) { #验证分论坛编号
     &error("普通错误&老大，别乱黑我的程序呀！");
 }
 if (-e "${lbdir}data/style${inforum}.cgi") { #读取专属风格
@@ -116,7 +116,7 @@ if ($allowusers ne '') {
 #读取分论坛资料
 my $forumdata = "${lbdir}forum${inforum}/foruminfo.cgi";
 if (-e $forumdata) {          #找到该分论坛资料
-    &getoneforum("$inforum"); #读取资料
+    &getoneforum("$in_forum"); #读取资料
 }
 else {                           #找不到资料
     &error("普通错误&老大，别乱黑我的程序呀！"); #输出错误页
@@ -154,7 +154,7 @@ sub toppage {
     &mischeader("小字报管理");
     #读取资料
     my @xzbdata = ();                                #初始化
-    open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+    open(FILE, "${lbdir}boarddata/xzb$in_forum.cgi"); #开启文件
     while (my $line = <FILE>) {
         #每次读取一行内容 loop 1
         chomp $line;           #去掉换行符
@@ -168,7 +168,7 @@ sub toppage {
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="post" id="1">
 <input type="hidden" name="action" value="delete">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 <tr>
 	<td>
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
@@ -204,7 +204,7 @@ sub toppage {
         else {
             $postbackcolor = $postcolortwo;
         }
-        my $admini = qq~<div align="right"><font color="$titlecolor">|<a href="$thisprog?action=edit&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">编辑</font></a>|<a href="$thisprog?action=delete&forum=$inforum&xzbid=$posttime"><font color="$titlecolor">删除</font></a>|</font></div>~; #管理连结
+        my $admini = qq~<div align="right"><font color="$titlecolor">|<a href="$thisprog?action=edit&forum=$in_forum&xzbid=$posttime"><font color="$titlecolor">编辑</font></a>|<a href="$thisprog?action=delete&forum=$in_forum&xzbid=$posttime"><font color="$titlecolor">删除</font></a>|</font></div>~; #管理连结
         my $postdate = &dateformat($posttime + $addtimes);                                                                                                                                                                                                                                            #发布时间
         my $msgbytes = length($msg);                                                                                                                                                                                                                                                                  #字节数
         my $startedby = uri_escape($postid);                                                                                                                                                                                                                                                          #会员名
@@ -246,7 +246,7 @@ sub toppage {
 </form id="1 end">
 <form action="$thisprog" method="post" id="2">
 <input type="hidden" name="action" value="deleteover">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 	<td align="right">
 		<input type="submit" value="删除超过４８小时的小字报">
 	</td>
@@ -262,7 +262,7 @@ sub editxzb {
     my $findresult = -1; #初始化
     my @xzbdata = ();
     my $xzbno = 0;
-    open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+    open(FILE, "${lbdir}boarddata/xzb$in_forum.cgi"); #开启文件
     while (my $line = <FILE>) {
         #每次读取一行内容 loop 1
         chomp $line;                                                        #去掉换行符
@@ -293,7 +293,7 @@ sub editxzb {
 <form action="$thisprog" method="post" id="1">
 <input type="hidden" name="action" value="edit">
 <input type="hidden" name="checked" value="yes">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 <input type="hidden" name="xzbid" value="$posttime">
 <tr>
 	<td>
@@ -310,7 +310,7 @@ sub editxzb {
 				<td>
 					<table cellpadding="3" cellspacing="1" border="0" width="100%">
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 					<tr>
 						<td bgcolor=$miscbackone valign=top>
@@ -351,7 +351,7 @@ sub editxzb {
 		</td>
 </form id="1">
 <form action="$thisprog" method="get" id="2">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 		<td bgcolor="$postcolorone" align="left">
 			&nbsp;<input type="submit" value="返回主页面">
 		</td>
@@ -385,14 +385,14 @@ sub editxzb {
             }
             $newfile .= $line . "\n";                          #放入新文件内
         }                                                      #loop 1 end
-        open(FILE, '>' . "${lbdir}boarddata/xzb$inforum.cgi"); #开启只写文件
+        open(FILE, '>' . "${lbdir}boarddata/xzb$in_forum.cgi"); #开启只写文件
         print FILE $newfile;                                   #写入新文件内容
         close(FILE);                                           #关闭文件
         #页面输出
         $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="get">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 <tr>
 	<td>
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
@@ -444,7 +444,7 @@ sub deletexzb {
 <form action="$thisprog" method="post" id="1">
 <input type="hidden" name="action" value="delete">
 <input type="hidden" name="checked" value="yes">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 $novalue
 <tr>
 	<td>
@@ -460,7 +460,7 @@ $novalue
 		</td>
 </form id="1">
 <form action="$thisprog" method="get" id="2">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 		<td bgcolor="$postcolorone" align="left">
 			&nbsp;<input type="submit" value="返回主页面">
 		</td>
@@ -476,7 +476,7 @@ $novalue
         #删除处理
         my $newfile = '';                                #初始化文件
         my $delbyte = '';                                #删除的字节
-        open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+        open(FILE, "${lbdir}boarddata/xzb$in_forum.cgi"); #开启文件
         while (my $line = <FILE>) {
             #每次读取一行内容 loop 1
             chomp $line;                                                        #去掉换行符
@@ -489,14 +489,14 @@ $novalue
             $newfile .= $line . "\n";                          #放入新文件内
         }                                                      #loop 1 end
         close(FILE);                                           #关闭文件
-        open(FILE, '>' . "${lbdir}boarddata/xzb$inforum.cgi"); #开启只写文件
+        open(FILE, '>' . "${lbdir}boarddata/xzb$in_forum.cgi"); #开启只写文件
         print FILE $newfile;                                   #写入新文件内容
         close(FILE);                                           #关闭文件
         #页面输出
         $output .= qq~<P><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding="0" cellspacing="0" width="$tablewidth" bgcolor="$tablebordercolor" align="center" border="0">
 <form action="$thisprog" method="get">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 <tr>
 	<td>
 	<table cellpadding="3" cellspacing="1" width="100%" border="0">
@@ -530,7 +530,7 @@ sub deleteoverxzb {
     my @delxzbid = (); #初始化
     if ($checked ne 'yes') {
         #未进行确认
-        open(FILE, "${lbdir}boarddata/xzb$inforum.cgi"); #开启文件
+        open(FILE, "${lbdir}boarddata/xzb$in_forum.cgi"); #开启文件
         while (my $line = <FILE>) {
             #每次读取一行内容 loop 1
             chomp $line;                                                        #去掉换行符
@@ -569,7 +569,7 @@ sub deleteoverxzb {
 <form action="$thisprog" method="post">
 <input type="hidden" name="action" value="delete">
 <input type="hidden" name="checked" value="yes">
-<input type="hidden" name="forum" value="$inforum">
+<input type="hidden" name="forum" value="$in_forum">
 $novalue
 <tr>
 	<td>

@@ -393,8 +393,8 @@ sub forums {
 }
 
 sub readthreadpl {
-    ($inforum, $intopic) = @_;
-    open(THDFILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
+    ($in_forum, $in_topic) = @_;
+    open(THDFILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
     my @topicall = <THDFILE>;
     close(THDFILE);
     my $topicall = @topicall;
@@ -438,7 +438,7 @@ sub readthreadpl {
     if ($topictitle1 eq "") {return "";}
     else {
         $topictitle1 =~ s/^＊＃！＆＊//;
-        my $line = "$postdate1\t$intopic\t$topictitle1\t$topicdescription\t$threadstate\t$topicall\t$threadviews\t$membername1\t$postdate1\t$membername1\t\t$post\t\t";
+        my $line = "$postdate1\t$in_topic\t$topictitle1\t$topicdescription\t$threadstate\t$topicall\t$threadviews\t$membername1\t$postdate1\t$membername1\t\t$post\t\t";
         $line =~ s/[\a\f\n\e\0\r]//isg;
         return("$line");
     }
@@ -446,7 +446,7 @@ sub readthreadpl {
 
 
 sub banname {
-    local $inforum = shift;
+    local $in_forum = shift;
     if (-e "${lbdir}cache/forums${forumid}.pl") {
         eval {require "${lbdir}cache/forums${forumid}.pl";};
         if ($@) {

@@ -193,7 +193,7 @@ sub getmemberinfo {
 
         my $tempmembername = uri_escape($membername);
         $pvmsggraphic{$membername} = qq~<span style=cursor:hand onClick="javascript:openScript('messanger.cgi?action=new&touser=$tempmembername&actionto=msg',600,400)" title="发送一个短消息给$membername{$membername}"><img src=$imagesurl/images/message.gif border=0 width=16 align=absmiddle>消息</span>　~;
-        $searchgraphic{$membername} = qq~<a href="search.cgi?action=startsearch&TYPE_OF_SEARCH=username_search&NAME_SEARCH=topictitle_search&FORUMS_TO_SEARCH=$inforum&SEARCH_STRING=$tempmembername" target=_blank title="搜索$membername{$membername}在本分论坛的全部贴子"><img src=$imagesurl/images/find.gif border=0 width=16 align=absmiddle>搜索</a>　~;
+        $searchgraphic{$membername} = qq~<a href="search.cgi?action=startsearch&TYPE_OF_SEARCH=username_search&NAME_SEARCH=topictitle_search&FORUMS_TO_SEARCH=$in_forum&SEARCH_STRING=$tempmembername" target=_blank title="搜索$membername{$membername}在本分论坛的全部贴子"><img src=$imagesurl/images/find.gif border=0 width=16 align=absmiddle>搜索</a>　~;
         $profilegraphic{$membername} = qq~<a href=profile.cgi?action=show&member=$tempmembername title="查看$membername{$membername}的个人资料" target=_blank><img src=$imagesurl/images/profile.gif border=0 width=16 align=absmiddle>查看</a>　~;
         $friendgraphic{$membername} = qq~<span style=cursor:hand onClick="javascript:openScript('friendlist.cgi?action=adduser&adduser=$tempmembername',420,320)" title="加$membername{$membername}为我的好友"><img src=$imagesurl/images/friend.gif border=0 width=16 align=absmiddle>好友</span>　~;
         $emailaddress = &encodeemail($emailaddress);

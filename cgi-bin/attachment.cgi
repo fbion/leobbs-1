@@ -10,7 +10,7 @@
 #####################################################
 
 BEGIN {
-    $startingtime = (times)[0] + (times)[1];
+    my $startingtime = (times)[0] + (times)[1];
     foreach ($0, $ENV{'PATH_TRANSLATED'}, $ENV{'SCRIPT_FILENAME'}) {
         my $LBPATH = $_;
         next if ($LBPATH eq '');
@@ -35,40 +35,40 @@ require "bbs.lib.pl";
 
 $|++;
 my $thisprog = "attachment.cgi";
-my $query = new LBCGI;
+my $query = LBCGI->new;
 
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
+my $in_forum = $query->param('forum');
+my $in_topic = $query->param('topic');
 
 if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '' && $pvtdown ne "no") {
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-    print qq~<script>alert('请不要盗链$boardname的连接');location.href='topic.cgi?forum=$inforum&topic=$intopic';</script>~;
+    print qq~<script>alert('请不要盗链$boardname的连接');location.href='topic.cgi?forum=$in_forum&topic=$in_topic';</script>~;
     exit;
 }
 
-$inpostno = $query->param('postno');
-$fileext = $query->param('type');
-$fileext =~ s/\.//sg;
-$fileext =~ s/\///sg;
-$fileext =~ s/\\//sg;
-$fileext = &stripMETA($fileext);
-$fileext = lc($fileext);
-$filename = $query->param('name');
-$filename =~ s/\.\.//sg;
-$filename =~ s/\///sg;
-$filename =~ s/\\//sg;
-$filename = substr($filename, 0, 32) if (length($filename) > 32);
+my $in_post_no = $query->param('postno');
+my $file_ext = $query->param('type');
+$file_ext =~ s/\.//sg;
+$file_ext =~ s/\///sg;
+$file_ext =~ s/\\//sg;
+$file_ext = &stripMETA($file_ext);
+$file_ext = lc($file_ext);
+my $file_name = $query->param('name');
+$file_name =~ s/\.\.//sg;
+$file_name =~ s/\///sg;
+$file_name =~ s/\\//sg;
+$file_name = substr($file_name, 0, 32) if (length($file_name) > 32);
 
-&error('打开文件&老大，别乱黑我的程序呀！！') if ($inpostno !~ /^\d+$/ && $inpostno ne "");
-&error('打开文件&老大，别乱黑我的程序呀！！') if ($inforum !~ /^\d+$/ || $intopic !~ /^\d+$/ || $fileext eq '');
-require "data/style$inforum.cgi" if (-e "${lbdir}data/style$inforum.cgi");
+&error('打开文件&老大，别乱黑我的程序呀！！') if ($in_post_no !~ /^\d+$/ && $in_post_no ne "");
+&error('打开文件&老大，别乱黑我的程序呀！！') if ($in_forum !~ /^\d+$/ || $in_topic !~ /^\d+$/ || $file_ext eq '');
+require "data/style$in_forum.cgi" if (-e "${lbdir}data/style$in_forum.cgi");
 
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle = $skinselected if ($inselectstyle eq "");
 &error("普通错误&老大，别乱黑我的程序呀！") if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./));
 if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
 
-$inpostno--;
+$in_post_no--;
 
 $inmembername = $query->cookie("amembernamecookie") unless ($inmembername);
 $inpassword = $query->cookie("apasswordcookie") unless ($inpassword);
@@ -78,7 +78,7 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if (!$inmembername || $inmembername eq "客人") {
     if ($regaccess eq 'on' || $privateforum eq 'yes') {
         print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-        print qq~<script language="JavaScript">document.location = "loginout.cgi?forum=$inforum";</script>~;
+        print qq~<script language="JavaScript">document.location = "loginout.cgi?forum=$in_forum";</script>~;
         exit;
     }
     $inmembername = '客人';
@@ -91,9 +91,9 @@ else {
     &error('普通错误&密码与用户名不相符，请重新登录！') if ($inpassword ne $password);
 }
 
-&getoneforum($inforum);
-$testentry = $query->cookie("forumsallowed$inforum");
-$allowed = $allowedentry{$inforum} eq 'yes' || ($testentry eq $forumpass && $testentry ne '') || $membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes' ? 'yes' : 'no';
+&getoneforum($in_forum);
+$testentry = $query->cookie("forumsallowed$in_forum");
+$allowed = $allowedentry{$in_forum} eq 'yes' || ($testentry eq $forumpass && $testentry ne '') || $membercode eq 'ad' || $membercode eq 'smo' || $inmembmod eq 'yes' ? 'yes' : 'no';
 &error("进入私有论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq 'yes' && $allowed ne 'yes' && $pvtdown ne "no");
 &error("进入论坛&你一般会员不允许进入此论坛！") if ($startnewthreads eq 'cert' && (($membercode ne 'ad' && $membercode ne 'smo' && $membercode ne 'cmo' && $membercode ne 'mo' && $membercode !~ /^rz/) || $inmembername eq '客人') && $userincert eq 'no' && $pvtdown ne "no");
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
@@ -110,21 +110,21 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
 }
 
-if ($filename eq "") {
-    $file = $inpostno > 0 ? "$inforum\_$intopic\_$inpostno\.$fileext" : "$inforum\_$intopic\.$fileext";
-    &error("打开文件&此文件不存在！") unless (-e "$imagesdir$usrdir/$inforum/$file");
-    $filename = $file;
+if ($file_name eq "") {
+    $file = $in_post_no > 0 ? "$in_forum\_$in_topic\_$in_post_no\.$file_ext" : "$in_forum\_$in_topic\.$file_ext";
+    &error("打开文件&此文件不存在！") unless (-e "$imagesdir$usrdir/$in_forum/$file");
+    $file_name = $file;
     $newformat = 0;
 }
 else {
-    $tmptopic = $intopic % 100;
-    $file = "$tmptopic/$filename\.$fileext";
-    &error("打开文件&此文件不存在！") unless (-e "$imagesdir$usrdir/$inforum/$file");
-    $filename = "$filename\.$fileext";
+    $tmptopic = $in_topic % 100;
+    $file = "$tmptopic/$file_name\.$file_ext";
+    &error("打开文件&此文件不存在！") unless (-e "$imagesdir$usrdir/$in_forum/$file");
+    $file_name = "$file_name\.$file_ext";
     $newformat = 1;
 }
 
-if (open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi")) {
+if (open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi")) {
     sysread(FILE, my $thread, (stat(FILE))[7]);
     close(FILE);
     $thread =~ s/\r//isg;
@@ -144,7 +144,7 @@ else {
 }
 $StartCheck = $numberofposts + $numberofreplys;
 
-my ($poster, undef, undef, undef, undef, undef, $post1, undef) = split(/\t/, $threads[$inpostno]);
+my ($poster, undef, undef, undef, undef, undef, $post1, undef) = split(/\t/, $threads[$in_post_no]);
 
 if ($hidejf eq "yes" && $pvtdown ne "no") {
     if ($post1 =~ /(\[hide\])(.+?)(\[\/hide\])/is) {
@@ -154,7 +154,7 @@ if ($hidejf eq "yes" && $pvtdown ne "no") {
             }
             else {
                 while ($post1 =~ /(\[hide\])(.+?)(\[\/hide\])/is) {
-                    &error("普通错误&由于你没有回复过这个主题，所以你无权下载这个加密附件！") if ($2 =~ /$filename/);
+                    &error("普通错误&由于你没有回复过这个主题，所以你无权下载这个加密附件！") if ($2 =~ /$file_name/);
                     $post1 =~ s/(\[hide\])(.+?)(\[\/hide\])//is;
                 }
             }
@@ -171,7 +171,7 @@ if ($postjf eq "yes" && $pvtdown ne "no") {
             }
             else {
                 while ($post1 =~ /\[post=(.+?)\](.+?)\[\/post\]/is) {
-                    &error("普通错误&你无权下载这个加密附件！需要发贴达到$viewusepost，而你只有$StartCheck。") if ($2 =~ /$filename/);
+                    &error("普通错误&你无权下载这个加密附件！需要发贴达到$viewusepost，而你只有$StartCheck。") if ($2 =~ /$file_name/);
                     $post1 =~ s/\[post=(.+?)\](.+?)\[\/post\]//is;
                 }
             }
@@ -188,7 +188,7 @@ if ($jfmark eq "yes" && $pvtdown ne "no") {
             }
             else {
                 while ($post1 =~ /\[jf=(.+?)\](.+?)\[\/jf\]/is) {
-                    &error("普通错误&你无权下载这个加密附件！积分必须达到 $jfpost，而你只有$jifen。") if ($2 =~ /$filename/);
+                    &error("普通错误&你无权下载这个加密附件！积分必须达到 $jfpost，而你只有$jifen。") if ($2 =~ /$file_name/);
                     $post1 =~ s/\[jf=(.+?)\](.+?)\[\/jf\]//is;
                 }
             }
@@ -206,11 +206,11 @@ if ($wwjf ne "no" && $pvtdown ne "no") {
 
 if ($cansale ne "no" && $pvtdown ne "no") {
     if ($post1 =~ /LBSALE\[(.*?)\]LBSALE/sg) {
-        my $postno = $inpostno;
+        my $postno = $in_post_no;
         #    	    $postno ++;
         my $isbuyer = "";
         my $allbuyer = "";
-        if (open(FILE, "${lbdir}$saledir/$inforum\_$intopic\_$postno.cgi")) {
+        if (open(FILE, "${lbdir}$saledir/$in_forum\_$in_topic\_$postno.cgi")) {
             my $allbuyer = <FILE>;
             close(FILE);
             chomp $allbuyer;
@@ -226,8 +226,8 @@ if ($cansale ne "no" && $pvtdown ne "no") {
     }
 }
 
-$file2 = "$imagesurl/$usrdir/$inforum/$file";
-$file = "$imagesdir$usrdir/$inforum/$file";
+$file2 = "$imagesurl/$usrdir/$in_forum/$file";
+$file = "$imagesdir$usrdir/$in_forum/$file";
 
 if ($picwater eq "yes") {
     eval ('use GD;');
@@ -246,14 +246,14 @@ if ($picwater eq "yes") {
     elsif ($picwaterman eq "4") {$picwater = "no" if ($membercode eq "ad");}
 }
 
-if ($picwater eq "yes" && ($fileext eq 'jpg' || $fileext eq 'jpeg' || $fileext eq 'png')) {
+if ($picwater eq "yes" && ($file_ext eq 'jpg' || $file_ext eq 'jpeg' || $file_ext eq 'png')) {
     $filesize = (stat("$file"))[7];
-    $fileext = 'jpeg' if ($fileext eq 'jpg');
+    $file_ext = 'jpeg' if ($file_ext eq 'jpg');
 
     if (-e "$file.waterpicture") {
         $BOF = 0;
         $EOF = (-s "$file.waterpicture");
-        $fileext = 'jpeg' if ($fileext eq 'jpg');
+        $file_ext = 'jpeg' if ($file_ext eq 'jpg');
 
         $HTTP_RANGE = $ENV{HTTP_RANGE};
         if ($HTTP_RANGE ne '' && $HTTP_RANGE =~ /^bytes=([0-9]+)\-([0-9]+)$/ && $1 > -1 && $1 < $2 && $2 <= $EOF) {
@@ -266,16 +266,16 @@ if ($picwater eq "yes" && ($fileext eq 'jpg' || $fileext eq 'jpeg' || $fileext e
         $filesize = $EOF - $BOF;
         print "Accept-Ranges: bytes\n";
         print "Content-Length: $filesize\n";
-        print "Content-Disposition:$fileadd filename=$filename\n";
-        print "Content-Type: $fileext\n\n";
+        print "Content-Disposition:$fileadd filename=$file_name\n";
+        print "Content-Type: $file_ext\n\n";
         binmode(STDOUT);
         print &readattachment("$file.waterpicture", $BOF, $EOF);
         exit;
     }
 
-    print header(-type => "image/$fileext", -attachment => $filename, -expires => '0', -content_length => $filesize);
+    print header(-type => "image/$file_ext", -attachment => $file_name, -expires => '0', -content_length => $filesize);
 
-    if ($fileext eq "jpeg") {
+    if ($file_ext eq "jpeg") {
         eval {$image = GD::Image->newFromJpeg($file, 1);};
         $image = GD::Image->newFromJpeg($file) if ($@);
     }
@@ -362,7 +362,7 @@ if ($picwater eq "yes" && ($fileext eq 'jpg' || $fileext eq 'jpeg' || $fileext e
 
     open(FILEPIC, ">$file.waterpicture");
     binmode(FILEPIC);
-    if ($fileext eq "jpeg") {
+    if ($file_ext eq "jpeg") {
         print FILEPIC $image->jpeg;
     }
     else {
@@ -371,7 +371,7 @@ if ($picwater eq "yes" && ($fileext eq 'jpg' || $fileext eq 'jpeg' || $fileext e
     close(FILEPIC);
 
     binmode(STDOUT);
-    if ($fileext eq "jpeg") {
+    if ($file_ext eq "jpeg") {
         print $image->jpeg;
     }
     else {
@@ -383,35 +383,35 @@ if ($picwater eq "yes" && ($fileext eq 'jpg' || $fileext eq 'jpeg' || $fileext e
 if ($pvtdown ne "no") {
     $BOF = 0;
     $EOF = (-s $file);
-    $fileext = 'jpeg' if ($fileext eq 'jpg');
-    $fileext = 'html' if ($fileext eq 'htm');
-    $fileext = 'plain' if ($fileext eq 'txt');
-    if ($fileext =~ /^(gif|jpeg|png|bmp)$/) {
-        $fileext = "image/$fileext";
+    $file_ext = 'jpeg' if ($file_ext eq 'jpg');
+    $file_ext = 'html' if ($file_ext eq 'htm');
+    $file_ext = 'plain' if ($file_ext eq 'txt');
+    if ($file_ext =~ /^(gif|jpeg|png|bmp)$/) {
+        $file_ext = "image/$file_ext";
         $fileadd = "";
     }
-    elsif ($fileext eq 'swf') {
-        $fileext = "application/x-shockwave-flash";
+    elsif ($file_ext eq 'swf') {
+        $file_ext = "application/x-shockwave-flash";
         $fileadd = "";
     }
-    elsif ($fileext eq 'rm' || $fileext eq 'rmvb') {
-        $fileext = "audio/x-pn-realaudio";
+    elsif ($file_ext eq 'rm' || $file_ext eq 'rmvb') {
+        $file_ext = "audio/x-pn-realaudio";
         $fileadd = "";
     }
-    elsif ($fileext eq 'avi') {
-        $fileext = "video/x-msvideo";
+    elsif ($file_ext eq 'avi') {
+        $file_ext = "video/x-msvideo";
         $fileadd = "";
     }
-    elsif ($fileext eq 'mpeg') {
-        $fileext = "video/mpeg";
+    elsif ($file_ext eq 'mpeg') {
+        $file_ext = "video/mpeg";
         $fileadd = "";
     }
-    elsif ($fileext =~ /^(plain|html)$/) {
-        $fileext = "text/$fileext";
+    elsif ($file_ext =~ /^(plain|html)$/) {
+        $file_ext = "text/$file_ext";
         $fileadd = "";
     }
     else {
-        $fileext = "attachment/$fileext";
+        $file_ext = "attachment/$file_ext";
         $fileadd = " attachment;";
     }
 
@@ -426,8 +426,8 @@ if ($pvtdown ne "no") {
     $filesize = $EOF - $BOF;
     print "Accept-Ranges: bytes\n";
     print "Content-Length: $filesize\n";
-    print "Content-Disposition:$fileadd filename=$filename\n";
-    print "Content-Type: $fileext\n\n";
+    print "Content-Disposition:$fileadd filename=$file_name\n";
+    print "Content-Type: $file_ext\n\n";
     binmode(STDOUT);
     print &readattachment($file, $BOF, $EOF);
     exit;

@@ -36,7 +36,7 @@ sub lbcode {
             my $allbuyer = "";
             my $allbuyerno = "";
             undef @allbuyer;
-            if (open(FILE, "${lbdir}$saledir/$inforum\_$intopic\_$postno.cgi")) {
+            if (open(FILE, "${lbdir}$saledir/$in_forum\_$in_topic\_$postno.cgi")) {
                 my $allbuyer = <FILE>;
                 close(FILE);
                 chomp $allbuyer;
@@ -52,7 +52,7 @@ sub lbcode {
             }
             $allbuyerno = 0 if (($allbuyerno < 0) || ($allbuyerno eq ""));
             unless (($inmembername eq $membername) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
-                $$post = qq~(察看这个帖子需要 <b>$1<\/b> $moneyname，目前已有 <b>$allbuyerno<\/b> 人购买，<a href=\"buypost.cgi?inforum=$inforum&amp;intopic=$intopic&amp;postmast=$most&amp;postnumber=$postno&amp;salemembername=$membername&amp;moneynumber=$1\">\[购买\]<\/a>)~;
+                $$post = qq~(察看这个帖子需要 <b>$1<\/b> $moneyname，目前已有 <b>$allbuyerno<\/b> 人购买，<a href=\"buypost.cgi?inforum=$in_forum&amp;intopic=$in_topic&amp;postmast=$most&amp;postnumber=$postno&amp;salemembername=$membername&amp;moneynumber=$1\">\[购买\]<\/a>)~;
                 $addme = "(附件保密!)<br><br>" if ($addme);
             }
             else {

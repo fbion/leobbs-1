@@ -35,16 +35,16 @@ $lid = $query->param('lid');
 &check($lid);
 &getmember("$inmembername") if ($inmembername ne '' || $inmembername ne '客人');
 $id = $query->param('forum');
-$inforum = $id;
-&getoneforum($inforum);
+$in_forum = $id;
+&getoneforum($in_forum);
 $show .= qq~<card  title="$forumname"> ~;
 $mymembercode = $membercode;
 $myinmembmod = $inmembmod;
 $myrating = $rating;
-$tempaccess = "forumsallowed" . $inforum;
+$tempaccess = "forumsallowed" . $in_forum;
 $testentry = $query->cookie($tempaccess);
-$allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
-&errorout("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/ && $inforum ne 'leobbs.cgi');
+$allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
+&errorout("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/ && $in_forum ne 'leobbs.cgi');
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 &errorout("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
@@ -67,7 +67,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
 }
 my $r = &msg($inmembername, $password2);
-$show .= "<p>$r<a href=\"wap_po.cgi?lid=$lid&amp;f=$inforum\">发帖</a> <a href=\"wap_index.cgi?lid=$lid\">返回</a></p>";
+$show .= "<p>$r<a href=\"wap_po.cgi?lid=$lid&amp;f=$in_forum\">发帖</a> <a href=\"wap_index.cgi?lid=$lid\">返回</a></p>";
 open(file, "${lbdir}boarddata/listno$id.cgi");
 my @allfav = <file>;
 close(file);

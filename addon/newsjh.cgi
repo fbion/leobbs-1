@@ -46,8 +46,8 @@ require "bbs.lib.pl";
 $|++;
 $query = new LBCGI;
 $mode       = $query -> param('mode');
-$inforum       = $query -> param('forum');
-$inforum       = &stripMETA("$inforum");
+$in_forum       = $query -> param('forum');
+$in_forum       = &stripMETA("$in_forum");
 $max	       = $query -> param('max');
 $max           = &stripMETA("$max");
 $display       = $query -> param('display');
@@ -56,7 +56,7 @@ $maxlength     = $query -> param('maxlength');
 $maxlength     = &stripMETA("$maxlength");
 $mode = "" if (($mode ne "topic")&&($mode ne "view"));
 $mode      = "topic" if ($mode eq "");  # 默认帖子方式查看
-$inforum   = 1  if ($inforum eq "");    # 默认查看第一个论坛
+$in_forum   = 1  if ($in_forum eq "");    # 默认查看第一个论坛
 $display   = 1  if ($display eq "");    # 默认显示贴子时间
 $max	   = 20 if ($max eq "");        # 默认显示 10 个精华帖子
 $maxlength = 20 if ($maxlength eq "");  # 默认标题最多 20 个字符
@@ -64,17 +64,17 @@ $defaultsmilewidth  = "width=$defaultsmilewidth"   if ($defaultsmilewidth ne "" 
 $defaultsmileheight = "height=$defaultsmileheight" if ($defaultsmileheight ne "");
 
 print header(-charset=>"UTF-8");
-if ($inforum !~ /^[0-9]+$/) {
+if ($in_forum !~ /^[0-9]+$/) {
    print "document.write('普通&老大，别乱黑我的程序呀！')\n";
    exit;
 }
-    my $filetoopen = "${lbdir}forum$inforum/foruminfo.cgi";
+    my $filetoopen = "${lbdir}forum$in_forum/foruminfo.cgi";
     open(FILE, "$filetoopen");
     my $forums = <FILE>;
     close(FILE);
     (my $no, $no, $no, $no, $no, $no ,$no ,$no ,$privateforum, $no) = split(/\t/,$forums);
 if ($privateforum ne "yes") {
-    $filetoopen = "$lbdir" . "boarddata/jinghua$inforum.cgi";
+    $filetoopen = "$lbdir" . "boarddata/jinghua$in_forum.cgi";
     if (-e $filetoopen) {
     	&winlock($filetoopen) if ($OS_USED eq "Nt");
         open(FILE, "$filetoopen");
@@ -91,15 +91,15 @@ if ($privateforum ne "yes") {
       $i=0;
       foreach $id (@ontop) {
       	chomp $id;
-	next if ((!(-e "${lbdir}forum$inforum/$id.thd.cgi"))||($id eq ""));
+	next if ((!(-e "${lbdir}forum$in_forum/$id.thd.cgi"))||($id eq ""));
 
-	my $file = "$lbdir" . "forum$inforum/$id.pl";
+	my $file = "$lbdir" . "forum$in_forum/$id.pl";
 	open (TMP, "$file");
 	(my $topicid, my $topictitle, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $lastpostdate, my $posticon1, my $inposttemp) = split (/\t/,<TMP>);
 	close (TMP);
  	$topictitle =~ s/^＊＃！＆＊//;
        
-	my $file1 = "$lbdir" . "forum$inforum/$id.thd.cgi";
+	my $file1 = "$lbdir" . "forum$in_forum/$id.thd.cgi";
 	if (($topictitle eq "")||($startedby eq "")||($startedpostdate eq "")){
 	open (TMP1, "$file1");
 	my @tmp = <TMP1>;
@@ -195,7 +195,7 @@ if (@topic) {
 	    $topictitletemp =~ s/>/\&gt;/g;
 	    $topictitletemp =~ s/ /\&nbsp;/g;
 	    $topictitletemp = $topictitletemp ."&nbsp;" if (length($topictitletemp) < $maxlength);
-	    $str.=qq~<img src=$imagesurl/posticons/$posticon $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$inforum&topic=$topicid target=_blank><ACRONYM TITLE="主题： $topictitle">$topictitletemp</ACRONYM></a>　<a href=profile.cgi?action=show&member=~ . ($uri_escape eq "no" ? $startedby : uri_escape($startedby)) . qq~ target=_blank>[$startedby]</a>　$disptime<br>~;
+	    $str.=qq~<img src=$imagesurl/posticons/$posticon $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$in_forum&topic=$topicid target=_blank><ACRONYM TITLE="主题： $topictitle">$topictitletemp</ACRONYM></a>　<a href=profile.cgi?action=show&member=~ . ($uri_escape eq "no" ? $startedby : uri_escape($startedby)) . qq~ target=_blank>[$startedby]</a>　$disptime<br>~;
 	 }
 	 else {
 	     $topicspace=$maxlength-length($topictitle);
@@ -203,7 +203,7 @@ if (@topic) {
 	     for ($i=0;$i<$topicspace;$i++) {
 	     	$addspace = $addspace ."&nbsp;";
 	     }
-	     $str.=qq~<img src=$imagesurl/posticons/$posticon $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$inforum&topic=$topicid target=_blank>$topictitle</a>$addspace　<a href=profile.cgi?action=show&member=~ . ($uri_escape eq "no" ? $startedby : uri_escape($startedby)) . qq~ target=_blank>[$startedby]</a>　$disptime<br>~;
+	     $str.=qq~<img src=$imagesurl/posticons/$posticon $defaultsmilewidth $defaultsmileheight border=0> <a href=$boardurl/$mode.cgi?forum=$in_forum&topic=$topicid target=_blank>$topictitle</a>$addspace　<a href=profile.cgi?action=show&member=~ . ($uri_escape eq "no" ? $startedby : uri_escape($startedby)) . qq~ target=_blank>[$startedby]</a>　$disptime<br>~;
 	 }
     }
 }

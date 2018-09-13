@@ -40,8 +40,8 @@ $query = new LBCGI;
 
 &ipbanned;
 
-$inforum = $query->param("forum");
-&error("打开论坛&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
+$in_forum = $query->param("forum");
+&error("打开论坛&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
 require "data/style${inforum}.cgi" if (-e "${lbdir}data/style${inforum}.cgi");
 
 $inmembername = $query->param("membername");
@@ -88,7 +88,7 @@ if ($action eq 'delete' && $membercode eq 'ad') {
     $trueipaddress = $ENV{"HTTP_X_FORWARDED_FOR"} if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
     $trueipaddress = "no" if ($trueipaddress eq "" || $trueipaddress =~ m/a-z/i || $trueipaddress =~ m/^192\.168\./ || $trueipaddress =~ m/^10\./);
 
-    my $filetomake = "${lbdir}boarddata/adminlog$inforum.cgi";
+    my $filetomake = "${lbdir}boarddata/adminlog$in_forum.cgi";
     &winlock($filetomake) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
     open(FILE, $filetomake);
     $readdisktimes++;
@@ -109,13 +109,13 @@ if ($action eq 'delete' && $membercode eq 'ad') {
 
     print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-    print "<script language='javascript'>document.location = '$thisprog?forum=$inforum'</script>";
+    print "<script language='javascript'>document.location = '$thisprog?forum=$in_forum'</script>";
     exit;
 }
 
-&getoneforum($inforum);
-$testentry = $query->cookie("forumsallowed$inforum");
-$allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes" ? "yes" : "no";
+&getoneforum($in_forum);
+$testentry = $query->cookie("forumsallowed$in_forum");
+$allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $membercode eq "ad" || $membercode eq "smo" || $inmembmod eq "yes" ? "yes" : "no";
 &error("进入论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq "yes" && $allowed ne "yes");
 &error("进入论坛&你一般会员不允许进入此论坛！") if ($startnewthreads eq "cert" && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "mo" && $membercode !~ /^rz/) || $inmembername eq "客人") && $userincert eq "no");
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
@@ -149,7 +149,7 @@ $key = $query->param("key");
 $key = &stripMETA($key);
 &mischeader("查看版务日志");
 
-$filetoopen = "${lbdir}/boarddata/adminlog$inforum.cgi";
+$filetoopen = "${lbdir}/boarddata/adminlog$in_forum.cgi";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, $filetoopen);
 $readdisktimes++;
@@ -159,8 +159,8 @@ close(FILE);
 &winunlock($filetoopen) if ($OS_USED eq "Nt");
 @alllogs = $type eq "name" ? grep (/^$key\t/i, @alllogs) : grep (/$key[^\t]*$/i, @alllogs) if ($key ne "");
 $allitems = @alllogs;
-&splitpage("forum=$inforum&type=$type&key=$key");
-$adminoption = qq~　<a href=$thisprog?action=delete&forum=$inforum onClick="return confirm('是否真的要清空本版的版务日志（最后50条将被保留）？')"><img src=$imagesurl/images/del.gif border=0 title="清空本版的版务日志"></a>~ if ($membercode eq 'ad');
+&splitpage("forum=$in_forum&type=$type&key=$key");
+$adminoption = qq~　<a href=$thisprog?action=delete&forum=$in_forum onClick="return confirm('是否真的要清空本版的版务日志（最后50条将被保留）？')"><img src=$imagesurl/images/del.gif border=0 title="清空本版的版务日志"></a>~ if ($membercode eq 'ad');
 
 $output .= qq~
 <SCRIPT>valigntop()</SCRIPT>
@@ -192,7 +192,7 @@ $output .= qq~
 </table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <table cellPadding=0 cellSpacing=0 width=$tablewidth align=center><form action=$thisprog>
-<tr><td height=4><input type=hidden name=forum value="$inforum"></td></tr>
+<tr><td height=4><input type=hidden name=forum value="$in_forum"></td></tr>
 <tr><td>$pages$adminoption</td><td align=right>$select <input name=key type=text size=16 value="$key"> <input type=submit value="查 找"></td></tr>
 </table></form>~;
 
@@ -202,8 +202,8 @@ print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MOD
 exit;
 
 sub gettopic {
-    my $intopic = shift;
-    if (open(FILE, "${lbdir}forum$inforum/$intopic.pl")) {
+    my $in_topic = shift;
+    if (open(FILE, "${lbdir}forum$in_forum/$in_topic.pl")) {
         $readdisktimes++;
         my $line = <FILE>;
         close(FILE);
@@ -211,7 +211,7 @@ sub gettopic {
         (undef, my $title, undef) = split(/\t/, $line);
         $title =~ s/^＊＃！＆＊//;
         $title = "未知" if ($title eq "");
-        return "<a href=topic.cgi?forum=$inforum&topic=$intopic target=_blank>$title</a>";
+        return "<a href=topic.cgi?forum=$in_forum&topic=$in_topic target=_blank>$title</a>";
     }
     else {
         return "已被删除";

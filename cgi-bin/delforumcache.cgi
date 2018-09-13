@@ -37,8 +37,8 @@ $inpassword     = $queryme->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
-$inforum = $queryme -> param('forum');
-&error("打开文件&老大，别乱黑我的程序呀！！") if (($inforum !~ /^[0-9]+$/)||($inforum eq ""));
+$in_forum = $queryme -> param('forum');
+&error("打开文件&老大，别乱黑我的程序呀！！") if (($in_forum !~ /^[0-9]+$/)||($in_forum eq ""));
 
 if ((!$inmembername) or ($inmembername eq "客人")) {
     $inmembername = "客人";
@@ -50,31 +50,31 @@ else {
     &error("普通错误&老大，偷用户名不偷密码有什么用呢？") if ($inpassword ne $password);
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");  
 }
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 if (($membercode ne "ad")&&($membercode ne "smo")&&($inmembmod ne "yes")){
     &error("普通错误&你不是本论坛的管理员，所以不能使用该功能！") if ($membercode ne "amo");
 }
-unlink ("${lbdir}cache/forums$inforum.pl");
-unlink ("${lbdir}cache/forumshead$inforum.pl");
-unlink ("${lbdir}cache/forumsone$inforum.pl");
-unlink ("${lbdir}cache/forumstitle$inforum.pl");
-unlink ("${lbdir}cache/forumstop$inforum.pl");
-unlink ("${lbdir}cache/forumstopic$inforum.pl");
-unlink ("${lbdir}cache/forumstoptopic$inforum.pl");
+unlink ("${lbdir}cache/forums$in_forum.pl");
+unlink ("${lbdir}cache/forumshead$in_forum.pl");
+unlink ("${lbdir}cache/forumsone$in_forum.pl");
+unlink ("${lbdir}cache/forumstitle$in_forum.pl");
+unlink ("${lbdir}cache/forumstop$in_forum.pl");
+unlink ("${lbdir}cache/forumstopic$in_forum.pl");
+unlink ("${lbdir}cache/forumstoptopic$in_forum.pl");
 
 opendir (CATDIR, "${lbdir}cache");
 @dirdata = readdir(CATDIR);
 closedir (CATDIR);
-@dirdata1 = grep(/^plcache$inforum\_/,@dirdata);
+@dirdata1 = grep(/^plcache$in_forum\_/,@dirdata);
 foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
-@dirdata1 = grep(/^threadages$inforum\_/,@dirdata);
+@dirdata1 = grep(/^threadages$in_forum\_/,@dirdata);
 foreach (@dirdata1) { unlink ("${lbdir}cache/$_"); }
 
 print header(-charset=>"UTF-8" , -expires=>"$EXP_MODE" , -cache=>"$CACHE_MODES");
 print qq~
 <SCRIPT>
 alert("本区的所有缓存都被清空了！");
-document.location = 'forums.cgi?forum=$inforum'
+document.location = 'forums.cgi?forum=$in_forum'
 </SCRIPT>
 ~;
 exit;

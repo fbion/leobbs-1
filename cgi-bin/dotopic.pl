@@ -12,8 +12,8 @@ use strict;
 use warnings;
 use diagnostics;
 
-if (-e "${lbdir}boarddata/jinghua$inforum.cgi") {
-    open(FILE, "${lbdir}boarddata/jinghua$inforum.cgi");
+if (-e "${lbdir}boarddata/jinghua$in_forum.cgi") {
+    open(FILE, "${lbdir}boarddata/jinghua$in_forum.cgi");
     my @jhdatas = <FILE>;
     close(FILE);
     $jhdata = join("\_", @jhdatas);
@@ -36,10 +36,10 @@ $forumdescription =~ s/<BR>//isg;
 $forumdescription =~ s/<P>//isg;
 
 if ($indexforum ne "no") {
-    $tempoutput = qq~<table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$inforum>$forumname</a> [<a href=forums.cgi?forum=$inforum&show=\$inshow>返回</a>] → 浏览：topictitletempshow　jhimage</td><td bgcolor=\$navbackground align=right valign=bottom>\$uservisitdata</td></tr></table></td></tr></table>~;
+    $tempoutput = qq~<table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$in_forum>$forumname</a> [<a href=forums.cgi?forum=$in_forum&show=\$inshow>返回</a>] → 浏览：topictitletempshow　jhimage</td><td bgcolor=\$navbackground align=right valign=bottom>\$uservisitdata</td></tr></table></td></tr></table>~;
 }
 else {
-    $tempoutput = qq~<table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=forums.cgi?forum=$inforum>$forumname</a> [<a href=forums.cgi?forum=$inforum&show=\$inshow>返回</a>] → 浏览：topictitletempshow　jhimage</td><td bgcolor=\$navbackground align=right valign=bottom>\$uservisitdata</td></tr></table></td></tr></table>~;
+    $tempoutput = qq~<table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=forums.cgi?forum=$in_forum>$forumname</a> [<a href=forums.cgi?forum=$in_forum&show=\$inshow>返回</a>] → 浏览：topictitletempshow　jhimage</td><td bgcolor=\$navbackground align=right valign=bottom>\$uservisitdata</td></tr></table></td></tr></table>~;
 }
 if (open(FILE, "${lbdir}data/notshowsignature.cgi")) {
     $notshowsignaturemember = <FILE>;
@@ -49,8 +49,8 @@ $notshowsignaturemember =~ s/^\t//;
 $notshowsignaturemember =~ s/\t$//;
 $notshowsignaturemember = "\t$notshowsignaturemember\t";
 
-if (!(-e "${lbdir}cache/forumstopic$inforum.pl")) {
-    open(FILE, ">${lbdir}cache/forumstopic$inforum.pl");
+if (!(-e "${lbdir}cache/forumstopic$in_forum.pl")) {
+    open(FILE, ">${lbdir}cache/forumstopic$in_forum.pl");
     print FILE qq~\$notshowsignaturemember=qq($notshowsignaturemember);\n~;
     $tempoutput =~ s/\\/\\\\/isg;
     $tempoutput =~ s/~/\\\~/isg;

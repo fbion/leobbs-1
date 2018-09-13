@@ -63,8 +63,8 @@ $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if ((!$inmembername) or ($inmembername eq "客人")) {
     $inmembername = "客人";
-    $filename = "客人$ipaddress";
-    $filename =~ s/\.//g;
+    $file_name = "客人$ipaddress";
+    $file_name =~ s/\.//g;
 }
 else {
     &getmember("$inmembername", "no");
@@ -75,7 +75,7 @@ else {
         &error("普通错误&密码与用户名不相符，请重新登录！");
     }
     if ($userregistered eq "no") {&error("论坛搜索&你还没注册呢！");}
-    $filename = $inmembername;
+    $file_name = $inmembername;
 }
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle = $skinselected if ($inselectstyle eq "");
@@ -102,10 +102,10 @@ if (($searchopen ne "") && ($searchopen ne "0")) {
     if (($searchopen eq 4) && ($membercode ne "ad")) {&error("搜索&搜索功能目前只允许坛主使用！");}
 }
 
-$filename =~ y/ /_/;
-$filename =~ tr/A-Z/a-z/;
-$savefilename = "$lbdir" . "$searchdir/$filename\_sav.cgi";
-$searchfilename = "$lbdir" . "$searchdir/$filename\_sch.cgi";
+$file_name =~ y/ /_/;
+$file_name =~ tr/A-Z/a-z/;
+$savefilename = "$lbdir" . "$searchdir/$file_name\_sav.cgi";
+$searchfilename = "$lbdir" . "$searchdir/$file_name\_sch.cgi";
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
@@ -138,14 +138,14 @@ if ($action eq "") {
 
 if ($action eq "saveresults") {
     if ($inmembername eq "客人") {&error("保存搜索结果&客人不能保存搜索结果！");}
-    $filename = $inmembername;
-    $filename =~ y/ /_/;
-    $filename =~ tr/A-Z/a-z/;
-    copy("${lbdir}$searchdir/$filename\_sch.cgi", "${lbdir}$searchdir/$filename\_sav.cgi");
+    $file_name = $inmembername;
+    $file_name =~ y/ /_/;
+    $file_name =~ tr/A-Z/a-z/;
+    copy("${lbdir}$searchdir/$file_name\_sch.cgi", "${lbdir}$searchdir/$file_name\_sav.cgi");
     $output .= qq~<tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>搜索结果保存成功</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>具体情况：
 <ul><li><a href="$boardurl/$thisprog?action=display">返回当前搜索结果</a>
-<li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+<li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
 <li><a href="leobbs.cgi">返回论坛首页</a>
 </ul></td></tr></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
@@ -155,12 +155,12 @@ if ($action eq "saveresults") {
 }
 elsif ($action eq "loadresults") {
     if ($inmembername eq "客人") {&error("调入搜索结果&客人无法调入搜索结果！");}
-    $filename = $inmembername;
-    $filename =~ y/ /_/;
-    $filename =~ tr/A-Z/a-z/;
-    $savefilename = "${lbdir}$searchdir/$filename\_sav.cgi";
+    $file_name = $inmembername;
+    $file_name =~ y/ /_/;
+    $file_name =~ tr/A-Z/a-z/;
+    $savefilename = "${lbdir}$searchdir/$file_name\_sav.cgi";
     open(READ, "$savefilename") or &error("调入搜索结果&你还没有保存过搜索结果！");
-    copy("${lbdir}$searchdir/$filename\_sav.cgi", "${lbdir}$searchdir/$filename\_sch.cgi") if (!-e "${lbdir}$searchdir/$filename_sch.cgi");
+    copy("${lbdir}$searchdir/$file_name\_sav.cgi", "${lbdir}$searchdir/$file_name\_sch.cgi") if (!-e "${lbdir}$searchdir/$file_name_sch.cgi");
     $output .= qq~<meta http-equiv="refresh" content="0; url=$thisprog?action=display">~;
 }
 elsif ($action eq "startsearch") {
@@ -632,13 +632,13 @@ sub displayresults {
         $longdate = &longdate("$postdate");
         $topicdescription = qq(&nbsp;-=> $topicdescription) if $topicdescription;
 
-        $inforum = $forumid;
+        $in_forum = $forumid;
         if (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
-            $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>精</font></a>|<a href=postings.cgi?action=locktop&forum=$inforum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
+            $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=add&forum=$in_forum&topic=$topicid><font color=$titlecolor>精</font></a>|<a href=postings.cgi?action=locktop&forum=$in_forum&topic=$topicid><font color=$titlecolor>固</font></a>|<a href=postings.cgi?action=puttop&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|<a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删</font></a>|<a href=delpost.cgi?action=movetopic&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>移</font></a>|</font>&nbsp;</DIV>~;
         }
         elsif ((lc($inmembername) eq lc($startedby)) && ($inpassword eq $password) && ($inmembername !~ /^客人/)) {
             if ($arrowuserdel eq "on") {
-                $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>| <a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid><font color=$titlecolor>锁定此贴，不允许别人回复</font></a> | <a href=delpost.cgi?action=delete&forum=$inforum&topic=$topicid><font color=$titlecolor>删除此贴</font></a> |</font>&nbsp;&nbsp;</DIV>~;
+                $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>| <a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid><font color=$titlecolor>锁定此贴，不允许别人回复</font></a> | <a href=delpost.cgi?action=delete&forum=$in_forum&topic=$topicid><font color=$titlecolor>删除此贴</font></a> |</font>&nbsp;&nbsp;</DIV>~;
             }
             else {undef $admini;}
         }

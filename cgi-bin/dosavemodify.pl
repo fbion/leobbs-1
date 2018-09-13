@@ -341,11 +341,11 @@ if ("$userregistered" eq "no") {&error("修改资料&没有此用户名！"); }
             unlink ("${imagesdir}usravatars/$memberfiletitletemp.bmp");
 
 
-          my ($filename) = $addme =~ m|([^/:\\]+)$|; #注意,获取文件名字的形式变化
+          my ($file_name) = $addme =~ m|([^/:\\]+)$|; #注意,获取文件名字的形式变化
 
-          my @filename = split(/\./,$filename); #注意
-          my $up_name = $filename[0];
-          $fileexp = $filename[-1];
+          my @filename = split(/\./,$file_name); #注意
+          my $up_name = $file_name[0];
+          $fileexp = $file_name[-1];
           $fileexp = lc($fileexp);
 
 

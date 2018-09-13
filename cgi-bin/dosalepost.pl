@@ -19,7 +19,7 @@ sub dosalepost {
     my $allbuyer = "";
     my $allbuyerno = "";
     undef @allbuyer;
-    if (open(FILE, "${lbdir}$saledir/$inforum\_$intopic\_$postno.cgi")) {
+    if (open(FILE, "${lbdir}$saledir/$in_forum\_$in_topic\_$postno.cgi")) {
         my $allbuyer = <FILE>;
         close(FILE);
         chomp $allbuyer;
@@ -35,7 +35,7 @@ sub dosalepost {
     {@allexege = ($$post =~ /\[buyexege\].*?\[\/buyexege\]/ig);}
     unless ((lc($inmembername) eq lc($membername)) || ($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || ($isbuyer eq "yes")) {
         $$post = qq~<FONT COLOR=$fonthighlight><B>[Sale Post: Money $1]</B></FONT><BR>  <BR><FONT COLOR=$posternamecolor>[查看这个帖子需要 <b>$1</b> $moneyname，目前已有 <B>$allbuyerno</B> 人购买]</FONT><BR><br><script>function salesubmitonce(theform){if (document.all||document.getElementById){for (i=0;i<theform.length;i++){ var tempobj=theform.elements[i]; if(tempobj.type.toLowerCase()=="submit"||tempobj.type.toLowerCase()=="reset") { tempobj.disabled=true; }}}}</script>
-                <FORM action=buypost.cgi method=post onSubmit="salesubmitonce(this)"><input name=inforum type=hidden value=$inforum><input name=intopic type=hidden value=$intopic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="算你狠。。我买，我付钱"></form><BR> ~;
+                <FORM action=buypost.cgi method=post onSubmit="salesubmitonce(this)"><input name=inforum type=hidden value=$in_forum><input name=intopic type=hidden value=$in_topic><input name=postnumber type=hidden value=$postno><input name=salemembername type=hidden value="$membername"><input name=moneynumber type=hidden value=$1><INPUT name=B1 type=submit value="算你狠。。我买，我付钱"></form><BR> ~;
         $$post .= join('<BR>', @allexege);
         $addme = "附件保密!<br><br>" if ($addme);
     }

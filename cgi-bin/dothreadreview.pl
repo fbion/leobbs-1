@@ -30,12 +30,12 @@ if ($noviewthis ne "yes") {
     my $threadsize = @sortedthreads;
     $listmy = 0 if ($listmy eq "");
     if ($listmy == 0) {
-        $listmy = qq~[<a href=$thisprog?action=$action&forum=$inforum&topic=$intopic&postno=$inpostno&listmy=1>列出所有回复</a>]~;
+        $listmy = qq~[<a href=$thisprog?action=$action&forum=$in_forum&topic=$in_topic&postno=$in_post_no&listmy=1>列出所有回复</a>]~;
         $listme = ",最多列出 $maxlistpost 个";
         $threadsize = $maxlistpost if ($threadsize > $maxlistpost);
     }
     else {
-        $listmy = qq~[<a href=$thisprog?action=$action&forum=$inforum&topic=$intopic&postno=$inpostno&listmy=0>列出前 $maxlistpost 个回复</a>]~;
+        $listmy = qq~[<a href=$thisprog?action=$action&forum=$in_forum&topic=$in_topic&postno=$in_post_no&listmy=0>列出前 $maxlistpost 个回复</a>]~;
         $listme = "";
     }
     $output .= qq~<p><script language="javascript">function addquote(no){var membername = eval("membername" + no);var postdate = eval("postdate" + no);var post = eval("post" + no);var text = "[quote][b]下面引用由[u]" + membername.innerText + "[/u]在 [i]" + postdate.innerText + "[/i] 发表的内容：[/b]\\n" + post.innerText.substring(0, 200) + "\\n[/quote]\\n";if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos){var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;}else{document.FORM.inpost.value += text;}document.FORM.inpost.focus();}</script>

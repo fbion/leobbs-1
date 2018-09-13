@@ -15,7 +15,7 @@ my $filetoopen = "${lbdir}data/allforums.cgi";
 open(FILE, $filetoopen);
 @forums = <FILE>;
 close(FILE);
-my @thisforums = grep (/^$inforum\t/, @forums);
+my @thisforums = grep (/^$in_forum\t/, @forums);
 $inmembmod = "no";
 
 ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $thisforums[0]);
@@ -81,12 +81,12 @@ $modoutput .= "</select>\n" if ($modnumber > 0 || $modnumber1 > 0 || $cmodnumber
 $forummodnamestemp = ",$forummoderator,$fmod,$catemods,";
 $inmembmod = "yes" if ($forummodnamestemp =~ /\Q\,$inmembername\,\E/i || (($membercode eq "cmo" || $membercode eq "mo" || $membercode eq "amo") && ($forummodnamestemp =~ /,全体版主,/ || $forummodnamestemp =~ /,全体斑竹,/)));
 
-my @childforum1 = grep (/^[0-9]+\tchildforum-$inforum\t/, @forums);
+my @childforum1 = grep (/^[0-9]+\tchildforum-$in_forum\t/, @forums);
 for ($i = 0; $i <= $#childforum1; $i++) {
     chomp $childforum1[$i];
     next if ($childforum1[$i] eq "");
     my ($forumid, $category, $categoryplace, $forumname, $forumdescription, $cforummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $tmp, $tmp, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $childforum1[$i]);
-    next if ($category ne "childforum-$inforum");
+    next if ($category ne "childforum-$in_forum");
 
     $forumdescription = &HTML("$forumdescription");
 
@@ -181,8 +181,8 @@ for ($i = 0; $i <= $#childforum1; $i++) {
     $childforum[$i] = qq~$forumname\t$forumdescription\t$privateforum\t$startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$hiddenforum\t$forumid\t$modout\t$team\t$miscad4\t$todayforumpost\t~;
 }
 
-if ((!(-e "${lbdir}cache/forums$inforum.pl")) && ($forumid ne "")) {
-    open(FILE, ">${lbdir}cache/forums$inforum.pl");
+if ((!(-e "${lbdir}cache/forums$in_forum.pl")) && ($forumid ne "")) {
+    open(FILE, ">${lbdir}cache/forums$in_forum.pl");
     print FILE qq~\$catemods = qq($catemods);\n~;
     print FILE qq~\$forummodnamestemp = qq($forummodnamestemp);\n~;
     print FILE qq~\$modoutput  = qq($modoutput);\n~;

@@ -109,7 +109,7 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
 
     sub main {
         $working_dir = $query->param('wd');
-        $filename = $query->param('fn');
+        $file_name = $query->param('fn');
         $name = $query->param('name');
         $newname = $query->param('newname');
         $directory = $query->param('dir');
@@ -119,8 +119,8 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         my ($error);
         ($working_dir, $error) = &is_valid_dir($working_dir);
         $error and &user_error("无效的目录: '$working_dir'. 原因: $error", "$lbdir/$working_dir");
-        ($filename, $error) = &is_valid_file($filename);
-        $error and &user_error("无效的文件名: '$filename'. 原因: $error", "$lbdir/$working_dir");
+        ($file_name, $error) = &is_valid_file($file_name);
+        $error and &user_error("无效的文件名: '$file_name'. 原因: $error", "$lbdir/$working_dir");
         ($name, $error) = &is_valid_file($name);
         $error and &user_error("无效的名称: '$name'. 原因: $error", "$lbdir/$working_dir");
         ($newname, $error) = &is_valid_file($newname);
@@ -238,12 +238,12 @@ $javascript
         my ($result);
         CASE: {
             ($action eq 'write') and do {
-                $result = &write($dir, $filename, $data, $url);
+                $result = &write($dir, $file_name, $data, $url);
                 &list_files($result, $working_dir, $url);
                 last CASE;
             };
             ($action eq 'delete') and do {
-                $result = &delete($dir, $filename);
+                $result = &delete($dir, $file_name);
                 &list_files($result, $working_dir, $url);
                 last CASE;
             };
@@ -263,12 +263,12 @@ $javascript
                 last CASE;
             };
             ($action eq 'edit') and do {
-                &edit($dir, $filename, $working_dir, $url);
+                &edit($dir, $file_name, $working_dir, $url);
                 last CASE;
             };
             ($action eq 'upload') and do {
                 my $file_space;
-                ($file_space, $result) = &upload($dir, $data, $filename);
+                ($file_space, $result) = &upload($dir, $data, $file_name);
                 &list_files($result, $working_dir, $url);
                 last CASE;
             };
@@ -437,38 +437,38 @@ $javascript
     }
 
     sub delete {
-        my ($directory, $filename) = @_;
+        my ($directory, $file_name) = @_;
         my ($fullfile);
 
-        (!$filename) and return "删除文件: 没有输入文件名!";
+        (!$file_name) and return "删除文件: 没有输入文件名!";
 
-        ($directory =~ m,/$,) ? ($fullfile = "$directory$filename") : ($fullfile = "$directory/$filename");
+        ($directory =~ m,/$,) ? ($fullfile = "$directory$file_name") : ($fullfile = "$directory/$file_name");
 
         if (&exists($fullfile)) {
             unlink($fullfile) ?
-                return "删除文件: '$filename' 已被删除." :
-                return "删除文件: '$filename' 不能被删除. 请检查文件属性.";
+                return "删除文件: '$file_name' 已被删除." :
+                return "删除文件: '$file_name' 不能被删除. 请检查文件属性.";
         }
         else {
-            return "删除文件: '$filename' 不能被删除. 找不到文件.";
+            return "删除文件: '$file_name' 不能被删除. 找不到文件.";
         }
     }
 
     sub edit {
-        my ($directory, $filename, $working_dir, $url) = @_;
+        my ($directory, $file_name, $working_dir, $url) = @_;
         my ($lines, $fullfile, $full_url);
 
-        (!$filename) and return "编辑文件: 没有输入文件名!";
+        (!$file_name) and return "编辑文件: 没有输入文件名!";
 
-        ($directory =~ m,/$,) ? ($fullfile = "$directory$filename") : ($fullfile = "$directory/$filename");
-        $full_url = "$url/$filename";
+        ($directory =~ m,/$,) ? ($fullfile = "$directory$file_name") : ($fullfile = "$directory/$file_name");
+        $full_url = "$url/$file_name";
 
         if (&exists($fullfile)) {
             open(DATA, "<$fullfile");
             $lines = join("", <DATA>);
             $lines =~ s/<\/TEXTAREA/<\/TEXT-AREA/ig;
             close DATA;
-            print qq!<p>编辑 <a href="$full_url"><B>$filename</B></A> 中需要修改的部份:</p>!;
+            print qq!<p>编辑 <a href="$full_url"><B>$file_name</B></A> 中需要修改的部份:</p>!;
         }
         else {
             $lines = qq~
@@ -487,14 +487,14 @@ $javascript
 
         print qq~
                 <p><blockquote>
-                        完成编辑后, 选择 "保存文档" 来保存 <B>$filename</B> 及返回主菜单
+                        完成编辑后, 选择 "保存文档" 来保存 <B>$file_name</B> 及返回主菜单
                         .
                 </blockquote></p>
                 <form method=post action="filemanage.cgi">
                 <textarea name="data" rows=40 cols=60 wrap=virtual>$lines</textarea>
                 <p>另存为文件名:
-                           <input type=text name="fn" value="$filename"><br>
-                                (输入另外一个文件名将会不改变 <B>$filename</B>
+                           <input type=text name="fn" value="$file_name"><br>
+                                (输入另外一个文件名将会不改变 <B>$file_name</B>
                                 的内容，而你输入的内容将会保存为你输入的另外的文件名. 注意，如果该另外的文件也存在的话, 它将会被覆盖.)<P>
                         <input type=hidden name="action" value="write">
                         <input type=hidden name="wd"     value="$working_dir">
@@ -505,12 +505,12 @@ $javascript
     }
 
     sub write {
-        my ($directory, $filename, $data, $url) = @_;
+        my ($directory, $file_name, $data, $url) = @_;
         my ($fullfile, $new);
 
-        (!$filename) and return "编辑文件: 没有输入文件名!";
+        (!$file_name) and return "编辑文件: 没有输入文件名!";
 
-        ($directory =~ m,/$,) ? ($fullfile = "$directory$filename") : ($fullfile = "$directory/$filename");
+        ($directory =~ m,/$,) ? ($fullfile = "$directory$file_name") : ($fullfile = "$directory/$file_name");
 
         $new = 1;
         (&exists($fullfile)) and ($new = 0);
@@ -523,24 +523,24 @@ $javascript
 
         if (&exists($fullfile)) {
             ($new eq 'yes') ?
-                return("编辑文件: '$filename' 已被建立.") :
-                return("编辑文件: '$filename' 已被编辑.");
+                return("编辑文件: '$file_name' 已被建立.") :
+                return("编辑文件: '$file_name' 已被编辑.");
         }
         else {
-            return("编辑文件: 不能保存 '$filename'. 请检查权限.");
+            return("编辑文件: 不能保存 '$file_name'. 请检查权限.");
         }
     }
 
     sub upload {
-        my ($directory, $data, $filename) = @_;
+        my ($directory, $data, $file_name) = @_;
         my ($bytesread, $buffer, $fullfile, $file_size);
 
-        if (!$filename) {
-            $filename = $data =~ m|([^/:\\]+)$|;
+        if (!$file_name) {
+            $file_name = $data =~ m|([^/:\\]+)$|;
         }
         ($directory =~ m,/$,) ?
-            ($fullfile = "$directory$filename") :
-            ($fullfile = "$directory/$filename");
+            ($fullfile = "$directory$file_name") :
+            ($fullfile = "$directory/$file_name");
         $file_size = 0;
 
         my $buffer;
@@ -554,8 +554,8 @@ $javascript
         close OUTFILE;
         close($data); #注意
         &exists($fullfile) ?
-            return(int($file_size / 1000), "上传文件: '$filename' 已上传.") :
-            return(int($file_size / 1000), "上传文件: 不能上传 '$filename'. 请检查权限.");
+            return(int($file_size / 1000), "上传文件: '$file_name' 已上传.") :
+            return(int($file_size / 1000), "上传文件: 不能上传 '$file_name'. 请检查权限.");
     }
 
     sub makedir {

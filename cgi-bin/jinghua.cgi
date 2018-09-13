@@ -50,8 +50,8 @@ for ('forum', 'topic', 'membername', 'password', 'action', 'checked', 'movetoid'
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$inforum = $forum;
-$intopic = $topic;
+$in_forum = $forum;
+$in_topic = $topic;
 $inmembername = $membername;
 $inpassword = $password;
 if ($inpassword ne "") {
@@ -60,10 +60,10 @@ if ($inpassword ne "") {
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-@intopic = split(/ /, $intopic);
-$intopic =~ s/ //g;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+@intopic = split(/ /, $in_topic);
+$in_topic =~ s/ //g;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -74,8 +74,8 @@ require "sendmanageinfo.pl" if ($sendmanageinfo eq "yes");
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-if (($inforum) && ($inforum !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
-if (($intopic) && ($intopic !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
+if (($in_forum) && ($in_forum !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
+if (($in_topic) && ($in_topic !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
 if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
 if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -95,8 +95,8 @@ else {
     }
     &error("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 }
-&getoneforum("$inforum");
-#&moderator("$inforum");
+&getoneforum("$in_forum");
+#&moderator("$in_forum");
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 if ($allowusers ne '') {
@@ -119,7 +119,7 @@ my %Mode = (
 if ($Mode{$action}) {
     $Mode{$action}->();
 }
-elsif (($inforum ne "") && ($action eq "list")) {&list;}
+elsif (($in_forum ne "") && ($action eq "list")) {&list;}
 else {&error("普通错误&请以正确的方式访问本程序");}
 &output($boardname, \$output);
 
@@ -134,9 +134,9 @@ sub add {
     if ($cleartoedit eq "no") {&error("标记精华贴子&您不是本论坛坛主或版主，或者您的密码错误！");}
 
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
-        unlink("${lbdir}cache/forumstop$inforum.pl");
-        unlink("${lbdir}cache/forumstopic$inforum.pl");
-        my $file = "$lbdir" . "boarddata/jinghua$inforum.cgi";
+        unlink("${lbdir}cache/forumstop$in_forum.pl");
+        unlink("${lbdir}cache/forumstopic$in_forum.pl");
+        my $file = "$lbdir" . "boarddata/jinghua$in_forum.cgi";
         if (open(ENT, $file)) {
             @toptopic = <ENT>;
             close(ENT);
@@ -148,21 +148,21 @@ sub add {
                 $jhdata1 = "\_";
                 foreach (@intopic) {
                     chomp $_;
-                    if ((-e "${lbdir}forum$inforum/$_.thd.cgi") && ($_ ne "")) {
+                    if ((-e "${lbdir}forum$in_forum/$_.thd.cgi") && ($_ ne "")) {
                         print ENT "$_\n";
                         $jhdata1 = "\_$_$jhdata1";
                         push(@intopictemp, $_);
                     }
                 }
-                undef $intopictemp1;
+                undef $in_topictemp1;
                 foreach $ttemp (@toptopic) {
                     chomp $ttemp;
-                    if ((-e "${lbdir}forum$inforum/$ttemp.thd.cgi") && ($ttemp ne "") && ($jhdata1 !~ /\_$ttemp\_/)) {
+                    if ((-e "${lbdir}forum$in_forum/$ttemp.thd.cgi") && ($ttemp ne "") && ($jhdata1 !~ /\_$ttemp\_/)) {
                         print ENT "$ttemp\n";
                         $jhdata1 = "$jhdata1\_$ttemp";
                     }
                     else {
-                        $intopictemp1 = "$intopictemp1\_$ttemp";
+                        $in_topictemp1 = "$in_topictemp1\_$ttemp";
                     }
                 }
                 close(ENT);
@@ -174,7 +174,7 @@ sub add {
                 undef @intopictemp;
                 foreach (@intopic) {
                     chomp $_;
-                    if ((-e "${lbdir}forum$inforum/$_.thd.cgi") && ($_ ne "") && ($jhdata !~ /\_$_\_/)) {
+                    if ((-e "${lbdir}forum$in_forum/$_.thd.cgi") && ($_ ne "") && ($jhdata !~ /\_$_\_/)) {
                         print ENT "$_\n";
                         $jhdata = "\_$_$jhdata";
                         push(@intopictemp, $_);
@@ -183,12 +183,12 @@ sub add {
                 close(ENT);
             }
         }
-        if ($intopictemp1 ne "") {
+        if ($in_topictemp1 ne "") {
             undef @intopictemp1;
-            $intopictemp1 = "$intopictemp1\_";
+            $in_topictemp1 = "$in_topictemp1\_";
             foreach (@intopictemp) {
                 chomp $_;
-                push(@intopictemp1, $_) if ($intopictemp1 !~ /\_$_\_/);
+                push(@intopictemp1, $_) if ($in_topictemp1 !~ /\_$_\_/);
             }
             @intopictemp = @intopictemp1;
         }
@@ -196,7 +196,7 @@ sub add {
         undef @intopictemp;
         $alloldposts = @intopic;
         if ($movetoid ne "") {
-            if ($movetoid == $inforum) {&error("拷贝主题&不允许在同个论坛上拷贝主题！");}
+            if ($movetoid == $in_forum) {&error("拷贝主题&不允许在同个论坛上拷贝主题！");}
             if (open(FILE, "${lbdir}forum$movetoid/foruminfo.cgi")) {
                 $readdisktimes++;
                 $forums = <FILE>;
@@ -209,12 +209,12 @@ sub add {
 
             my @inforumwrite;
             $alloldthreadposts = 0;
-            opendir(DIR, "${imagesdir}$usrdir/$inforum");
+            opendir(DIR, "${imagesdir}$usrdir/$in_forum");
             @files = readdir(DIR);
             closedir(DIR);
-            @files = grep (/^$inforum\_$intopic(\.|\_)/, @files);
+            @files = grep (/^$in_forum\_$in_topic(\.|\_)/, @files);
 
-            foreach $intopic (@intopic) {
+            foreach $in_topic (@intopic) {
                 $currenttime = time;
                 if ($newthreadnumber eq "") {
                     if (open(FILE, "${lbdir}boarddata/lastnum$movetoid.cgi")) {
@@ -237,57 +237,57 @@ sub add {
                     $newthreadnumber = $highestno + 1;
                 }
 
-                $intopic =~ s/\W//isg;
-                chomp $intopic;
-                open(ENT, "${lbdir}forum$inforum/$intopic.pl");
+                $in_topic =~ s/\W//isg;
+                chomp $in_topic;
+                open(ENT, "${lbdir}forum$in_forum/$in_topic.pl");
                 $in = <ENT>;
                 close(ENT);
                 chomp $in;
                 ($topicid, $topictitle, $topicdescription1, $threadstate, $threadposts, $threadviews, $startedby, $startedpostdate, $lastposter, $lastpostdate, $lastinposticon, $inposttemp, $addmetemp) = split(/\t/, $in);
 
-                $inforumwrite = "$newthreadnumber\t$topictitle\t\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$currenttime\t$lastinposticon\t$inposttemp\t$addmetemp\t";
+                $in_forumwrite = "$newthreadnumber\t$topictitle\t\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$currenttime\t$lastinposticon\t$inposttemp\t$addmetemp\t";
                 if (open(FILE, ">${lbdir}forum$movetoid/$newthreadnumber.pl")) {
-                    print FILE "$inforumwrite";
+                    print FILE "$in_forumwrite";
                     close(FILE);
                 }
                 push(@inforumwrite, "$newthreadnumber");
 
-                $filetoopen = "${lbdir}forum$inforum/$intopic.thd.cgi";
+                $filetoopen = "${lbdir}forum$in_forum/$in_topic.thd.cgi";
                 open(FILE, "$filetoopen");
                 my @oldforummessages = <FILE>;
                 close(FILE);
                 $oldthreadposts = @oldforummessages - 1;
                 $alloldthreadposts = $alloldthreadposts + $oldthreadposts;
 
-                copy("${lbdir}forum$inforum/$intopic.thd.cgi", "${lbdir}forum$movetoid/$newthreadnumber.thd.cgi") if (-e "${lbdir}forum$inforum/$intopic.thd.cgi");
-                copy("${lbdir}forum$inforum/$intopic.mal.pl", "${lbdir}forum$movetoid/$newthreadnumber.mal.pl") if (-e "${lbdir}forum$inforum/$intopic.mal.pl");
-                copy("${lbdir}forum$inforum/$intopic.poll.cgi", "${lbdir}forum$movetoid/$newthreadnumber.poll.cgi") if (-e "${lbdir}forum$inforum/$intopic.poll.cgi");
-                copy("${lbdir}forum$inforum/rate$intopic.file.pl", "${lbdir}forum$movetoid/rate$newthreadnumber.file.pl") if (-e "${lbdir}forum$inforum/rate$intopic.file.pl");
-                copy("${lbdir}forum$inforum/rateip$intopic.file.pl", "${lbdir}forum$movetoid/rateip$newthreadnumber.file.pl") if (-e "${lbdir}forum$inforum/rateip$intopic.file.pl");
+                copy("${lbdir}forum$in_forum/$in_topic.thd.cgi", "${lbdir}forum$movetoid/$newthreadnumber.thd.cgi") if (-e "${lbdir}forum$in_forum/$in_topic.thd.cgi");
+                copy("${lbdir}forum$in_forum/$in_topic.mal.pl", "${lbdir}forum$movetoid/$newthreadnumber.mal.pl") if (-e "${lbdir}forum$in_forum/$in_topic.mal.pl");
+                copy("${lbdir}forum$in_forum/$in_topic.poll.cgi", "${lbdir}forum$movetoid/$newthreadnumber.poll.cgi") if (-e "${lbdir}forum$in_forum/$in_topic.poll.cgi");
+                copy("${lbdir}forum$in_forum/rate$in_topic.file.pl", "${lbdir}forum$movetoid/rate$newthreadnumber.file.pl") if (-e "${lbdir}forum$in_forum/rate$in_topic.file.pl");
+                copy("${lbdir}forum$in_forum/rateip$in_topic.file.pl", "${lbdir}forum$movetoid/rateip$newthreadnumber.file.pl") if (-e "${lbdir}forum$in_forum/rateip$in_topic.file.pl");
 
 
                 ##########旧的附件copy，为了兼容，保留 路杨
-                @files1 = grep (/^$inforum\_$intopic\./, @files);
+                @files1 = grep (/^$in_forum\_$in_topic\./, @files);
                 $files1 = @files1;
                 if ($files1 > 0) {
                     foreach (@files1) {
                         (my $name, my $ext) = split(/\./, $_);
-                        copy("${imagesdir}$usrdir/$inforum/$name.$ext", "${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber\.$ext");
+                        copy("${imagesdir}$usrdir/$in_forum/$name.$ext", "${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber\.$ext");
                     }
                 }
 
-                @files1 = grep (/^$inforum\_$intopic\_/, @files);
+                @files1 = grep (/^$in_forum\_$in_topic\_/, @files);
                 $files1 = @files1;
                 if ($files1 > 0) {
                     foreach (@files1) {
                         (my $name, my $ext) = split(/\./, $_);
                         (my $name1, my $name2, my $name3) = split(/\_/, $name);
-                        copy("${imagesdir}$usrdir/$inforum/$name.$ext", "${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber\_$name3\.$ext");
+                        copy("${imagesdir}$usrdir/$in_forum/$name.$ext", "${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber\_$name3\.$ext");
                     }
                 }
                 ###########
                 require "dopost.pl";                                                     #路杨
-                &moveallupfiles($inforum, $intopic, $movetoid, $newthreadnumber, "yes"); #新的附件copy 路杨
+                &moveallupfiles($in_forum, $in_topic, $movetoid, $newthreadnumber, "yes"); #新的附件copy 路杨
             }
 
             $file = "$lbdir" . "boarddata/listno$movetoid.cgi";
@@ -362,22 +362,22 @@ sub add {
 
         $newforumname = "并复制到 $newforumname" if ($newforumname ne "");
         if ($alloldposts == 1) {
-            &addadminlog("标记精华贴子$newforumname", $intopic);
+            &addadminlog("标记精华贴子$newforumname", $in_topic);
         }
         else {
             &addadminlog("批量标记精华贴子 $alloldposts 篇$newforumname");
         }
-        &UpdateNo(\@intopic, $inforum, "+");
+        &UpdateNo(\@intopic, $in_forum, "+");
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td>
 <table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>标记精华贴子成功</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>具体情况：<ul>
-<li><a href="jinghua.cgi?action=list&forum=$inforum">返回精华区</a>
-<li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+<li><a href="jinghua.cgi?action=list&forum=$in_forum">返回精华区</a>
+<li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
 <li><a href="leobbs.cgi">返回论坛首页</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
-<meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
+<meta http-equiv="refresh" content="3; url=forums.cgi?forum=$in_forum">
 ~;
     }
     else {
@@ -402,23 +402,23 @@ sub add {
         foreach (@finalsortedforums) {
             ($categoryplace, my $a, $category, $forumname, $forumdescription, $movetoforumid, $forumgraphic, $startnewthreads, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
 
-            if ((($startnewthreads eq "no") || ($startnewthreads eq "cert")) && ($movetoforumid ne $inforum)) {
+            if ((($startnewthreads eq "no") || ($startnewthreads eq "cert")) && ($movetoforumid ne $in_forum)) {
                 $jumphtml .= "<option value=\"$movetoforumid\">$forumname\n</option>";
             }
         }
-        $intopic = @intopic;
-        &error("标记精华帖子&请先选择帖子再进行标记！") if ($intopic <= 0);
+        $in_topic = @intopic;
+        &error("标记精华帖子&请先选择帖子再进行标记！") if ($in_topic <= 0);
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic colspan=2 align=center>
 <form action="$thisprog" method="post">
 <input type=hidden name="action" value="add">
 <input type=hidden name="checked" value="yes">
-<input type=hidden name="forum" value="$inforum">
+<input type=hidden name="forum" value="$in_forum">
 <input type=hidden name="topic" value="@intopic">
-<font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [标记 $intopic 个精华帖子]</b></font></td></tr>
+<font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [标记 $in_topic 个精华帖子]</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>拷贝一份至精华区：</b></font></td>
 <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><select name="movetoid">$jumphtml</select></font></td></tr>
@@ -439,9 +439,9 @@ sub del {
     if ($cleartoedit eq "no") {&error("取消精华贴子&您不是本论坛坛主或版主，或者您的密码错误！");}
 
     if (($cleartoedit eq "yes") && ($checked eq "yes")) {
-        unlink("${lbdir}cache/forumstop$inforum.pl");
-        unlink("${lbdir}cache/forumstopic$inforum.pl");
-        my $file = "$lbdir" . "boarddata/jinghua$inforum.cgi";
+        unlink("${lbdir}cache/forumstop$in_forum.pl");
+        unlink("${lbdir}cache/forumstopic$in_forum.pl");
+        my $file = "$lbdir" . "boarddata/jinghua$in_forum.cgi";
         if (-e $file) {
             open(ENT, $file);
             @toptopic = <ENT>;
@@ -451,8 +451,8 @@ sub del {
                 $jhdel = 0;
                 foreach (@toptopic) {
                     chomp $_;
-                    if ($_ ne $intopic) {
-                        print ENT "$_\n" if ((-e "${lbdir}forum$inforum/$_.thd.cgi") && ($_ ne ""));
+                    if ($_ ne $in_topic) {
+                        print ENT "$_\n" if ((-e "${lbdir}forum$in_forum/$_.thd.cgi") && ($_ ne ""));
                     }
                     else {
                         $jhdel = 1;
@@ -461,18 +461,18 @@ sub del {
                 close(ENT);
             }
         }
-        &addadminlog("取消精华贴子标记", $intopic);
-        &UpdateNo($intopic, $inforum, "-") if ($jhdel eq 1);
+        &addadminlog("取消精华贴子标记", $in_topic);
+        &UpdateNo($in_topic, $in_forum, "-") if ($jhdel eq 1);
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td>
 <table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>取消精华贴子成功</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>具体情况：<ul>
-<li><a href="jinghua.cgi?action=list&forum=$inforum">返回精华区</a>
-<li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+<li><a href="jinghua.cgi?action=list&forum=$in_forum">返回精华区</a>
+<li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
 <li><a href="leobbs.cgi">返回论坛首页</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
-<meta http-equiv="refresh" content="3; url=forums.cgi?forum=$inforum">
+<meta http-equiv="refresh" content="3; url=forums.cgi?forum=$in_forum">
 ~;
     }
     else {
@@ -483,11 +483,11 @@ sub del {
 <form action="$thisprog" method="post">
 <input type=hidden name="action" value="del">
 <input type=hidden name="checked" value="yes">
-<input type=hidden name="forum" value="$inforum">
-<input type=hidden name="topic" value="$intopic">
+<input type=hidden name="forum" value="$in_forum">
+<input type=hidden name="topic" value="$in_topic">
 <font color=$fontcolormisc><b>请输入您的用户名、密码进入版主模式 [取消精华贴子]</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="登 录"></td></form></tr></table></td></tr></table>
 </table></td></tr></table>
@@ -500,11 +500,11 @@ sub list {
     &mischeader("本版精华贴子");
     if ("$privateforum" eq "yes") {
         if ($inmembername eq "客人") {
-            print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+            print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
             exit;
         }
-        $testentry = cookie("forumsallowed$inforum");
-        if ((($testentry eq $forumpass) && ($testentry ne "")) || (($userregistered ne "no") && ($allowedentry{$inforum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
+        $testentry = cookie("forumsallowed$in_forum");
+        if ((($testentry eq $forumpass) && ($testentry ne "")) || (($userregistered ne "no") && ($allowedentry{$in_forum} eq "yes")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {
             if ($inpassword ne $password) {&error("进入论坛&密码错误，你不允许进入该论坛！");}
         }
         else {require "accessform.pl";}
@@ -549,7 +549,7 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
 
     $icon_num = int(myrand(10));
     $topcount = 0;
-    $filetoopen = "$lbdir" . "boarddata/jinghua$inforum.cgi";
+    $filetoopen = "$lbdir" . "boarddata/jinghua$in_forum.cgi";
     if (-e $filetoopen) {
         &winlock($filetoopen) if ($OS_USED eq "Nt");
         open(FILE, "$filetoopen");
@@ -589,16 +589,16 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
             $intshow = $intshow + 1;
             $preshow = ($intshow - 1) * 12 * $maxthreads - $maxthreads;
             $nextshow = $intshow * 12 * $maxthreads;
-            $pages = qq~<a href="$thisprog?action=list&forum=$inforum&show=$preshow"><font color=$menufontcolor><b>←</b></font></a> ~ if ($intshow > 1);
+            $pages = qq~<a href="$thisprog?action=list&forum=$in_forum&show=$preshow"><font color=$menufontcolor><b>←</b></font></a> ~ if ($intshow > 1);
             if ($numberofpages > ($intshow * 12)) {
                 $numberofpages = ($intshow * 12);
-                $isnext = qq~<a href="$thisprog?action=list&forum=$inforum&show=$nextshow"><font color=$menufontcolor><b>→</b></font></a> ~;
+                $isnext = qq~<a href="$thisprog?action=list&forum=$in_forum&show=$nextshow"><font color=$menufontcolor><b>→</b></font></a> ~;
             }
             $pagestart = ($intshow - 1) * 12 * $maxthreads;
             $counter = ($intshow - 1) * 12;
             while ($numberofpages > $counter) {
                 $counter++;
-                if ($inshow ne $pagestart) {$pages .= qq~<a href="$thisprog?action=list&forum=$inforum&show=$pagestart"><font color=$menufontcolor><b>$counter</b></font></a> ~;}
+                if ($inshow ne $pagestart) {$pages .= qq~<a href="$thisprog?action=list&forum=$in_forum&show=$pagestart"><font color=$menufontcolor><b>$counter</b></font></a> ~;}
                 else {$pages .= qq~<font color=$fonthighlight><b>$counter</b></font> ~;}
                 $pagestart = $pagestart + $maxthreads;
             }
@@ -612,7 +612,7 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
         for ($i = $startarray; $i <= $endarray; $i++) {
             $id = $ontop[$i];
             chomp $id;
-            $rr = &readthreadpl($inforum, $id);
+            $rr = &readthreadpl($in_forum, $id);
             if ($rr ne "") {push(@toptopic, $rr);}
         }
     }
@@ -654,7 +654,7 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
                 $pagestart = 0;
                 while ($topcount > $counter) {
                     $counter++;
-                    $threadpages .= qq~<a href=topic.cgi?forum=$inforum&topic=$topicid&start=$pagestart><font color=$fonthighlight><b>$counter</b></font></a> ~;
+                    $threadpages .= qq~<a href=topic.cgi?forum=$in_forum&topic=$topicid&start=$pagestart><font color=$fonthighlight><b>$counter</b></font></a> ~;
                     $pagestart = $pagestart + $maxtopics;
                 }
             }
@@ -691,7 +691,7 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
         $posttemp = "(无内容)" if ($posttemp eq "");
         if (length($topictitle) > $topictitlemax) {$topictitletemp = substr($topictitle, 0, $topictitlemax - 4) . " ...";}
         else {$topictitletemp = $topictitle;}
-        $topictitle = qq~<ACRONYM TITLE="最后回复摘要：\n\n$posttemp"><a href=topic.cgi?forum=$inforum&topic=$topicid target=_blank>$topictitletemp</a></ACRONYM>~;
+        $topictitle = qq~<ACRONYM TITLE="最后回复摘要：\n\n$posttemp"><a href=topic.cgi?forum=$in_forum&topic=$topicid target=_blank>$topictitletemp</a></ACRONYM>~;
         $startedbyfilename = $startedby;
         $startedbyfilename =~ s/ /\_/isg;
         $startedbyfilename =~ tr/A-Z/a-z/;
@@ -734,7 +734,7 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
         undef $pagestoshowtemp1;
 
         if (($membercode eq "ad") || ($membercode eq "smo") || ($inmembmod eq "yes")) {
-            $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=del&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>除</font></a>|<a href=jinghua.cgi?action=add&forum=$inforum&topic=$topicid><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=lock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$inforum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
+            $admini = qq~<DIV ALIGN=Right><font color=$titlecolor>|<a href=jinghua.cgi?action=del&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>除</font></a>|<a href=jinghua.cgi?action=add&forum=$in_forum&topic=$topicid><font color=$titlecolor>提</font></a>|<a href=postings.cgi?action=lock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>锁</font></a>|<a href=postings.cgi?action=unlock&forum=$in_forum&topic=$topicid&checked=yes><font color=$titlecolor>解</font></a>|</font>&nbsp;</DIV>~;
         }
         else {
             $admini = "";
@@ -755,8 +755,8 @@ TD {BORDER-RIGHT: 0px; BORDER-TOP: 0px; color: $fontcolormisc; }
 
         $topictitle = $topictitle . "<BR>" if ($totlelength > $topictitlemax + 5);
         $output .= qq~
-		<table cellspacing=0 width=$tablewidth bordercolor=$tablebordercolor border=1><tr><td align=center width=30 bgcolor=$forumcolorone><a href=topic.cgi?forum=$inforum&topic=$topicid target=_blank>$topicicon</a></td>
-<td width=* class=dp bgColor=$forumcolortwo onmouseover="this.bgColor='$forumcolorone';" onmouseout="this.bgColor='$forumcolortwo';">&nbsp;<a href=view.cgi?forum=$inforum&topic=$topicid target=_blank>$posticon</a>&nbsp;<span id=forum>$topictitle$pagestoshow$topicdescription$admini</span></td>
+		<table cellspacing=0 width=$tablewidth bordercolor=$tablebordercolor border=1><tr><td align=center width=30 bgcolor=$forumcolorone><a href=topic.cgi?forum=$in_forum&topic=$topicid target=_blank>$topicicon</a></td>
+<td width=* class=dp bgColor=$forumcolortwo onmouseover="this.bgColor='$forumcolorone';" onmouseout="this.bgColor='$forumcolortwo';">&nbsp;<a href=view.cgi?forum=$in_forum&topic=$topicid target=_blank>$posticon</a>&nbsp;<span id=forum>$topictitle$pagestoshow$topicdescription$admini</span></td>
 <td align=center width=78 bgcolor=$forumcolorone>$startedby</td>$outputtemp<td width=193 bgcolor=$forumcolorone>&nbsp;$lastpostdate<font color=$fonthighlight> | </font>$lastposter</td></tr></table>
 	    ~;
         $pagestoshow = undef;

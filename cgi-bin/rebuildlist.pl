@@ -48,9 +48,9 @@ sub rebuildLIST {
 }
 
 sub readthreadpl {
-    my ($inforum, $id) = @_;
+    my ($in_forum, $id) = @_;
     my $topicinfo = "";
-    if (open(PLFILE, "${lbdir}forum$inforum/$id.pl")) {
+    if (open(PLFILE, "${lbdir}forum$in_forum/$id.pl")) {
         $topicinfo = <PLFILE>;
         close(PLFILE);
     }
@@ -59,7 +59,7 @@ sub readthreadpl {
     $topicinfo =~ s/[\a\f\n\e\0\r]//isg;
     (my $topicid, my $topictitle, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $lastpostdate, my $posticon, my $inposttemp, my $addmetype) = split(/\t/, $topicinfo);
     if (($topictitle eq "") || ($startedby eq "") || ($startedpostdate eq "") || ($threadposts eq "") || ($threadposts > 1000000)) {
-        open(THDFILE, "${lbdir}forum$inforum/$id.thd.cgi");
+        open(THDFILE, "${lbdir}forum$in_forum/$id.thd.cgi");
         my @topicall = <THDFILE>;
         close(THDFILE);
         my $topicall = @topicall;

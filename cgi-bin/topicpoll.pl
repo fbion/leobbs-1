@@ -49,7 +49,7 @@ tempobj.disabled=true
 }}}
 </script>
 <form action=poll.cgi method=post onSubmit="submitonce(this)">
-<input type=hidden name=action value=poll><input type=hidden name=forum value=$inforum><input type=hidden name=threadname value=$intopic>
+<input type=hidden name=action value=poll><input type=hidden name=forum value=$in_forum><input type=hidden name=threadname value=$in_topic>
 <table cellpadding=1 cellspacing=0 width=$maxpolllength bgcolor=$tablebordercolor><tr><td nowrap><table width=100% cellpadding=4 cellspacing=0 bgcolor="$postbackcolor">
 <tr><td nowrap>$pollinput<tr><td align=center nowrap><HR size=1 width=85%>$maxcanpoll<input type=submit name=results value='参加投票'>
 </td></form></tr></table></td></tr></table>
@@ -70,7 +70,7 @@ tempobj.disabled=true
 
     $poll = qq~ <table width=$maxpolllength>~;
 
-    if (open(FILE, "${lbdir}forum$inforum/$intopic.poll.cgi")) {
+    if (open(FILE, "${lbdir}forum$in_forum/$in_topic.poll.cgi")) {
         sysread(FILE, my $allpoll, (stat(FILE))[7]);
         close(FILE);
         $allpoll =~ s/\r//isg;
@@ -152,7 +152,7 @@ tempobj.disabled=true
         elsif ($pollnull eq "true") {$poll = "<BR><font color=$fonthighlight>目前暂时没有人投票！</font>";}
         $poll = "$pollform$poll";
     }
-    if (($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || (($usereditpost ne "no") && (lc($inmembername) eq lc($membername{$membername})))) {$editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$inforum&topic=$intopic title=编辑这个投票><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~}
+    if (($mymembercode eq "ad") || ($mymembercode eq 'smo') || ($myinmembmod eq "yes") || (($usereditpost ne "no") && (lc($inmembername) eq lc($membername{$membername})))) {$editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$in_forum&topic=$in_topic title=编辑这个投票><img src=$imagesurl/images/edit.gif border=0 width=16 align=absmiddle>编辑</a>　~}
     else {$editgraphic = "";}
     $delgraphic = "";
     $posticon = "";

@@ -50,10 +50,10 @@ else {
     $cookiepath =~ s/\/$//;
 }
 
-$inforum = $query->param("forum");
-$intopic = $query->param("topic");
-&error("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
-&error("打开文件&老大，别乱黑我的程序呀！") if ($intopic !~ /^[0-9]+$/);
+$in_forum = $query->param("forum");
+$in_topic = $query->param("topic");
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_topic !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 &error("普通错误&对不起，本论坛不允许新闻方式快速阅读！") if ($canuseview eq "no");
@@ -85,16 +85,16 @@ $banfresh1 = $query->cookie("banfresh");
 $banfresh1 = 0 if ($banfresh1 eq "");
 ($backtopic, $banfresh) = split(/=/, $banfresh1);
 $currenttime = time;
-$banfreshcookie = cookie(-name => "banfresh", -value => "$intopic=$currenttime", -path => "$cookiepath/");
+$banfreshcookie = cookie(-name => "banfresh", -value => "$in_topic=$currenttime", -path => "$cookiepath/");
 
-if ($currenttime - $banfresh - 1 <= $banfreshtime && $backtopic eq $intopic) {
+if ($currenttime - $banfresh - 1 <= $banfreshtime && $backtopic eq $in_topic) {
     print header(-cookie => [ $banfreshcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
     print "服务器忙，请 $banfreshtime 秒后按刷新键继续。<br><br>";
     print "出错原因：你刷新页面过快，或者你打开了过多窗口来浏览本网站。";
     exit;
 }
 
-&getoneforum($inforum);
+&getoneforum($in_forum);
 
 if ($inmembername eq "" or $inmembername eq "客人") {
     $inmembername = "客人";
@@ -114,12 +114,12 @@ else {
     $mymembercode = $membercode;
     $myinmembmod = $inmembmod;
     $myrating = $rating;
-    $tempaccess = "forumsallowed" . $inforum;
+    $tempaccess = "forumsallowed" . $in_forum;
     $testentry = $query->cookie($tempaccess);
-    $allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
+    $allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
     &getlastvisit;
-    $forumlastvisit = $lastvisitinfo{$inforum};
-    &setlastvisit("$inforum,$currenttime");
+    $forumlastvisit = $lastvisitinfo{$in_forum};
+    &setlastvisit("$in_forum,$currenttime");
 }
 &doonoff; #论坛开放与否
 
@@ -148,16 +148,16 @@ print header(-cookie => [ $tempvisitcookie, $permvisitcookie, $banfreshcookie ],
 
 &error("打开主题&这个主题不存在！可能已经被删除！") unless (-e "${lbdir}forum${inforum}/${intopic}.thd.cgi");
 
-opendir(DIR2, "${imagesdir}$usrdir/$inforum");
+opendir(DIR2, "${imagesdir}$usrdir/$in_forum");
 my @dirdata2 = readdir(DIR2);
 closedir(DIR2);
-my @files11 = grep (/^$inforum\_$intopic\_/, @dirdata2);
+my @files11 = grep (/^$in_forum\_$in_topic\_/, @dirdata2);
 
 open(FILE, "${lbdir}forum${inforum}/${intopic}.thd.cgi");
 @threads = <FILE>;
 close(FILE);
 
-my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+my $filetoopen = "${lbdir}forum$in_forum/$in_topic.pl";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -226,7 +226,7 @@ if ((($post =~ /(\&\#35\;|#)Moderation Mode/i) && ($membercode eq 'mo' || $membe
 else {$post =~ s/style/\&\#115\;tyle/isg;}
 
 $addmefile = 0;
-my @files2 = grep (/^$inforum\_$intopic\./, @dirdata2);
+my @files2 = grep (/^$in_forum\_$in_topic\./, @dirdata2);
 if (@files2 > 0) {
     my $files2s = $files2[0];
     ($up_name, $up_ext) = split(/\./, $files2s);
@@ -241,23 +241,23 @@ if ($addmefile == 1) {
     $filetype = $up_ext if (-e "${imagesdir}icon/${up_ext}.gif");
     if ($up_ext eq "gif" || $up_ext eq "jpg" || $up_ext eq "png" || $up_ext eq "bmp") {
         if ($nodispphoto eq "yes" || $arrawpostpic eq "off") {
-            $addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br><br>~;
+            $addme = qq~<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br><br>~;
         }
         else {
-            $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext border=0 alt="按此在新窗口浏览图片" onload="javascript: if(this.width > document.body.clientWidth - 333) this.width = document.body.clientWidth - 333" onmousewheel="return bbimg(this)"></a><br><br>~;
+            $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext border=0 alt="按此在新窗口浏览图片" onload="javascript: if(this.width > document.body.clientWidth - 333) this.width = document.body.clientWidth - 333" onmousewheel="return bbimg(this)"></a><br><br>~;
         }
         $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,1,'$up_ext')><img id=followImg1 src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> 按此查看图片详细信息<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow1 style=DISPLAY:none><tr><td id=followTd1><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,1,'$up_ext')>正在读取此图片的详细信息，请稍候 ...</DIV></td></tr></table></span><BR><BR>);
     }
     elsif ($up_ext eq "swf") {
         if ($arrawpostflash eq "on") {
-            $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext quality=high width=410 height=280 pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>~;
+            $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext quality=high width=410 height=280 pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>~;
         }
         else {
-            $addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>~;
+            $addme = qq~<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>~;
         }
     }
     else {
-        $addme = qq~<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=1&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>~;
+        $addme = qq~<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=1&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>~;
     }
 }
 else {
@@ -327,7 +327,7 @@ if ($posticon ne "") {
             }
 
             $pollform = qq~<form action=poll.cgi method=POST>
-<input type=hidden name=action value="poll"><input type=hidden name=forum value="$inforum"><input type=hidden name=threadname value="$intopic">
+<input type=hidden name=action value="poll"><input type=hidden name=forum value="$in_forum"><input type=hidden name=threadname value="$in_topic">
 <table cellPadding=1 cellSpacing=0 width=$maxpolllength bgColor=$tablebordercolor><tr><td nowrap><table width=100% cellPadding=4 cellSpacing=0  bgColor=#f2f2f2>
 <tr><td nowrap>$pollinput</td></tr>
 <tr><td align=center nowrap><hr size=1 width=85%>$maxcanpoll<input type=submit name=results value="参加投票"></td></form></tr>
@@ -439,7 +439,7 @@ if ($posticon ne "") {
                     $poll = "$pollform$poll";
                 }
             }
-            $editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$inforum&topic=$intopic title="编辑这个投票"><img src=$imagesurl/images/edit.gif border=0 width=16 height=15 align=absmiddle>编辑</a>~;
+            $editgraphic = qq~<a href=editpoll.cgi?action=edit&forum=$in_forum&topic=$in_topic title="编辑这个投票"><img src=$imagesurl/images/edit.gif border=0 width=16 height=15 align=absmiddle>编辑</a>~;
             $delgraphic = "";
             $posticon = "";
         }
@@ -568,10 +568,10 @@ print qq~
 <tr><td height=6></td></tr>
 <tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=profile.cgi?action=show&member=$memberfilename>作 者 资 料</a></td></tr>
 <tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=$homepage>作 者 主 页</a></td></tr>
-<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=fav.cgi?action=add&forum=$inforum&topic=$intopic>我 要 收 藏</a></td></tr>
-<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=pag.cgi?forum=$inforum&topic=$intopic>打 包 下 载</a></td></tr>
-<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=post.cgi?action=new&forum=$inforum>发 表 主 题</a></td></tr>
-<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=lbfriend.cgi?forum=$inforum&topic=$intopic>转 发 该 文</a></td></tr>
+<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=fav.cgi?action=add&forum=$in_forum&topic=$in_topic>我 要 收 藏</a></td></tr>
+<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=pag.cgi?forum=$in_forum&topic=$in_topic>打 包 下 载</a></td></tr>
+<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=post.cgi?action=new&forum=$in_forum>发 表 主 题</a></td></tr>
+<tr><td OnMouseOver="this.style.background='#caeaff'; this.style.color='#000000'" OnMouseOut="this.style.background=''; this.style.color=''" align=center height=18><a class=lefta href=lbfriend.cgi?forum=$in_forum&topic=$in_topic>转 发 该 文</a></td></tr>
 <tr><td height=6></td></tr>
 </table>
 </td>
@@ -582,25 +582,25 @@ print qq~
 <table cellSpacing=0 cellPadding=0 width=100% border=0 style="table-layout: fixed"><tr>
 <td width=22></td>
 <td valign=top>
-<table cellSpacing=0 cellPadding=0 width=100% border=0><tr><td width=100% bgColor=#49ade9 height=17><font color=#ffffff>&nbsp;&gt;&gt; <a href=leobbs.cgi><font color=#ffffff>$boardname</font></a>／<a href=forums.cgi?forum=$inforum><font color=#ffffff>$forumname</font></a>／<a href=topic.cgi?forum=$inforum&topic=$intopic><font color=#ffffff>$topictitle</font></a></font></td></tr></table>
+<table cellSpacing=0 cellPadding=0 width=100% border=0><tr><td width=100% bgColor=#49ade9 height=17><font color=#ffffff>&nbsp;&gt;&gt; <a href=leobbs.cgi><font color=#ffffff>$boardname</font></a>／<a href=forums.cgi?forum=$in_forum><font color=#ffffff>$forumname</font></a>／<a href=topic.cgi?forum=$in_forum&topic=$in_topic><font color=#ffffff>$topictitle</font></a></font></td></tr></table>
 <span style="font-size: 14px" $postipaddresstemp>
 <br><center><b>$topictitle</b></center><br>
 <span style="font-size: 9pt">(这条文章已经被阅读了 <font color=red>$threadviews</font> 次) 时间：$postdate　来源：$membername</span>
 <br><br>$addme<br>$post<br>
 </span><br><br>
 <table cellSpacing=0 cellPadding=0 width=100% border=0>
-<tr><td width=100% bgColor=#ffa200 height=18 align=center>［<a href=pag.cgi?forum=$inforum&topic=$intopic target=_blank>打包下载</a>］　　　［<a href=post.cgi?action=copy1&forum=$inforum&topic=$intopic&postno=1>引用该文</a>］　　　［<a href=post.cgi?action=reply&forum=$inforum&topic=$intopic>发表评论</a>］　　　［<a href=lbfriend.cgi?forum=$inforum&topic=$intopic>转寄该文</a>］　　　［<a href="javascript:window.close();">关闭窗口</a>］</td></tr>
+<tr><td width=100% bgColor=#ffa200 height=18 align=center>［<a href=pag.cgi?forum=$in_forum&topic=$in_topic target=_blank>打包下载</a>］　　　［<a href=post.cgi?action=copy1&forum=$in_forum&topic=$in_topic&postno=1>引用该文</a>］　　　［<a href=post.cgi?action=reply&forum=$in_forum&topic=$in_topic>发表评论</a>］　　　［<a href=lbfriend.cgi?forum=$in_forum&topic=$in_topic>转寄该文</a>］　　　［<a href="javascript:window.close();">关闭窗口</a>］</td></tr>
 <tr><td width=100% height=18>此文章相关评论: </td></tr>~;
 
 $hasadd = @threads - 1;
 if ($hasadd == 0) {
     print qq~
-<tr><td width=100% height=18>该文章还没有相关评论！(<a href=topic.cgi?forum=$inforum&topic=$intopic><font Color=#ffa200>点这儿论坛方式查看</font></a>) </td></tr>
+<tr><td width=100% height=18>该文章还没有相关评论！(<a href=topic.cgi?forum=$in_forum&topic=$in_topic><font Color=#ffa200>点这儿论坛方式查看</font></a>) </td></tr>
 </table>~;
 }
 else {
     print qq~
-<tr><td width=100% height=18>该文章有<font color=red>$hasadd</font>个相关评论如下：(<a href=topic.cgi?forum=$inforum&topic=$intopic><font Color=#ffa200>点这儿论坛方式查看</font></a>)<br><hr size=1 width=100%></td></tr>
+<tr><td width=100% height=18>该文章有<font color=red>$hasadd</font>个相关评论如下：(<a href=topic.cgi?forum=$in_forum&topic=$in_topic><font Color=#ffa200>点这儿论坛方式查看</font></a>)<br><hr size=1 width=100%></td></tr>
 </table>
 ~;
 }
@@ -613,7 +613,7 @@ for ($i = 1; $i < @threads; $i++) {
 
     $addmefile = 0;
     $rrn = $i;
-    my @files1 = grep (/^$inforum\_$intopic\_$rrn\./, @files11);
+    my @files1 = grep (/^$in_forum\_$in_topic\_$rrn\./, @files11);
     my $file1 = @files1;
     if ($file1 > 0) {
         my $files1s = $files1[0];
@@ -629,23 +629,23 @@ for ($i = 1; $i < @threads; $i++) {
         my $rnrn = $rn + 1;
         if ($up_ext eq "gif" || $up_ext eq "jpg" || $up_ext eq "png" || $up_ext eq "bmp") {
             if ($nodispphoto eq "yes" || $arrawpostpic eq "off") {
-                $addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br><br>~;
+                $addme = qq~<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br><br>~;
             }
             else {
-                $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext border=0 alt="按此在新窗口浏览图片" onload="javascript: if(this.width > document.body.clientWidth - 333) this.width = document.body.clientWidth - 333" onmousewheel="return bbimg(this)"></a><br><br>~;
+                $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext border=0 alt="按此在新窗口浏览图片" onload="javascript: if(this.width > document.body.clientWidth - 333) this.width = document.body.clientWidth - 333" onmousewheel="return bbimg(this)"></a><br><br>~;
             }
             $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,$rnrn,'$up_ext')><img id=followImg$rnrn src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> 按此查看图片详细信息<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$rnrn style=DISPLAY:none><tr><td id=followTd$rnrn><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,$rnrn,'$up_ext')>正在读取此图片的详细信息，请稍候 ...</DIV></td></tr></table></span><BR><BR>);
         }
         elsif ($up_ext eq "swf") {
             if ($arrawpostflash eq "on") {
-                $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext quality=high width=410 height=280 pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>~;
+                $addme = qq~<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><param name=play value=true><param name=loop value=true><param name=quality value=high><embed src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext quality=high width=410 height=280 pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>~;
             }
             else {
-                $addme = qq~<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>~;
+                $addme = qq~<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>~;
             }
         }
         else {
-            $addme = qq~<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$inforum&topic=$intopic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>~;
+            $addme = qq~<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$rnrn&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>~;
         }
     }
     else {

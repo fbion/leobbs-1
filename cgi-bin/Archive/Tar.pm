@@ -58,14 +58,14 @@ sub format_tar_file;
 sub drat {$error=$!;return undef}
 
 sub read_tar {
-    my ($filename, $compressed) = @_;
+    my ($file_name, $compressed) = @_;
     my @tarfile = ();
     my $i = 0;
     my $head;
 
     if ($compressed) {
 	if ($compression) {
-	    $compressed = Compress::Zlib::gzopen($filename,"rb") or drat; # Open compressed
+	    $compressed = Compress::Zlib::gzopen($file_name,"rb") or drat; # Open compressed
 	    $compressed->gzread($head,$tar_header_length);
 	}
 	else {
@@ -74,7 +74,7 @@ sub read_tar {
 	}
     }
     else {
-	open(TAR, $filename) or drat;
+	open(TAR, $file_name) or drat;
 	binmode TAR;
 	read(TAR,$head,$tar_header_length);
     }
@@ -189,7 +189,7 @@ sub format_tar_file {
 }
 
 sub write_tar {
-    my ($filename) = shift;
+    my ($file_name) = shift;
     my ($compressed) = shift;
     my @tarfile = @_;
     my ($tmp);
@@ -201,15 +201,15 @@ sub write_tar {
 	    $error = "Compression not available.\n";
 	    return undef;
 	}
-	$compressed = Compress::Zlib::gzopen($filename,"wb") or drat;
+	$compressed = Compress::Zlib::gzopen($file_name,"wb") or drat;
 	$compressed->gzwrite($tmp);
 	$compressed->gzclose;
     }
     else {
-	open(TAR, ">".$filename) or drat;
+	open(TAR, ">".$file_name) or drat;
 	binmode TAR;
 	syswrite(TAR,$tmp,length $tmp);
-	close(TAR) or carp "Failed to close $filename, data may be lost: $!\n";
+	close(TAR) or carp "Failed to close $file_name, data may be lost: $!\n";
     }
 }
 
@@ -265,22 +265,22 @@ sub format_tar_entry {
 # readable file.
 sub new {
     my $class = shift;
-    my ($filename,$compressed) = @_;
+    my ($file_name,$compressed) = @_;
     my $self = {};
 
     bless $self, $class;
 
     $self->{'_filename'} = undef;
-    if (!defined $filename) {
+    if (!defined $file_name) {
 	return $self;
     }
-    if (-r $filename) {
-	$self->{'_data'} = [read_tar $filename,$compressed];
-	$self->{'_filename'} = $filename;
+    if (-r $file_name) {
+	$self->{'_data'} = [read_tar $file_name,$compressed];
+	$self->{'_filename'} = $file_name;
 	return $self;
     }
-    if (-e $filename) {
-	carp "File exists but is not readable: $filename\n";
+    if (-e $file_name) {
+	carp "File exists but is not readable: $file_name\n";
     }
     return $self;
 }
@@ -601,11 +601,11 @@ Takes a list of filenames and adds them to the in-memory archive.
 I suspect that this function will produce bogus tar archives when
 used under MacOS, but I'm not sure and I have no Mac to test it on.
 
-=item C<add_data($filename,$data,$opthashref)>
+=item C<add_data($file_name,$data,$opthashref)>
 
 Takes a filename, a scalar full of data and optionally a reference to
 a hash with specific options. Will add a file to the in-memory
-archive, with name C<$filename> and content C<$data>. Specific options
+archive, with name C<$file_name> and content C<$data>. Specific options
 can be set using C<$opthashref>, which will be documented later.
 
 =item C<remove(@filenamelist)>

@@ -37,7 +37,7 @@ my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
 $filetoopens = &lockfilename($filetoopens);
 if (!(-e "$filetoopens.lck")) {
     if ($privateforum ne "yes") {
-        &whosonline("$inmembername\t$forumname\tnone\t回复<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t") if ($topictitle ne "");
+        &whosonline("$inmembername\t$forumname\tnone\t回复<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t") if ($topictitle ne "");
     }
     else {
         &whosonline("$inmembername\t$forumname(密)\tnone\t回复保密帖子\t");
@@ -65,16 +65,16 @@ else {
     elsif ($startnewthreads eq "cert") {
         unless ($membercode eq "ad" || $membercode eq 'smo' || $inmembmod eq "yes" || $membercode eq 'cmo' || $membercode eq 'amo' || $membercode eq 'mo' || $membercode =~ /^rz/) {&error("发表新回复&在此论坛中只能由坛主、版主和认证会员发表新回复！");}
     }
-    $tempaccess = "forumsallowed" . "$inforum";
+    $tempaccess = "forumsallowed" . "$in_forum";
     $testentry = $query->cookie("$tempaccess");
 
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您不允许在此论坛发表！");}
     if (($startnewthreads eq "all") && ($userregistered eq "no")) {$inmembername = "$inmembername(客)";}
 
     $inpost =~ s/\[这个(.+?)最后由(.+?)编辑\]//isg;
 
-    $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+    $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
     if (-e $filetoopen) {
         &winlock($filetoopen) if ($OS_USED eq "Nt");
         open(FILE, "$filetoopen");
@@ -86,7 +86,7 @@ else {
         @allmessages = split(/\n/, $allmessages);
     }
     else {
-        unlink("$lbdir" . "forum$inforum/$intopic.pl");
+        unlink("$lbdir" . "forum$in_forum/$in_topic.pl");
         &error("回复&这个主题不存在！可能已经被删除！");
     }
 
@@ -168,7 +168,7 @@ else {
         $inpost = qq~\[quote\]\[b\]下面引用由\[u\]$membernametemp2\[\/u\]在 \[i\]$postdate2\[\/i\] 发表的内容：\[\/b\]<br>$rawpost<br>\[\/quote\]<br>$inpost~;
     }
 
-    my $file = "$lbdir" . "forum$inforum/$intopic.pl";
+    my $file = "$lbdir" . "forum$in_forum/$in_topic.pl";
     &winlock($file) if ($OS_USED eq "Nt");
     open(ENT, $file);
     flock(ENT, 2) if ($OS_USED eq "Unix");
@@ -210,7 +210,7 @@ else {
 
     $inpost =~ s/\[UploadFile.{0,6}=(.+?)\]//isg unless (($allowattachment ne "no") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"));
 
-    $addme = &upfileonpost(\$inpost, $inforum, $intopic); #处理上传，返回数值给BT区做判断
+    $addme = &upfileonpost(\$inpost, $in_forum, $in_topic); #处理上传，返回数值给BT区做判断
     #	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "0")&&($mastpostatt eq "yes")&&($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
 
     if ($moneyhidden eq "yes") {
@@ -252,24 +252,24 @@ else {
     &winlock($file) if ($OS_USED eq "Nt");
     if (open(FILE, ">$file")) {
         flock(FILE, 2) if ($OS_USED eq "Unix");
-        print FILE "$intopic\t＊＃！＆＊$topictitletemp\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$posticon\t$inposttemp\t$addmetype\t";
+        print FILE "$in_topic\t＊＃！＆＊$topictitletemp\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$inmembername\t$currenttime\t$posticon\t$inposttemp\t$addmetype\t";
         close(FILE);
     }
     &winunlock($file) if ($OS_USED eq "Nt");
 
-    $file = "$lbdir" . "boarddata/listno$inforum.cgi";
+    $file = "$lbdir" . "boarddata/listno$in_forum.cgi";
     &winlock($file) if ($OS_USED eq "Nt");
     open(LIST, "$file");
     flock(LIST, 2) if ($OS_USED eq "Unix");
     sysread(LIST, $listall, (stat(LIST))[7]);
     close(LIST);
     $listall =~ s/\r//isg;
-    $listall =~ s/(.*)(^|\n)$intopic\n(.*)/$1$2$3/;
+    $listall =~ s/(.*)(^|\n)$in_topic\n(.*)/$1$2$3/;
 
     if (length($listall) > 500) {
         if (open(LIST, ">$file")) {
             flock(LIST, 2) if ($OS_USED eq "Unix");
-            print LIST "$intopic\n$listall";
+            print LIST "$in_topic\n$listall";
             close(LIST);
         }
         &winunlock($file) if ($OS_USED eq "Nt");
@@ -277,7 +277,7 @@ else {
     else {
         &winunlock($file) if ($OS_USED eq "Nt");
         require "rebuildlist.pl";
-        my $truenumber = rebuildLIST(-Forum => "$inforum");
+        my $truenumber = rebuildLIST(-Forum => "$in_forum");
         ($tpost, $treply) = split(/\|/, $truenumber);
     }
 
@@ -290,8 +290,8 @@ else {
         $cleanstart = $startedby;
         $cleanstart =~ s/ /\_/isg;
         $cleanstart =~ tr/A-Z/a-z/;
-        &addmytopic("reply", $cleanmembername, $inforum, $intopic, $topictitletemp, $currenttime, $posticon);
-        &addmytopic("post", $cleanstart, $inforum, $intopic, $topictitletemp, $currenttime, $posticon) if ($cleanmembername ne $cleanstart);
+        &addmytopic("reply", $cleanmembername, $in_forum, $in_topic, $topictitletemp, $currenttime, $posticon);
+        &addmytopic("post", $cleanstart, $in_forum, $in_topic, $topictitletemp, $currenttime, $posticon) if ($cleanmembername ne $cleanstart);
     }
 
     if ($jifen eq "") {
@@ -305,7 +305,7 @@ else {
         if ($forumreplyjf ne "") {$jifen += $forumreplyjf;}
         else {$jifen += $rtojf;}
     }
-    $lastpostdate = "$currenttime\%\%\%topic.cgi?forum=$inforum&topic=$intopic\%\%\%$topictitletemp" if ($privateforum ne "yes");
+    $lastpostdate = "$currenttime\%\%\%topic.cgi?forum=$in_forum&topic=$in_topic\%\%\%$topictitletemp" if ($privateforum ne "yes");
     chomp $lastpostdate;
 
     if (($userregistered ne "no") && ($password ne "")) {
@@ -367,7 +367,7 @@ else {
         &winunlock("$lbdir/data/todaypost.cgi") if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
     }
 
-    $filetoopen = "${lbdir}boarddata/foruminfo$inforum.cgi";
+    $filetoopen = "${lbdir}boarddata/foruminfo$in_forum.cgi";
     my $filetoopens = &lockfilename($filetoopen);
     if (!(-e "$filetoopens.lck")) {
         &winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
@@ -386,7 +386,7 @@ else {
             else {$todayforumpost++;}
             $todayforumpost = "$todayforumpost|$nowtime";
         }
-        $lastposttime = "$lastposttime\%\%\%$intopic\%\%\%$topictitletemp";
+        $lastposttime = "$lastposttime\%\%\%$in_topic\%\%\%$topictitletemp";
 
         seek(FILE, 0, 0);
         print FILE "$lastposttime\t$threads\t$posts\t$todayforumpost\t$lastposter\t\n";
@@ -394,7 +394,7 @@ else {
 
         $posts = 0 if ($posts eq "");
         $threads = 0 if ($threads eq "");
-        open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+        open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
         print FILE "\$threads = $threads;\n\$posts = $posts;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
         close(FILE);
 
@@ -428,7 +428,7 @@ else {
 
     if ($emailfunctions eq "on") {
         eval("use MAILPROG qw(sendmail);");
-        $filetoopen = "$lbdir" . "forum$inforum/$intopic.mal.pl";
+        $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.mal.pl";
         open(FILE, "$filetoopen");
         my @maildata = <FILE>;
         close(FILE);
@@ -480,7 +480,7 @@ else {
         $message .= "论坛： $forumname <br>\n";
         $message .= "主题： $topictitle <br>\n";
         $message .= "点击下面的链接去查看详细内容：\n <br><br>\n";
-        $message .= "$boardurl/topic.cgi?forum=$inforum&topic=$intopic\n <br><br>\n";
+        $message .= "$boardurl/topic.cgi?forum=$in_forum&topic=$in_topic\n <br><br>\n";
         $message .= "---------------------------------------------------------------------<br>\n";
 
         &sendmail($from, $emailaddress, $to, $subject, $message);
@@ -498,7 +498,7 @@ else {
             $counter = 0;
             while ($numberofpages > $counter) {
                 $counter++;
-                $threadpages .= qq~ <a href="topic.cgi?forum=$inforum&topic=$intopic&start=$pagestart">$counter</a> ~;
+                $threadpages .= qq~ <a href="topic.cgi?forum=$in_forum&topic=$in_topic&start=$pagestart">$counter</a> ~;
                 $pagestart = $pagestart + $maxtopics;
             }
         }
@@ -511,17 +511,17 @@ else {
     @dirdata = readdir(CATDIR);
     closedir(CATDIR);
 
-    unlink("${lbdir}cache/plcache$inforum\_0.pl");
+    unlink("${lbdir}cache/plcache$in_forum\_0.pl");
 
-    if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$inforum&topic=$intopic&start=$postend#bottom";}
-    else {$relocurl = "forums.cgi?forum=$inforum";}
+    if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$in_forum&topic=$in_topic&start=$postend#bottom";}
+    else {$relocurl = "forums.cgi?forum=$in_forum";}
     $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢！您的回复已经成功发表！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>如果浏览器没有自动返回，请点击下面的链接！：
-<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic">返回主题</a>  $pagestoshow
-<li><a href="forums.cgi?forum=$inforum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a>
-<li><a href="postings.cgi?action=lock&forum=$inforum&topic=$intopic&checked=yes">锁定帖子</a>
+<ul><li><a href="topic.cgi?forum=$in_forum&topic=$in_topic">返回主题</a>  $pagestoshow
+<li><a href="forums.cgi?forum=$in_forum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a>
+<li><a href="postings.cgi?action=lock&forum=$in_forum&topic=$in_topic&checked=yes">锁定帖子</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$relocurl">

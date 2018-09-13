@@ -36,8 +36,8 @@ $|++;
 $thisprog = "lbfriend.cgi";
 $query = new LBCGI;
 &ipbanned; #封杀一些 ip
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
 $action = $query->param('action');
 $inrealname = $query->param('realname');
 $intoname = $query->param('toname');
@@ -50,8 +50,8 @@ $inrealname = &cleaninput($inrealname);
 $insubject = &cleaninput($insubject);
 $inemailmessage = &cleaninput($inemailmessage);
 $emailtopictitle = &cleaninput($emailtopictitle);
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 $inmembername = $query->cookie("amembernamecookie");
 $inpassword = $query->cookie("apasswordcookie");
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
@@ -61,7 +61,7 @@ if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
     if ($regaccess eq "on" && &checksearchbot) {
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$inforum'</script>";
+        print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;
     }
 }
@@ -98,8 +98,8 @@ $output .= qq~
       <td>
       <table cellpadding=6 cellspacing=1 width=100%>
 ~;
-&getoneforum("$inforum");
-if (($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+&getoneforum("$in_forum");
+if (($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
 else {$allowed = "no";}
 if (($startnewthreads eq "cert") && (($membercode ne "ad" && $membercode ne "smo" && $membercode ne "cmo" && $membercode ne "amo" && $membercode ne "mo" && $membercode !~ /^rz/) || ($inmembername eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
 
@@ -150,7 +150,7 @@ if ($action eq "send") {
     $message .= "---------------------------------------------------------------------\n<br><br>\n";
     $message .= "$inemailmessage\n <br><br>\n";
     $message .= "主题： $emailtopictitle\n <br><br>\n<br>\n";
-    $message .= "网址： $boardurl/topic.cgi?forum=$inforum&topic=$intopic <br>\n";
+    $message .= "网址： $boardurl/topic.cgi?forum=$in_forum&topic=$in_topic <br>\n";
     $message .= "---------------------------------------------------------------------\n<br><br>\n";
     $message .= "提示：您没有必要回复这封邮件，这只是论坛的内容通知。\n<br><br>\n";
     $message .= "---------------------------------------------------------------------<br>\n";
@@ -163,8 +163,8 @@ if ($action eq "send") {
          <td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>
          具体情况：：
          <ul>
-         <li><a href="topic.cgi?forum=$inforum&topic=$intopic">返回主题</a>
-         <li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+         <li><a href="topic.cgi?forum=$in_forum&topic=$in_topic">返回主题</a>
+         <li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
          <li><a href="leobbs.cgi">返回论坛首页</a>
          </ul>
          </tr>
@@ -175,7 +175,7 @@ if ($action eq "send") {
 }
 else {
 
-    $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+    $filetoopen = "${lbdir}forum$in_forum/$in_topic.pl";
     open(FILE, "$filetoopen");
     $allthreads = <FILE>;
     close(FILE);
@@ -193,13 +193,13 @@ else {
     $output .= qq~
     <form action="$thisprog" method=post>
     <input type=hidden name="action" value="send">
-    <input type=hidden name="forum" value="$inforum">
-    <input type=hidden name="topic" value="$intopic">
+    <input type=hidden name="forum" value="$in_forum">
+    <input type=hidden name="topic" value="$in_topic">
     <tr>
     <td bgcolor=$titlecolor $catbackpic valign=middle colspan=2 align=center><font face="$font" color=$fontcolormisc><b>发个邮件给朋友</b></font></td></tr>
     <tr>
     <td bgcolor=$miscbackone valign=middle colspan=2><font face="$font" color=$fontcolormisc>
-    <b>通过邮件发送主题 <a href="topic.cgi?forum=$inforum&topic=$intopic">$topictitle</a> 给您的朋友。</b>　下列所有项必填，并请输入正确的邮件地址！<br>你可以添加一些自己的信息在下面的内容框内。至于这个贴子的主题和 URL 你可以不必写，因为本程序会在发送的 Email 中自动添加的！
+    <b>通过邮件发送主题 <a href="topic.cgi?forum=$in_forum&topic=$in_topic">$topictitle</a> 给您的朋友。</b>　下列所有项必填，并请输入正确的邮件地址！<br>你可以添加一些自己的信息在下面的内容框内。至于这个贴子的主题和 URL 你可以不必写，因为本程序会在发送的 Email 中自动添加的！
     </td>
     <tr>
     <td bgcolor=$miscbackone><font face="$font" color=$fontcolormisc><b>您的姓名：</b></td>

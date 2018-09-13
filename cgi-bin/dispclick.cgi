@@ -53,9 +53,9 @@ else {
     #    $cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic !~ /^[0-9]+$/) || ($inforum !~ /^[0-9]+$/));
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic !~ /^[0-9]+$/) || ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -94,10 +94,10 @@ else {
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
 
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
 
-if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
+if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
 else {$allowed = "no";}
 
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
@@ -115,7 +115,7 @@ if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catba
 
 print header(-expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+my $filetoopen = "${lbdir}forum$in_forum/$in_topic.pl";
 open(FILE, "$filetoopen");
 my $topicinfo = <FILE>;
 close(FILE);
@@ -128,7 +128,7 @@ $topictitletemp =~ s/ \(无内容\)$//;
 $topictitletemp =~ s/\&\#039\;//isg;
 $topictitletemp = &cleaninput($topictitletemp);
 
-if (open(FILE, "${lbdir}forum$inforum/$intopic.clk.pl")) {
+if (open(FILE, "${lbdir}forum$in_forum/$in_topic.clk.pl")) {
     sysread(FILE, my $threads, (stat(FILE))[7]);
     close(FILE);
     $threads =~ s/\r//isg;
@@ -154,15 +154,15 @@ if ($numberofpages > 1) {
 
     my $currentpage = int($instart / $maxtopics) + 1;
     my $endstart = ($numberofpages - 1) * $maxtopics;
-    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=0 title="首 页" ><font face=webdings>9</font></a>~;
-    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$endstart title="尾 页" ><font face=webdings>:</font></a>~;
+    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=0 title="首 页" ><font face=webdings>9</font></a>~;
+    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$endstart title="尾 页" ><font face=webdings>:</font></a>~;
 
     my $uppage = $currentpage - 1;
     my $nextpage = $currentpage + 1;
     my $upstart = $instart - $maxtopics;
     my $nextstart = $instart + $maxtopics;
-    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstart title="第$uppage页"><font face=webdings>7</font></a>~;
-    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstart title="第$nextpage页"><font face=webdings>8</font></a>~;
+    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$upstart title="第$uppage页"><font face=webdings>7</font></a>~;
+    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$nextstart title="第$nextpage页"><font face=webdings>8</font></a>~;
 
     my $tempstep = $currentpage / 7;
     my $currentstep = int($tempstep);
@@ -171,14 +171,14 @@ if ($numberofpages > 1) {
     my $nextsteppage = $currentstep * 7 + 1;
     my $upstepstart = ($upsteppage - 1) * $maxtopics;
     my $nextstepstart = ($nextsteppage - 1) * $maxtopics;
-    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$upstepstart class=hb title="第$upsteppage页">←</a> ~;
-    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$nextstepstart class=hb title="第$nextsteppage页">→</a> ~;
+    my $showupstep = $upsteppage < 1 ? "" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$upstepstart class=hb title="第$upsteppage页">←</a> ~;
+    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$nextstepstart class=hb title="第$nextsteppage页">→</a> ~;
 
     $pages = "";
     my $currentstart = $upstepstart + $maxtopics;
     for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++) {
         last if ($i > $numberofpages);
-        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?forum=$inforum&topic=$intopic&start=$currentstart class=hb>$i</a> ~;
+        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<a href=$thisprog?forum=$in_forum&topic=$in_topic&start=$currentstart class=hb>$i</a> ~;
         $currentstart += $maxtopics;
     }
     $pages = "<font color=$menufontcolor><b>共 <font color=$fonthighlight>$numberofpages</font> 页</b> $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font><br>";
@@ -192,10 +192,10 @@ else {
 &title;
 
 $output .= qq~<br>~;
-if (-e "${lbdir}cache/forumstopic$inforum.pl") {
-    eval {require "${lbdir}cache/forumstopic$inforum.pl";};
+if (-e "${lbdir}cache/forumstopic$in_forum.pl") {
+    eval {require "${lbdir}cache/forumstopic$in_forum.pl";};
     if ($@) {
-        unlink("${lbdir}cache/forumstopic$inforum.pl");
+        unlink("${lbdir}cache/forumstopic$in_forum.pl");
         require "dotopic.pl";
     }
 }

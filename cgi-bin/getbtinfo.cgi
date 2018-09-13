@@ -41,20 +41,20 @@ $query = new LBCGI;
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
 $forum = $query->param("forum");
-$inforum = $forum;
-&error("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
-$intopic = $query->param("topic");
-&error("打开文件&老大，别乱黑我的程序呀！") if ($intopic !~ /^[0-9]+$/ && $intopic ne "");
+$in_forum = $forum;
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
+$in_topic = $query->param("topic");
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_topic !~ /^[0-9]+$/ && $in_topic ne "");
 
-$filename = $query->param('filename');
-$filename =~ s/[\a\f\n\e\0\r\t\*\\\/\,\|\<\>\?\.]//isg;
-if ($intopic ne "") {
-    $tmptopic = $intopic % 100;
-    $filename = "$tmptopic/$filename";
+$file_name = $query->param('filename');
+$file_name =~ s/[\a\f\n\e\0\r\t\*\\\/\,\|\<\>\?\.]//isg;
+if ($in_topic ne "") {
+    $tmptopic = $in_topic % 100;
+    $file_name = "$tmptopic/$file_name";
 }
-&error("打开文件&该 BitTorrent 文件不存在！！") unless (-e "${imagesdir}$usrdir/$inforum/$filename.torrent");
+&error("打开文件&该 BitTorrent 文件不存在！！") unless (-e "${imagesdir}$usrdir/$in_forum/$file_name.torrent");
 
-my $btinfofile = "${imagesdir}$usrdir/$inforum/$filename.torrent.btfile";
+my $btinfofile = "${imagesdir}$usrdir/$in_forum/$file_name.torrent.btfile";
 my $filetoopens = &lockfilename($btinfofile);
 unlink("$filetoopens.lck") if ((-M "$filetoopens.lck") * 86400 > 33);
 unless ((!(-e "$filetoopens.lck")) && -e $btinfofile && (-M $btinfofile) * 86400 < 180) {
@@ -70,7 +70,7 @@ unless ((!(-e "$filetoopens.lck")) && -e $btinfofile && (-M $btinfofile) * 86400
     (my $announce, undef) = split(/\|/, $seedinfo);
     if ($hash eq "") {
         $/ = "";
-        open(FILE, "${imagesdir}$usrdir/$inforum/$filename.torrent");
+        open(FILE, "${imagesdir}$usrdir/$in_forum/$file_name.torrent");
         binmode(FILE);
         my $upfilecontent = <FILE>;
         close(FILE);
@@ -140,7 +140,7 @@ textarea,select	{border-width: 1; border-color: #000000; background-color: #efef
 <body topmargin=0 marginwidth=0 marginheight=0>
 <br><center>
 <table cellSpacing=1 cellPadding=4 bgColor=$tablebordercolor width=150>
-<tr bgColor=$titlecolor><td align=middle nowrap><font color=$titlefontcolor>$filename.torrent</td></tr>
+<tr bgColor=$titlecolor><td align=middle nowrap><font color=$titlefontcolor>$file_name.torrent</td></tr>
 <tr bgColor=$postcolorone><td nowrap>&nbsp;<font color=$postfontcolorone>种子数：$seeds　&nbsp;连接数：$leeches　&nbsp;完成数：$downloaded<br>&nbsp;$announce<br><BR>如果种子数等都是未知，则说明对方服务器连接不上或者拒绝数据查询。</td></tr>
 </table>
 <br><br>

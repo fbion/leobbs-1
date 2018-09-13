@@ -38,19 +38,19 @@ if ($inpost eq "") {
     $inpost = "内容校验出错&必须输入内容！";
     $error = 1;
 }
-$inforum = $query->param('forum');
-if ($inforum !~ /^[0-9]+$/) {
+$in_forum = $query->param('forum');
+if ($in_forum !~ /^[0-9]+$/) {
     $inpost = "打开文件&老大，别乱黑我的程序呀！";
     $error = 1;
 }
-$intopic = $query->param('topic');
-if ($intopic !~ /^[0-9]+$/ && $intopic ne "") {
+$in_topic = $query->param('topic');
+if ($in_topic !~ /^[0-9]+$/ && $in_topic ne "") {
     $inpost = "打开文件&老大，别乱黑我的程序呀！";
     $error = 1;
 }
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 $inselectstyle = $query->cookie("selectstyle");
 $inselectstyle = $skinselected if ($inselectstyle eq "");
 if (($inselectstyle =~ m/\//) || ($inselectstyle =~ m/\\/) || ($inselectstyle =~ m/\.\./)) {

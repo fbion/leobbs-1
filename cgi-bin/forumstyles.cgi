@@ -72,7 +72,7 @@ foreach $param (@params) {
 }
 
 $action = $PARAM{'action'};
-$inforum = $PARAM{'forum'};
+$in_forum = $PARAM{'forum'};
 $incategory = $PARAM{'category'};
 
 &getadmincheck;
@@ -108,15 +108,15 @@ if (($membercode eq "ad") && ($inpassword eq $password) && ($password ne "") && 
         <td bgcolor=#FFFFFF align=center colspan=2>
         <font color=#333333>完全删除此分论坛的所有自定义风格，不可恢复<p>
         <p>
-        >> <a href="$thisprog?action=delstyleok&forum=$inforum">开始删除</a> <<
+        >> <a href="$thisprog?action=delstyleok&forum=$in_forum">开始删除</a> <<
         </td></tr>
         </table></td></tr></table>
         ~;
         }
         elsif ($action eq "delstyleok") {
-            $filetomake = "$lbdir" . "data/style$inforum.cgi";
+            $filetomake = "$lbdir" . "data/style$in_forum.cgi";
             unlink $filetomake;
-            $filetomake = "${imagesdir}css/style$inforum.cgi";
+            $filetomake = "${imagesdir}css/style$in_forum.cgi";
             unlink $filetomake;
             print qq~
                     <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
@@ -170,7 +170,7 @@ sub styleform {
     }
     $myskin =~ s/value=\"$skinselected\"/value=\"$skinselected\" selected/;
 
-    &getoneforum("$inforum");
+    &getoneforum("$in_forum");
 
     $footmark =~ s/\[br\]/\n/isg;
     $headmark =~ s/\[br\]/\n/isg;
@@ -197,7 +197,7 @@ sub styleform {
 
         <form name=MAINFORM action="$thisprog" method="post">
         <input type=hidden name="action" value="dostyle">
-        <input type=hidden name="forum" value="$inforum">
+        <input type=hidden name="forum" value="$in_forum">
         <input type=hidden name="skin" value="$skin" size=10 maxlength=10>
 
                 <tr>
@@ -2501,15 +2501,15 @@ sub dostyle {
     opendir(CATDIR, "${lbdir}cache");
     @dirdata = readdir(CATDIR);
     closedir(CATDIR);
-    @dirdata1 = grep (/^forumstoptopic$inforum/, @dirdata);
+    @dirdata1 = grep (/^forumstoptopic$in_forum/, @dirdata);
     foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
-    @dirdata1 = grep (/^forumshead$inforum/, @dirdata);
+    @dirdata1 = grep (/^forumshead$in_forum/, @dirdata);
     foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
-    @dirdata1 = grep (/^forumstitle$inforum/, @dirdata);
+    @dirdata1 = grep (/^forumstitle$in_forum/, @dirdata);
     foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
-    @dirdata1 = grep (/^forumstopic$inforum/, @dirdata);
+    @dirdata1 = grep (/^forumstopic$in_forum/, @dirdata);
     foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
-    @dirdata1 = grep (/^plcache$inforum/, @dirdata);
+    @dirdata1 = grep (/^plcache$in_forum/, @dirdata);
     foreach (@dirdata1) {unlink("${lbdir}cache/$_");}
 
     if (-e $filerequire && -w $filerequire) {

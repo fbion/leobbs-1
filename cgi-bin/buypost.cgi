@@ -50,8 +50,8 @@ for ('postnumber', 'moneynumber', 'inforum', 'intopic', 'salemembername') {
 }
 $salemembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?\[\]]//isg;
 &error("打开文件&老大，别乱黑我的程序呀1！") if ($postnumber !~ /^[0-9]+$/);
-&error("打开文件&老大，别乱黑我的程序呀！") if ($intopic !~ /^[0-9]+$/);
-&error("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_topic !~ /^[0-9]+$/);
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
 &error("打开文件&老大，别乱黑我的程序呀！") if (($moneynumber < 0) || ($moneynumber > 99999));
 &error("打开文件&老大，别乱黑我的程序呀！") if ($salemembername eq "");
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
@@ -94,7 +94,7 @@ if (lc($salemembername) eq lc($inmembername)) {
     exit;
 }
 
-open(FILE, "${lbdir}forum$inforum/$intopic.thd.cgi");
+open(FILE, "${lbdir}forum$in_forum/$in_topic.thd.cgi");
 my @threads = <FILE>;
 close(FILE);
 
@@ -103,7 +103,7 @@ $post1 =~ s/LBSALE\[(.*?)\]LBSALE//sg;
 $buym = int($1);
 &error("购买帖子失败&帖子数据有问题，不能进行买卖！") if ((lc($membername1) ne lc($salemembername)) || ($buym eq "") || ($buym ne $moneynumber));
 
-open(FILE, "${lbdir}$saledir/$inforum\_$intopic\_$postnumber.cgi");
+open(FILE, "${lbdir}$saledir/$in_forum\_$in_topic\_$postnumber.cgi");
 $allbuyer = <FILE>;
 close(FILE);
 chomp $allbuyer;
@@ -111,7 +111,7 @@ $allbuyer = "\t$allbuyer\t";
 $allbuyer =~ s/\t\t/\t/;
 &error("购买帖子失败&你已经购买了这个帖子了，你刷新帖子就可以看到的！！") if ($allbuyer =~ /\t$inmembername\t/i);
 
-open(FILE, ">>${lbdir}$saledir/$inforum\_$intopic\_$postnumber.cgi");
+open(FILE, ">>${lbdir}$saledir/$in_forum\_$in_topic\_$postnumber.cgi");
 print FILE "$inmembername\t";
 close(FILE);
 
@@ -138,10 +138,10 @@ $output .= qq~<SCRIPT>valignend()</SCRIPT><table cellpadding=0 cellspacing=0 bor
 <tr><td><table cellpadding=6 cellspacing=1 border=0 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>你付出 $moneynumber $moneyname，还剩余 $mvmoney $moneyname！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>如果浏览器没有自动返回，请点击下面的链接！
-<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic">返回该主题</a>
+<ul><li><a href="topic.cgi?forum=$in_forum&topic=$in_topic">返回该主题</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
-<meta http-equiv="refresh" content="3; url=topic.cgi?forum=$inforum&topic=$intopic">
+<meta http-equiv="refresh" content="3; url=topic.cgi?forum=$in_forum&topic=$in_topic">
 ~;
 &output("$boardname - 在$forumname内购买帖子", \$output);
 exit;

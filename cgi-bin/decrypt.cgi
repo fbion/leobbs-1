@@ -35,11 +35,11 @@ require "bbs.lib.pl";
 $query = new LBCGI;
 &error("连接出错&对不起，不允许使用 GET 连结！") unless ($ENV{'REQUEST_METHOD'} =~ /^POST$/i);
 &error("连接出错&对不起，不允许非本论坛主机连结！") if ($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/ && $ENV{'HTTP_HOST'} ne '' && $ENV{'HTTP_REFERER'} ne '');
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
-$inpostno = $query->param('postno');
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
+$in_post_no = $query->param('postno');
 $decrypt = $query->param('clno');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic !~ /^[0-9]+$/) || ($inforum !~ /^[0-9]+$/) || ($inpostno !~ /^[0-9]+$/) || ($decrypt !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic !~ /^[0-9]+$/) || ($in_forum !~ /^[0-9]+$/) || ($in_post_no !~ /^[0-9]+$/) || ($decrypt !~ /^[0-9]+$/));
 $inmembername = $query->cookie("amembernamecookie");
 $inpassword = $query->cookie("apasswordcookie");
 &error("普通错误&老大，别乱黑我的程式呀！！") if (($inmembername =~ m/\//) || ($inmembername =~ m/\\/) || ($inmembername =~ m/\.\./));
@@ -54,7 +54,7 @@ else {
     &error("普通错误&密码与用户名不相符，请重新登录！") if ($inpassword ne $password);
     &error("普通错误&用户没有登录或注册！") if ($userregistered eq "no");
 }
-my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+my $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 if (open(FILE, "$filetoopen")) {
     @threads = <FILE>;
     close(FILE);
@@ -63,7 +63,7 @@ if (open(FILE, "$filetoopen")) {
 else {
     &error("连接出错&找不到该编号的连结，请确定你来自一个有效的连接！");
 }
-$get_the_post = $threads[$inpostno];
+$get_the_post = $threads[$in_post_no];
 @split_the_post = split(/\t/, $get_the_post);
 $post_text = $split_the_post[6];
 if ($post_text =~ /\[curl=\s*(http|https|ftp):\/\/(.*?)\s*\]/i) {

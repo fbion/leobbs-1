@@ -46,8 +46,8 @@ else {
     #	$cookiepath =~ tr/A-Z/a-z/;
 }
 
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
 $inreply = $query->param('reply');
 $intype = $query->param('ftype');
 $inname = $query->param('fname');
@@ -60,21 +60,21 @@ $out = "";
 $out = "老大，别乱黑我的程序呀！1" if ($inreply ne "" && $inname ne "");
 $out = "老大，别乱黑我的程序呀！2" if ($inreply ne "" && $inname ne "");
 $out = "老大，别乱黑我的程序呀！3" if ($inreply !~ /^[0-9]+$/ && $inreply ne "");
-$out = "老大，别乱黑我的程序呀！4" if (($inforum !~ /^[0-9]+$/) || ($intopic !~ /^[0-9]+$/));
+$out = "老大，别乱黑我的程序呀！4" if (($in_forum !~ /^[0-9]+$/) || ($in_topic !~ /^[0-9]+$/));
 $out = "老大，别乱黑我的程序呀！！" unless (($intype eq "gif") || ($intype eq "jpg") || ($intype eq "jpe") || ($intype eq "jpeg") || ($intype eq "tif") || ($intype eq "png") || ($intype eq "bmp"));
 
 if ($out eq "") {
 
     if ($inreply ne "") {
         $inreply--;
-        if ($inreply eq 0) {$img = "${imagesdir}$usrdir/$inforum/$inforum\_$intopic\.$intype";}
-        else {$img = "${imagesdir}$usrdir/$inforum/$inforum\_$intopic\_$inreply\.$intype";}
+        if ($inreply eq 0) {$img = "${imagesdir}$usrdir/$in_forum/$in_forum\_$in_topic\.$intype";}
+        else {$img = "${imagesdir}$usrdir/$in_forum/$in_forum\_$in_topic\_$inreply\.$intype";}
         $inreply++;
         $dispinfo = $inreply;
     }
     else {
-        $tmptopic = $intopic % 100;
-        $img = "${imagesdir}$usrdir/$inforum/$tmptopic/$inname\.$intype";
+        $tmptopic = $in_topic % 100;
+        $img = "${imagesdir}$usrdir/$in_forum/$tmptopic/$inname\.$intype";
         $dispinfo = $inname;
     }
     my $tags = ExifTool::ImageInfo("$img");

@@ -49,10 +49,10 @@ for ('forum', 'topic', 'membername', 'password', 'inpost', 'id') {
     ${$_} = $tp;
 }
 $num = $id;
-$inforum = $forum;
-$intopic = $topic;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！！") if ($inforum !~ /^[0-9]+$/);
+$in_forum = $forum;
+$in_topic = $topic;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！！") if ($in_forum !~ /^[0-9]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -84,7 +84,7 @@ $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 &ipbanned; #封杀一些 ip
 if (($num) && ($num !~ /^[0-9]+$/)) {&error("普通&老大，别乱黑我的程序呀！！！");}
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
+if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
 if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
     $userregistered = "no";
@@ -109,7 +109,7 @@ $maxpoststr = "" if ($maxpoststr eq 0);
 $maxpoststr = 100 if (($maxpoststr < 100) && ($maxpoststr ne ""));
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 print header(-charset => UTF -8, -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-&moderator("$inforum");
+&moderator("$in_forum");
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 if ($allowusers ne '') {
     &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
@@ -123,7 +123,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
         &error("进入论坛&你不允许进入该论坛，你的积分为 $jifen，而本论坛只有积分大于等于 $enterminjf 的才能进入！") if ($enterminjf > 0 && $jifen < $enterminjf);
     }
 }
-my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+my $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -170,16 +170,16 @@ close(FILE);
 &mischeader("续写贴子");
 $gopage = int(($num - 1) / $maxtopics) * $maxtopics;
 if ($refreshurl == 1) {
-    $relocurl = "topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$num";
+    $relocurl = "topic.cgi?forum=$in_forum&topic=$in_topic&start=$gopage#$num";
 }
 else {
-    $relocurl = "forums.cgi?forum=$inforum";
+    $relocurl = "forums.cgi?forum=$in_forum";
 }
 $output .= qq~<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>续写成功</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-具体情况：<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$num">返回主题</a><li><a href="forums.cgi?forum=$inforum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a></ul>
+具体情况：<ul><li><a href="topic.cgi?forum=$in_forum&topic=$in_topic&start=$gopage#$num">返回主题</a><li><a href="forums.cgi?forum=$in_forum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a></ul>
 </tr></td></table></td></tr></table>
 <meta http-equiv="refresh" content="3; url=$relocurl">
 	~;

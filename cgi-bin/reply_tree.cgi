@@ -46,10 +46,10 @@ else {
 }
 
 #取得论坛及主题编号
-$inforum = int($query->param('forum'));
-$intopic = int($query->param('topic'));
+$in_forum = int($query->param('forum'));
+$in_topic = int($query->param('topic'));
 $instart = int($query->param('start'));
-&ERROROUT("老大，别乱黑我的程序呀！") if (($inforum !~ /^[0-9]+$/) || ($intopic !~ /^[0-9]+$/) || ($instart !~ /^[0-9]+$/));
+&ERROROUT("老大，别乱黑我的程序呀！") if (($in_forum !~ /^[0-9]+$/) || ($in_topic !~ /^[0-9]+$/) || ($instart !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -65,7 +65,7 @@ $screenmode = 8 if ($screenmode eq "");
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
 
 #取出主題 ID
-$id_of_this_topid = sprintf("%04d%05d", $inforum, $intopic);
+$id_of_this_topid = sprintf("%04d%05d", $in_forum, $in_topic);
 #用户资料
 $inmembername = $query->cookie("amembernamecookie");
 $inpassword = $query->cookie("apasswordcookie");
@@ -79,9 +79,9 @@ unless ((!$inmembername) or ($inmembername eq "客人")) {
 }
 &ERROROUT("会员专用功能，请先登录！") if ($userregistered eq "no");
 #取得分论坛资料
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
-$testentry = cookie("forumsallowed$inforum");
+$testentry = cookie("forumsallowed$in_forum");
 if (((($testentry ne $forumpass) || ($testentry eq "")) && ($privateforum eq "yes")) || (($startnewthreads eq "cert") && ($membercode eq "me") && ($userincert eq "no"))) {
     &ERROROUT("你不允许进入该论坛！") if (($membercode ne "ad") && ($membercode ne 'smo') && ($inmembmod ne "yes"));
 }
@@ -105,7 +105,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
 my ($OUTPUT_TABLE, $REPLY_COUNT);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
 #读取内容
-$file_of_this_topic = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+$file_of_this_topic = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 open(FILE, "$file_of_this_topic") or &ERROROUT("这个主题不存在！可能已经被删除！");
 @threads = <FILE>;
 close(FILE);
@@ -163,15 +163,15 @@ if ($numberofpages > 1) {
 
     my $currentpage = int($instart / $maxtopics) + 1;
     my $endstart = ($numberofpages - 1) * $maxtopics;
-    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<font face=webdings><span style=cursor:hand title="首 页" onclick="loadThreadFollows($inforum, \\\'$intopic&start=0\\\')">9</span></font>~;
-    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<font face=webdings><span style=cursor:hand title="尾 页" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$endstart\\\')">:</span></font>~;
+    my $beginpage = $currentpage == 1 ? "<font color=$fonthighlight face=webdings>9</font>" : qq~<font face=webdings><span style=cursor:hand title="首 页" onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=0\\\')">9</span></font>~;
+    my $endpage = $currentpage == $numberofpages ? "<font color=$fonthighlight face=webdings>:</font>" : qq~<font face=webdings><span style=cursor:hand title="尾 页" onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=$endstart\\\')">:</span></font>~;
 
     my $uppage = $currentpage - 1;
     my $nextpage = $currentpage + 1;
     my $upstart = $instart - $maxtopics;
     my $nextstart = $instart + $maxtopics;
-    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<font face=webdings><span style=cursor:hand title="第$uppage页" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$upstart\\\')">7</span></font>~;
-    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<font face=webdings><span style=cursor:hand title="第$nextpage页" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$nextstart\\\')">8</span></font>~;
+    my $showup = $uppage < 1 ? "<font color=$fonthighlight face=webdings>7</font>" : qq~<font face=webdings><span style=cursor:hand title="第$uppage页" onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=$upstart\\\')">7</span></font>~;
+    my $shownext = $nextpage > $numberofpages ? "<font color=$fonthighlight face=webdings>8</font>" : qq~<font face=webdings><span style=cursor:hand title="第$nextpage页" onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=$nextstart\\\')">8</span></font>~;
 
     my $tempstep = $currentpage / 7;
     my $currentstep = int($tempstep);
@@ -180,14 +180,14 @@ if ($numberofpages > 1) {
     my $nextsteppage = $currentstep * 7 + 1;
     my $upstepstart = ($upsteppage - 1) * $maxtopics;
     my $nextstepstart = ($nextsteppage - 1) * $maxtopics;
-    my $showupstep = $upsteppage < 1 ? "" : qq~<span style=cursor:hand title="第$upsteppage页" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$upstepstart\\\')">←</span> ~;
-    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<span style=cursor:hand title="第$nextsteppage页" onclick="loadThreadFollows($inforum, \\\'$intopic&start=$nextstepstart\\\')">→</span> ~;
+    my $showupstep = $upsteppage < 1 ? "" : qq~<span style=cursor:hand title="第$upsteppage页" onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=$upstepstart\\\')">←</span> ~;
+    my $shownextstep = $nextsteppage > $numberofpages ? "" : qq~<span style=cursor:hand title="第$nextsteppage页" onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=$nextstepstart\\\')">→</span> ~;
 
     $pages = "";
     my $currentstart = $upstepstart + $maxtopics;
     for (my $i = $upsteppage + 1; $i < $nextsteppage; $i++) {
         last if ($i > $numberofpages);
-        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<span style=cursor:hand onclick="loadThreadFollows($inforum, \\\'$intopic&start=$currentstart\\\')">$i</span> ~;
+        $pages .= $i == $currentpage ? "<font color=$fonthighlight><b>$i</b></font> " : qq~<span style=cursor:hand onclick="loadThreadFollows($in_forum, \\\'$in_topic&start=$currentstart\\\')">$i</span> ~;
         $currentstart += $maxtopics;
     }
     $pages = "<font color=$menufontcolor>页次：<b><font color=$fonthighlight>$currentpage</font> / $numberofpages页</b> 每页最多 <font color=$fonthighlight>$maxtopics</font> 个 共 <font color=$fonthighlight>$numberofitems</font> 个 $beginpage $showup \[ $showupstep$pages$shownextstep\] $shownext $endpage</font>";
@@ -265,7 +265,7 @@ sub OUTPUT_TABLE {
 
     #输出内容表格
     $REPLY_COUNT1 = $REPLY_COUNT + 1;
-    $OUTPUT_TABLE .= qq~<span style=width:100%><span style=width:58%>　　　　$OUTPUT_ICON　<a href=topic.cgi?forum=$inforum&topic=$intopic&start=$START#$SID target=_blank>$OUTPUT_MSG</a></span><span style=width:12%><a href=post.cgi?action=replyquote&forum=$inforum&topic=$intopic&postno=$REPLY_COUNT1 title=引用回复这个贴子 target=_blank><img src=$imagesurl/images/replynow.gif border=0 width=16 align=absmiddle></a></span><span style="width:14%">[ <span style="cursor:hand" onClick="javascript:O9('~ . ($uri_escape eq "no" ? $OUTPUT_NAME : uri_escape($OUTPUT_NAME)) . qq~')">$OUTPUT_NAME</span> ]</span><span style=width:14%>$OUTPUT_TIME</span>~;
+    $OUTPUT_TABLE .= qq~<span style=width:100%><span style=width:58%>　　　　$OUTPUT_ICON　<a href=topic.cgi?forum=$in_forum&topic=$in_topic&start=$START#$SID target=_blank>$OUTPUT_MSG</a></span><span style=width:12%><a href=post.cgi?action=replyquote&forum=$in_forum&topic=$in_topic&postno=$REPLY_COUNT1 title=引用回复这个贴子 target=_blank><img src=$imagesurl/images/replynow.gif border=0 width=16 align=absmiddle></a></span><span style="width:14%">[ <span style="cursor:hand" onClick="javascript:O9('~ . ($uri_escape eq "no" ? $OUTPUT_NAME : uri_escape($OUTPUT_NAME)) . qq~')">$OUTPUT_NAME</span> ]</span><span style=width:14%>$OUTPUT_TIME</span>~;
     #处理输出内容
     $OUTPUT_TABLE =~ s/\n//g;
     $OUTPUT_TABLE =~ s/\'/\\\'/g;
@@ -275,7 +275,7 @@ sub OUTPUT_TABLE {
 sub ERROROUT {
     my $ERROR_MSG = shift;
     my $OUTPUT_TABLE;
-    $OUTPUT_TABLE .= qq(<DIV style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: black 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN-LEFT: 18px; BORDER-LEFT: black 1px solid; WIDTH: 240px; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: lightyellow;cursor:hand" onclick="loadThreadFollow($inforum,$intopic,'$id_of_this_topid')">$ERROR_MSG</DIV>);
+    $OUTPUT_TABLE .= qq(<DIV style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: black 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN-LEFT: 18px; BORDER-LEFT: black 1px solid; WIDTH: 240px; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: lightyellow;cursor:hand" onclick="loadThreadFollow($in_forum,$in_topic,'$id_of_this_topid')">$ERROR_MSG</DIV>);
     $OUTPUT_TABLE =~ s/\n//g;
     $OUTPUT_TABLE =~ s/\'/\\\'/g;
     &OUTPUT_TREE($boardname, $OUTPUT_TABLE, 1);

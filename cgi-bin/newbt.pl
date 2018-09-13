@@ -11,9 +11,9 @@ use warnings;
 use strict;
 use diagnostics;
 sub newbt {
-    $tmptopic = $intopic % 100;
+    $tmptopic = $in_topic % 100;
 
-    open(FILE, "${imagesdir}$usrdir/$inforum/$tmptopic/$1.torrent.btfile");
+    open(FILE, "${imagesdir}$usrdir/$in_forum/$tmptopic/$1.torrent.btfile");
     sysread(FILE, $btinfo, (stat(FILE))[7]);
     close(FILE);
     $btinfo =~ s/\r//isg;
@@ -24,14 +24,14 @@ sub newbt {
         eval("use BTINFO;");
         if ($@ eq "") {
             $/ = "";
-            if (open(FILE, "${imagesdir}$usrdir/$inforum/$tmptopic/$1.torrent")) {
+            if (open(FILE, "${imagesdir}$usrdir/$in_forum/$tmptopic/$1.torrent")) {
                 binmode(FILE);
                 my $bufferall = <FILE>;
                 close(FILE);
                 $/ = "\n";
                 my $btfileinfo = process_file($bufferall);
                 my (undef, $hash, $announce) = split(/\n/, $btfileinfo);
-                open(FILE, ">${imagesdir}$usrdir/$inforum/$inforum/$tmptopic/$1.torrent.btfile");
+                open(FILE, ">${imagesdir}$usrdir/$in_forum/$in_forum/$tmptopic/$1.torrent.btfile");
                 print FILE "$btfileinfo\|$seedinfo";
                 close(FILE);
                 $btinfo = "$btfileinfo\|$seedinfo";
@@ -72,7 +72,7 @@ _S.style.display = "none";
             $postbackcolor1 = $postcolortwo;
             $postfontcolor1 = $postfontcolortwo;
         }
-        my ($filename, $filelength) = split(/\|/, $_);
+        my ($file_name, $filelength) = split(/\|/, $_);
         $allfilelength += $filelength;
 
         $lbsd = 'Bytes';
@@ -91,9 +91,9 @@ _S.style.display = "none";
         $filelength = sprintf("%6.2f", $filelength) . " $lbsd";
 
         if ($count eq 8) {$addme1 .= qq~ id=AFILE style=display:none~;}
-        if (length($filename) > 60) {$filename1 = substr($filename, 0, 57) . " ...";}
-        else {$filename1 = $filename;}
-        $addme .= qq~<tr bgColor=$postbackcolor1 $addme1><td align=middle nowrap><font color=$postfontcolor1 title=$filename>$filename1</td><td align=middle nowrap><font color=$postfontcolor1>$filelength</td></tr>~;
+        if (length($file_name) > 60) {$file_name1 = substr($file_name, 0, 57) . " ...";}
+        else {$file_name1 = $file_name;}
+        $addme .= qq~<tr bgColor=$postbackcolor1 $addme1><td align=middle nowrap><font color=$postfontcolor1 title=$file_name>$file_name1</td><td align=middle nowrap><font color=$postfontcolor1>$filelength</td></tr>~;
     }
     if ($count >= 8) {$addme .= qq~<tr bgColor=$postbackcolor1 id=BFILE style=display:""><td align=right nowrap colspan=2><span style=CURSOR:hand onclick=ShowMore()><font color=$postfontcolor1 title=显示所有文件>更多...</font></span>&nbsp;</td></tr>~;}
 
@@ -118,6 +118,6 @@ _S.style.display = "none";
     }
     $allfilelength = sprintf("%6.2f", $allfilelength) . " $lbsd";
 
-    $addme .= qq~<tr bgColor=$titlecolor><td align=right nowrap colspan=2>种子数：$seeds　&nbsp;连接数：$leeches　&nbsp;完成数：$downloaded&nbsp;{br}[<a href=getbtinfo.cgi?forum=$inforum&filename=$1&topic=$intopic target=_blank title="按此可获得即时的资料数据，如果显示出现\n白屏，可能是对方服务器无法连接。">本页面数据并非即时，如需要即时信息请按这里</a>]&nbsp;{br}总共有 $count 个文件，内容共有 $allfilelength&nbsp;{br}URL: $announce&nbsp;</td></tr></table></ul>~;
+    $addme .= qq~<tr bgColor=$titlecolor><td align=right nowrap colspan=2>种子数：$seeds　&nbsp;连接数：$leeches　&nbsp;完成数：$downloaded&nbsp;{br}[<a href=getbtinfo.cgi?forum=$in_forum&filename=$1&topic=$in_topic target=_blank title="按此可获得即时的资料数据，如果显示出现\n白屏，可能是对方服务器无法连接。">本页面数据并非即时，如需要即时信息请按这里</a>]&nbsp;{br}总共有 $count 个文件，内容共有 $allfilelength&nbsp;{br}URL: $announce&nbsp;</td></tr></table></ul>~;
 }
 1;

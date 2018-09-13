@@ -55,13 +55,13 @@ for ('forum', 'topic', 'membername', 'password', 'action', 'inshowsignature',
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$intopictitle =~ s/\\0//isg;
-#$intopictitle  =~ s/\\/&#92;/isg;
-$intopictitle = "＊＃！＆＊$intopictitle";
-$inforum = $forum;
-$intopic = $topic;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_topictitle =~ s/\\0//isg;
+#$in_topictitle  =~ s/\\/&#92;/isg;
+$in_topictitle = "＊＃！＆＊$in_topictitle";
+$in_forum = $forum;
+$in_topic = $topic;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 &error("普通错误&请以正确的方式访问本程序！") if (($postweiwang > $maxweiwang) && ($inhiddentopic eq "yes"));
@@ -101,7 +101,7 @@ if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
 if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
 $inmembername =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $inpassword =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
-if (!(-e "${lbdir}boarddata/listno$inforum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
+if (!(-e "${lbdir}boarddata/listno$in_forum.cgi")) {&error("发表新主题&对不起，这个论坛不存在！如果确定分论坛号码没错，那么请进入管理区修复论坛一次！");}
 
 if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
@@ -118,7 +118,7 @@ else {
     }
 }
 
-&moderator("$inforum");
+&moderator("$in_forum");
 
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 if ($allowusers ne '') {
@@ -177,7 +177,7 @@ else {&error("普通错误&请以正确的方式访问本程序！$action");}
 exit;
 
 sub newthread {
-    #&getoneforum("$inforum");
+    #&getoneforum("$in_forum");
 
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
         &error("发起投票帖&你的积分为 $jifen，而本论坛只有积分大于等于 $pollminjf 的才能发投票帖！") if ($pollminjf > 0 && $jifen < $pollminjf);
@@ -192,10 +192,10 @@ sub newthread {
             &error("发表新投票&灌水预防机制已经使用，您必须再等待 $lastpost1 秒钟才能再次发表！");
         }
     }
-    $tempaccess = "forumsallowed" . "$inforum";
+    $tempaccess = "forumsallowed" . "$in_forum";
     $testentry = $query->cookie("$tempaccess");
 
-    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$inforum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    if ((($testentry eq $forumpass) && ($testentry ne "")) || ($allowedentry{$in_forum} eq "yes") || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
 
     if ($pollopen eq "no") {&error("发表新投票&对不起，本论坛不允许发表新投票！");}
 
@@ -297,7 +297,7 @@ var revisedTitle; var currentTitle = document.FORM.intopictitle.value; revisedTi
 return; }</script>
 <form action="$thisprog" method=post name="FORM">
 <input type=hidden name="action" value="addnew">
-<input type=hidden name="forum" value="$inforum">
+<input type=hidden name="forum" value="$in_forum">
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
@@ -307,7 +307,7 @@ return; }</script>
 <OPTION selected value="">选择话题</OPTION> <OPTION value=[原创]>[原创]</OPTION><OPTION value=[转帖]>[转帖]</OPTION> <OPTION value=[灌水]>[灌水]</OPTION><OPTION value=[讨论]>[讨论]</OPTION> <OPTION value=[求助]>[求助]</OPTION><OPTION value=[推荐]>[推荐]</OPTION> <OPTION value=[公告]>[公告]</OPTION><OPTION value=[注意]>[注意]</OPTION> <OPTION value=[贴图]>[贴图]</OPTION><OPTION value=[建议]>[建议]</OPTION> <OPTION value=[下载]>[下载]</OPTION><OPTION value=[分享]>[分享]</OPTION></SELECT></td>
 <td bgcolor=$miscbackone>　<input type=text size=60 maxlength=80 name="intopictitle">　不得超过 40 个汉字</td></tr>$nowaterpost
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone>　<input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone>　<input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone>　<input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr><td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>投票项目</b><br><li>每行一个投票项目，最多 <B>$maxpollitem</b> 项<BR><li>超过自动作废，空行自动过滤<BR><li>如果投票需要多选，请在选择中打钩</font></td>
 <td bgcolor=$miscbackone valign=top>
@@ -372,7 +372,7 @@ function showall (){var out ='';for (var i=0;i<emotarray.length;i++){out += ' <i
 <tr><td bgcolor=$miscbacktwo colspan=2 align=center><input type=Submit value="发 布" name="Submit"  onClick="return clckcntr();">　　<input type=button value='预 览' name=Button onclick=gopreview()>　　<input type="reset" name="Clear" value="清 除"></td></form></tr>
 </table></tr></td></table>
 <SCRIPT>valignend()</SCRIPT>
-<form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$inforum"></form>
+<form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$in_forum"></form>
 <script>
 function gopreview(){
 document.preview.body.value=document.FORM.inpost.value;
@@ -385,7 +385,7 @@ document.preview.submit()
 }
 
 sub addnewthread {
-    #&getoneforum("$inforum");
+    #&getoneforum("$in_forum");
 
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
         &error("发起投票帖&你的积分为 $jifen，而本论坛只有积分大于等于 $pollminjf 的才能发投票帖！") if ($pollminjf > 0 && $jifen < $pollminjf);
@@ -441,8 +441,8 @@ sub addnewthread {
     if (($userregistered eq "no") && ($startnewthreads ne "all")) {&error("发表新主题&您没有注册！");}
     elsif ((($inpassword ne $password) && ($userregistered ne "no")) || (($inpassword ne "") && ($userregistered eq "no"))) {&error("发表新主题&您的密码错误！");}
     elsif (($membercode eq "banned") || ($membercode eq "masked")) {&error("添加回复&您被禁止发言或者发言被屏蔽，请联系管理员解决！");}
-    elsif ($intopictitle eq "") {&error("发表新投票&必须输入主题标题！");}
-    elsif (length($intopictitle) > 92) {&error("发表新投票&主题标题过长！");}
+    elsif ($in_topictitle eq "") {&error("发表新投票&必须输入主题标题！");}
+    elsif (length($in_topictitle) > 92) {&error("发表新投票&主题标题过长！");}
     elsif ($inposticon !~ m/<br>/i) {&error("发表新投票&投票选项太少！");}
     elsif ($temppoll > $maxpollitem) {&error("发表新投票&投票选项过多，不能超过 $maxpollitem 项！(您此次投票的选项有 $temppoll 项)");}
     else {
@@ -459,9 +459,9 @@ sub addnewthread {
             $inmembername = "$inmembername(客)";
         }
 
-        $intopictitle =~ s/\(无内容\)$//;
-        $intopictitle =~ s/()+//isg;
-        my $tempintopictitle = $intopictitle;
+        $in_topictitle =~ s/\(无内容\)$//;
+        $in_topictitle =~ s/()+//isg;
+        my $tempintopictitle = $in_topictitle;
         $tempintopictitle =~ s/ //g;
         $tempintopictitle =~ s/\&nbsp\;//g;
         $tempintopictitle =~ s/　//isg;
@@ -469,11 +469,11 @@ sub addnewthread {
         $tempintopictitle =~ s/^＊＃！＆＊//;
         if ($tempintopictitle eq "") {&error("发表新投票&主题标题有问题！");}
         $inpost =~ s/\[这个(.+?)最后由(.+?)编辑\]//isg;
-        $inpost = "\[watermark\]$inpost\[\/watermark\]" if (($intopictitle =~ /\[原创\]/) && ($usewm ne "no"));
+        $inpost = "\[watermark\]$inpost\[\/watermark\]" if (($in_topictitle =~ /\[原创\]/) && ($usewm ne "no"));
 
-        $tempaccess = "forumsallowed" . "$inforum";
+        $tempaccess = "forumsallowed" . "$in_forum";
         $testentry = $query->cookie("$tempaccess");
-        if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+        if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
         if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表投票&对不起，您不允许在此论坛发表投票！");}
 
         if ($useemote eq "yes") {
@@ -498,7 +498,7 @@ sub addnewthread {
         }
 
         undef $newthreadnumber;
-        $filetoopen = "$lbdir" . "boarddata/lastnum$inforum.cgi";
+        $filetoopen = "$lbdir" . "boarddata/lastnum$in_forum.cgi";
         if (open(FILE, "$filetoopen")) {
             $newthreadnumber = <FILE>;
             close(FILE);
@@ -506,7 +506,7 @@ sub addnewthread {
             $newthreadnumber++;
         }
 
-        if ((!(-e "${lbdir}forum$inforum/$newthreadnumber.pl")) && ($newthreadnumber =~ /^[0-9]+$/)) {
+        if ((!(-e "${lbdir}forum$in_forum/$newthreadnumber.pl")) && ($newthreadnumber =~ /^[0-9]+$/)) {
             if (open(FILE, ">$filetoopen")) {
                 flock(FILE, 2) if ($OS_USED eq "Unix");
                 print FILE $newthreadnumber;
@@ -514,7 +514,7 @@ sub addnewthread {
             }
         }
         else {
-            opendir(DIR, "${lbdir}forum$inforum");
+            opendir(DIR, "${lbdir}forum$in_forum");
             my @dirdata = readdir(DIR);
             closedir(DIR);
             @dirdata = grep (/.thd.cgi$/, @dirdata);
@@ -529,13 +529,13 @@ sub addnewthread {
             }
         }
         my $oldthreadnumber = $newthreadnumber - 1;
-        if (open(FILE, "${lbdir}forum$inforum/$oldthreadnumber.thd.cgi")) {
+        if (open(FILE, "${lbdir}forum$in_forum/$oldthreadnumber.thd.cgi")) {
             flock(FILE, 1) if ($OS_USED eq "Unix");
             my $threaddata = <FILE>;
             close(FILE);
             (my $amembername, my $atopictitle, my $no, my $no, my $no, my $no, my $apost, my $no) = split(/\t/, $threaddata);
-            if (($amembername eq $inmembername) && (($apost eq $inpost) && ($apost ne "") || ($atopictitle eq $intopictitle) || ($aposticon eq $inposticon))) {
-                if (open(FILE, ">${lbdir}boarddata/lastnum$inforum.cgi")) {
+            if (($amembername eq $inmembername) && (($apost eq $inpost) && ($apost ne "") || ($atopictitle eq $in_topictitle) || ($aposticon eq $inposticon))) {
+                if (open(FILE, ">${lbdir}boarddata/lastnum$in_forum.cgi")) {
                     flock(FILE, 2) if ($OS_USED eq "Unix");
                     print FILE $oldthreadnumber;
                     close(FILE);
@@ -544,16 +544,16 @@ sub addnewthread {
             }
         }
 
-        my $temp = &dofilter("$intopictitle\t$inpost");
-        ($intopictitle, $inpost) = split(/\t/, $temp);
-        $intopictitle =~ s/(a|A)N(d|D)/$1&#78;$2/sg;
-        $intopictitle =~ s/(a|A)n(d|D)/$1&#110;$2/sg;
-        $intopictitle =~ s/(o|O)R/$1&#82;/sg;
-        $intopictitle =~ s/(o|O)r/$1&#114;/sg;
-        #	$intopictitle  =~ s/\\/&#92;/isg;
+        my $temp = &dofilter("$in_topictitle\t$inpost");
+        ($in_topictitle, $inpost) = split(/\t/, $temp);
+        $in_topictitle =~ s/(a|A)N(d|D)/$1&#78;$2/sg;
+        $in_topictitle =~ s/(a|A)n(d|D)/$1&#110;$2/sg;
+        $in_topictitle =~ s/(o|O)R/$1&#82;/sg;
+        $in_topictitle =~ s/(o|O)r/$1&#114;/sg;
+        #	$in_topictitle  =~ s/\\/&#92;/isg;
 
-        $intopictitletemp = $intopictitle;
-        $intopictitletemp =~ s/^＊＃！＆＊//;
+        $in_topictitletemp = $in_topictitle;
+        $in_topictitletemp =~ s/^＊＃！＆＊//;
 
         if ($privateforum ne "yes") {
             $filetomakeopen = "$lbdir" . "data/recentpost.cgi";
@@ -571,7 +571,7 @@ sub addnewthread {
                     else {$maxpostreport--;}
                     if (open(FILE, ">$filetomakeopen")) {
                         flock(FILE, 2) if ($OS_USED eq "Unix");
-                        print FILE "$inforum\t$newthreadnumber\t$intopictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
+                        print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
                         for ($i = 0; $i < $maxpostreport; $i++) {print FILE $recentposts[$i];}
                         close(FILE);
                     }
@@ -579,7 +579,7 @@ sub addnewthread {
                 }
                 else {
                     if (open(FILE, ">$filetomakeopen")) {
-                        print FILE "$inforum\t$newthreadnumber\t$intopictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
+                        print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
                         close(FILE);
                     }
                 }
@@ -607,16 +607,16 @@ sub addnewthread {
         $inpost =~ s/\[hidepoll\]//isg;
         $inpost .= "[hidepoll]" if ($hidepoll eq "yes");
 
-        if (open(FILE, ">${lbdir}forum$inforum/$newthreadnumber.pl")) {
-            print FILE "$newthreadnumber\t$intopictitle\t$intopicdescription\tpoll\t0\t0\t$inmembername\t$currenttime\t\t$currenttime\t<BR>\t$inposttemp\t\t";
+        if (open(FILE, ">${lbdir}forum$in_forum/$newthreadnumber.pl")) {
+            print FILE "$newthreadnumber\t$in_topictitle\t$in_topicdescription\tpoll\t0\t0\t$inmembername\t$currenttime\t\t$currenttime\t<BR>\t$inposttemp\t\t";
             close(FILE);
         }
-        if (open(FILE, ">${lbdir}forum$inforum/$newthreadnumber.thd.cgi")) {
-            print FILE "$inmembername\t$intopictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t$inwater\t\n";
+        if (open(FILE, ">${lbdir}forum$in_forum/$newthreadnumber.thd.cgi")) {
+            print FILE "$inmembername\t$in_topictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t$inwater\t\n";
             close(FILE);
         }
 
-        $file = "$lbdir" . "boarddata/listno$inforum.cgi";
+        $file = "$lbdir" . "boarddata/listno$in_forum.cgi";
         &winlock($file) if ($OS_USED eq "Nt");
         open(LIST, "$file");
         flock(LIST, 2) if ($OS_USED eq "Unix");
@@ -631,15 +631,15 @@ sub addnewthread {
                 close(LIST);
             }
             &winunlock($file) if ($OS_USED eq "Nt");
-            if (open(LIST, ">>${lbdir}boarddata/listall$inforum.cgi")) {
-                print LIST "$newthreadnumber\t$intopictitletemp\t$inmembername\t$currenttime\t\n";
+            if (open(LIST, ">>${lbdir}boarddata/listall$in_forum.cgi")) {
+                print LIST "$newthreadnumber\t$in_topictitletemp\t$inmembername\t$currenttime\t\n";
                 close(LIST);
             }
         }
         else {
             &winunlock($file) if ($OS_USED eq "Nt");
             require "rebuildlist.pl";
-            my $truenumber = rebuildLIST(-Forum => "$inforum");
+            my $truenumber = rebuildLIST(-Forum => "$in_forum");
             ($tpost, $treply) = split(/\|/, $truenumber);
         }
 
@@ -650,7 +650,7 @@ sub addnewthread {
             $numberofposts++;
             $mymoney += $forumpostmoney - $addmoney if ($forumpostmoney ne "");
         }
-        $lastpostdate = "$currenttime\%\%\%topic.cgi?forum=$inforum&topic=$newthreadnumber\%\%\%$intopictitletemp" if ($privateforum ne "yes");
+        $lastpostdate = "$currenttime\%\%\%topic.cgi?forum=$in_forum&topic=$newthreadnumber\%\%\%$in_topictitletemp" if ($privateforum ne "yes");
         chomp $lastpostdate;
 
         if (($userregistered ne "no") && ($password ne "")) {
@@ -711,7 +711,7 @@ sub addnewthread {
             &winunlock("$lbdir/data/todaypost.cgi") if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
         }
 
-        $filetoopen = "${lbdir}boarddata/foruminfo$inforum.cgi";
+        $filetoopen = "${lbdir}boarddata/foruminfo$in_forum.cgi";
         my $filetoopens = &lockfilename($filetoopen);
         if (!(-e "$filetoopens.lck")) {
             &winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
@@ -729,13 +729,13 @@ sub addnewthread {
             if (($nowtime ne $todayforumposttime) || ($todayforumpost eq "")) {$todayforumpost = 1;}
             else {$todayforumpost++;}
             $todayforumpost = "$todayforumpost|$nowtime";
-            $lastposttime = "$lastposttime\%\%\%$newthreadnumber\%\%\%$intopictitletemp";
+            $lastposttime = "$lastposttime\%\%\%$newthreadnumber\%\%\%$in_topictitletemp";
             seek(FILE, 0, 0);
             print FILE "$lastposttime\t$threads\t$posts\t$todayforumpost\t$lastposter\t\n";
             close(FILE);
             $posts = 0 if ($posts eq "");
             $threads = 0 if ($threads eq "");
-            open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+            open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
             print FILE "\$threads = $threads;\n\$posts = $posts;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
             close(FILE);
 
@@ -774,7 +774,7 @@ sub addnewthread {
         }
 
         if (($emailfunctions eq "on") && ($innotify eq "yes")) {
-            $filetomake = "$lbdir" . "forum$inforum/$newthreadnumber.mal.pl";
+            $filetomake = "$lbdir" . "forum$in_forum/$newthreadnumber.mal.pl";
             if (open(FILE, ">$filetomake")) {
                 print FILE "$inmembername\t$emailaddress\t\n";
                 close(FILE);
@@ -787,19 +787,19 @@ sub addnewthread {
         @dirdata = readdir(CATDIR);
         closedir(CATDIR);
 
-        unlink("${lbdir}cache/plcache$inforum\_0.pl");
+        unlink("${lbdir}cache/plcache$in_forum\_0.pl");
 
-        if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$inforum&topic=$newthreadnumber";}
-        else {$relocurl = "forums.cgi?forum=$inforum";}
+        if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$in_forum&topic=$newthreadnumber";}
+        else {$relocurl = "forums.cgi?forum=$in_forum";}
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢！您的新投票已经发表成功！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>如果浏览器没有自动返回，请点击下面的链接！
-<ul><li><a href="topic.cgi?forum=$inforum&topic=$newthreadnumber">返回新投票</a>
-<li><a href="forums.cgi?forum=$inforum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a>
-	<li><a href="postings.cgi?action=locktop&forum=$inforum&topic=$newthreadnumber">新主题固顶</a>
-	<li><a href="postings.cgi?action=catlocktop&forum=$inforum&topic=$newthreadnumber">新主题区固顶</a>
-	<li><a href="postings.cgi?action=abslocktop&forum=$inforum&topic=$newthreadnumber">新主题总固顶</a>
+<ul><li><a href="topic.cgi?forum=$in_forum&topic=$newthreadnumber">返回新投票</a>
+<li><a href="forums.cgi?forum=$in_forum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a>
+	<li><a href="postings.cgi?action=locktop&forum=$in_forum&topic=$newthreadnumber">新主题固顶</a>
+	<li><a href="postings.cgi?action=catlocktop&forum=$in_forum&topic=$newthreadnumber">新主题区固顶</a>
+	<li><a href="postings.cgi?action=abslocktop&forum=$in_forum&topic=$newthreadnumber">新主题总固顶</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$relocurl">
@@ -811,7 +811,7 @@ sub addnewthread {
 sub poll {
     #    if (($inselectstyle ne "")&&(-e "${lbdir}data/skin/${inselectstyle}.cgi")) {require "${lbdir}data/skin/${inselectstyle}.cgi";}
     #     else { if (-e "${lbdir}data/style${id}.cgi") { require "${lbdir}data/style${id}.cgi"; } }
-    #&getoneforum("$inforum");
+    #&getoneforum("$in_forum");
 
     if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
         &error("投票&你的积分为 $jifen，而本论坛只有积分大于等于 $polledminjf 的才能进行投票！") if ($polledminjf > 0 && $jifen < $polledminjf);
@@ -846,7 +846,7 @@ sub poll {
     &error("投票错误&你是客人无权投票！") if (($inmembername eq "客人") || ($inmembername eq ""));
     if (($membercode eq "banned") || ($membercode eq "masked")) {&error("投票错误&您被禁止发言或者发言被屏蔽，请联系管理员解决！");}
 
-    $filetomake = "$lbdir" . "forum$inforum/$threadname.poll.cgi";
+    $filetomake = "$lbdir" . "forum$in_forum/$threadname.poll.cgi";
     &winlock($filetomake) if ($OS_USED eq "Nt");
     open(FILE, "$filetomake");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -859,7 +859,7 @@ sub poll {
         &error("投票错误&你已经投过票了，不能再投！") if (lc($tmpinmembername) eq lc($inmembername));
     }
 
-    my $file = "$lbdir" . "forum$inforum/$threadname.thd.cgi";
+    my $file = "$lbdir" . "forum$in_forum/$threadname.thd.cgi";
     &winlock($file) if ($OS_USED eq "Nt");
     open(ENT, $file);
     flock(ENT, 1) if ($OS_USED eq "Unix");
@@ -900,7 +900,7 @@ sub poll {
 
     &error("投票错误&你未选投票，请重投！") if ($myChoicenow eq 0);
 
-    $file = "$lbdir" . "boarddata/listno$inforum.cgi";
+    $file = "$lbdir" . "boarddata/listno$in_forum.cgi";
     $filetoopens = &lockfilename($file);
     if (!(-e "$filetoopens.lck")) {
         &winlock($file) if ($OS_USED eq "Unix");
@@ -922,13 +922,13 @@ sub poll {
         else {
             &winunlock($file) if ($OS_USED eq "Unix");
             require "rebuildlist.pl";
-            rebuildLIST(-Forum => "$inforum");
+            rebuildLIST(-Forum => "$in_forum");
         }
     }
-    #$inforum=$id;
+    #$in_forum=$id;
     &mischeader("投票成功");
-    if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$inforum&topic=$threadname";}
-    else {$relocurl = "forums.cgi?forum=$inforum";}
+    if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$in_forum&topic=$threadname";}
+    else {$relocurl = "forums.cgi?forum=$in_forum";}
     $output .= qq~<br><SCRIPT>valigntop()</SCRIPT>
 	<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 	<tr><td>
@@ -937,8 +937,8 @@ sub poll {
 	<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
 	如果浏览器没有自动返回，请点击下面的链接！
 	<ul>
-	<li><a href="topic.cgi?forum=$inforum&topic=$threadname">返回此投票帖</a>
-	<li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+	<li><a href="topic.cgi?forum=$in_forum&topic=$threadname">返回此投票帖</a>
+	<li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
 	<li><a href="leobbs.cgi">返回论坛首页</a>
 	</ul>
 	</td></tr>

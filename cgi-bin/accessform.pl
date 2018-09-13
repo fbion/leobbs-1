@@ -11,7 +11,7 @@
 use strict;
 use warnings;
 use diagnostics;
-my $inforum;
+my $in_forum;
 my $tablewidth;
 my $tablebordercolor;
 my $titlecolor;
@@ -26,7 +26,7 @@ my $forumpassword;
 my $forumname;
 my $output .= qq~
 <form action=forums.cgi method=post>
-<input type=hidden name=forum value=$inforum>
+<input type=hidden name=forum value=$in_forum>
 <input type=hidden name=action value=accessrequired>
 <SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center><tr><td>

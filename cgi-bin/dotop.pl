@@ -12,7 +12,7 @@ use strict;
 use warnings;
 use diagnostics;
 
-if (open(FILE, "${lbdir}boarddata/jinghua$inforum.cgi")) {
+if (open(FILE, "${lbdir}boarddata/jinghua$in_forum.cgi")) {
     sysread(FILE, $jhdata, (stat(FILE))[7]);
     close(FILE);
     $jhdata =~ s/\r//isg;
@@ -22,7 +22,7 @@ if (open(FILE, "${lbdir}boarddata/jinghua$inforum.cgi")) {
 }
 else {$jhdata = "";}
 
-if (open(FILE, "${lbdir}boarddata/highlight$inforum.cgi")) {
+if (open(FILE, "${lbdir}boarddata/highlight$in_forum.cgi")) {
     sysread(FILE, $highlight, (stat(FILE))[7]);
     close(FILE);
     $highlight =~ s/\r//isg;
@@ -50,7 +50,7 @@ if (open(FILE, "${lbdir}boarddata/catontop$categoryplace.cgi")) {
 }
 else {$catontopdata = "";}
 
-if (open(FILE, "${lbdir}boarddata/ontop$inforum.cgi")) {
+if (open(FILE, "${lbdir}boarddata/ontop$in_forum.cgi")) {
     sysread(FILE, $ontopdata, (stat(FILE))[7]);
     close(FILE);
     $ontopdata =~ s/\r//isg;
@@ -59,8 +59,8 @@ if (open(FILE, "${lbdir}boarddata/ontop$inforum.cgi")) {
 }
 else {$ontopdata = "";}
 
-if (!(-e "${lbdir}cache/forumstop$inforum.pl")) {
-    open(FILE, ">${lbdir}cache/forumstop$inforum.pl");
+if (!(-e "${lbdir}cache/forumstop$in_forum.pl")) {
+    open(FILE, ">${lbdir}cache/forumstop$in_forum.pl");
     print FILE qq~\$jhdata=qq($jhdata);\n~;
     print FILE qq~\$highlight=qq($highlight);\n~;
     print FILE qq~\$absontopdata=qq($absontopdata);\n~;

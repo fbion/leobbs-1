@@ -24,15 +24,15 @@ if ($indexforum ne "no") {
     $forumdescription = &HTML("$forumdescription");
     $forumdescription =~ s/<BR>//isg;
     $forumdescription =~ s/<P>//isg;
-    $titleoutput = qq~<table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$inforum>$forumname</a> → 浏览论坛主题</td><td bgcolor=\$navbackground align=right valign=bottom>\$uservisitdata</td></tr></table></td></tr></table>~;
+    $titleoutput = qq~<table width=\$tablewidth align=center cellspacing=0 cellpadding=0><tr><td>>>> $forumdescription</td></tr></table><table width=\$tablewidth align=center cellspacing=0 cellpadding=1 bgcolor=\$navborder><tr><td><table width=100% cellspacing=0 cellpadding=3><tr height=25><td bgcolor=\$navbackground><img src=$imagesurl/images/item.gif align=absmiddle width=12> <font color=\$navfontcolor><a href=leobbs.cgi>$boardname</a>$addlink → <a href=forums.cgi?forum=$in_forum>$forumname</a> → 浏览论坛主题</td><td bgcolor=\$navbackground align=right valign=bottom>\$uservisitdata</td></tr></table></td></tr></table>~;
 }
-if (!(-e "${lbdir}cache/forumshead$inforum.pl")) {
+if (!(-e "${lbdir}cache/forumshead$in_forum.pl")) {
     $titleoutput =~ s/\\/\\\\/isg;
     $titleoutput =~ s/~/\\\~/isg;
     $titleoutput =~ s/\$/\\\$/isg;
     $titleoutput =~ s/\@/\\\@/isg;
     $titleoutput =~ s/\\\$/\$/isg;
-    open(FILE, ">${lbdir}cache/forumshead$inforum.pl");
+    open(FILE, ">${lbdir}cache/forumshead$in_forum.pl");
     print FILE qq(\$titleoutput = qq~$titleoutput~;\n);
     print FILE "1;\n";
     close(FILE);

@@ -44,15 +44,15 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
     if (($userregistered eq "no")&&($startnewthreads ne "all")) { &error("发表新主题&您没有注册！");   }
     elsif ((($inpassword ne $password)&&($userregistered ne "no"))||(($inpassword ne "")&&($userregistered eq "no"))) { &error("发表新主题&您的密码错误！"); }
     elsif (($membercode eq "banned")||($membercode eq "masked"))      { &error("添加回复&您被禁止发言或者发言被屏蔽，请联系管理员解决！"); }
-    elsif ($intopictitle eq "＊＃！＆＊") { &error("发表新主题&必须输入主题标题！"); }
-    elsif (length($intopictitle) > 92)   { &error("发表新主题&主题标题过长！"); }
+    elsif ($in_topictitle eq "＊＃！＆＊") { &error("发表新主题&必须输入主题标题！"); }
+    elsif (length($in_topictitle) > 92)   { &error("发表新主题&主题标题过长！"); }
     else  {
 #	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "")&&($mastpostatt eq "yes")&&($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
 #	@allforums = @forums;
-	$intopictitle =~ s/\(无内容\)$//;
-	if (($inpost eq "")&&($addme eq "")) { $intopictitle.=" (无内容)"; }
-        $intopictitle =~ s/()+//isg;
-	my $tempintopictitle = $intopictitle;
+	$in_topictitle =~ s/\(无内容\)$//;
+	if (($inpost eq "")&&($addme eq "")) { $in_topictitle.=" (无内容)"; }
+        $in_topictitle =~ s/()+//isg;
+	my $tempintopictitle = $in_topictitle;
 	$tempintopictitle =~ s/ //g;
 	$tempintopictitle =~ s/\&nbsp\;//g;
         $tempintopictitle =~ s/　//isg;
@@ -60,9 +60,9 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
         $tempintopictitle =~ s/^＊＃！＆＊//;
 	if ($tempintopictitle eq "") { &error("发表新主题&主题标题有问题！"); }
 
-        $tempaccess = "forumsallowed". "$inforum";
+        $tempaccess = "forumsallowed". "$in_forum";
         $testentry = $query->cookie("$tempaccess");
-        if (($allowedentry{$inforum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
+        if (($allowedentry{$in_forum} eq "yes")||(($testentry eq $forumpass)&&($testentry ne ""))||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes")) { $allowed = "yes"; }
         if (($privateforum eq "yes") && ($allowed ne "yes")) { &error("发表&对不起，您不允许在此论坛发表！"); }
 
 	if ($startnewthreads eq "no") {
@@ -81,7 +81,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	}
 
         $inpost =~ s/\[这个(.+?)最后由(.+?)编辑\]//isg;
-	$inpost = "\[watermark\]$inpost\[\/watermark\]" if (($intopictitle =~ /\[原创\]/)&&($usewm ne "no"));
+	$inpost = "\[watermark\]$inpost\[\/watermark\]" if (($in_topictitle =~ /\[原创\]/)&&($usewm ne "no"));
 
         if ($emote && $inpost =~ m/\/\/\//) {
 	    study ($inpost);
@@ -96,7 +96,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	}
 
 	undef $newthreadnumber;
-	$filetoopen = "$lbdir" . "boarddata/lastnum$inforum.cgi";
+	$filetoopen = "$lbdir" . "boarddata/lastnum$in_forum.cgi";
 	if (open(FILE, "$filetoopen")) {
 	    $newthreadnumber = <FILE>;
             close(FILE);
@@ -104,7 +104,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	    $newthreadnumber ++;
 	}
 	
-	if ((!(-e "${lbdir}forum$inforum/$newthreadnumber.pl"))&&($newthreadnumber =~ /^[0-9]+$/)) {
+	if ((!(-e "${lbdir}forum$in_forum/$newthreadnumber.pl"))&&($newthreadnumber =~ /^[0-9]+$/)) {
 	    if (open(FILE, ">$filetoopen")) {
 		flock(FILE, 2) if ($OS_USED eq "Unix");
 		print FILE $newthreadnumber;
@@ -112,7 +112,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
             }
 	}
 	else {
-            opendir (DIR, "${lbdir}forum$inforum");
+            opendir (DIR, "${lbdir}forum$in_forum");
             my @dirdata = readdir(DIR);
             closedir (DIR);
             @dirdata = grep(/.thd.cgi$/,@dirdata);
@@ -128,13 +128,13 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	}
 
 	my $oldthreadnumber = $newthreadnumber - 1;
-        if (open(FILE, "${lbdir}forum$inforum/$oldthreadnumber.thd.cgi")) {
+        if (open(FILE, "${lbdir}forum$in_forum/$oldthreadnumber.thd.cgi")) {
             flock(FILE, 1) if ($OS_USED eq "Unix");
             my $threaddata =<FILE>;
             close(FILE);
             (my $amembername,my $atopictitle,my $no,my $no,my $no,my $no,my $apost,my $no) = split(/\t/, $threaddata);
-	    if (($amembername eq $inmembername)&&((($apost eq $inpost)&&($apost ne "")&&($inpost ne ""))||($atopictitle eq $intopictitle))) {
-	        if (open(FILE, ">${lbdir}boarddata/lastnum$inforum.cgi")) {
+	    if (($amembername eq $inmembername)&&((($apost eq $inpost)&&($apost ne "")&&($inpost ne ""))||($atopictitle eq $in_topictitle))) {
+	        if (open(FILE, ">${lbdir}boarddata/lastnum$in_forum.cgi")) {
         	    flock(FILE, 2) if ($OS_USED eq "Unix");
         	    print FILE $oldthreadnumber;
         	    close(FILE);
@@ -143,23 +143,23 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	    }
 	}
 
-	my $temp = &dofilter("$intopictitle\t$inpost");
-	($intopictitle,$inpost) = split(/\t/,$temp);
-	$intopictitle =~ s/(a|A)N(d|D)/$1&#78;$2/sg;
-	$intopictitle =~ s/(a|A)n(d|D)/$1&#110;$2/sg;
-	$intopictitle =~ s/(o|O)R/$1&#82;/sg;
-	$intopictitle =~ s/(o|O)r/$1&#114;/sg;
-#	$intopictitle  =~ s/\\/&#92;/isg;
+	my $temp = &dofilter("$in_topictitle\t$inpost");
+	($in_topictitle,$inpost) = split(/\t/,$temp);
+	$in_topictitle =~ s/(a|A)N(d|D)/$1&#78;$2/sg;
+	$in_topictitle =~ s/(a|A)n(d|D)/$1&#110;$2/sg;
+	$in_topictitle =~ s/(o|O)R/$1&#82;/sg;
+	$in_topictitle =~ s/(o|O)r/$1&#114;/sg;
+#	$in_topictitle  =~ s/\\/&#92;/isg;
 	
 	$inpost =~ s/\[UploadFile.{0,6}=(.+?)\]//isg unless (($arrowupload ne "no")||($membercode eq "ad")||($membercode eq 'smo')||($inmembmod eq "yes"));
 	
 	$inpost =~ s/(ev)a(l)/$1&#97;$2/isg;
 
-        $addme= &upfileonpost(\$inpost,$inforum,$newthreadnumber);#处理上传，返回数值给BT区做判断
+        $addme= &upfileonpost(\$inpost,$in_forum,$newthreadnumber);#处理上传，返回数值给BT区做判断
 	&error("发表新主题&此区新主题必须带附件，请返回重试！") if (($addme eq "0")&&($mastpostatt eq "yes")&&($membercode ne "ad")&&($membercode ne 'smo')&&($inmembmod ne "yes"));
 	$addme = "" if ($addme eq "0");
-	$intopictitletemp = $intopictitle ;
-	$intopictitletemp =~ s/^＊＃！＆＊//;
+	$in_topictitletemp = $in_topictitle ;
+	$in_topictitletemp =~ s/^＊＃！＆＊//;
 
         if ($moneyhidden eq "yes") { $inposttemp = "(保密)"; $inpost="LBSALE[$moneypost]LBSALE".$inpost;}
 
@@ -172,13 +172,13 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
             $inposttemp = &lbhz($inposttemp,50);
         }
 
-        if (open(FILE, ">${lbdir}forum$inforum/$newthreadnumber.pl")) {
-            print FILE "$newthreadnumber\t$intopictitle\t\topen\t0\t0\t$inmembername\t$currenttime\t\t$currenttime\t$inposticon\t$inposttemp\t$addme\t";
+        if (open(FILE, ">${lbdir}forum$in_forum/$newthreadnumber.pl")) {
+            print FILE "$newthreadnumber\t$in_topictitle\t\topen\t0\t0\t$inmembername\t$currenttime\t\t$currenttime\t$inposticon\t$inposttemp\t$addme\t";
             close(FILE);
         }
 
-        if (open(FILE, ">${lbdir}forum$inforum/$newthreadnumber.thd.cgi")) {
-            print FILE "$inmembername\t$intopictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t$inwater\t\n";
+        if (open(FILE, ">${lbdir}forum$in_forum/$newthreadnumber.thd.cgi")) {
+            print FILE "$inmembername\t$in_topictitle\t$postipaddress\t$inshowemoticons\t$inshowsignature\t$currenttime\t$inpost\t$inposticon\t$inwater\t\n";
             close(FILE);
         }
 
@@ -198,14 +198,14 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 		        foreach (@recentposts) {
 			    (my $no,$no,my $temptopic,$no,$no,my $tempmembername) = split(/\t/,$_);
 			    $temptopic =~ s/^＊＃！＆＊//;
-			    $checknumber ++ if (($intopictitletemp eq $temptopic)&&(lc($tempmembername) eq lc($inmembername)));
+			    $checknumber ++ if (($in_topictitletemp eq $temptopic)&&(lc($tempmembername) eq lc($inmembername)));
 		        }
 
 		        if ($checknumber >= $maxadpost) {
 			    &winunlock($filetomakeopen) if ($OS_USED eq "Nt");
-			    unlink ("${lbdir}forum$inforum/$newthreadnumber.pl");
-			    unlink ("${lbdir}forum$inforum/$newthreadnumber.thd.cgi");
-	                    unlink ("${imagesdir}$usrdir/$inforum/$inforum\_${newthreadnumber}.$up_ext");
+			    unlink ("${lbdir}forum$in_forum/$newthreadnumber.pl");
+			    unlink ("${lbdir}forum$in_forum/$newthreadnumber.thd.cgi");
+	                    unlink ("${imagesdir}$usrdir/$in_forum/$in_forum\_${newthreadnumber}.$up_ext");
 
 			    if (($inmembername ne "")&&($userregistered ne "no")&&($password ne "")) {
 			        $memberfiletitle = $inmembername;
@@ -234,14 +234,14 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 		    
 		    if (open (FILE, ">$filetomakeopen")) {
 			flock (FILE, 2) if ($OS_USED eq "Unix");
-			print FILE "$inforum\t$newthreadnumber\t$intopictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
+			print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
 			for ($i=0;$i<$maxpostreport;$i++) { print FILE $recentposts[$i]; }
 			close(FILE);
 		    }
 		    &winunlock($filetomakeopen) if ($OS_USED eq "Nt");
 		} else {
       		    if (open (FILE, ">$filetomakeopen")) {
-      			print FILE "$inforum\t$newthreadnumber\t$intopictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
+      			print FILE "$in_forum\t$newthreadnumber\t$in_topictitletemp\t$currenttime\t$inposticon\t$inmembername\t\n";
       			close(FILE);
       		    }
    		}
@@ -290,7 +290,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
     	&winunlock("$lbdir/data/todaypost.cgi") if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
     }
     
-        $file = "$lbdir" . "boarddata/listno$inforum.cgi";
+        $file = "$lbdir" . "boarddata/listno$in_forum.cgi";
         &winlock($file) if ($OS_USED eq "Nt");
         open (LIST, "$file");
         flock (LIST, 2) if ($OS_USED eq "Unix");
@@ -305,15 +305,15 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 		close (LIST);
 	    }
             &winunlock($file) if ($OS_USED eq "Nt");
-            if (open (LIST, ">>${lbdir}boarddata/listall$inforum.cgi")) {
-                print LIST "$newthreadnumber\t$intopictitletemp\t$inmembername\t$currenttime\t\n";
+            if (open (LIST, ">>${lbdir}boarddata/listall$in_forum.cgi")) {
+                print LIST "$newthreadnumber\t$in_topictitletemp\t$inmembername\t$currenttime\t\n";
             	close (LIST);
             }
 	}
 	else {
             &winunlock($file) if ($OS_USED eq "Nt");
 	    require "rebuildlist.pl";
-            my $truenumber = rebuildLIST(-Forum=>"$inforum");
+            my $truenumber = rebuildLIST(-Forum=>"$in_forum");
             ($tpost,$treply) = split (/\|/,$truenumber);
 	}
 
@@ -331,7 +331,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	    $mymoney += $forumpostmoney - $addmoney if ($forumpostmoney ne "");
 	    if ($forumpostjf ne "") { $jifen += $forumpostjf; } else { $jifen += $ttojf; }
 	}
-        $lastpostdate = "$currenttime\%\%\%topic.cgi?forum=$inforum&topic=$newthreadnumber\%\%\%$intopictitletemp" if ($privateforum ne "yes");
+        $lastpostdate = "$currenttime\%\%\%topic.cgi?forum=$in_forum&topic=$newthreadnumber\%\%\%$in_topictitletemp" if ($privateforum ne "yes");
         chomp $lastpostdate;
 
     	if (($userregistered ne "no")&&($password ne "")) {
@@ -350,7 +350,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
             }
 	}
 
-	$filetoopen = "${lbdir}boarddata/foruminfo$inforum.cgi";
+	$filetoopen = "${lbdir}boarddata/foruminfo$in_forum.cgi";
 	my $filetoopens = &lockfilename($filetoopen);
 	if (!(-e "$filetoopens.lck")) {
             &winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
@@ -366,13 +366,13 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
 	    my ($todayforumpost, $todayforumposttime) = split(/\|/,$todayforumpost);
 	    if (($nowtime ne $todayforumposttime)||($todayforumpost eq "")) { $todayforumpost = 1; } else { $todayforumpost++; }
             $todayforumpost = "$todayforumpost|$nowtime";
-            $lastposttime = "$lastposttime\%\%\%$newthreadnumber\%\%\%$intopictitletemp";
+            $lastposttime = "$lastposttime\%\%\%$newthreadnumber\%\%\%$in_topictitletemp";
 	    seek(FILE,0,0);
             print FILE "$lastposttime\t$threads\t$posts\t$todayforumpost\t$lastposter\t\n";
             close(FILE);
 
 	    $posts = 0 if ($posts eq "");$threads = 0 if ($threads eq "");
-	    open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+	    open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
 	    print FILE "\$threads = $threads;\n\$posts = $posts;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
             close(FILE);
             &winunlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
@@ -410,7 +410,7 @@ if ($startnewthreads eq "onlysub") {&error("发表&对不起，这里是纯子�
     	}
 
         if (($emailfunctions eq "on") && ($innotify eq "yes")) {
-            if (open (FILE, ">${lbdir}forum$inforum/$newthreadnumber.mal.pl")) {
+            if (open (FILE, ">${lbdir}forum$in_forum/$newthreadnumber.mal.pl")) {
                 print FILE "$inmembername\t$emailaddress\t\n";
                 close (FILE);
             }
@@ -422,20 +422,20 @@ opendir (CATDIR, "${lbdir}cache");
 @dirdata = readdir(CATDIR);
 closedir (CATDIR);
 
-unlink ("${lbdir}cache/plcache$inforum\_0.pl");
+unlink ("${lbdir}cache/plcache$in_forum\_0.pl");
 
-        if ($refreshurl == 1) { $relocurl = "topic.cgi?forum=$inforum&topic=$newthreadnumber"; }
-	                 else { $relocurl = "forums.cgi?forum=$inforum"; }
+        if ($refreshurl == 1) { $relocurl = "topic.cgi?forum=$in_forum&topic=$newthreadnumber"; }
+	                 else { $relocurl = "forums.cgi?forum=$in_forum"; }
         $output .= qq~<SCRIPT>valigntop()</SCRIPT><table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>谢谢，$inmembername！您的新主题已经发表成功！</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>如果浏览器没有自动返回，请点击下面的链接！
-<ul><li><a href="topic.cgi?forum=$inforum&topic=$newthreadnumber">返回新主题</a>
-<li><a href="forums.cgi?forum=$inforum">返回论坛</a>
+<ul><li><a href="topic.cgi?forum=$in_forum&topic=$newthreadnumber">返回新主题</a>
+<li><a href="forums.cgi?forum=$in_forum">返回论坛</a>
 <li><a href="leobbs.cgi">返回论坛首页</a>
-<li><a href="postings.cgi?action=locktop&forum=$inforum&topic=$newthreadnumber">新主题固顶</a>
-<li><a href="postings.cgi?action=catlocktop&forum=$inforum&topic=$newthreadnumber">新主题区固顶</a>
-<li><a href="postings.cgi?action=abslocktop&forum=$inforum&topic=$newthreadnumber">新主题总固顶</a>
+<li><a href="postings.cgi?action=locktop&forum=$in_forum&topic=$newthreadnumber">新主题固顶</a>
+<li><a href="postings.cgi?action=catlocktop&forum=$in_forum&topic=$newthreadnumber">新主题区固顶</a>
+<li><a href="postings.cgi?action=abslocktop&forum=$in_forum&topic=$newthreadnumber">新主题总固顶</a>
 </ul></tr></td></table></td></tr></table>
 <SCRIPT>valignend()</SCRIPT>
 <meta http-equiv="refresh" content="3; url=$relocurl">

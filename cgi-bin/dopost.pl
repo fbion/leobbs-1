@@ -10,44 +10,44 @@ use diagnostics;
 
 sub upfileonpost #提交的时候处理临时文件到合适的地方：）更新帖子
 {
-    my ($inpost, $inforum, $intopic) = @_;
+    my ($inpost, $in_forum, $in_topic) = @_;
 
     if ($$inpost =~ /\[UploadFile.{0,6}=tmp_([^\]]+?)\]/is) {
         use File::Copy;
         my $tmppath = &getusrdir(1); #临时目录
 
-        $topic = $intopic % 100;
-        my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #目的目录
-        mkdir("${imagesdir}$usrdir/$inforum", 0777) if (!(-e "${imagesdir}$usrdir/$inforum"));
-        chmod(0777, "${imagesdir}$usrdir/$inforum");
+        $topic = $in_topic % 100;
+        my $topath = "${imagesdir}$usrdir/$in_forum/$topic"; #目的目录
+        mkdir("${imagesdir}$usrdir/$in_forum", 0777) if (!(-e "${imagesdir}$usrdir/$in_forum"));
+        chmod(0777, "${imagesdir}$usrdir/$in_forum");
         mkdir("$topath", 0777) if (!(-e "$topath"));
         chmod(0777, "$topath");
 
         my $tmpshow = $$inpost;
         while ($tmpshow =~ /\[UploadFile.{0,6}=tmp\_([^\]]+?)\]/i) {
-            my $filename = $1;
-            if (!(-e "$tmppath/tmp_$filename")) {$$inpost =~ s/\[UploadFile.{0,6}=tmp\_$filename\]//isg;} #删除不在的文件
+            my $file_name = $1;
+            if (!(-e "$tmppath/tmp_$file_name")) {$$inpost =~ s/\[UploadFile.{0,6}=tmp\_$file_name\]//isg;} #删除不在的文件
             else {
-                if ($filename =~ /\.torrent/i) {
-                    copy("$tmppath/tmp_$filename", "$topath/$filename");
-                    unlink("$tmppath/tmp_$filename");
-                    copy("$tmppath/tmp_$filename.btfile", "$topath/$filename.btfile");
-                    unlink("$tmppath/tmp_$filename.btfile");
+                if ($file_name =~ /\.torrent/i) {
+                    copy("$tmppath/tmp_$file_name", "$topath/$file_name");
+                    unlink("$tmppath/tmp_$file_name");
+                    copy("$tmppath/tmp_$file_name.btfile", "$topath/$file_name.btfile");
+                    unlink("$tmppath/tmp_$file_name.btfile");
                 }
                 else {
-                    copy("$tmppath/tmp_$filename", "$topath/$filename");
-                    unlink("$tmppath/tmp_$filename");
+                    copy("$tmppath/tmp_$file_name", "$topath/$file_name");
+                    unlink("$tmppath/tmp_$file_name");
                 }
-                $tmpprint = "$tmpprint$filename\n"; #要写进cache的内容
+                $tmpprint = "$tmpprint$file_name\n"; #要写进cache的内容
             }
-            $tmpshow =~ s/\[UploadFile.{0,6}=tmp\_$filename\]//isg;
+            $tmpshow =~ s/\[UploadFile.{0,6}=tmp\_$file_name\]//isg;
         }
 
         $$inpost =~ s/(\[UploadFile.{0,6}=)tmp\_(([^\]]+?)\])/$1$2/isg; #更新帖子
 
-        mkdir("${lbdir}FileCount/$inforum", 0777) if (!(-e "${lbdir}FileCount/$inforum"));
-        chmod(0777, "${lbdir}FileCount/$inforum");
-        open(FILE, ">>${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #写进cache
+        mkdir("${lbdir}FileCount/$in_forum", 0777) if (!(-e "${lbdir}FileCount/$in_forum"));
+        chmod(0777, "${lbdir}FileCount/$in_forum");
+        open(FILE, ">>${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl"); #写进cache
         print FILE "$tmpprint";
         close(FILE);
         my @tmpprint = split(/\n/, $tmpprint);
@@ -60,12 +60,12 @@ sub upfileonpost #提交的时候处理临时文件到合适的地方：）更�
 
 sub delupfiles #删除当前帖子全部附件（遍历帖子方式）---删除回复时候用
 {
-    my ($inpost, $inforum, $intopic) = @_;
+    my ($inpost, $in_forum, $in_topic) = @_;
     if ($$inpost =~ /\[UploadFile.{0,6}=([^\]]+?)\]/is) {
-        $topic = $intopic % 100;
-        my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #目的目录
+        $topic = $in_topic % 100;
+        my $topath = "${imagesdir}$usrdir/$in_forum/$topic"; #目的目录
 
-        my $usruploadfile = "${lbdir}FileCount/$inforum/${inforum}\_${intopic}.pl";
+        my $usruploadfile = "${lbdir}FileCount/$in_forum/${inforum}\_${intopic}.pl";
         if (open(FILEUP, "$usruploadfile")) {
             sysread(FILEUP, $tmpprint, (stat(FILEUP))[7]);
             close(FILEUP);
@@ -76,16 +76,16 @@ sub delupfiles #删除当前帖子全部附件（遍历帖子方式）---删除�
         $tmpshow =~ s/\[UploadFile.{0,6}=tmp\_[^\]]+?\]//isg; #临时文件不处理，因为是这次上传的
 
         while ($tmpshow =~ /\[UploadFile.{0,6}=([^\]]+?)\]/i) {
-            my $filename = $1;
-            if ($filename =~ /\.torrent/i) {
-                unlink("$topath/$filename");
-                unlink("$topath/$filename.btfile");
-                $tmpprint =~ s/$filename//isg;
+            my $file_name = $1;
+            if ($file_name =~ /\.torrent/i) {
+                unlink("$topath/$file_name");
+                unlink("$topath/$file_name.btfile");
+                $tmpprint =~ s/$file_name//isg;
             }
             else {
-                unlink("$topath/$filename");
-                unlink("$topath/$filename.waterpicture");
-                $tmpprint =~ s/$filename//isg;
+                unlink("$topath/$file_name");
+                unlink("$topath/$file_name.waterpicture");
+                $tmpprint =~ s/$file_name//isg;
             }
             $tmpshow =~ s/\[UploadFile.{0,6}=([^\]]+?)\]//i;
         }
@@ -105,7 +105,7 @@ sub delupfiles #删除当前帖子全部附件（遍历帖子方式）---删除�
 
         $tmpprint =~ s/\n\n/\n/isg;
 
-        open(FILE, ">${lbdir}FileCount/$inforum/$inforum\_$intopic.pl"); #写进cache
+        open(FILE, ">${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl"); #写进cache
         print FILE "$tmpprint";
         close(FILE);
         return $err;
@@ -115,12 +115,12 @@ sub delupfiles #删除当前帖子全部附件（遍历帖子方式）---删除�
 
 sub delallupfiles #删除当前主贴全部附件,全部删除的时候调用（cache方式）
 {
-    my ($inforum, $intopic) = @_;
+    my ($in_forum, $in_topic) = @_;
 
-    $topic = $intopic % 100;
-    my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #目的目录
+    $topic = $in_topic % 100;
+    my $topath = "${imagesdir}$usrdir/$in_forum/$topic"; #目的目录
 
-    my $usruploadfile = "${lbdir}FileCount/$inforum/${inforum}\_${intopic}.pl";
+    my $usruploadfile = "${lbdir}FileCount/$in_forum/${inforum}\_${intopic}.pl";
     if (open(FILEUP, "$usruploadfile")) {
         sysread(FILEUP, $files, (stat(FILEUP))[7]);
         close(FILEUP);

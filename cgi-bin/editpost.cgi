@@ -50,10 +50,10 @@ for ('forum', 'topic', 'membername', 'password', 'action', 'postno',
     $tp = &cleaninput("$tp");
     ${$_} = $tp;
 }
-$inforum = $forum;
-$intopic = $topic;
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9 ]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9 ]+$/);
+$in_forum = $forum;
+$in_topic = $topic;
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9 ]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9 ]+$/);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 &error("普通错误&请以正确的方式访问本程序！") if (($postweiwang > $maxweiwang) && ($inhiddentopic eq "yes"));
@@ -68,7 +68,7 @@ if ($inpassword ne "") {
     unless ($@) {$inpassword = "lEO$inpassword";}
 }
 
-$inpostno = $postno;
+$in_post_no = $postno;
 $innotify = $notify;
 $indeletepost = $deletepost;
 $currenttime = time;
@@ -113,7 +113,7 @@ $maxupload = 300 if ($maxupload eq "");
 
 if ($inshowemoticons ne "yes") {$inshowemoticons eq "no";}
 if ($innotify ne "yes") {$innotify eq "no";}
-if (($inpostno) && ($inpostno !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
+if (($in_post_no) && ($in_post_no !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
 if (($movetoid) && ($movetoid !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
 
 if ($useemote eq "yes") {
@@ -147,7 +147,7 @@ $maxpoststr = 100 if (($maxpoststr < 100) && ($maxpoststr ne ""));
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 
-&moderator("$inforum");
+&moderator("$in_forum");
 &error("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 if ($allowusers ne '') {
     &error('进入论坛&你不允许进入该论坛！') if (",$allowusers," !~ /,$inmembername,/i && $membercode ne 'ad');
@@ -170,7 +170,7 @@ else {&error("普通错误&请以正确的方式访问本程序.");}
 exit;
 
 sub editform {
-    $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+    $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
     &winlock($filetoopen) if ($OS_USED eq "Nt");
     open(FILE, "$filetoopen");
     flock(FILE, 1) if ($OS_USED eq "Unix");
@@ -178,7 +178,7 @@ sub editform {
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    $posttoget = $inpostno;
+    $posttoget = $in_post_no;
     $posttoget--;
 
     ($postermembername, $topictitle, $postipaddress, $showemoticons, $showsignature, $postdate, $post, $posticon, $water) = split(/\t/, $threads[$posttoget]);
@@ -199,8 +199,8 @@ sub editform {
     $inmembmod = "no" if (($membercode eq "amo") && ($allowamoedit ne "yes"));
     if (($membercode ne "ad") && ($membercode ne "smo") && ($inmembmod ne "yes") && ((lc($inmembername) ne lc($postermembername)) || ($usereditpost eq "no"))) {&error("编辑帖子&您不是原作者、论坛管理员，或者密码错誤，或者此区不允许编辑帖子！");}
 
-    $testentry = $query->cookie("forumsallowed$inforum");
-    if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    $testentry = $query->cookie("forumsallowed$in_forum");
+    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     else {$allowed = "no";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("发表&对不起，您不允许在此论坛发表！");}
 
@@ -238,11 +238,11 @@ sub editform {
     my $filetoopens = "$lbdir" . "data/onlinedata.cgi";
     $filetoopens = &lockfilename($filetoopens);
     if (!(-e "$filetoopens.lck")) {
-        &whosonline("$inmembername\t$forumname\tnone\t编辑<a href=\"topic.cgi?forum=$inforum&topic=$intopic\"><b>$topictitle</b></a>\t") if ($privateforum ne "yes");
+        &whosonline("$inmembername\t$forumname\tnone\t编辑<a href=\"topic.cgi?forum=$in_forum&topic=$in_topic\"><b>$topictitle</b></a>\t") if ($privateforum ne "yes");
         &whosonline("$inmembername\t$forumname(密)\tnone\t编辑保密贴子\t") if ($privateforum eq "yes");
     }
 
-    if (($nowater eq "on") && ($inpostno eq "1")) {
+    if (($nowater eq "on") && ($in_post_no eq "1")) {
         $gsnum = 0 if ($gsnum <= 0);
         $nowaterpost = qq~<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>灌水限制</b></font></td><td bgcolor=$miscbackone><input type="radio" name="inwater" value=no> 不许灌水　 <input name="inwater" type="radio" value=yes> 允许灌水　    [如果选择“不许灌水”，则回复不得少于 <B>$gsnum</B> 字节]</td></tr>~;
         $nowaterpost =~ s/value=$water/value=$water checked/i if ($water ne "");
@@ -315,7 +315,7 @@ sub editform {
         $canlbcode = "";
     }
 
-    if ($inpostno eq "1") {
+    if ($in_post_no eq "1") {
         $topictitle = $newtopictitle if ($newtopictitle ne "");
         $topictitle =~ s/ \(无内容\)$//;
         $topictitlehtml = qq~<td bgcolor=$miscbackone><font color=$fontcolormisc><b>贴子主题</b></font></td><td bgcolor=$miscbackone><input type=text size=60 maxlength=80 name="newtopictitle" value="$topictitle">　不得超过 40 个汉字</td>~;
@@ -338,16 +338,16 @@ therange.execCommand("Copy")}
 </script>
 <form action="$thisprog" method=post name="FORM" enctype="multipart/form-data">
 <input type=hidden name="action" value="processedit">
-<input type=hidden name="postno" value="$inpostno">
-<input type=hidden name="forum" value="$inforum">
-<input type=hidden name="topic" value="$intopic"><SCRIPT>valigntop()</SCRIPT>
+<input type=hidden name="postno" value="$in_post_no">
+<input type=hidden name="forum" value="$in_forum">
+<input type=hidden name="topic" value="$in_topic"><SCRIPT>valigntop()</SCRIPT>
 <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td>
 <table cellpadding=4 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor>$topictitlehtml1</td></tr>
 $topictitlehtml$nowaterpost
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 <tr>
 <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>当前心情</b><BR><li>将放在贴子的前面<BR></font></td>
@@ -373,26 +373,26 @@ $topictitlehtml$nowaterpost
     $output .= qq~$tempoutput</td></tr>~;
 
     #######旧方式的附件，为了兼容，保留############################
-    my $p1 = $inpostno - 1;
-    $dirtoopen2 = "$imagesdir" . "$usrdir/$inforum";
+    my $p1 = $in_post_no - 1;
+    $dirtoopen2 = "$imagesdir" . "$usrdir/$in_forum";
     opendir(DIR, "$dirtoopen2");
     @files = readdir(DIR);
     closedir(DIR);
-    @files = grep (/^$inforum\_$intopic/, @files);
-    if ($p1 > 0) {@files = grep (/^$inforum\_$intopic\_$p1\./, @files);}
-    else {@files = grep (/^$inforum\_$intopic\./, @files);}
+    @files = grep (/^$in_forum\_$in_topic/, @files);
+    if ($p1 > 0) {@files = grep (/^$in_forum\_$in_topic\_$p1\./, @files);}
+    else {@files = grep (/^$in_forum\_$in_topic\./, @files);}
     if ($#files >= 0) {$delimg = "<BR><input type=checkbox name='delimg' value='no'>删除所有的原图像或附件</input>";}
     ########################################################
     if ($rawpost =~ m/\[UploadFile.{0,6}=([^\\\]]+?)\]/is) {$delimg = "<BR><input type=checkbox name='delimg' value='no'>删除所有的原图像或附件</input>" if ($delimg eq "");}
 
-    if (((($inpostno eq "1") && ($arrowupload ne "off")) || (($inpostno ne "1") && ($allowattachment ne "no")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"))) {
+    if (((($in_post_no eq "1") && ($arrowupload ne "off")) || (($in_post_no ne "1") && ($allowattachment ne "no")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes"))) {
         $uploadreqire = "" if ($uploadreqire <= 0);
         $uploadreqire = "<BR>发帖数要大于 <B>$uploadreqire</B> 篇(认证用户不限)" if ($uploadreqire ne "");
         #        $output .= qq~<tr><td bgcolor=$miscbacktwo><b>上传附件或图片</b>(最大 $maxupload KB)$uploadreqire</td><td bgcolor=$miscbacktwo> <input type="file" size=30 name="addme">　　$addtypedisp</td></tr>~;
         ###路杨add start
         $output .= qq~<script language="javascript">function jsupfile(upname) {upname='[UploadFile$imgslt='+upname+']';if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {var caretPos = document.FORM.inpost.caretPos;caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;document.FORM.inpost.focus();} else {document.FORM.inpost.value+=upname;document.FORM.inpost.focus();}}</script>~;
         ###路杨add end
-        $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$inforum&topic=$intopic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$inforum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font></font>$delimg<SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
+        $output .= qq~<tr><td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td><td bgcolor=$miscbackone> <iframe id="upframe" name="upframe" src="upfile.cgi?action=uppic&forum=$in_forum&topic=$in_topic" width=100% height=40 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe><br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可)  [<a href=upfile.cgi?action=delup&forum=$in_forum target=upframe title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>] </font></font>$delimg<SPAN id=showupfile name=showupfile></SPAN></td></tr>~;
 
     }
     $maxpoststr = "(帖子中最多包含 <B>$maxpoststr</B> 个字符)" if ($maxpoststr ne "");
@@ -448,8 +448,8 @@ function showall (){var out ='';for (var i=0;i<emotarray.length;i++){out += ' <i
 ~;
         }
     }
-    if (($inpostno ne 1) && (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || (($arrowuserdel eq "on") && (lc($inmembername) eq lc($postermembername))))) {
-        $managetable = qq~<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>管理员选项</b></td><td bgcolor=$miscbackone>&nbsp;<a href="delpost.cgi?action=processedit&postno=$inpostno&forum=$inforum&topic=$intopic&deletepost=yes" OnClick="return confirm('真的要删除此回复么？');">删除此回复(谨慎使用，不可恢复)</a></td></tr>~;
+    if (($in_post_no ne 1) && (($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes") || (($arrowuserdel eq "on") && (lc($inmembername) eq lc($postermembername))))) {
+        $managetable = qq~<tr><td bgcolor=$miscbackone><font color=$fontcolormisc><b>管理员选项</b></td><td bgcolor=$miscbackone>&nbsp;<a href="delpost.cgi?action=processedit&postno=$in_post_no&forum=$in_forum&topic=$in_topic&deletepost=yes" OnClick="return confirm('真的要删除此回复么？');">删除此回复(谨慎使用，不可恢复)</a></td></tr>~;
     }
     $output .= qq~</td></tr>
 <tr><td bgcolor=$miscbacktwo valign=top><font color=$fontcolormisc><b>选项</b><p>$helpurl
@@ -459,7 +459,7 @@ function showall (){var out ='';for (var i=0;i<emotarray.length;i++){out += ' <i
 </font></td></tr>$managetable
 <tr><td bgcolor=$miscbackone colspan=2 align=center>
 <input type=Submit value="发 表" name=Submit onClick="return clckcntr();">　　<input type=button value='预 览' name=Button onclick=gopreview()>　　<input type="reset" name="Clear" value="清 除"></td></form></tr></table></tr></td></table><SCRIPT>valignend()</SCRIPT>
-<form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$inforum"><input type=hidden name=topic value="$intopic"></form>
+<form name=preview action=preview.cgi method=post target=preview_page><input type=hidden name=body value=""><input type=hidden name=forum value="$in_forum"><input type=hidden name=topic value="$in_topic"></form>
 <script>
 function gopreview(){
 document.forms[1].body.value=document.forms[0].inpost.value;
@@ -472,8 +472,8 @@ document.forms[1].submit()
 }
 
 sub processedit {
-    $inpostno1 = $inpostno;
-    $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+    $in_post_no1 = $in_post_no;
+    $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
     if (-e $filetoopen) {
         &winlock($filetoopen) if ($OS_USED eq "Nt");
         open(FILE, "$filetoopen") or &error("编辑&这个主题不存在！");
@@ -485,7 +485,7 @@ sub processedit {
         @allthreads = split(/\n/, $allthreads);
     }
     else {
-        unlink("$lbdir" . "forum$inforum/$intopic.pl");
+        unlink("$lbdir" . "forum$in_forum/$in_topic.pl");
         &error("编辑&这个主题不存在！");
     }
 
@@ -493,7 +493,7 @@ sub processedit {
     if ((($inhiddentopic eq "yes") || ($moneyhidden eq "yes")) && ($userregistered eq "no")) {&error("发表主题&未注册用户无权进行威望和金钱加密！");}
 
     $delimg = $query->param('delimg');
-    $posttoget = $inpostno;
+    $posttoget = $in_post_no;
     $posttoget--;
     $postcountcheck = 0;
 
@@ -516,10 +516,10 @@ sub processedit {
     }
 
     while ($post =~ /\[UploadFile.{0,6}=(.+?)\]/) {
-        my $filenametemp = $1;
-        $filenametemp =~ s/\.\.//isg;
-        $filenametemp =~ s/\/\\//isg;
-        $addmetotle = "$addmetotle$filenametemp\n";
+        my $file_nametemp = $1;
+        $file_nametemp =~ s/\.\.//isg;
+        $file_nametemp =~ s/\/\\//isg;
+        $addmetotle = "$addmetotle$file_nametemp\n";
         $post =~ s/\[UploadFile.{0,6}=(.+?)\]//;
     }
     @addmetotle = split(/\n/, $addmetotle);
@@ -529,8 +529,8 @@ sub processedit {
     ($temp, $edittimes) = split(/第 /, $edittimes);
     $edittimes = 0 unless ($edittimes);
 
-    $testentry = $query->cookie("forumsallowed$inforum");
-    if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
+    $testentry = $query->cookie("forumsallowed$in_forum");
+    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($membercode eq 'smo') || ($inmembmod eq "yes")) {$allowed = "yes";}
     else {$allowed = "no";}
     if (($privateforum eq "yes") && ($allowed ne "yes")) {&error("编辑主题&对不起，您不允许在此论坛发表！");}
 
@@ -576,7 +576,7 @@ sub processedit {
         my $temp = &dofilter("$newtopictitle\t$inpost");
         ($newtopictitle, $inpost) = split(/\t/, $temp);
 
-        if ($inpostno eq 1) {
+        if ($in_post_no eq 1) {
             $newtopictitle =~ s/(a|A)N(d|D)/$1&#78;$2/sg;
             $newtopictitle =~ s/(a|A)n(d|D)/$1&#110;$2/sg;
             $newtopictitle =~ s/(o|O)R/$1&#82;/sg;
@@ -593,8 +593,8 @@ sub processedit {
             undef $tempintopictitle;
         }
 
-        if (($newtopictitle eq "") && ($inpostno eq 1)) {&error("编辑主题&对不起，贴子主题不能为空！");}
-        if ((length($newtopictitle) > 110) && ($inpostno eq 1)) {&error("编辑主题&对不起，主题标题过长！");}
+        if (($newtopictitle eq "") && ($in_post_no eq 1)) {&error("编辑主题&对不起，贴子主题不能为空！");}
+        if ((length($newtopictitle) > 110) && ($in_post_no eq 1)) {&error("编辑主题&对不起，主题标题过长！");}
         $newtopictitle = "＊＃！＆＊$newtopictitle";
 
         if (($nowater eq "on") && ($membercode ne "ad") && ($membercode ne 'smo') && ($membercode ne 'cmo') && ($membercode ne 'amo') && ($membercode ne 'mo') && ($inmembmod ne "yes")) {
@@ -608,12 +608,12 @@ sub processedit {
                 $inposttemp =~ s/\[quote\]\[b\]下面引用由\[u\].+?\[\/u\]在 \[i\].+?\[\/i\] 发表的内容：\[\/b\].+?\[\/quote\]//isg;
                 if ((length($inposttemp) < $gsnum) && ($gsnum > 0)) {
                     &error("发表回复&请不要灌水，本主题禁止 $gsnum 字节以下的灌水！");
-                    unlink("${imagesdir}$usrdir/$inforum/$inforum\_$intopic\_$replynumber.$up_ext") if ($addme);
+                    unlink("${imagesdir}$usrdir/$in_forum/$in_forum\_$in_topic\_$replynumber.$up_ext") if ($addme);
                 }
             }
         }
 
-        if ($inpostno eq 1) {
+        if ($in_post_no eq 1) {
             $newtopictitle = "$newtopictitle (无内容)" if (($inpost eq "") && ($addme eq ""));
             if ($topictitle eq $newtopictitle) {
                 $topictitlecomp = 1;
@@ -646,40 +646,40 @@ sub processedit {
             $inposttemp = &lbhz($inposttemp, 50);
         }
 
-        $p1 = $inpostno - 1;
+        $p1 = $in_post_no - 1;
 
         ########删除旧方式的附件，兼容的话保留####
-        $dirtoopen2 = "$imagesdir" . "$usrdir/$inforum";
+        $dirtoopen2 = "$imagesdir" . "$usrdir/$in_forum";
         opendir(DIR, "$dirtoopen2");
         @files = readdir(DIR);
         closedir(DIR);
-        @files = grep (/^$inforum\_$intopic/, @files);
+        @files = grep (/^$in_forum\_$in_topic/, @files);
 
-        if ($p1 > 0) {@files = grep (/^$inforum\_$intopic\_$p1\./, @files);}
-        else {@files = grep (/^$inforum\_$intopic\./, @files);}
+        if ($p1 > 0) {@files = grep (/^$in_forum\_$in_topic\_$p1\./, @files);}
+        else {@files = grep (/^$in_forum\_$in_topic\./, @files);}
 
         foreach (@files) {
             if (($addme ne "") || ($delimg ne "")) {
-                unlink("$imagesdir/$usrdir/$inforum/$_");
+                unlink("$imagesdir/$usrdir/$in_forum/$_");
             }
         }
 
         #######删除全部原来的附件 START###(BY 路杨)
-        if ($delimg ne "") {$showerr = &delupfiles(\$inpost, $inforum, $intopic);}; #新方式
+        if ($delimg ne "") {$showerr = &delupfiles(\$inpost, $in_forum, $in_topic);}; #新方式
 
         #######删除全部原来的附件 END
 
-        $topic = $intopic % 100;
-        my $topath = "${imagesdir}$usrdir/$inforum/$topic"; #目的目录
+        $topic = $in_topic % 100;
+        my $topath = "${imagesdir}$usrdir/$in_forum/$topic"; #目的目录
         foreach (@addmetotle) {
             if ($inpost !~ /$_/i) {unlink("$topath\/$_");}
         }
 
         my $filesize = 0;
 
-        $addme = &upfileonpost(\$inpost, $inforum, $intopic); #处理上传，返回数值给BT区做判断
+        $addme = &upfileonpost(\$inpost, $in_forum, $in_topic); #处理上传，返回数值给BT区做判断
 
-        $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+        $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
         &winlock($filetoopen) if ($OS_USED eq "Nt");
         if (open(FILE, ">$filetoopen")) {
             flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -706,33 +706,33 @@ sub processedit {
 
         $postcountcheck--;
         $topictitle =~ s/^＊＃！＆＊//;
-        if (($inpostno eq 1) || ($postcountcheck eq $posttoget)) {
-            $filetoopen = "$lbdir" . "forum$inforum/$intopic.pl";
+        if (($in_post_no eq 1) || ($postcountcheck eq $posttoget)) {
+            $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.pl";
             open(FILE, "$filetoopen");
             my $topicall = <FILE>;
             close(FILE);
             chomp $topicall;
             (my $topicidtemp, my $topictitletemp, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $lastpostdate, my $posticon, my $posttemp, my $addmetype) = split(/\t/, $topicall);
             $posttemp = $inposttemp if ($postcountcheck eq $posttoget);
-            $posticon = $inposticon if ($inpostno eq 1);
+            $posticon = $inposticon if ($in_post_no eq 1);
             if ($inpost =~ /\[UploadFile.{0,6}=(.+?)\]/i) {
                 ($no, $addmetype1) = split(/.*\./, $1);
             }
             else {$addmetype1 = "";}
-            if ($inpostno eq 1) {$addmetype = $addmetype1;}
+            if ($in_post_no eq 1) {$addmetype = $addmetype1;}
             if (open(FILE, ">$filetoopen")) {
-                print FILE "$intopic\t＊＃！＆＊$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$posttemp\t$addmetype\t\n";
+                print FILE "$in_topic\t＊＃！＆＊$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$posttemp\t$addmetype\t\n";
                 close(FILE);
             }
 
-            $filetoopen = "$lbdir" . "boarddata/listall$inforum.cgi";
+            $filetoopen = "$lbdir" . "boarddata/listall$in_forum.cgi";
             &winlock($filetoopen) if ($OS_USED eq "Nt");
             open(FILE, "$filetoopen");
             flock(FILE, 2) if ($OS_USED eq "Unix");
             sysread(FILE, my $allthreads, (stat(FILE))[7]);
             close(FILE);
             $allthreads =~ s/\r//isg;
-            $allthreads =~ s/(.*)(^|\n)$intopic\t(.*?)\t(.*?)\t(.*?)\t\n(.*)/$1$2$intopic\t$topictitle\t$4\t$5\t\n$6/isg;
+            $allthreads =~ s/(.*)(^|\n)$in_topic\t(.*?)\t(.*?)\t(.*?)\t\n(.*)/$1$2$in_topic\t$topictitle\t$4\t$5\t\n$6/isg;
 
             if (open(FILE, ">$filetoopen")) {
                 flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -741,17 +741,17 @@ sub processedit {
             }
             &winunlock($filetoopen) if ($OS_USED eq "Nt");
         }
-        if (($inpostno eq 1) && ($topictitlecomp eq 0)) {
+        if (($in_post_no eq 1) && ($topictitlecomp eq 0)) {
 
             my $newthreadnumber;
-            $filetoopen = "$lbdir" . "boarddata/lastnum$inforum.cgi";
+            $filetoopen = "$lbdir" . "boarddata/lastnum$in_forum.cgi";
             if (open(FILE, "$filetoopen")) {
                 $newthreadnumber = <FILE>;
                 close(FILE);
                 chomp $newthreadnumber;
             }
-            if ($newthreadnumber = $intopic) {
-                $filetoopen = "${lbdir}boarddata/foruminfo$inforum.cgi";
+            if ($newthreadnumber = $in_topic) {
+                $filetoopen = "${lbdir}boarddata/foruminfo$in_forum.cgi";
                 my $filetoopens = &lockfilename($filetoopen);
                 if (!(-e "$filetoopens.lck")) {
                     &winlock($filetoopen) if ($OS_USED eq "Nt" || $OS_USED eq "Unix");
@@ -780,8 +780,8 @@ sub processedit {
                     ($tempno1, $tempno2, $no, @endall) = split(/\t/, $_);
                     next if (($tempno1 !~ /^[0-9]+$/) || ($tempno2 !~ /^[0-9]+$/));
 
-                    if (($tempno1 eq $inforum) && ($tempno2 eq $intopic)) {
-                        print FILE "$inforum\t$intopic\t$topictitle\t";
+                    if (($tempno1 eq $in_forum) && ($tempno2 eq $in_topic)) {
+                        print FILE "$in_forum\t$in_topic\t$topictitle\t";
                         foreach (@endall) {print FILE "$_\t";}
                         print FILE "\n"
                     }
@@ -798,18 +798,18 @@ sub processedit {
 
         for (my $iii = 0; $iii <= 4; $iii++) {
             my $jjj = $iii * $maxthreads;
-            unlink("${lbdir}cache/plcache$inforum\_$jjj.pl");
+            unlink("${lbdir}cache/plcache$in_forum\_$jjj.pl");
         }
 
         $gopage = int(($posttoget - 1) / $maxtopics) * $maxtopics;
         $posttoget++;
-        if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$posttoget";}
-        else {$relocurl = "forums.cgi?forum=$inforum";}
+        if ($refreshurl == 1) {$relocurl = "topic.cgi?forum=$in_forum&topic=$in_topic&start=$gopage#$posttoget";}
+        else {$relocurl = "forums.cgi?forum=$in_forum";}
         $output .= qq~<table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellpadding=6 cellspacing=1 width=100%>
 <tr><td bgcolor=$titlecolor $catbackpic align=center><font color=$fontcolormisc><b>编辑成功</b></font></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>
-具体情况：<ul><li><a href="topic.cgi?forum=$inforum&topic=$intopic&start=$gopage#$posttoget">返回主题</a><li><a href="forums.cgi?forum=$inforum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a></ul>
+具体情况：<ul><li><a href="topic.cgi?forum=$in_forum&topic=$in_topic&start=$gopage#$posttoget">返回主题</a><li><a href="forums.cgi?forum=$in_forum">返回论坛</a><li><a href="leobbs.cgi">返回论坛首页</a></ul>
 </tr></td></table></td></tr></table>
 <meta http-equiv="refresh" content="3; url=$relocurl">
 ~;

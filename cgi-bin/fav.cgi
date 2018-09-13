@@ -77,8 +77,8 @@ $newcate =~ s/\=/\\\=/isg;
 $newcate =~ s/\//\\\//isg;
 $newcate =~ s/system//isg;
 
-$inforum = $forum;
-$intopic = $topic;
+$in_forum = $forum;
+$in_topic = $topic;
 $inmembername = $membername;
 $inpassword = $password;
 if ($inpassword ne "") {
@@ -91,8 +91,8 @@ $currenttime = time;
 $maxthreads = 25 if ($maxthreads <= 0);
 $numberofpages = 25 if ($numberofpages <= 0);
 $maxtopics = 25 if ($maxtopics <= 0);
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 
 $inselectstyle = $query->cookie("selectstyle");
@@ -161,13 +161,13 @@ else {&error("普通错误&请以正确的方式访问本程序");}
 
 sub add {
     $taction = ($mainopen eq "up") ? "提升" : "加入";
-    if (($intopic eq "") && ($inforum eq "")) {&error("$taction个人收藏&没有指定主题编号和论坛编号！");}
+    if (($in_topic eq "") && ($in_forum eq "")) {&error("$taction个人收藏&没有指定主题编号和论坛编号！");}
     #    &getmember("$inmembername");
 
-    $testentry = $query->cookie("forumsallowed$inforum");
+    $testentry = $query->cookie("forumsallowed$in_forum");
 
-    &getoneforum("$inforum");
-    if (($allowedentry{$inforum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
+    &getoneforum("$in_forum");
+    if (($allowedentry{$in_forum} eq "yes") || (($testentry eq $forumpass) && ($testentry ne "")) || ($membercode eq "ad") || ($inmembmod eq "yes") || ($membercode eq 'smo')) {$allowed = "yes";}
     else {$allowed = "no";}
 
     if (($privateforum eq "yes" && $allowed ne "yes")) {&error("$taction个人收藏&对不起，您没有权限收藏这个贴子！");}
@@ -189,7 +189,7 @@ sub add {
                 foreach $line (@favtopic) {
                     chomp $line;
                     ($ttopic, $tforum, undef) = split(/\t/, $line);
-                    if (($ttopic eq $intopic) && ($tforum eq $inforum)) {
+                    if (($ttopic eq $in_topic) && ($tforum eq $in_forum)) {
                         my $oldtopic = splice(@favtopic, $i, 1);
                         ($topic, $forum, $status, $cate, $ftime) = split(/\t/, $oldtopic);
                         last;
@@ -236,13 +236,13 @@ sub add {
                 }
                 open(FAV, ">$file");
                 print FAV "$catelist\t$favdescript\n";
-                print FAV "$intopic\t$inforum\tnormal\t$incate\t$currenttime\t\n";
+                print FAV "$in_topic\t$in_forum\tnormal\t$incate\t$currenttime\t\n";
                 foreach $line (@favtopic) {
                     chomp $line;
                     ($topic, $forum, $status, $cate, $ftime) = split(/\t/, $line);
                     my $rr = &readthreadpl($forum, $topic);
                     next if ($rr eq "");
-                    unless (($topic eq $intopic) && ($forum eq $inforum)) {
+                    unless (($topic eq $in_topic) && ($forum eq $in_forum)) {
                         print FAV "$topic\t$forum\t$status\t$cate\t$ftime\t\n";
                     }
                 }
@@ -254,11 +254,11 @@ sub add {
             $selectcate = 0;
             open(ENT, ">$file");
             print ENT "＊＃！＆＊${newcate}o\t\n";
-            print ENT "$intopic\t$inforum\tnormal\t$newcate\t$currenttime\t\n";
+            print ENT "$in_topic\t$in_forum\tnormal\t$newcate\t$currenttime\t\n";
             close(ENT);
         }
         if ($mainopen ne "up") {
-            $returntoforum = qq(<li><a href="topic.cgi?forum=$inforum&topic=$intopic">返回该主题</a><li><a href="forums.cgi?forum=$inforum">返回论坛</a>);
+            $returntoforum = qq(<li><a href="topic.cgi?forum=$in_forum&topic=$in_topic">返回该主题</a><li><a href="forums.cgi?forum=$in_forum">返回论坛</a>);
         }
 
         $output .= qq~
@@ -293,7 +293,7 @@ sub add {
             $catelist = shift(@favtopic);
             foreach $line (@favtopic) {
                 ($topic, $forum, $status, $cate, $ftime) = split(/\t/, $line);
-                &error("个人收藏夹&该主题已加入收藏夹中的目录 - $cate！") if ($topic eq $intopic && $forum eq $inforum);
+                &error("个人收藏夹&该主题已加入收藏夹中的目录 - $cate！") if ($topic eq $in_topic && $forum eq $in_forum);
             }
             @catelist = split(/\t/, $catelist);
             foreach (@catelist) {s/^＊＃！＆＊//o;}
@@ -323,11 +323,11 @@ sub add {
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="add">
             <input type=hidden name="checked" value="yes">
-            <input type=hidden name="forum" value="$inforum">
-            <input type=hidden name="topic" value="$intopic">
+            <input type=hidden name="forum" value="$in_forum">
+            <input type=hidden name="topic" value="$in_topic">
             <font color=$fontcolormisc><b>请输入您的用户名、密码加入个人收藏 </b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>$cateselect
             <tr>
             <td bgcolor=$miscbackone><font color=$fontcolormisc>加入一个新目录</font></td>
@@ -349,7 +349,7 @@ sub mov {
         $topictomove = 0;
     }
     else {
-        if (($intopic eq "") && ($inforum eq "")) {&error("移动个人收藏&没有指定主题编号和论坛编号！");}
+        if (($in_topic eq "") && ($in_forum eq "")) {&error("移动个人收藏&没有指定主题编号和论坛编号！");}
     }
     #    &getmember("$inmembername");
 
@@ -400,9 +400,9 @@ sub mov {
                     $check = "no";
                     foreach (@selecttopic) {
                         next if ($_ eq "");
-                        my ($inforum, $intopic) = split(/\|/, $_);
-                        next if ($inforum eq "" || $inforum =~ /[^0-9]/ || $intopic eq "" || $intopic =~ /[^0-9]/);
-                        if (($topic eq $intopic) && ($forum eq $inforum)) {
+                        my ($in_forum, $in_topic) = split(/\|/, $_);
+                        next if ($in_forum eq "" || $in_forum =~ /[^0-9]/ || $in_topic eq "" || $in_topic =~ /[^0-9]/);
+                        if (($topic eq $in_topic) && ($forum eq $in_forum)) {
                             $check = "yes";
                             last;
                         }
@@ -416,7 +416,7 @@ sub mov {
                     }
                 }
                 else {
-                    if (($topic eq $intopic) && ($forum eq $inforum)) {
+                    if (($topic eq $in_topic) && ($forum eq $in_forum)) {
                         $topictomove = 1;
                         print FAV "$topic\t$forum\tnormal\t$incate\t$ftime\t\n";
                     }
@@ -490,13 +490,13 @@ sub mov {
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="mov">
             <input type=hidden name="checked" value="yes">
-            <input type=hidden name="forum" value="$inforum">
-            <input type=hidden name="topic" value="$intopic">
+            <input type=hidden name="forum" value="$in_forum">
+            <input type=hidden name="topic" value="$in_topic">
             <input type=hidden name="mainopen" value="$selectcate">
             <input type=hidden name="selecttopic" value="$selecttopic">
             <font color=$fontcolormisc><b>请输入您的用户名、密码移动个人收藏 </b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>$cateselect
             <tr>
             <td bgcolor=$miscbackone><font color=$fontcolormisc>移动到一个新目录</font></td>
@@ -509,7 +509,7 @@ sub mov {
     }
 } # end
 sub top {
-    if (($intopic eq "") && ($inforum eq "")) {&error("个人收藏置顶&没有指定主题编号和论坛编号");}
+    if (($in_topic eq "") && ($in_forum eq "")) {&error("个人收藏置顶&没有指定主题编号和论坛编号");}
     #    &getmember("$inmembername");
 
     &favmischeader("个人收藏置顶");
@@ -530,7 +530,7 @@ sub top {
                 ($topic, $forum, $status, $cate, $ftime) = split(/\t/, $line);
                 my $rr = &readthreadpl($forum, $topic);
                 next if ($rr eq "");
-                if (($topic eq $intopic) && ($forum eq $inforum)) {
+                if (($topic eq $in_topic) && ($forum eq $in_forum)) {
                     if ($status ne "top") {
                         print FAV "$topic\t$forum\ttop\t$cate\t$ftime\t\n";
                         $topaction = "置顶";
@@ -584,12 +584,12 @@ sub top {
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="top">
             <input type=hidden name="checked" value="yes">
-            <input type=hidden name="forum" value="$inforum">
-            <input type=hidden name="topic" value="$intopic">
+            <input type=hidden name="forum" value="$in_forum">
+            <input type=hidden name="topic" value="$in_topic">
             <input type=hidden name="mainopen" value="$selectcate">
             <font color=$fontcolormisc><b>请输入您的用户名、密码置顶个人收藏 </b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
             <tr>
             <td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="确 定"></td></form></tr></table></td></tr></table>
@@ -607,7 +607,7 @@ sub del {
         $topictodel = 0;
     }
     else {
-        if (($intopic eq "") && ($inforum eq "")) {&error("删除个人收藏&没有指定主题编号和论坛编号！");}
+        if (($in_topic eq "") && ($in_forum eq "")) {&error("删除个人收藏&没有指定主题编号和论坛编号！");}
     }
     #        &getmember("$inmembername");
 
@@ -634,9 +634,9 @@ sub del {
                     $check = "no";
                     foreach (@selecttopic) {
                         next if ($_ eq "");
-                        my ($inforum, $intopic) = split(/\|/, $_);
-                        next if ($inforum eq "" || $inforum =~ /[^0-9]/ || $intopic eq "" || $intopic =~ /[^0-9]/);
-                        if (($topic eq $intopic) && ($forum eq $inforum)) {
+                        my ($in_forum, $in_topic) = split(/\|/, $_);
+                        next if ($in_forum eq "" || $in_forum =~ /[^0-9]/ || $in_topic eq "" || $in_topic =~ /[^0-9]/);
+                        if (($topic eq $in_topic) && ($forum eq $in_forum)) {
                             $check = "yes";
                             last;
                         }
@@ -649,7 +649,7 @@ sub del {
                     }
                 }
                 else {
-                    if (($topic eq $intopic) && ($forum eq $inforum)) {
+                    if (($topic eq $in_topic) && ($forum eq $in_forum)) {
                         $topictodel = 1;
                     }
                     else {
@@ -697,13 +697,13 @@ sub del {
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="del">
             <input type=hidden name="checked" value="yes">
-            <input type=hidden name="forum" value="$inforum">
-            <input type=hidden name="topic" value="$intopic">
+            <input type=hidden name="forum" value="$in_forum">
+            <input type=hidden name="topic" value="$in_topic">
             <input type=hidden name="mainopen" value="$selectcate">
             <input type=hidden name="selecttopic" value="$selecttopic">
             <font color=$fontcolormisc><b>请输入您的用户名、密码删除个人收藏</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
             <tr>
             <td bgcolor=$miscbacktwo colspan=2 align=center><input type=submit name="submit" value="确 定"></td></form></tr></table></td></tr></table>
@@ -1134,7 +1134,7 @@ $multimanageform
 
         $output .= qq~<table cellspacing=0 width=$tablewidth bordercolor=$tablebordercolor border=1 align=center>
 <tr><td align=center width=30 bgcolor=$forumcolorone><a href=topic.cgi?forum=$forumid&topic=$topicid target=_blank>$topicicon</a></td>
-<td width=* class=dp bgColor=$forumcolortwo onmouseover="this.bgColor='$forumcolorone';" onmouseout="this.bgColor='$forumcolortwo';">&nbsp;<a href=view.cgi?forum=$inforum&topic=$topicid target=_blank>$posticon</a>&nbsp;<span id=forum>$topictitle$pagestoshow$topicdescription$admini</span></td>
+<td width=* class=dp bgColor=$forumcolortwo onmouseover="this.bgColor='$forumcolorone';" onmouseout="this.bgColor='$forumcolortwo';">&nbsp;<a href=view.cgi?forum=$in_forum&topic=$topicid target=_blank>$posticon</a>&nbsp;<span id=forum>$topictitle$pagestoshow$topicdescription$admini</span></td>
 <td bgcolor=$forumcolortwo align=center width=78>$startedby</td>
 $outputtemp
 <td width=193 bgcolor=$forumcolorone>&nbsp;$lastpostdate<font color=$fonthighlight> | </font>$lastposter</td>$multimanagebutton</tr>

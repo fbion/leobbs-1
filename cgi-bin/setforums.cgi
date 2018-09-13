@@ -59,7 +59,7 @@ foreach $param (@params) {
 }
 
 $action = $PARAM{'action'};
-$inforum = $PARAM{'forum'};
+$in_forum = $PARAM{'forum'};
 $incategory = $PARAM{'category'};
 $checkaction = $PARAM{'checkaction'};
 $inmovetype = $PARAM{'movetype'};
@@ -138,14 +138,14 @@ exit;
 ##################################################################################
 sub dellogs {
 
-    open(FILE, "${lbdir}boarddata/adminlog$inforum.cgi");
+    open(FILE, "${lbdir}boarddata/adminlog$in_forum.cgi");
     @baddel = <FILE>;
     close(FILE);
     $baddels = @baddel;
 
     if ($baddels > 50) {$baddels = 50;}
 
-    open(FILE, ">${lbdir}boarddata/adminlog$inforum.cgi");
+    open(FILE, ">${lbdir}boarddata/adminlog$in_forum.cgi");
     for ($i = 0; $i < $baddels; $i++) {
         $j = $i - $baddels;
         $info = $baddel[$j];
@@ -161,8 +161,8 @@ sub dellogs {
 }
 
 sub delxzb {
-    unlink("${lbdir}data/xzb$inforum.cgi");
-    unlink("${lbdir}data/xzbs$inforum.cgi");
+    unlink("${lbdir}data/xzb$in_forum.cgi");
+    unlink("${lbdir}data/xzbs$in_forum.cgi");
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
 <font color=#990000><b>删除该区所有的小字报</b><p>
 <font color=#333333>该区所有的小字报已经被删除！</font>
@@ -171,7 +171,7 @@ sub delxzb {
 }
 
 sub delans {
-    unlink("${lbdir}data/news$inforum.cgi");
+    unlink("${lbdir}data/news$in_forum.cgi");
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
 <font color=#990000><b>删除该区所有的公告</b><p>
 <font color=#333333>该区所有的公告已经被删除！</font>
@@ -359,24 +359,24 @@ sub forumlist {
 }
 
 sub recount {
-    mkdir("${lbdir}forum$inforum", 0777) unless (-e "${lbdir}forum$inforum");
-    my $truenumber = rebuildLIST(-Forum => "$inforum");
+    mkdir("${lbdir}forum$in_forum", 0777) unless (-e "${lbdir}forum$in_forum");
+    my $truenumber = rebuildLIST(-Forum => "$in_forum");
     ($topiccount, $threadcount) = split(/\|/, $truenumber);
     $threadcount = 0 if (!$threadcount);
     $topiccount = 0 if (!$topiccount);
 
-    $filetoopen = "$lbdir" . "boarddata/listno$inforum.cgi";
+    $filetoopen = "$lbdir" . "boarddata/listno$in_forum.cgi";
     open(FILE, "$filetoopen");
     $topicid = <FILE>;
     close(FILE);
     chomp $topicid;
-    my $rr = &readthreadpl($inforum, $topicid);
+    my $rr = &readthreadpl($in_forum, $topicid);
     (my $lastpostdate, my $topicid, my $topictitle, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $posticon, my $posttemp) = split(/\t/, $rr);
     $lastforumpostdate = "$lastpostdate\%\%\%$topicid\%\%\%$topictitle";
     $lastposter = $startedby if ($lastposter eq "");
     $filetoopen = "";
-    if (-e "${lbdir}boarddata/foruminfo$inforum.cgi") {
-        open(FILE, "+<${lbdir}boarddata/foruminfo$inforum.cgi");
+    if (-e "${lbdir}boarddata/foruminfo$in_forum.cgi") {
+        open(FILE, "+<${lbdir}boarddata/foruminfo$in_forum.cgi");
         ($no, $threads, $posts, $todayforumpost, $no) = split(/\t/, <FILE>);
         close(FILE);
         seek(FILE, 0, 0);
@@ -384,11 +384,11 @@ sub recount {
         close(FILE);
     }
     else {
-        open(FILE, ">${lbdir}boarddata/foruminfo$inforum.cgi");
+        open(FILE, ">${lbdir}boarddata/foruminfo$in_forum.cgi");
         print FILE "$lastforumpostdate\t$topiccount\t$threadcount\t$todayforumpost\t$lastposter\t\n";
         close(FILE);
     }
-    open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+    open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
     print FILE "\$threads = $topiccount;\n\$posts = $threadcount;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
     close(FILE);
 
@@ -774,7 +774,7 @@ sub warning {
     print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>欢迎来到论坛管理中心 / 删除论坛</b></td></tr>
 <tr><td bgcolor=#EEEEEE align=center colspan=2><font color=#990000><b>警告！！</b></td></tr>
 <tr><td bgcolor=#FFFFFF align=center colspan=2><font color=#333333>如果您确定要删除论坛，那么请点击下面链接<p>
->> <a href="$thisprog?action=delete&checkaction=yes&forum=$inforum">删除论坛以及论坛下的所有文件</a> <<
+>> <a href="$thisprog?action=delete&checkaction=yes&forum=$in_forum">删除论坛以及论坛下的所有文件</a> <<
 </td></tr></table></td></tr></table>
 ~;
 }
@@ -787,54 +787,54 @@ sub deleteforum {
     close(FILE);
     undef $thistime;
 
-    opendir(DIRS, "${imagesdir}$usrdir/$inforum");
+    opendir(DIRS, "${imagesdir}$usrdir/$in_forum");
     my @files = readdir(DIRS);
     closedir(DIRS);
     foreach (@files) {
         chomp $_;
-        unlink("${imagesdir}$usrdir/$inforum/$_");
+        unlink("${imagesdir}$usrdir/$in_forum/$_");
     }
-    unlink("${imagesdir}$usrdir/$inforum/.htaccess");
-    rmdir("${imagesdir}$usrdir/$inforum");
+    unlink("${imagesdir}$usrdir/$in_forum/.htaccess");
+    rmdir("${imagesdir}$usrdir/$in_forum");
 
-    opendir(DIRS, "${lbdir}forum$inforum");
+    opendir(DIRS, "${lbdir}forum$in_forum");
     my @files = readdir(DIRS);
     closedir(DIRS);
     foreach (@files) {
         chomp $_;
-        unlink("${lbdir}forum$inforum/$_");
+        unlink("${lbdir}forum$in_forum/$_");
     }
-    unlink("${lbdir}forum$inforum/.htaccess");
-    rmdir("${lbdir}forum$inforum");
+    unlink("${lbdir}forum$in_forum/.htaccess");
+    rmdir("${lbdir}forum$in_forum");
 
-    opendir(DIRS, "${lbdir}FileCount/$inforum");
+    opendir(DIRS, "${lbdir}FileCount/$in_forum");
     my @files = readdir(DIRS);
     closedir(DIRS);
     foreach (@files) {
         chomp $_;
-        unlink("${lbdir}FileCount/$inforum/$_");
+        unlink("${lbdir}FileCount/$in_forum/$_");
     }
-    unlink("${lbdir}FileCount/$inforum/.htaccess");
-    rmdir("${lbdir}FileCount/$inforum");
+    unlink("${lbdir}FileCount/$in_forum/.htaccess");
+    rmdir("${lbdir}FileCount/$in_forum");
 
-    unlink("${lbdir}data/news$inforum.cgi");
-    unlink("${lbdir}data/style$inforum.cgi");
-    unlink("${lbdir}boarddata/list$inforum.cgi");
-    unlink("${lbdir}boarddata/listno$inforum.cgi");
-    unlink("${lbdir}boarddata/listall$inforum.cgi");
-    unlink("${lbdir}boarddata/xzb$inforum.cgi");
-    unlink("${lbdir}boarddata/xzbs$inforum.cgi");
-    unlink("${lbdir}boarddata/lastnum$inforum.cgi");
-    unlink("${lbdir}boarddata/ontop$inforum.cgi");
-    unlink("${lbdir}boarddata/jinghua$inforum.cgi");
-    unlink("${lbdir}boarddata/recyclebin$inforum.cgi");
-    unlink("${lbdir}boarddata/adminlog$inforum.cgi");
+    unlink("${lbdir}data/news$in_forum.cgi");
+    unlink("${lbdir}data/style$in_forum.cgi");
+    unlink("${lbdir}boarddata/list$in_forum.cgi");
+    unlink("${lbdir}boarddata/listno$in_forum.cgi");
+    unlink("${lbdir}boarddata/listall$in_forum.cgi");
+    unlink("${lbdir}boarddata/xzb$in_forum.cgi");
+    unlink("${lbdir}boarddata/xzbs$in_forum.cgi");
+    unlink("${lbdir}boarddata/lastnum$in_forum.cgi");
+    unlink("${lbdir}boarddata/ontop$in_forum.cgi");
+    unlink("${lbdir}boarddata/jinghua$in_forum.cgi");
+    unlink("${lbdir}boarddata/recyclebin$in_forum.cgi");
+    unlink("${lbdir}boarddata/adminlog$in_forum.cgi");
 
     opendir(DIRS, "${lbdir}$saledir");
     my @files = readdir(DIRS);
     closedir(DIRS);
 
-    my @files = grep (/^$inforum\_/i, @files);
+    my @files = grep (/^$in_forum\_/i, @files);
     foreach (@files) {
         chomp $_;
         unlink("${lbdir}$saledir/$_");
@@ -853,14 +853,14 @@ sub deleteforum {
         chomp $_;
         my ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $_);
         next if ($forumid !~ /^[0-9]+$/);
-        if ($forumid ne $inforum) {
+        if ($forumid ne $in_forum) {
             print FILE "$_\n";
         }
     }
     close(FILE);
     &winunlock($filetoopen) if ($OS_USED eq "Nt");
 
-    open(FILE, "${lbdir}boarddata/foruminfo$inforum.cgi");
+    open(FILE, "${lbdir}boarddata/foruminfo$in_forum.cgi");
     ($no, $thdcount, $threadcount, $no) = split(/\t/, <FILE>);
     close(FILE);
 
@@ -883,8 +883,8 @@ sub deleteforum {
     close(FILE);
     &winunlock($filetomake) if ($OS_USED eq "Nt");
 
-    unlink("${lbdir}boarddata/forumposts$inforum.pl");
-    unlink("${lbdir}boarddata/foruminfo$inforum.cgi");
+    unlink("${lbdir}boarddata/forumposts$in_forum.pl");
+    unlink("${lbdir}boarddata/foruminfo$in_forum.cgi");
 
     print qq~<tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF><b>欢迎来到论坛管理中心 / 删除论坛结果</b></td></tr>
 <tr><td bgcolor=#FFFFFF colspan=2><font color=#990000>
@@ -908,7 +908,7 @@ sub editform {
         next if ($forum eq "");
         ($forumid, $notneeded, $notneeded, $gforumname) = split(/\t/, $forum);
         next if ($forumid !~ /^[0-9]+$/);
-        if ($forumid eq "$inforum") {
+        if ($forumid eq "$in_forum") {
             ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
         }
         $forumname[$forumid] = "$gforumname";
@@ -939,7 +939,7 @@ sub editform {
 
         <form action="$thisprog" method="post" enctype="multipart/form-data" name=FORM>
         <input type=hidden name="action" value="doedit">
-        <input type=hidden name="forum" value="$inforum">
+        <input type=hidden name="forum" value="$in_forum">
         <tr>
         <td bgcolor=#FFFFFF width=40%>
         <font color=#333333><b>论坛名称</b><br>请输入论坛名称</font></td>
@@ -1148,12 +1148,12 @@ sub doedit {
         next if ($forum eq "");
         ($forumid, $notneeded) = split(/\t/, $forum);
         next if ($forumid !~ /^[0-9]+$/);
-        if ($forumid eq $inforum) {
+        if ($forumid eq $in_forum) {
             ($forumid, $category, $categoryplace, $forumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
         }
     }
 
-    $editedline = "$inforum\t$category\t$categoryplace\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t";
+    $editedline = "$in_forum\t$category\t$categoryplace\t$new_forumname\t$new_forumdescription\t$new_forummoderator\t$new_htmlstate\t$new_idmbcodestate\t$new_privateforum\t$new_startnewthreads\t$lastposter\t$lastposttime\t$threads\t$posts\t$new_forumgraphic\t$new_ratings\t$misc\t$new_forumpass\t$new_hiddenforum\t$new_indexforum\t$new_teamlogo\t$new_teamurl\t$new_fgwidth|$new_fgwidth1\t$new_fgheight|$new_fgheight1\t$new_miscad4\t$todayforumpost\t$new_miscad5\t";
     chomp $editedline;
 
     &douppics();
@@ -1176,7 +1176,7 @@ sub doedit {
         }
     }
 
-    $dirtomake = "$lbdir" . "forum$inforum";
+    $dirtomake = "$lbdir" . "forum$in_forum";
     $filetomake1 = "$dirtomake/foruminfo.cgi";
     open(FILE, ">$filetomake1");
     print FILE $editedline;
@@ -1199,7 +1199,7 @@ sub doedit {
     foreach $forum (@forums) {
         chomp $forum;
         ($tempforumid, $notneeded) = split(/\t/, $forum);
-        if ($tempforumid eq "$inforum") {
+        if ($tempforumid eq "$in_forum") {
             print FILE "$editedline\n";
             print FILEBAK "$editedline\n";
         }
@@ -1907,7 +1907,7 @@ sub reorder {
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="reorder">
             <input type=hidden name="checkaction" value="yes">
-            <input type=hidden name="category" value="$inforum">
+            <input type=hidden name="category" value="$in_forum">
 
             <tr><td bgcolor=#2159C9 colspan=2><font color=#FFFFFF>
             <b>欢迎来到论坛管理中心 / 论坛重新排序</b>
@@ -1930,7 +1930,7 @@ sub reorder {
             next if ($forum eq "");
             ($forumid, $category, $notneeded, $notneeded) = split(/\t/, $forum);
             next if ($forumid !~ /^[0-9]+$/);
-            if ($forumid eq $inforum) {
+            if ($forumid eq $in_forum) {
                 ($forumid, $mycategory, $mycategoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
                 last;
             }
@@ -1950,7 +1950,7 @@ sub reorder {
             (my $forumid, my $category, my $categoryplace, my $forumname, my $forumdescription) = split(/\t/, $forum);
             next if ($forumid !~ /^[0-9]+$/);
             next if ($categoryplace !~ /^[0-9]+$/);
-            next if ($forumid eq $inforum);
+            next if ($forumid eq $in_forum);
             #    next if ($category =~/childforum-[0-9]+/);
             $categoryplace = sprintf("%09d", $categoryplace);
             $rearrange = ("$categoryplace\t$a\t$category\t$forumname\t$forumdescription\t$forumid\t$forumgraphic\t$miscad2\t$misc\t$forumpass\t$hiddenforum\t$indexforum\t$teamlogo\t$teamurl\t$fgwidth\t$fgheight\t$miscad4\t$todayforumpost\t$miscad5\t");
@@ -2024,7 +2024,7 @@ sub reorder {
             elsif ($category eq "childforum-$incategory") {
                 push(@childforum, $forum);
             }
-            elsif ($category eq "childforum-$inforum") {
+            elsif ($category eq "childforum-$in_forum") {
                 push(@ochildforum, $forum);
             }
         }
@@ -2039,8 +2039,8 @@ sub reorder {
                 next if ($forum eq "");
                 ($forumid, $category, $categoryplace, $myforumname, $forumdescription, $forummoderator, $htmlstate, $idmbcodestate, $privateforum, $startnewthreads, $lastposter, $lastposttime, $threads, $posts, $forumgraphic, $miscad2, $misc, $forumpass, $hiddenforum, $indexforum, $teamlogo, $teamurl, $fgwidth, $fgheight, $miscad4, $todayforumpost, $miscad5) = split(/\t/, $forum);
                 next if ($forumid !~ /^[0-9]+$/);
-                if ($forumid ne $incategory && $category ne "childforum-$incategory" && $category ne "childforum-$inforum") {
-                    if ($forumid eq $inforum) {
+                if ($forumid ne $incategory && $category ne "childforum-$incategory" && $category ne "childforum-$in_forum") {
+                    if ($forumid eq $in_forum) {
                         print FILE "$forum\n";
                         foreach (@ochildforum) {
                             print FILE "$_\n";
@@ -2063,7 +2063,7 @@ sub reorder {
                             close(FILE1);
                         }
                     }
-                    elsif ("top$forumid" eq $inforum) {
+                    elsif ("top$forumid" eq $in_forum) {
                         print FILE "$oldforumid\t$category\t$categoryplace\t$oldmyforumname\t$oldforumdescription\t$oldforummoderator\t$oldhtmlstate\t$oldidmbcodestate\t$oldprivateforum\t$oldstartnewthreads\t$oldlastposter\t$oldlastposttime\t$oldthreads\t$oldposts\t$oldforumgraphic\t$oldratings\t$oldmisc\t$oldforumpass\t$oldhiddenforum\t$oldindexforum\t$oldteamlogo\t$oldteamurl\t$oldfgwidth\t$oldfgheight\t$oldmiscadd4\t$oldtodayforumpostno\t$oldmiscad5\t\n";
                         $filetomake1 = "$lbdir" . "forum$oldforumid/foruminfo.cgi";
                         open(FILE1, ">$filetomake1");
@@ -2336,8 +2336,8 @@ sub douppics {
 
     my ($tmpfilename) = $addme =~ m|([^/:\\]+)$|; #注意,获取文件名字的形式变化
     my @filename = split(/\./, $tmpfilename);     #注意
-    my $up_name = $filename[0];
-    my $up_ext = $filename[-1];
+    my $up_name = $file_name[0];
+    my $up_ext = $file_name[-1];
     $up_ext = lc($up_ext);
 
     &errorout("上传出错！不支持您所上传的图片类型，请重新选择！") if (($up_ext ne "gif") && ($up_ext ne "jpg") && ($up_ext ne "bmp") && ($up_ext ne "swf") && ($up_ext ne "png"));

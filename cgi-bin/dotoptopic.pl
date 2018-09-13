@@ -12,7 +12,7 @@ use strict;
 use warnings;
 use diagnostics;
 
-unlink("${lbdir}cache/forumstoptopic$inforum.pl") if ((-M "${lbdir}cache/forumstoptopic$inforum.pl") * 86400 >= 300);
+unlink("${lbdir}cache/forumstoptopic$in_forum.pl") if ((-M "${lbdir}cache/forumstoptopic$in_forum.pl") * 86400 >= 300);
 if ($abstopcount > 0) {
     foreach (@absontop) {
         chomp $_;
@@ -56,26 +56,26 @@ if ($topcount > 0) {
             $topcount--;
             next;
         }
-        if ($absontopdata =~ /\_$inforum\|$_\_/) {
+        if ($absontopdata =~ /\_$in_forum\|$_\_/) {
             $topcount--;
             next;
         }
-        if ($catontopdata =~ /\_$inforum\|$_\_/) {
+        if ($catontopdata =~ /\_$in_forum\|$_\_/) {
             $topcount--;
             next;
         }
-        my $rr = &readthreadpl($inforum, $_);
+        my $rr = &readthreadpl($in_forum, $_);
         if ($rr ne "") {
             (my $lastpostdate, my $topicid, my $topictitle, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $posticon, my $posttemp, my $addmetype) = split(/\t/, $rr);
-            push(@toptopic, "$topicid\t$inforum\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$posttemp\t$addmetype");
+            push(@toptopic, "$topicid\t$in_forum\t$topictitle\t$topicdescription\t$threadstate\t$threadposts\t$threadviews\t$startedby\t$startedpostdate\t$lastposter\t$lastpostdate\t$posticon\t$posttemp\t$addmetype");
         }
         else {$topcount--;}
     }
 }
 else {undef @toptopic if ($abstopcount + $cattopcount <= 0);}
 
-if (!(-e "${lbdir}cache/forumstoptopic$inforum.pl")) {
-    open(FILE, ">${lbdir}cache/forumstoptopic$inforum.pl");
+if (!(-e "${lbdir}cache/forumstoptopic$in_forum.pl")) {
+    open(FILE, ">${lbdir}cache/forumstoptopic$in_forum.pl");
     print FILE qq~\@toptopic = (~;
     foreach (@toptopic) {
         chomp $_;

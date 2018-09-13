@@ -42,8 +42,8 @@ eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused 
 $query = new LBCGI;
 
 $checked = $query->param('checked');
-$inforum = $query->param('forum');
-$intopic = $query->param('topic');
+$in_forum = $query->param('forum');
+$in_topic = $query->param('topic');
 $action = $query->param('action');
 $admin = $query->param('admin');
 $prunedays = $query->param('prunedays');
@@ -59,8 +59,8 @@ if ($inpassword ne "") {
 $movetoid = $query->param('movetoid');
 $action = &stripMETA("$action");
 
-&error("打开文件&老大，别乱黑我的程序呀！") if (($intopic) && ($intopic !~ /^[0-9]+$/));
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_topic) && ($in_topic !~ /^[0-9]+$/));
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 &error("打开文件&老大，别乱黑我的程序呀！") if (($movetoid) && ($movetoid !~ /^[0-9]+$/));
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 $inselectstyle = $query->cookie("selectstyle");
@@ -70,7 +70,7 @@ if (($inselectstyle ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {re
 if ($catbackpic ne "") {$catbackpic = "background=$imagesurl/images/$skin/$catbackpic";}
 
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
-if (($inforum !~ m|([0-9\G]+$)|g) or (!$inforum)) {&error("普通错误&请不要修改生成的 URL！");}
+if (($in_forum !~ m|([0-9\G]+$)|g) or (!$in_forum)) {&error("普通错误&请不要修改生成的 URL！");}
 if (($prunedays) && ($prunedays !~ /^[0-9]+$/)) {&error("普通错误&请不要修改生成的 URL！");}
 if (!$inmembername) {$inmembername = $query->cookie("amembernamecookie");}
 if (!$inpassword) {$inpassword = $query->cookie("apasswordcookie");}
@@ -90,7 +90,7 @@ else {
     }
 }
 
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 
 if ($action eq "prune") {
     $cleartoedit = "no";
@@ -186,8 +186,8 @@ if ($action eq "prune") {
 
         if ($admin eq 'delete') {
 
-            if (-e "${lbdir}boarddata/jinghua$inforum.cgi") {
-                open(FILE, "${lbdir}boarddata/jinghua$inforum.cgi");
+            if (-e "${lbdir}boarddata/jinghua$in_forum.cgi") {
+                open(FILE, "${lbdir}boarddata/jinghua$in_forum.cgi");
                 my @jhdatas = <FILE>;
                 close(FILE);
                 $jhdata = join("\_", @jhdatas);
@@ -195,29 +195,29 @@ if ($action eq "prune") {
                 $jhdata =~ s/\W//isg;
             }
 
-            $dirtoopen = "$lbdir" . "forum$inforum";
+            $dirtoopen = "$lbdir" . "forum$in_forum";
             opendir(DIR, "$dirtoopen");
             my @dirdata = readdir(DIR);
             closedir(DIR);
             @entry = grep (/\.thd\.cgi$/, @dirdata);
             @entry = sort numerically(@entry);
 
-            $dirtoopen2 = "$imagesdir" . "$usrdir/$inforum";
+            $dirtoopen2 = "$imagesdir" . "$usrdir/$in_forum";
             opendir(DIR, "$dirtoopen2");
             @dirdata1 = readdir(DIR);
             closedir(DIR);
-            @dirdata1 = grep (/^$inforum\_/i, @dirdata1);
+            @dirdata1 = grep (/^$in_forum\_/i, @dirdata1);
 
             opendir(DIRS, "${lbdir}$saledir");
             @files2 = readdir(DIRS);
             closedir(DIRS);
-            @files2 = grep (/^$inforum\_/i, @files2);
+            @files2 = grep (/^$in_forum\_/i, @files2);
 
             foreach (@entry) {
                 (my $topicid, my $tr) = split(/\./, $_);
                 next if ($jhdata =~ /\_$topicid\_/);
 
-                $file1 = "$lbdir" . "forum$inforum/$topicid.thd.cgi";
+                $file1 = "$lbdir" . "forum$in_forum/$topicid.thd.cgi";
                 open(TMP1, "$file1");
                 flock(TMP1, 1) if ($OS_USED eq "Unix");
                 my @tmp = <TMP1>;
@@ -230,28 +230,28 @@ if ($action eq "prune") {
                 $currenttime = time;
                 $threadagelimit = $currenttime - $prunedays * 86400;
                 if ($lastpostdate < $threadagelimit) {
-                    $filetotrash = "$lbdir" . "forum$inforum/$topicid.thd.cgi";
+                    $filetotrash = "$lbdir" . "forum$in_forum/$topicid.thd.cgi";
                     unlink $filetotrash;
-                    $filetotrash = "$lbdir" . "forum$inforum/$topicid.mal.pl";
+                    $filetotrash = "$lbdir" . "forum$in_forum/$topicid.mal.pl";
                     unlink $filetotrash;
-                    $filetotrash = "$lbdir" . "forum$inforum/$topicid.poll.pl";
+                    $filetotrash = "$lbdir" . "forum$in_forum/$topicid.poll.pl";
                     unlink $filetotrash;
-                    $filetotrash = "$lbdir" . "forum$inforum/$topicid.pl";
+                    $filetotrash = "$lbdir" . "forum$in_forum/$topicid.pl";
                     unlink $filetotrash;
-                    $filetounlink = "$lbdir" . "forum$inforum/rate$topicid.file.pl";
+                    $filetounlink = "$lbdir" . "forum$in_forum/rate$topicid.file.pl";
                     unlink $filetounlink;
-                    $filetounlink = "$lbdir" . "forum$inforum/rateip$topicid.file.pl";
+                    $filetounlink = "$lbdir" . "forum$in_forum/rateip$topicid.file.pl";
                     unlink $filetounlink;
 
-                    &delallupfiles($inforum, $topicid);
+                    &delallupfiles($in_forum, $topicid);
 
-                    my @files2 = grep (/^$inforum\_$topicid\_/i, @files2);
+                    my @files2 = grep (/^$in_forum\_$topicid\_/i, @files2);
                     foreach (@files2) {
                         chomp $_;
                         unlink("${lbdir}$saledir/$_");
                     }
 
-                    @files = grep (/^$inforum\_$topicid(\.|\_)/, @dirdata1);
+                    @files = grep (/^$in_forum\_$topicid(\.|\_)/, @dirdata1);
                     foreach (@files) {
                         unlink("$dirtoopen2/$_");
                     }
@@ -260,19 +260,19 @@ if ($action eq "prune") {
                 }
             }
 
-            my $info = rebuildLIST(-Forum => "$inforum");
+            my $info = rebuildLIST(-Forum => "$in_forum");
             ($threadcount, $topiccount) = split(/\|/, $info);
             $threadcount = 0 if ($threadcount < 0);
             $topiccount = 0 if ($topiccount < 0);
 
-            open(FILE, "${lbdir}boarddata/listno$inforum.cgi");
+            open(FILE, "${lbdir}boarddata/listno$in_forum.cgi");
             $topicid = <FILE>;
             close(FILE);
             chomp $topicid;
             my $rr = &readthreadpl($forumid, $topicid);
             (my $lastpostdate, my $topicid, my $topictitle, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $posticon, my $posttemp, my $addmetemp) = split(/\t/, $rr);
 
-            open(FILE, "+<${lbdir}boarddata/foruminfo$inforum.cgi");
+            open(FILE, "+<${lbdir}boarddata/foruminfo$in_forum.cgi");
             ($no, $no, $no, $todayforumpost, $no) = split(/\t/, <FILE>);
 
             $lastforumpostdate = "$lastpostdate\%\%\%$topicid\%\%\%$topictitle";
@@ -282,7 +282,7 @@ if ($action eq "prune") {
             close(FILE);
             $posts = 0 if ($posts eq "");
             $threads = 0 if ($threads eq "");
-            open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+            open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
             print FILE "\$threads = $threadcount;\n\$posts = $topiccount;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
             close(FILE);
 
@@ -318,7 +318,7 @@ if ($action eq "prune") {
             <ul>
             <li>共删除主题：$totaltopics_deleted 篇
             <li>共删除回复：$totalposts_deleted 篇
-            <li><a href="forums.cgi?forum=$inforum">返回论坛$savetopicid</a>
+            <li><a href="forums.cgi?forum=$in_forum">返回论坛$savetopicid</a>
             <li><a href="leobbs.cgi">返回论坛首页</a>
             </ul>
             </tr>
@@ -328,10 +328,10 @@ if ($action eq "prune") {
 	    ~;
         }
         else {
-            if ($movetoid == $inforum) {&error("移动主题&不允许在同一论坛上移动！");}
+            if ($movetoid == $in_forum) {&error("移动主题&不允许在同一论坛上移动！");}
 
-            if (-e "${lbdir}boarddata/jinghua$inforum.cgi") {
-                open(FILE, "${lbdir}boarddata/jinghua$inforum.cgi");
+            if (-e "${lbdir}boarddata/jinghua$in_forum.cgi") {
+                open(FILE, "${lbdir}boarddata/jinghua$in_forum.cgi");
                 my @jhdatas = <FILE>;
                 close(FILE);
                 $jhdata = join("\_", @jhdatas);
@@ -350,7 +350,7 @@ if ($action eq "prune") {
             foreach $forumline (@forums) {
                 #start foreach @forums
                 ($tempno, $trash) = split(/\t/, $forumline);
-                if ($inforum eq $tempno) {
+                if ($in_forum eq $tempno) {
                     ($trash, $trash, $trash, $oldforumname, $trash) = split(/\t/, $forumline);
                     last;
                 }
@@ -365,7 +365,7 @@ if ($action eq "prune") {
                 }
             }
             if ($inaddline eq "yes") {
-                $moveinfo = qq~此贴转移自： <a href=forums.cgi?forum=$inforum target=_self>$oldforumname</a>~;
+                $moveinfo = qq~此贴转移自： <a href=forums.cgi?forum=$in_forum target=_self>$oldforumname</a>~;
             }
 
             $filetoopen = "$lbdir" . "boarddata/lastnum$movetoid.cgi";
@@ -377,13 +377,13 @@ if ($action eq "prune") {
                 chomp $newthreadnumber;
                 $newthreadnumber++;
             }
-            $dirtoopen2 = "$imagesdir" . "$usrdir/$inforum";
+            $dirtoopen2 = "$imagesdir" . "$usrdir/$in_forum";
             opendir(DIR, "$dirtoopen2");
             @dirdata2 = readdir(DIR);
             closedir(DIR);
-            @files = grep (/^$inforum\_/, @dirdata2);
+            @files = grep (/^$in_forum\_/, @dirdata2);
 
-            $dirtoopen = "$lbdir" . "forum$inforum";
+            $dirtoopen = "$lbdir" . "forum$in_forum";
             opendir(DIR, "$dirtoopen");
             my @dirdata = readdir(DIR);
             closedir(DIR);
@@ -393,7 +393,7 @@ if ($action eq "prune") {
 
                 next if ($jhdata =~ /\_$topicid\_/);
 
-                $file1 = "$lbdir" . "forum$inforum/$topicid.thd.cgi";
+                $file1 = "$lbdir" . "forum$in_forum/$topicid.thd.cgi";
                 open(TMP1, "$file1");
                 flock(TMP1, 1) if ($OS_USED eq "Unix");
                 my @tmp = <TMP1>;
@@ -409,17 +409,17 @@ if ($action eq "prune") {
                 }
             }
 
-            my $truenumber = rebuildLIST(-Forum => "$inforum");
+            my $truenumber = rebuildLIST(-Forum => "$in_forum");
             ($tpost, $treply) = split(/\|/, $truenumber);
 
-            open(FILE, "${lbdir}boarddata/listno$inforum.cgi");
+            open(FILE, "${lbdir}boarddata/listno$in_forum.cgi");
             $topicid = <FILE>;
             close(FILE);
             chomp $topicid;
             my $rr = &readthreadpl($forumid, $topicid);
             (my $lastpostdate, my $topicid, my $topictitle, my $topicdescription, my $threadstate, my $threadposts, my $threadviews, my $startedby, my $startedpostdate, my $lastposter, my $posticon, my $posttemp) = split(/\t/, $rr);
 
-            open(FILE, "+<${lbdir}boarddata/foruminfo$inforum.cgi");
+            open(FILE, "+<${lbdir}boarddata/foruminfo$in_forum.cgi");
             ($no, $no, $no, $todayforumpost, $no) = split(/\t/, <FILE>);
             $lastforumpostdate = "$lastpostdate\%\%\%$topicid\%\%\%$topictitle";
             $lastposter = $startedby if ($lastposter eq "");
@@ -428,7 +428,7 @@ if ($action eq "prune") {
             close(FILE);
             $posts = 0 if ($posts eq "");
             $threads = 0 if ($threads eq "");
-            open(FILE, ">${lbdir}boarddata/forumposts$inforum.pl");
+            open(FILE, ">${lbdir}boarddata/forumposts$in_forum.pl");
             print FILE "\$threads = $tpost;\n\$posts = $treply;\n\$todayforumpost = \"$todayforumpost\";\n1;\n";
             close(FILE);
 
@@ -472,7 +472,7 @@ if ($action eq "prune") {
             统计资料：
             <ul>
             <li>共移动主题：$totaltopics_moved 篇
-            <li><a href="forums.cgi?forum=$inforum">返回原论坛</a>
+            <li><a href="forums.cgi?forum=$in_forum">返回原论坛</a>
             <li><a href="forums.cgi?forum=$movetoid">返回新论坛</a>
             <li><a href="leobbs.cgi">返回论坛首页</a>
 			</ul>
@@ -539,10 +539,10 @@ if ($action eq "prune") {
             <form action="$thisprog" method="post">
             <input type=hidden name="action" value="prune">
             <input type=hidden name="checked" value="yes">
-            <input type=hidden name="forum" value="$inforum">
+            <input type=hidden name="forum" value="$in_forum">
             <font face="$font" color=$fontcolormisc><b>请输入您的详细资料以便进入管理模式[批量管理]</b></font></td></tr>
 <tr><td bgcolor=$miscbacktwo colspan=2><font color=$titlefontcolor>您目前的身份是： <font color=$fonthighlight><B><u>$inmembername</u></B></font> ，要使用其他用户身份，请输入用户名和密码。未注册客人请输入网名，密码留空。</td></tr>
-<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$inforum'" style="cursor:hand">您没有注册？</span></td></tr>
+<tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的用户名</font></td><td bgcolor=$miscbackone><input type=text name="membername"> &nbsp; <font color=$fontcolormisc><span onclick="javascript:location.href='register.cgi?forum=$in_forum'" style="cursor:hand">您没有注册？</span></td></tr>
 <tr><td bgcolor=$miscbackone><font color=$fontcolormisc>请输入您的密码</font></td><td bgcolor=$miscbackone><input type=password name="password"> &nbsp; <font color=$fontcolormisc><a href="profile.cgi?action=lostpass" style="cursor:help">忘记密码？</a></font></td></tr>
 	<tr>
             <td bgcolor=$miscbackone valign=middle><font face="$font" color=$fontcolormisc>选择管理的模式</font></td>
@@ -567,12 +567,12 @@ else {&error("普通错误&未指定功能名！");}
 exit;
 
 sub MoveTopic {
-    my ($intopic, $nums) = shift;
+    my ($in_topic, $nums) = shift;
     do {
         $newthreadnumber++;
     } while (-e "${lbdir}forum$movetoid/$newthreadnumber.thd.cgi");
 
-    open(ENT, "${lbdir}forum$inforum/$intopic.pl");
+    open(ENT, "${lbdir}forum$in_forum/$in_topic.pl");
     my $in = <ENT>;
     close(ENT);
     chomp($in);
@@ -583,16 +583,16 @@ sub MoveTopic {
         close(FILE);
     }
 
-    rename("${lbdir}forum$inforum/$intopic.thd.cgi", "${lbdir}forum$movetoid/$newthreadnumber.thd.cgi");
-    rename("${lbdir}forum$inforum/$intopic.mal.pl", "${lbdir}forum$movetoid/$newthreadnumber.mal.pl") if (-e "${lbdir}forum$inforum/$intopic.mal.pl");
-    rename("${lbdir}forum$inforum/$intopic.poll.cgi", "${lbdir}forum$movetoid/$newthreadnumber.poll.cgi") if (-e "${lbdir}forum$inforum/$intopic.poll.cgi");
-    rename("${lbdir}forum$inforum/rate$intopic.file.pl", "${lbdir}forum$movetoid/rate$newthreadnumber.file.pl") if (-e "${lbdir}forum$inforum/rate$intopic.file.pl");
-    rename("${lbdir}forum$inforum/rateip$intopic.file.pl", "${lbdir}forum$movetoid/rateip$newthreadnumber.file.pl") if (-e "${lbdir}forum$inforum/rateip$intopic.file.pl");
-    for (0 .. $nums) {rename("${lbdir}forum$inforum/$intopic\_$_.sale.cgi", "${lbdir}forum$movetoid/$newthreadnumber\_$_.sale.cgi");}
-    unlink("${lbdir}forum$inforum/$intopic.pl");
-    unlink("${lbdir}FileCount/$inforum/$inforum\_$intopic.pl");
+    rename("${lbdir}forum$in_forum/$in_topic.thd.cgi", "${lbdir}forum$movetoid/$newthreadnumber.thd.cgi");
+    rename("${lbdir}forum$in_forum/$in_topic.mal.pl", "${lbdir}forum$movetoid/$newthreadnumber.mal.pl") if (-e "${lbdir}forum$in_forum/$in_topic.mal.pl");
+    rename("${lbdir}forum$in_forum/$in_topic.poll.cgi", "${lbdir}forum$movetoid/$newthreadnumber.poll.cgi") if (-e "${lbdir}forum$in_forum/$in_topic.poll.cgi");
+    rename("${lbdir}forum$in_forum/rate$in_topic.file.pl", "${lbdir}forum$movetoid/rate$newthreadnumber.file.pl") if (-e "${lbdir}forum$in_forum/rate$in_topic.file.pl");
+    rename("${lbdir}forum$in_forum/rateip$in_topic.file.pl", "${lbdir}forum$movetoid/rateip$newthreadnumber.file.pl") if (-e "${lbdir}forum$in_forum/rateip$in_topic.file.pl");
+    for (0 .. $nums) {rename("${lbdir}forum$in_forum/$in_topic\_$_.sale.cgi", "${lbdir}forum$movetoid/$newthreadnumber\_$_.sale.cgi");}
+    unlink("${lbdir}forum$in_forum/$in_topic.pl");
+    unlink("${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
 
-    $OldHackDetail = "${lbdir}FileCount/$inforum/$inforum\_$intopic.cgi";
+    $OldHackDetail = "${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.cgi";
     $NewHackDetail = "${lbdir}FileCount/$movetoid/$movetoid\_$newthreadnumber.cgi";
 
     if (-e $OldHackDetail) {
@@ -604,24 +604,24 @@ sub MoveTopic {
             chomp $HackDetail;
             ($ThisHackName, $ThisFileName, $ThisHackDT) = split(/\=/, $HackDetail);
             ($hackforumno, $hacktopicno, $hackreplyno) = split(/\_/, $ThisHackName);
-            ($filename, $fileext) = split(/\./, $ThisFileName);
-            ($fileforumno, $filetopicno, $filereplyno) = split(/\_/, $filename);
+            ($file_name, $file_ext) = split(/\./, $ThisFileName);
+            ($fileforumno, $filetopicno, $filereplyno) = split(/\_/, $file_name);
             if ($filereplyno) {$ReplyNo = "\_$filereplyno";}
             else {$ReplyNo = "";}
             $NewHackName = "$movetoid\_$newthreadnumber\_$hackreplyno";
-            $NewFileName = "$movetoid\_$newthreadnumber$ReplyNo\.$fileext";
+            $NewFileName = "$movetoid\_$newthreadnumber$ReplyNo\.$file_ext";
             print NHACK "$NewHackName\=$NewFileName\=$ThisHackDT\n";
         }
         close(NHACK);
         unlink $OldHackDetail;
     }
 
-    &moveallupfiles($inforum, $intopic, $movetoid, $movetoid, "yes"); #新的方式
+    &moveallupfiles($in_forum, $in_topic, $movetoid, $movetoid, "yes"); #新的方式
 
-    my @files1 = grep (/^$inforum\_$intopic(\.|\_)/, @dirdata1);
+    my @files1 = grep (/^$in_forum\_$in_topic(\.|\_)/, @dirdata1);
     foreach (@files1) {
         chomp;
         my (undef, $ext) = split(/\./, $_);
-        rename("${imagesdir}$usrdir/$inforum/$_", "${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber.$ext");
+        rename("${imagesdir}$usrdir/$in_forum/$_", "${imagesdir}$usrdir/$movetoid/$movetoid\_$newthreadnumber.$ext");
     }
 }

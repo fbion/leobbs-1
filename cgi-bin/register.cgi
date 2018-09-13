@@ -51,8 +51,8 @@ else {
 
 $addme = $query->param('addme');
 
-$inforum = $query->param('forum');
-&error("打开文件&老大，别乱黑我的程序呀！") if (($inforum) && ($inforum !~ /^[0-9]+$/));
+$in_forum = $query->param('forum');
+&error("打开文件&老大，别乱黑我的程序呀！") if (($in_forum) && ($in_forum !~ /^[0-9]+$/));
 
 &ipbanned; #封杀一些 ip
 
@@ -453,14 +453,14 @@ elsif ($action eq "addmember") {
     $memberfiletitletemp = unpack("H*", "$memberfiletitle");
     if ($addme) {
 
-        my ($filename) = $addme =~ m|([^/:\\]+)$|; #注意,获取文件名字的形式变化
+        my ($file_name) = $addme =~ m|([^/:\\]+)$|; #注意,获取文件名字的形式变化
         my $fileexp;
 
-        $fileexp = ($filename =~ /\.jpe?g\s*$/i) ? 'jpg'
-            : ($filename =~ /\.gif\s*$/i) ? 'gif'
-            : ($filename =~ /\.png\s*$/i) ? 'png'
-            : ($filename =~ /\.swf\s*$/i) ? 'swf'
-            : ($filename =~ /\.bmp\s*$/i) ? 'bmp'
+        $fileexp = ($file_name =~ /\.jpe?g\s*$/i) ? 'jpg'
+            : ($file_name =~ /\.gif\s*$/i) ? 'gif'
+            : ($file_name =~ /\.png\s*$/i) ? 'png'
+            : ($file_name =~ /\.swf\s*$/i) ? 'swf'
+            : ($file_name =~ /\.bmp\s*$/i) ? 'bmp'
             : undef;
         $maxuploadava = 200 if (($maxuploadava eq "") || ($maxuploadava < 1));
 
@@ -706,8 +706,8 @@ elsif ($action eq "addmember") {
         &sendmail($from, $from, $to, $subject, $message);
     }
 
-    if ($inforum eq "") {$refrashurl = "leobbs.cgi";}
-    else {$refrashurl = "forums.cgi?forum=$inforum";}
+    if ($in_forum eq "") {$refrashurl = "leobbs.cgi";}
+    else {$refrashurl = "forums.cgi?forum=$in_forum";}
     $output .= qq~<tr>
 	<td bgcolor=$titlecolor $catbackpic valign=middle align=center><font color=$fontcolormisc><b>感谢您注册，$inmembername</b>$recommfuncerror</font></td></tr><tr>
         <td bgcolor=$miscbackone valign=middle><font color=$fontcolormisc>具体情况：<ul><li><a href="$refrashurl">按此返回论坛</a>
@@ -986,7 +986,7 @@ $venumcheck;
 </script>
 
 <form action="$thisprog" method=post name="creator" enctype="multipart/form-data" OnSubmit="return CheckInput()"><tr>
-<input type=hidden name="forum" value="$inforum">
+<input type=hidden name="forum" value="$in_forum">
 <td bgcolor=$miscbacktwo width=40%><font color=$fontcolormisc><b>用户名：</b><br>注册用户名不能超过12个字符（6个汉字）</td>
 <td bgcolor=$miscbacktwo width=60%><input type=text maxlength="12" name="inmembername">&nbsp;<input onClick="javascript:Check()" type=button value="检测帐号" name="button" class="button">&nbsp;* 此项必须填写</td>
 </tr>$requirepass
@@ -1205,7 +1205,7 @@ else {
     <td bgcolor=$titlecolor $catbackpic align=center>
     <form action="$thisprog" method="post" name="agree">
     <input name="action" type="hidden" value="agreed">
-    <input type=hidden name="forum" value="$inforum">
+    <input type=hidden name="forum" value="$in_forum">
     <font color=$fontcolormisc>
     <b>服务条款和声明</b>
     </td></tr>

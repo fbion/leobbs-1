@@ -34,7 +34,7 @@ $|++;
 $show .= qq~<card  title="保存短消息">~;
 $lid = $query->param('lid');
 &check($lid);
-$intopictitle = $query->param('title');
+$in_topictitle = $query->param('title');
 if ($inmembername eq "" || $inmembername eq "客人") {
     $inmembername = "客人";
 }
@@ -47,9 +47,9 @@ $name = $uref->fromUTF8("UTF-8", $name);
 &erroroutout("普通错误&此用户根本不存在！") if ($userregistered eq "no");
 $inpost = $query->param('inpost');
 $inpost = $uref->fromUTF8("UTF-8", $inpost);
-$intopictitle = $uref->fromUTF8("UTF-8", $intopictitle);
+$in_topictitle = $uref->fromUTF8("UTF-8", $in_topictitle);
 $inpost = &cleaninput("$inpost");
-$intopictitle = &cleaninput("$intopictitle");
+$in_topictitle = &cleaninput("$in_topictitle");
 
 my $currenttime = time;
 my $filetomake = "$lbdir$msgdir/in/$name\_msg.cgi";
@@ -58,7 +58,7 @@ if (open(FILE, $filetomake)) {
     close(FILE);
 }
 open(FILE, ">$filetomake");
-print FILE "$inmembername\tno\t$currenttime\t$intopictitle\t$inpost\n";
+print FILE "$inmembername\tno\t$currenttime\t$in_topictitle\t$inpost\n";
 foreach (@filedata) {
     chomp;
     print FILE "$_\n";

@@ -42,14 +42,14 @@ if ($inmembername eq "" || $inmembername eq "客人") {
 else {
     &getmember("$inmembername", "no");
 }
-$inforum = $query->param('f');
-$intopic = $query->param('t');
+$in_forum = $query->param('f');
+$in_topic = $query->param('t');
 $postno = $query->param('pno');
 $ag = $query->param('ag');
-&getoneforum("$inforum");
+&getoneforum("$in_forum");
 $myinmembmod = $inmembmod;
 &errorout("打开主题&这个主题不存在！可能已经被删除！") unless (-e "${lbdir}forum${inforum}/${intopic}.thd.cgi");
-my $filetoopen = "${lbdir}forum$inforum/$intopic.pl";
+my $filetoopen = "${lbdir}forum$in_forum/$in_topic.pl";
 &winlock($filetoopen) if ($OS_USED eq "Nt");
 open(FILE, "$filetoopen");
 flock(FILE, 2) if ($OS_USED eq "Unix");
@@ -78,13 +78,13 @@ if ($topictitle ne "") {
 $mymembercode = $membercode;
 $myinmembmod = $inmembmod;
 $myrating = $rating;
-$tempaccess = "forumsallowed" . $inforum;
+$tempaccess = "forumsallowed" . $in_forum;
 $testentry = $query->cookie($tempaccess);
-$allowed = $allowedentry{$inforum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
+$allowed = $allowedentry{$in_forum} eq "yes" || ($testentry eq $forumpass && $testentry ne "") || $mymembercode eq "ad" || $mymembercode eq "smo" || $myinmembmod eq "yes" ? "yes" : "no";
 
-&errorout("打开文件&老大，别乱黑我的程序呀！") if ($inforum !~ /^[0-9]+$/);
-&errorout("打开文件&老大，别乱黑我的程序呀！") if ($intopic !~ /^[0-9]+$/);
-&getoneforum($inforum);
+&errorout("打开文件&老大，别乱黑我的程序呀！") if ($in_forum !~ /^[0-9]+$/);
+&errorout("打开文件&老大，别乱黑我的程序呀！") if ($in_topic !~ /^[0-9]+$/);
+&getoneforum($in_forum);
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 &errorout("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$membercode,/);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
@@ -106,7 +106,7 @@ if ($membercode ne 'ad' && $membercode ne 'smo' && $inmembmod ne 'yes') {
     }
 }
 $topictitle =~ s/^＊＃！＆＊//;
-my $filetoopen = "$lbdir" . "forum$inforum/$intopic.thd.cgi";
+my $filetoopen = "$lbdir" . "forum$in_forum/$in_topic.thd.cgi";
 open(FILE, "$filetoopen");
 my @threads = <FILE>;
 close(FILE);
@@ -153,10 +153,10 @@ $post =~ s/\&amp;amp;/\&amp;/g;
 $ag1 = $ag + 1;
 $ag2 = $ag - 1;
 $post .= "<br/>[$ag/$yema页]<br/>";
-$post .= "<a href=\"wap_topic_all.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic&amp;pno=$postno&amp;pa=$pa&amp;ag=$ag1\">[下一页]</a>&nbsp;" if ($ag1 <= $yema);
-$post .= "<a href=\"wap_topic_all.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic&amp;pno=$postno&amp;pa=$pa&amp;ag=$ag2\">[上一页]</a>&nbsp;" if ($ag2 >= 1);
+$post .= "<a href=\"wap_topic_all.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic&amp;pno=$postno&amp;pa=$pa&amp;ag=$ag1\">[下一页]</a>&nbsp;" if ($ag1 <= $yema);
+$post .= "<a href=\"wap_topic_all.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic&amp;pno=$postno&amp;pa=$pa&amp;ag=$ag2\">[上一页]</a>&nbsp;" if ($ag2 >= 1);
 $postdate = &dateformat($postdate + ($timedifferencevalue * 3600) + ($timezone * 3600));
 $a .= qq~<p>$post</p>~;
-$show .= qq~<p><b>标题：<a href="wap_topic.cgi?f=$inforum&amp;t=$intopic&amp;lid=$lid&amp;pa=$pa">$topictitle</a></b></p>$a<p>跳到<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_topic_all.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic&amp;pno=$postno&amp;pa=$pa&amp;ag=\$(tz)">Go..</a></p><p><a href="wap_forum.cgi?forum=$inforum&amp;lid=$lid&amp;pa=$pa">返回$forumname</a><br/><a href="wap_re.cgi?f=$inforum&amp;lid=$lid&amp;t=$intopic">回复帖子</a><br/><a href="wap_index.cgi?lid=$lid">论坛首页</a></p>~;
+$show .= qq~<p><b>标题：<a href="wap_topic.cgi?f=$in_forum&amp;t=$in_topic&amp;lid=$lid&amp;pa=$pa">$topictitle</a></b></p>$a<p>跳到<input type="text" name="tz" size="5" maxlength="5" format="*N"/><a href="wap_topic_all.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic&amp;pno=$postno&amp;pa=$pa&amp;ag=\$(tz)">Go..</a></p><p><a href="wap_forum.cgi?forum=$in_forum&amp;lid=$lid&amp;pa=$pa">返回$forumname</a><br/><a href="wap_re.cgi?f=$in_forum&amp;lid=$lid&amp;t=$in_topic">回复帖子</a><br/><a href="wap_index.cgi?lid=$lid">论坛首页</a></p>~;
 
 &wapfoot;

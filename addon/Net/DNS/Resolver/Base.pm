@@ -155,7 +155,7 @@ sub read_env {
 }
 
 #
-# $class->read_config_file($filename) or $self->read_config_file($file)
+# $class->read_config_file($file_name) or $self->read_config_file($file)
 #
 sub read_config_file {
 	my ($invocant, $file) = @_;

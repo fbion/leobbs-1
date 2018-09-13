@@ -32,13 +32,13 @@ $zeile =~ tr/[:]/[|]/;
 $name = @member[0];
 $passwort = @member[1];
 $email = @member[2];
-$filenames = $name;
-$filenames =~ s/ /_/gi;
-$filenames =~ tr/A-Z/a-z/;
+$file_names = $name;
+$file_names =~ s/ /_/gi;
+$file_names =~ tr/A-Z/a-z/;
 
 $memberarray = "$name\t$passwort\tMember\tme\t0|0\t$email\tno\t\thttp://\t\t\t\t\t$date\tNot Posted\t\t\t\tnoavatar\t";
 @memberarray = ($memberarray);
-open(MEMBERDATEI,">${leobbsmember}$filenames.cgi");
+open(MEMBERDATEI,">${leobbsmember}$file_names.cgi");
 print MEMBERDATEI "@memberarray";
 close(MEMBERDATEI);
 }

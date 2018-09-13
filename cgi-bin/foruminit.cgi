@@ -263,8 +263,8 @@ sub dodalmessage {
     closedir(DIR);
     $inboxcount = @inboxdata;
     $inboxcount = $inboxcount - 2;
-    foreach $filename (@inboxdata) {
-        $filepath = $inbox . "/" . $filename;
+    foreach $file_name (@inboxdata) {
+        $filepath = $inbox . "/" . $file_name;
         unlink($filepath);
     }
     $outbox = "${lbdir}$msgdir/out";
@@ -273,16 +273,16 @@ sub dodalmessage {
     closedir(DIR);
     $outboxcount = @outboxdata;
     $outboxcount = $outboxcount - 2;
-    foreach $filename (@outboxdata) {
-        $filepath = $outbox . "/" . $filename;
+    foreach $file_name (@outboxdata) {
+        $filepath = $outbox . "/" . $file_name;
         unlink($filepath);
     }
     $outbox = "${lbdir}$msgdir/main";
     opendir(DIR, "$outbox");
     my @outboxdata = readdir(DIR);
     closedir(DIR);
-    foreach $filename (@outboxdata) {
-        $filepath = $outbox . "/" . $filename;
+    foreach $file_name (@outboxdata) {
+        $filepath = $outbox . "/" . $file_name;
         unlink($filepath);
     }
     opendir(DIRS, "${lbdir}cache/mymsg");
@@ -602,7 +602,7 @@ sub dotop {
 
 sub dotopnext {
 
-    $filename = "alluser.pl";
+    $file_name = "alluser.pl";
     open(FILE, "${lbdir}$memdir/allname.pl");
     @allname = <FILE>;
     close(FILE);

@@ -68,7 +68,7 @@ my %fileOrder;             # order that tags were found in the file
 my $numTagsFound;          # number of tags found
 my $doPrintConversion = 1; # flag to enable print conversion (PrintConv)
 my $warnDuplicates;        # flag to warn about duplicate tag names
-my $filename;              # image file name
+my $file_name;              # image file name
 my $exifData;              # EXIF data block
 my $verbose = 0;           # flag for verbose printing (1=verbose, 2=very verbose)
 my $doComposite = 1;       # flag to enable composite tags
@@ -98,7 +98,7 @@ my %specialTags = ('TableType' => 1, 'Format' => 1);
 #   my $tags = ExifTool::ImageInfo($file, 'DateTimeOriginal', 'ImageSize');
 #   my $tags = ExifTool::ImageInfo($file, \@tag_list, { SORT=>'FILE'} );
 sub ImageInfo($;) {
-    $filename = shift;
+    $file_name = shift;
     my $sortOrder;
 
     # must load our main tag tables to get shortcuts, etc
@@ -134,12 +134,12 @@ sub ImageInfo($;) {
     # expand shortcuts
     ExpandShortcuts($requestedTags);
 
-    $file_size = -s $filename;
+    $file_size = -s $file_name;
     unless (defined $file_size) {
-        warn "Error opening file $filename\n";
+        warn "Error opening file $file_name\n";
         return { Error => 'Error opening file' };
     }
-    my $name = $filename;
+    my $name = $file_name;
     $name =~ s/.*\///; # remove path
     FoundTag('FileName', $name);
     FoundTag('FileSize', $file_size);
@@ -147,28 +147,28 @@ sub ImageInfo($;) {
     undef $exifData; # clear current EXIF data
 
     # read tags from the file
-    if (open(EXIFTOOL_FILE, $filename)) {
+    if (open(EXIFTOOL_FILE, $file_name)) {
         $file_pointer = \*EXIFTOOL_FILE;
         binmode(EXIFTOOL_FILE);
-        if ($filename =~ /\.(jpg|jpeg|thm)$/i) {
+        if ($file_name =~ /\.(jpg|jpeg|thm)$/i) {
             JpgInfo(\*EXIFTOOL_FILE);
         }
-        elsif ($filename =~ /\.gif$/i) {
+        elsif ($file_name =~ /\.gif$/i) {
             GifInfo(\*EXIFTOOL_FILE);
         }
-        elsif ($filename =~ /\.tiff{0,1}$/i) {
+        elsif ($file_name =~ /\.tiff{0,1}$/i) {
             TiffInfo(\*EXIFTOOL_FILE);
         }
-        elsif ($filename =~ /\.crw$/i) {
+        elsif ($file_name =~ /\.crw$/i) {
             GetTagTable('TagTables::CanonRaw::Main'); # load the raw tables
             TagTables::CanonRaw::RawInfo(\*EXIFTOOL_FILE, $requestedTags);
         }
         else {
-            warn "Unknown image file type $filename\n";
+            warn "Unknown image file type $file_name\n";
         }
     }
     else {
-        warn "Error opening file $filename\n";
+        warn "Error opening file $file_name\n";
         return { Error => 'Error opening file' };
     }
 
@@ -1203,7 +1203,7 @@ sub ProcessExifDir($$$$$$;$) {
     my $bytesFromEnd = $offsetBase + $exifLength - $dirEnd;
     if ($bytesFromEnd < 4) {
         unless ($bytesFromEnd == 2 or $bytesFromEnd == 0) {
-            warn "Illegal directory size in $filename\n";
+            warn "Illegal directory size in $file_name\n";
             return 0;
         }
     }
@@ -1333,7 +1333,7 @@ sub ProcessExifDir($$$$$$;$) {
                     seek($fp, $curpos, 0); # restore position in file
                 }
                 unless ($dirOK) {
-                    warn "Bad $tagStr SubDirectory start in $filename\n";
+                    warn "Bad $tagStr SubDirectory start in $file_name\n";
                     if ($verbose) {
                         if ($subdirStart < $dirBase) {
                             warn "(directory start $subdirStart is before EXIF base=$dirBase)\n";
