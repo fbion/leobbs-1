@@ -125,7 +125,7 @@ else {
 
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
 
-&error("进入会员论坛查看帖子内容&您是客人没有权限进入!") if ($in_member_name eq "客人" && $regaccess eq "on" && &checksearchbot);
+&error("进入会员论坛查看帖子内容&您是客人没有权限进入!") if ($in_member_name eq "客人" && $reg_access eq "on" && &checksearchbot);
 &error("进入私有论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq "yes" && $allowed ne "yes");
 if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&error("进入论坛&你一般会员不允许进入此论坛！");}
 

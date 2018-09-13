@@ -102,7 +102,7 @@ sub viewall {
         exit;
     }
 
-    if ($regaccess eq "on") {
+    if ($reg_access eq "on") {
         my $addtime = time;
         $addtime = $timedifferencevalue * 3600 + $timezone * 3600 + $addtime;
         my $posttime = &dateformat($posttime + $addtime);
@@ -256,7 +256,7 @@ sub forums {
         print "$rssout";
         exit;
     }
-    if ($regaccess eq "on") {
+    if ($reg_access eq "on") {
         my $addtime = time;
         $addtime = $timedifferencevalue * 3600 + $timezone * 3600 + $addtime;
         my $posttime = &dateformat($posttime + $addtime);

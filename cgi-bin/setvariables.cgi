@@ -747,14 +747,14 @@ if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") &
                 ~;
 
         unless (WebGzip::getStatus()) {
-            $gzipfunc = qq~Gzip 模块可以使用~;
+            $gzip_func = qq~Gzip 模块可以使用~;
         }
         else {
             $e = WebGzip::getStatus();
-            $gzipfunc = qq~<BR><font color=#FF0000>Gzip 模块不可用！</font> $e~
+            $gzip_func = qq~<BR><font color=#FF0000>Gzip 模块不可用！</font> $e~
         }
 
-        $tempoutput = "<select name=\"usegzip\">\n<option value=\"no\">关闭\n<option value=\"yes\">打开\n</select>\n 测试结果：$gzipfunc";
+        $tempoutput = "<select name=\"usegzip\">\n<option value=\"no\">关闭\n<option value=\"yes\">打开\n</select>\n 测试结果：$gzip_func";
         $tempoutput =~ s/value=\"$usegzip\"/value=\"$usegzip\" selected/;
         print qq~
                 <tr>

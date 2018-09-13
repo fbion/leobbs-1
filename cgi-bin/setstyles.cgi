@@ -1583,7 +1583,7 @@ $tempoutput</td>
                 ~;
 
         $tempoutput = "<select name=\"regaccess\"><option value=\"off\">不，允许任何人访问<option value=\"on\">是，必须登录后才能访问</select>\n";
-        $tempoutput =~ s/value=\"$regaccess\"/value=\"$regaccess\" selected/;
+        $tempoutput =~ s/value=\"$reg_access\"/value=\"$reg_access\" selected/;
         print qq~
                 <tr>
                 <td bgcolor=#FFFFFF valign=middle align=left  colspan=2>

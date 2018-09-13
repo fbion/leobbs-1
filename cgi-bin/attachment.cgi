@@ -70,13 +70,13 @@ if (($in_select_style ne "") && (-e "${lbdir}data/skin/${inselectstyle}.cgi")) {
 
 $in_post_no--;
 
-var $in_member_name = $query->cookie("amembernamecookie") unless ($in_member_name);
-$in_password = $query->cookie("apasswordcookie") unless ($in_password);
+my $in_member_name = $query->cookie("amembernamecookie") unless ($in_member_name);
+my $in_password = $query->cookie("apasswordcookie") unless ($in_password);
 $in_member_name =~ s/[\a\f\n\e\0\r\t\`\~\!\@\#\$\%\^\&\*\(\)\+\=\\\{\}\;\'\:\"\,\.\/\<\>\?]//isg;
 $in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 
 if (!$in_member_name || $in_member_name eq "客人") {
-    if ($regaccess eq 'on' || $privateforum eq 'yes') {
+    if ((defined $reg_access && $reg_access eq 'on' )|| $privateforum eq 'yes') {
         print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         print qq~<script language="JavaScript">document.location = "loginout.cgi?forum=$in_forum";</script>~;
         exit;

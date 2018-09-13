@@ -160,7 +160,7 @@ $rsshtml = qq~  <a href="rss.cgi/leo.xml?forum=$in_forum" target="_blank"><img s
 if ($enterminmony > 0 || $enterminjf > 0 || $enterminweiwang > 0 || $allow_users ne '') {
     $rsshtml = "";
 }
-if ($regaccess eq "on") {
+if ($reg_access eq "on") {
     $rsshtml = "";
 }
 if (($startnewthreads eq "cert") && ($userincert eq "no")) {

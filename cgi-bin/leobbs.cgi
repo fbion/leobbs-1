@@ -222,7 +222,7 @@ if ($adlinks ne "") {
 }
 
 $rsshtml = qq~<td align=center width=80><a href="rss.cgi?/leo.xml" target="_blank"><img src="$imagesurl/images/xml.gif" height=15 border="0" align="absmiddle" alt="RSS 订阅全部论坛"></a>&nbsp;<a href="wap.cgi" target="_blank"><img src="$imagesurl/images/wap.gif" height=15 border="0" align="absmiddle" alt="通过手机访问论坛，地址：$boardurl/wap.cgi"></a></td>~;
-if ($regaccess eq "on") {
+if ($reg_access eq "on") {
     $rsshtml = "";
 }
 

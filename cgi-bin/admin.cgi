@@ -47,11 +47,11 @@ else {
 
 eval ('$complevel = 9 if ($complevel eq ""); use WebGzip($complevel); $gzipused = 1;');
 unless (WebGzip::getStatus()) {
-    $gzipfunc = qq~Gzip 模块是否可用? == [通过]~;
+    $gzip_func = qq~Gzip 模块是否可用? == [通过]~;
 }
 else {
     $e = WebGzip::getStatus();
-    $gzipfunc = qq~<font color=#FF0000>Gzip 模块是否可用? == [失败]</font> $e~
+    $gzip_func = qq~<font color=#FF0000>Gzip 模块是否可用? == [失败]</font> $e~
 }
 
 eval ('use GD;');
@@ -62,7 +62,7 @@ else {
     $gdfunc = qq~GD 模块是否可用? == [通过]~;
 }
 
-$thisprog = "admin.cgi";
+my $thisprog = "admin.cgi";
 $query = new LBCGI;
 #&ipbanned; #封杀一些 ip
 $action = $query->param('action');
@@ -85,8 +85,12 @@ unlink("${lbdir}ilite.cgi");
 unlink("${lbdir}cat.cgi");
 unlink("${lbdir}record.cgi");
 
-mkdir("${lbdir}$memdir/old", 0777) if (!(-e "${lbdir}$memdir/old"));
-mkdir("${lbdir}cache", 0777) if (!(-e "${lbdir}cache"));
+if (!(-e "${lbdir}$memdir/old")) {
+    mkdir("${lbdir}$memdir/old", 0777);
+}
+if (!(-e "${lbdir}cache")) {
+    mkdir("${lbdir}cache", 0777);
+}
 mkdir("${lbdir}cache/online", 0777) if (!(-e "${lbdir}cache/online"));
 mkdir("${lbdir}cache/myinfo", 0777) if (!(-e "${lbdir}cache/myinfo"));
 mkdir("${lbdir}cache/mymsg", 0777) if (!(-e "${lbdir}cache/mymsg"));
@@ -216,7 +220,7 @@ $warning
 <br>Perl  版本：<font color=#FF0000>$]</font> == [通过]
 <br>LBCGI 版本：<font color=#FF0000>$version_needed</font> == [通过]
 <br>MD5　 测试：$md5mode
-<br>Gzip　测试：$gzipfunc
+<br>Gzip　测试：$gzip_func
 <br>GD　　测试：$gdfunc
 <br>Cookie测试：$cookie_result
 <br><br>

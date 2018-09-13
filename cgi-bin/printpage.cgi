@@ -62,7 +62,7 @@ $in_password =~ s/[\a\f\n\e\0\r\t\|\@\;\#\{\}\$]//isg;
 if ($in_member_name eq "" || $in_member_name eq "客人") {
     $in_member_name = "客人";
     $myrating = -1;
-    if ($regaccess eq "on" && &checksearchbot) {
+    if ($reg_access eq "on" && &checksearchbot) {
         print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
         print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
         exit;

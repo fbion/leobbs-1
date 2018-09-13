@@ -128,7 +128,7 @@ sub title {
     if ($in_member_name eq "" || $in_member_name eq "客人") {
         $in_member_name = "客人";
         $loggedinas = qq~<b>客人</b>： <a href=loginout.cgi?forum=$in_forum title=从这里开始进入论坛>登录</a> <img src=$imagesurl/images/fg.gif width=1> <a href=register.cgi?forum=$in_forum title=注册了才能发表文章哦！><B><font color=$fonthighlight>按这里注册</font></B></a> <img src=$imagesurl/images/fg.gif width=1> <a href=profile.cgi?action=lostpassword title=好惨啊，忘记密码登录不了 style=cursor:help>忘记密码</a> <img src=$imagesurl/images/fg.gif width=1> <a href=whosonline.cgi title=看看有谁在线……>在线</a> <img src=$imagesurl/images/fg.gif width=1> <a href="search.cgi?forum=$in_forum" title=按关键字、作者来搜寻>搜索</a> $skinselect<img src=$imagesurl/images/fg.gif width=1> <span style=cursor:hand onClick=javascript:openScript('help.cgi',500,400) title=常见问题的解答>帮助</span>&nbsp;~;
-        if (($regaccess eq "on" && &checksearchbot) && ($thisprog ne "loginout.cgi") && ($thisprog ne "register.cgi") && ($thisprog ne "profile.cgi") && ($thisprog ne "viewavatars.cgi")) {
+        if (($reg_access eq "on" && &checksearchbot) && ($thisprog ne "loginout.cgi") && ($thisprog ne "register.cgi") && ($thisprog ne "profile.cgi") && ($thisprog ne "viewavatars.cgi")) {
             print header(-cookie => [ $namecookie, $passcookie ], -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
             print "<script language='javascript'>document.location = 'loginout.cgi?forum=$in_forum'</script>";
             exit;

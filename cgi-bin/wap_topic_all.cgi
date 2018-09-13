@@ -88,7 +88,7 @@ $allowed = $allowed_entry{$in_forum} eq "yes" || ($test_entry eq $forum_pass && 
 if (-e "${lbdir}data/style${inforum}.cgi") {require "${lbdir}data/style${inforum}.cgi";}
 &errorout("进入论坛&你的论坛组没有权限进入论坛！") if ($yxz ne '' && $yxz !~ /,$member_code,/);
 $addtimes = ($timedifferencevalue + $timezone) * 3600;
-&errorout("进入会员论坛查看帖子内容&您是客人没有权限进入!") if ($in_member_name eq "客人" && $regaccess eq "on" && &checksearchbot);
+&errorout("进入会员论坛查看帖子内容&您是客人没有权限进入!") if ($in_member_name eq "客人" && $reg_access eq "on" && &checksearchbot);
 &errorout("进入私有论坛&对不起，您没有权限进入该私有论坛！") if ($privateforum eq "yes" && $allowed ne "yes");
 if (($startnewthreads eq "cert") && (($member_code ne "ad" && $member_code ne "smo" && $member_code ne "cmo" && $member_code ne "mo" && $member_code ne "amo" && $member_code !~ /^rz/) || ($in_member_name eq "客人")) && ($userincert eq "no")) {&errorout("进入论坛&你一般会员不允许进入此论坛！");}
 
