@@ -1,5 +1,7 @@
 # Leobbs
 
+Leobbs need perl >= 5.28.*
+
 ## Quick Start
 
 You need docker and docker-compose installed.
@@ -37,26 +39,23 @@ docker-compose up --build
 
 ```
 
-## Terraform
-
-For first run
-```bash
-terraform init tf
-terraform apply  -auto-approve tf 
-
-```
-For second run
-```bash
-terraform taint null_resource.web
-terraform apply  -auto-approve tf
-
-```
-
 ## Carton
 
-If you using Carton as perl packages management. You may want to run 
+**This section mostly for developer, If you are not, you may not want do this **
+
+If you using Carton as perl packages management. You may want to run
+
+For windows 
 ```bash
+cpanm Carton
 Carton install
 Carton run morbo .\main.pl
+
+```
+For linux
+```bash
+cpanm Carton
+carton install
+carton run morbo ./main.pl
 
 ```
