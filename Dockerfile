@@ -1,5 +1,6 @@
 FROM perl:latest
 COPY ./ /www/
-RUN  cpanm Mojolicious && cd /www
+RUN  cpanm Carton && cd /www
 WORKDIR /www
-CMD perl ./main.pl daemon
+RUN Carton install
+CMD Carton exec ./main.pl daemon
