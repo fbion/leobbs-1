@@ -27,6 +27,8 @@ With content:
 ```
 DB_HOST=172.17.0.1 # Replace to your PostgresSQL DB host
 DB_PORT=5432
+DB_USER=postgres
+DB_PW=LeoBBS
 ``` 
 ### Run
 Then you can run 
