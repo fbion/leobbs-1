@@ -1,6 +1,4 @@
 FROM perl:latest
 COPY ./ /www/
-RUN  cpanm Carton && cd /www
 WORKDIR /www
-RUN Carton install
-CMD Carton exec ./main.pl daemon
+CMD perl -Ilocal/lib/perl5 ./main.pl daemon
