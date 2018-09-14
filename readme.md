@@ -41,7 +41,7 @@ docker-compose up --build
 
 ## Carton
 
-**This section mostly for developer, If you are not, you may not want do this **
+**This section mostly for developer, If you are not, you may not want do this**
 
 If you using Carton as perl packages management. You may want to run
 
