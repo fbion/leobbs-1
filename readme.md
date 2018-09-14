@@ -3,6 +3,20 @@
 ## Quick Start
 
 You need docker and docker-compose installed.
+### Prepare PostgreSQL DB
+
+For quick create a postgres sql DB, you can run following command
+
+```bash
+docker volume create --name vol-pg -d local
+
+
+docker run --restart=always --name pg \
+    -e POSTGRES_PASSWORD=LeoBBS \
+    -p 172.17.0.1:5432:5432 \
+    -v vol-pg:/var/lib/postgresql/data \ 
+    -d postgres
+```
 
 ### Prepare ENV file
 
@@ -11,8 +25,8 @@ You should create a ENV file at your docker host  path /etc/docker/env.leobbs.en
 With content:
 
 ```
-DB_HOST=10.8.41.31 # Replace to your PostgresSQL DB host
-DB_PORT=4321
+DB_HOST=172.17.0.1 # Replace to your PostgresSQL DB host
+DB_PORT=5432
 ``` 
 ### Run
 Then you can run 
