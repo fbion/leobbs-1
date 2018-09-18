@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 use diagnostics;
+use utf8;
+use feature "5.22";
 use Mojolicious::Lite;
 
 get '/' => {
