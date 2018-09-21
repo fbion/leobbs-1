@@ -277,7 +277,7 @@ sub addreply {
         &error("发帖&你的积分为 $jifen，而本论坛只有积分大于等于 $replyminjf 的才能回复！") if ($replyminjf > 0 && $jifen < $replyminjf);
     }
     &error("出错&请不要用外部连接本程序！") if (($ENV{'HTTP_REFERER'} !~ /$ENV{'HTTP_HOST'}/i && $ENV{'HTTP_REFERER'} ne '' && $ENV{'HTTP_HOST'} ne '') && ($canotherlink ne "yes"));
-    require "dotopicreplay.pl";
+    require "do/dotopicreplay.pl";
 }
 
 sub addnewthread {
