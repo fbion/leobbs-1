@@ -7,7 +7,6 @@ services:
       - /etc/docker/env.leobbs.env
       ports:
          - "4321:3000"
-      restart: always
       networks:
         default:
 networks:
