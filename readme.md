@@ -1,13 +1,16 @@
 # Leobbs
 
-Leobbs need perl >= 5.28.*
+leobbs previous was built with perl , now we rewrite it with kotlin + spring boot
 
 ## Quick Start
 
 You need docker and docker-compose installed.
-### Prepare PostgreSQL DB
+### Prepare MariaDB
 
-For quick create a postgres sql DB, you can run following command
+
+For quick create a MariaDB sql DB, you can run following command. 
+
+(And you may still use mysql, it's ok)
 
 ```bash
 docker volume create --name vol-pg -d local
