@@ -27,6 +27,8 @@ func main() {
 
 	fc := new(FrontController)
 	r.GET("/", fc.HomeCtr)
+	r.GET("/ws", fc.WsCtr)
+
 /*
 	apiCtrl := new(APIController)
 	api := r.Group("/api")

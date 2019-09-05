@@ -26,3 +26,5 @@
 /.nb-gradle/
 leobbs.exe
 go.sum
+/vol/config.toml
+/vol/db.sqlite

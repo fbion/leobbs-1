@@ -1,0 +1,11 @@
+dbdsn="file:./vol/db.sqlite"
+admin_user = "admin"
+admin_password = "s3curity"
+site_name = "leobbs"
+site_description = "My memory about leobbs"
+[object_storage]
+aws_access_key_id = "*****"
+aws_secret_access_key = "******"
+aws_region = "us-east-1"
+aws_bucket = "www.domain.com"
+cdn_url = "//www.domain.com"
