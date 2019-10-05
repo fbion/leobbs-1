@@ -260,6 +260,8 @@ CGI::Response
 =cut
 
 require 5.000;
+use warnings;
+use strict;
 use Exporter;
 #use Carp;
 BEGIN { require Carp; }

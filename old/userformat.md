@@ -7,16 +7,16 @@
   
 **论坛用户库结构和修改方法：**　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　[**返回上一页**](leobbs.md)  
   
-**1\. 用户库存放位置**  
+**1. 用户库存放位置**  
 LeoBBS X 的用户文件都是存放在 cgi-bin 目录下的 membersXXXXXX 目录(XXXXXX 是随机安全字符串)内的 0 - 512 之间的一个数字子目录中。  
 其中数字子目录名是根据用户名的前两个字符按照算法转换而成的。  
   
-**2\. 用户库文件目录规则**  
+**2. 用户库文件目录规则**  
 用户的文件存在被分在了５１２个目录中，为了确定某个用户文件应该存放在什么目录下，需要用下面的程序段：  
 $namenumber = &getnamenumber($username);  
 这样得到的 $namenumber 就是目录名，要注意的是，其中的 $username 是已经经过下面第３点处理过的。  
   
-**3\. 用户库文件名规则**  
+**3. 用户库文件名规则**  
 用户输入的用户名必须经过简单处理，主要是为了防止非法字符等问题。比如你  
 输入的用户名保存在变量 $username 中的话，那么需要用下面程序来处理：  
 $username = &unHTML("$username")  
@@ -24,10 +24,10 @@ $username =~ s/ /\\\_/g;
 $username =~ tr/A-Z/a-z/;  
 这样处理后的 $username 就是最终的用户文件名。  
   
-**4\. 用户库文件名**  
+**4. 用户库文件名**  
 文件名为 经过处理的用户名.cgi，存放在相应的用户库目录中。  
   
-**5\. 用户库文件的内部结构**  
+**5. 用户库文件的内部结构**  
 你打开一个用户库文件的时候，里面的内容如下：  
 $membername\\t$password\\t$membertitle\\t$member_code\\t$numberofposts\\t$emailaddress\\t$showemail\\t$ipaddress\\t$homepage\\t$oicqnumber\\t  
 $icqnumber\\t$location\\t$interests\\t$joineddate\\t$lastpostdate\\t$signature\\t$timedifference\\t$privateforums\\t$useravatar\\t$userflag\\t  
@@ -91,7 +91,7 @@ $useradd5       保留，未使用
 如果你需要制作某些特别的扩展功能，可以使用用户库中的保留字段($chatlevel，$chattime也可以使用)！  
   
   
-**6\. 和用户库有关的系统调用**  
+**6. 和用户库有关的系统调用**  
 你只需在你程序的开头用下面命令包含部分必须的库文件，  
 　　　 require "data/boardinfo.cgi";  
 　　　 require "data/styles.cgi";  

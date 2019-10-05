@@ -1,34 +1,34 @@
-LeoBBS X �װ�������̳˵���ĵ� 
-�װ����ᳬ����̳ LeoBBS X ˵���ĵ�
+LeoBBS X 雷傲超级论坛说明文档 
+雷傲极酷超级论坛 LeoBBS X 说明文档
 
 .
 
   
-**α��̬��ʵ�֣�**  
+**伪静态的实现：**  
   
   
-һ. APACHE 1.3.x & 2.X  
+一. APACHE 1.3.x & 2.X  
   
   
   
-������ͨ������£��� addon Ŀ¼�µ� .htaccrss �ļ����Ƶ��� cgi-bin �£��� CGI �����ļ���һ��Ȼ��ֱ�ӿ��ڡ��������輴�ɣ��������������Բ��ɹ�����ô�밴������Ĳ����ֹ����ã�  
+　　在通常情况下，把 addon 目录下的 .htaccrss 文件复制到你 cgi-bin 下，和 CGI 程序文件放一起，然后直接看第“三”步骤即可！如果第三步骤测试不成功，那么请按照下面的步骤手工设置！  
   
   
-����1. �� apache/conf/httpd.conf �ļ����������������У�����������ǰ��� # ȥ��(����ڶ��е������Ҳ��������Թ�)��  
+　　1. 打开 apache/conf/httpd.conf 文件，搜索到以下两行，把这两行最前面的 # 去掉(如果第二行的内容找不到，就略过)。  
   
 #LoadModule rewrite\_module modules/mod\_rewrite.so  
 #AddModule mod\_rewrite.c  
   
   
-����2. �������������������������ݣ����ڰ�װ·����ͬ�����ܻ��в��죬����ϸ����һ�£���  
+　　2. 继续搜索类似下面这样的内容（由于安装路径不同，可能会有差异，请仔细搜索一下）。  
   
 <Directory "d:/Apache/htdocs/cgi-bin">  
   
-�ڴ�����ֱ��������������  
+在此行下直接添加下面这行  
   
 AddHandler cgi-script .cgi .md .pl  
   
-����Ȼ�󿴽���ȥ�ļ��У������� None �ĳ� All��������������ӣ�����һ�¾Ϳ����ˣ���  
+　　然后看接下去的几行，把最后的 None 改成 All，类似下面的样子（对照一下就可以了）。  
   
 AllowOverride All  
   
@@ -38,7 +38,7 @@ Options All
   
   
   
-����3. �ڴ��ļ����������������Ρ�  
+　　3. 在此文件的最后添加下面这段。  
   
 RewriteEngine On  
   
@@ -62,43 +62,43 @@ RewriteRule ^(.\*)/printpage-(\[0-9\]+)-(\[0-9\]+)\\.md$ $1/printpage\\.cgi\\?fo
   
   
   
-����4. �������� Apache ����ֻҪû����ʾ����α��̬�ķ������˰�װ��������ˡ�  
+　　4. 重新启动 Apache 服务，只要没有提示错误，伪静态的服务器端安装就算完成了。  
   
   
   
-��. IIS 5.0 & 6.0  
+二. IIS 5.0 & 6.0  
   
   
   
-����1. �� addon Ŀ¼�µ� Rewrite.rar ��ѹ����Ŀ¼�� Rewrite �¡�  
+　　1. 将 addon 目录下的 Rewrite.rar 解压缩至目录名 Rewrite 下。  
   
   
   
-����2. �� Rewrite Ŀ¼������������ĳ·���¡�  
+　　2. 将 Rewrite 目录保存至服务器某路径下。  
   
   
   
-����3. �򿪡�������塱�����������ߡ�����IIS��Ϣ�����������������վ����������վ�㡱�������ԡ���  
+　　3. 打开“控制面板”－“管理工具”－“IIS信息服务管理器”－“网站”－“您的站点”－“属性”。  
   
   
   
-����4. �ڡ�ISAPIɸѡ�������������ӡ���ɸѡ���������� Rewrite����ִ���ļ�Ϊ Rewrite Ŀ¼�µ� Rewrite.dll��ͨ���������ָ�����Ե�ַ����  
+　　4. 在“ISAPI筛选器”项点击“添加”，筛选器名称填入 Rewrite，可执行文件为 Rewrite 目录下的 Rewrite.dll（通过“浏览”指定绝对地址）。  
   
   
   
-����5. ���� IIS��ֻҪû����ʾ����α��̬�ķ������˰�װ��������ˡ�  
+　　5. 重启 IIS，只要没有提示错误，伪静态的服务器端安装就算完成了。  
   
   
   
-��.�������е����ã�  
+三.　程序中的设置：  
   
   
   
-�������ڷ����������ú�α��̬���ǲ����ģ������ڳ����д�α��̬��֧�ֿ��أ���¼�װ���̳�Ĺ��������ڡ������������á�����󣬡��Ƿ����α��̬��ʽ�����к��棬�㡰���˲��ԡ����������������̳��ҳ����˵�����óɹ���Ȼ�����Ŀѡ��ʹ�á������漴�ɣ������ʾ���ǡ��ļ�û���ҵ�����404���󡱣��Ǿ�˵�����ô������������ã�  
+　　光在服务器端设置好伪静态还是不够的，必须在程序中打开伪静态的支持开关，登录雷傲论坛的管理区，在“基本变量设置”的最后，“是否采用伪静态方式”此行后面，点“按此测试”如果能正常看到论坛首页，就说明设置成功，然后此项目选择“使用”，保存即可！如果提示的是“文件没有找到或者404错误”，那就说明设置错误，请重新设置！  
   
   
   
-ע�������������û�о������ã����ߡ����˲��ԡ���ʱ��û�п�����������̳��ҳ����ôǧ��Ҫ�ڳ���˴�α��̬��ʽ��������̳���޷�����ʹ�ã�  
+注：如果服务器端没有经过设置，或者“按此测试”的时候没有看到正常的论坛首页，那么千万不要在程序端打开伪静态方式，否则论坛将无法正常使用！  
   
   
   
@@ -108,4 +108,4 @@ RewriteRule ^(.\*)/printpage-(\[0-9\]+)-(\[0-9\]+)\\.md$ $1/printpage\\.cgi\\?fo
 
 * * *
 
-��Ȩ���У�[�װ��Ƽ�](http://www.leobbs.com) & [�װ����ᳬ����̳](http://bbs.leobbs.com)����Copyright 2000-2005
+版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005

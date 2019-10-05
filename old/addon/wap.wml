@@ -2,4 +2,4 @@
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN"
 "http://www.wapforum.org/DTD/wml_1.1.xml">
 <wml>
-<card id="loop" ontimer="http://xxxx/cgi-bin/wap.cgi" title="WAP ����"><timer value="1"/><p>������ת...���Ժ�...</p></card></wml>
+<card id="loop" ontimer="http://xxxx/cgi-bin/wap.cgi" title="WAP ????"><timer value="1"/><p>???????...?????...</p></card></wml>
