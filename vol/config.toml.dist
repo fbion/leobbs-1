@@ -1,6 +1,6 @@
 dbdsn="file:./vol/db.sqlite"
 admin_user = "admin"
-admin_password = "s3curity"
+admin_password = "admin"
 site_name = "leobbs"
 site_description = "My memory about leobbs"
 [object_storage]
