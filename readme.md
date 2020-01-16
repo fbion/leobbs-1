@@ -1,12 +1,4 @@
-# Leobbs
+# 雷傲论坛
 
-leobbs previous was built with perl , now we rewrite it with golang
+产品介绍,安装说明,疑难解答,请直接进入文档: [https://leobbs.netroby.com](https://leobbs.netroby.com)
 
-## Quick Start
-
-only need golang 1.13+
-
-then run 
-```
-go mod download && go run -v .
-```
