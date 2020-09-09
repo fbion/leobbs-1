@@ -1,4 +1,4 @@
-module github.com/netroby/leobbs
+module gitee.com/leobbs/leobbs
 
 go 1.13
 
