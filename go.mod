@@ -9,9 +9,11 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gorilla/sessions v1.2.0 // indirect
 	github.com/gorilla/websocket v1.4.1
+	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/mattn/go-sqlite3 v1.11.0
 	github.com/naoina/go-stringutil v0.1.0 // indirect
 	github.com/naoina/toml v0.1.1
 	github.com/rs/zerolog v1.15.0
 	github.com/ztrue/tracerr v0.3.0
+	google.golang.org/appengine v1.6.6 // indirect
 )
