@@ -1,5 +1,6 @@
 .gradle
 /build/
+!/docs/build/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -28,3 +29,4 @@ leobbs.exe
 go.sum
 /vol/config.toml
 /vol/db.sqlite
+node_modules/
