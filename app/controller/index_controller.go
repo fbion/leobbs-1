@@ -1,8 +1,9 @@
 package  controller
 
-import "github.com/gin-gonic/gin"
-
-import  "github.com/flosch/pongo2"
+import (
+	"github.com/flosch/pongo2/v4"
+	"github.com/gin-gonic/gin"
+)
 
 func IndexAction(c *gin.Context) {
 

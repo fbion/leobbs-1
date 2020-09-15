@@ -5,7 +5,7 @@ go 1.13
 require (
 	gitee.com/cnmade/pongo2gin v1.0.0
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff // indirect
-	github.com/flosch/pongo2 v0.0.0-20200805083417-63c99409991d
+	github.com/flosch/pongo2/v4 v4.0.0
 	github.com/gin-gonic/contrib v0.0.0-20190526021735-7fb7810ed2a0
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-sql-driver/mysql v1.4.1
@@ -19,6 +19,4 @@ require (
 	github.com/ugorji/go v1.1.8 // indirect
 	github.com/ztrue/tracerr v0.3.0
 	google.golang.org/appengine v1.6.6 // indirect
-	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
-	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 )
