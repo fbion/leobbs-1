@@ -2,11 +2,14 @@ package main
 
 import (
 	"database/sql"
+	"gitee.com/leobbs/leobbs/app/controller"
 	"github.com/rs/zerolog/log"
 
 	//	"github.com/fvbock/endless"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+
+	"gitee.com/cnmade/pongo2gin"
 )
 
 var (
@@ -20,14 +23,19 @@ func main() {
 	DB = GetDB(Config)
 
 	r := gin.Default()
+
+
+	r.HTMLRender = pongo2gin.New(pongo2gin.RenderOptions{
+		TemplateDir: "views",
+		ContentType: "text/html; charset=utf-8",
+		AlwaysNoCache: true,
+	})
+
+
 	r.Static("/assets", "./vol/assets")
 	store := sessions.NewCookieStore([]byte("gssecret"))
 	r.Use(sessions.Sessions("mysession", store))
-	r.LoadHTMLGlob("./vol/templates/*.html")
-
-	fc := new(FrontController)
-	r.GET("/", fc.HomeCtr)
-	r.GET("/ws", fc.WsCtr)
+	r.GET("/", controller.IndexAction)
 
 /*
 	apiCtrl := new(APIController)
