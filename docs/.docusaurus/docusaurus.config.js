@@ -22,11 +22,6 @@ export default {
           "position": "left"
         },
         {
-          "to": "blog",
-          "label": "Blog",
-          "position": "left"
-        },
-        {
           "href": "https://gitee.com/leobbs/leobbs",
           "label": "源代码",
           "position": "right"

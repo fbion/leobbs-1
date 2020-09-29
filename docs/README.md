@@ -1,33 +1,21 @@
-# Website
+# leobbs文档
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+克隆本仓库到本地，请确保电脑有安装nodejs和npm
 
-### Installation
-
-```
-$ yarn
+```bash
+npm install
 ```
 
-### Local Development
+
+
+### 本地开发
 
 ```
-$ yarn start
+$ npm start
 ```
 
-This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
-
-### Build
+### 构建编译
 
 ```
-$ yarn build
+$ npm run-script build
 ```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-```
-$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
