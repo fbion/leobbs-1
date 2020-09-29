@@ -4,7 +4,7 @@
 
 ## 文档地址
 
-[https://leobbs.gitee.io/](https://leobbs.gitee.io/)
+[https://leobbs.netroby.com](https://leobbs.netroby.com/)
 
 ## 参与贡献文档
 
