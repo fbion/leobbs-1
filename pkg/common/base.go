@@ -1,13 +1,13 @@
-package main
+package common
 
 import (
 	"database/sql"
 	"github.com/gin-gonic/gin"
 
-	"github.com/ztrue/tracerr"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/rs/zerolog/log"
 	"github.com/naoina/toml"
+	"github.com/rs/zerolog/log"
+	"github.com/ztrue/tracerr"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -68,7 +68,7 @@ func GetMinutes() string {
 	return time.Now().Format("200601021504")
 }
 
-func GetDB(config *appConfig) *sql.DB {
+func GetDB(config *AppConfig) *sql.DB {
 	db, err := sql.Open("sqlite3",  config.Dbdsn)
 
 	if err != nil {
@@ -105,7 +105,7 @@ create unique index if not exists access_token_access_token_Token_uindex
 	return db
 }
 
-type appConfig struct {
+type AppConfig struct {
 	Dbdsn          string
 	Admin_user       string
 	Admin_password   string
@@ -120,7 +120,7 @@ type appConfig struct {
 	}
 }
 
-func GetConfig() *appConfig {
+func GetConfig() *AppConfig {
 	f, err := os.Open("./vol/config.toml")
 	if err != nil {
 		panic(err)
@@ -130,7 +130,7 @@ func GetConfig() *appConfig {
 	if err != nil {
 		panic(err)
 	}
-	var config appConfig
+	var config AppConfig
 	if err := toml.Unmarshal(buf, &config); err != nil {
 		panic(err)
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"gitee.com/leobbs/leobbs/app/controller"
+	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/rs/zerolog/log"
 
 	//	"github.com/fvbock/endless"
@@ -13,14 +14,14 @@ import (
 )
 
 var (
-	Config    *appConfig
+	Config    *common.AppConfig
 	DB        *sql.DB
 )
 
 func main() {
 
-	Config = GetConfig()
-	DB = GetDB(Config)
+	Config = common.GetConfig()
+	DB = common.GetDB(Config)
 
 	r := gin.Default()
 
@@ -52,7 +53,7 @@ func main() {
 	log.Info().Msg("Server listen on :8083")
 	err := r.Run(":8083")
 	if err != nil {
-		LogError(err)
+		common.LogError(err)
 	}
 	//endless.ListenAndServe(":8080", r)
 }

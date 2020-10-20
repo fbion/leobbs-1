@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/websocket"
@@ -20,20 +21,20 @@ var upgrader = websocket.Upgrader{
 func echo(w http.ResponseWriter, r *http.Request) {
 	c, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		LogError(err)
+		common.LogError(err)
 		return
 	}
 	defer c.Close()
 	for {
 		mt, message, err := c.ReadMessage()
 		if err != nil {
-			LogError(err)
+			common.LogError(err)
 			break
 		}
 		log.Info().Msgf("recv: %s", message)
 		err = c.WriteMessage(mt, message)
 		if err != nil {
-			LogError(err)
+			common.LogError(err)
 			break
 		}
 	}
