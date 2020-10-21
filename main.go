@@ -1,10 +1,10 @@
 package main
 
 import (
-	"database/sql"
 	"gitee.com/leobbs/leobbs/app/controller"
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/rs/zerolog/log"
+	"gorm.io/gorm"
 
 	//	"github.com/fvbock/endless"
 	"github.com/gin-gonic/contrib/sessions"
@@ -15,7 +15,7 @@ import (
 
 var (
 	Config    *common.AppConfig
-	DB        *sql.DB
+	DB        *gorm.DB
 )
 
 func main() {

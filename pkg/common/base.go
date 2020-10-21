@@ -2,7 +2,10 @@ package common
 
 import (
 	"database/sql"
+	"gitee.com/leobbs/leobbs/app/model"
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/naoina/toml"
@@ -68,39 +71,16 @@ func GetMinutes() string {
 	return time.Now().Format("200601021504")
 }
 
-func GetDB(config *AppConfig) *sql.DB {
-	db, err := sql.Open("sqlite3",  config.Dbdsn)
-
-	if err != nil {
-		panic(err.Error())
-	}
-	if db == nil {
-		panic("db connect failed")
-	}
-	_, err = db.Exec(`
-create table if not exists article
-(
-	aid INTEGER not null,
-	content TEXT,
-	images TEXT not null,
-	publish_time bigINTEGER default NULL,
-	publish_status tinyINTEGER default '1'
-);
+func GetDB(config *AppConfig) *gorm.DB {
 
 
-create table if not exists access_token
-(
-	token TEXT not null
-		primary key
-);
+	db, err := gorm.Open(sqlite.Open(config.Dbdsn), &gorm.Config{})
 
-create unique index if not exists access_token_access_token_Token_uindex
-	on access_token (token);
-
-`)
 	if err != nil {
 		LogError(err)
 	}
+	db.AutoMigrate(&model.Article{})
+
 
 	return db
 }
