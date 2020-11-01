@@ -452,7 +452,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[img]</font>http://bbs.LeoBBS.com/non-cgi/myimages/mainlogo.gif<font color=$fonthighlight>[/img]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[img]</font>http://bbs.LeoBBS.com/assets/myimages/mainlogo.gif<font color=$fonthighlight>[/img]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone>

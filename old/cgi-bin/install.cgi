@@ -60,8 +60,8 @@ document.bbsimg.src = FORM.imagesurl.value+"/images/teamad.gif";}
 　脚本程序(cgi-bin)的 URL 路径　 <input name=boardurl type=text size=55 value="$myurl">　<font color=red>结尾没有 "/"</font><br>
 <br><br>
 　<font color=red><B>2.</B> </font><font color=blue>设置图像文件的路径（如果第二行的最后有笑脸图的话，就说明第二行填写的数据是正确的，否则请自行修改填写）</font><BR>
-　图像文件(non-cgi)的安装路径　　<input name=imagesdir type=text size=55 value="$html_dir/">　　　<font color=red>结尾有 "/"</font><br>
-　图像文件(non-cgi) URL 路径　 　<input name=imagesurl type=text size=55 value="$html_url" onChange=selectimg() onkeydown=selectimg() onkeyup=selectimg() onselect=selectimg()> <img name=bbsimg src=$html_url/images/teamad.gif width=16 height=14 title=如果你能看到这张笑脸图的话，就说明这里填写的数据是正确的>　<font color=red>结尾没有 "/"</font><br>
+　图像文件(assets)的安装路径　　<input name=imagesdir type=text size=55 value="$html_dir/">　　　<font color=red>结尾有 "/"</font><br>
+　图像文件(assets) URL 路径　 　<input name=imagesurl type=text size=55 value="$html_url" onChange=selectimg() onkeydown=selectimg() onkeyup=selectimg() onselect=selectimg()> <img name=bbsimg src=$html_url/images/teamad.gif width=16 height=14 title=如果你能看到这张笑脸图的话，就说明这里填写的数据是正确的>　<font color=red>结尾没有 "/"</font><br>
 <br><br><br>
 　<font color=red><B>3.</B> </font><font color=blue>设置初始化管理员（如果是升级安装的话，那么这里是无需填写的，请务必留空）</font><BR>
 　初始管理员用户名　　<input name=adminname type=text size=14 maxlenght=12>　　　　开头不要使用客人字样，也不要超过12个字符（6个汉字）<br>
@@ -472,9 +472,9 @@ sub myimgdir {
     my $html_dir = $html_url = $base = $base1 = "";
     $base = $mypath;
     $base1 = $myurl;
-    if (-e "$base/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi";
-        $html_url = "$base1/non-cgi";
+    if (-e "$base/assets/editor/selcolor.html") {
+        $html_dir = "$base/assets";
+        $html_url = "$base1/assets";
     }
     elsif (-e "$base/lb5000/editor/selcolor.html") {
         $html_dir = "$base/lb5000";
@@ -504,73 +504,73 @@ sub myimgdir {
         $html_dir = "$base/leo";
         $html_url = "$base1/leo";
     }
-    elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/non-cgi";
-        $html_url = "$base1/non-cgi/non-cgi";
+    elsif (-e "$base/assets/assets/editor/selcolor.html") {
+        $html_dir = "$base/assets/assets";
+        $html_url = "$base1/assets/assets";
     }
-    elsif (-e "$base/lb5000/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/lb5000/non-cgi";
-        $html_url = "$base1/lb5000/non-cgi";
+    elsif (-e "$base/lb5000/assets/editor/selcolor.html") {
+        $html_dir = "$base/lb5000/assets";
+        $html_url = "$base1/lb5000/assets";
     }
-    elsif (-e "$base/ib2000/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/ib2000/non-cgi";
-        $html_url = "$base1/ib2000/non-cgi";
+    elsif (-e "$base/ib2000/assets/editor/selcolor.html") {
+        $html_dir = "$base/ib2000/assets";
+        $html_url = "$base1/ib2000/assets";
     }
-    elsif (-e "$base/lb/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/lb/non-cgi";
-        $html_url = "$base1/lb/non-cgi";
+    elsif (-e "$base/lb/assets/editor/selcolor.html") {
+        $html_dir = "$base/lb/assets";
+        $html_url = "$base1/lb/assets";
     }
-    elsif (-e "$base/ib/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/ib/non-cgi";
-        $html_url = "$base1/ib/non-cgi";
+    elsif (-e "$base/ib/assets/editor/selcolor.html") {
+        $html_dir = "$base/ib/assets";
+        $html_url = "$base1/ib/assets";
     }
-    elsif (-e "$base/bbs/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/bbs/non-cgi";
-        $html_url = "$base1/bbs/non-cgi";
+    elsif (-e "$base/bbs/assets/editor/selcolor.html") {
+        $html_dir = "$base/bbs/assets";
+        $html_url = "$base1/bbs/assets";
     }
-    elsif (-e "$base/leobbs/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/leobbs/non-cgi";
-        $html_url = "$base1/leobbs/non-cgi";
+    elsif (-e "$base/leobbs/assets/editor/selcolor.html") {
+        $html_dir = "$base/leobbs/assets";
+        $html_url = "$base1/leobbs/assets";
     }
-    elsif (-e "$base/leo/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/leo/non-cgi";
-        $html_url = "$base1/leo/non-cgi";
+    elsif (-e "$base/leo/assets/editor/selcolor.html") {
+        $html_dir = "$base/leo/assets";
+        $html_url = "$base1/leo/assets";
     }
-    elsif (-e "$base/non-cgi/bbs/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/bbs";
-        $html_url = "$base1/non-cgi/bbs";
+    elsif (-e "$base/assets/bbs/editor/selcolor.html") {
+        $html_dir = "$base/assets/bbs";
+        $html_url = "$base1/assets/bbs";
     }
-    elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/non-cgi";
-        $html_url = "$base1/non-cgi/non-cgi";
+    elsif (-e "$base/assets/assets/editor/selcolor.html") {
+        $html_dir = "$base/assets/assets";
+        $html_url = "$base1/assets/assets";
     }
-    elsif (-e "$base/non-cgi/lb/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/lb";
-        $html_url = "$base1/non-cgi/lb";
+    elsif (-e "$base/assets/lb/editor/selcolor.html") {
+        $html_dir = "$base/assets/lb";
+        $html_url = "$base1/assets/lb";
     }
-    elsif (-e "$base/non-cgi/lb5000/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/lb5000";
-        $html_url = "$base1/non-cgi/lb5000";
+    elsif (-e "$base/assets/lb5000/editor/selcolor.html") {
+        $html_dir = "$base/assets/lb5000";
+        $html_url = "$base1/assets/lb5000";
     }
-    elsif (-e "$base/non-cgi/ib2000/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/ib2000";
-        $html_url = "$base1/non-cgi/ib2000";
+    elsif (-e "$base/assets/ib2000/editor/selcolor.html") {
+        $html_dir = "$base/assets/ib2000";
+        $html_url = "$base1/assets/ib2000";
     }
-    elsif (-e "$base/non-cgi/ib/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/ib";
-        $html_url = "$base1/non-cgi/ib";
+    elsif (-e "$base/assets/ib/editor/selcolor.html") {
+        $html_dir = "$base/assets/ib";
+        $html_url = "$base1/assets/ib";
     }
-    elsif (-e "$base/non-cgi/leo/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/leo";
-        $html_url = "$base1/non-cgi/leo";
+    elsif (-e "$base/assets/leo/editor/selcolor.html") {
+        $html_dir = "$base/assets/leo";
+        $html_url = "$base1/assets/leo";
     }
-    elsif (-e "$base/non-cgi/leobbs/editor/selcolor.html") {
-        $html_dir = "$base/non-cgi/leobbs";
-        $html_url = "$base1/non-cgi/leobbs";
+    elsif (-e "$base/assets/leobbs/editor/selcolor.html") {
+        $html_dir = "$base/assets/leobbs";
+        $html_url = "$base1/assets/leobbs";
     }
-    elsif (-e "$base/htdocs/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi";
-        $html_url = "$base1/non-cgi";
+    elsif (-e "$base/htdocs/assets/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets";
+        $html_url = "$base1/assets";
     }
     elsif (-e "$base/htdocs/lb5000/editor/selcolor.html") {
         $html_dir = "$base/htdocs/lb5000";
@@ -600,37 +600,37 @@ sub myimgdir {
         $html_dir = "$base/htdocs/leo";
         $html_url = "$base1/leo";
     }
-    elsif (-e "$base/htdocs/non-cgi/bbs/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/bbs";
-        $html_url = "$base1/non-cgi/bbs";
+    elsif (-e "$base/htdocs/assets/bbs/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/bbs";
+        $html_url = "$base1/assets/bbs";
     }
-    elsif (-e "$base/htdocs/non-cgi/non-cgi/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/non-cgi";
-        $html_url = "$base1/non-cgi/non-cgi";
+    elsif (-e "$base/htdocs/assets/assets/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/assets";
+        $html_url = "$base1/assets/assets";
     }
-    elsif (-e "$base/htdocs/non-cgi/lb/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/lb";
-        $html_url = "$base1/non-cgi/lb";
+    elsif (-e "$base/htdocs/assets/lb/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/lb";
+        $html_url = "$base1/assets/lb";
     }
-    elsif (-e "$base/htdocs/non-cgi/lb5000/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/lb5000";
-        $html_url = "$base1/non-cgi/lb5000";
+    elsif (-e "$base/htdocs/assets/lb5000/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/lb5000";
+        $html_url = "$base1/assets/lb5000";
     }
-    elsif (-e "$base/htdocs/non-cgi/ib2000/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/ib2000";
-        $html_url = "$base1/non-cgi/ib2000";
+    elsif (-e "$base/htdocs/assets/ib2000/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/ib2000";
+        $html_url = "$base1/assets/ib2000";
     }
-    elsif (-e "$base/htdocs/non-cgi/ib/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/ib";
-        $html_url = "$base1/non-cgi/ib";
+    elsif (-e "$base/htdocs/assets/ib/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/ib";
+        $html_url = "$base1/assets/ib";
     }
-    elsif (-e "$base/htdocs/non-cgi/leo/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/leo";
-        $html_url = "$base1/non-cgi/leo";
+    elsif (-e "$base/htdocs/assets/leo/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/leo";
+        $html_url = "$base1/assets/leo";
     }
-    elsif (-e "$base/htdocs/non-cgi/leobbs/editor/selcolor.html") {
-        $html_dir = "$base/htdocs/non-cgi/leobbs";
-        $html_url = "$base1/non-cgi/leobbs";
+    elsif (-e "$base/htdocs/assets/leobbs/editor/selcolor.html") {
+        $html_dir = "$base/htdocs/assets/leobbs";
+        $html_url = "$base1/assets/leobbs";
     }
 
     if (($html_dir eq "") || (!(-e "$html_dir/images/board.js"))) {
@@ -638,9 +638,9 @@ sub myimgdir {
         else {$base = $mypath;}
         if ($base1 =~ m|(.*)/(.+?)|) {$base1 = $1;}
         else {$base1 = $myurl;}
-        if (-e "$base/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi";
-            $html_url = "$base1/non-cgi";
+        if (-e "$base/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets";
+            $html_url = "$base1/assets";
         }
         elsif (-e "$base/lb5000/editor/selcolor.html") {
             $html_dir = "$base/lb5000";
@@ -670,73 +670,73 @@ sub myimgdir {
             $html_dir = "$base/leo";
             $html_url = "$base1/leo";
         }
-        elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/lb5000/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/lb5000/non-cgi";
-            $html_url = "$base1/lb5000/non-cgi";
+        elsif (-e "$base/lb5000/assets/editor/selcolor.html") {
+            $html_dir = "$base/lb5000/assets";
+            $html_url = "$base1/lb5000/assets";
         }
-        elsif (-e "$base/ib2000/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/ib2000/non-cgi";
-            $html_url = "$base1/ib2000/non-cgi";
+        elsif (-e "$base/ib2000/assets/editor/selcolor.html") {
+            $html_dir = "$base/ib2000/assets";
+            $html_url = "$base1/ib2000/assets";
         }
-        elsif (-e "$base/lb/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/lb/non-cgi";
-            $html_url = "$base1/lb/non-cgi";
+        elsif (-e "$base/lb/assets/editor/selcolor.html") {
+            $html_dir = "$base/lb/assets";
+            $html_url = "$base1/lb/assets";
         }
-        elsif (-e "$base/ib/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/ib/non-cgi";
-            $html_url = "$base1/ib/non-cgi";
+        elsif (-e "$base/ib/assets/editor/selcolor.html") {
+            $html_dir = "$base/ib/assets";
+            $html_url = "$base1/ib/assets";
         }
-        elsif (-e "$base/bbs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/bbs/non-cgi";
-            $html_url = "$base1/bbs/non-cgi";
+        elsif (-e "$base/bbs/assets/editor/selcolor.html") {
+            $html_dir = "$base/bbs/assets";
+            $html_url = "$base1/bbs/assets";
         }
-        elsif (-e "$base/leobbs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/leobbs/non-cgi";
-            $html_url = "$base1/leobbs/non-cgi";
+        elsif (-e "$base/leobbs/assets/editor/selcolor.html") {
+            $html_dir = "$base/leobbs/assets";
+            $html_url = "$base1/leobbs/assets";
         }
-        elsif (-e "$base/leo/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/leo/non-cgi";
-            $html_url = "$base1/leo/non-cgi";
+        elsif (-e "$base/leo/assets/editor/selcolor.html") {
+            $html_dir = "$base/leo/assets";
+            $html_url = "$base1/leo/assets";
         }
-        elsif (-e "$base/non-cgi/bbs/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/bbs";
-            $html_url = "$base1/non-cgi/bbs";
+        elsif (-e "$base/assets/bbs/editor/selcolor.html") {
+            $html_dir = "$base/assets/bbs";
+            $html_url = "$base1/assets/bbs";
         }
-        elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/non-cgi/lb/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/lb";
-            $html_url = "$base1/non-cgi/lb";
+        elsif (-e "$base/assets/lb/editor/selcolor.html") {
+            $html_dir = "$base/assets/lb";
+            $html_url = "$base1/assets/lb";
         }
-        elsif (-e "$base/non-cgi/lb5000/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/lb5000";
-            $html_url = "$base1/non-cgi/lb5000";
+        elsif (-e "$base/assets/lb5000/editor/selcolor.html") {
+            $html_dir = "$base/assets/lb5000";
+            $html_url = "$base1/assets/lb5000";
         }
-        elsif (-e "$base/non-cgi/ib2000/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/ib2000";
-            $html_url = "$base1/non-cgi/ib2000";
+        elsif (-e "$base/assets/ib2000/editor/selcolor.html") {
+            $html_dir = "$base/assets/ib2000";
+            $html_url = "$base1/assets/ib2000";
         }
-        elsif (-e "$base/non-cgi/ib/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/ib";
-            $html_url = "$base1/non-cgi/ib";
+        elsif (-e "$base/assets/ib/editor/selcolor.html") {
+            $html_dir = "$base/assets/ib";
+            $html_url = "$base1/assets/ib";
         }
-        elsif (-e "$base/non-cgi/leo/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/leo";
-            $html_url = "$base1/non-cgi/leo";
+        elsif (-e "$base/assets/leo/editor/selcolor.html") {
+            $html_dir = "$base/assets/leo";
+            $html_url = "$base1/assets/leo";
         }
-        elsif (-e "$base/non-cgi/leobbs/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/leobbs";
-            $html_url = "$base1/non-cgi/leobbs";
+        elsif (-e "$base/assets/leobbs/editor/selcolor.html") {
+            $html_dir = "$base/assets/leobbs";
+            $html_url = "$base1/assets/leobbs";
         }
-        elsif (-e "$base/htdocs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi";
-            $html_url = "$base1/non-cgi";
+        elsif (-e "$base/htdocs/assets/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets";
+            $html_url = "$base1/assets";
         }
         elsif (-e "$base/htdocs/lb5000/editor/selcolor.html") {
             $html_dir = "$base/htdocs/lb5000";
@@ -766,37 +766,37 @@ sub myimgdir {
             $html_dir = "$base/htdocs/leo";
             $html_url = "$base1/leo";
         }
-        elsif (-e "$base/htdocs/non-cgi/bbs/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/bbs";
-            $html_url = "$base1/non-cgi/bbs";
+        elsif (-e "$base/htdocs/assets/bbs/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/bbs";
+            $html_url = "$base1/assets/bbs";
         }
-        elsif (-e "$base/htdocs/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/htdocs/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/htdocs/non-cgi/lb/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/lb";
-            $html_url = "$base1/non-cgi/lb";
+        elsif (-e "$base/htdocs/assets/lb/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/lb";
+            $html_url = "$base1/assets/lb";
         }
-        elsif (-e "$base/htdocs/non-cgi/lb5000/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/lb5000";
-            $html_url = "$base1/non-cgi/lb5000";
+        elsif (-e "$base/htdocs/assets/lb5000/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/lb5000";
+            $html_url = "$base1/assets/lb5000";
         }
-        elsif (-e "$base/htdocs/non-cgi/ib2000/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/ib2000";
-            $html_url = "$base1/non-cgi/ib2000";
+        elsif (-e "$base/htdocs/assets/ib2000/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/ib2000";
+            $html_url = "$base1/assets/ib2000";
         }
-        elsif (-e "$base/htdocs/non-cgi/ib/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/ib";
-            $html_url = "$base1/non-cgi/ib";
+        elsif (-e "$base/htdocs/assets/ib/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/ib";
+            $html_url = "$base1/assets/ib";
         }
-        elsif (-e "$base/htdocs/non-cgi/leo/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/leo";
-            $html_url = "$base1/non-cgi/leo";
+        elsif (-e "$base/htdocs/assets/leo/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/leo";
+            $html_url = "$base1/assets/leo";
         }
-        elsif (-e "$base/htdocs/non-cgi/leobbs/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/leobbs";
-            $html_url = "$base1/non-cgi/leobbs";
+        elsif (-e "$base/htdocs/assets/leobbs/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/leobbs";
+            $html_url = "$base1/assets/leobbs";
         }
     }
     if (($html_dir eq "") || (!(-e "$html_dir/images/board.js"))) {
@@ -804,9 +804,9 @@ sub myimgdir {
         else {$base = $mypath;}
         if ($base1 =~ m|(.*)/(.+?)|) {$base1 = $1;}
         else {$base1 = $myurl;}
-        if (-e "$base/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi";
-            $html_url = "$base1/non-cgi";
+        if (-e "$base/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets";
+            $html_url = "$base1/assets";
         }
         elsif (-e "$base/lb5000/editor/selcolor.html") {
             $html_dir = "$base/lb5000";
@@ -836,73 +836,73 @@ sub myimgdir {
             $html_dir = "$base/leo";
             $html_url = "$base1/leo";
         }
-        elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/lb5000/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/lb5000/non-cgi";
-            $html_url = "$base1/lb5000/non-cgi";
+        elsif (-e "$base/lb5000/assets/editor/selcolor.html") {
+            $html_dir = "$base/lb5000/assets";
+            $html_url = "$base1/lb5000/assets";
         }
-        elsif (-e "$base/ib2000/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/ib2000/non-cgi";
-            $html_url = "$base1/ib2000/non-cgi";
+        elsif (-e "$base/ib2000/assets/editor/selcolor.html") {
+            $html_dir = "$base/ib2000/assets";
+            $html_url = "$base1/ib2000/assets";
         }
-        elsif (-e "$base/lb/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/lb/non-cgi";
-            $html_url = "$base1/lb/non-cgi";
+        elsif (-e "$base/lb/assets/editor/selcolor.html") {
+            $html_dir = "$base/lb/assets";
+            $html_url = "$base1/lb/assets";
         }
-        elsif (-e "$base/ib/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/ib/non-cgi";
-            $html_url = "$base1/ib/non-cgi";
+        elsif (-e "$base/ib/assets/editor/selcolor.html") {
+            $html_dir = "$base/ib/assets";
+            $html_url = "$base1/ib/assets";
         }
-        elsif (-e "$base/bbs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/bbs/non-cgi";
-            $html_url = "$base1/bbs/non-cgi";
+        elsif (-e "$base/bbs/assets/editor/selcolor.html") {
+            $html_dir = "$base/bbs/assets";
+            $html_url = "$base1/bbs/assets";
         }
-        elsif (-e "$base/leobbs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/leobbs/non-cgi";
-            $html_url = "$base1/leobbs/non-cgi";
+        elsif (-e "$base/leobbs/assets/editor/selcolor.html") {
+            $html_dir = "$base/leobbs/assets";
+            $html_url = "$base1/leobbs/assets";
         }
-        elsif (-e "$base/leo/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/leo/non-cgi";
-            $html_url = "$base1/leo/non-cgi";
+        elsif (-e "$base/leo/assets/editor/selcolor.html") {
+            $html_dir = "$base/leo/assets";
+            $html_url = "$base1/leo/assets";
         }
-        elsif (-e "$base/non-cgi/bbs/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/bbs";
-            $html_url = "$base1/non-cgi/bbs";
+        elsif (-e "$base/assets/bbs/editor/selcolor.html") {
+            $html_dir = "$base/assets/bbs";
+            $html_url = "$base1/assets/bbs";
         }
-        elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/non-cgi/lb/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/lb";
-            $html_url = "$base1/non-cgi/lb";
+        elsif (-e "$base/assets/lb/editor/selcolor.html") {
+            $html_dir = "$base/assets/lb";
+            $html_url = "$base1/assets/lb";
         }
-        elsif (-e "$base/non-cgi/lb5000/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/lb5000";
-            $html_url = "$base1/non-cgi/lb5000";
+        elsif (-e "$base/assets/lb5000/editor/selcolor.html") {
+            $html_dir = "$base/assets/lb5000";
+            $html_url = "$base1/assets/lb5000";
         }
-        elsif (-e "$base/non-cgi/ib2000/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/ib2000";
-            $html_url = "$base1/non-cgi/ib2000";
+        elsif (-e "$base/assets/ib2000/editor/selcolor.html") {
+            $html_dir = "$base/assets/ib2000";
+            $html_url = "$base1/assets/ib2000";
         }
-        elsif (-e "$base/non-cgi/ib/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/ib";
-            $html_url = "$base1/non-cgi/ib";
+        elsif (-e "$base/assets/ib/editor/selcolor.html") {
+            $html_dir = "$base/assets/ib";
+            $html_url = "$base1/assets/ib";
         }
-        elsif (-e "$base/non-cgi/leo/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/leo";
-            $html_url = "$base1/non-cgi/leo";
+        elsif (-e "$base/assets/leo/editor/selcolor.html") {
+            $html_dir = "$base/assets/leo";
+            $html_url = "$base1/assets/leo";
         }
-        elsif (-e "$base/non-cgi/leobbs/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/leobbs";
-            $html_url = "$base1/non-cgi/leobbs";
+        elsif (-e "$base/assets/leobbs/editor/selcolor.html") {
+            $html_dir = "$base/assets/leobbs";
+            $html_url = "$base1/assets/leobbs";
         }
-        elsif (-e "$base/htdocs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi";
-            $html_url = "$base1/non-cgi";
+        elsif (-e "$base/htdocs/assets/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets";
+            $html_url = "$base1/assets";
         }
         elsif (-e "$base/htdocs/lb5000/editor/selcolor.html") {
             $html_dir = "$base/htdocs/lb5000";
@@ -932,37 +932,37 @@ sub myimgdir {
             $html_dir = "$base/htdocs/leo";
             $html_url = "$base1/leo";
         }
-        elsif (-e "$base/htdocs/non-cgi/bbs/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/bbs";
-            $html_url = "$base1/non-cgi/bbs";
+        elsif (-e "$base/htdocs/assets/bbs/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/bbs";
+            $html_url = "$base1/assets/bbs";
         }
-        elsif (-e "$base/htdocs/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/htdocs/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/htdocs/non-cgi/lb/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/lb";
-            $html_url = "$base1/non-cgi/lb";
+        elsif (-e "$base/htdocs/assets/lb/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/lb";
+            $html_url = "$base1/assets/lb";
         }
-        elsif (-e "$base/htdocs/non-cgi/lb5000/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/lb5000";
-            $html_url = "$base1/non-cgi/lb5000";
+        elsif (-e "$base/htdocs/assets/lb5000/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/lb5000";
+            $html_url = "$base1/assets/lb5000";
         }
-        elsif (-e "$base/htdocs/non-cgi/ib2000/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/ib2000";
-            $html_url = "$base1/non-cgi/ib2000";
+        elsif (-e "$base/htdocs/assets/ib2000/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/ib2000";
+            $html_url = "$base1/assets/ib2000";
         }
-        elsif (-e "$base/htdocs/non-cgi/ib/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/ib";
-            $html_url = "$base1/non-cgi/ib";
+        elsif (-e "$base/htdocs/assets/ib/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/ib";
+            $html_url = "$base1/assets/ib";
         }
-        elsif (-e "$base/htdocs/non-cgi/leo/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/leo";
-            $html_url = "$base1/non-cgi/leo";
+        elsif (-e "$base/htdocs/assets/leo/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/leo";
+            $html_url = "$base1/assets/leo";
         }
-        elsif (-e "$base/htdocs/non-cgi/leobbs/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/leobbs";
-            $html_url = "$base1/non-cgi/leobbs";
+        elsif (-e "$base/htdocs/assets/leobbs/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/leobbs";
+            $html_url = "$base1/assets/leobbs";
         }
     }
     if (($html_dir eq "") || (!(-e "$html_dir/images/board.js"))) {
@@ -970,9 +970,9 @@ sub myimgdir {
         else {$base = $mypath;}
         if ($base1 =~ m|(.*)/(.+?)|) {$base1 = $1;}
         else {$base1 = $myurl;}
-        if (-e "$base/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi";
-            $html_url = "$base1/non-cgi";
+        if (-e "$base/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets";
+            $html_url = "$base1/assets";
         }
         elsif (-e "$base/lb5000/editor/selcolor.html") {
             $html_dir = "$base/lb5000";
@@ -1002,73 +1002,73 @@ sub myimgdir {
             $html_dir = "$base/leo";
             $html_url = "$base1/leo";
         }
-        elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/lb5000/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/lb5000/non-cgi";
-            $html_url = "$base1/lb5000/non-cgi";
+        elsif (-e "$base/lb5000/assets/editor/selcolor.html") {
+            $html_dir = "$base/lb5000/assets";
+            $html_url = "$base1/lb5000/assets";
         }
-        elsif (-e "$base/ib2000/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/ib2000/non-cgi";
-            $html_url = "$base1/ib2000/non-cgi";
+        elsif (-e "$base/ib2000/assets/editor/selcolor.html") {
+            $html_dir = "$base/ib2000/assets";
+            $html_url = "$base1/ib2000/assets";
         }
-        elsif (-e "$base/lb/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/lb/non-cgi";
-            $html_url = "$base1/lb/non-cgi";
+        elsif (-e "$base/lb/assets/editor/selcolor.html") {
+            $html_dir = "$base/lb/assets";
+            $html_url = "$base1/lb/assets";
         }
-        elsif (-e "$base/ib/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/ib/non-cgi";
-            $html_url = "$base1/ib/non-cgi";
+        elsif (-e "$base/ib/assets/editor/selcolor.html") {
+            $html_dir = "$base/ib/assets";
+            $html_url = "$base1/ib/assets";
         }
-        elsif (-e "$base/bbs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/bbs/non-cgi";
-            $html_url = "$base1/bbs/non-cgi";
+        elsif (-e "$base/bbs/assets/editor/selcolor.html") {
+            $html_dir = "$base/bbs/assets";
+            $html_url = "$base1/bbs/assets";
         }
-        elsif (-e "$base/leobbs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/leobbs/non-cgi";
-            $html_url = "$base1/leobbs/non-cgi";
+        elsif (-e "$base/leobbs/assets/editor/selcolor.html") {
+            $html_dir = "$base/leobbs/assets";
+            $html_url = "$base1/leobbs/assets";
         }
-        elsif (-e "$base/leo/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/leo/non-cgi";
-            $html_url = "$base1/leo/non-cgi";
+        elsif (-e "$base/leo/assets/editor/selcolor.html") {
+            $html_dir = "$base/leo/assets";
+            $html_url = "$base1/leo/assets";
         }
-        elsif (-e "$base/non-cgi/bbs/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/bbs";
-            $html_url = "$base1/non-cgi/bbs";
+        elsif (-e "$base/assets/bbs/editor/selcolor.html") {
+            $html_dir = "$base/assets/bbs";
+            $html_url = "$base1/assets/bbs";
         }
-        elsif (-e "$base/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/non-cgi/lb/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/lb";
-            $html_url = "$base1/non-cgi/lb";
+        elsif (-e "$base/assets/lb/editor/selcolor.html") {
+            $html_dir = "$base/assets/lb";
+            $html_url = "$base1/assets/lb";
         }
-        elsif (-e "$base/non-cgi/lb5000/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/lb5000";
-            $html_url = "$base1/non-cgi/lb5000";
+        elsif (-e "$base/assets/lb5000/editor/selcolor.html") {
+            $html_dir = "$base/assets/lb5000";
+            $html_url = "$base1/assets/lb5000";
         }
-        elsif (-e "$base/non-cgi/ib2000/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/ib2000";
-            $html_url = "$base1/non-cgi/ib2000";
+        elsif (-e "$base/assets/ib2000/editor/selcolor.html") {
+            $html_dir = "$base/assets/ib2000";
+            $html_url = "$base1/assets/ib2000";
         }
-        elsif (-e "$base/non-cgi/ib/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/ib";
-            $html_url = "$base1/non-cgi/ib";
+        elsif (-e "$base/assets/ib/editor/selcolor.html") {
+            $html_dir = "$base/assets/ib";
+            $html_url = "$base1/assets/ib";
         }
-        elsif (-e "$base/non-cgi/leo/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/leo";
-            $html_url = "$base1/non-cgi/leo";
+        elsif (-e "$base/assets/leo/editor/selcolor.html") {
+            $html_dir = "$base/assets/leo";
+            $html_url = "$base1/assets/leo";
         }
-        elsif (-e "$base/non-cgi/leobbs/editor/selcolor.html") {
-            $html_dir = "$base/non-cgi/leobbs";
-            $html_url = "$base1/non-cgi/leobbs";
+        elsif (-e "$base/assets/leobbs/editor/selcolor.html") {
+            $html_dir = "$base/assets/leobbs";
+            $html_url = "$base1/assets/leobbs";
         }
-        elsif (-e "$base/htdocs/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi";
-            $html_url = "$base1/non-cgi";
+        elsif (-e "$base/htdocs/assets/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets";
+            $html_url = "$base1/assets";
         }
         elsif (-e "$base/htdocs/lb5000/editor/selcolor.html") {
             $html_dir = "$base/htdocs/lb5000";
@@ -1098,37 +1098,37 @@ sub myimgdir {
             $html_dir = "$base/htdocs/leo";
             $html_url = "$base1/leo";
         }
-        elsif (-e "$base/htdocs/non-cgi/bbs/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/bbs";
-            $html_url = "$base1/non-cgi/bbs";
+        elsif (-e "$base/htdocs/assets/bbs/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/bbs";
+            $html_url = "$base1/assets/bbs";
         }
-        elsif (-e "$base/htdocs/non-cgi/non-cgi/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/non-cgi";
-            $html_url = "$base1/non-cgi/non-cgi";
+        elsif (-e "$base/htdocs/assets/assets/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/assets";
+            $html_url = "$base1/assets/assets";
         }
-        elsif (-e "$base/htdocs/non-cgi/lb/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/lb";
-            $html_url = "$base1/non-cgi/lb";
+        elsif (-e "$base/htdocs/assets/lb/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/lb";
+            $html_url = "$base1/assets/lb";
         }
-        elsif (-e "$base/htdocs/non-cgi/lb5000/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/lb5000";
-            $html_url = "$base1/non-cgi/lb5000";
+        elsif (-e "$base/htdocs/assets/lb5000/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/lb5000";
+            $html_url = "$base1/assets/lb5000";
         }
-        elsif (-e "$base/htdocs/non-cgi/ib2000/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/ib2000";
-            $html_url = "$base1/non-cgi/ib2000";
+        elsif (-e "$base/htdocs/assets/ib2000/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/ib2000";
+            $html_url = "$base1/assets/ib2000";
         }
-        elsif (-e "$base/htdocs/non-cgi/ib/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/ib";
-            $html_url = "$base1/non-cgi/ib";
+        elsif (-e "$base/htdocs/assets/ib/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/ib";
+            $html_url = "$base1/assets/ib";
         }
-        elsif (-e "$base/htdocs/non-cgi/leo/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/leo";
-            $html_url = "$base1/non-cgi/leo";
+        elsif (-e "$base/htdocs/assets/leo/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/leo";
+            $html_url = "$base1/assets/leo";
         }
-        elsif (-e "$base/htdocs/non-cgi/leobbs/editor/selcolor.html") {
-            $html_dir = "$base/htdocs/non-cgi/leobbs";
-            $html_url = "$base1/non-cgi/leobbs";
+        elsif (-e "$base/htdocs/assets/leobbs/editor/selcolor.html") {
+            $html_dir = "$base/htdocs/assets/leobbs";
+            $html_url = "$base1/assets/leobbs";
         }
     }
     $html_dir = $mypath if ($html_dir eq "");

@@ -25,7 +25,7 @@ my $wordfilter;
 ($memdir, $msgdir, $usrdir, $saledir) = split(/\|/, getdir());
 &error("有问题&论坛中 cgi-bin 下的 members 目录不存在，请检查后继续！") if ($memdir eq "");
 &error("有问题&论坛中 cgi-bin 下的 messages 目录不存在，请检查后继续！") if ($msgdir eq "");
-&error("有问题&论坛中 non-cgi 下的 usr 目录不存在，请检查后继续！") if ($usrdir eq "");
+&error("有问题&论坛中 assets 下的 usr 目录不存在，请检查后继续！") if ($usrdir eq "");
 &error("有问题&论坛中 cgi-bin 下的 sale 目录不存在，请检查后继续！") if ($saledir eq "");
 
 sub dofilter {

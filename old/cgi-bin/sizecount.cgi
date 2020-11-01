@@ -441,7 +441,7 @@ if ($action eq "process") {
         $tsize =~ s/\s//g;
 
         print "<tr height=20><td colspan=3>&nbsp;</td></tr>\n";
-        print "<tr><td><font color=blue><b>non-cgi 占用空间：</b></td><td><font color=blue><b>&nbsp;$tsize $lbsd</b></td><td><font color=blue><b>($osize 字节)</b></td></tr>\n";
+        print "<tr><td><font color=blue><b>assets 占用空间：</b></td><td><font color=blue><b>&nbsp;$tsize $lbsd</b></td><td><font color=blue><b>($osize 字节)</b></td></tr>\n";
 
         $tsize = 0;
         find(\&countsize, "${imagesdir}$usrdir");

@@ -2394,7 +2394,7 @@ function ClearAllow()
 
                 <tr>
                 <td bgcolor=#FFFFFF colspan=2>
-                <font color=#333333><b>分论坛背景音乐名称</b>(如果没有请留空)<br>请输入背景音乐名称，背景音乐<BR>应上传于 non-cgi/midi 目录下。<br><b>不要包含 URL 地址或绝对路径！</b></font></td>
+                <font color=#333333><b>分论坛背景音乐名称</b>(如果没有请留空)<br>请输入背景音乐名称，背景音乐<BR>应上传于 assets/midi 目录下。<br><b>不要包含 URL 地址或绝对路径！</b></font></td>
                 <td bgcolor=#FFFFFF>
                 <input type=text size=20 name="midiaddr" value="$midiaddr">~;
     $midiabsaddr = "$imagesdir" . "midi/$midiaddr";

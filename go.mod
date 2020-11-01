@@ -3,7 +3,7 @@ module gitee.com/leobbs/leobbs
 go 1.13
 
 require (
-	gitee.com/cnmade/pongo2gin v1.0.0
+	gitee.com/cnmade/pongo2gin v1.0.1
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff // indirect
 	github.com/flosch/pongo2/v4 v4.0.0
 	github.com/gin-gonic/contrib v0.0.0-20190526021735-7fb7810ed2a0
@@ -18,7 +18,6 @@ require (
 	github.com/rs/zerolog v1.15.0
 	github.com/ugorji/go v1.1.8 // indirect
 	github.com/ztrue/tracerr v0.3.0
-	google.golang.org/appengine v1.6.6 // indirect
-	gorm.io/driver/sqlite v1.1.3 // indirect
-	gorm.io/gorm v1.20.3 // indirect
+	gorm.io/driver/sqlite v1.1.3
+	gorm.io/gorm v1.20.3
 )

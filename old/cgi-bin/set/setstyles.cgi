@@ -2334,14 +2334,14 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员在线图例一</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline1" value="$defrzonline1" onChange="definerz1.src='$imagesurl/images/'+this.value"> <img id=definerz1 src=$imagesurl/images/$defrzonline1> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzonline1" value="$defrzonline1" onChange="definerz1.src='$imagesurl/images/'+this.value"> <img id=definerz1 src=$imagesurl/images/$defrzonline1> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员团队图案一</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic1" value="$defrzpic1" onChange="definerz11.src='$imagesurl/images/'+this.value"> <img id=definerz11 src=$imagesurl/images/$defrzpic1> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzpic1" value="$defrzpic1" onChange="definerz11.src='$imagesurl/images/'+this.value"> <img id=definerz11 src=$imagesurl/images/$defrzpic1> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
@@ -2355,14 +2355,14 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员在线图例二</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline2" value="$defrzonline2" onChange="definerz2.src='$imagesurl/images/'+this.value"> <img id=definerz2 src=$imagesurl/images/$defrzonline2> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzonline2" value="$defrzonline2" onChange="definerz2.src='$imagesurl/images/'+this.value"> <img id=definerz2 src=$imagesurl/images/$defrzonline2> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员团队图案二</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic2" value="$defrzpic2" onChange="definerz22.src='$imagesurl/images/'+this.value"> <img id=definerz22 src=$imagesurl/images/$defrzpic2> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzpic2" value="$defrzpic2" onChange="definerz22.src='$imagesurl/images/'+this.value"> <img id=definerz22 src=$imagesurl/images/$defrzpic2> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
@@ -2376,14 +2376,14 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员在线图例三</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline3" value="$defrzonline3" onChange="definerz3.src='$imagesurl/images/'+this.value"> <img id=definerz3 src=$imagesurl/images/$defrzonline3> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzonline3" value="$defrzonline3" onChange="definerz3.src='$imagesurl/images/'+this.value"> <img id=definerz3 src=$imagesurl/images/$defrzonline3> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员团队图案三</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic3" value="$defrzpic3" onChange="definerz33.src='$imagesurl/images/'+this.value"> <img id=definerz33 src=$imagesurl/images/$defrzpic3> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzpic3" value="$defrzpic3" onChange="definerz33.src='$imagesurl/images/'+this.value"> <img id=definerz33 src=$imagesurl/images/$defrzpic3> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
@@ -2397,14 +2397,14 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员在线图例四</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline4" value="$defrzonline4" onChange="definerz4.src='$imagesurl/images/'+this.value"> <img id=definerz4 src=$imagesurl/images/$defrzonline4> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzonline4" value="$defrzonline4" onChange="definerz4.src='$imagesurl/images/'+this.value"> <img id=definerz4 src=$imagesurl/images/$defrzonline4> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员团队图案四</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic4" value="$defrzpic4" onChange="definerz44.src='$imagesurl/images/'+this.value"> <img id=definerz44 src=$imagesurl/images/$defrzpic4> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzpic4" value="$defrzpic4" onChange="definerz44.src='$imagesurl/images/'+this.value"> <img id=definerz44 src=$imagesurl/images/$defrzpic4> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
@@ -2418,14 +2418,14 @@ document.bbsimg.src = "$imagesurl/myimages/"+FORM.waterpic.value;
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员在线图例五</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzonline5" value="$defrzonline5" onChange="definerz5.src='$imagesurl/images/'+this.value"> <img id=definerz5 src=$imagesurl/images/$defrzonline5> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzonline5" value="$defrzonline5" onChange="definerz5.src='$imagesurl/images/'+this.value"> <img id=definerz5 src=$imagesurl/images/$defrzonline5> 必须放置于 assets/images下</td>
                </tr>
 
                <tr>
                <td bgcolor=#FFFFFF>
                <font face=宋体 color=#333333><b>认证会员团队图案五</b></font></td>
                <td bgcolor=#FFFFFF colspan=2>
-               <input type=text size=20 name="defrzpic5" value="$defrzpic5" onChange="definerz55.src='$imagesurl/images/'+this.value"> <img id=definerz55 src=$imagesurl/images/$defrzpic5> 必须放置于 non-cgi/images下</td>
+               <input type=text size=20 name="defrzpic5" value="$defrzpic5" onChange="definerz55.src='$imagesurl/images/'+this.value"> <img id=definerz55 src=$imagesurl/images/$defrzpic5> 必须放置于 assets/images下</td>
                </tr>
 <tr>
               <td bgcolor=#EEEEEE align=center colspan=3>
