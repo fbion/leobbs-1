@@ -8,7 +8,7 @@
 
 ## 参与贡献文档
 
-本仓库源代码 目录下面的 docs就是文档 的源代码，欢迎提交PR
+[https://gitee.com/leobbs/document](https://gitee.com/leobbs/document)
 
 ## 参与贡献代码
 
