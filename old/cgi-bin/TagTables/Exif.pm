@@ -319,7 +319,7 @@ $VERSION = '1.00';
         PrintConv => 'sprintf("%.1fmm",$val)',
     },
     #----------------------------------------------------------------------------
-    # decide which MakerNotes to use (based on camera make/model)
+    # decide which MakerNotes to use (based on camera make/orm_model)
     #
     0x927c => [ # square brackets for a conditional list
         {

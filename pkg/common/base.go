@@ -2,7 +2,7 @@ package common
 
 import (
 	"database/sql"
-	"gitee.com/leobbs/leobbs/app/model"
+	"gitee.com/leobbs/leobbs/app/orm_model"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -79,7 +79,7 @@ func GetDB(config *AppConfig) *gorm.DB {
 	if err != nil {
 		LogError(err)
 	}
-	db.AutoMigrate(&model.Article{})
+	db.AutoMigrate(&orm_model.Article{})
 
 
 	return db

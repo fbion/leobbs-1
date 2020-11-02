@@ -2,6 +2,7 @@ package main
 
 import (
 	"gitee.com/leobbs/leobbs/app/controller"
+	"gitee.com/leobbs/leobbs/app/controller/admin_controller"
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
@@ -38,18 +39,12 @@ func main() {
 	r.Use(sessions.Sessions("mysession", store))
 	r.GET("/", controller.IndexAction)
 
-/*
-	apiCtrl := new(APIController)
-	api := r.Group("/api")
+
+	admin := r.Group("/admin")
 	{
-		api.HEAD("/", apiCtrl.HomeCtr)
-		api.POST("/list", apiCtrl.ListCtr)
-		api.POST("/login", apiCtrl.LoginCtr)
-		api.POST("/logout", apiCtrl.LogoutCtr)
-		api.POST("/file-upload", apiCtrl.FileUpload)
-		api.POST("/save-blog-add", apiCtrl.SaveBlogAddCtr)
-		api.POST("/save-blog-edit", apiCtrl.SaveBlogEditCtr)
-	}*/
+		admin.GET("/", admin_controller.Index)
+		admin.GET("/login", admin_controller.Login)
+	}
 	log.Info().Msg("Server listen on :8083")
 	err := r.Run(":8083")
 	if err != nil {
