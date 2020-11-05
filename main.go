@@ -2,6 +2,7 @@ package main
 
 import (
 	"gitee.com/leobbs/leobbs/app/controller"
+	"gitee.com/leobbs/leobbs/app/controller/account_controller"
 	"gitee.com/leobbs/leobbs/app/controller/admin_controller"
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/rs/zerolog/log"
@@ -39,11 +40,13 @@ func main() {
 	r.Use(sessions.Sessions("mysession", store))
 	r.GET("/", controller.IndexAction)
 
+	r.GET("/account/login", account_controller.LoginAction)
+
 
 	admin := r.Group("/admin")
 	{
 		admin.GET("/", admin_controller.Index)
-		admin.GET("/login", admin_controller.Login)
+		admin.GET("/login", admin_controller.LoginAction)
 	}
 	log.Info().Msg("Server listen on :8083")
 	err := r.Run(":8083")

@@ -10,9 +10,4 @@ func Index(c *gin.Context) {
 	c.HTML(200, "admin/index.html", pongo2.Context{"hello": "world"})
 }
 
-func Login(c *gin.Context) {
-
-	c.HTML(200, "admin/login.html",
-		pongo2.Context{"hello": "world"})
-}
 
