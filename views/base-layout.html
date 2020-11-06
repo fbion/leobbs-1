@@ -33,5 +33,13 @@
 </SCRIPT>
 <div id="popmenu" class="menuskin" onMouseover="clearhidemenu();highlightmenu(event,'on')" onMouseout="highlightmenu(event,'off');dynamichide(event)"></div>
 {% block content %}{% endblock %}
+
+
+
+{{ lbboard_main }}
+
+{% include "common/copyright.html" %}
+<!-- $lbboard_main 相当于 几个参数加起来 $onlinepopup$$output\n\n$copyright -->
+<!-- 版权信息等 -->
 </body>
 </html>
