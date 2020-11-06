@@ -1,5 +1,140 @@
 {% extends "base-layout.html" %}
 
 {% block content %}
-<p>Hello, leobbs</p>
+
+<table cellpadding=1 cellspacing=0 width={{ tablewidth }} align=center>
+    <tr>
+        <td align=center width=2></td>
+        <td align=center width=34>{{ announcetemp1 }}</td>
+        <td width=* align=left><font color={{ forumfontcolor }}>{{ announcedisp }}</td>
+        <td width=140>&nbsp;</td>
+        {{ rsshtml }}
+        <td width=64 align=right><a href=team.cgi target=_blank><img src={{ imagesurl }}/images/{{ skin }}/team.gif
+                                                                     border=0 alt=显示管理团队 align=absmiddle></a></td>
+        <td width=64 align=right><a href=memberlist.cgi?a=4 target=_blank><img
+                        src={{ imagesurl }}/images/{{ skin }}/userlist.gif border=0 alt=显示用户列表 align=absmiddle></a></td>
+        <td width=64 align=right><a href=memberlist.cgi?a=1 target=_blank><img
+                        src={{ imagesurl }}/images/{{ skin }}/top.gif border=0 alt=显示发帖量排名 align=absmiddle></a></td>
+    </tr>
+</table>
+<style>
+    TABLE {
+        BORDER-TOP: 0px;
+        BORDER-LEFT: 0px;
+        BORDER-BOTTOM: 1px;
+    }
+
+    TD {
+        BORDER-RIGHT: 0px;
+        BORDER-TOP: 0px;
+        color: {{ fontcolormisc }};
+    }
+</style>
+
+
+<img src={{ imagesurl }}/images/none.gif height=2><br>
+<SCRIPT>valigntop()</SCRIPT>
+<table cellpadding=6 cellspacing=0 width={{ tablewidth }} height=28 align=center
+       bordercolor={{ tablebordercolor }} border=1>
+    <table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
+        <tr>
+            <td>
+                <table cellpadding=6 cellspacing=1 width=100%>
+
+                    <tr>
+                        <td bgcolor={{ titlecolor }} colspan=3 {{ catbackpic }}><font color={{ titlefontcolor }}><B>-=>
+                                    快速登录入口</B>　 [ 来自：{{ trueipaddress }}，{{ fromwhere1 }} 。系统：{{ osinfo }}
+                                ，{{ browseinfo }} ]</td>
+                    </tr>
+                    <script>
+                        function submitonce(theform) {
+                            if (document.all || document.getElementById) {
+                                for (i = 0; i < theform.length; i++) {
+                                    var tempobj = theform.elements[i]
+                                    if (tempobj.type.toLowerCase() == "submit" || tempobj.type.toLowerCase() == "reset")
+                                        tempobj.disabled = true
+                                }
+                            }
+                        }
+                    </script>
+                    <FORM name=login method=post action=loginout.cgi onSubmit="submitonce(this)">
+                        <tr>
+                            <td bgcolor={{ forumcolorone }} align=center width=26><img
+                                        src={{ imagesurl }}/images/userlist2.gif width=17></td>
+                            <td bgcolor={{ forumcolortwo }} colspan=1 width=*>
+                                <input type=hidden name=action value=login>
+                                <input type=hidden name=selectstyle value="{{ instyle }}_select_style">
+                                　用户名 ： <input type=text name=inmembername size=12 maxlength=16 onmouseover=this.focus()
+                                              onfocus=this.select()>　　密　码 ： <input type=password name=inpassword size=12
+                                                                                   maxlength=20 onmouseover=this.focus()
+                                                                                   onfocus=this.select()>　 Cookie ：
+                                <select name=CookieDate>
+                                    <option selected value=0>不保存</option>
+                                    <option value=+1d>保存一天</option>
+                                    <option value=+30d>保存一月</option>
+                                    <option value=+20y>永久保存</option>
+                                </select><BR><BR>
+                                　登录到 ： <select name=forum>
+                                    <option selected value=>论坛首页</option>{{ outputbutton }}</select>　　　<input
+                                        type=submit name=submit value="　登　 录　">　　 <B><a href=register.cgi><U><font
+                                                    color={{ fonthighlight }}>注册新用户</font></u></a></B><BR><BR>
+                            </td>
+                            {{ todaypostlist }}
+                            </td></tr>
+                    </form>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <SCRIPT>valignend()</SCRIPT>
+    <BR>
+    <img src={{ imagesurl }}/images/none.gif height=5><br>
+    <SCRIPT LANGUAGE="JavaScript">
+        function surfto(list) {
+            var myindex1 = list.selectedIndex;
+            var newwindow = list.options[myindex1].value;
+            if (newwindow != "") {
+                var msgwindow = window.open("profile.cgi?action=show&member=" + newwindow, "", "");
+            }
+        }
+    </SCRIPT>
+    <SCRIPT>valignend()</SCRIPT>
+    <br>
+</table></td></tr></table><img src={{ imagesurl }}/images/none.gif height=5><br>
+<SCRIPT>valigntop()</SCRIPT>
+<table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
+    <tr>
+        <td>
+            <table cellpadding=6 cellspacing=1 width=100%>
+                <tr>
+                    <td bgcolor={{ titlecolor }} colspan=7 {{ catbackpic }}><font color={{ titlefontcolor }}>
+                            <B>-=> 论坛在线统计 （同时在线峰值：{{ onlinemax }} 人，发生时刻：{{ onlinemaxtime }}）</B>　 [{{ onlinetitle }}]
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor={{ forumcolorone }} align=center width=26><img
+                                src={{ imagesurl }}/images/{{ skin }}/online.gif alt={{ membergone }}></td>
+                    <td bgcolor={{ forumcolortwo }} colspan=6 width=*><font color={{ titlefontcolor }}>
+                            &nbsp;<font color={{ forumfontcolor }}>{{ membertongji }} {{ createday }}论坛总共被访问
+                                <b>{{ count1 }}</b> 次，共被点击 <b>{{ count2 }}</b> 次。<BR></font>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<SCRIPT>valignend()</SCRIPT>
+<img src={{ imagesurl }}/images/none.gif height=5><br>
+<table cellspacing=0 cellpadding=0 width={{ tablewidth }} align=center>
+    <tr>
+        <td>　{{ timenow }} ({{ basetimes }})</td>
+        <td align=right noWrap>[ <a href=leobbs.cgi?action=delcookieall>删除论坛 cookie</a> ] :: [ <a
+                    href=leobbs.cgi?action=resetall>标记所有为已读</a> ] :: [ <a href={{ thisprog }}?action=expand>展开所有分类</a> ]
+            :: [ <a href={{ thisprog }}?action=depand>收缩所有分类</a> ]&nbsp;
+        </td>
+    </tr>
+</table>
+<center><br>{{ adfoot }}</center><br>
+
+
 {% endblock %}

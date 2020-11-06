@@ -2,7 +2,7 @@
 <head>
     <title>{{ page_title }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name=keywords content="雷傲,论坛,cgi,leobbs,leoboard,LB5000,bbs,leo,perl,lb,lbplus">
+    <meta name="keywords" content="雷傲,论坛,cgi,leobbs,leoboard,LB5000,bbs,leo,perl,lb,lbplus">
     {{ coolmeta }}
     <script SRC="{{ imagesurl }}/board.js"></SCRIPT>
     {{ coolclick }}
@@ -24,7 +24,7 @@
 </head>
 <body>
 
-{% block content %}{% endblock %}
+
 <SCRIPT>
     <!--
     function valigntop(){}
@@ -32,6 +32,6 @@
     -->
 </SCRIPT>
 <div id="popmenu" class="menuskin" onMouseover="clearhidemenu();highlightmenu(event,'on')" onMouseout="highlightmenu(event,'off');dynamichide(event)"></div>
-{{ lbboard_main }}
+{% block content %}{% endblock %}
 </body>
 </html>
