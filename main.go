@@ -41,6 +41,7 @@ func main() {
 	r.GET("/", controller.IndexAction)
 
 	r.GET("/account/login", account_controller.LoginAction)
+	r.GET("/account/register", account_controller.RegisterAction)
 
 
 	admin := r.Group("/admin")

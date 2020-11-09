@@ -1,0 +1,37 @@
+{% extends "../base-layout.html" %}
+
+{% block content %}
+
+
+<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <form action="{{ thisprog }}" method=post name="creator" enctype="multipart/form-data" OnSubmit="//return CheckInput()">
+        <tr>
+            <input type=hidden name="forum" value="{{ inforum }}_forum">
+            <td bgcolor={{ miscbacktwo }} width=40%><span color={{ fontcolormisc }}><b>用户名：</b><br>注册用户名不能超过12个字符（6个汉字）</td>
+            <td bgcolor={{ miscbacktwo }} width=60%><input type=text maxlength="12" name="inmembername">&nbsp;<input
+                        onClick="javascript:Check()" type=button value="检测帐号" name="button" class="button">&nbsp;*
+                此项必须填写
+            </td>
+        </tr>
+        {{ requirepass }}
+        <tr>
+            <td bgcolor={{ miscbacktwo }}><font color={{ fontcolormisc }}><b>邮件地址：</b><br>请输入有效的邮件地址，这将使您能用到论坛中的所有功能</td>
+            <td bgcolor={{ miscbacktwo }}><input type=text name="emailaddress">&nbsp;* 此项必须填写</td>
+        </tr>
+        <tr>
+            <td bgcolor={{ miscbackone }} width=40%><font color={{ fontcolormisc }}><b>论坛密码： (至少8位)</b><br>请输入论坛密码，区分大小写<br>只能使用大小写字母和数字的组合
+            </td>
+            <td bgcolor={{ miscbackone }} width=60%><input type=password name="password" maxlength=20>&nbsp;* 此项必须填写</td>
+        </tr>
+        <tr>
+            <td bgcolor={{ miscbackone }}><font color={{ fontcolormisc }}><b>论坛密码： (至少8位)</b><br>再输一遍，以便确定！</td>
+            <td bgcolor={{ miscbackone }}><input type=password name="password2" maxlength=20>&nbsp;* 此项必须填写</td>
+        </tr>
+        <tr >
+            <td></td>
+            <td width=50%><input type=submit value="注 册" name=submit></td>
+        </tr>
+    </form>
+</table>
+
+{% endblock %}
