@@ -18,6 +18,7 @@ require (
 	github.com/rs/zerolog v1.15.0
 	github.com/ugorji/go v1.1.8 // indirect
 	github.com/ztrue/tracerr v0.3.0
+	go.uber.org/zap v1.16.0
 	gorm.io/driver/sqlite v1.1.3
 	gorm.io/gorm v1.20.3
 )

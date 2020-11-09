@@ -9,13 +9,21 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/naoina/toml"
-	"github.com/rs/zerolog/log"
 	"github.com/ztrue/tracerr"
+	"go.uber.org/zap"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
+)
+
+var (
+	DB *gorm.DB
+	Config *AppConfig
+
+	Logger, _ = zap.NewProduction()
+	Sugar *zap.SugaredLogger
 )
 
 type ShowMessage interface {
@@ -40,13 +48,13 @@ type VBlogItem struct {
  * Logging error
  */
 func LogError(err error) {
-	log.Error().Msg(tracerr.Sprint(tracerr.Wrap(err)))
+	Sugar.Error(tracerr.Sprint(tracerr.Wrap(err)))
 }
 /**
  * Logging info
  */
 func LogInfo(msg string) {
-	log.Info().Msg(msg)
+	Sugar.Info(msg)
 }
 /**
  * close rows defer
@@ -85,6 +93,13 @@ func GetDB(config *AppConfig) *gorm.DB {
 	return db
 }
 
+
+func InitApp() {
+	Config =GetConfig()
+	DB = GetDB(Config)
+	defer Logger.Sync()
+	Sugar = Logger.Sugar()
+}
 type AppConfig struct {
 	Dbdsn          string
 	Admin_user       string
