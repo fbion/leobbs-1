@@ -87,7 +87,14 @@ func GetDB(config *AppConfig) *gorm.DB {
 	if err != nil {
 		LogError(err)
 	}
-	db.AutoMigrate(&orm_model.Article{})
+	err = db.AutoMigrate(&orm_model.Article{})
+	if err != nil {
+		LogError(err)
+	}
+	err = db.AutoMigrate(&orm_model.Member{})
+	if err != nil {
+		LogError(err)
+	}
 
 
 	return db
@@ -95,9 +102,16 @@ func GetDB(config *AppConfig) *gorm.DB {
 
 
 func InitApp() {
-	Config =GetConfig()
+	Config = GetConfig()
 	DB = GetDB(Config)
-	defer Logger.Sync()
+	//异步刷新日志
+	defer func() {
+		err := Logger.Sync()
+		if err != nil {
+			LogError(err)
+		}
+	}()
+
 	Sugar = Logger.Sugar()
 }
 type AppConfig struct {
