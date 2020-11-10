@@ -1,0 +1,20 @@
+{% extends "base-layout.html" %}
+
+{% block content %}
+
+
+<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <form action="/account/finishReg" method=post name="creator" enctype="multipart/form-data" OnSubmit="//return CheckInput()">
+        <tr>
+            <td bgcolor={{ miscbackone }} style="height:64px;text-align:center">
+                {{ message }}
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor={{ miscbackone }} style="height:64px;text-align:center">  {% if url != "" %}
+                    <a href="{{ url}}">好的</a>
+                    {% endif %}
+        </tr>
+    </form>
+</table>
+{% endblock %}

@@ -21,9 +21,8 @@ var (
 )
 
 func main() {
-
-	Config = common.GetConfig()
-	DB = common.GetDB(Config)
+	//初始化应用
+	common.InitApp()
 
 	r := gin.Default()
 
@@ -42,6 +41,7 @@ func main() {
 
 	r.GET("/account/login", account_controller.LoginAction)
 	r.GET("/account/register", account_controller.RegisterAction)
+	r.POST("/account/finishReg", account_controller.FinishRegAction)
 
 
 	admin := r.Group("/admin")

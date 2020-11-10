@@ -3,6 +3,8 @@ package common
 import (
 	"database/sql"
 	"gitee.com/leobbs/leobbs/app/orm_model"
+	"gitee.com/leobbs/leobbs/app/skins"
+	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -11,9 +13,7 @@ import (
 	"github.com/naoina/toml"
 	"github.com/ztrue/tracerr"
 	"go.uber.org/zap"
-	"html/template"
 	"io/ioutil"
-	"net/http"
 	"os"
 	"time"
 )
@@ -26,15 +26,12 @@ var (
 	Sugar *zap.SugaredLogger
 )
 
-type ShowMessage interface {
-	ShowMessage(c *gin.Context)
+type Msg struct {
+	Msg string
 }
-type msg struct {
-	msg string
-}
-type umsg struct {
-	msg string
-	url string
+type Umsg struct {
+	Msg string
+	Url string
 }
 
 type VBlogItem struct {
@@ -62,17 +59,43 @@ func LogInfo(msg string) {
 func CloseRowsDefer(rows *sql.Rows) {
 	_ = rows.Close()
 }
-func (m *msg) ShowMessage(c *gin.Context) {
-	c.HTML(http.StatusOK, "message.html", gin.H{
-		"message": template.HTML(m.msg),
-	})
+func ShowMessage(c *gin.Context, m *Msg) {
+
+
+
+	pongoContext := pongo2.Context{
+		"message":         m.Msg,
+		"imagesurl": "/assets",
+		"skin":      "leobbs",
+		"hello":     "world",
+	}
+
+	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
+		pongoContext[tmpKey] = tmpV
+	}
+
+	c.HTML(200, "message.html",
+		pongoContext)
+	return
 }
 
-func (m *umsg) ShowMessage(c *gin.Context) {
-	c.HTML(http.StatusOK, "message.html", gin.H{
-		"message": template.HTML(m.msg),
-		"url":     m.url,
-	})
+
+func ShowUMessage(c *gin.Context, m *Umsg) {
+
+	pongoContext := pongo2.Context{
+		"imagesurl": "/assets",
+		"skin":      "leobbs",
+		"message":         m.Msg,
+		"url":             m.Url,
+	}
+
+	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
+		pongoContext[tmpKey] = tmpV
+	}
+
+	c.HTML(200, "message.html",
+		pongoContext)
+	return
 }
 
 func GetMinutes() string {
@@ -120,6 +143,7 @@ type AppConfig struct {
 	Admin_password   string
 	Site_name        string
 	Site_description string
+	Key_of_encrypt string
 	ObjectStorage    struct {
 		Aws_access_key_id     string
 		Aws_secret_access_key string

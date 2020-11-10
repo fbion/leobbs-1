@@ -3,6 +3,7 @@ admin_user = "admin"
 admin_password = "admin"
 site_name = "leobbs"
 site_description = "My memory about leobbs"
+key_of_encrypt = "leobbs1314"
 [object_storage]
 aws_access_key_id = "*****"
 aws_secret_access_key = "******"
