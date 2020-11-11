@@ -40,6 +40,7 @@ func main() {
 	r.GET("/", controller.IndexAction)
 
 	r.GET("/account/login", account_controller.LoginAction)
+	r.POST("/account/doLogin", account_controller.DoLoginAction)
 	r.GET("/account/register", account_controller.RegisterAction)
 	r.POST("/account/finishReg", account_controller.FinishRegAction)
 

@@ -30,7 +30,7 @@
                             }
                         }
                     </script>
-                    <form name="login" method="POST" action="/account/login" onSubmit="submitonce(this)">
+                    <form name="login" method="POST" action="/account/doLogin" onSubmit="submitonce(this)">
                         <tr>
                             <td bgcolor="{{ forumcolorone }}" align="center" width="26">
                                 <img
@@ -39,19 +39,14 @@
                             <td bgcolor="{{ forumcolortwo }}" colspan="1" width="*">
                                 <input type="hidden" name="action" value="login">
                                 <input type="hidden" name="selectstyle" value="{{ instyle }}_select_style">
-                                　用户名 ： <input type="text" name="inmembername" size="12" maxlength="16"
+                                　用户名 ： <input type="text" name="username" size="12" maxlength="16"
                                               onmouseover="this.focus()"
-                                              onfocus="this.select()">　　密　码 ： <input type="password" name="inpassword"
+                                              onfocus="this.select()">　　密　码 ： <input type="password" name="forumpassword"
                                                                                    size="12"
                                                                                    maxlength="20"
                                                                                    onmouseover="this.focus()"
-                                                                                   onfocus="this.select()">　 Cookie ：
-                                <select name="CookieDate">
-                                    <option selected value="0">不保存</option>
-                                    <option value="+1d">保存一天</option>
-                                    <option value="+30d">保存一月</option>
-                                    <option value="+20y">永久保存</option>
-                                </select><BR><BR>
+                                                                                   onfocus="this.select()">　
+                                <BR><BR>
                                 　登录到 ： <select name="forum">
                                     <option selected value="">论坛首页</option>{{ outputbutton }}</select>　　　<input
                                         type="submit" name="submit" value="　登　 录　">　　 <B><a href="/account/register"><U><span
