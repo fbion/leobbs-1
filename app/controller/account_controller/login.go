@@ -16,6 +16,7 @@ func LoginAction(c *gin.Context) {
 	safeSess := sessions.Default(c)
 	safeSess.Delete("lu_username")
 	safeSess.Delete("lu_is_admin")
+	_ = safeSess.Save()
 	pongoContext := pongo2.Context{
 		"imagesurl": "/assets",
 		"skin":      "leobbs",

@@ -1,6 +1,7 @@
 package skins
 
 func GetLeobbsSkin() map[string]string{
+	templateImagePath := "/assets/images/leobbs"
 	return map[string]string{
 		"adminglow" :  "#9898BA",
 		"adminnamecolor" :  "#990000",
@@ -8,9 +9,9 @@ func GetLeobbsSkin() map[string]string{
 		"amonamecolor" :  "#8b008b",
 		"banglow" :  "#EE111",
 		"catback" :  "#73A2DE",
-		"catbackpic" :  "bg.gif",
+		"catbackpic" :  templateImagePath + "/bg.gif",
 		"catfontcolor" :  "#FFFFFF",
-		"catsbackpicinfo" :  "bg.gif",
+		"catsbackpicinfo" :  templateImagePath + "/bg.gif",
 		"cmoglow" :  "#5577AA",
 		"cmonamecolor" :  "#F76809",
 		"cssmaker" :  "雷傲科技",
@@ -27,7 +28,7 @@ func GetLeobbsSkin() map[string]string{
 		"lbbody" :  "bgcolor=#ffffff alink=#333333 vlink=#333333 link=#333333 topmargin=0 leftmargin=0",
 		"memglow" :  "#9898BA",
 		"menubackground" :  "#F3F6FA",
-		"menubackpic" :  "cdbg.gif",
+		"menubackpic" :  templateImagePath + "/cdbg.gif",
 		"menufontcolor" :  "#000000",
 		"miscbackone" :  "#FFFFFF",
 		"miscbacktwo" :  "#F3F6FA",
