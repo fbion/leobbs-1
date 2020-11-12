@@ -27,6 +27,7 @@ func main() {
 	r := gin.Default()
 
 
+
 	r.HTMLRender = pongo2gin.New(pongo2gin.RenderOptions{
 		TemplateDir: "views",
 		ContentType: "text/html; charset=utf-8",
@@ -41,6 +42,7 @@ func main() {
 
 	r.GET("/account/login", account_controller.LoginAction)
 	r.POST("/account/doLogin", account_controller.DoLoginAction)
+	r.GET("/account/logout", account_controller.LogoutAction)
 	r.GET("/account/register", account_controller.RegisterAction)
 	r.POST("/account/finishReg", account_controller.FinishRegAction)
 

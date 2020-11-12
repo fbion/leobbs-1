@@ -57,7 +57,20 @@
             <table width="100%" cellspacing="0" cellpadding="3">
                 <tr>
                     <td bgcolor="{{ menubackground }} {{ menubackpic }}"><font color="{{ menufontcolor }}">>>
-                            欢迎您，{{ loggedinas }} {{ myskins }}
+                            {% if lu_username != "" %}
+
+                            欢迎您，
+
+
+                            {% include "account/loggedinas.html" %}
+                            {{ loggedinas }}
+
+                            {{ myskins }}
+
+                            {% else %}
+                            <a href="/account/login">登录</a>
+
+                            {% endif %}
                     </td>
                     <td bgcolor="{{ menubackground }}" align="right" {{ menubackpic }}>{{ sann }}<a
                                 href="{{ homeurl }}" target=_blank><img

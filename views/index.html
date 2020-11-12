@@ -6,8 +6,10 @@
 
 <img src="{{ imagesurl }}/images/none.gif" height="2"><br>
 <script>valigntop()</script>
+
 <table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height="28" align="center"
        bordercolor="{{ tablebordercolor }}" border="1">
+    {% if lu_username ==  "" %}
     <table cellpadding="0" cellspacing="0" width="{{ tablewidth }}" bgcolor="{{ tablebordercolor }}" align="center">
         <tr>
             <td>
@@ -59,6 +61,9 @@
             </td>
         </tr>
     </table>
+
+    {% endif %}
+
     <script>valignend()</script>
     <BR>
     <img src="{{ imagesurl }}/images/none.gif" height="5"><br>

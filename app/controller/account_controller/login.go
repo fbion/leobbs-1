@@ -1,12 +1,21 @@
 package account_controller
 
 import (
+	"gitee.com/leobbs/leobbs/app/form"
+	"gitee.com/leobbs/leobbs/app/orm_model"
 	"gitee.com/leobbs/leobbs/app/skins"
+	"gitee.com/leobbs/leobbs/pkg/common"
+	"gitee.com/leobbs/leobbs/pkg/passwd_utils"
 	"github.com/flosch/pongo2/v4"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 func LoginAction(c *gin.Context) {
+	safeSess := sessions.Default(c)
+	safeSess.Delete("lu_username")
+	safeSess.Delete("lu_is_admin")
 	pongoContext := pongo2.Context{
 		"imagesurl": "/assets",
 		"skin":      "leobbs",
@@ -22,20 +31,49 @@ func LoginAction(c *gin.Context) {
 
 
 func DoLoginAction(c *gin.Context) {
+	currentMethod := "DoLoginAction"
+	var loginForm form.LoginForm
 
-
-
-
-
-	pongoContext := pongo2.Context{
-		"imagesurl": "/assets",
-		"skin":      "leobbs",
-		"hello":     "world",
+	err := c.MustBindWith(&loginForm, binding.Form)
+	if err != nil {
+		common.LogError(err)
+		common.ShowUMessage(c, &common.Umsg{Msg: "登录失败", Url: "javascript:history.go(-1);"})
+		return
 	}
 
-	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
-		pongoContext[tmpKey] = tmpV
+	var mm orm_model.Member
+
+	result := common.DB.Where(" username = ? ", loginForm.Username).Find(&mm)
+	if result.Error != nil {
+		common.Sugar.Info(currentMethod + " error: %v", result.Error)
 	}
-	c.HTML(200, "account/login.html",
-		pongoContext)
+
+
+	checkResult, err :=passwd_utils.CheckPasswordHash(mm.Password, loginForm.Password, mm.Salt)
+	if err != nil {
+		common.Sugar.Error(currentMethod + " error: %v", err)
+		common.ShowUMessage(c, &common.Umsg{
+			"登录失败",
+			"javascript:history.go(-1);",
+		})
+		return
+	}
+	if checkResult == false {
+		common.ShowUMessage(c, &common.Umsg{
+			"登录失败",
+			"javascript:history.go(-1);",
+		})
+		return
+	}
+
+	common.Sugar.Infof(currentMethod + " user %v success login", mm)
+
+	safeSess := sessions.Default(c)
+	safeSess.Set("lu_username", mm.Username)
+	_ = safeSess.Save()
+	common.ShowUMessage(c, &common.Umsg{
+		"登录成功",
+		"/",
+	})
+	return
 }

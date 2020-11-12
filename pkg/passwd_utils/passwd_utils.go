@@ -19,6 +19,9 @@ func HashPassword(password string) (hashStr string, passwdStr string,  err error
 
 }
 
+// passwdStr是数据库保存的密码，它是被加密过的
+// password 是用户输入的密码
+// hash 是数据库存储的密码hash
 func CheckPasswordHash(passwdStr, password,  hash string) (bool, error) {
 
 	h, err := blake2b.New512([]byte(common.Config.Key_of_encrypt))
