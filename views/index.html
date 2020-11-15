@@ -159,22 +159,7 @@
         </tr>
     </table>
     {% endif %}
-    <table width="{{ tablewidth }}" align="center" cellspacing="0" cellpadding="1" bgcolor="{{ navborder }}">
-        <tr>
-            <td>
-                <table width="100%" cellspacing="0" cellpadding="3">
-                    <tr height=25>
-                        <td bgcolor="{{ navbackground }}"><img src="{{ imagesurl }}/images/item.gif" align="absmiddle"
-                                                             width="12"> <font
-                                    color="{{ navfontcolor }}"><a href=leobbs.cgi>{{ board_name }}</a>{{ addlink }}" → <a
-                                        href=forums.cgi?forum="{{ in_forum }}">{{ forumname }}</a> → misctypehtc</td>
-                        <td bgcolor="{{ navbackground }}" align="right"></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <BR>
+
 
     <style>
         TABLE {
@@ -208,7 +193,7 @@
                         <td><img src="{{ imagesurl }}/images/cat1.gif" border=0 width="9"> <font
                                     color="{{ catfontcolor }}"><b>{{ categoryname }}
                         </td>
-                        <td align="right" width="150">{{ cmodoutput }}[{{ incategory }}]</td>
+                        <td align="right" width="150">{{ cmodoutput }}{% if incategory %}[{{ incategory }}]{% endif %}</td>
                     </tr>
                 </table>
             </td>
@@ -219,12 +204,12 @@
            bordercolor="{{ tablebordercolor }}" border=1>
         <tr>
             <td bgcolor="{{ forumcolorone }}" align="center" width="26">{{ folderpicture }}</td>
-            <td bgcolor="{{ forumcolortwo }}" valign="top" width=""*>
+            <td bgcolor="{{ forumcolortwo }}" valign="top" width="*">
                 <table width="100%" cellpadding="1">
                     <tr>
                         <td width="1%">{{ team }}</td>
                         <td width="12"></td>
-                        <td width=""*>{{ forumnamelink }}</td>
+                        <td width="*">{{ forumnamelink }}</td>
                         <td bgcolor="{{ forumcolorone }}" align="center" width="90"><font
                                     color="{{ forumfontcolor }}">{{ modout }}[{{ forumid }}]
                         </td>
@@ -247,105 +232,12 @@
                 </table>
 
 
-                <table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height=24 align="center"
-                       bordercolor="{{ tablebordercolor }}" border=1>
-                    <tr>
-                        <td bgcolor="{{ forumcolortwo }}" valign="top" width=""*>
-                            <table width="100%" cellpadding="1">
-                                <tr>
-                                    <td width="1%">{{ cteam }}</td>
-                                    <td width="12"></td>
-                                    <td width=""*>{{ cforumnamelink }}</td>
-                                    <td bgcolor="{{ forumcolorone }}" align="center" width="90"><font
-                                                color="{{ forumfontcolor }}">{{ modout }}
-                                    </td>
-                                    <td bgcolor="{{ forumcolortwo }}" align="left" width="97">
-                                        <table width="100%" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td align="left"><font
-                                                            color="{{ fontcolormisc2 }}">&nbsp;今日：<br>&nbsp;主题：<br>&nbsp;回复：
-                                                </td>
-                                                <td align="right">{{ ctodayforumpost }}&nbsp;<br>{{ cthreads }}
-                                                    &nbsp;<br>{{ cposts }}&nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td bgcolor="{{ forumcolorone }}" width="168"><font
-                                                color="{{ lastpostfontcolor }}">{{ topictitle }}{{ clastposter }}{{ forumlastpost }}
-                                    </td>
-                                    <td bgcolor="{{ forumcolortwo }}" align="center" width="26">{{ forumbookmark }}</td>
-                                </tr>
-                            </table>
-
-
-                        </td>
-                    </tr>
-                </table>
             </td>
         </tr>
     </table>
 
 
-    <table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height=24 align="center"
-           bordercolor="{{ tablebordercolor }}" border=1>
-        <tr>
-            <td bgcolor="{{ forumcolorone }}" align="center" width="26">{{ folderpicture }}</td>
-            <td bgcolor="{{ forumcolortwo }}" valign="top" width=""*>
-                <table width="100%" cellpadding="1">
-                    <tr>
-                        <td width="1%">{{ team }}</td>
-                        <td width="12"></td>
-                        <td width=""*>{{ forumnamelink }}</td>
-                        <td bgcolor="{{ forumcolorone }}" align="center" width="90"><font
-                                    color="{{ forumfontcolor }}">{{ modout }}[{{ forumid }}]
-                        </td>
-                        <td bgcolor="{{ forumcolortwo }}" width="97">
-                            <table width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td align="left"><font color="{{ fontcolormisc2 }}">&nbsp;今日：<BR>&nbsp;主题：<BR>&nbsp;回复：
-                                    </td>
-                                    <td align="right">{{ todayforumpost }}&nbsp;<BR>{{ threads }}&nbsp;<BR>{{ posts }}
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td bgcolor="{{ forumcolorone }}" width="168"><font
-                                    color="{{ lastpostfontcolor }}">{{ topictitle }}{{ lastposter }}{{ forumlastpost }}
-                        </td>
-                        <td bgcolor="{{ forumcolortwo }}" align="center" width="26">{{ forumbookmark }}</td>
-                    </tr>
-                </table>
 
-
-                <table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height="24" align="center"
-                       bordercolor="{{ tablebordercolor }}" border="1">
-                    <tr>
-                        <td width="25%" bgcolor="{{ forumcolortwo }}">
-                            <table width="100%" cellspacing="0" cellpadding="1">
-                                <tr>
-                                    <td colspan="3" valign="middle">{{ folderpicture }} {{ forumname }}{{ hiddeninfo }}</td>
-                                </tr>
-                                <tr>
-                                    <td width="30%" align="left">主: {{ threads }}</td>
-                                    <td width="30%" align="left">回: {{ posts }}</td>
-                                    <td width="30%" align="left">今: {{ todayforumpost }}</td>
-                                </tr>
-                            </table>
-                        </td>
-
-
-                        <SCRIPT>valignend()</SCRIPT>
-                        <BR>
-
-
-                        <script>valignend()</script>
-                        <br>
-                </table>
-            </td>
-        </tr>
-    </table>
     <img src="{{ imagesurl }}/images/none.gif" height="5" alt=""><br>
 
 
@@ -357,7 +249,7 @@
             <td>
                 <table cellpadding="6" cellspacing="1" width="100%">
                     <tr>
-                        <td bgcolor="{{ titlecolor }}" colspan="7" style="background-image: url("{{catbackpic }}")">
+                        <td bgcolor="{{ titlecolor }}" colspan="7" style="background-image: url( {{catbackpic }})">
                             <span color="{{ titlefontcolor }}"></span>
                             <B>-=> 论坛在线统计 （同时在线峰值：{{ onlinemax }}" 人，发生时刻：{{ onlinemaxtime }}）</B>　 [{{ onlinetitle }}]
                         </td>
@@ -380,7 +272,7 @@
     <img src="{{ imagesurl }}/images/none.gif" height="5"><br>
     <table cellspacing="0" cellpadding="0" width="{{ tablewidth }}" align="center">
         <tr>
-            <td>　{{ timenow }}" ({{ basetimes }})</td>
+            <td>　{{ timenow }} {% if basetimes %}({{ basetimes }}){% endif %}</td>
             <td align="right" noWrap>[ <a href=leobbs.cgi?action=delcookieall">删除论坛 cookie</a> ] :: [ <a
                         href=leobbs.cgi?action=resetall">标记所有为已读</a> ] :: [ <a
                         href="{{ thisprog }}?action=expand">展开所有分类</a> ]
