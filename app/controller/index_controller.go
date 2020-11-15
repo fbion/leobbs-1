@@ -16,11 +16,16 @@ func IndexAction(c *gin.Context) {
 	if luUsername == nil {
 		luUsername = ""
 	}
+	is_admin := safeSess.Get("is_admin")
+	if is_admin == nil {
+		is_admin = false
+	}
 	pongoContext := pongo2.Context{
 		"imagesurl":   "/assets",
 		"skin":        "leobbs",
 		"hello":       "world",
 		"lu_username": luUsername,
+		"is_admin": is_admin,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {

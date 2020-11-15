@@ -200,6 +200,7 @@
         </tr>
     </table>
 
+    {% for forum in forumsList %}
     <table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height=24 align="center"
            bordercolor="{{ tablebordercolor }}" border=1>
         <tr>
@@ -207,27 +208,33 @@
             <td bgcolor="{{ forumcolortwo }}" valign="top" width="*">
                 <table width="100%" cellpadding="1">
                     <tr>
-                        <td width="1%">{{ team }}</td>
+                        <td width="1%">{{ forum.team }}</td>
                         <td width="12"></td>
-                        <td width="*">{{ forumnamelink }}</td>
-                        <td bgcolor="{{ forumcolorone }}" align="center" width="90"><font
-                                    color="{{ forumfontcolor }}">{{ modout }}[{{ forumid }}]
+                        <td width="*">{{ forum.forumnamelink }}</td>
+                        <td bgcolor="{{ forumcolorone }}" align="center" width="90">
+                            <span>
+                                    color="{{ forumfontcolor }}">{{ modout }}</span>[{{ forumid }}]
                         </td>
                         <td bgcolor="{{ forumcolortwo }}" width="97">
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td align="left"><font color="{{ fontcolormisc2 }}">&nbsp;今日：<br>&nbsp;主题：<br>&nbsp;回复：
-                                    </td>
-                                    <td align="right">{{ todayforumpost }}&nbsp;<br>{{ threads }}&nbsp;<br>{{ posts }}
-                                        &nbsp;
-                                    </td>
+                                    <td align="left"><span color="{{ fontcolormisc2 }}">&nbsp;今日：</span></td>
+                                    <td align="right">{{ forum.todayforumpost }}&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left"><span color="{{ fontcolormisc2 }}">&nbsp;主题：</span></td>
+                                    <td align="right">{{ forum.threads }}&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left"><span color="{{ fontcolormisc2 }}">&nbsp;回复：</span></td>
+                                    <td align="right">{{ forum.posts }}&nbsp;</td>
                                 </tr>
                             </table>
                         </td>
-                        <td bgcolor="{{ forumcolorone }}" width="168"><font
-                                    color="{{ lastpostfontcolor }}">{{ topictitle }}{{ lastposter }}{{ forumlastpost }}
+                        <td bgcolor="{{ forumcolorone }}" width="168">
+                            <span   color="{{ lastpostfontcolor }}">{{ forum.topictitle }}{{ forum.lastposter }}{{ forum.forumlastpost }}</span>
                         </td>
-                        <td bgcolor="{{ forumcolortwo }}" align="center" width="26">{{ forumbookmark }}</td>
+                        <td bgcolor="{{ forumcolortwo }}" align="center" width="26">{{ forum.forumbookmark }}</td>
                     </tr>
                 </table>
 
@@ -235,7 +242,7 @@
             </td>
         </tr>
     </table>
-
+    {% endfor %}
 
 
     <img src="{{ imagesurl }}/images/none.gif" height="5" alt=""><br>

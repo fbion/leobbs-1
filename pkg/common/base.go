@@ -139,8 +139,7 @@ func InitApp() {
 }
 type AppConfig struct {
 	Dbdsn          string
-	Admin_user       string
-	Admin_password   string
+	Admin_user       []string
 	Site_name        string
 	Site_description string
 	Key_of_encrypt string

@@ -1,6 +1,5 @@
 dbdsn="file:./vol/db.sqlite"
-admin_user = "admin"
-admin_password = "admin"
+admin_user = ["admin","netroby"]
 site_name = "leobbs"
 site_description = "My memory about leobbs"
 key_of_encrypt = "leobbs1314"

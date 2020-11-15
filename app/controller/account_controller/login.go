@@ -6,6 +6,7 @@ import (
 	"gitee.com/leobbs/leobbs/app/skins"
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"gitee.com/leobbs/leobbs/pkg/passwd_utils"
+	"gitee.com/leobbs/leobbs/pkg/string_utils"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -69,8 +70,16 @@ func DoLoginAction(c *gin.Context) {
 
 	common.Sugar.Infof(currentMethod + " user %v success login", mm)
 
+
+	adminUserList := common.Config.Admin_user
+
 	safeSess := sessions.Default(c)
 	safeSess.Set("lu_username", mm.Username)
+	// 如果用户名在管理员列表里面，就设置为is_admin的session
+	if string_utils.StringExistsInList(mm.Username, adminUserList) {
+		safeSess.Set("is_admin", true)
+	}
+
 	_ = safeSess.Save()
 	common.ShowUMessage(c, &common.Umsg{
 		"登录成功",
