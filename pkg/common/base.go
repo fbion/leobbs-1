@@ -119,6 +119,16 @@ func GetDB(config *AppConfig) *gorm.DB {
 		LogError(err)
 	}
 
+	err = db.AutoMigrate(&orm_model.Category{})
+	if err != nil {
+		LogError(err)
+	}
+
+	err = db.AutoMigrate(&orm_model.Forum{})
+	if err != nil {
+		LogError(err)
+	}
+
 
 	return db
 }
