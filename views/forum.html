@@ -1,0 +1,143 @@
+{% extends "base-layout.html" %}
+
+{% block content %}
+
+
+
+<img src="{{ imagesurl }}/images/none.gif" height="2"><br>
+<script>valigntop()</script>
+
+<table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height="28" align="center"
+       bordercolor="{{ tablebordercolor }}" border="1">
+
+    <script>valignend()</script>
+    <BR>
+    <img src="{{ imagesurl }}/images/none.gif" height="5"><br>
+    <script type="text/javascript">
+        function surfto(list) {
+            var myindex1 = list.selectedIndex;
+            var newwindow = list.options[myindex1].value;
+            if (newwindow != "") {
+                var msgwindow = window.open("profile.cgi?action=show&member=" + newwindow, "", "");
+            }
+        }
+    </script>
+
+    <style>
+        .menuskin {
+            position: absolute;
+            background-color: {{ menubackground }};
+            border: 1px solid{{ titleborder }};
+            line-height: 20px;
+            z-index: 100;
+            visibility: hidden;
+        }
+
+        #mouseoverstyle {
+            BACKGROUND-COLOR: #C9D5E7;
+            margin: 1px;
+        }
+
+        #mouseoverstyle a {
+            color: white;
+        }
+
+        .menuitems {
+            margin: 1px;
+            padding: 1px;
+            word-break: keep-all;
+        }
+    </style>
+    <script>
+        //linkset[1] = "
+    </script>
+
+
+
+
+    <TABLE cellspacing="0" cellpadding="0" width="{{ tablewidth }}" align="center">
+        <tr>
+            <TD width="30%" rowSpan=3>{{ forumgraphicoutput }}</TD>
+            <TD valign="bottom" align="right">{{ adscript }}</TD>
+        </TR>
+    </TABLE>
+
+    {% if forum.description %}
+    <BR>
+    <table width="{{ tablewidth }}" align="center" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>>>> {{ forumdescription }}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+
+    <style>
+        TABLE {
+            BORDER-TOP: 0px;
+            BORDER-LEFT: 0px;
+            BORDER-BOTTOM: 1px;
+        }
+
+        TD {
+            BORDER-RIGHT: 0px;
+            BORDER-TOP: 0px;
+            color: #333333;
+        }
+    </style>
+
+
+
+
+    {% if forum %}
+    <table cellpadding="6" cellspacing="0" width="{{ tablewidth }}" height=24 align="center"
+           bordercolor="{{ tablebordercolor }}" border=1>
+        <tr>
+            <td bgcolor="{{ forumcolorone }}" align="center" width="26">{{ folderpicture }}</td>
+            <td bgcolor="{{ forumcolortwo }}" valign="top" width="*">
+                <table width="100%" cellpadding="1">
+                    <tr>
+                        <td width="1%">{{ forum.team }}</td>
+                        <td width="12"></td>
+                        <td width="*">
+
+                            <a href="/forum-{{ forum.ID }}.html">{{ forum.ForumName }}</a>
+                            <p>{{ forum.ForumDesc }}</p>
+
+                        </td>
+                        <td bgcolor="{{ forumcolorone }}" align="center" width="90">
+                            <span color="{{ forumfontcolor }}">{{ modout }}</span>{% if forum.ID %} [{{ forum.ID }}] {% endif %}
+                        </td>
+                        <td bgcolor="{{ forumcolortwo }}" width="97">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left"><span color="{{ fontcolormisc2 }}">&nbsp;今日：</span></td>
+                                    <td align="right">{{ forum.TodayPostNum }}&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left"><span color="{{ fontcolormisc2 }}">&nbsp;主题：</span></td>
+                                    <td align="right">{{ forum.ThreadsNum }}&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left"><span color="{{ fontcolormisc2 }}">&nbsp;回复：</span></td>
+                                    <td align="right">{{ forum.PostsNum }}&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td bgcolor="{{ forumcolorone }}" width="168">
+                            <span   color="{{ lastpostfontcolor }}">{{ forum.LastTopicTitle }}{{ forum.LastPoster }}{{ forum.LastPostTime }}</span>
+                        </td>
+                        <td bgcolor="{{ forumcolortwo }}" align="center" width="26">{{ forum.forumbookmark }}</td>
+                    </tr>
+                </table>
+
+
+            </td>
+        </tr>
+    </table>
+    {% endif %}
+
+
+
+
+    {% endblock %}
