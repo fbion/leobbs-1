@@ -3,7 +3,6 @@
 {% block content %}
 
 
-
 <img src="{{ imagesurl }}/images/none.gif" height="2"><br>
 <script>valigntop()</script>
 
@@ -53,8 +52,6 @@
     </script>
 
 
-
-
     <TABLE cellspacing="0" cellpadding="0" width="{{ tablewidth }}" align="center">
         <tr>
             <TD width="30%" rowSpan=3>{{ forumgraphicoutput }}</TD>
@@ -76,7 +73,7 @@
         TABLE {
             BORDER-TOP: 0px;
             BORDER-LEFT: 0px;
-            BORDER-BOTTOM: 1px;
+            BORDER: 1px;
         }
 
         TD {
@@ -85,8 +82,6 @@
             color: #333333;
         }
     </style>
-
-
 
 
     {% if forum %}
@@ -106,7 +101,7 @@
 
                         </td>
                         <td bgcolor="{{ forumcolorone }}" align="center" width="90">
-                            <span color="{{ forumfontcolor }}">{{ modout }}</span>{% if forum.ID %} [{{ forum.ID }}] {% endif %}
+                            <span color="{{ forumfontcolor }}">{{ modout }}</span>{% if forum.ID %} [{{ forum.ID }}] {%  endif %}
                         </td>
                         <td bgcolor="{{ forumcolortwo }}" width="97">
                             <table width="100%" cellpadding="0" cellspacing="0">
@@ -125,7 +120,7 @@
                             </table>
                         </td>
                         <td bgcolor="{{ forumcolorone }}" width="168">
-                            <span   color="{{ lastpostfontcolor }}">{{ forum.LastTopicTitle }}{{ forum.LastPoster }}{{ forum.LastPostTime }}</span>
+                            <span color="{{ lastpostfontcolor }}">{{ forum.LastTopicTitle }}{{ forum.LastPoster }}{{ forum.LastPostTime }}</span>
                         </td>
                         <td bgcolor="{{ forumcolortwo }}" align="center" width="26">{{ forum.forumbookmark }}</td>
                     </tr>
@@ -135,9 +130,69 @@
             </td>
         </tr>
     </table>
+
+
     {% endif %}
+    <img src="/assets/images/none.gif" height="5" alt="">
+    <script>valigntop()</script>
+
+    <table cellpadding=0 cellspacing=0 width={{ tablewidth }} height=27 bordercolor={{ tablebordercolor }} border=1
+           align=center>
+        <tr>
+            <td bgcolor={{ titlecolor }} {{ catbackpic }} width=30 align=center><font
+                        color={{ titlefontcolor }}><b>状态</b></td>
+            <td bgcolor={{ titlecolor }} {{ catbackpic }} width=* align=center><font
+                        color={{ titlefontcolor }}><b>主　题</b> </td>
+            <td bgcolor={{ titlecolor }} {{ catbackpic }} align=center width=78><font color={{ titlefontcolor }}><b>作
+                        者</b></td>
+            <td bgcolor={{ titlecolor }} {{ catbackpic }} align=center width=60><font color={{ titlefontcolor }}><b>回复/点击</b>
+            </td>
+            <td bgcolor={{ titlecolor }} {{ catbackpic }} width=193 align=center><font color={{ titlefontcolor }}><b>　
+                        最后更新 　 | 最后回复人</b></td>
+            {{ multimanage }}</tr>
+    </table>
+
+    <table cellspacing=0 cellpadding=0 width={{ tablewidth }} bordercolor={{ tablebordercolor }} border=1 height=35 align="center">
+    <tr>
+        <td align=center width=30 bgcolor={{ forumcolorone }}>{{ topicicontemp }}</td>
+        <td width=* class=dp bgColor={{ forumcolortwo }} onmouseover=this.bgColor='{{ forumcolorone }}';
+            onmouseout=this.bgColor='{{ forumcolortwo }}';>&nbsp;{{ posticontemp }} {{ followImg }}<span id=forum>{{ topictitle }}{{ pagestoshow }}{{ topicdescription }}{{ admini }}</span>
+        </td>
+        <td align=center width=78 bgcolor={{ forumcolorone }}>{{ startedby }}</td>
+        {{ outputtemp }}
+
+        <td align=center width=60 bgcolor={{ forumcolorone }}>{{ viewNums }}</td>
+        <td width=193 bgcolor={{ forumcolorone }}>&nbsp;<span style=cursor:hand
+                                                         onClick=javascript:O3({{ forumid }},{{ topicid }},{{ gotoendpost }})>{{ lastpostdate }}</span><font
+                    color={{ fonthighlight }}> | </font>{{ lastposter }}
+        </td>
+        {{ multimanagebutton }}
+    </tr>
+</table>
+
+
+    <table cellpadding=0 cellspacing=2 width={{ tablewidth }} align=center>
+        <tr height=4>
+            <td>{{ topicpages }}，<b>转至</b>：<input type=text name="dshow" size=2 value="{{ pn }}"> <input type=button value=Go onClick="Jumptopage(this.form)"><BR> [本版共有主题 <B>{{ threads }}</B> 篇，回复 <b>{{ posts }}</b> 篇]</td>
+
+        <td align=right>
+            <table cellpadding=0 cellspacing=2>
+                <tr><form action=search.cgi method=post>
+                    <td align=right>
+                            <input type=hidden name=action value=startsearch>
+                            <input type=hidden name=POST_SEARCH value=topictitle_search>
+                            <input type=hidden name=NAME_SEARCH value=topictitle_search>
+                            <input name=SEARCH_STRING value=输入关键字 onfocus="this.value ='';" size=14>
+                            <select name=TYPE_OF_SEARCH>
+                                <option value="keyword_search">主题<option value="username_search">作者</select>
+                            <input type=hidden name=FORUMS_TO_SEARCH value={{ in_forum }}_forum>
+                            <input type=submit value=搜索>
+                    </td>
+                    </form></tr>
+            </table>
+        </td></tr>
+    </table>
 
 
 
-
-    {% endblock %}
+{% endblock %}
