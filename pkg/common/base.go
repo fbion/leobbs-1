@@ -146,6 +146,10 @@ func GetDB(config *AppConfig) *gorm.DB {
 	if err != nil {
 		LogError(err)
 	}
+	err = db.AutoMigrate(&orm_model.Post{})
+	if err != nil {
+		LogError(err)
+	}
 
 
 	return db

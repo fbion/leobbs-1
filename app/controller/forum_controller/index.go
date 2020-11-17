@@ -93,7 +93,6 @@ func IndexAction(c *gin.Context) {
 		tmpTopicList = append(tmpTopicList, vo.Topic_out_vo{
 			ID: v.ID,
 			Title: v.Title,
-			Content: v.Content,
 		})
 	}
 

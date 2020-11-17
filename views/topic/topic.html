@@ -35,7 +35,8 @@
                     <td><font color={{ titlefontcolor }}>&nbsp;<b>* 贴子主题</B>： {{ topictitletemp }}</td>
                     <td align=right><a
                                 href={{ thisprog }}?forum={{ in_forum }}&topic={{ in_topic }}&start={{ instart }}&max=yes&show={{ inshow }}><img
-                                    src={{ imagesurl }}/images/showall.gif border=0 width=14 alt=不分页显示此帖></a>&nbsp;{{ reporticon }}{{ favicon }}{{ printpageicon }}{{ pagpageicon }}{{ bookmarkpage }}{{ sendtofriendicon }}
+                                    src={{ imagesurl }}/images/showall.gif border=0 width=14
+                                    alt=不分页显示此帖></a>&nbsp;{{ reporticon }}{{ favicon }}{{ printpageicon }}{{ pagpageicon }}{{ bookmarkpage }}{{ sendtofriendicon }}
                         {{ fontsizeselect }}&nbsp;
                     </td>
                 </tr>
@@ -50,116 +51,158 @@
     </tr>
 </table>
 
-
+{% for post  in postList %}
 <table cellpadding=1 cellspacing=0 width={{ tablewidth }} align=center>
     <tr>
         <td>
 
-<table width=95% cellpadding=0 cellspacing=8 bgcolor={{ postbackcolor }}>
-    <tr>
-        <td valign=top width=168 rowspan=5>
-            <table style="filter:glow(color={{ glowing }}{{ membername }},direction=135)">&nbsp;<font
-                        color={{ posterfontcolor }}{{ membername }}><b>{{ membername }}{{ membername }}&nbsp;</b></table>
-            <font color={{ postfontcolortwo }}>{{ membertitle }}{{ membername }}
-                {{ showawards }}{{ membername }}
-                <font color={{ postfontcolorone }}>{{ jhmp }}{{ membername }}
-                    {{ useravatar }}{{ membername }}
-                    <br><a href=lookinfo.cgi?action=style target=_blank title="{{ mtitle }}{{ membername }}">{{ membergraphic }}{{ membername }}</a>
-                    <br><font color={{ postfontcolorone }}>等级: <a href=lookinfo.cgi?action=style target=_blank
-                                                             title="查看级别信息"><font color={{ fonthighlight }}>{{ mtitle }}{{ membername }}</a>
-                        <BR><font color={{ postfontcolortwo }}>信息: {{ online }} {{ membernameimg }}{{ membername }}
-                            {{ seximages }}{{ membername }} {{ showsx }}{{ membername }} {{ showxz }}{{ membername }}
-                            <br><font color={{ fonthighlight }}>威望: {{ rating }}{{ membername }}　积分: {{ jifen }}{{ membername }}{{ rateuser }}
-                                <br><font color={{ postfontcolortwo }}>现金: {{ mymoney }}{{ membername }}
-                                    <br><font color={{ postfontcolorone }}>存款: {{ mysaves }}{{ membername }}
-                                        <br><font color={{ postfontcolortwo }}>贷款: {{ myloan }}{{ membername }}
-                                            <br><font color={{ postfontcolorone }}>来自:
-                                                {{ location }}{{ membername }}{{ userflag }}{{ membername }}
-                                                <br><font color={{ postfontcolortwo }}>发帖: <b>{{ numberofposts }}{{ membername }}</b>
-                                                    篇
-                                                    <br><font color={{ postfontcolorone }}>精华: <b><font color={{ fonthighlight }}>{{ jhcount }}{{ membername }}</font></b>
-                                                        篇
-                                                        <br>
-                                                        <font color={{ postfontcolortwo }}>博彩:
-                                                            {{ soccerinfo }}{{ membername }}
-                                                            <font color={{ postfontcolorone }}>资料:
-                                                                {{ emailgraphic }}
-                                                                {{ membername }}{{ homepagegraphic }}{{ membername }}{{ oicqgraphic }}{{ membername }}{{ icqgraphic }}{{ membername }}
-
-                                                                <br><font color={{ postfontcolortwo }}>在线: {{ onlinetime }}
-                                                                    <br><font color={{ postfontcolorone }}>注册:
-                                                                        {{ joineddate }}{{ membername }}
-                                                                        <br><font color={{ postfontcolortwo }}>造访:
-                                                                            {{ lastgone }}{{ membername }}<br>
-        </td>
-        <td width=1 height=100% rowspan=5 bgcolor={{ titlecolor }}></td>
-        <td valign=top width=600>
-            {{ pvmsggraphic }}{{ membername }}{{ profilegraphic }}{{ membername }}{{ searchgraphic }}{{ membername }}{{ friendgraphic }}{{ membername }}{{ copygfx }}{{ replygraphic }}{{ replynow }}{{ postmanbuttom }}{{ chgposticon }}
-        </td>
-        <td align=right>{{ louceng }}</td>
-    </tr>
-    <tr>
-        <td colspan=2 height=1 bgcolor={{ tablebordercolor }}></td>
-    </tr>
-    <tr>
-        <td colspan=2 valign=top>
-            <table cellspacing=0 cellpadding=0 width=100% style=TABLE-LAYOUT:fixed height={{ vheight }}{{ membername }}>
+            <table width=95% cellpadding=0 cellspacing=8 bgcolor={{ postbackcolor }}>
                 <tr>
-                    <td width=32 valign=top>{{ posticon }}&nbsp;</td>
-                    <td style="WORD-WRAP:break-word;{{ paraspace }};{{ wordspace }}\pt" valign=top>{{ topicsthad }}<span
-                                id=post{{ editpostnumber }} style=color:{{ postfontcolor }};font-size:${postfontsize}px>{{ addme }}{{ post }}</span><BR>
+                    <td valign=top width=168 rowspan=5>
+                        <table style="filter:glow(color={{ glowing }}{{ membername }},direction=135)">&nbsp;<font
+                                    color={{ posterfontcolor }}{{ membername }}><b>{{ membername }}{{ membername }}
+                                    &nbsp;</b></table>
+                        <font color={{ postfontcolortwo }}>{{ membertitle }}{{ membername }}
+                            {{ showawards }}{{ membername }}
+                            <font color={{ postfontcolorone }}>{{ jhmp }}{{ membername }}
+                                {{ useravatar }}{{ membername }}
+                                <br><a href=lookinfo.cgi?action=style target=_blank
+                                       title="{{ mtitle }}{{ membername }}">{{ membergraphic }}{{ membername }}</a>
+                                <br><font color={{ postfontcolorone }}>等级: <a href=lookinfo.cgi?action=style
+                                                                              target=_blank
+                                                                              title="查看级别信息"><font
+                                                color={{ fonthighlight }}>{{ mtitle }}{{ membername }}</a>
+                                    <BR><font
+                                            color={{ postfontcolortwo }}>信息: {{ online }} {{ membernameimg }}{{ membername }}
+                                        {{ seximages }}{{ membername }} {{ showsx }}{{ membername }} {{ showxz }}{{ membername }}
+                                        <br><font color={{ fonthighlight }}>威望: {{ rating }}{{ membername }}
+                                            　积分: {{ jifen }}{{ membername }}{{ rateuser }}
+                                            <br><font color={{ postfontcolortwo }}>现金: {{ mymoney }}{{ membername }}
+                                                <br><font color={{ postfontcolorone }}>存款: {{ mysaves }}{{ membername }}
+                                                    <br><font
+                                                            color={{ postfontcolortwo }}>贷款: {{ myloan }}{{ membername }}
+                                                        <br><font color={{ postfontcolorone }}>来自:
+                                                            {{ location }}{{ membername }}{{ userflag }}{{ membername }}
+                                                            <br><font color={{ postfontcolortwo }}>发帖:
+                                                                <b>{{ numberofposts }}{{ membername }}</b>
+                                                                篇
+                                                                <br><font color={{ postfontcolorone }}>精华: <b><font
+                                                                                color={{ fonthighlight }}>{{ jhcount }}{{ membername }}</font></b>
+                                                                    篇
+                                                                    <br>
+                                                                    <font color={{ postfontcolortwo }}>博彩:
+                                                                        {{ soccerinfo }}{{ membername }}
+                                                                        <font color={{ postfontcolorone }}>资料:
+                                                                            {{ emailgraphic }}
+                                                                            {{ membername }}{{ homepagegraphic }}{{ membername }}{{ oicqgraphic }}{{ membername }}{{ icqgraphic }}{{ membername }}
+
+                                                                            <br><font
+                                                                                    color={{ postfontcolortwo }}>在线: {{ onlinetime }}
+                                                                                <br><font color={{ postfontcolorone }}>注册:
+                                                                                    {{ joineddate }}{{ membername }}
+                                                                                    <br><font
+                                                                                            color={{ postfontcolortwo }}>造访:
+                                                                                        {{ lastgone }}{{ membername }}
+                                                                                        <br>
+                    </td>
+                    <td width=1 height=100% rowspan=5 bgcolor={{ titlecolor }}></td>
+                    <td valign=top width=600>
+                        {{ pvmsggraphic }}{{ membername }}{{ profilegraphic }}{{ membername }}{{ searchgraphic }}{{ membername }}{{ friendgraphic }}{{ membername }}{{ copygfx }}{{ replygraphic }}{{ replynow }}{{ postmanbuttom }}{{ chgposticon }}
+                    </td>
+                    <td align=right>{{ louceng }}</td>
+                </tr>
+                <tr>
+                    <td colspan=2 height=1 bgcolor={{ tablebordercolor }}></td>
+                </tr>
+                <tr>
+                    <td colspan=2 valign=top>
+                        <table cellspacing=0 cellpadding=0 width=100% style=TABLE-LAYOUT:fixed
+                               height={{ vheight }}{{ membername }}>
+                            <tr>
+                                <td width=32 valign=top>{{ posticon }}&nbsp;</td>
+                                <td style="WORD-WRAP:break-word;{{ paraspace }};{{ wordspace }}\pt"
+                                    valign=top>{{ topicsthad }}<span
+                                            id=post{{ editpostnumber }} style=color:{{ postfontcolor }};font-size:${postfontsize}px>{{ addme }}{{ post.Content }}</span><BR>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan=2 height=22 valign=bottom>{{ addads }}<BR></td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan=2 height=22 valign=bottom>{{ addads }}<BR></td>
+                    <td colspan=2 height=1 bgcolor={{ tablebordercolor }}></td>
+                </tr>
+                <tr>
+                    <td><font color={{ postfontcolor }}>{{ editgraphic }}{{ pbgraphic }}{{ delgraphic }}<img
+                                    src={{ imagesurl }}/images/posttime.gif width=16
+                                    alt=发贴时间 align=absmiddle>{{ postdate }}　<img
+                                    src={{ imagesurl }}/images/ip.gif width=13 alt="{{ fromproxy }}"
+                                    align=absmiddle>IP: {{ postipaddress }}</td>
+                    <td align=right valign=bottom width=20%>[本文共{{ postsize }}字节]　<a href=#top><img
+                                    src={{ imagesurl }}/images/p_up.gif
+                                    height=17 border=0 align=absmiddle
+                                    title=返回顶端></a>&nbsp;
+                    </td>
                 </tr>
             </table>
         </td>
-    </tr>
-    <tr>
-        <td colspan=2 height=1 bgcolor={{ tablebordercolor }}></td>
-    </tr>
-    <tr>
-        <td><font color={{ postfontcolor }}>{{ editgraphic }}{{ pbgraphic }}{{ delgraphic }}<img src={{ imagesurl }}/images/posttime.gif width=16
-                                                                             alt=发贴时间 align=absmiddle>{{ postdate }}　<img
-                        src={{ imagesurl }}/images/ip.gif width=13 alt="{{ fromproxy }}" align=absmiddle>IP: {{ postipaddress }}</td>
-        <td align=right valign=bottom width=20%>[本文共{{ postsize }}字节]　<a href=#top><img src={{ imagesurl }}/images/p_up.gif
-                                                                                   height=17 border=0 align=absmiddle
-                                                                                   title=返回顶端></a>&nbsp;
-        </td>
+        <td bgcolor={{ tablebordercolor }} width=1></td>
     </tr>
 </table>
-        </td>
-<td bgcolor={{ tablebordercolor }} width=1></td>
-    </tr></table>
 <table cellspacing=0 cellpadding=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
     <tr>
         <td height=1></td>
     </tr>
 </table>
 
+{% endfor %}
 
 <table cellspacing=0 cellpadding=0 width={{ tablewidth }} align=center>
-    <tr><td>&nbsp;<a href=#top><img src={{ imagesurl }}/images/gotop.gif width=15 border=0 align=absmiddle>顶端</a>　<a href=fav.cgi?action=add&forum={{ in_forum }}&topic={{ in_topic }}><img src={{ imagesurl }}/images/addfavorite.gif height=15 border=0 align=absmiddle>加到"个人收藏夹"</a></td><td nowrap align=right><font color={{ menufontcolor }}><img src={{ imagesurl }}/images/forumme.gif> <b>主题管理</B>：
-                <a href=postings.cgi?action=abslocktop&forum={{ in_forum }}&topic={{ in_topic }}>总固顶</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=absunlocktop&forum={{ in_forum }}&topic={{ in_topic }}>取消总固顶</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=catlocktop&forum={{ in_forum }}&topic={{ in_topic }}>区固顶</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=catunlocktop&forum={{ in_forum }}&topic={{ in_topic }}>取消区固顶</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=locktop&forum={{ in_forum }}&topic={{ in_topic }}>固顶</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=unlocktop&forum={{ in_forum }}&topic={{ in_topic }}>取消固顶</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=puttop&forum={{ in_forum }}&topic={{ in_topic }}>提升</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=putdown&forum={{ in_forum }}&topic={{ in_topic }}>沉底</a> <img src={{ imagesurl }}/images/fg.gif>
+    <tr>
+        <td>&nbsp;<a href=#top><img src={{ imagesurl }}/images/gotop.gif width=15 border=0 align=absmiddle>顶端</a>　<a
+                    href=fav.cgi?action=add&forum={{ in_forum }}&topic={{ in_topic }}><img
+                        src={{ imagesurl }}/images/addfavorite.gif height=15 border=0 align=absmiddle>加到"个人收藏夹"</a></td>
+        <td nowrap align=right><font color={{ menufontcolor }}><img src={{ imagesurl }}/images/forumme.gif> <b>主题管理</B>：
+                <a href=postings.cgi?action=abslocktop&forum={{ in_forum }}&topic={{ in_topic }}>总固顶</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=absunlocktop&forum={{ in_forum }}&topic={{ in_topic }}>取消总固顶</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=catlocktop&forum={{ in_forum }}&topic={{ in_topic }}>区固顶</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=catunlocktop&forum={{ in_forum }}&topic={{ in_topic }}>取消区固顶</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=locktop&forum={{ in_forum }}&topic={{ in_topic }}>固顶</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=unlocktop&forum={{ in_forum }}&topic={{ in_topic }}>取消固顶</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=puttop&forum={{ in_forum }}&topic={{ in_topic }}>提升</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=putdown&forum={{ in_forum }}&topic={{ in_topic }}>沉底</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
                 <BR>
-                <a href=postings.cgi?action=highlight&forum={{ in_forum }}&topic={{ in_topic }}>加重</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=lowlight&forum={{ in_forum }}&topic={{ in_topic }}>取消加重</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=jinghua.cgi?action=add&forum={{ in_forum }}&topic={{ in_topic }}>精华</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=jinghua.cgi?action=del&forum={{ in_forum }}&topic={{ in_topic }}>取消精华</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=lock&forum={{ in_forum }}&topic={{ in_topic }}>锁定</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=postings.cgi?action=unlock&forum={{ in_forum }}&topic={{ in_topic }}>解锁</a> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=delpost.cgi?action=delete&forum={{ in_forum }}&topic={{ in_topic }}>删除</a> <img src={{ imagesurl }}/images/fg.gif>
-                <span style=cursor:hand onClick="javascript:DelReply();">删除回复</span> <img src={{ imagesurl }}/images/fg.gif>
-                <a href=delpost.cgi?action=movetopic&forum={{ in_forum }}&topic={{ in_topic }}>移动</a> <img src={{ imagesurl }}/images/fg.gif>
-        </td></tr></table><p><p>
+                <a href=postings.cgi?action=highlight&forum={{ in_forum }}&topic={{ in_topic }}>加重</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=lowlight&forum={{ in_forum }}&topic={{ in_topic }}>取消加重</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=jinghua.cgi?action=add&forum={{ in_forum }}&topic={{ in_topic }}>精华</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=jinghua.cgi?action=del&forum={{ in_forum }}&topic={{ in_topic }}>取消精华</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=lock&forum={{ in_forum }}&topic={{ in_topic }}>锁定</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=postings.cgi?action=unlock&forum={{ in_forum }}&topic={{ in_topic }}>解锁</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=delpost.cgi?action=delete&forum={{ in_forum }}&topic={{ in_topic }}>删除</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <span style=cursor:hand onClick="javascript:DelReply();">删除回复</span> <img
+                        src={{ imagesurl }}/images/fg.gif>
+                <a href=delpost.cgi?action=movetopic&forum={{ in_forum }}&topic={{ in_topic }}>移动</a> <img
+                        src={{ imagesurl }}/images/fg.gif>
+        </td>
+    </tr>
+</table><p><p>
 <form action="delpost.cgi" method=post name="DReply">
     <input type=hidden name="forum" value="{{ in_forum }}">
     <input type=hidden name="topic" value="{{ in_topic }}">
