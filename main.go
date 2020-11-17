@@ -5,6 +5,7 @@ import (
 	"gitee.com/leobbs/leobbs/app/controller/account_controller"
 	"gitee.com/leobbs/leobbs/app/controller/admin_controller"
 	"gitee.com/leobbs/leobbs/app/controller/forum_controller"
+	"gitee.com/leobbs/leobbs/app/controller/topic_controller"
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
@@ -41,6 +42,8 @@ func main() {
 	r.Use(sessions.Sessions("mysession", store))
 	r.GET("/", controller.IndexAction)
 	r.GET("/forum/:id", forum_controller.IndexAction)
+
+	r.GET("/topic/:id", topic_controller.IndexAction)
 
 	r.GET("/account/login", account_controller.LoginAction)
 	r.POST("/account/doLogin", account_controller.DoLoginAction)
