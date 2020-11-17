@@ -152,11 +152,13 @@
             {{ multimanage }}</tr>
     </table>
 
+    {% for topic in topicList %}
     <table cellspacing=0 cellpadding=0 width={{ tablewidth }} bordercolor={{ tablebordercolor }} border=1 height=35 align="center">
     <tr>
         <td align=center width=30 bgcolor={{ forumcolorone }}>{{ topicicontemp }}</td>
         <td width=* class=dp bgColor={{ forumcolortwo }} onmouseover=this.bgColor='{{ forumcolorone }}';
-            onmouseout=this.bgColor='{{ forumcolortwo }}';>&nbsp;{{ posticontemp }} {{ followImg }}<span id=forum>{{ topictitle }}{{ pagestoshow }}{{ topicdescription }}{{ admini }}</span>
+            onmouseout=this.bgColor='{{ forumcolortwo }}';>&nbsp;{{ posticontemp }} {{ followImg }}
+            <span id=forum><a href="/topic/{{ topic.ID }}">{{ topic.Title }}</a>{{ pagestoshow }}{{ topicdescription }}{{ admini }}</span>
         </td>
         <td align=center width=78 bgcolor={{ forumcolorone }}>{{ startedby }}</td>
         {{ outputtemp }}
@@ -169,6 +171,7 @@
         {{ multimanagebutton }}
     </tr>
 </table>
+    {% endfor %}
 
 
     <table cellpadding=0 cellspacing=2 width={{ tablewidth }} align=center>

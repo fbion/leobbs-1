@@ -8,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/naoina/toml"
@@ -104,8 +106,19 @@ func GetMinutes() string {
 
 func GetDB(config *AppConfig) *gorm.DB {
 
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold: time.Second,   // Slow SQL threshold
+			LogLevel:      logger.Info, // Log level
+			Colorful:      false,         // Disable color
+		},
+	)
 
-	db, err := gorm.Open(sqlite.Open(config.Dbdsn), &gorm.Config{})
+
+	db, err := gorm.Open(sqlite.Open(config.Dbdsn), &gorm.Config{
+		Logger: newLogger,
+	})
 
 	if err != nil {
 		LogError(err)
@@ -125,6 +138,11 @@ func GetDB(config *AppConfig) *gorm.DB {
 	}
 
 	err = db.AutoMigrate(&orm_model.Forum{})
+	if err != nil {
+		LogError(err)
+	}
+
+	err = db.AutoMigrate(&orm_model.Topic{})
 	if err != nil {
 		LogError(err)
 	}

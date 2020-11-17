@@ -15,7 +15,7 @@ func GetForumList() (forumList []*orm_model.Forum, err error) {
 }
 
 func GetForum(id int64) (forum *orm_model.Forum, err error) {
-	result := common.DB.First(&forum, id)
+	result := common.DB.Where("id = ?", id).First(&forum)
 	if result.Error == nil {
 		return forum, nil
 	} else {
