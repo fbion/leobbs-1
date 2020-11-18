@@ -207,7 +207,7 @@ if ($mymembercode eq "ad" or $mymembercode eq "smo" or $myinmembmod eq "yes") {
 else {
     $viewhide = 0;
     if ($hidejf eq "yes") {
-        my @viewhide = grep (/^$in_member_name\t/i, @threads);
+        my @viewhide = grep(/^$in_member_name\t/i, @threads);
         $viewhide = @viewhide;
         $viewhide = 1 if ($viewhide >= 1);
     }
@@ -542,7 +542,7 @@ if (open(FILE, "${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl")) {
     close(FILE);
     chomp @usruploaddata;
     my $usruploaddatano1 = @usruploaddata;
-    my @usruploaddata1 = grep (/^$in_forum\_$in_topic(\.|\_)/, @usruploaddata);
+    my @usruploaddata1 = grep(/^$in_forum\_$in_topic(\.|\_)/, @usruploaddata);
     my $usruploaddatano2 = @usruploaddata1;
     if (($usruploaddatano1 ne $usruploaddatano2) && ($usruploaddata2 > 0)) {
         unlink("${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
@@ -554,7 +554,7 @@ else {
     opendir(USRDIR, "${imagesdir}$usrdir/$in_forum");
     @usruploaddata = readdir(USRDIR);
     closedir(USRDIR);
-    @usruploaddata = grep (/^$in_forum\_$in_topic(\.|\_)/, @usruploaddata);
+    @usruploaddata = grep(/^$in_forum\_$in_topic(\.|\_)/, @usruploaddata);
     chomp @usruploaddata;
     #    open (FILE, ">${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
     #    print FILE join("\n",@usruploaddata);
@@ -563,7 +563,7 @@ else {
 }
 $usruploaddata = @usruploaddata;
 if ($usruploaddata > 0) {
-    @usruploaddatareply = grep (/^$in_forum\_$in_topic\_/, @usruploaddata);
+    @usruploaddatareply = grep(/^$in_forum\_$in_topic\_/, @usruploaddata);
     $usruploaddatareply = @usruploaddatareply;
 }
 
@@ -618,46 +618,93 @@ function ShowMagicFace(MagicID) {var MagicFaceUrl = "$imagesurl/MagicFace/swf/" 
 }
     }
     else {
-        my @usruploaddata2 = grep(/^$in_forum\_$in_topic\./,@usruploaddata);
-	my @downcount      = grep(/$in_forum\_$in_topic\./,@filedowncount);
-        if ($#usruploaddata2 >= 0) {
-	    my $usruploadfile = $usruploaddata2[0]; chomp $usruploadfile;
-            ($up_name, $up_ext) = split(/\./,$usruploadfile);
-            $up_ext =~ tr/A-Z/a-z/;
+        my @usruploaddata2 = grep(/ ^ $in_forum
+    \_ $in_topic
+    \ . /,@usruploaddata);
+	my @downcount      = grep(/
+    $in_forum
+    \_ $in_topic
+    \ . /,@filedowncount);
+        if ($ #usruploaddata2 >= 0) {
+        my $usruploadfile = $usruploaddata2[0]; chomp $usruploadfile;
+            ($up_name, $up_ext) = split(/
+    \ . /,$usruploadfile);
+            $up_ext =~ tr/
+    A -Z / a -z /;
             $addmefile =1;
         }
     }
-    if (!(-e "${imagesdir}$usrdir/$in_forum/$up_name.$up_ext")) {
-        unlink ("${lbdir}FileCount/$in_forum/$in_forum\_$in_topic.pl");
-        print "页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！<BR><BR><meta http-equiv='refresh' content='0;'>";
+    if (!(-e "${imagesdir}$usrdir/
+    $in_forum / $up_name . $up_ext
+    ")) {
+        unlink ("
+    ${lbdir}
+    FileCount / $in_forum / $in_forum
+    \_ $in_topic . pl ");
+        print "
+    页面已经更新，程序自动刷新，如果没有自动刷新，请手工刷新一次！<BR>
+    <BR> < meta http -equiv = 'refresh'
+    content = '0;' > ";
         exit;
     }
     if ($addmefile == 1) {
-   	@fileinfo = stat("${imagesdir}$usrdir/$in_forum/$up_name.$up_ext");
-	$filetype = "unknow";
-	$filetype = $up_ext if (-e "${imagesdir}icon/$up_ext.gif");
-	if (($up_ext eq "gif")||($up_ext eq "jpg")||($up_ext eq "jpe")||($up_ext eq "jpeg")||($up_ext eq "tif")||($up_ext eq "png")||($up_ext eq "bmp")) {
+   	@fileinfo = stat("
+    ${imagesdir}
+    $usrdir / $in_forum / $up_name . $up_ext
+    ");
+	$filetype = "
+    unknow ";
+	$filetype = $up_ext if (-e "
+    ${imagesdir}
+    icon / $up_ext . gif ");
+	if (($up_ext eq "
+    gif ")||($up_ext eq "
+    jpg ")||($up_ext eq "
+    jpe ")||($up_ext eq "
+    jpeg ")||($up_ext eq "
+    tif ")||($up_ext eq "
+    png ")||($up_ext eq "
+    bmp ")) {
             if (($nodispphoto eq 'yes')||($arrawpostpic eq 'off')) {
 	    	$addme = qq(<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16></a> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank>点击显示此主题相关图片</a><br>);
 	    } else{
-	    	$addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext border=0 alt=按此在新窗口浏览图片 onload="javascript:if(this.width>document.body.clientWidth-333)this.width=document.body.clientWidth-333" onmousewheel="return bbimg(this)"></a><br>);
+	    	$addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 此主题相关图片如下：<br><a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext border=0 alt=按此在新窗口浏览图片 onload="
+    javascript:
+    if (this . width > document . body . clientWidth -333)
+    this . width = document . body . clientWidth -333
+    " onmousewheel="
+    return bbimg(this)
+    "></a><br>);
 	    }
-	    $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,$editpostnumber,'$up_ext')><img id=followImg$editpostnumber src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="cat.gif" valign=absmiddle> 按此查看图片详细信息<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$editpostnumber style=DISPLAY:none><tr><td id=followTd$editpostnumber><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,$editpostnumber,'$up_ext')>正在读取此图片的详细信息，请稍候 ...</DIV></td></tr></table></span><BR><BR>);
+	    $addme .= qq(<img src=$imagesurl/images/none.gif whidth=0 height=5><BR><span style=CURSOR:hand onclick=loadThreadFollow($forumid,$topicid,$editpostnumber,'$up_ext')><img id=followImg$editpostnumber src=$imagesurl/images/cat.gif width=9 loaded=no nofollow="
+    cat . gif " valign=absmiddle> 按此查看图片详细信息<table cellpadding=0 class=ts1 cellspacing=0 width=50% id=follow$editpostnumber style=DISPLAY:none><tr><td id=followTd$editpostnumber><DIV class=ts onclick=loadThreadFollow($forumid,$topicid,$editpostnumber,'$up_ext')>正在读取此图片的详细信息，请稍候 ...</DIV></td></tr></table></span><BR><BR>);
 	}
-	elsif ($up_ext eq "swf") {
-	    if ($arrawpostflash eq "on") {
-	        $addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="http:\/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl/images/fav.gif width=16> <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank>全屏观看</a> (按右键下载)<br><br>)
+	elsif ($up_ext eq "
+    swf ") {
+	    if ($arrawpostflash eq "
+    on ") {
+	        $addme = qq(<img src=$imagesurl/icon/$filetype.gif border=0 width=16> 该主题有一个 $up_ext 格式 Flash 动画 (共 $fileinfo[7] 字节)<br><br><PARAM NAME=PLAY VALUE=TRUE><PARAM NAME=LOOP VALUE=TRUE><PARAM NAME=QUALITY VALUE=HIGH><embed src=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext quality=high width=$defaultflashwidth height=$defaultflashheight pluginspage="
+    http:
+    \/\/www.macromedia.com\/shockwave\/download\/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application\/x-shockwave-flash"><\/embed><br>&nbsp;<img src=$imagesurl/imag
+    es / fav . gif width = 16 > <a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank>
+    全屏观看 < /a> (按右键下载)<br><br>)
 	    } else {
-	        $addme=qq(<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 height=16>点击欣赏 Flash 动画</a>);
+	        $addme=qq(<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon / $filetype . gif border = 0
+    width = 16
+    height = 16 > 点击欣赏 Flash 动画 < /a>);
 	    }
 	}
 	elsif (($up_ext eq "torrent")&&(($rn eq 0)||($rn eq ""))) {
 	    require "dobtinfo.pl";
 	}
 	else {
-        	$addme = qq(<font color=$fonthighlight>相关附件</font>：<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank><img src=$imagesurl/icon/$filetype.gif border=0 width=16 alt="该主题有一个“$filetype”类型附件，点击下载"></a> (共 $fileinfo[7] 字节)<br><br>);
-	}
-    } else { $addme = ""; }
+        	$addme = qq(<font color=$fonthighlight>相关附件</
+    font >：<a href=attachment.cgi?forum=$in_forum&topic=$in_topic&postno=$editpostnumber&type=.$up_ext target=_blank> < img src = $imagesurl / icon / $filetype . gif border = 0
+    width = 16
+    alt = "该主题有一个“$filetype”类型附件，点击下载" > </a>
+    (共 $fileinfo[7] 字节) < br > <br>);
+}
+} else { $addme = ""; }
   } else { $addme = ""; }
 
   if ($man ne '') {

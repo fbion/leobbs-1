@@ -45,6 +45,17 @@ func main() {
 
 	r.GET("/topic/:id", topic_controller.IndexAction)
 
+	r.GET("/mp/newTopic", topic_controller.NewTopicAction)
+	r.POST("/mp/saveNewTopic", topic_controller.SaveNewTopicAction)
+	r.GET("/mp/editTopic", topic_controller.EditTopicAction)
+	r.POST("/mp/saveEditTopic", topic_controller.SaveEditTopicAction)
+
+	r.GET("/mp/newPost", topic_controller.NewPostAction)
+	r.POST("/mp/saveNewPost", topic_controller.SaveNewPostAction)
+	r.GET("/mp/editPost", topic_controller.EditPostAction)
+	r.POST("/mp/saveEditPost", topic_controller.SaveEditPostAction)
+
+
 	r.GET("/account/login", account_controller.LoginAction)
 	r.POST("/account/doLogin", account_controller.DoLoginAction)
 	r.GET("/account/logout", account_controller.LogoutAction)
