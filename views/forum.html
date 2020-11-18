@@ -136,6 +136,14 @@
     <img src="/assets/images/none.gif" height="5" alt="">
     <script>valigntop()</script>
 
+    <table cellpadding=0 cellspacing=0 width={{ tablewidth }} align=center>
+        <tr><td align=center width=2></td><td>{{ newthreadbutton() }}</td><td align=right colspan=2>{{ modoutput }}&nbsp;</td>
+            <form action=download.cgi name=Download method=POST target=_blank><input type=hidden name=forum><input type=hidden name=topic><input type=hidden name=reply></form>
+            <form action=jinghua.cgi method=post name=JingHua><input type=hidden name=action value=add><input type=hidden name=forum value="{{ in_forum }}"><input type=hidden name=topic></form>
+            <form action=postings.cgi method=post name=Lock><input type=hidden name=action value="lock"><input type=hidden name=forum value="{{ in_forum }}"><input type=hidden name=topic></form>
+            <form action=forums.cgi method=get name=Jumppage><input type=hidden name=forum value="{{ in_forum }}"><input type=hidden name=dshow><input type=hidden name=threadages value={{ inthreadages }}></form>
+        </tr></table>
+        <SCRIPT>valigntop()</SCRIPT>
     <table cellpadding=0 cellspacing=0 width={{ tablewidth }} height=27 bordercolor={{ tablebordercolor }} border=1
            align=center>
         <tr>
