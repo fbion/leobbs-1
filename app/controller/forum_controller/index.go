@@ -13,9 +13,7 @@ import (
 )
 
 
-type ForumIndexUri struct {
-	ID int `uri:"id" binding:"required"`
-}
+
 
 func IndexAction(c *gin.Context) {
 	currentMethod := "IndexAction@forum_controller"
@@ -32,7 +30,7 @@ func IndexAction(c *gin.Context) {
 
 	common.Sugar.Infof(currentMethod + " params: %v", c.Params)
 
-	var forumIndexUri ForumIndexUri
+	var forumIndexUri vo.ForumIndexUri
 	if err:= c.ShouldBindUri(&forumIndexUri); err != nil {
 		common.ShowUMessage(c, &common.Umsg{
 			"论坛不存在",
