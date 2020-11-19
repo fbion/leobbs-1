@@ -52,15 +52,20 @@
 </table>
 
 
-
 <form action="/mp/saveNewTopic" method="post" name="FORM" enctype="multipart/form-data">
     <input type=hidden name=action value=addnew>
     <input type=hidden name=forum value={{ in_forum }}>
     <SCRIPT>valigntop()</SCRIPT>
     <table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
-        <tr><td><table cellpadding=6 cellspacing=1 width=100%>
-                    <tr><td bgcolor={{ titlecolor }} colspan=2 {{ catbackpic }}><span color={{ titlefontcolor }}><b>谁可以发表？</b> {{ startthreads }}</td></tr>
-                    <tr><td bgcolor={{ miscbackone }}><span color={{ fontcolormisc }}><b>主题标题</b></span>　
+        <tr>
+            <td>
+                <table cellpadding=6 cellspacing=1 width=100%>
+                    <tr>
+                        <td bgcolor={{ titlecolor }} colspan=2 {{ catbackpic }}><span color={{ titlefontcolor }}><b>谁可以发表？</b> {{ startthreads }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor={{ miscbackone }}><span color={{ fontcolormisc }}><b>主题标题</b></span>　
                             <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
                                 <OPTION selected value="">选择话题</OPTION>
                                 <OPTION value=[原创]>[原创]</OPTION>
@@ -78,11 +83,11 @@
                             </SELECT>
                         </td>
                         <td bgcolor={{ miscbackone }}>
-                            <input type=text size=60 maxlength=80 name="intopictitle" value="{{ in_topictitle }}">　不得超过 40 个汉字
+                            <input type=text size=60 maxlength=80 name="intopictitle" value="{{ in_topictitle }}">　不得超过
+                            40 个汉字
                         </td>
                     </tr>
                     {{ nowaterpost }}
-
 
 
                     <script language="javascript">function jsupfile(upname) {
@@ -103,7 +108,8 @@
                                 <li>HTML 　标签: <b>{{ htmlstates }}</b>
                                 <li><a href="javascript:openScript('lookemotes.cgi?action=style',300,350)">EMOTE　标签</a>:
                                     <b>{{ emotestates }}</b>
-                                <li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS 标签</a>: <b>{{ idmbcodestates }}</b>
+                                <li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS 标签</a>:
+                                    <b>{{ idmbcodestates }}</b>
                                 <li>贴图标签 　: <b>{{ postpicstates }}</b>
                                 <li>Flash 标签 : <b>{{ postflashstates }}</b>
                                 <li>音乐标签 　: <b>{{ postsoundstates }}</b>
@@ -112,9 +118,12 @@
                                 <li>积分标签 　: <b>{{ jfmarkstates }}</b>
                             <li>保密标签 　: <b>{{ hidejfstates }}</b>{{ emoticonslink }}
                         </font></td>
-                    <td bgcolor={{ miscbackone }}>{{ insidejs }}<textarea cols=80 name=inpost id=inpost rows=12 wrap="soft"
-                                                                onkeydown=ctlent() onselect="storeCaret(this);"
-                                                                onclick="storeCaret(this);" onkeyup="storeCaret(this);">{{ inpost }}</textarea><br>
+                    <td bgcolor={{ miscbackone }}>{{ insidejs }}<textarea cols=80 name=inpost id=inpost rows=12
+                                                                          wrap="soft"
+                                                                          onkeydown=ctlent()
+                                                                          onselect="storeCaret(this);"
+                                                                          onclick="storeCaret(this);"
+                                                                          onkeyup="storeCaret(this);">{{ inpost }}</textarea><br>
                     </td>
                     </tr></tr>
 
@@ -128,10 +137,12 @@
                     </tr>
                     <tr>
                         <td bgcolor={{ miscbacktwo }} colspan=2 align=center>
-                            <input type=Submit value="发 表" name=Submit>　　<input type=button
-                                                                                                             value='预 览'
-                                                                                                             name=Button
-                                                                                                             onclick=gopreview()>　　<input
+                            <input type=Submit value="发 表" name=Submit>　　
+                            <input type=button
+                                   value='预 览'
+                                   name=Button
+                                   onclick=gopreview()>　
+                            　<input
                                     type="reset" name="Clear" value="清 除"></td>
                     </tr>
                 </table>
