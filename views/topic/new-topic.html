@@ -3,9 +3,9 @@
 {% block content %}
 
 
-<table cellpadding=1 cellspacing=0 width={{ tablewidth }} align=center>
+<table cellpadding="1" cellspacing="0" width="{{ tablewidth }}" align="center">
     <tr>
-        <td height=22><span id=LeoBBSgg style=display:none></span></td>
+        <td height="22"><span id="LeoBBSgg" style="display:none"></span></td>
     </tr>
     <tr>
         <td align=center width=1></td>
@@ -52,22 +52,41 @@
 </table>
 
 
-<form action="$thisprog" method=post name="FORM" enctype="multipart/form-data">
-    <input type=hidden name="action" value="addreply">
-    <input type=hidden name="forum" value="$in_forum">
-    <input type=hidden name="topic" value="$in_topic">
+
+<form action="/mp/saveNewTopic" method="post" name="FORM" enctype="multipart/form-data">
+    <input type=hidden name=action value=addnew>
+    <input type=hidden name=forum value={{ in_forum }}>
     <SCRIPT>valigntop()</SCRIPT>
-    <table cellpadding=0 cellspacing=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
-        <tr>
-            <td>
-                <table cellpadding=6 cellspacing=1 width=100%>
-                    <tr>
-                        <td bgcolor=$titlecolor colspan=2 $catbackpic><font color=$titlefontcolor><b>主题标题</b>：
-                                $topictitle</td>
+    <table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
+        <tr><td><table cellpadding=6 cellspacing=1 width=100%>
+                    <tr><td bgcolor={{ titlecolor }} colspan=2 {{ catbackpic }}><span color={{ titlefontcolor }}><b>谁可以发表？</b> {{ startthreads }}</td></tr>
+                    <tr><td bgcolor={{ miscbackone }}><span color={{ fontcolormisc }}><b>主题标题</b></span>　
+                            <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
+                                <OPTION selected value="">选择话题</OPTION>
+                                <OPTION value=[原创]>[原创]</OPTION>
+                                <OPTION value=[转帖]>[转帖]</OPTION>
+                                <OPTION value=[灌水]>[灌水]</OPTION>
+                                <OPTION value=[讨论]>[讨论]</OPTION>
+                                <OPTION value=[求助]>[求助]</OPTION>
+                                <OPTION value=[推荐]>[推荐]</OPTION>
+                                <OPTION value=[公告]>[公告]</OPTION>
+                                <OPTION value=[注意]>[注意]</OPTION>
+                                <OPTION value=[贴图]>[贴图]</OPTION>
+                                <OPTION value=[建议]>[建议]</OPTION>
+                                <OPTION value=[下载]>[下载]</OPTION>
+                                <OPTION value=[分享]>[分享]</OPTION>
+                            </SELECT>
+                        </td>
+                        <td bgcolor={{ miscbackone }}>
+                            <input type=text size=60 maxlength=80 name="intopictitle" value="{{ in_topictitle }}">　不得超过 40 个汉字
+                        </td>
                     </tr>
+                    {{ nowaterpost }}
+
+
 
                     <script language="javascript">function jsupfile(upname) {
-                            upname = '[UploadFile$imgslt=' + upname + ']';
+                            upname = '[UploadFile{{ imgslt }}=' + upname + ']';
                             if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {
                                 var caretPos = document.FORM.inpost.caretPos;
                                 caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;
@@ -77,59 +96,39 @@
                                 document.FORM.inpost.focus();
                             }
                         }</script>
-                    <tr>
-                        <td bgcolor=$miscbackone><b>上传附件或图片</b> (最大容量 <B>$maxupload</B>KB)$uploadreqire</td>
-                        <td bgcolor=$miscbackone>
-                            <iframe id="upframe" name="upframe"
-                                    src="upfile.cgi?action=uppic&forum=$in_forum&topic=$in_topic" width=100% height=40
-                                    marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=NO></iframe>
-                            <br><font color=$fonthighlight>目前附件:(如不需要某个附件，只需删除内容中的相应 [UploadFile$imgslt ...] 标签即可) [<a
-                                        href=upfile.cgi?action=delup&forum=$in_forum target=upframe
-                                        title=删除所有未被发布的附件临时文件 OnClick="return confirm('确定删除所有未被发布的附件临时文件么？');">删除</a>]
-                            </font></font><SPAN id=showupfile name=showupfile></SPAN></td>
-                    </tr>
+
                     </td></tr>
-                    <td bgcolor=$miscbackone valign=top><font color=$fontcolormisc><b>内容</b>　$maxpoststr
+                    <td bgcolor={{ miscbackone }} valign=top><font color={{ fontcolormisc }}><b>内容</b>　{{ maxpoststr }}
                             <p>在此论坛中：
-                                <li>HTML 　标签: <b>$htmlstates</b>
+                                <li>HTML 　标签: <b>{{ htmlstates }}</b>
                                 <li><a href="javascript:openScript('lookemotes.cgi?action=style',300,350)">EMOTE　标签</a>:
-                                    <b>$emotestates</b>
-                                <li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS 标签</a>: <b>$idmbcodestates</b>
-                                <li>贴图标签 　: <b>$postpicstates</b>
-                                <li>Flash 标签 : <b>$postflashstates</b>
-                                <li>音乐标签 　: <b>$postsoundstates</b>
-                                <li>文字大小 　: <b>$postfontsizestates</b>
-                                <li>帖数标签 　: <b>$postjfstates</b>
-                                <li>积分标签 　: <b>$jfmarkstates</b>
-                            <li>保密标签 　: <b>$hidejfstates</b>$emoticonslink
+                                    <b>{{ emotestates }}</b>
+                                <li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS 标签</a>: <b>{{ idmbcodestates }}</b>
+                                <li>贴图标签 　: <b>{{ postpicstates }}</b>
+                                <li>Flash 标签 : <b>{{ postflashstates }}</b>
+                                <li>音乐标签 　: <b>{{ postsoundstates }}</b>
+                                <li>文字大小 　: <b>{{ postfontsizestates }}</b>
+                                <li>帖数标签 　: <b>{{ postjfstates }}</b>
+                                <li>积分标签 　: <b>{{ jfmarkstates }}</b>
+                            <li>保密标签 　: <b>{{ hidejfstates }}</b>{{ emoticonslink }}
                         </font></td>
-                    <td bgcolor=$miscbackone>$insidejs<TEXTAREA cols=80 name=inpost id=inpost rows=12 wrap="soft"
+                    <td bgcolor={{ miscbackone }}>{{ insidejs }}<textarea cols=80 name=inpost id=inpost rows=12 wrap="soft"
                                                                 onkeydown=ctlent() onselect="storeCaret(this);"
-                                                                onclick="storeCaret(this);" onkeyup="storeCaret(this);">$inpost</TEXTAREA><br>
-                        &nbsp; 模式:<input type="radio" name="mode" value="help" onClick="thelp(1)">帮助　<input type="radio"
-                                                                                                            name="mode"
-                                                                                                            value="prompt"
-                                                                                                            CHECKED
-                                                                                                            onClick="thelp(2)">完全　<input
-                                type="radio" name="mode" value="basic" onClick="thelp(0)">基本　　>> <a
-                                href=javascript:HighlightAll('FORM.inpost')>复制到剪贴板</a> | <a
-                                href=javascript:checklength(document.FORM);>查看长度</a> | <span style=cursor:hand
-                                                                                             onclick="document.getElementById('inpost').value += trans()">转换剪贴板超文本</spn>
-                            <SCRIPT>rtf.document.designMode = "On";</SCRIPT> <<
+                                                                onclick="storeCaret(this);" onkeyup="storeCaret(this);">{{ inpost }}</textarea><br>
                     </td>
                     </tr></tr>
 
                     <tr>
-                        <td bgcolor=$miscbacktwo valign=top><font color=$fontcolormisc><b>选项</b>
-                                <p>$helpurl</font></td>
-                        <td bgcolor=$miscbacktwo><font color=$fontcolormisc>$canlbcode
+                        <td bgcolor={{ miscbacktwo }} valign=top><font color={{ fontcolormisc }}><b>选项</b>
+                                <p>{{ helpurl }}</font></td>
+                        <td bgcolor={{ miscbacktwo }}><font color={{ fontcolormisc }}>{{ canlbcode }}
                                 <input type=checkbox name="inshowsignature" value="yes" checked>是否显示您的签名？<br>
-                                $requestnotify$emoticonsbutton$fontpost$weiwangoptionbutton$salepost
+                                {{ requestnotify }}{{ emoticonsbutton }}{{ fontpost }}{{ weiwangoptionbutton }}{{ salepost }}
                             </font><BR></td>
                     </tr>
                     <tr>
-                        <td bgcolor=$miscbacktwo colspan=2 align=center>
-                            <input type=Submit value="发 表" name=Submit onClick="return clckcntr();">　　<input type=button
+                        <td bgcolor={{ miscbacktwo }} colspan=2 align=center>
+                            <input type=Submit value="发 表" name=Submit>　　<input type=button
                                                                                                              value='预 览'
                                                                                                              name=Button
                                                                                                              onclick=gopreview()>　　<input
