@@ -1,5 +1,11 @@
 {% extends "../base-layout.html" %}
 
+{% block meta_resource %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.6.3/dist/index.css" />
+<script src="https://cdn.jsdelivr.net/npm/vditor@3.6.3/dist/index.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 
@@ -61,10 +67,6 @@
             <td>
                 <table cellpadding=6 cellspacing=1 width=100%>
                     <tr>
-                        <td bgcolor={{ titlecolor }} colspan=2 {{ catbackpic }}><span color={{ titlefontcolor }}><b>谁可以发表？</b> {{ startthreads }}
-                        </td>
-                    </tr>
-                    <tr>
                         <td bgcolor={{ miscbackone }}><span color={{ fontcolormisc }}><b>主题标题</b></span>　
                             <select name=font onchange=DoTitle(this.options[this.selectedIndex].value)>
                                 <OPTION selected value="">选择话题</OPTION>
@@ -87,22 +89,7 @@
                             40 个汉字
                         </td>
                     </tr>
-                    {{ nowaterpost }}
-
-
-                    <script language="javascript">function jsupfile(upname) {
-                            upname = '[UploadFile{{ imgslt }}=' + upname + ']';
-                            if (document.FORM.inpost.createTextRange && document.FORM.inpost.caretPos) {
-                                var caretPos = document.FORM.inpost.caretPos;
-                                caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? upname + ' ' : upname;
-                                document.FORM.inpost.focus();
-                            } else {
-                                document.FORM.inpost.value += upname;
-                                document.FORM.inpost.focus();
-                            }
-                        }</script>
-
-                    </td></tr>
+                    <tr>
                     <td bgcolor={{ miscbackone }} valign=top><font color={{ fontcolormisc }}><b>内容</b>　{{ maxpoststr }}
                             <p>在此论坛中：
                                 <li>HTML 　标签: <b>{{ htmlstates }}</b>
@@ -118,14 +105,23 @@
                                 <li>积分标签 　: <b>{{ jfmarkstates }}</b>
                             <li>保密标签 　: <b>{{ hidejfstates }}</b>{{ emoticonslink }}
                         </font></td>
-                    <td bgcolor={{ miscbackone }}>{{ insidejs }}<textarea cols=80 name=inpost id=inpost rows=12
-                                                                          wrap="soft"
-                                                                          onkeydown=ctlent()
-                                                                          onselect="storeCaret(this);"
-                                                                          onclick="storeCaret(this);"
-                                                                          onkeyup="storeCaret(this);">{{ inpost }}</textarea><br>
+                    <td bgcolor={{ miscbackone }}>{{ insidejs }}
+                        <input type="hidden" id="inpost" name="inpost"/>
+
+
+                        <div id="vditor"></div>
+                        <script type="text/javascript">
+                            new Vditor('vditor', {
+                                height: 360,
+                                cache: {enable: false},
+                                value: '可选模式：sv, ir, wysiwyg',
+                                input (md) {
+                                    document.getElementById("inpost").innerText = '用户进行了输入，Markdown 内容为：\n' + md
+                                }
+                            })
+                        </script>
                     </td>
-                    </tr></tr>
+                    </tr>
 
                     <tr>
                         <td bgcolor={{ miscbacktwo }} valign=top><font color={{ fontcolormisc }}><b>选项</b>

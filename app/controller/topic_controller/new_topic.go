@@ -28,16 +28,7 @@ func NewTopicAction(c *gin.Context) {
 
 	common.Sugar.Infof(currentMethod+" params: %v", c.Params)
 
-	var forumIndexUri vo.ForumIndexUri
-	if err := c.ShouldBindUri(&forumIndexUri); err != nil {
-		common.ShowUMessage(c, &common.Umsg{
-			"论坛不存在",
-			"/",
-		})
-		return
-	}
-
-	id := c.Param("id")
+	id := c.Query("id")
 	if id == "" {
 		common.ShowUMessage(c, &common.Umsg{
 			"论坛id不存在",
