@@ -1,6 +1,7 @@
 package topic_controller
 
 import (
+	"gitee.com/leobbs/leobbs/app/form"
 	"gitee.com/leobbs/leobbs/app/orm_model"
 	"gitee.com/leobbs/leobbs/app/service/forum_service"
 	"gitee.com/leobbs/leobbs/app/skins"
@@ -9,6 +10,7 @@ import (
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"strconv"
 )
 
@@ -88,6 +90,17 @@ func SaveNewTopicAction(c *gin.Context) {
 	if is_admin == nil {
 		is_admin = false
 	}
+
+	var newTopicForm form.NewTopicForm
+
+
+	err := c.MustBindWith(&newTopicForm, binding.Form)
+	if err != nil {
+		common.LogError(err)
+		common.ShowUMessage(c, &common.Umsg{Msg: "发布失败", Url: "javascript:history.go(-1);"})
+		return
+	}
+	common.Sugar.Infof(currentMethod + " newTopicForm: %v", newTopicForm)
 
 	//TODO 先创建Topic，然后发帖子
 	var tmpPostList []vo.Post_out_vo
