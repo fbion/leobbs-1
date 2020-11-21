@@ -75,6 +75,7 @@ func DoLoginAction(c *gin.Context) {
 
 	safeSess := sessions.Default(c)
 	safeSess.Set("lu_username", mm.Username)
+	safeSess.Set("lu_uid", mm.ID)
 	// 如果用户名在管理员列表里面，就设置为is_admin的session
 	if string_utils.StringExistsInList(mm.Username, adminUserList) {
 		safeSess.Set("is_admin", true)

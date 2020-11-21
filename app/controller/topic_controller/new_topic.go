@@ -3,6 +3,7 @@ package topic_controller
 import (
 	"gitee.com/leobbs/leobbs/app/form"
 	"gitee.com/leobbs/leobbs/app/orm_model"
+	"gitee.com/leobbs/leobbs/app/service/account_service"
 	"gitee.com/leobbs/leobbs/app/service/forum_service"
 	"gitee.com/leobbs/leobbs/app/skins"
 	"gitee.com/leobbs/leobbs/app/vo"
@@ -80,16 +81,7 @@ func NewTopicAction(c *gin.Context) {
 func SaveNewTopicAction(c *gin.Context) {
 
 	currentMethod := "SaveNewTopicAction@topic_controller"
-	safeSess := sessions.Default(c)
-	luUsername := safeSess.Get("lu_username")
-	common.Sugar.Infof(currentMethod+" luUsername : %v", luUsername)
-	if luUsername == nil {
-		luUsername = ""
-	}
-	is_admin := safeSess.Get("is_admin")
-	if is_admin == nil {
-		is_admin = false
-	}
+	_, luUid, _ := account_service.AuthGetLoginUinfo(c)
 
 	var newTopicForm form.NewTopicForm
 
@@ -103,14 +95,18 @@ func SaveNewTopicAction(c *gin.Context) {
 	common.Sugar.Infof(currentMethod + " newTopicForm: %v", newTopicForm)
 
 	//TODO 先创建Topic，然后发帖子
-	var tmpPostList []vo.Post_out_vo
+	var tmpTopic orm_model.Topic
 
-	var rawPostList []orm_model.Post
+	tmpTopic.Title = newTopicForm.Title
+	tmpTopic.AuthorUid = luUid.(int64)
 
-	result := common.DB.Order("ID ASC").
-		Limit(20).
-		Offset(0).
-		Find(&rawPostList)
+
+	var tmpPost orm_model.Post
+
+	tmpPost.TopicId = tmpTopic.ID
+	tmpPost.Content = newTopicForm.Content
+
+
 
 	if result.Error != nil {
 		common.Sugar.Infof(currentMethod+" err: %v", result.Error)
