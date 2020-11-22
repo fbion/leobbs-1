@@ -12,5 +12,6 @@ type Post struct {
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 	Content string
 	TopicId int64
+	PostUid int64
 	PublishStatus int;
 }

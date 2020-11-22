@@ -1,6 +1,7 @@
 package topic_controller
 
 import (
+	"fmt"
 	"gitee.com/leobbs/leobbs/app/form"
 	"gitee.com/leobbs/leobbs/app/orm_model"
 	"gitee.com/leobbs/leobbs/app/service/account_service"
@@ -101,21 +102,31 @@ func SaveNewTopicAction(c *gin.Context) {
 	tmpTopic.AuthorUid = luUid.(int64)
 
 
+
+	result := common.DB.Create(&tmpTopic)
+	if result.Error != nil {
+		common.LogError(err)
+		common.ShowUMessage(c, &common.Umsg{Msg: "发布失败", Url: "javascript:history.go(-1);"})
+		return
+	}
 	var tmpPost orm_model.Post
 
 	tmpPost.TopicId = tmpTopic.ID
 	tmpPost.Content = newTopicForm.Content
+	tmpPost.PostUid = luUid.(int64)
 
-
-
+	result = common.DB.Create(&tmpPost)
 	if result.Error != nil {
-		common.Sugar.Infof(currentMethod+" err: %v", result.Error)
+
+		common.LogError(err)
+		common.ShowUMessage(c, &common.Umsg{Msg: "发布失败", Url: "javascript:history.go(-1);"})
+		return
 	}
 
-	for _, v := range rawPostList {
-		tmpPostList = append(tmpPostList, vo.Post_out_vo{
-			ID:      v.ID,
-			Content: v.Content,
-		})
-	}
+
+	common.LogError(err)
+	common.ShowUMessage(c, &common.Umsg{
+		Msg: "发布成功",
+		Url: fmt.Sprintf("/topic/%d", tmpTopic.ID),
+	})
 }
