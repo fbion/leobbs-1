@@ -19,9 +19,9 @@ func EditTopicAction(c *gin.Context) {
 		if luUsername == nil {
 			luUsername = ""
 		}
-		is_admin := safeSess.Get("is_admin")
-		if is_admin == nil {
-			is_admin = false
+		isAdmin := safeSess.Get("isAdmin")
+		if isAdmin == nil {
+			isAdmin = false
 		}
 
 		var tmpPostList []vo.Post_out_vo
@@ -48,7 +48,7 @@ func EditTopicAction(c *gin.Context) {
 			"skin":        "leobbs",
 			"hello":       "world",
 			"lu_username": luUsername,
-			"is_admin": is_admin,
+			"isAdmin": isAdmin,
 			"postList": tmpPostList,
 		}
 
@@ -68,9 +68,9 @@ func SaveEditTopicAction(c *gin.Context) {
 	if luUsername == nil {
 		luUsername = ""
 	}
-	is_admin := safeSess.Get("is_admin")
-	if is_admin == nil {
-		is_admin = false
+	isAdmin := safeSess.Get("isAdmin")
+	if isAdmin == nil {
+		isAdmin = false
 	}
 
 

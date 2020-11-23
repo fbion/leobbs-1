@@ -18,7 +18,7 @@ import (
 func NewTopicAction(c *gin.Context) {
 
 	currentMethod := "NewTopicAction@topic_controller"
-	luUsername, luUid, is_admin := account_service.AuthGetLoginUinfo(c)
+	luUsername, luUid, isAdmin := account_service.AuthGetLoginUinfo(c)
 
 	common.Sugar.Infof(currentMethod+" params: %v", c.Params)
 
@@ -60,7 +60,7 @@ func NewTopicAction(c *gin.Context) {
 		"hello":       "world",
 		"lu_username": luUsername,
 		"lu_uid": luUid,
-		"is_admin":    is_admin,
+		"isAdmin":    isAdmin,
 		"forum":       tmpForumOut,
 	}
 

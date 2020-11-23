@@ -9,7 +9,7 @@ import (
 func LogoutAction(c *gin.Context) {
 	safeSess := sessions.Default(c)
 	safeSess.Delete("lu_username")
-	safeSess.Delete("lu_is_admin")
+	safeSess.Delete("lu_isAdmin")
 	_ = safeSess.Save()
 	common.ShowUMessage(c, &common.Umsg{Msg: "退出成功", Url: "/"})
 }

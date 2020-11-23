@@ -11,7 +11,7 @@ import (
 )
 
 func IndexAction(c *gin.Context) {
-	luUsername, luUid, is_admin := account_service.AuthGetLoginUinfo(c)
+	luUsername, luUid, isAdmin := account_service.AuthGetLoginUinfo(c)
 
 	var forumOutList []vo.Forum_out_vo
 	forumList , err := forum_service.GetForumList()
@@ -36,7 +36,7 @@ func IndexAction(c *gin.Context) {
 		"hello":       "world",
 		"lu_username": luUsername,
 		"lu_uid": luUid,
-		"is_admin": is_admin,
+		"isAdmin": isAdmin,
 		"forumsList": forumOutList,
 	}
 
