@@ -16,4 +16,5 @@ type Topic struct {
 	PublishStatus int;
 	//TopicId 为0表示主贴，否则就是回复
 	TopicId int64;
+	ForumId int64;
 }

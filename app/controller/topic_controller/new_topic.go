@@ -10,7 +10,6 @@ import (
 	"gitee.com/leobbs/leobbs/app/vo"
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
-	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"strconv"
@@ -19,16 +18,7 @@ import (
 func NewTopicAction(c *gin.Context) {
 
 	currentMethod := "NewTopicAction@topic_controller"
-	safeSess := sessions.Default(c)
-	luUsername := safeSess.Get("lu_username")
-	common.Sugar.Infof(currentMethod+" luUsername : %v", luUsername)
-	if luUsername == nil {
-		luUsername = ""
-	}
-	is_admin := safeSess.Get("is_admin")
-	if is_admin == nil {
-		is_admin = false
-	}
+	luUsername, luUid, is_admin := account_service.AuthGetLoginUinfo(c)
 
 	common.Sugar.Infof(currentMethod+" params: %v", c.Params)
 
@@ -69,6 +59,7 @@ func NewTopicAction(c *gin.Context) {
 		"skin":        "leobbs",
 		"hello":       "world",
 		"lu_username": luUsername,
+		"lu_uid": luUid,
 		"is_admin":    is_admin,
 		"forum":       tmpForumOut,
 	}
@@ -99,6 +90,7 @@ func SaveNewTopicAction(c *gin.Context) {
 	var tmpTopic orm_model.Topic
 
 	tmpTopic.Title = newTopicForm.Title
+	tmpTopic.ForumId = newTopicForm.Fid
 	tmpTopic.AuthorUid = luUid.(int64)
 
 
