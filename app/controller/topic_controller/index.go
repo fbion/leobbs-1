@@ -16,11 +16,30 @@ func IndexAction(c *gin.Context) {
 
 	luUsername, luUid, isAdmin := account_service.AuthGetLoginUinfo(c)
 
+	var topicIndexUri vo.TopicIndexUri
+	if err := c.ShouldBindUri(&topicIndexUri); err != nil {
+		common.ShowUMessage(c, &common.Umsg{
+			"贴子不存在",
+			"/",
+		})
+		return
+	}
+
+	id := c.Param("id")
+	if id == "" {
+		common.ShowUMessage(c, &common.Umsg{
+			"贴子不存在",
+			"/",
+		})
+		return
+	}
+
 	var tmpPostList []vo.Post_out_vo
 
 	var rawPostList []orm_model.Post
 
 	result := common.DB.Order("ID ASC").
+		Where("topic_id = ? ", id).
 		Limit(20).
 		Offset(0).
 		Find(&rawPostList)
