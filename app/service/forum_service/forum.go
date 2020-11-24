@@ -14,10 +14,13 @@ func GetForumList() (forumList []*orm_model.Forum, err error) {
 	}
 }
 
-func GetForum(id int64) (forum *orm_model.Forum, err error) {
-	result := common.DB.Where("id = ?", id).First(&forum)
+func GetForum(id int64) (*orm_model.Forum, error) {
+	var tmpForum orm_model.Forum
+	common.Sugar.Infof("forum query with id: %d", id)
+	result := common.DB.First(&tmpForum, id)
+	common.Sugar.Infof("GetForum: %v", tmpForum)
 	if result.Error == nil {
-		return forum, nil
+		return &tmpForum, nil
 	} else {
 		return nil, result.Error
 	}

@@ -22,7 +22,7 @@ func NewTopicAction(c *gin.Context) {
 
 	common.Sugar.Infof(currentMethod+" params: %v", c.Params)
 
-	id := c.Query("id")
+	id := c.Query("fid")
 	if id == "" {
 		common.ShowUMessage(c, &common.Umsg{
 			"论坛id不存在",
@@ -42,6 +42,11 @@ func NewTopicAction(c *gin.Context) {
 	forum, err := forum_service.GetForum(idVal)
 	if err != nil {
 		common.Sugar.Error(err)
+		common.ShowUMessage(c, &common.Umsg{
+			"论坛不存在",
+			"/",
+		})
+		return
 	}
 
 	var tmpForumOut vo.Forum_out_vo
