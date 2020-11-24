@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td align=center width=1></td>
-        <td width=435 valign=bottom>{{ newthreadbutton }}{{ newreplybutton }}{{ newpollbutton }}{{ newpaybutton }}</td>
+        <td width=435 valign=bottom>{{ newthreadbutton(forum.ID) }}{{ newreplybutton }}{{ newpollbutton }}{{ newpaybutton }}</td>
         <td align=right valign=bottom width=* nowarp><font color={{ forumfontcolor }}>{{ threadviewstemp }}　 <a
                         href=gettopicno.cgi?forum={{ in_forum }}&topic={{ topicid }}&show={{ inshow }}&act=pre><img
                             src={{ imagesurl }}/images/prethread.gif border=0 alt=浏览上一篇主题 width=52 height=12></a>&nbsp;　<a
@@ -60,7 +60,7 @@
 
 <form action="/mp/saveNewTopic" method="post" name="FORM" enctype="multipart/form-data">
     <input type=hidden name=action value=addnew>
-    <input type=hidden name=forum value={{ in_forum }}>
+    <input type=hidden name=fid value={{ forum.ID }}>
     <SCRIPT>valigntop()</SCRIPT>
     <table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
         <tr>
@@ -106,7 +106,7 @@
                             <li>保密标签 　: <b>{{ hidejfstates }}</b>{{ emoticonslink }}
                         </font></td>
                     <td bgcolor={{ miscbackone }}>{{ insidejs }}
-                        <input type="hidden" id="inpost" name="inpost"/>
+                        <input type="hidden" id="inpost" name="inpost" value=""/>
 
 
                         <div id="vditor"></div>
@@ -116,7 +116,8 @@
                                 cache: {enable: false},
                                 value: '可选模式：sv, ir, wysiwyg',
                                 input (md) {
-                                    document.getElementById("inpost").innerText = '用户进行了输入，Markdown 内容为：\n' + md
+                                    document.getElementById("inpost").value = md;
+                                    console.log(md);
                                 }
                             })
                         </script>
