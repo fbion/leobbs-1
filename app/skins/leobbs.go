@@ -3,6 +3,7 @@ package skins
 import (
 	"gitee.com/leobbs/leobbs/pkg/version"
 )
+
 func GetLeobbsSkin() map[string]string{
 	templateImagePath := "/assets/images/leobbs"
 	return map[string]string{
