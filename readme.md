@@ -4,6 +4,12 @@
 
 目前正在移植代码中，敬请期待。
 
+## 交流社区
+
+社区也是demo地址，可访问：
+
+[https://leobbs.org](https://leobbs.org)
+
 ## 文档地址
 
 [https://leobbs.netroby.com](https://leobbs.netroby.com/)
