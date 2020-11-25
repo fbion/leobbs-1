@@ -1,4 +1,4 @@
 package version
 
-var BuildNum string
 var BuildTag string
+var BuildNum string
