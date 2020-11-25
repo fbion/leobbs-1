@@ -1,8 +1,12 @@
 package skins
 
+import (
+	"gitee.com/leobbs/leobbs/pkg/version"
+)
 func GetLeobbsSkin() map[string]string{
 	templateImagePath := "/assets/images/leobbs"
 	return map[string]string{
+		"BuildNum": version.BuildNum,
 		"adminglow" :  "#9898BA",
 		"adminnamecolor" :  "#990000",
 		"amoglow" :  "pink",
