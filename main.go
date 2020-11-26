@@ -3,7 +3,8 @@ package main
 import (
 	"gitee.com/leobbs/leobbs/app/controller"
 	"gitee.com/leobbs/leobbs/app/controller/account_controller"
-	"gitee.com/leobbs/leobbs/app/controller/admin_controller"
+	"gitee.com/leobbs/leobbs/app/controller/admin/admin_controller"
+	"gitee.com/leobbs/leobbs/app/controller/admin/member_admin_controller"
 	"gitee.com/leobbs/leobbs/app/controller/forum_controller"
 	"gitee.com/leobbs/leobbs/app/controller/topic_controller"
 	"gitee.com/leobbs/leobbs/pkg/common"
@@ -62,10 +63,10 @@ func main() {
 	r.GET("/account/register", account_controller.RegisterAction)
 	r.POST("/account/finishReg", account_controller.FinishRegAction)
 
-
 	admin := r.Group("/admin")
 	{
 		admin.GET("/", admin_controller.Index)
+		admin.GET("/member", member_admin_controller.IndexAction)
 		admin.GET("/login", admin_controller.LoginAction)
 	}
 	log.Info().Msg("Server listen on :8083")
