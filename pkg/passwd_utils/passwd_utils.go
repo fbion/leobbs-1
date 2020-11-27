@@ -2,7 +2,6 @@ package passwd_utils
 
 import (
 	"encoding/hex"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/blake2b"
 )
@@ -11,7 +10,7 @@ func HashPassword(password string) (hashStr string, passwdStr string,  err error
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	hashStr = string(bytes)
 
-	h := blake2b.Sum512([]byte(password + hashStr + common.Config.Key_of_encrypt))
+	h := blake2b.Sum512([]byte(password + hashStr))
 	passwdStr = hex.EncodeToString(h[:])
 	return hashStr, passwdStr, nil
 
@@ -22,7 +21,7 @@ func HashPassword(password string) (hashStr string, passwdStr string,  err error
 // hash 是数据库存储的密码hash
 func CheckPasswordHash(passwdStr, password,  hash string) (bool, error) {
 
-	h := blake2b.Sum512([]byte(password + hash + common.Config.Key_of_encrypt))
+	h := blake2b.Sum512([]byte(password + hash))
 
 	computedPasswdStr := hex.EncodeToString(h[:])
 
