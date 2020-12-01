@@ -182,6 +182,12 @@ type AppConfig struct {
 		Aws_bucket            string
 		Cdn_url               string
 	}
+	Email struct{
+		Smtp_host string
+		Smtp_port string
+		Username string
+		Password string
+	}
 }
 
 func GetConfig() *AppConfig {
