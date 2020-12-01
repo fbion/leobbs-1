@@ -191,6 +191,7 @@ type AppConfig struct {
 }
 
 func GetConfig() *AppConfig {
+	_cm := "GetConfig@pkg/common/base"
 	f, err := os.Open("./vol/config.toml")
 	if err != nil {
 		panic(err)
@@ -202,7 +203,7 @@ func GetConfig() *AppConfig {
 	}
 	var config AppConfig
 	if err := toml.Unmarshal(buf, &config); err != nil {
-		panic(err)
+		Sugar.Infof(_cm + " error: %v", err)
 	}
 	return &config
 }
