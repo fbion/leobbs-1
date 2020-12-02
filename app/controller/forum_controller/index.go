@@ -67,11 +67,31 @@ func IndexAction(c *gin.Context) {
 
 	var tmpTopicList []vo.Topic_out_vo
 
+
+
+
+
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
+
+	if err != nil {
+		common.Sugar.Error(err)
+	}
+	page -= 1
+	if page < 0 {
+		page = 0
+	}
+
+	prev_page := page
+	if prev_page < 1 {
+		prev_page = 1
+	}
+	next_page := page + 2
+
 	var rawTopicList []orm_model.Topic
 
 	result := common.DB.Order("ID desc").
 		Limit(20).
-		Offset(0).
+		Offset(page * 20).
 		Find(&rawTopicList)
 
 	if result.Error != nil {
@@ -94,6 +114,8 @@ func IndexAction(c *gin.Context) {
 		"lu_uid":      luUid,
 		"isAdmin":     isAdmin,
 		"forum":       tmpForumOut,
+		"next_page": next_page,
+		"prev_page": prev_page,
 		"topicList":   tmpTopicList,
 	}
 
