@@ -1,0 +1,19 @@
+{% extends "../..//base-layout.html" %}
+
+{% block content %}
+
+<table cellspacing="0" cellpadding="0" width="{{ tablewidth }}" height="35" align="center">
+    <tr>
+        <td>用户名</td>
+        <td>邮箱</td>
+        <td>注册时间</td>
+    </tr>
+    {% for mm in memberList %}
+    <tr>
+        <td>{{ mm.Username }}</td>
+        <td>{{ mm.Email }}</td>
+        <td>{{ mm.CreatedAt}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

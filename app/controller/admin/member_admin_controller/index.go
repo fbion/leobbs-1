@@ -3,9 +3,10 @@ package member_admin_controller
 import (
 	"gitee.com/leobbs/leobbs/app/orm_model"
 	"gitee.com/leobbs/leobbs/app/service/account_service"
+	"gitee.com/leobbs/leobbs/app/skins"
 	"gitee.com/leobbs/leobbs/pkg/common"
+	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func IndexAction(c *gin.Context) {
@@ -26,6 +27,21 @@ func IndexAction(c *gin.Context) {
 	if result.Error != nil {
 		common.Sugar.Error(currentMethod + " err: %v", result.Error)
 	}
-	c.JSON(http.StatusOK, members)
+
+
+	pongoContext := pongo2.Context{
+		"imagesurl":   "/assets",
+		"skin":        "leobbs",
+		"hello":       "world",
+		"lu_username": luUsername,
+		"lu_uid": luUid,
+		"isAdmin": isAdmin,
+		"memberList": members,
+	}
+
+	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
+		pongoContext[tmpKey] = tmpV
+	}
+	c.HTML(200, "admin/member/index.html", pongoContext)
 	return
 }
