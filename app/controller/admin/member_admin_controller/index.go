@@ -22,21 +22,27 @@ func IndexAction(c *gin.Context) {
 		})
 		return;
 	}
-	var members []orm_model.Member
-	result := common.DB.Find(&members)
-	if result.Error != nil {
-		common.Sugar.Error(currentMethod + " err: %v", result.Error)
-	}
 
+	page, prevPage, nextPage := common.PageHelper(c)
+
+	var members []orm_model.Member
+	result := common.DB.Limit(20).
+		Offset(page * 20).
+		Find(&members)
+	if result.Error != nil {
+		common.Sugar.Error(currentMethod+" err: %v", result.Error)
+	}
 
 	pongoContext := pongo2.Context{
 		"imagesurl":   "/assets",
 		"skin":        "leobbs",
 		"hello":       "world",
 		"lu_username": luUsername,
-		"lu_uid": luUid,
-		"isAdmin": isAdmin,
-		"memberList": members,
+		"lu_uid":      luUid,
+		"isAdmin":     isAdmin,
+		"memberList":  members,
+		"prevPage":   prevPage,
+		"nextPage":   nextPage,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
@@ -45,3 +51,4 @@ func IndexAction(c *gin.Context) {
 	c.HTML(200, "admin/member/index.html", pongoContext)
 	return
 }
+

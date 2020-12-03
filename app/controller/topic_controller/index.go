@@ -71,6 +71,10 @@ func IndexAction(c *gin.Context) {
 	tmpForum.ForumName = tmpForumRaw.Name
 	tmpForum.ForumDesc = tmpForumRaw.Description
 
+
+
+	page, prevPage, nextPage := common.PageHelper(c)
+
 	var tmpPostList []vo.Post_out_vo
 
 	var rawPostList []orm_model.Post
@@ -78,7 +82,7 @@ func IndexAction(c *gin.Context) {
 	result = common.DB.Order("ID ASC").
 		Where("topic_id = ? ", id).
 		Limit(20).
-		Offset(0).
+		Offset(page * 20).
 		Find(&rawPostList)
 
 	if result.Error != nil {
@@ -106,6 +110,8 @@ func IndexAction(c *gin.Context) {
 		"topic": tmpTopic,
 		"forum": tmpForum,
 		"postList": tmpPostList,
+		"prevPage": prevPage,
+		"nextPage": nextPage,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
