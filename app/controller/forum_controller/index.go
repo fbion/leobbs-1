@@ -71,21 +71,9 @@ func IndexAction(c *gin.Context) {
 
 
 
-	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
 
-	if err != nil {
-		common.Sugar.Error(err)
-	}
-	page -= 1
-	if page < 0 {
-		page = 0
-	}
+	page, prevPage, nextPage := common.PageHelper(c)
 
-	prev_page := page
-	if prev_page < 1 {
-		prev_page = 1
-	}
-	next_page := page + 2
 
 	var rawTopicList []orm_model.Topic
 
@@ -114,8 +102,8 @@ func IndexAction(c *gin.Context) {
 		"lu_uid":      luUid,
 		"isAdmin":     isAdmin,
 		"forum":       tmpForumOut,
-		"next_page": next_page,
-		"prev_page": prev_page,
+		"nextPage":   nextPage,
+		"prevPage":   prevPage,
 		"topicList":   tmpTopicList,
 	}
 
