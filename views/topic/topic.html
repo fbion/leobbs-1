@@ -40,6 +40,8 @@
                                     src={{ imagesurl }}/images/showall.gif border=0 width=14
                                     alt=不分页显示此帖></a>&nbsp;{{ reporticon }}{{ favicon }}{{ printpageicon }}{{ pagpageicon }}{{ bookmarkpage }}{{ sendtofriendicon }}
                         {{ fontsizeselect }}&nbsp;
+
+                        <a href="?page={{ prevPage }}">上一页</a> | <a href="?page={{ nextPage }}">下一页</a>
                     </td>
                 </tr>
             </table>
@@ -161,19 +163,18 @@
 
 {% endfor %}
 
-<table cellspacing=0 cellpadding=0 width={{ tablewidth }} align=center>
+<table cellspacing=0 cellpadding=0 width={{ tablewidth }} align=right>
     <tr>
         <td>&nbsp;<a href=#top><img src={{ imagesurl }}/images/gotop.gif width=15 border=0 align=absmiddle>顶端</a>　<a
                     href=fav.cgi?action=add&forum={{ in_forum }}&topic={{ in_topic }}><img
                         src={{ imagesurl }}/images/addfavorite.gif height=15 border=0 align=absmiddle>加到"个人收藏夹"</a></td>
 
-    </tr>
-</table><p><p>
-<form action="delpost.cgi" method=post name="DReply">
-    <input type=hidden name="forum" value="{{ in_forum }}">
-    <input type=hidden name="topic" value="{{ in_topic }}">
-    <input type=hidden name="action" value="directdel">
-    <input type=hidden name="postno"></form>
+        <td>
 
+            <a href="?page={{ prevPage }}">上一页</a> | <a href="?page={{ nextPage }}">下一页</a>
+        </td>
+
+    </tr>
+</table>
 
 {% endblock %}
