@@ -184,7 +184,10 @@
 
     <table cellpadding=0 cellspacing=2 width={{ tablewidth }} align=center>
         <tr height=4>
-            <td>{{ topicpages }}，<b>转至</b>：<input type=text name="dshow" size=2 value="{{ pn }}"> <input type=button value=Go onClick="Jumptopage(this.form)"><BR> [本版共有主题 <B>{{ threads }}</B> 篇，回复 <b>{{ posts }}</b> 篇]</td>
+            <td>
+
+                <a href="?page={{ prevPage }}">上一页</a> | <a href="?page={{ nextPage }}">下一页</a>
+                {{ topicpages }}，<b>转至</b>：<input type=text name="dshow" size=2 value="{{ pn }}"> <input type=button value=Go onClick="Jumptopage(this.form)"><BR> [本版共有主题 <B>{{ threads }}</B> 篇，回复 <b>{{ posts }}</b> 篇]</td>
 
         <td align=right>
             <table cellpadding=0 cellspacing=2>
