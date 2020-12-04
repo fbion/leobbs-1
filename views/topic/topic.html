@@ -124,9 +124,9 @@
                                height={{ vheight }}{{ membername }}>
                             <tr>
                                 <td width=32 valign=top>{{ posticon }}&nbsp;</td>
-                                <td style="WORD-WRAP:break-word;{{ paraspace }};{{ wordspace }}\pt"
+                                <td style="WORD-WRAP:break-word;{{ paraspace }};{{ wordspace }}pt"
                                     valign=top>{{ topicsthad }}<span
-                                            id=post{{ editpostnumber }} style=color:{{ postfontcolor }};font-size:${postfontsize}px>{{ addme }}{{ post.Content }}</span><BR>
+                                            id=post{{ editpostnumber }} style=color:{{ postfontcolor }};font-size:${postfontsize}px>{{ addme }}{{ post.Content|safe }}</span><BR>
                                 </td>
                             </tr>
                             <tr>

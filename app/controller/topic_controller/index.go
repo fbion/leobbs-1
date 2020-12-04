@@ -8,6 +8,8 @@ import (
 	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
+	"github.com/russross/blackfriday/v2"
+
 )
 
 func IndexAction(c *gin.Context) {
@@ -90,9 +92,10 @@ func IndexAction(c *gin.Context) {
 	}
 
 	for _, v := range rawPostList {
+		unsafeContent := blackfriday.Run([]byte(v.Content))
 		tmpPostList = append(tmpPostList, vo.Post_out_vo{
 			ID: v.ID,
-			Content: v.Content,
+			Content: string(unsafeContent[:]),
 		})
 	}
 
