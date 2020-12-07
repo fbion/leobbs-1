@@ -9,7 +9,7 @@ import (
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
 	"github.com/russross/blackfriday/v2"
-
+	"strings"
 )
 
 func IndexAction(c *gin.Context) {
@@ -92,10 +92,13 @@ func IndexAction(c *gin.Context) {
 	}
 
 	for _, v := range rawPostList {
-		unsafeContent := blackfriday.Run([]byte(v.Content))
+		originContent := strings.Replace(v.Content, "\r\n", "\n", -1)
+		unsafeContent := blackfriday.Run([]byte(originContent))
+		safeContent := string(unsafeContent[:])
+		common.Sugar.Infof("safeContent: %s", safeContent)
 		tmpPostList = append(tmpPostList, vo.Post_out_vo{
-			ID: v.ID,
-			Content: string(unsafeContent[:]),
+			ID:      v.ID,
+			Content: safeContent,
 		})
 	}
 
