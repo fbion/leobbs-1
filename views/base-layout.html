@@ -4,6 +4,10 @@
 {% endmacro %}
 
 
+{% macro new_post_button(forumId, topicId) %}
+<a href="/mp/newPost?fid={{ forumId }}&tid={{ topicId }}"><img src="{{ imagesurl }}/images/{{ skin }}/newreply.gif" border="0" alt="发表回复"></a>　
+{% endmacro %}
+
 
 <html>
 <head>
