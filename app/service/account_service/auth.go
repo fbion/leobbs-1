@@ -6,17 +6,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AuthGetLoginUinfo(c *gin.Context) (lu_username interface{}, lu_uid interface{}, isAdmin interface{}) {
+func AuthGetLoginUinfo(c *gin.Context) (luUsername interface{}, luUid interface{}, isAdmin interface{}) {
 	currentMethod := "AuthGetLoginUinfo@account_service";
 	safeSess := sessions.Default(c)
-	lu_username = safeSess.Get("lu_username")
-	common.Sugar.Infof(currentMethod +" luUsername : %v", lu_username)
-	if lu_username == nil {
-		lu_username = ""
+	luUsername = safeSess.Get("luUsername")
+	common.Sugar.Infof(currentMethod +" luUsername : %v", luUsername)
+	if luUsername == nil {
+		luUsername = ""
 	}
-	lu_uid = safeSess.Get("lu_uid")
-	if lu_uid == nil {
-		lu_uid = 0
+	luUid = safeSess.Get("luUid")
+	if luUid == nil {
+		luUid = 0
 	}
 
 	isAdmin = safeSess.Get("isAdmin")
@@ -27,5 +27,5 @@ func AuthGetLoginUinfo(c *gin.Context) (lu_username interface{}, lu_uid interfac
 	}
 
 
-	return lu_username,lu_uid,isAdmin
+	return luUsername,luUid,isAdmin
 }

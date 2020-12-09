@@ -15,7 +15,7 @@ import (
 
 func LoginAction(c *gin.Context) {
 	safeSess := sessions.Default(c)
-	safeSess.Delete("lu_username")
+	safeSess.Delete("luUsername")
 	safeSess.Delete("lu_isAdmin")
 	_ = safeSess.Save()
 	pongoContext := pongo2.Context{
@@ -74,8 +74,8 @@ func DoLoginAction(c *gin.Context) {
 	adminUserList := common.Config.Admin_user
 
 	safeSess := sessions.Default(c)
-	safeSess.Set("lu_username", mm.Username)
-	safeSess.Set("lu_uid", mm.ID)
+	safeSess.Set("luUsername", mm.Username)
+	safeSess.Set("luUid", mm.ID)
 	// 如果用户名在管理员列表里面，就设置为isAdmin的session
 	if string_utils.StringExistsInList(mm.Username, adminUserList) {
 		safeSess.Set("isAdmin", true)

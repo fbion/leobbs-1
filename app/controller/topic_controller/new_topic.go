@@ -63,8 +63,8 @@ func NewTopicAction(c *gin.Context) {
 		"imagesurl":   "/assets",
 		"skin":        "leobbs",
 		"hello":       "world",
-		"lu_username": luUsername,
-		"lu_uid": luUid,
+		"luUsername": luUsername,
+		"luUid": luUid,
 		"isAdmin":    isAdmin,
 		"forum":       tmpForumOut,
 	}

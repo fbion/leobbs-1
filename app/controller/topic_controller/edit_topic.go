@@ -14,7 +14,7 @@ func EditTopicAction(c *gin.Context) {
 
 		currentMethod := "EditTopicAction@topic_controller"
 		safeSess := sessions.Default(c)
-		luUsername := safeSess.Get("lu_username")
+		luUsername := safeSess.Get("luUsername")
 		common.Sugar.Infof(currentMethod +  " luUsername : %v", luUsername)
 		if luUsername == nil {
 			luUsername = ""
@@ -47,7 +47,7 @@ func EditTopicAction(c *gin.Context) {
 			"imagesurl":   "/assets",
 			"skin":        "leobbs",
 			"hello":       "world",
-			"lu_username": luUsername,
+			"luUsername": luUsername,
 			"isAdmin": isAdmin,
 			"postList": tmpPostList,
 		}
@@ -63,7 +63,7 @@ func SaveEditTopicAction(c *gin.Context) {
 
 	currentMethod := "SaveEditTopicAction@topic_controller"
 	safeSess := sessions.Default(c)
-	luUsername := safeSess.Get("lu_username")
+	luUsername := safeSess.Get("luUsername")
 	common.Sugar.Infof(currentMethod +  " luUsername : %v", luUsername)
 	if luUsername == nil {
 		luUsername = ""

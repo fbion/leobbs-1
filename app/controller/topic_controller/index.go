@@ -53,6 +53,8 @@ func IndexAction(c *gin.Context) {
 	tmpTopic.ID = tmpTopicRaw.ID
 	tmpTopic.Title = tmpTopicRaw.Title
 	tmpTopic.ForumId = tmpTopicRaw.ForumId
+	tmpTopic.AuthorUid = tmpTopicRaw.AuthorUid
+
 
 
 	var tmpForum vo.Forum_out_vo
@@ -110,8 +112,8 @@ func IndexAction(c *gin.Context) {
 		"imagesurl":   "/assets",
 		"skin":        "leobbs",
 		"hello":       "world",
-		"lu_username": luUsername,
-		"lu_uid": luUid,
+		"luUsername": luUsername,
+		"luUid": luUid,
 		"isAdmin": isAdmin,
 		"topic": tmpTopic,
 		"forum": tmpForum,

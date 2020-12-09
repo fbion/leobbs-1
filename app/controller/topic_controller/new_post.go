@@ -18,7 +18,7 @@ func NewPostAction(c *gin.Context) {
 
 	currentMethod := "NewPostAction@topic_controller"
 	safeSess := sessions.Default(c)
-	luUsername := safeSess.Get("lu_username")
+	luUsername := safeSess.Get("luUsername")
 	common.Sugar.Infof(currentMethod+" luUsername : %v", luUsername)
 	if luUsername == nil {
 		luUsername = ""
@@ -54,7 +54,7 @@ func NewPostAction(c *gin.Context) {
 		"imagesurl":   "/assets",
 		"skin":        "leobbs",
 		"hello":       "world",
-		"lu_username": luUsername,
+		"luUsername": luUsername,
 		"isAdmin":     isAdmin,
 		"topic":       tmpTopic,
 	}

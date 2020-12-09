@@ -38,7 +38,11 @@
         <td bgcolor={{ titlecolor }} colspan=2 {{ catbackpic }}>
             <table cellpadding=0 cellspacing=1 width=100%>
                 <tr>
-                    <td><span color={{ titlefontcolor }}>&nbsp;<b>* 贴子主题</B>： {{ topic.Title }}</span></td>
+                    <td><span color={{ titlefontcolor }}>&nbsp;<b>* 贴子主题</B>： {{ topic.Title }}
+                    {% if topic.AuthorUid == luUid %}
+                        <a href="/mp/editTopic?tid={{ topic.ID }}">编辑主题</a>
+                        {% endif %}
+                    </span></td>
                     <td align=right><a
                                 href={{ thisprog }}?forum={{ in_forum }}&topic={{ in_topic }}&start={{ instart }}&max=yes&show={{ inshow }}><img
                                     src={{ imagesurl }}/images/showall.gif border=0 width=14
