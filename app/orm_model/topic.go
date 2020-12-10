@@ -17,4 +17,6 @@ type Topic struct {
 	//TopicId 为0表示主贴，否则就是回复
 	TopicId int64;
 	ForumId int64;
+	//PostId 是对应的帖子的帖子id，主题也是一个帖子
+	PostId int64;
 }

@@ -120,6 +120,9 @@ func SaveNewTopicAction(c *gin.Context) {
 		return
 	}
 
+	tmpTopic.PostId = tmpPost.ID
+	//记录PostId到Topic表
+	common.DB.Save(&tmpTopic)
 
 	common.LogError(err)
 	common.ShowUMessage(c, &common.Umsg{
