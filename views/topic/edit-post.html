@@ -1,0 +1,129 @@
+{% extends "../base-layout.html" %}
+
+{% block meta_resource %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.6.3/dist/index.css" />
+<script src="https://cdn.jsdelivr.net/npm/vditor@3.6.3/dist/index.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+<table cellpadding="1" cellspacing="0" width="{{ tablewidth }}" align="center">
+    <tr>
+        <td height="22"><span id="LeoBBSgg" style="display:none"></span></td>
+    </tr>
+    <tr>
+        <td align=center width=1></td>
+        <td width=435 valign=bottom>{{ newthreadbutton(forum.ID) }}{{ newreplybutton }}{{ newpollbutton }}{{ newpaybutton }}</td>
+        <td align=right valign=bottom width=* nowarp><font color={{ forumfontcolor }}>{{ threadviewstemp }}　 <a
+                        href=gettopicno.cgi?forum={{ in_forum }}&topic={{ topicid }}&show={{ inshow }}&act=pre><img
+                            src={{ imagesurl }}/images/prethread.gif border=0 alt=浏览上一篇主题 width=52 height=12></a>&nbsp;　<a
+                        href="javascript:this.location.reload()"><img src={{ imagesurl }}/images/refresh.gif border=0
+                                                                      alt=刷新本主题 width=40 height=12></a> {{ viewstyle }}　<a
+                        href=gettopicno.cgi?forum={{ in_forum }}&topic={{ topicid }}&show={{ inshow }}&act=next><img
+                            src={{ imagesurl }}/images/nextthread.gif border=0 alt=浏览下一篇主题 width=52 height=12></a></td>
+        <td align=center width=2></td>
+    </tr>
+</table>
+<SCRIPT>valigntop()</SCRIPT>
+<table cellspacing=0 cellpadding=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
+    <tr>
+        <td height=1></td>
+    </tr>
+</table>
+<table cellpadding=0 cellspacing=0 width={{ tablewidth }} align=center>
+    <tr>
+        <td bgcolor={{ tablebordercolor }} width=1 height=24><img src={{ imagesurl }}/images/none.gif width=1></td>
+        <td bgcolor={{ titlecolor }} colspan=2 {{ catbackpic }}>
+            <table cellpadding=0 cellspacing=1 width=100%>
+                <tr>
+                    <td><font color={{ titlefontcolor }}>&nbsp;<b>* 贴子主题</B>： {{ topictitletemp }}</td>
+                    <td align=right><a
+                                href={{ thisprog }}?forum={{ in_forum }}&topic={{ in_topic }}&start={{ instart }}&max=yes&show={{ inshow }}><img
+                                    src={{ imagesurl }}/images/showall.gif border=0 width=14
+                                    alt=不分页显示此帖></a>&nbsp;{{ reporticon }}{{ favicon }}{{ printpageicon }}{{ pagpageicon }}{{ bookmarkpage }}{{ sendtofriendicon }}
+                        {{ fontsizeselect }}&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td bgcolor={{ tablebordercolor }} width=1 height=24></td>
+    </tr>
+</table>
+<table cellspacing=0 cellpadding=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
+    <tr>
+        <td height=1></td>
+    </tr>
+</table>
+
+
+<form action="/mp/saveNewPost" method="post" name="FORM" enctype="multipart/form-data">
+    <input type=hidden name=action value=addnew>
+    <input type=hidden name=fid value={{ topic.ForumId }}>
+    <input type=hidden name=tid value={{ topic.ID }}>
+    <SCRIPT>valigntop()</SCRIPT>
+    <table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
+        <tr>
+            <td>
+                <table cellpadding=6 cellspacing=1 width=100%>
+                    <tr>
+                    <td bgcolor={{ miscbackone }} valign=top><font color={{ fontcolormisc }}><b>内容</b>　{{ maxpoststr }}
+                            <p>在此论坛中：
+                                <li>HTML 　标签: <b>{{ htmlstates }}</b>
+                                <li><a href="javascript:openScript('lookemotes.cgi?action=style',300,350)">EMOTE　标签</a>:
+                                    <b>{{ emotestates }}</b>
+                                <li><a href="javascript:openScript('misc.cgi?action=lbcode',300,350)">LeoBBS 标签</a>:
+                                    <b>{{ idmbcodestates }}</b>
+                                <li>贴图标签 　: <b>{{ postpicstates }}</b>
+                                <li>Flash 标签 : <b>{{ postflashstates }}</b>
+                                <li>音乐标签 　: <b>{{ postsoundstates }}</b>
+                                <li>文字大小 　: <b>{{ postfontsizestates }}</b>
+                                <li>帖数标签 　: <b>{{ postjfstates }}</b>
+                                <li>积分标签 　: <b>{{ jfmarkstates }}</b>
+                            <li>保密标签 　: <b>{{ hidejfstates }}</b>{{ emoticonslink }}
+                        </font></td>
+                    <td bgcolor={{ miscbackone }}>{{ insidejs }}
+                        <input type="hidden" id="inpost" name="inpost" value=""/>
+
+
+                        <div id="vditor"></div>
+                        <script type="text/javascript">
+                            new Vditor('vditor', {
+                                height: 360,
+                                cache: {enable: false},
+                                value: '',
+                                input (md) {
+                                    document.getElementById("inpost").value = md;
+                                    console.log(md);
+                                }
+                            })
+                        </script>
+                    </td>
+                    </tr>
+
+                    <tr>
+                        <td bgcolor={{ miscbacktwo }} valign=top><font color={{ fontcolormisc }}><b>选项</b>
+                                <p>{{ helpurl }}</font></td>
+                        <td bgcolor={{ miscbacktwo }}><font color={{ fontcolormisc }}>{{ canlbcode }}
+                                <input type=checkbox name="inshowsignature" value="yes" checked>是否显示您的签名？<br>
+                                {{ requestnotify }}{{ emoticonsbutton }}{{ fontpost }}{{ weiwangoptionbutton }}{{ salepost }}
+                            </font><BR></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor={{ miscbacktwo }} colspan=2 align=center>
+                            <input type=Submit value="发 表" name=Submit>　　
+                            <input type=button
+                                   value='预 览'
+                                   name=Button
+                                   onclick=gopreview()>　
+                            　<input
+                                    type="reset" name="Clear" value="清 除"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+<SCRIPT>valignend()</SCRIPT>
+{% endblock %}

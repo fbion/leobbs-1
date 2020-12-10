@@ -5,4 +5,5 @@ type Topic_out_vo struct {
 	Title string
 	ForumId int64
 	AuthorUid int64
+	PostId int64
 }
