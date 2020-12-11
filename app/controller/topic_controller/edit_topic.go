@@ -1,6 +1,8 @@
 package topic_controller
 
 import (
+	"fmt"
+	"gitee.com/leobbs/leobbs/app/form"
 	"gitee.com/leobbs/leobbs/app/orm_model"
 	"gitee.com/leobbs/leobbs/app/skins"
 	"gitee.com/leobbs/leobbs/app/vo"
@@ -8,6 +10,7 @@ import (
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 func EditTopicAction(c *gin.Context) {
@@ -50,6 +53,7 @@ func EditTopicAction(c *gin.Context) {
 	}
 	tmpTopic = vo.Topic_out_vo{
 		ID:        rawTopic.ID,
+		Title: rawTopic.Title,
 		ForumId:   rawTopic.ForumId,
 		PostId:    rawTopic.PostId,
 		AuthorUid: rawTopic.AuthorUid,
@@ -118,24 +122,83 @@ func SaveEditTopicAction(c *gin.Context) {
 		isAdmin = false
 	}
 
-	//TODO 先创建Topic，然后发帖子
-	var tmpPostList []vo.Post_out_vo
 
-	var rawPostList []orm_model.Post
+	var editTopicForm form.EditTopicForm
 
-	result := common.DB.Order("ID ASC").
-		Limit(20).
-		Offset(0).
-		Find(&rawPostList)
+
+
+
+	err := c.MustBindWith(&editTopicForm, binding.Form)
+	if err != nil {
+		common.LogError(err)
+		common.ShowUMessage(c, &common.Umsg{Msg: "保存失败", Url: "javascript:history.go(-1);"})
+		return
+	}
+	common.Sugar.Infof(currentMethod + " editTopicForm: %v", editTopicForm)
+
+
+
+	tid := editTopicForm.Tid
+	if tid < 1 {
+		common.ShowUMessage(c, &common.Umsg{
+			"贴子不存在, E-1",
+			"/",
+		})
+		return
+	}
+
+
+
+	var rawTopic orm_model.Topic
+
+	result := common.DB.
+		Where("id = ? ", tid).
+		Find(&rawTopic)
 
 	if result.Error != nil {
 		common.Sugar.Infof(currentMethod+" err: %v", result.Error)
+		common.ShowUMessage(c, &common.Umsg{
+			"贴子不存在, E2",
+			"/",
+		})
+		return
+	}
+	rawTopic.Title = editTopicForm.Title
+
+	common.DB.Save(&rawTopic)
+
+
+	var rawPost orm_model.Post
+
+	if rawTopic.PostId > 0 {
+		result = common.DB.Order("ID ASC").
+			Limit(1).
+			Offset(0).
+			Where("topic_id = ?", rawTopic.ID).
+			Where("id = ?", rawTopic.PostId).
+			Find(&rawPost)
+	} else {
+		result = common.DB.Order("ID ASC").
+			Limit(1).
+			Offset(0).
+			Where("topic_id = ?", rawTopic.ID).
+			Find(&rawPost)
 	}
 
-	for _, v := range rawPostList {
-		tmpPostList = append(tmpPostList, vo.Post_out_vo{
-			ID:      v.ID,
-			Content: v.Content,
+	if result.Error != nil {
+		common.Sugar.Infof(currentMethod+" err: %v", result.Error)
+		common.ShowUMessage(c, &common.Umsg{
+			"贴子不存在",
+			"/",
 		})
+		return
 	}
+
+	rawPost.Content = editTopicForm.Content
+	common.DB.Save(&rawPost)
+
+	common.ShowUMessage(c, &common.Umsg{
+		"保存成功",
+		fmt.Sprintf("/topic/%d", editTopicForm.Tid),
+	})
 }

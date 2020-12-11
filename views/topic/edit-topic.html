@@ -58,9 +58,10 @@
 </table>
 
 
-<form action="/mp/saveNewTopic" method="post" name="FORM" enctype="multipart/form-data">
+<form action="/mp/saveEditTopic" method="post" name="FORM" enctype="multipart/form-data">
     <input type=hidden name=action value=addnew>
-    <input type=hidden name=fid value={{ forum.ID }}>
+    <input type=hidden name=fid value={{ topic.ForumId }}>
+    <input type=hidden name=tid value={{ topic.ID }}>
     <SCRIPT>valigntop()</SCRIPT>
     <table cellpadding=0 cellspacing=0 width={{ tablewidth }} bgcolor={{ tablebordercolor }} align=center>
         <tr>
@@ -85,7 +86,7 @@
                             </SELECT>
                         </td>
                         <td bgcolor={{ miscbackone }}>
-                            <input type=text size=60 maxlength=80 name="intopictitle" value="{{ in_topictitle }}">　不得超过
+                            <input type=text size=60 maxlength=80 name="intopictitle" value="{{ topic.Title }}">　不得超过
                             40 个汉字
                         </td>
                     </tr>
@@ -106,7 +107,7 @@
                             <li>保密标签 　: <b>{{ hidejfstates }}</b>{{ emoticonslink }}
                         </font></td>
                     <td bgcolor={{ miscbackone }}>{{ insidejs }}
-                        <input type="hidden" id="inpost" name="inpost" value=""/>
+                        <input type="hidden" id="inpost" name="inpost" value="{{ post.Content }}"/>
 
 
                         <div id="vditor"></div>
@@ -114,7 +115,7 @@
                             new Vditor('vditor', {
                                 height: 360,
                                 cache: {enable: false},
-                                value: '',
+                                value: document.getElementById('inpost').value,
                                 input (md) {
                                     document.getElementById("inpost").value = md;
                                     console.log(md);
