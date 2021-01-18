@@ -12,3 +12,8 @@ func RegisterNewMember(mo orm_model.Member) (id int64){
 	}
 	return mo.ID
 }
+
+func CountRegMember() (cnt int64) {
+	common.DB.Model(&orm_model.Member{}).Count(&cnt)
+	return cnt
+}
