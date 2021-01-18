@@ -1,6 +1,7 @@
 package  controller
 
 import (
+	"fmt"
 	"gitee.com/leobbs/leobbs/app/service/account_service"
 	"gitee.com/leobbs/leobbs/app/service/forum_service"
 	"gitee.com/leobbs/leobbs/app/skins"
@@ -29,7 +30,7 @@ func IndexAction(c *gin.Context) {
 		}
 
 	}
-
+	cnt := account_service.CountRegMember()
 	pongoContext := pongo2.Context{
 		"imagesurl":   "/assets",
 		"skin":        "leobbs",
@@ -38,6 +39,7 @@ func IndexAction(c *gin.Context) {
 		"luUid": luUid,
 		"isAdmin": isAdmin,
 		"forumsList": forumOutList,
+		"memberTotalCount": fmt.Sprintf("%d", cnt),
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
