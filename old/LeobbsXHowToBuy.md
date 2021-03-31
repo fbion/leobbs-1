@@ -7,15 +7,15 @@
 
 　　雷傲论坛个人注册版本价格为：500元/套，提供2年升级及售后服务，如需要取消版权链接，费用为750元，注册地址为：
 
-http://www.leobbs.com/leobbs/buy.asp
+http://www.leobbs.org/leobbs/buy.asp
 注册流程
-1、登陆 www.leobbs.com,注册一个商业用户会员,注册地址 http://www.leobbs.com/reg
+1、登陆 www.leobbs.org,注册一个商业用户会员,注册地址 http://www.leobbs.org/reg
 2、汇款500元或者750元给我公司，建议使用网上在线支付系统，实时入款，实时注册，地址为
-http://www.leobbs.com/manager/netpay.asp
+http://www.leobbs.org/manager/netpay.asp
 3、如果没开通在线支付的，请通过如下地址资料汇款：
- http://www.leobbs.com/help/huikuan.asp
+ http://www.leobbs.org/help/huikuan.asp
 4、汇款后，查询您的帐户会有相应资金，然后点击商业注册的链接，地址为
- http://www.leobbs.com/leobbs/buy.asp
+ http://www.leobbs.org/leobbs/buy.asp
 5、一切均为实时注册成功，注册成功后，您会获得一个商业注册码，凭该注册码，我们将给您提供2年的完善升级及售后服务。
 
 感谢您的支持，衷心祝愿我们能够越办越好！也衷心祝愿你的论坛能越办越好！

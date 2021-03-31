@@ -40,8 +40,8 @@
   
   
 **开发团队技术演示及支持论坛：**  
-**[雷傲极酷超级论坛](http://bbs.leobbs.com/)**  
-**[LeoBBS X Develop Team](http://bbs.leobbs.com/cgi-bin/forums.cgi?forum=2)**  
+**[雷傲极酷超级论坛](http://bbs.leobbs.org/)**  
+**[LeoBBS X Develop Team](http://bbs.leobbs.org/cgi-bin/forums.cgi?forum=2)**  
   
   
 
@@ -50,4 +50,4 @@
 
 * * *
 
-版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2003-2004
+版权所有：[雷傲科技](http://www.leobbs.org) & [雷傲极酷超级论坛](http://bbs.leobbs.org)　　Copyright 2003-2004

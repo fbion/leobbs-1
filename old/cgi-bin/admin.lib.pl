@@ -4,8 +4,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 use strict;
@@ -355,7 +355,7 @@ function preview_template() {document.the_form.target="_blank"; document.the_for
             <TABLE align=center cellPadding=0 cellSpacing=0 width=200 class=sec_menu>
               <TR><TD height=18>&nbsp;程序版本: $versionnumber</TD></TR>
               <TR><TD height=18>&nbsp;版权所有: 山鹰(糊)、花无缺</TD></TR>
-              <TR><TD height=18>&nbsp;技术支持: <a href="http://bbs.leobbs.com/" target=_blank>极酷超级论坛</a></TD></TR>
+              <TR><TD height=18>&nbsp;技术支持: <a href="http://bbs.leobbs.org/" target=_blank>极酷超级论坛</a></TD></TR>
 	    </TABLE>
 	    </TD></TR></TABLE>
 </td></tr>

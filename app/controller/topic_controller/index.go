@@ -94,11 +94,15 @@ func IndexAction(c *gin.Context) {
 	}
 
 	for _, v := range rawPostList {
+		common.Sugar.Infof(currentMethod + " post: %+v", v)
 		originContent := strings.Replace(v.Content, "\r\n", "\n", -1)
 		unsafeContent := blackfriday.Run([]byte(originContent))
 		safeContent := string(unsafeContent[:])
 		common.Sugar.Infof("safeContent: %s", safeContent)
+		tmpUserInfo := account_service.GetUserInfo(v.PostUid)
+		common.Sugar.Infof(currentMethod + " userInfo: %+v", tmpUserInfo)
 		tmpPostList = append(tmpPostList, vo.Post_out_vo{
+			UserInfo: tmpUserInfo,
 			ID:      v.ID,
 			Content: safeContent,
 		})

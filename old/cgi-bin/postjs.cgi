@@ -4,8 +4,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 use warnings;
@@ -42,15 +42,15 @@ if (swtch == 1){ basic = false; stprompt = false; helpstat = true;} else if (swt
 }
 function AddText(NewCode) {document.FORM.inpost.value+=NewCode}
 function real() {
-if (helpstat){alert("在线 RealPlayer 流式音/视频播放\\n播放 URL 地址\\n用法： [rm]http:\/\/www.LeoBBS.com\/demo.rm[/rm]");} else if (basic) {AddTxt="[rm][/rm]";AddText(AddTxt);} else { txt=prompt("在线 RealPlayer 流式音/视频播放 (rtsp及http均可)","rtsp://");
+if (helpstat){alert("在线 RealPlayer 流式音/视频播放\\n播放 URL 地址\\n用法： [rm]http:\/\/www.leobbs.org\/demo.rm[/rm]");} else if (basic) {AddTxt="[rm][/rm]";AddText(AddTxt);} else { txt=prompt("在线 RealPlayer 流式音/视频播放 (rtsp及http均可)","rtsp://");
 if(txt!=null) { AddTxt="\\r[rm]"+txt;AddText(AddTxt);AddTxt="[/rm]";AddText(AddTxt);}}
 }
 function wm() {
-if (helpstat){alert("在线 Windows Media Player 音/视频播放\\n播放 URL 地址\\n用法： [wmv]http:\/\/www.LeoBBS.com\/demo.wmv[/wmv]");} else if (basic) {AddTxt="[wmv][/wmv]";AddText(AddTxt);} else { txt=prompt("在线 Windows Media Player 音/视频播放 (mms及http均可)","mms://");
+if (helpstat){alert("在线 Windows Media Player 音/视频播放\\n播放 URL 地址\\n用法： [wmv]http:\/\/www.leobbs.org\/demo.wmv[/wmv]");} else if (basic) {AddTxt="[wmv][/wmv]";AddText(AddTxt);} else { txt=prompt("在线 Windows Media Player 音/视频播放 (mms及http均可)","mms://");
 if(txt!=null) { AddTxt="\\r[wmv]"+txt;AddText(AddTxt);AddTxt="[/wmv]";AddText(AddTxt);}}
 }
 function email() {
-if (helpstat) { alert("Email 标记\\n插入 Email 超级链接\\n用法1: [email]webmaster\@LeoBBS.com[/email]\\n用法2: [email=webmaster\@LeoBBS.com]雷傲[/email]");
+if (helpstat) { alert("Email 标记\\n插入 Email 超级链接\\n用法1: [email]webmaster\@leobbs.org[/email]\\n用法2: [email=webmaster\@leobbs.org]雷傲[/email]");
 } else if (basic) { AddTxt="[email][/email]";AddText(AddTxt);
 } else { txt2=prompt("链接显示的文字.\\n如果为空，那么将只显示你的 Email 地址",""); 
 if (txt2!=null) {txt=prompt("Email 地址.","name\@domain.com");      
@@ -119,13 +119,13 @@ while ((txt2!="") && (txt2!="center") && (txt2!="left") && (txt2!="right") && (t
 txt=prompt("要对齐的文本","文本");if (txt!=null) {AddTxt="\\r[align="+txt2+"]"+txt;AddText(AddTxt);AddTxt="[/align]";AddText(AddTxt);}}
 }
 function hyperlink() {
-if (helpstat) {alert("超级链接标记\\n插入一个超级链接标记\\n使用方法: [url]http://www.LeoBBS.com[/url]\\nUSE: [url=http://www.LeoBBS.com]链接文字[/url]");
+if (helpstat) {alert("超级链接标记\\n插入一个超级链接标记\\n使用方法: [url]http://www.leobbs.org[/url]\\nUSE: [url=http://www.leobbs.org]链接文字[/url]");
 } else if (basic) {AddTxt="[url][/url]";AddText(AddTxt);} else { txt2=prompt("链接文本显示.\\n如果不想使用, 可以为空, 将只显示超级链接地址. ",""); 
 if (txt2!=null) {txt=prompt("超级链接.","http://");if (txt!=null) {
 if (txt2=="") {AddTxt="[url]"+txt;AddText(AddTxt);AddTxt="[/url]";AddText(AddTxt);} else {AddTxt="[url="+txt+"]"+txt2;AddText(AddTxt);AddTxt="[/url]";AddText(AddTxt);}}}}
 }
 function image() {
-if (helpstat){alert("图片标记\\n插入图片\\n用法： [img]http:\/\/www.LeoBBS.com\/cgi.gif[/img]");} else if (basic) {AddTxt="[img][/img]";AddText(AddTxt);} else { txt=prompt("图片的 URL","http://");
+if (helpstat){alert("图片标记\\n插入图片\\n用法： [img]http:\/\/www.leobbs.org\/cgi.gif[/img]");} else if (basic) {AddTxt="[img][/img]";AddText(AddTxt);} else { txt=prompt("图片的 URL","http://");
 if(txt!=null) { AddTxt="\\r[img]"+txt;AddText(AddTxt);AddTxt="[/img]";AddText(AddTxt);}}
 }
 function showcode() {

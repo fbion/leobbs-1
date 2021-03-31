@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -286,7 +286,7 @@ if ($picwater eq "yes" && ($file_ext eq 'jpg' || $file_ext eq 'jpeg' || $file_ex
 
     if ($waterpic eq "") {
 
-        $watername = "http://bbs.leobbs.com/" if ($watername eq "");
+        $watername = "http://bbs.leobbs.org/" if ($watername eq "");
 
         my ($imwidth, $imheight) = $image->getBounds();
 

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -2064,7 +2064,7 @@ $tempoutput</td>
                 </tr>
 		~;
 
-            $watername = "http://bbs.leobbs.com/" if ($watername eq "");
+            $watername = "http://bbs.leobbs.org/" if ($watername eq "");
 
             $tempoutput = "<select name=\"picwaterman\">\n<option value=\"0\">只对客人显示\n<option value=\"1\">对客人和普通用户显示\n<option value=\"2\">对客人、普通用户和认证用户显示<option value=\"3\">除了坛主外，其他用户都显示\n</select>\n";
             $tempoutput =~ s/value=\"$picwaterman\"/value=\"$picwaterman\" selected/;

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -204,7 +204,7 @@ if ($email) {
         ~;
     }
     $output .= qq~
-        </td></tr></table><center><hr><b>$board_name<br>&copy; 2000 LeoBBS.com</b></center>
+        </td></tr></table><center><hr><b>$board_name<br>&copy; 2000 leobbs.org</b></center>
         </body></html>
     ~;
     $subject = "从$board_name打包邮递过来的贴子";

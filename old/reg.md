@@ -7,7 +7,7 @@ LeoBBS X 雷傲超级论坛说明文档 A:visited{TEXT-DECORATION: none} A:activ
   
 **LeoBBS X 商业版注册说明**
 
-　　为了给用户提供更好的技术以及产品支持，我们隆重推出了 LeoBBS X 的商业版和相应的商业插件版，该版本针对单位、企业以及个人收费用户提供。如果您需要进行商业版本的注册，请登陆 [http://www.leobbs.com/leobbs/buy.asp](http://www.leobbs.com/leobbs/buy.asp)，按照流程办理即可。
+　　为了给用户提供更好的技术以及产品支持，我们隆重推出了 LeoBBS X 的商业版和相应的商业插件版，该版本针对单位、企业以及个人收费用户提供。如果您需要进行商业版本的注册，请登陆 [http://www.leobbs.org/leobbs/buy.asp](http://www.leobbs.org/leobbs/buy.asp)，按照流程办理即可。
 
   
 **商业版本的版本号是什么？**
@@ -34,7 +34,7 @@ LeoBBS X 雷傲超级论坛说明文档 A:visited{TEXT-DECORATION: none} A:activ
 　　3. 如果用户要求取消论坛里面 Power By LeoBBS 的版权图片链接，需加收50%的注册费用。  
 　　4. 如果用户需要额外增加技术服务时间，按照每年200元进行收费。  
 　　5. 如果需要注册商业插件版的，需要加收20%的注册费用，如果用户注册了取消版权连接，则可以免费提供。  
-　　更加详细的收费介绍请参考我们的网站 [http://www.leobbs.com/leobbs/buy.asp](http://www.leobbs.com/leobbs/buy.asp)  
+　　更加详细的收费介绍请参考我们的网站 [http://www.leobbs.org/leobbs/buy.asp](http://www.leobbs.org/leobbs/buy.asp)  
 
   
 **商业注册后技术服务是什么样的？**
@@ -61,7 +61,7 @@ LeoBBS X 雷傲超级论坛说明文档 A:visited{TEXT-DECORATION: none} A:activ
 　　答：可以，我们的论坛对个人提供免费的 LeoBBS X 版本。如果您希望获得 LeoBBS X Plus 商业版本以及论坛产品认证和技术支持的话，可以选择注册个人版。
 
 　　4、是否可以在代理商那里进行商业注册？  
-　　答：不可以，我们没有发展论坛软件的代理商。为了保证您的利益，请务必将注册费用按照我们网站上公布的帐号汇款。请登陆 [http://www.leobbs.com/leobbs/buy.asp](http://www.leobbs.com/leobbs/buy.asp)，按照流程办理。
+　　答：不可以，我们没有发展论坛软件的代理商。为了保证您的利益，请务必将注册费用按照我们网站上公布的帐号汇款。请登陆 [http://www.leobbs.org/leobbs/buy.asp](http://www.leobbs.org/leobbs/buy.asp)，按照流程办理。
 
   
 **论坛的其他说明文档联接：**  
@@ -79,8 +79,8 @@ LeoBBS X 雷傲超级论坛说明文档 A:visited{TEXT-DECORATION: none} A:activ
   
   
 **开发团队技术演示及支持论坛：**  
-**[雷傲极酷超级论坛](http://bbs.leobbs.com/)**  
-**[LeoBBS X Develop Team](http://bbs.leobbs.com/cgi-bin/forums.cgi?forum=2)**  
+**[雷傲极酷超级论坛](http://bbs.leobbs.org/)**  
+**[LeoBBS X Develop Team](http://bbs.leobbs.org/cgi-bin/forums.cgi?forum=2)**  
   
   
 
@@ -89,4 +89,4 @@ LeoBBS X 雷傲超级论坛说明文档 A:visited{TEXT-DECORATION: none} A:activ
 
 * * *
 
-版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2003-2004
+版权所有：[雷傲科技](http://www.leobbs.org) & [雷傲极酷超级论坛](http://bbs.leobbs.org)　　Copyright 2003-2004

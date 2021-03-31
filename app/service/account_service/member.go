@@ -2,6 +2,7 @@ package account_service
 
 import (
 	"gitee.com/leobbs/leobbs/app/orm_model"
+	"gitee.com/leobbs/leobbs/app/vo"
 	"gitee.com/leobbs/leobbs/pkg/common"
 )
 
@@ -16,4 +17,10 @@ func RegisterNewMember(mo orm_model.Member) (id int64){
 func CountRegMember() (cnt int64) {
 	common.DB.Model(&orm_model.Member{}).Count(&cnt)
 	return cnt
+}
+
+func GetUserInfo(uid int64) (vo.UserInfoVo) {
+	var outUserInfo vo.UserInfoVo
+	common.DB.Find(&outUserInfo, uid)
+	return outUserInfo
 }

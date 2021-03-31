@@ -118,4 +118,4 @@ NON-CGI           目录属性 777
 
 * * *
 
-版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005
+版权所有：[雷傲科技](http://www.leobbs.org) & [雷傲极酷超级论坛](http://bbs.leobbs.org)　　Copyright 2000-2005

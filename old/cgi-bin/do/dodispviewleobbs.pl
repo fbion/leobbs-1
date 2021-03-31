@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 use strict;
@@ -15,7 +15,7 @@ use diagnostics;
 
 if ($in_member_name eq "客人") {$loginmessage = "（您必须登录才能查看详情，否则只显示该论坛的无新帖图例）";}
 if ($member_code eq "ad" || $member_code eq 'smo') {$delcache = "　　<B>[<a href=delmaincache.cgi title=如果上方的信息有部分数据滞后的话，可以用此功能>立即更新首页缓存</a>]</B>"}
-my $leopic = qq~<a href=http://www.LeoBBS.com target=_blank><img src=$imagesurl/images/lblogo.gif width=88 height=31 border=0 title="----------------    ☆    ---------------\n　极酷超级论坛(LeoBBS)由雷傲科技制作　\n　正版标示： Powered By LeoBBS.com　\n　感谢您采用我们的论坛，让我们做的更好！　\n----------------    ☆    ---------------"></a>~ if ($noads ne "yes");
+my $leopic = qq~<a href=http://www.leobbs.org target=_blank><img src=$imagesurl/images/lblogo.gif width=88 height=31 border=0 title="----------------    ☆    ---------------\n　极酷超级论坛(LeoBBS)由雷傲科技制作　\n　正版标示： Powered By leobbs.org　\n　感谢您采用我们的论坛，让我们做的更好！　\n----------------    ☆    ---------------"></a>~ if ($noads ne "yes");
 $output .= qq~</td></tr></table></td></tr></table><SCRIPT>valignend()</SCRIPT><img src=$imagesurl/images/none.gif height=5><br><SCRIPT>valigntop()</SCRIPT>
 <table cellspacing=0 cellpadding=0 width=$tablewidth bgcolor=$tablebordercolor align=center>
 <tr><td><table cellspacing=1 cellpadding=6 width=100%>

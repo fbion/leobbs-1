@@ -22,7 +22,7 @@ func GetLeobbsSkin() map[string]string{
 		"cmonamecolor" :  "#F76809",
 		"cssmaker" :  "雷傲科技",
 		"cssname" :  "LeoBBS",
-		"cssurl" :  "http://www.leobbs.com/",
+		"cssurl" :  "http://www.leobbs.org/",
 		"font" :  "宋体",
 		"fontcolormisc" :  "#000000",
 		"fontcolormisc2" :  "#000000",

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -71,7 +71,7 @@ $out =~ s/<p>.*<\/p>//isg;
 $out =~ s/<hr>(.*)$//isg;
 $out =~ s/<\/pre>(.*)$//isg;
 $out = "查询间隔太短，无法获取详细信息，请稍后再试！<BR><BR><BR>" if ($out =~ m/Forbidden/);
-$out = qq~LeoBBS WHOIS 详细信息($query)：<BR>数据来源：<a href=http://sunny.nic.com/cgi-bin/whois>NIC Whois</a><BR><BR><BR>~ . $out . "<center><hr width=500><font color=black>版权所有：<a href=http://www.leobbs.com target=_blank>雷傲科技</a> & <a href=http://bbs.leobbs.com target=_blank>雷傲极酷超级论坛</a>　　Copyright 2003-2004<BR>";
+$out = qq~LeoBBS WHOIS 详细信息($query)：<BR>数据来源：<a href=http://sunny.nic.com/cgi-bin/whois>NIC Whois</a><BR><BR><BR>~ . $out . "<center><hr width=500><font color=black>版权所有：<a href=http://www.leobbs.org target=_blank>雷傲科技</a> & <a href=http://bbs.leobbs.org target=_blank>雷傲极酷超级论坛</a>　　Copyright 2003-2004<BR>";
 print header(-charset => "UTF-8", -expires => "$EXP_MODE", -cache => "$CACHE_MODES");
 print $out;
 exit;

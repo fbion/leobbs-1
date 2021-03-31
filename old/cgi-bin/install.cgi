@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -52,7 +52,7 @@ document.bbsimg.src = FORM.imagesurl.value+"/images/teamad.gif";}
 <BR>
 　　在进行安装前，请先确定您已经完整上传了整个论坛程序和图片文件，并已经按照要求设置好了所有目录和文件的属性。<BR>
 　　下面 1 和 2 中的默认设置是由程序自动判断生成的，适用于大部分安装本程序的客户，如果有错误，请自行修改成正确的值。<BR><BR>
-　　☆ <a href=http://www.leobbs.com/leobbs/buy.asp target=_blank><B>如果因为您水平有限而无法正常安装和使用本论坛，请按此注册本论坛商业版，获得安装使用协助等技术支持与服务。</B></a><BR><BR>
+　　☆ <a href=http://www.leobbs.org/leobbs/buy.asp target=_blank><B>如果因为您水平有限而无法正常安装和使用本论坛，请按此注册本论坛商业版，获得安装使用协助等技术支持与服务。</B></a><BR><BR>
 <form action="install.cgi" method=POST name=FORM>
 <input name=action type=hidden value="proceed">
 　<font color=red><B>1.</B> </font><font color=blue>设置程序脚本的路径（一般情况下，自动判断程序获得这里的数据都是正确的）</font><BR>
@@ -293,13 +293,13 @@ if ($action eq "proceed") {
     }
 
     open(LOCK, ">${lbdir}data/install.lock");
-    print LOCK "www.LeoBBS.com";
+    print LOCK "www.leobbs.org";
     close(LOCK);
     unlink("${lbdir}install.cgi") if (!(-e "${lbdir}data/install.lock"));
     &changedirname(); # 更改用户关键目录的名称
     &output("<BR><font size=+1 color=red><center>论坛安装完成！$output</font><BR><BR><BR>论坛安装已经顺利完成！目前安装程序已经自动锁定，无法再次执行，但我们还是强烈建议您直接将其从服务器上删除。<BR><BR>如果需要再次运行安装程序，请先手工将 data 目录下的 install.lock 文件删除，然后再运行安装程序！<BR><BR><BR>现在您可以使用管理员账号和密码进入 <a href=admin.cgi><B>论坛管理中心</B></a> 重新设置所有基本变量和风格参数。<BR><BR><BR>");
     $versionnumber =~ s/\<(.+?)\>//isg;
-    &sendurlinfo("www.leobbs.com", "download/reg.cgi", "ver=$versionnumber&url=$boardurl") if (($boardurl ne "") && ($boardurl !~ m/localhost/i) && ($boardurl !~ m/127\.0\.0\./i) && ($boardurl !~ m/192\.168\./i));
+    &sendurlinfo("www.leobbs.org", "download/reg.cgi", "ver=$versionnumber&url=$boardurl") if (($boardurl ne "") && ($boardurl !~ m/localhost/i) && ($boardurl !~ m/127\.0\.0\./i) && ($boardurl !~ m/192\.168\./i));
     exit;
 }
 
@@ -347,14 +347,14 @@ sub output {
           <tr>
             <td valign='top' bgcolor='#FFFFFFF'><span font-family: 宋体; font-size: 9pt;>
 		$outputinfo<BR>
-	　　☆ <a href=http://www.leobbs.com/leobbs/buy.asp target=_blank><B>如果因为您水平有限而无法正常安装和使用本论坛，请按此注册本论坛商业版，获得安装使用协助等技术支持与服务。</B></a><BR><BR>
+	　　☆ <a href=http://www.leobbs.org/leobbs/buy.asp target=_blank><B>如果因为您水平有限而无法正常安装和使用本论坛，请按此注册本论坛商业版，获得安装使用协助等技术支持与服务。</B></a><BR><BR>
             </td>
           </tr>
           </table>
          </td>
         </tr>
       </table>
-      <BR><BR><hr width=500><font color=black>版权所有：<a href=http://www.leobbs.com target=_blank>雷傲科技</a> & <a href=http://bbs.leobbs.com target=_blank>雷傲极酷超级论坛</a>　　Copyright 2003-2004<BR>
+      <BR><BR><hr width=500><font color=black>版权所有：<a href=http://www.leobbs.org target=_blank>雷傲科技</a> & <a href=http://bbs.leobbs.org target=_blank>雷傲极酷超级论坛</a>　　Copyright 2003-2004<BR>
     </td>
    </tr>
   </table>

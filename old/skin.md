@@ -7,7 +7,7 @@ LeoBBS X 雷傲超级论坛说明文档
   
 **特别声明：**  
 　　本论坛为共享软件(shareware)，仅提供给个人网站免费使用，请勿非法修改、转载、散播、或用于其他图利行为，并请勿删除或修改任何版权标示和图标！  
-　　一切商业网站和收费网站必须经过注册以后才可以继续使用本论坛，注册后可获得完善的售后服务和升级服务，具体注册相关事项请看：**[商业版注册说明](reg.htm)** 或联系 **[http://www.leobbs.com/](http://www.leobbs.com/)** 。  
+　　一切商业网站和收费网站必须经过注册以后才可以继续使用本论坛，注册后可获得完善的售后服务和升级服务，具体注册相关事项请看：**[商业版注册说明](reg.htm)** 或联系 **[http://www.leobbs.org/](http://www.leobbs.org/)** 。  
 　　如果您的页面中添加有 3721 和百度的浏览器控件下载的话，那么请勿使用本论坛，谢谢合作！  
 　　当您的网站使用本论坛后，您论坛内容中所涉及的一切法律责任均与雷傲科技无关。  
   
@@ -180,7 +180,7 @@ $cmoglow = '#5577AA';
 $cmonamecolor = '#F76809';  
 $cssmaker = "雷傲科技";  
 $cssname = "LeoBBS";  
-$cssurl = "[http://www.leobbs.com/";](http://www.leobbs.com/%22;)  
+$cssurl = "[http://www.leobbs.org/";](http://www.leobbs.org/%22;)  
 $fontcolormisc = '#000000';  
 $fontcolormisc2 = '#000000';  
 $fonthighlight = '#990000';  
@@ -440,8 +440,8 @@ $daohang = qq~你要编辑的在页面上显示出来的导航栏内容HTML网�
   
   
 **开发团队技术演示及支持论坛：**  
-**[雷傲极酷超级论坛](http://bbs.leobbs.com/)**  
-**[LeoBBS X Develop Team](http://bbs.leobbs.com/cgi-bin/forums.cgi?forum=2)**  
+**[雷傲极酷超级论坛](http://bbs.leobbs.org/)**  
+**[LeoBBS X Develop Team](http://bbs.leobbs.org/cgi-bin/forums.cgi?forum=2)**  
   
   
 
@@ -450,4 +450,4 @@ $daohang = qq~你要编辑的在页面上显示出来的导航栏内容HTML网�
 
 * * *
 
-版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005
+版权所有：[雷傲科技](http://www.leobbs.org) & [雷傲极酷超级论坛](http://bbs.leobbs.org)　　Copyright 2000-2005

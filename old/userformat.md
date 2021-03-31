@@ -124,7 +124,7 @@ $useradd5       保留，未使用
 注意： name 参数是必须的，其他参数根据需要修改的数据相应增减，程序忽略空白散列值和用户库（上面５中的）不存在的散列变量。  
 　　　用户名字段是不能更新的，而密码字段更新后会暂时变成明文。  
 比如：  
-&upinfodata( name => "$username", homepage =>"http://www.leobbs.com", icqnumber =>"123456789", ………… );  
+&upinfodata( name => "$username", homepage =>"http://www.leobbs.org", icqnumber =>"123456789", ………… );  
 \# 更新 $username 用户的主页和 ICQ 号码，其他数据不变。  
   
 **c) 和 d) 函数都有返回值的，规定如下**：  
@@ -140,4 +140,4 @@ $useradd5       保留，未使用
 
 * * *
 
-版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005
+版权所有：[雷傲科技](http://www.leobbs.org) & [雷傲极酷超级论坛](http://bbs.leobbs.org)　　Copyright 2000-2005

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -920,8 +920,8 @@ sub dodelans {
 sub doshareforums {
     my $filetoopen = "$lbdir" . "data/shareforums.cgi";
     open(FILE, ">$filetoopen");
-    print FILE "雷傲科技\thttp:\/\/www.leoBBS.com\/\tLeoBBS 最新版本介绍，最新版本免费下载，论坛技术支持，虚拟主机以及域名申请等。。\t1\t$imagesurl\/images\/leotech8831.gif\t\n";
-    print FILE "极酷超级论坛\thttp:\/\/bbs.leobbs.com\/\t最新软件、影视、音乐、网络安全、图形艺术、游戏、CGI 知识等综合论坛，还可以聊天。。。\t2\t$imagesurl\/images\/leobbs8831.gif\t\n";
+    print FILE "雷傲科技\thttp:\/\/www.leobbs.org\/\tLeoBBS 最新版本介绍，最新版本免费下载，论坛技术支持，虚拟主机以及域名申请等。。\t1\t$imagesurl\/images\/leotech8831.gif\t\n";
+    print FILE "极酷超级论坛\thttp:\/\/bbs.leobbs.org\/\t最新软件、影视、音乐、网络安全、图形艺术、游戏、CGI 知识等综合论坛，还可以聊天。。。\t2\t$imagesurl\/images\/leobbs8831.gif\t\n";
     close(FILE);
     print qq~<tr><td bgcolor=#FFFFFF align=center colspan=2>
 <font color=#990000><b>初始化论坛联盟数据为空</b><p>
@@ -953,7 +953,7 @@ sub doshareforums {
             if (($lmweblogo ne "") && ($lmweblogo ne "http:\/\/")) {$lmlogos .= qq~<a href=$lmforumurl target=_blank onmouseover="document.all.lmforum.stop();" onmouseout="document.all.lmforum.start();"><img src=$lmweblogo width=88 height=31 border=0 title="$lmforumname\n$lmforuminfo"></a> ~;}
             else {$lmtexts .= qq~<a href=$lmforumurl target=_blank title="$lmforuminfo" onmouseover="document.all.lmforum1.stop();" onmouseout="document.all.lmforum1.start();">$lmforumname</a>　~;}
         }
-        $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum" id="lmforum"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmlogos</marquee></td><td width=100 align=right><a href=http://bbs.leobbs.com/ target=_blank><img src=$imagesurl/images/leobbs8831.gif width=88 height=31 border=0 title="极酷超级论坛最新软件、影视、音乐、网络安全、图形艺术、游戏、CGI 知识等综合论坛，还可以聊天。。。"></a></td></tr></table></td></tr>~ if ($lmlogos ne "");
+        $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum" id="lmforum"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmlogos</marquee></td><td width=100 align=right><a href=http://bbs.leobbs.org/ target=_blank><img src=$imagesurl/images/leobbs8831.gif width=88 height=31 border=0 title="极酷超级论坛最新软件、影视、音乐、网络安全、图形艺术、游戏、CGI 知识等综合论坛，还可以聊天。。。"></a></td></tr></table></td></tr>~ if ($lmlogos ne "");
         $unionoutput1 .= qq~<tr><td bgcolor=\$forumcolorone width=26 align=center><img src=$imagesurl/images/\$skin/shareforum.gif width=16></td><td bgcolor=\$forumcolortwo width=*><table width=100% cellpadding=0 cellspacing=0><tr><td width=100%><img src=\$imagesurl/images/none.gif width=500 height=1><BR><marquee name="lmforum1" id="lmforum1"  behavior="alternate" direction="left" scrollamount="4" scrolldelay="1" hspace="0" vspace="0">$lmtexts</marquee></td></tr></table></td></tr>~ if ($lmtexts ne "");
 
     }

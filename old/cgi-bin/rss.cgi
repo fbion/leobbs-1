@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 #######################################################################
 #
@@ -83,7 +83,7 @@ sub viewall {
     $rssout .= qq~\t<copyright>$board_name</copyright>\n~;
     $rssout .= qq~\t<managingEditor>$adminemail_in</managingEditor>\n~;
     $rssout .= qq~\t<language>zh-cn</language>\n~;
-    $rssout .= qq~\t<generator>LEOBBS X -- http://bbs.leobbs.com/</generator>\n~;
+    $rssout .= qq~\t<generator>LEOBBS X -- http://bbs.leobbs.org/</generator>\n~;
     $rssout .= qq~\t<image><url>$imagesurl/images/lblogo.gif</url>\n<title>$board_name</title>\n<link>$boardurl</link>\n</image>\n~;
 
     if ($rssinfo eq "no") {
@@ -222,7 +222,7 @@ sub forums {
     $rssout .= qq~\t<copyright>$board_name</copyright>\n~;
     $rssout .= qq~\t<managingEditor>$adminemail_in</managingEditor>\n~;
     $rssout .= qq~\t<language>zh-cn</language>\n~;
-    $rssout .= qq~\t<generator>LEOBBS X -- http://bbs.leobbs.com/</generator>\n~;
+    $rssout .= qq~\t<generator>LEOBBS X -- http://bbs.leobbs.org/</generator>\n~;
     $rssout .= qq~\t<image><url>$imagesurl/images/lblogo.gif</url>\n<title>$board_name</title>\n<link>$boardurl</link>\n</image>~;
 
     if ($rssinfo eq "no") {

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -185,7 +185,7 @@ if (($member_code eq "ad") && ($in_password eq $password) && (lc($in_member_name
          <table width=80% align=center cellpadding=3 cellspacing=0>
          <tr><td align=center valign=middle>
          <font face=宋体 color=#000000>
-         <a href="http://www.leobbs.com" target=_blank>雷傲科技</a><br>&copy; 2000 LeoBBS.com
+         <a href="http://www.leobbs.org" target=_blank>雷傲科技</a><br>&copy; 2000 leobbs.org
          </font></td></tr></table>
          <p></td></tr></table></body></html>);
 

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -58,7 +58,7 @@ if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") &
     if ($action eq "process") {
         $versionnumbertemp = $versionnumber;
         $versionnumbertemp =~ s/\<(.+?)\>//isg;
-        $out = &lbagent("www.leobbs.com", "download/reg.cgi", "ver=$versionnumbertemp&url=$boardurl");
+        $out = &lbagent("www.leobbs.org", "download/reg.cgi", "ver=$versionnumbertemp&url=$boardurl");
 
         ($lastver, $finishfunc, $downtime, $nowdownloadver, $nowfunc, $downloadtimes, $formtime, $gburl, $bigurl, $engurl, $temp) = split(/\t/, $out);
         #最新版本  最新功能  估计提供时间  目前可以下载版本  已经完成功能  下载次数        开始时间   
@@ -67,69 +67,69 @@ if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") &
         $gbdownloadinfo = "";
         if ($gburl1 ne "") {
             if ($gburl1show eq "") {$gburl1show = "按这里进行下载";}
-            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb1 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl1show</B></a>~;
+            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=gb1 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl1show</B></a>~;
         }
         if ($gburl2 ne "") {
             if ($gburl2show eq "") {$gburl1show = "按这里进行下载";}
-            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb2 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl2show</B></a>~;
+            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=gb2 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl2show</B></a>~;
         }
         if ($gburl3 ne "") {
             if ($gburl3show eq "") {$gburl1show = "按这里进行下载";}
-            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb3 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl3show</B></a>~;
+            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=gb3 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl3show</B></a>~;
         }
         if ($gburl4 ne "") {
             if ($gburl4show eq "") {$gburl1show = "按这里进行下载";}
-            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb4 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl4show</B></a>~;
+            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=gb4 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl4show</B></a>~;
         }
         if ($gburl5 ne "") {
             if ($gburl5show eq "") {$gburl1show = "按这里进行下载";}
-            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=gb5 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl5show</B></a>~;
+            $gbdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=gb5 onClick='return gbconfirm();' title="按这里进行下载"><B>$gburl5show</B></a>~;
         }
 
         ($bigurl1, $bigurl1show, $bigurl2, $bigurl2show, $bigurl3, $bigurl3show, $bigurl4, $bigurl4show, $bigurl5, $bigurl5show) = split(/\|/, $bigurl);
         $bigdownloadinfo = "";
         if ($bigurl1 ne "") {
             if ($bigurl1show eq "") {$bigurl1show = "按这里进行下载";}
-            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big1 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl1show</B></a>~;
+            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=big1 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl1show</B></a>~;
         }
         if ($bigurl2 ne "") {
             if ($bigurl2show eq "") {$bigurl1show = "按这里进行下载";}
-            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big2 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl2show</B></a>~;
+            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=big2 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl2show</B></a>~;
         }
         if ($bigurl3 ne "") {
             if ($bigurl3show eq "") {$bigurl1show = "按这里进行下载";}
-            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big3 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl3show</B></a>~;
+            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=big3 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl3show</B></a>~;
         }
         if ($bigurl4 ne "") {
             if ($bigurl4show eq "") {$bigurl1show = "按这里进行下载";}
-            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big4 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl4show</B></a>~;
+            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=big4 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl4show</B></a>~;
         }
         if ($bigurl5 ne "") {
             if ($bigurl5show eq "") {$bigurl1show = "按这里进行下载";}
-            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=big5 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl5show</B></a>~;
+            $bigdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=big5 onClick='return bigconfirm();' title="按这里进行下载"><B>$bigurl5show</B></a>~;
         }
 
         ($engurl1, $engurl1show, $engurl2, $engurl2show, $engurl3, $engurl3show, $engurl4, $engurl4show, $engurl5, $engurl5show) = split(/\|/, $engurl);
         $engdownloadinfo = "";
         if ($engurl1 ne "") {
             if ($engurl1show eq "") {$engurl1show = "按这里进行下载";}
-            $engdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng1 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl1show</B></a>~;
+            $engdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=eng1 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl1show</B></a>~;
         }
         if ($engurl2 ne "") {
             if ($engurl2show eq "") {$engurl1show = "按这里进行下载";}
-            $engdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng2 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl2show</B></a>~;
+            $engdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=eng2 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl2show</B></a>~;
         }
         if ($engurl3 ne "") {
             if ($engurl3show eq "") {$engurl1show = "按这里进行下载";}
-            $engdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng3 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl3show</B></a>~;
+            $engdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=eng3 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl3show</B></a>~;
         }
         if ($engurl4 ne "") {
             if ($engurl4show eq "") {$engurl1show = "按这里进行下载";}
-            $engdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng4 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl4show</B></a>~;
+            $engdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=eng4 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl4show</B></a>~;
         }
         if ($engurl5 ne "") {
             if ($engurl5show eq "") {$engurl1show = "按这里进行下载";}
-            $engdownloadinfo .= qq~　<a href=http://www.leobbs.com/download/getleobbs.cgi?action=down&type=eng5 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl5show</B></a>~;
+            $engdownloadinfo .= qq~　<a href=http://www.leobbs.org/download/getleobbs.cgi?action=down&type=eng5 onClick='return engconfirm();' title="按这里进行下载"><B>$engurl5show</B></a>~;
         }
 
         #$lastver="<b>L<font color=#F26522>eo</font>B<font color=#00AEEF>BS</font></b> X Build040101";
@@ -149,7 +149,7 @@ if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") &
               <b>欢迎来到 LeoBBS 论坛管理中心/查看论坛版本更新</b>
               </td></tr>
               <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-              <font color=#333333><b>$finishfunc</b><BR><BR>请直接访问 <a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a> 查看更新情况吧 ！
+              <font color=#333333><b>$finishfunc</b><BR><BR>请直接访问 <a href=http://www.leobbs.org target=_blank>http://www.leobbs.org</a> 查看更新情况吧 ！
               </td></tr></table></td></tr></table>
             ~;
             exit;
@@ -242,7 +242,7 @@ if (($member_code eq "ad") && ($in_password eq $password) && ($password ne "") &
               <b>欢迎来到 LeoBBS 论坛管理中心/查看论坛版本更新</b>
               </td></tr>
               <tr><td bgcolor=#EEEEEE valign=middle align=center colspan=2>
-              <font color=#333333><b>无法获取版本信息</b><br>Socket 模块不能正常使用，可能是服务器的防火墙不允许，或者 LeoBBS 服务器在调整。<BR>请访问 <a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a> 查看更新情况吧 ！
+              <font color=#333333><b>无法获取版本信息</b><br>Socket 模块不能正常使用，可能是服务器的防火墙不允许，或者 LeoBBS 服务器在调整。<BR>请访问 <a href=http://www.leobbs.org target=_blank>http://www.leobbs.org</a> 查看更新情况吧 ！
               </td></tr></table></td></tr></table>
             ~;
         }

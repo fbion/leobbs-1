@@ -4,8 +4,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 use strict;
 use warnings;
@@ -755,7 +755,7 @@ sub output {
                 if ($@) {eval('use Digest::MD5 qw(md5_hex);$regerid = md5_hex($regerid);');};$regerid = "" if ($regerid =~ m/^LEO/);
             }
             else {$regerid = "";}; $regerid = substr($regerid, 8, 16) if ($regerid ne "");
-            $copyright1 = qq~<BR><font color=$postfontcolorone>程序版权所有：山鹰(糊)、花无缺　 版本：<a href="http://www.leobbs.com/download" target=_blank title="按此可以下载最新版本论坛程序">$versionnumber</a></font></td><td width=10>&nbsp;</td><td width=28><a href=http://www.leobbs.com/leobbs/reg/reg.asp?id=$regerid target=_blank><img src=$imagesurl/images/leoca.gif width=32 height=24 border=0 title=雷傲极酷超级论坛认证></a>~;
+            $copyright1 = qq~<BR><font color=$postfontcolorone>程序版权所有：山鹰(糊)、花无缺　 版本：<a href="http://www.leobbs.org/download" target=_blank title="按此可以下载最新版本论坛程序">$versionnumber</a></font></td><td width=10>&nbsp;</td><td width=28><a href=http://www.leobbs.org/leobbs/reg/reg.asp?id=$regerid target=_blank><img src=$imagesurl/images/leoca.gif width=32 height=24 border=0 title=雷傲极酷超级论坛认证></a>~;
         }
         $copyright .= qq~<table cellpadding=0 cellspacing=0 align=center><tr><td align=center><font color=$fontcolormisc>$boardcopyright$copyright1</td></tr></table><img src=$imagesurl/images/none.gif width=0 height=3>$boardlastinfo</font></td></tr></table></center>\n$footmark~;
     }

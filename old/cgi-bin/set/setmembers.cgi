@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -522,7 +522,7 @@ sub delnopost {
             $message .= "为了释放空间，你的用户名将在３日后删除。 <br>\n";
             $message .= "如果你想保留你的用户名，请登录本论坛一次。 <br>\n";
             $message .= "------------------------------------------<br>\n";
-            $message .= "LeoBBS 由 www.leobbs.com 荣誉出品。<br>\n";
+            $message .= "LeoBBS 由 www.leobbs.org 荣誉出品。<br>\n";
             &sendmail($from, $from, $sendtoemail, $subject, $message);
         }
 

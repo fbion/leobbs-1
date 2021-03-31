@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -264,38 +264,38 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[url]</font>http://www.LeoBBS.com<font color=$fonthighlight>[/url]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[url]</font>http://www.leobbs.org<font color=$fonthighlight>[/url]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><a href="http://www.LeoBBS.com">http://www.LeoBBS.com</a></font>
+                    <font color=$fontcolormisc><a href="http://www.leobbs.org">http://www.leobbs.org</a></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[url=http://www.LeoBBS.com]</font>雷傲科技<font color=$fonthighlight>[/url]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[url=http://www.leobbs.org]</font>雷傲科技<font color=$fonthighlight>[/url]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><a href="http://www.LeoBBS.com">雷傲科技</a></font>
+                    <font color=$fontcolormisc><a href="http://www.leobbs.org">雷傲科技</a></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[email=webmaster\@leobbs.com]</font>写信给我<font color=$fonthighlight>[/email]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[email=webmaster\@leobbs.org]</font>写信给我<font color=$fonthighlight>[/email]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><a href="mailto:webmaster\@leobbs.com">写信给我</a></font>
+                    <font color=$fontcolormisc><a href="mailto:webmaster\@leobbs.org">写信给我</a></font>
                 </td>
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[email]</font>webmaster\@leobbs.com<font color=$fonthighlight>[/email]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[email]</font>webmaster\@leobbs.org<font color=$fonthighlight>[/email]</font>
                     </font>
                 </td>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><a href="mailto:webmaster\@leobbs.com">webmaster\@leobbs.com</a></font>
+                    <font color=$fontcolormisc><a href="mailto:webmaster\@leobbs.org">webmaster\@leobbs.org</a></font>
                 </td>
                 </tr>
                 <tr>
@@ -452,7 +452,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr>
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[img]</font>http://bbs.LeoBBS.com/assets/myimages/mainlogo.gif<font color=$fonthighlight>[/img]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[img]</font>http://bbs.leobbs.org/assets/myimages/mainlogo.gif<font color=$fonthighlight>[/img]</font>
                     </font>      
                 </td>
                     <td bgcolor=$miscbackone>
@@ -497,7 +497,7 @@ elsif ($action eq "lbcode") {
                 </tr> 
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[sound]</font>http://www.LeoBBS.com/demo.wav<font color=$fonthighlight>[/sound]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[sound]</font>http://www.leobbs.org/demo.wav<font color=$fonthighlight>[/sound]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -524,7 +524,7 @@ elsif ($action eq "lbcode") {
                 </tr> 
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[ra]</font>http://www.LeoBBS.com/demo.ra<font color=$fonthighlight>[/ra]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[ra]</font>http://www.leobbs.org/demo.ra<font color=$fonthighlight>[/ra]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -533,7 +533,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[rm]</font>http://www.LeoBBS.com/demo.rm<font color=$fonthighlight>[/rm]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[rm]</font>http://www.leobbs.org/demo.rm<font color=$fonthighlight>[/rm]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -542,7 +542,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[real=宽度,高度]</font>http://www.LeoBBS.com/demo.rm<font color=$fonthighlight>[/real]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[real=宽度,高度]</font>http://www.leobbs.org/demo.rm<font color=$fonthighlight>[/real]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -551,7 +551,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[wmv]</font>http://www.LeoBBS.com/demo.wmv<font color=$fonthighlight>[/wmv]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[wmv]</font>http://www.leobbs.org/demo.wmv<font color=$fonthighlight>[/wmv]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -560,7 +560,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[wma]</font>http://www.LeoBBS.com/demo.wma<font color=$fonthighlight>[/wma]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[wma]</font>http://www.leobbs.org/demo.wma<font color=$fonthighlight>[/wma]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -569,7 +569,7 @@ elsif ($action eq "lbcode") {
                 </tr>
                 <tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[wm=宽度,高度]</font>http://www.LeoBBS.com/demo.wmv<font color=$fonthighlight>[/wm]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[wm=宽度,高度]</font>http://www.leobbs.org/demo.wmv<font color=$fonthighlight>[/wm]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -630,7 +630,7 @@ elsif ($action eq "lbcode") {
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[curl=http://www.LeoBBS.com/]</font></font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[curl=http://www.leobbs.org/]</font></font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>
@@ -648,7 +648,7 @@ elsif ($action eq "lbcode") {
                 </tr>
 		<tr> 
                     <td bgcolor=$miscbackone align=center>
-                    <font color=$fontcolormisc><font color=$fonthighlight>[iframe]</font>http://www.LeoBBS.com/<font color=$fonthighlight>[/iframe]</font>
+                    <font color=$fontcolormisc><font color=$fonthighlight>[iframe]</font>http://www.leobbs.org/<font color=$fonthighlight>[/iframe]</font>
                     </font>       
                 </td> 
                     <td bgcolor=$miscbackone align=center>

@@ -4,8 +4,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 use warnings;
@@ -33,25 +33,25 @@ sub sendtoposter {
     open(FILE, ">$filetoopen");
     flock(FILE, 2) if ($OS_USED eq "Unix");
     if ($action eq "move") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 移至 $moveto <br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 移至 $moveto <br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     elsif ($action eq "jinghua") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 挑选为精华文章!!感谢您为本论坛带来的好贴子，谢谢。<br><br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 挑选为精华文章!!感谢您为本论坛带来的好贴子，谢谢。<br><br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     elsif ($action eq "deletethread") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 删除。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 删除。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     elsif ($action eq "deletepost") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你在帖子「$topictitle」中的回复已被管理员 $senduser 删除。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你在帖子「$topictitle」中的回复已被管理员 $senduser 删除。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     elsif ($action eq "lock") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 锁定。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 锁定。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     elsif ($action eq "postdeleteonce") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 屏蔽。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 屏蔽。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     elsif ($action eq "unpostdeleteonce") {
-        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 屏蔽。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.LeoBBS.com\n";
+        print FILE "＊＃！＆＊$senduser\tno\t$currenttime\t管理系统讯息\t你的帖子「$topictitle」已被管理员 $senduser 屏蔽。<br>$sendly<br>若有任何问题可以发短讯给管理员 $senduser 查询<br><br>---------------------------------------<br>雷傲极酷超级论坛 http://bbs.leobbs.org\n";
     }
     print FILE "$inboxmessages\n";
     close(FILE);

@@ -5,8 +5,8 @@
 # 基于山鹰(糊)、花无缺制作的 LB5000 XP 2.30 免费版  #
 #   新版程序制作 & 版权所有: 雷傲科技 (C)(R)2004    #
 #####################################################
-#      主页地址： http://www.LeoBBS.com/            #
-#      论坛地址： http://bbs.LeoBBS.com/            #
+#      主页地址： http://www.leobbs.org/            #
+#      论坛地址： http://bbs.leobbs.org/            #
 #####################################################
 
 BEGIN {
@@ -624,7 +624,7 @@ elsif ($action eq "addmember") {
 
         $filetoopen = "$lbdir" . "$msgdir/in/$inmemberfile" . "_msg.cgi";
         if (open(FILE, ">$filetoopen")) {
-            print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t欢迎您访问$board_name，祝你使用愉快！\t$tempoutput<BR><BR>----------------------------<BR>LeoBBS 由雷傲科技荣誉出品<BR>主页:<a href=http://www.LeoBBS.com target=_blank>http://www.LeoBBS.com</a>\n";
+            print FILE "＊＃！＆＊全体管理人员\tno\t$currenttime\t欢迎您访问$board_name，祝你使用愉快！\t$tempoutput<BR><BR>----------------------------<BR>LeoBBS 由雷傲科技荣誉出品<BR>主页:<a href=http://www.leobbs.org target=_blank>http://www.leobbs.org</a>\n";
             close(FILE);
         }
     }

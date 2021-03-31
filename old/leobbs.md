@@ -7,7 +7,7 @@ LeoBBS X 雷傲超级论坛说明文档
   
 **特别声明：**  
 　　本论坛为共享软件(shareware)，仅提供给个人网站免费使用，请勿非法修改、转载、散播、或用于其他图利行为，并请勿删除或修改任何版权标示和图标！  
-　　一切商业网站和收费网站必须经过注册以后才可以继续使用本论坛，注册后可获得完善的售后服务和升级服务，具体注册相关事项请看：**[商业版注册说明](reg.md)** 或联系 **[http://www.leobbs.com/](http://www.leobbs.com/)** 。  
+　　一切商业网站和收费网站必须经过注册以后才可以继续使用本论坛，注册后可获得完善的售后服务和升级服务，具体注册相关事项请看：**[商业版注册说明](reg.md)** 或联系 **[http://www.leobbs.org/](http://www.leobbs.org/)** 。  
 　　**如果您的页面中添加有 3721 和百度的浏览器控件下载的话，那么请勿使用本论坛，谢谢合作！**  
 　　当您的网站使用本论坛后，您论坛内容中所涉及的一切法律责任均与雷傲科技无关。  
   
@@ -65,7 +65,7 @@ LeoBBS X 雷傲超级论坛说明文档
 　**5.** 如果论坛发送邮件使用的是94cool特快专递，那么请把 addon 下的 Net 目录完整上传到 cgi-bin 下，否则此功能会不正常。  
 　**6.** LeoBBS 不兼容所有为 LB5000 制作的 hack 程序，如果需要，请联系 hack 作者更新。  
   
-　**7.** 如果需要下载最新版本的论坛程序，请访问 **[http://www.leobbs.com/download/](http://www.leobbs.com/download/)**，或者点击您论坛最下面的版本号。  
+　**7.** 如果需要下载最新版本的论坛程序，请访问 **[http://www.leobbs.org/download/](http://www.leobbs.org/download/)**，或者点击您论坛最下面的版本号。  
 　**8.** 如果需要安装协助、升级协助、漏洞通知等商业客户服务，[请联系雷傲科技进行商业版或者个人版的注册](reg.md)！  
   
   
@@ -93,8 +93,8 @@ Anthony、auron、bbser、Bigjim、cnangel、hztz、iJOE、异灵、maiweb、qxb
   
   
 **开发团队技术演示及支持论坛：**  
-**[雷傲极酷超级论坛](http://bbs.leobbs.com/)**  
-**[LeoBBS X Develop Team](http://bbs.leobbs.com/cgi-bin/forums.cgi?forum=2)**  
+**[雷傲极酷超级论坛](http://bbs.leobbs.org/)**  
+**[LeoBBS X Develop Team](http://bbs.leobbs.org/cgi-bin/forums.cgi?forum=2)**  
   
   
   
@@ -104,4 +104,4 @@ Anthony、auron、bbser、Bigjim、cnangel、hztz、iJOE、异灵、maiweb、qxb
 
 * * *
 
-版权所有：[雷傲科技](http://www.leobbs.com) & [雷傲极酷超级论坛](http://bbs.leobbs.com)　　Copyright 2000-2005
+版权所有：[雷傲科技](http://www.leobbs.org) & [雷傲极酷超级论坛](http://bbs.leobbs.org)　　Copyright 2000-2005
