@@ -161,10 +161,7 @@ func InitApp() {
 	DB = GetDB(Config)
 	//异步刷新日志
 	defer func() {
-		err := Logger.Sync()
-		if err != nil {
-			LogError(err)
-		}
+		_ = Logger.Sync()
 	}()
 
 	Sugar = Logger.Sugar()
