@@ -20,7 +20,13 @@ func CountRegMember() (cnt int64) {
 }
 
 func GetUserInfo(uid int64) (vo.UserInfoVo) {
+	var sourceUserInfo orm_model.Member
 	var outUserInfo vo.UserInfoVo
-	common.DB.Find(&outUserInfo, uid)
+	common.DB.Find(&sourceUserInfo, uid)
+	if (sourceUserInfo.ID > 0) {
+		outUserInfo.Uid = sourceUserInfo.ID
+		outUserInfo.NickName = sourceUserInfo.Username
+		outUserInfo.UserName = sourceUserInfo.Username
+	}
 	return outUserInfo
 }
