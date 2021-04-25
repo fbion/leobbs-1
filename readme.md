@@ -12,7 +12,7 @@
 
 ## 文档地址
 
-[https://leobbs.netroby.com](https://leobbs.netroby.com/)
+[https://docs.leobbs.org](https://docs.leobbs.org)
 
 ## 参与贡献文档
 
