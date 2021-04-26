@@ -1,12 +1,12 @@
 package member_admin_controller
 
 import (
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/app/service/account_service"
-	"gitee.com/leobbs/leobbs/app/skins"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/app/service/account_service"
+	"github.com/leobbs/leobbs/app/skins"
+	"github.com/leobbs/leobbs/pkg/common"
 )
 
 func IndexAction(c *gin.Context) {
@@ -16,11 +16,11 @@ func IndexAction(c *gin.Context) {
 	luUsername, luUid, isAdmin := account_service.AuthGetLoginUinfo(c)
 
 	if isAdmin == nil || isAdmin == false {
-		common.Sugar.Infof(currentMethod + " bad access: username: %v, uid: %v, isAdmin: %v", luUsername, luUid, isAdmin);
+		common.Sugar.Infof(currentMethod+" bad access: username: %v, uid: %v, isAdmin: %v", luUsername, luUid, isAdmin)
 		common.ShowMessage(c, &common.Msg{
 			"您没有权限",
 		})
-		return;
+		return
 	}
 
 	page, prevPage, nextPage := common.PageHelper(c)
@@ -34,13 +34,13 @@ func IndexAction(c *gin.Context) {
 	}
 
 	pongoContext := pongo2.Context{
-		"imagesurl":   "/assets",
-		"skin":        "leobbs",
-		"hello":       "world",
+		"imagesurl":  "/assets",
+		"skin":       "leobbs",
+		"hello":      "world",
 		"luUsername": luUsername,
 		"luUid":      luUid,
-		"isAdmin":     isAdmin,
-		"memberList":  members,
+		"isAdmin":    isAdmin,
+		"memberList": members,
 		"prevPage":   prevPage,
 		"nextPage":   nextPage,
 	}
@@ -51,4 +51,3 @@ func IndexAction(c *gin.Context) {
 	c.HTML(200, "admin/member/index.html", pongoContext)
 	return
 }
-

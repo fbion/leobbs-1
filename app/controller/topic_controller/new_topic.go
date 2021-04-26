@@ -2,16 +2,16 @@ package topic_controller
 
 import (
 	"fmt"
-	"gitee.com/leobbs/leobbs/app/form"
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/app/service/account_service"
-	"gitee.com/leobbs/leobbs/app/service/forum_service"
-	"gitee.com/leobbs/leobbs/app/skins"
-	"gitee.com/leobbs/leobbs/app/vo"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/leobbs/leobbs/app/form"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/app/service/account_service"
+	"github.com/leobbs/leobbs/app/service/forum_service"
+	"github.com/leobbs/leobbs/app/skins"
+	"github.com/leobbs/leobbs/app/vo"
+	"github.com/leobbs/leobbs/pkg/common"
 	"strconv"
 )
 
@@ -60,13 +60,13 @@ func NewTopicAction(c *gin.Context) {
 	}
 
 	pongoContext := pongo2.Context{
-		"imagesurl":   "/assets",
-		"skin":        "leobbs",
-		"hello":       "world",
+		"imagesurl":  "/assets",
+		"skin":       "leobbs",
+		"hello":      "world",
 		"luUsername": luUsername,
-		"luUid": luUid,
+		"luUid":      luUid,
 		"isAdmin":    isAdmin,
-		"forum":       tmpForumOut,
+		"forum":      tmpForumOut,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
@@ -82,14 +82,13 @@ func SaveNewTopicAction(c *gin.Context) {
 
 	var newTopicForm form.NewTopicForm
 
-
 	err := c.MustBindWith(&newTopicForm, binding.Form)
 	if err != nil {
 		common.LogError(err)
 		common.ShowUMessage(c, &common.Umsg{Msg: "发布失败", Url: "javascript:history.go(-1);"})
 		return
 	}
-	common.Sugar.Infof(currentMethod + " newTopicForm: %v", newTopicForm)
+	common.Sugar.Infof(currentMethod+" newTopicForm: %v", newTopicForm)
 
 	//TODO 先创建Topic，然后发帖子
 	var tmpTopic orm_model.Topic
@@ -97,8 +96,6 @@ func SaveNewTopicAction(c *gin.Context) {
 	tmpTopic.Title = newTopicForm.Title
 	tmpTopic.ForumId = newTopicForm.Fid
 	tmpTopic.AuthorUid = luUid.(int64)
-
-
 
 	result := common.DB.Create(&tmpTopic)
 	if result.Error != nil {

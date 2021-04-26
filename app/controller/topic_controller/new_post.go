@@ -2,16 +2,16 @@ package topic_controller
 
 import (
 	"fmt"
-	"gitee.com/leobbs/leobbs/app/form"
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/app/service/account_service"
-	"gitee.com/leobbs/leobbs/app/skins"
-	"gitee.com/leobbs/leobbs/app/vo"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/leobbs/leobbs/app/form"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/app/service/account_service"
+	"github.com/leobbs/leobbs/app/skins"
+	"github.com/leobbs/leobbs/app/vo"
+	"github.com/leobbs/leobbs/pkg/common"
 )
 
 func NewPostAction(c *gin.Context) {
@@ -51,12 +51,12 @@ func NewPostAction(c *gin.Context) {
 	tmpTopic.ID = topicModel.ID
 
 	pongoContext := pongo2.Context{
-		"imagesurl":   "/assets",
-		"skin":        "leobbs",
-		"hello":       "world",
+		"imagesurl":  "/assets",
+		"skin":       "leobbs",
+		"hello":      "world",
 		"luUsername": luUsername,
-		"isAdmin":     isAdmin,
-		"topic":       tmpTopic,
+		"isAdmin":    isAdmin,
+		"topic":      tmpTopic,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {

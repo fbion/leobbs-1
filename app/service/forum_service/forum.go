@@ -1,8 +1,8 @@
 package forum_service
 
 import (
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/pkg/common"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/pkg/common"
 )
 
 func GetForumList() (forumList []*orm_model.Forum, err error) {

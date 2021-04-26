@@ -2,15 +2,15 @@ package topic_controller
 
 import (
 	"fmt"
-	"gitee.com/leobbs/leobbs/app/form"
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/app/skins"
-	"gitee.com/leobbs/leobbs/app/vo"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/leobbs/leobbs/app/form"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/app/skins"
+	"github.com/leobbs/leobbs/app/vo"
+	"github.com/leobbs/leobbs/pkg/common"
 )
 
 func EditTopicAction(c *gin.Context) {
@@ -53,7 +53,7 @@ func EditTopicAction(c *gin.Context) {
 	}
 	tmpTopic = vo.Topic_out_vo{
 		ID:        rawTopic.ID,
-		Title: rawTopic.Title,
+		Title:     rawTopic.Title,
 		ForumId:   rawTopic.ForumId,
 		PostId:    rawTopic.PostId,
 		AuthorUid: rawTopic.AuthorUid,
@@ -122,11 +122,7 @@ func SaveEditTopicAction(c *gin.Context) {
 		isAdmin = false
 	}
 
-
 	var editTopicForm form.EditTopicForm
-
-
-
 
 	err := c.MustBindWith(&editTopicForm, binding.Form)
 	if err != nil {
@@ -134,9 +130,7 @@ func SaveEditTopicAction(c *gin.Context) {
 		common.ShowUMessage(c, &common.Umsg{Msg: "保存失败", Url: "javascript:history.go(-1);"})
 		return
 	}
-	common.Sugar.Infof(currentMethod + " editTopicForm: %v", editTopicForm)
-
-
+	common.Sugar.Infof(currentMethod+" editTopicForm: %v", editTopicForm)
 
 	tid := editTopicForm.Tid
 	if tid < 1 {
@@ -146,8 +140,6 @@ func SaveEditTopicAction(c *gin.Context) {
 		})
 		return
 	}
-
-
 
 	var rawTopic orm_model.Topic
 
@@ -166,7 +158,6 @@ func SaveEditTopicAction(c *gin.Context) {
 	rawTopic.Title = editTopicForm.Title
 
 	common.DB.Save(&rawTopic)
-
 
 	var rawPost orm_model.Post
 

@@ -1,9 +1,9 @@
 package account_controller
 
 import (
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/leobbs/leobbs/pkg/common"
 )
 
 func LogoutAction(c *gin.Context) {

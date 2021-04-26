@@ -1,21 +1,21 @@
-package  controller
+package controller
 
 import (
 	"fmt"
-	"gitee.com/leobbs/leobbs/app/service/account_service"
-	"gitee.com/leobbs/leobbs/app/service/forum_service"
-	"gitee.com/leobbs/leobbs/app/skins"
-	"gitee.com/leobbs/leobbs/app/vo"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
+	"github.com/leobbs/leobbs/app/service/account_service"
+	"github.com/leobbs/leobbs/app/service/forum_service"
+	"github.com/leobbs/leobbs/app/skins"
+	"github.com/leobbs/leobbs/app/vo"
+	"github.com/leobbs/leobbs/pkg/common"
 )
 
 func IndexAction(c *gin.Context) {
 	luUsername, luUid, isAdmin := account_service.AuthGetLoginUinfo(c)
 
 	var forumOutList []vo.Forum_out_vo
-	forumList , err := forum_service.GetForumList()
+	forumList, err := forum_service.GetForumList()
 	if err != nil {
 		common.Sugar.Error(err)
 	}
@@ -32,13 +32,13 @@ func IndexAction(c *gin.Context) {
 	}
 	cnt := account_service.CountRegMember()
 	pongoContext := pongo2.Context{
-		"imagesurl":   "/assets",
-		"skin":        "leobbs",
-		"hello":       "world",
-		"luUsername": luUsername,
-		"luUid": luUid,
-		"isAdmin": isAdmin,
-		"forumsList": forumOutList,
+		"imagesurl":        "/assets",
+		"skin":             "leobbs",
+		"hello":            "world",
+		"luUsername":       luUsername,
+		"luUid":            luUid,
+		"isAdmin":          isAdmin,
+		"forumsList":       forumOutList,
 		"memberTotalCount": fmt.Sprintf("%d", cnt),
 	}
 

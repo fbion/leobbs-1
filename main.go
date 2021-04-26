@@ -1,13 +1,13 @@
 package main
 
 import (
-	"gitee.com/leobbs/leobbs/app/controller"
-	"gitee.com/leobbs/leobbs/app/controller/account_controller"
-	"gitee.com/leobbs/leobbs/app/controller/admin/admin_controller"
-	"gitee.com/leobbs/leobbs/app/controller/admin/member_admin_controller"
-	"gitee.com/leobbs/leobbs/app/controller/forum_controller"
-	"gitee.com/leobbs/leobbs/app/controller/topic_controller"
-	"gitee.com/leobbs/leobbs/pkg/common"
+	"github.com/leobbs/leobbs/app/controller"
+	"github.com/leobbs/leobbs/app/controller/account_controller"
+	"github.com/leobbs/leobbs/app/controller/admin/admin_controller"
+	"github.com/leobbs/leobbs/app/controller/admin/member_admin_controller"
+	"github.com/leobbs/leobbs/app/controller/forum_controller"
+	"github.com/leobbs/leobbs/app/controller/topic_controller"
+	"github.com/leobbs/leobbs/pkg/common"
 	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
 
@@ -15,12 +15,12 @@ import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 
-	"gitee.com/cnmade/pongo2gin"
+	"github.com/cnmade/pongo2gin"
 )
 
 var (
-	Config    *common.AppConfig
-	DB        *gorm.DB
+	Config *common.AppConfig
+	DB     *gorm.DB
 )
 
 func main() {
@@ -29,14 +29,11 @@ func main() {
 
 	r := gin.Default()
 
-
-
 	r.HTMLRender = pongo2gin.New(pongo2gin.RenderOptions{
-		TemplateDir: "views",
-		ContentType: "text/html; charset=utf-8",
+		TemplateDir:   "views",
+		ContentType:   "text/html; charset=utf-8",
 		AlwaysNoCache: true,
 	})
-
 
 	r.Static("/assets", "./vol/assets")
 	store := sessions.NewCookieStore([]byte("gssecret"))
@@ -55,7 +52,6 @@ func main() {
 	r.POST("/mp/saveNewPost", topic_controller.SaveNewPostAction)
 	r.GET("/mp/editPost", topic_controller.EditPostAction)
 	r.POST("/mp/saveEditPost", topic_controller.SaveEditPostAction)
-
 
 	r.GET("/account/login", account_controller.LoginAction)
 	r.POST("/account/doLogin", account_controller.DoLoginAction)

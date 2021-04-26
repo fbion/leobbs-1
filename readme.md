@@ -16,7 +16,7 @@
 
 ## 参与贡献文档
 
-[https://gitee.com/leobbs/document](https://gitee.com/leobbs/document)
+[https://github.com/leobbs/document](https://github.com/leobbs/document)
 
 ## 参与贡献代码
 

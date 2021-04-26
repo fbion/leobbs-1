@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitee.com/leobbs/leobbs/pkg/common"
+	"github.com/leobbs/leobbs/pkg/common"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/websocket"

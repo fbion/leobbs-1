@@ -1,13 +1,13 @@
 package topic_controller
 
 import (
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/app/service/account_service"
-	"gitee.com/leobbs/leobbs/app/skins"
-	"gitee.com/leobbs/leobbs/app/vo"
-	"gitee.com/leobbs/leobbs/pkg/common"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/app/service/account_service"
+	"github.com/leobbs/leobbs/app/skins"
+	"github.com/leobbs/leobbs/app/vo"
+	"github.com/leobbs/leobbs/pkg/common"
 	"github.com/russross/blackfriday/v2"
 	"strings"
 )
@@ -36,26 +36,23 @@ func IndexAction(c *gin.Context) {
 		return
 	}
 
-
 	var tmpTopic vo.Topic_out_vo
 
 	var tmpTopicRaw orm_model.Topic
 
 	result := common.DB.First(&tmpTopicRaw, id)
 	if result.Error != nil {
-		common.Sugar.Infof(currentMethod + " query Topic error: %v", result.Error)
+		common.Sugar.Infof(currentMethod+" query Topic error: %v", result.Error)
 		common.ShowUMessage(c, &common.Umsg{
 			"贴子不存在",
 			"/",
 		})
-		return;
+		return
 	}
 	tmpTopic.ID = tmpTopicRaw.ID
 	tmpTopic.Title = tmpTopicRaw.Title
 	tmpTopic.ForumId = tmpTopicRaw.ForumId
 	tmpTopic.AuthorUid = tmpTopicRaw.AuthorUid
-
-
 
 	var tmpForum vo.Forum_out_vo
 
@@ -63,19 +60,17 @@ func IndexAction(c *gin.Context) {
 
 	result = common.DB.First(&tmpForumRaw, tmpTopic.ForumId)
 	if result.Error != nil {
-		common.Sugar.Infof(currentMethod + " query Forum error: %v", result.Error)
+		common.Sugar.Infof(currentMethod+" query Forum error: %v", result.Error)
 		common.ShowUMessage(c, &common.Umsg{
 			"论坛不存在",
 			"/",
 		})
-		return;
+		return
 	}
 
 	tmpForum.ID = tmpForumRaw.ID
 	tmpForum.ForumName = tmpForumRaw.Name
 	tmpForum.ForumDesc = tmpForumRaw.Description
-
-
 
 	page, prevPage, nextPage := common.PageHelper(c)
 
@@ -90,40 +85,36 @@ func IndexAction(c *gin.Context) {
 		Find(&rawPostList)
 
 	if result.Error != nil {
-		common.Sugar.Infof(currentMethod + " err: %v", result.Error)
+		common.Sugar.Infof(currentMethod+" err: %v", result.Error)
 	}
 
 	for _, v := range rawPostList {
-		common.Sugar.Infof(currentMethod + " post: %+v", v)
+		common.Sugar.Infof(currentMethod+" post: %+v", v)
 		originContent := strings.Replace(v.Content, "\r\n", "\n", -1)
 		unsafeContent := blackfriday.Run([]byte(originContent))
 		safeContent := string(unsafeContent[:])
 		common.Sugar.Infof("safeContent: %s", safeContent)
 		tmpUserInfo := account_service.GetUserInfo(v.PostUid)
-		common.Sugar.Infof(currentMethod + " userInfo: %+v", tmpUserInfo)
+		common.Sugar.Infof(currentMethod+" userInfo: %+v", tmpUserInfo)
 		tmpPostList = append(tmpPostList, vo.Post_out_vo{
 			UserInfo: tmpUserInfo,
-			ID:      v.ID,
-			Content: safeContent,
+			ID:       v.ID,
+			Content:  safeContent,
 		})
 	}
 
-
-
-
-
 	pongoContext := pongo2.Context{
-		"imagesurl":   "/assets",
-		"skin":        "leobbs",
-		"hello":       "world",
+		"imagesurl":  "/assets",
+		"skin":       "leobbs",
+		"hello":      "world",
 		"luUsername": luUsername,
-		"luUid": luUid,
-		"isAdmin": isAdmin,
-		"topic": tmpTopic,
-		"forum": tmpForum,
-		"postList": tmpPostList,
-		"prevPage": prevPage,
-		"nextPage": nextPage,
+		"luUid":      luUid,
+		"isAdmin":    isAdmin,
+		"topic":      tmpTopic,
+		"forum":      tmpForum,
+		"postList":   tmpPostList,
+		"prevPage":   prevPage,
+		"nextPage":   nextPage,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {

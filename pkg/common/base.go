@@ -2,10 +2,10 @@ package common
 
 import (
 	"database/sql"
-	"gitee.com/leobbs/leobbs/app/orm_model"
-	"gitee.com/leobbs/leobbs/app/skins"
 	"github.com/flosch/pongo2/v4"
 	"github.com/gin-gonic/gin"
+	"github.com/leobbs/leobbs/app/orm_model"
+	"github.com/leobbs/leobbs/app/skins"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -21,11 +21,11 @@ import (
 )
 
 var (
-	DB *gorm.DB
+	DB     *gorm.DB
 	Config *AppConfig
 
 	Logger, _ = zap.NewProduction()
-	Sugar *zap.SugaredLogger
+	Sugar     *zap.SugaredLogger
 )
 
 type Msg struct {
@@ -49,12 +49,14 @@ type VBlogItem struct {
 func LogError(err error) {
 	Sugar.Error(tracerr.Sprint(tracerr.Wrap(err)))
 }
+
 /**
  * Logging info
  */
 func LogInfo(msg string) {
 	Sugar.Info(msg)
 }
+
 /**
  * close rows defer
  */
@@ -63,10 +65,8 @@ func CloseRowsDefer(rows *sql.Rows) {
 }
 func ShowMessage(c *gin.Context, m *Msg) {
 
-
-
 	pongoContext := pongo2.Context{
-		"message":         m.Msg,
+		"message":   m.Msg,
 		"imagesurl": "/assets",
 		"skin":      "leobbs",
 		"hello":     "world",
@@ -81,14 +81,13 @@ func ShowMessage(c *gin.Context, m *Msg) {
 	return
 }
 
-
 func ShowUMessage(c *gin.Context, m *Umsg) {
 
 	pongoContext := pongo2.Context{
 		"imagesurl": "/assets",
 		"skin":      "leobbs",
-		"message":         m.Msg,
-		"url":             m.Url,
+		"message":   m.Msg,
+		"url":       m.Url,
 	}
 
 	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
@@ -109,12 +108,11 @@ func GetDB(config *AppConfig) *gorm.DB {
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
-			SlowThreshold: time.Second,   // Slow SQL threshold
+			SlowThreshold: time.Second, // Slow SQL threshold
 			LogLevel:      logger.Info, // Log level
-			Colorful:      false,         // Disable color
+			Colorful:      false,       // Disable color
 		},
 	)
-
 
 	db, err := gorm.Open(sqlite.Open(config.Dbdsn), &gorm.Config{
 		Logger: newLogger,
@@ -151,10 +149,8 @@ func GetDB(config *AppConfig) *gorm.DB {
 		LogError(err)
 	}
 
-
 	return db
 }
-
 
 func InitApp() {
 
@@ -165,16 +161,16 @@ func InitApp() {
 
 	Sugar = Logger.Sugar()
 
-
 	Config = GetConfig()
 	DB = GetDB(Config)
 }
+
 type AppConfig struct {
-	Dbdsn          string
+	Dbdsn            string
 	Admin_user       []string
 	Site_name        string
 	Site_description string
-	Key_of_encrypt string
+	Key_of_encrypt   string
 	ObjectStorage    struct {
 		Aws_access_key_id     string
 		Aws_secret_access_key string
@@ -182,11 +178,11 @@ type AppConfig struct {
 		Aws_bucket            string
 		Cdn_url               string
 	}
-	Email struct{
+	Email struct {
 		Smtp_host string
 		Smtp_port string
-		Username string
-		Password string
+		Username  string
+		Password  string
 	}
 }
 
@@ -202,7 +198,7 @@ func GetConfig() *AppConfig {
 	f, err := os.Open(configFilePath)
 	if err != nil {
 		if os.IsNotExist(err) {
-			panic("默认配置文件不存在: "+ configFilePath +
+			panic("默认配置文件不存在: " + configFilePath +
 				"， 您需要设置配置文件，位于./vol/config.toml, 如果需要指定其他位置，" +
 				" 可以配置环境变量 LEOBBS_CONFIG_FILE=./vol/config.toml [记得替换成你自己的配置文件位置]")
 		}
@@ -215,7 +211,7 @@ func GetConfig() *AppConfig {
 	}
 	var config AppConfig
 	if err := toml.Unmarshal(buf, &config); err != nil {
-		Sugar.Infof(_cm + " error: %v", err)
+		Sugar.Infof(_cm+" error: %v", err)
 	}
 	return &config
 }
