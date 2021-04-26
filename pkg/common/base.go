@@ -157,14 +157,17 @@ func GetDB(config *AppConfig) *gorm.DB {
 
 
 func InitApp() {
-	Config = GetConfig()
-	DB = GetDB(Config)
+
 	//异步刷新日志
 	defer func() {
 		_ = Logger.Sync()
 	}()
 
 	Sugar = Logger.Sugar()
+
+
+	Config = GetConfig()
+	DB = GetDB(Config)
 }
 type AppConfig struct {
 	Dbdsn          string
@@ -189,8 +192,20 @@ type AppConfig struct {
 
 func GetConfig() *AppConfig {
 	_cm := "GetConfig@pkg/common/base"
-	f, err := os.Open("./vol/config.toml")
+
+	configFilePath := "./vol/config.toml"
+	osEnvConfigFilePath := os.Getenv("LEOBBS_CONFIG_FILE")
+	if osEnvConfigFilePath != "" {
+		configFilePath = osEnvConfigFilePath
+		Sugar.Infof("环境变量中有配置文件路径: LEOBBS_CONFIG_FILE: %s", osEnvConfigFilePath)
+	}
+	f, err := os.Open(configFilePath)
 	if err != nil {
+		if os.IsNotExist(err) {
+			panic("默认配置文件不存在: "+ configFilePath +
+				"， 您需要设置配置文件，位于./vol/config.toml, 如果需要指定其他位置，" +
+				" 可以配置环境变量 LEOBBS_CONFIG_FILE=./vol/config.toml [记得替换成你自己的配置文件位置]")
+		}
 		panic(err)
 	}
 	defer f.Close()
