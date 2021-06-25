@@ -6,6 +6,12 @@
 
 开发团队主要在github上活跃开发
 
+如果有条件，请开发者喝一杯咖啡也是极好的。
+
+Buy me a cup of coffee for $3
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M54KKIF)
+
 ## 交流社区
 
 社区也是demo地址，可访问：
