@@ -26,7 +26,7 @@
 /nbdist/
 /.nb-gradle/
 leobbs.exe
-go.sum
+leobbs
 /vol/config.toml
 /vol/db.sqlite
 node_modules/
