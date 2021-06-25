@@ -35,7 +35,7 @@ func main() {
 		AlwaysNoCache: true,
 	})
 
-	r.Static("/assets", "./vol/assets")
+	r.Static("/assets", "./public/assets")
 	store := sessions.NewCookieStore([]byte("gssecret"))
 	r.Use(sessions.Sessions("mysession", store))
 	r.GET("/", controller.IndexAction)

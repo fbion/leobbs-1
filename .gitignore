@@ -31,3 +31,4 @@ go.sum
 /vol/db.sqlite
 node_modules/
 /leobbs
+/config/config.toml
