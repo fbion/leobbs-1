@@ -27,7 +27,7 @@
 /.nb-gradle/
 leobbs.exe
 leobbs
-/vol/config.toml
+/config/config.toml
 /vol/db.sqlite
 node_modules/
 /leobbs

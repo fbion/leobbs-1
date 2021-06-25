@@ -189,7 +189,7 @@ type AppConfig struct {
 func GetConfig() *AppConfig {
 	_cm := "GetConfig@pkg/common/base"
 
-	configFilePath := "./vol/config.toml"
+	configFilePath := "./config/config.toml"
 	osEnvConfigFilePath := os.Getenv("LEOBBS_CONFIG_FILE")
 	if osEnvConfigFilePath != "" {
 		configFilePath = osEnvConfigFilePath
@@ -199,8 +199,8 @@ func GetConfig() *AppConfig {
 	if err != nil {
 		if os.IsNotExist(err) {
 			panic("默认配置文件不存在: " + configFilePath +
-				"， 您需要设置配置文件，位于./vol/config.toml, 如果需要指定其他位置，" +
-				" 可以配置环境变量 LEOBBS_CONFIG_FILE=./vol/config.toml [记得替换成你自己的配置文件位置]")
+				"， 您需要设置配置文件，位于./config/config.toml, 如果需要指定其他位置，" +
+				" 可以配置环境变量 LEOBBS_CONFIG_FILE=./config/config.toml [记得替换成你自己的配置文件位置]")
 		}
 		panic(err)
 	}
