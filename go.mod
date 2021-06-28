@@ -8,9 +8,7 @@ require (
 	github.com/flosch/pongo2/v4 v4.0.2
 	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19
 	github.com/gin-gonic/gin v1.7.2
-	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gorilla/sessions v1.2.1 // indirect
-	github.com/gorilla/websocket v1.4.2
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/logrusorgru/aurora v2.0.3+incompatible // indirect
 	github.com/mattn/go-sqlite3 v1.14.6
