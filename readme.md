@@ -20,11 +20,8 @@ Buy me a cup of coffee for $3
 
 ## 文档地址
 
-[https://docs.leobbs.org](https://docs.leobbs.org)
+[https://kb.bsmi.info/#view/73](https://kb.bsmi.info/#view/73)
 
-## 参与贡献文档
-
-[https://github.com/leobbs/document](https://github.com/leobbs/document)
 
 ## 参与贡献代码
 
