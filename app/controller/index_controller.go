@@ -29,6 +29,8 @@ func IndexAction(c *gin.Context) {
 		}
 
 	}
+
+	common.Sugar.Infof("ForumList: %+v", forumOutList)
 	cnt := account_service.CountRegMember()
 
 	c.HTML(200, "index.html",
