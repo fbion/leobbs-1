@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/leobbs/leobbs/app/form"
 	"github.com/leobbs/leobbs/app/orm_model"
-	"github.com/leobbs/leobbs/app/skins"
 	"github.com/leobbs/leobbs/pkg/common"
 	"github.com/leobbs/leobbs/pkg/passwd_utils"
 	"github.com/leobbs/leobbs/pkg/string_utils"
@@ -18,17 +17,13 @@ func LoginAction(c *gin.Context) {
 	safeSess.Delete("luUsername")
 	safeSess.Delete("lu_isAdmin")
 	_ = safeSess.Save()
-	pongoContext := pongo2.Context{
-		"imagesurl": "/assets",
-		"skin":      "leobbs",
-		"hello":     "world",
-	}
-
-	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
-		pongoContext[tmpKey] = tmpV
-	}
 	c.HTML(200, "account/login.html",
-		pongoContext)
+		common.Pongo2ContextWithVersion(pongo2.Context{
+			"imagesurl": "/assets",
+			"skin":      "leobbs",
+			"hello":     "world",
+		}))
+
 }
 
 func DoLoginAction(c *gin.Context) {

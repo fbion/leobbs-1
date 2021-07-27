@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/leobbs/leobbs/app/orm_model"
-	"github.com/leobbs/leobbs/app/skins"
 	"github.com/leobbs/leobbs/app/vo"
 	"github.com/leobbs/leobbs/pkg/common"
 )
@@ -43,19 +42,16 @@ func EditPostAction(c *gin.Context) {
 			Content: v.Content,
 		})
 	}
-	pongoContext := pongo2.Context{
-		"imagesurl":  "/assets",
-		"skin":       "leobbs",
-		"hello":      "world",
-		"luUsername": luUsername,
-		"isAdmin":    isAdmin,
-		"postList":   tmpPostList,
-	}
 
-	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
-		pongoContext[tmpKey] = tmpV
-	}
-	c.HTML(200, "topic/new-topic.html", pongoContext)
+	c.HTML(200, "topic/new-topic.html",
+		common.Pongo2ContextWithVersion(pongo2.Context{
+			"imagesurl":  "/assets",
+			"skin":       "leobbs",
+			"hello":      "world",
+			"luUsername": luUsername,
+			"isAdmin":    isAdmin,
+			"postList":   tmpPostList,
+		}))
 }
 
 func SaveEditPostAction(c *gin.Context) {

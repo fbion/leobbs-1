@@ -6,7 +6,6 @@ import (
 	"github.com/leobbs/leobbs/app/orm_model"
 	"github.com/leobbs/leobbs/app/service/account_service"
 	"github.com/leobbs/leobbs/app/service/forum_service"
-	"github.com/leobbs/leobbs/app/skins"
 	"github.com/leobbs/leobbs/app/vo"
 	"github.com/leobbs/leobbs/pkg/common"
 	"strconv"
@@ -88,21 +87,20 @@ func IndexAction(c *gin.Context) {
 	}
 
 	common.Sugar.Infof(currentMethod+" topicList: %v", tmpTopicList)
-	pongoContext := pongo2.Context{
-		"imagesurl":  "/assets",
-		"skin":       "leobbs",
-		"hello":      "world",
-		"luUsername": luUsername,
-		"luUid":      luUid,
-		"isAdmin":    isAdmin,
-		"forum":      tmpForumOut,
-		"nextPage":   nextPage,
-		"prevPage":   prevPage,
-		"topicList":  tmpTopicList,
-	}
 
-	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
-		pongoContext[tmpKey] = tmpV
-	}
-	c.HTML(200, "forum.html", pongoContext)
+
+	c.HTML(200, "forum.html",
+		common.Pongo2ContextWithVersion(pongo2.Context{
+
+			"imagesurl":  "/assets",
+			"skin":       "leobbs",
+			"hello":      "world",
+			"luUsername": luUsername,
+			"luUid":      luUid,
+			"isAdmin":    isAdmin,
+			"forum":      tmpForumOut,
+			"nextPage":   nextPage,
+			"prevPage":   prevPage,
+			"topicList":  tmpTopicList,
+		}))
 }

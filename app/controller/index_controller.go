@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/leobbs/leobbs/app/service/account_service"
 	"github.com/leobbs/leobbs/app/service/forum_service"
-	"github.com/leobbs/leobbs/app/skins"
 	"github.com/leobbs/leobbs/app/vo"
 	"github.com/leobbs/leobbs/pkg/common"
 )
@@ -31,19 +30,17 @@ func IndexAction(c *gin.Context) {
 
 	}
 	cnt := account_service.CountRegMember()
-	pongoContext := pongo2.Context{
-		"imagesurl":        "/assets",
-		"skin":             "leobbs",
-		"hello":            "world",
-		"luUsername":       luUsername,
-		"luUid":            luUid,
-		"isAdmin":          isAdmin,
-		"forumsList":       forumOutList,
-		"memberTotalCount": fmt.Sprintf("%d", cnt),
-	}
 
-	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
-		pongoContext[tmpKey] = tmpV
-	}
-	c.HTML(200, "index.html", pongoContext)
+	c.HTML(200, "index.html",
+		common.Pongo2ContextWithVersion(pongo2.Context{
+
+			"imagesurl":        "/assets",
+			"skin":             "leobbs",
+			"hello":            "world",
+			"luUsername":       luUsername,
+			"luUid":            luUid,
+			"isAdmin":          isAdmin,
+			"forumsList":       forumOutList,
+			"memberTotalCount": fmt.Sprintf("%d", cnt),
+		}))
 }

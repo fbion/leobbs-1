@@ -184,6 +184,10 @@ type AppConfig struct {
 		Username  string
 		Password  string
 	}
+	TongjiConfig struct {
+		TongjiEnabled uint
+		TongjiCode	string
+	}
 }
 
 func GetConfig() *AppConfig {

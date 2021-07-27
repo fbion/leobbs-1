@@ -9,7 +9,6 @@ import (
 	"github.com/leobbs/leobbs/app/form"
 	"github.com/leobbs/leobbs/app/orm_model"
 	"github.com/leobbs/leobbs/app/service/account_service"
-	"github.com/leobbs/leobbs/app/skins"
 	"github.com/leobbs/leobbs/app/vo"
 	"github.com/leobbs/leobbs/pkg/common"
 )
@@ -50,19 +49,16 @@ func NewPostAction(c *gin.Context) {
 	tmpTopic.ForumId = topicModel.ForumId
 	tmpTopic.ID = topicModel.ID
 
-	pongoContext := pongo2.Context{
-		"imagesurl":  "/assets",
-		"skin":       "leobbs",
-		"hello":      "world",
-		"luUsername": luUsername,
-		"isAdmin":    isAdmin,
-		"topic":      tmpTopic,
-	}
 
-	for tmpKey, tmpV := range skins.GetLeobbsSkin() {
-		pongoContext[tmpKey] = tmpV
-	}
-	c.HTML(200, "topic/new-post.html", pongoContext)
+	c.HTML(200, "topic/new-post.html",
+		common.Pongo2ContextWithVersion(pongo2.Context{
+			"imagesurl":  "/assets",
+			"skin":       "leobbs",
+			"hello":      "world",
+			"luUsername": luUsername,
+			"isAdmin":    isAdmin,
+			"topic":      tmpTopic,
+		}))
 }
 
 func SaveNewPostAction(c *gin.Context) {
