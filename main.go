@@ -23,6 +23,9 @@ var (
 	DB     *gorm.DB
 )
 
+
+//go:generate go run cmd/version_info.go
+
 func main() {
 	//初始化应用
 	common.InitApp()
